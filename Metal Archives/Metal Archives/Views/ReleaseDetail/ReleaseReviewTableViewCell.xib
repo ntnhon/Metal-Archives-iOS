@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReleaseReviewTableViewCell" rowHeight="64" id="00S-DP-lxU" customClass="ReleaseReviewTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="380" height="64"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="00S-DP-lxU" id="YCE-XB-QDJ">
+                <rect key="frame" x="0.0" y="0.0" width="380" height="63.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5S-mg-96A">
+                        <rect key="frame" x="20" y="5" width="309" height="18"/>
+                        <string key="text">makes me want to learn a...	</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="85%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAD-Mm-BkG">
+                        <rect key="frame" x="339" y="23" width="31" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" text="Written by caspian on August 14th, 2016" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1B-dz-f5e">
+                        <rect key="frame" x="20" y="28" width="309" height="30.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="H5S-mg-96A" firstAttribute="top" secondItem="YCE-XB-QDJ" secondAttribute="top" constant="5" id="8XX-BH-8Z5"/>
+                    <constraint firstAttribute="bottom" secondItem="h1B-dz-f5e" secondAttribute="bottom" constant="5" id="JpW-QP-AaA"/>
+                    <constraint firstItem="fAD-Mm-BkG" firstAttribute="leading" secondItem="h1B-dz-f5e" secondAttribute="trailing" constant="10" id="LcN-RN-2oZ"/>
+                    <constraint firstItem="h1B-dz-f5e" firstAttribute="top" secondItem="H5S-mg-96A" secondAttribute="bottom" constant="5" id="bAA-sb-YhJ"/>
+                    <constraint firstAttribute="trailing" secondItem="fAD-Mm-BkG" secondAttribute="trailing" constant="10" id="fbq-4w-Qec"/>
+                    <constraint firstItem="H5S-mg-96A" firstAttribute="leading" secondItem="YCE-XB-QDJ" secondAttribute="leading" constant="20" symbolic="YES" id="lBp-1U-XJ2"/>
+                    <constraint firstItem="h1B-dz-f5e" firstAttribute="leading" secondItem="YCE-XB-QDJ" secondAttribute="leading" constant="20" symbolic="YES" id="nlS-HL-Rbo"/>
+                    <constraint firstItem="fAD-Mm-BkG" firstAttribute="leading" secondItem="H5S-mg-96A" secondAttribute="trailing" constant="10" id="paG-ih-4vY"/>
+                    <constraint firstItem="fAD-Mm-BkG" firstAttribute="centerY" secondItem="YCE-XB-QDJ" secondAttribute="centerY" id="xYi-2y-aPJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="authorAndDateLabel" destination="h1B-dz-f5e" id="EPz-2E-NwC"/>
+                <outlet property="ratingLabel" destination="fAD-Mm-BkG" id="AjS-Um-lsa"/>
+                <outlet property="titleLabel" destination="H5S-mg-96A" id="TRg-Ur-c4x"/>
+            </connections>
+            <point key="canvasLocation" x="120" y="93.553223388305852"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="97" id="2NY-CW-U8q" customClass="UpcomingAlbumTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="428" height="97"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2NY-CW-U8q" id="f9k-dc-1hc">
+                <rect key="frame" x="0.0" y="0.0" width="428" height="96.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SxT-Su-PbE">
+                        <rect key="frame" x="20" y="22" width="52.5" height="52.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="SxT-Su-PbE" secondAttribute="height" multiplier="1:1" id="LHh-34-fSr"/>
+                            <constraint firstAttribute="height" constant="52.5" id="Lbe-qp-QUp"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="Visions of Atlantis" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agr-yz-1ZI">
+                        <rect key="frame" x="82.5" y="5" width="315.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="749" text="The Deep &amp; The Dark Live @ Symphonic Metal Nights" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwj-rY-eoh">
+                        <rect key="frame" x="82.5" y="28" width="335.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Full-length" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Zp-YP-zRa">
+                        <rect key="frame" x="82.5" y="49" width="66" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sludge/Drone/Doom Metal | Sludge/Doom Metal, Noise" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksm-cI-md9">
+                        <rect key="frame" x="82.5" y="70" width="335.5" height="21.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="February 22nd, 2019" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HsA-lx-cu9">
+                        <rect key="frame" x="292" y="49" width="126" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="agr-yz-1ZI" firstAttribute="top" secondItem="f9k-dc-1hc" secondAttribute="top" constant="5" id="8WV-ij-qs5"/>
+                    <constraint firstItem="SxT-Su-PbE" firstAttribute="centerY" secondItem="f9k-dc-1hc" secondAttribute="centerY" id="AVW-MX-7nE"/>
+                    <constraint firstItem="agr-yz-1ZI" firstAttribute="leading" secondItem="SxT-Su-PbE" secondAttribute="trailing" constant="10" id="CU5-Qc-ayF"/>
+                    <constraint firstItem="SxT-Su-PbE" firstAttribute="leading" secondItem="f9k-dc-1hc" secondAttribute="leading" constant="20" symbolic="YES" id="HUG-Va-kKk"/>
+                    <constraint firstItem="ksm-cI-md9" firstAttribute="top" secondItem="7Zp-YP-zRa" secondAttribute="bottom" constant="5" id="Koc-xp-nkQ"/>
+                    <constraint firstAttribute="trailing" secondItem="ksm-cI-md9" secondAttribute="trailing" constant="10" id="T2z-cE-gpT"/>
+                    <constraint firstItem="ksm-cI-md9" firstAttribute="leading" secondItem="SxT-Su-PbE" secondAttribute="trailing" constant="10" id="VXx-ko-phx"/>
+                    <constraint firstItem="Jwj-rY-eoh" firstAttribute="top" secondItem="agr-yz-1ZI" secondAttribute="bottom" constant="5" id="cjc-Mu-Zrd"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="agr-yz-1ZI" secondAttribute="trailing" constant="10" id="f3d-HQ-sfg"/>
+                    <constraint firstItem="7Zp-YP-zRa" firstAttribute="top" secondItem="Jwj-rY-eoh" secondAttribute="bottom" constant="5" id="gEh-Ie-lUl"/>
+                    <constraint firstItem="SxT-Su-PbE" firstAttribute="top" relation="greaterThanOrEqual" secondItem="f9k-dc-1hc" secondAttribute="top" constant="5" id="hhQ-cR-hSz"/>
+                    <constraint firstItem="HsA-lx-cu9" firstAttribute="centerY" secondItem="7Zp-YP-zRa" secondAttribute="centerY" id="oJO-Uq-PEV"/>
+                    <constraint firstItem="7Zp-YP-zRa" firstAttribute="leading" secondItem="SxT-Su-PbE" secondAttribute="trailing" constant="10" id="qii-bB-YRx"/>
+                    <constraint firstAttribute="bottom" secondItem="ksm-cI-md9" secondAttribute="bottom" constant="5" id="r9D-Kq-njq"/>
+                    <constraint firstItem="Jwj-rY-eoh" firstAttribute="leading" secondItem="SxT-Su-PbE" secondAttribute="trailing" constant="10" id="rIi-rY-Gv9"/>
+                    <constraint firstAttribute="trailing" secondItem="Jwj-rY-eoh" secondAttribute="trailing" constant="10" id="rhB-OK-ENM"/>
+                    <constraint firstAttribute="trailing" secondItem="HsA-lx-cu9" secondAttribute="trailing" constant="10" id="sZx-xm-UNb"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SxT-Su-PbE" secondAttribute="bottom" constant="5" id="yH5-cg-Jew"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="bandsNameLabel" destination="agr-yz-1ZI" id="gCg-KO-isg"/>
+                <outlet property="dateLabel" destination="HsA-lx-cu9" id="4kn-Xq-QEA"/>
+                <outlet property="genreLabel" destination="ksm-cI-md9" id="BLg-pH-YnP"/>
+                <outlet property="releaseTitleLabel" destination="Jwj-rY-eoh" id="nJK-yk-tgL"/>
+                <outlet property="releaseTypeLabel" destination="7Zp-YP-zRa" id="fQl-l6-oG8"/>
+                <outlet property="thumbnailImageView" destination="SxT-Su-PbE" id="G8n-zi-VXL"/>
+                <outlet property="thumbnailImageViewHeightConstraint" destination="Lbe-qp-QUp" id="LCp-MC-fYr"/>
+            </connections>
+            <point key="canvasLocation" x="-116.8" y="124.58770614692655"/>
+        </tableViewCell>
+    </objects>
+</document>

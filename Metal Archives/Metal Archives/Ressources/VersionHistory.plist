@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>number</key>
+		<string>2.1</string>
+		<key>date</key>
+		<string>April 2019</string>
+		<key>features</key>
+		<string>- Support 3 font size options: default, medium, large. - Integrate Push Notification - Some UI improvements - Homepage now loads each section separately.</string>
+	</dict>
+	<dict>
+		<key>number</key>
+		<string>2.0.1</string>
+		<key>date</key>
+		<string>March 2019</string>
+		<key>features</key>
+		<string>- Fix crashes on iPad when displaying a list of options</string>
+	</dict>
+	<dict>
+		<key>number</key>
+		<string>2.0</string>
+		<key>date</key>
+		<string>March 2019</string>
+		<key>features</key>
+		<string>This biggest update since the release of the app comes with various new features and a completely new interface. 
+
+- The app now has a homepage with almost everything you can do on the web version: statistics, new archives, latest additions/updates/review, upcoming albums...
+- Much more informative: items are displayed with thumbnails.
+- Advanced searches are now supported.
+- Customizable theme with 4 built-in themes.
+- Customizable today widget.
+- 3D touch for quick actions: search, random band.</string>
+	</dict>
+	<dict>
+		<key>number</key>
+		<string>1.0</string>
+		<key>date</key>
+		<string>January 2016</string>
+		<key>features</key>
+		<string>First release</string>
+	</dict>
+</array>
+</plist>

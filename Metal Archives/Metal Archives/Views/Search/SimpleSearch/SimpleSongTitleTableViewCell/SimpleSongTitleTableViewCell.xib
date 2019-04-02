@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="103" id="O18-u8-76h" customClass="SimpleSongTitleTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="391" height="103"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O18-u8-76h" id="W05-1g-y7k">
+                <rect key="frame" x="0.0" y="0.0" width="391" height="102.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="63d-u7-bL7">
+                        <rect key="frame" x="20" y="29.5" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="63d-u7-bL7" secondAttribute="height" multiplier="1:1" id="M64-pJ-2Gj"/>
+                            <constraint firstAttribute="height" constant="44" id="qEh-fh-dRp"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Behemoth" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1O-qB-IDj">
+                        <rect key="frame" x="74" y="5" width="307" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Blow Your Trumpets Gabriel" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58K-tK-erO">
+                        <rect key="frame" x="74" y="30.5" width="307" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Live album" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5z-5D-Go7">
+                        <rect key="frame" x="74" y="53.5" width="307" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blow Your Trumpets Gabriel" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2t-i6-2bd">
+                        <rect key="frame" x="74" y="76.5" width="307" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="F1O-qB-IDj" secondAttribute="trailing" constant="10" id="6bi-nF-SD1"/>
+                    <constraint firstItem="63d-u7-bL7" firstAttribute="centerY" secondItem="W05-1g-y7k" secondAttribute="centerY" id="CiF-33-8tp"/>
+                    <constraint firstItem="58K-tK-erO" firstAttribute="top" secondItem="F1O-qB-IDj" secondAttribute="bottom" constant="5" id="CsV-ZG-XiE"/>
+                    <constraint firstItem="z2t-i6-2bd" firstAttribute="leading" secondItem="63d-u7-bL7" secondAttribute="trailing" constant="10" id="Sjh-SM-r75"/>
+                    <constraint firstItem="F1O-qB-IDj" firstAttribute="top" secondItem="W05-1g-y7k" secondAttribute="top" constant="5" id="TPT-Ic-CPp"/>
+                    <constraint firstItem="58K-tK-erO" firstAttribute="leading" secondItem="63d-u7-bL7" secondAttribute="trailing" constant="10" id="YhK-iF-fVM"/>
+                    <constraint firstItem="63d-u7-bL7" firstAttribute="leading" secondItem="W05-1g-y7k" secondAttribute="leading" constant="20" symbolic="YES" id="dbI-ce-7Ed"/>
+                    <constraint firstItem="R5z-5D-Go7" firstAttribute="top" secondItem="58K-tK-erO" secondAttribute="bottom" constant="5" id="ffP-mn-EOP"/>
+                    <constraint firstItem="R5z-5D-Go7" firstAttribute="leading" secondItem="63d-u7-bL7" secondAttribute="trailing" constant="10" id="gcE-PV-hzU"/>
+                    <constraint firstAttribute="trailing" secondItem="58K-tK-erO" secondAttribute="trailing" constant="10" id="h7d-6z-ovp"/>
+                    <constraint firstItem="z2t-i6-2bd" firstAttribute="top" secondItem="R5z-5D-Go7" secondAttribute="bottom" constant="5" id="jf2-xI-0We"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="63d-u7-bL7" secondAttribute="bottom" constant="5" id="jyH-X6-jaS"/>
+                    <constraint firstAttribute="trailing" secondItem="z2t-i6-2bd" secondAttribute="trailing" constant="10" id="mAk-k2-TiM"/>
+                    <constraint firstItem="63d-u7-bL7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="W05-1g-y7k" secondAttribute="top" constant="5" id="p3z-Pz-XkT"/>
+                    <constraint firstAttribute="bottom" secondItem="z2t-i6-2bd" secondAttribute="bottom" constant="5" id="sat-NU-tfv"/>
+                    <constraint firstItem="F1O-qB-IDj" firstAttribute="leading" secondItem="63d-u7-bL7" secondAttribute="trailing" constant="10" id="svQ-gX-Gd6"/>
+                    <constraint firstAttribute="trailing" secondItem="R5z-5D-Go7" secondAttribute="trailing" constant="10" id="wpA-Jt-fvQ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="bandNameLabel" destination="F1O-qB-IDj" id="z2z-74-YEd"/>
+                <outlet property="releaseTitleLabel" destination="58K-tK-erO" id="E42-kA-MEv"/>
+                <outlet property="songTitleLabel" destination="z2t-i6-2bd" id="KHI-bC-Cix"/>
+                <outlet property="thumbnailImageView" destination="63d-u7-bL7" id="9E2-9j-gdi"/>
+                <outlet property="thumbnailImageViewHeightConstraint" destination="qEh-fh-dRp" id="frB-6R-pPd"/>
+                <outlet property="typeLabel" destination="R5z-5D-Go7" id="hHF-KX-xr4"/>
+            </connections>
+            <point key="canvasLocation" x="53.600000000000001" y="140.77961019490255"/>
+        </tableViewCell>
+    </objects>
+</document>

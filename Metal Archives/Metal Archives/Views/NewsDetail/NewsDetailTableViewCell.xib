@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="219" id="SH4-E4-jKq" customClass="NewsDetailTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="219"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SH4-E4-jKq" id="Qde-U4-rqw">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="218.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maintenance" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wxk-jD-cXd">
+                        <rect key="frame" x="20" y="10" width="335" height="20.5"/>
+                        <accessibility key="accessibilityConfiguration" identifier="Title Label"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="2018-10-19 14:50" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5UG-r1-vwu">
+                        <rect key="frame" x="50" y="35.5" width="305" height="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="748" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zrg-J2-mqJ">
+                        <rect key="frame" x="20" y="58.5" width="335" height="125.5"/>
+                        <accessibility key="accessibilityConfiguration" identifier="Content Label"/>
+                        <string key="text">The site will be migrating to a new server tonight at midnight EDT / 4 am UTC. There will be some downtime. We'll try to make the process as quick and smooth as possible.
+
+EDIT: The migration is complete. Please report any problem you encounter to me.</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="248" verticalCompressionResistancePriority="747" text="-HellBlazer" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dul-SR-C7p">
+                        <rect key="frame" x="20" y="189" width="335" height="19.5"/>
+                        <accessibility key="accessibilityConfiguration" identifier="Author Label"/>
+                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" translatesAutoresizingMaskIntoConstraints="NO" id="h7m-hL-b24">
+                        <rect key="frame" x="20" y="34.5" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="Tc0-qX-GWy"/>
+                            <constraint firstAttribute="width" secondItem="h7m-hL-b24" secondAttribute="height" multiplier="1:1" id="epJ-5p-Wy7"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="5UG-r1-vwu" firstAttribute="top" secondItem="Wxk-jD-cXd" secondAttribute="bottom" constant="5" id="0uP-p1-9h4"/>
+                    <constraint firstAttribute="trailing" secondItem="Zrg-J2-mqJ" secondAttribute="trailing" constant="20" symbolic="YES" id="6s0-gu-r0j"/>
+                    <constraint firstAttribute="trailing" secondItem="Dul-SR-C7p" secondAttribute="trailing" constant="20" symbolic="YES" id="A4z-9i-bZB"/>
+                    <constraint firstItem="Zrg-J2-mqJ" firstAttribute="leading" secondItem="Qde-U4-rqw" secondAttribute="leading" constant="20" symbolic="YES" id="Gzh-2v-9eA"/>
+                    <constraint firstItem="Dul-SR-C7p" firstAttribute="top" secondItem="Zrg-J2-mqJ" secondAttribute="bottom" constant="5" id="KRF-tm-ZJm"/>
+                    <constraint firstItem="h7m-hL-b24" firstAttribute="leading" secondItem="Qde-U4-rqw" secondAttribute="leading" constant="20" symbolic="YES" id="MGC-cu-w2R"/>
+                    <constraint firstItem="Zrg-J2-mqJ" firstAttribute="top" secondItem="5UG-r1-vwu" secondAttribute="bottom" constant="5" id="PFe-9M-ZuZ"/>
+                    <constraint firstItem="h7m-hL-b24" firstAttribute="centerY" secondItem="5UG-r1-vwu" secondAttribute="centerY" id="VyW-Up-PKL"/>
+                    <constraint firstItem="5UG-r1-vwu" firstAttribute="leading" secondItem="h7m-hL-b24" secondAttribute="trailing" constant="10" id="YeQ-d6-L4a"/>
+                    <constraint firstAttribute="trailing" secondItem="5UG-r1-vwu" secondAttribute="trailing" constant="20" symbolic="YES" id="afn-kK-2Iu"/>
+                    <constraint firstItem="Wxk-jD-cXd" firstAttribute="top" secondItem="Qde-U4-rqw" secondAttribute="top" constant="10" id="eC0-e2-37H"/>
+                    <constraint firstAttribute="bottom" secondItem="Dul-SR-C7p" secondAttribute="bottom" constant="10" id="kFO-5D-QIX"/>
+                    <constraint firstAttribute="trailing" secondItem="Wxk-jD-cXd" secondAttribute="trailing" constant="20" symbolic="YES" id="kp3-OP-Kql"/>
+                    <constraint firstItem="Dul-SR-C7p" firstAttribute="leading" secondItem="Qde-U4-rqw" secondAttribute="leading" constant="20" symbolic="YES" id="tGK-k5-DN5"/>
+                    <constraint firstItem="Wxk-jD-cXd" firstAttribute="leading" secondItem="Qde-U4-rqw" secondAttribute="leading" constant="20" symbolic="YES" id="w1J-j1-Pbk"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="authorLabel" destination="Dul-SR-C7p" id="PkM-wM-jnu"/>
+                <outlet property="contentLabel" destination="Zrg-J2-mqJ" id="Scd-dL-kt3"/>
+                <outlet property="dateLabel" destination="5UG-r1-vwu" id="lK2-eY-fIO"/>
+                <outlet property="titleLabel" destination="Wxk-jD-cXd" id="QyB-Vd-YRY"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="clock" width="128" height="128"/>
+    </resources>
+</document>

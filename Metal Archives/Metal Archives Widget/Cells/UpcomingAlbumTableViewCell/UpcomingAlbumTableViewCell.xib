@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="103" id="cQh-TN-CfQ" customClass="UpcomingAlbumTableViewCell" customModule="Metal_Archives_Widget" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="432" height="103"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cQh-TN-CfQ" id="Hra-kC-G64">
+                <rect key="frame" x="0.0" y="0.0" width="432" height="102.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iUQ-4r-znk">
+                        <rect key="frame" x="20" y="29.5" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="PSF-rb-MtL"/>
+                            <constraint firstAttribute="width" secondItem="iUQ-4r-znk" secondAttribute="height" multiplier="1:1" id="UID-dD-O9N"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="Visions of Atlantis" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndk-g8-aJI">
+                        <rect key="frame" x="74" y="5" width="348" height="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="749" text="The Deep &amp; The Dark Live @ Symphonic Metal Nights" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eU0-tc-HMQ">
+                        <rect key="frame" x="74" y="28" width="348" height="16"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Full-length" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iL2-lP-Oop">
+                        <rect key="frame" x="74" y="49" width="66" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sludge/Drone/Doom Metal | Sludge/Doom Metal, Noise" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5q-W1-ZIE">
+                        <rect key="frame" x="74" y="70" width="348" height="27.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="February 22nd, 2019" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sYD-ho-Z3Q">
+                        <rect key="frame" x="296" y="49" width="126" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="iL2-lP-Oop" firstAttribute="leading" secondItem="eU0-tc-HMQ" secondAttribute="leading" id="0xb-XO-GgV"/>
+                    <constraint firstAttribute="trailing" secondItem="eU0-tc-HMQ" secondAttribute="trailing" constant="10" id="6Pj-HP-nQJ"/>
+                    <constraint firstAttribute="trailing" secondItem="ndk-g8-aJI" secondAttribute="trailing" constant="10" id="88R-0M-B1p"/>
+                    <constraint firstItem="iUQ-4r-znk" firstAttribute="centerY" secondItem="Hra-kC-G64" secondAttribute="centerY" id="8b7-r4-XFn"/>
+                    <constraint firstItem="eU0-tc-HMQ" firstAttribute="leading" secondItem="ndk-g8-aJI" secondAttribute="leading" id="Af3-GL-Cfn"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="iUQ-4r-znk" secondAttribute="bottom" constant="5" id="DIb-wj-WRN"/>
+                    <constraint firstItem="sYD-ho-Z3Q" firstAttribute="centerY" secondItem="iL2-lP-Oop" secondAttribute="centerY" id="FyV-5h-AqK"/>
+                    <constraint firstItem="ndk-g8-aJI" firstAttribute="leading" secondItem="iUQ-4r-znk" secondAttribute="trailing" constant="10" id="IpV-W7-ncw"/>
+                    <constraint firstItem="iUQ-4r-znk" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Hra-kC-G64" secondAttribute="top" constant="5" id="Lce-jr-tK2"/>
+                    <constraint firstItem="iUQ-4r-znk" firstAttribute="leading" secondItem="Hra-kC-G64" secondAttribute="leading" constant="20" symbolic="YES" id="Nhs-6c-1CW"/>
+                    <constraint firstItem="eU0-tc-HMQ" firstAttribute="top" secondItem="ndk-g8-aJI" secondAttribute="bottom" constant="5" id="Pv3-h6-Xru"/>
+                    <constraint firstAttribute="trailing" secondItem="sYD-ho-Z3Q" secondAttribute="trailing" constant="10" id="TpB-Z6-uxR"/>
+                    <constraint firstAttribute="trailing" secondItem="j5q-W1-ZIE" secondAttribute="trailing" constant="10" id="VS1-4K-dc9"/>
+                    <constraint firstAttribute="bottom" secondItem="j5q-W1-ZIE" secondAttribute="bottom" constant="5" id="XgA-Vb-LAb"/>
+                    <constraint firstItem="iL2-lP-Oop" firstAttribute="top" secondItem="eU0-tc-HMQ" secondAttribute="bottom" constant="5" id="YdO-cY-6X5"/>
+                    <constraint firstItem="ndk-g8-aJI" firstAttribute="top" secondItem="Hra-kC-G64" secondAttribute="top" constant="5" id="cK4-uB-dhF"/>
+                    <constraint firstItem="j5q-W1-ZIE" firstAttribute="top" secondItem="iL2-lP-Oop" secondAttribute="bottom" constant="5" id="iro-Tg-ZVF"/>
+                    <constraint firstItem="j5q-W1-ZIE" firstAttribute="leading" secondItem="iL2-lP-Oop" secondAttribute="leading" id="zb1-0F-h9w"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="bandsNameLabel" destination="ndk-g8-aJI" id="GWE-FH-0LB"/>
+                <outlet property="dateLabel" destination="sYD-ho-Z3Q" id="nyd-fc-KZy"/>
+                <outlet property="genreLabel" destination="j5q-W1-ZIE" id="QM2-v8-ihZ"/>
+                <outlet property="releaseTitleLabel" destination="eU0-tc-HMQ" id="5Vq-SG-3dx"/>
+                <outlet property="releaseTypeLabel" destination="iL2-lP-Oop" id="Zxr-Yn-Uoj"/>
+                <outlet property="thumbnailImageView" destination="iUQ-4r-znk" id="h9L-n0-0Gv"/>
+                <outlet property="thumbnailImageViewHeightConstraint" destination="PSF-rb-MtL" id="sEo-kI-6Aw"/>
+            </connections>
+            <point key="canvasLocation" x="158.40000000000001" y="150.67466266866569"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="80" id="b5h-Ob-GAt" customClass="SimpleBandNameOrMusicGenreTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b5h-Ob-GAt" id="StU-Yk-keZ">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="79.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Death" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqs-WL-pH9">
+                        <rect key="frame" x="69" y="5" width="314" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="United States" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yW-BY-fKH">
+                        <rect key="frame" x="69" y="28" width="314" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Death Metal (early), Death/Progressive Metal (later)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e26-eL-jtm">
+                        <rect key="frame" x="69" y="49" width="314" height="25.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FQn-cr-uxm">
+                        <rect key="frame" x="20" y="23" width="39" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="FQn-cr-uxm" secondAttribute="height" multiplier="39:34" id="D8w-De-gsC"/>
+                            <constraint firstAttribute="height" constant="34" id="Sj0-4P-2FD"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FQn-cr-uxm" secondAttribute="bottom" constant="5" id="1jF-O6-JHz"/>
+                    <constraint firstAttribute="trailing" secondItem="4yW-BY-fKH" secondAttribute="trailing" constant="10" id="8C4-iI-WME"/>
+                    <constraint firstItem="Hqs-WL-pH9" firstAttribute="leading" secondItem="FQn-cr-uxm" secondAttribute="trailing" constant="10" id="MkU-BD-u9F"/>
+                    <constraint firstItem="Hqs-WL-pH9" firstAttribute="top" secondItem="StU-Yk-keZ" secondAttribute="top" constant="5" id="VcK-rl-b5n"/>
+                    <constraint firstAttribute="trailing" secondItem="e26-eL-jtm" secondAttribute="trailing" constant="10" id="XA4-ad-alT"/>
+                    <constraint firstItem="4yW-BY-fKH" firstAttribute="top" secondItem="Hqs-WL-pH9" secondAttribute="bottom" constant="5" id="XGH-uW-wew"/>
+                    <constraint firstItem="FQn-cr-uxm" firstAttribute="leading" secondItem="StU-Yk-keZ" secondAttribute="leading" constant="20" symbolic="YES" id="YE0-TS-6rs"/>
+                    <constraint firstItem="4yW-BY-fKH" firstAttribute="leading" secondItem="FQn-cr-uxm" secondAttribute="trailing" constant="10" id="Ytx-ab-gc3"/>
+                    <constraint firstItem="e26-eL-jtm" firstAttribute="top" secondItem="4yW-BY-fKH" secondAttribute="bottom" constant="5" id="bDU-54-VLX"/>
+                    <constraint firstAttribute="trailing" secondItem="Hqs-WL-pH9" secondAttribute="trailing" constant="10" id="htg-ce-8Jf"/>
+                    <constraint firstItem="FQn-cr-uxm" firstAttribute="top" relation="greaterThanOrEqual" secondItem="StU-Yk-keZ" secondAttribute="top" constant="5" id="mqu-nj-fUa"/>
+                    <constraint firstItem="FQn-cr-uxm" firstAttribute="centerY" secondItem="StU-Yk-keZ" secondAttribute="centerY" id="pJ8-hb-w3C"/>
+                    <constraint firstItem="e26-eL-jtm" firstAttribute="leading" secondItem="FQn-cr-uxm" secondAttribute="trailing" constant="10" id="pmo-73-TzI"/>
+                    <constraint firstAttribute="bottom" secondItem="e26-eL-jtm" secondAttribute="bottom" constant="5" id="xzF-n8-uhy"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="bandNameLabel" destination="Hqs-WL-pH9" id="sao-TS-mmw"/>
+                <outlet property="countryLabel" destination="4yW-BY-fKH" id="AEi-EY-5az"/>
+                <outlet property="genreLabel" destination="e26-eL-jtm" id="iCM-u0-Hr8"/>
+                <outlet property="thumbnailImageView" destination="FQn-cr-uxm" id="fJ2-hn-e4N"/>
+                <outlet property="thumbnailImageViewHeightConstraint" destination="Sj0-4P-2FD" id="Asl-SO-zHl"/>
+            </connections>
+            <point key="canvasLocation" x="151.19999999999999" y="142.1289355322339"/>
+        </tableViewCell>
+    </objects>
+</document>

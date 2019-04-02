@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Settings Table View Controller-->
+        <scene sceneID="hgk-X6-O6o">
+            <objects>
+                <tableViewController storyboardIdentifier="SettingsTableViewController" id="svH-GV-bsF" customClass="SettingsTableViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="dBC-ii-aX0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Theme" id="WUO-Tp-IfZ">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="d9b-gp-kd3" style="IBUITableViewCellStyleDefault" id="cnU-xS-Tkb" customClass="BaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cnU-xS-Tkb" id="nPj-cd-beM">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Default" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d9b-gp-kd3">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="2yn-Wt-LNM" style="IBUITableViewCellStyleDefault" id="swj-ea-V42" customClass="BaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="swj-ea-V42" id="Sdw-9L-z2J">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Light" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2yn-Wt-LNM">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="H5c-FL-zt3" style="IBUITableViewCellStyleDefault" id="Ro9-0B-uhL" customClass="BaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ro9-0B-uhL" id="098-jT-DPU">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Vintage" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="H5c-FL-zt3">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="wRy-Xi-NbQ" style="IBUITableViewCellStyleDefault" id="7Ue-44-q6k" customClass="BaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="187.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Ue-44-q6k" id="j1V-D3-Hc3">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Unicorn" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wRy-Xi-NbQ">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Font Size" id="Ige-W2-AmZ">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="bpt-yv-TRU" style="IBUITableViewCellStyleDefault" id="MmJ-kB-fZn" customClass="BaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="287.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MmJ-kB-fZn" id="Gso-MN-nOq">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Default" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bpt-yv-TRU">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="kt2-kw-D3c" style="IBUITableViewCellStyleDefault" id="n6R-jk-Kyb" customClass="BaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="331.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="n6R-jk-Kyb" id="kGC-gT-Ze1">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Medium" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kt2-kw-D3c">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="RFM-dn-DAY" style="IBUITableViewCellStyleDefault" id="rR2-M9-Xve" customClass="BaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="375.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rR2-M9-Xve" id="Z5y-ZY-jFs">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Large" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RFM-dn-DAY">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Thumbnail" id="f1W-Jt-KOk">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="6yT-6n-hhN" customClass="BaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="475.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6yT-6n-hhN" id="t1H-ht-q4U">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Display thumbnail" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLu-0W-h02">
+                                                    <rect key="frame" x="20" y="10" width="136" height="23.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mfb-YE-77u">
+                                                    <rect key="frame" x="306" y="6.5" width="51" height="31"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="nLu-0W-h02" firstAttribute="leading" secondItem="t1H-ht-q4U" secondAttribute="leading" constant="20" symbolic="YES" id="7vN-la-PqG"/>
+                                                <constraint firstItem="Mfb-YE-77u" firstAttribute="centerY" secondItem="t1H-ht-q4U" secondAttribute="centerY" id="IIx-z6-Lwv"/>
+                                                <constraint firstItem="Mfb-YE-77u" firstAttribute="centerY" secondItem="nLu-0W-h02" secondAttribute="centerY" id="X9w-8J-dmp"/>
+                                                <constraint firstItem="nLu-0W-h02" firstAttribute="top" secondItem="t1H-ht-q4U" secondAttribute="top" constant="10" id="ZsP-aa-7af"/>
+                                                <constraint firstAttribute="trailing" secondItem="Mfb-YE-77u" secondAttribute="trailing" constant="20" symbolic="YES" id="eGX-Pe-Dv2"/>
+                                                <constraint firstAttribute="bottom" secondItem="nLu-0W-h02" secondAttribute="bottom" constant="10" id="wGz-cc-L9Q"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="JPy-Xq-5nd" style="IBUITableViewCellStyleDefault" id="vPf-02-EUu" customClass="BaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="519.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vPf-02-EUu" id="R4s-Hc-br4">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="What do thumbnails effect the application?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JPy-Xq-5nd">
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="sAR-HQ-wU7" kind="show" identifier="ShowThumbnailExplication" id="urb-xF-L64"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Widget" id="e2n-8a-SND">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="RmP-a1-3IY" customClass="BaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="619.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RmP-a1-3IY" id="ibP-HP-eOF">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Display section(s)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qk9-m4-dAm">
+                                                    <rect key="frame" x="20" y="11.5" width="137" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Band addition, Band update" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YlQ-ik-2FR">
+                                                    <rect key="frame" x="167" y="10" width="154" height="23.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="YlQ-ik-2FR" firstAttribute="centerY" secondItem="ibP-HP-eOF" secondAttribute="centerY" id="5w7-ns-LqL"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="YlQ-ik-2FR" secondAttribute="bottom" constant="10" id="9T0-P7-U7B"/>
+                                                <constraint firstItem="YlQ-ik-2FR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ibP-HP-eOF" secondAttribute="top" constant="10" id="MHT-Jz-LMS"/>
+                                                <constraint firstItem="YlQ-ik-2FR" firstAttribute="leading" secondItem="qk9-m4-dAm" secondAttribute="trailing" constant="10" id="Yln-0W-VPF"/>
+                                                <constraint firstAttribute="trailing" secondItem="YlQ-ik-2FR" secondAttribute="trailing" constant="20" symbolic="YES" id="dzO-4y-shU"/>
+                                                <constraint firstItem="qk9-m4-dAm" firstAttribute="leading" secondItem="ibP-HP-eOF" secondAttribute="leading" constant="20" symbolic="YES" id="ei4-xh-N36"/>
+                                                <constraint firstItem="qk9-m4-dAm" firstAttribute="centerY" secondItem="ibP-HP-eOF" secondAttribute="centerY" id="kq8-D3-f3e"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="S61-Ph-pHg" kind="show" id="SMJ-5H-hg0"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="bHO-Hq-r2t" style="IBUITableViewCellStyleDefault" id="eOf-qG-pkC" customClass="BaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="663.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eOf-qG-pkC" id="ptg-Kd-T1B">
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="What is widget?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bHO-Hq-r2t">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="sAR-HQ-wU7" kind="show" identifier="ShowWidgetExplication" id="ve9-BW-Rlg"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="svH-GV-bsF" id="FiK-PI-rux"/>
+                            <outlet property="delegate" destination="svH-GV-bsF" id="xxL-Pv-NmT"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="choosenWidgetSectionsLabel" destination="YlQ-ik-2FR" id="EpD-KR-63p"/>
+                        <outlet property="defaultFontSizeLabel" destination="bpt-yv-TRU" id="UoT-1a-tip"/>
+                        <outlet property="defaultFontSizeTableViewCell" destination="MmJ-kB-fZn" id="ECb-Y0-myD"/>
+                        <outlet property="defaultThemeTableViewCell" destination="cnU-xS-Tkb" id="za3-8y-evp"/>
+                        <outlet property="largeFontSizeLabel" destination="RFM-dn-DAY" id="VOA-c3-gxk"/>
+                        <outlet property="largeFontSizeTableViewCell" destination="rR2-M9-Xve" id="Zsv-ga-oVT"/>
+                        <outlet property="lightThemeTableViewCell" destination="swj-ea-V42" id="vf8-Jv-k93"/>
+                        <outlet property="mediumFontSizeLabel" destination="kt2-kw-D3c" id="JM2-HP-Gmy"/>
+                        <outlet property="mediumFontSizeTableViewCell" destination="n6R-jk-Kyb" id="EAx-Bf-cV0"/>
+                        <outlet property="thumbnailSwitch" destination="Mfb-YE-77u" id="7mb-80-7iw"/>
+                        <outlet property="unicornThemeTableViewCell" destination="7Ue-44-q6k" id="7JF-OS-NO0"/>
+                        <outlet property="vintageThemeTableViewCell" destination="Ro9-0B-uhL" id="exY-gS-jsN"/>
+                        <outletCollection property="titleLabels" destination="d9b-gp-kd3" collectionClass="NSMutableArray" id="O77-9L-IIj"/>
+                        <outletCollection property="titleLabels" destination="2yn-Wt-LNM" collectionClass="NSMutableArray" id="Vfk-yU-X9E"/>
+                        <outletCollection property="titleLabels" destination="H5c-FL-zt3" collectionClass="NSMutableArray" id="fg5-w7-4KF"/>
+                        <outletCollection property="titleLabels" destination="wRy-Xi-NbQ" collectionClass="NSMutableArray" id="8gi-60-dI9"/>
+                        <outletCollection property="themeTableViewCells" destination="cnU-xS-Tkb" collectionClass="NSMutableArray" id="3hp-CS-5Ok"/>
+                        <outletCollection property="themeTableViewCells" destination="swj-ea-V42" collectionClass="NSMutableArray" id="ecE-Yy-oM0"/>
+                        <outletCollection property="themeTableViewCells" destination="Ro9-0B-uhL" collectionClass="NSMutableArray" id="Oij-zf-dMZ"/>
+                        <outletCollection property="themeTableViewCells" destination="7Ue-44-q6k" collectionClass="NSMutableArray" id="bIj-Tn-eE5"/>
+                        <outletCollection property="titleLabels" destination="JPy-Xq-5nd" collectionClass="NSMutableArray" id="bxV-33-FEw"/>
+                        <outletCollection property="titleLabels" destination="nLu-0W-h02" collectionClass="NSMutableArray" id="0hm-a5-MjP"/>
+                        <outletCollection property="switches" destination="Mfb-YE-77u" collectionClass="NSMutableArray" id="nwu-NC-NeI"/>
+                        <outletCollection property="titleLabels" destination="bHO-Hq-r2t" collectionClass="NSMutableArray" id="VHN-Ve-cgL"/>
+                        <outletCollection property="titleLabels" destination="qk9-m4-dAm" collectionClass="NSMutableArray" id="UbG-DD-jGp"/>
+                        <outletCollection property="detailLabels" destination="YlQ-ik-2FR" collectionClass="NSMutableArray" id="rr0-vF-YJB"/>
+                        <outletCollection property="fontSizeTableViewCells" destination="MmJ-kB-fZn" collectionClass="NSMutableArray" id="gul-3i-OuZ"/>
+                        <outletCollection property="fontSizeTableViewCells" destination="n6R-jk-Kyb" collectionClass="NSMutableArray" id="e3s-Gi-vkb"/>
+                        <outletCollection property="fontSizeTableViewCells" destination="rR2-M9-Xve" collectionClass="NSMutableArray" id="7dA-PL-zYg"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lVj-Yg-7mi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-58" y="-10"/>
+        </scene>
+        <!--Choose Widget Sections View Controller-->
+        <scene sceneID="kKO-Sk-Jpk">
+            <objects>
+                <viewController id="S61-Ph-pHg" customClass="ChooseWidgetSectionsViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rP9-y6-qFD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="oS0-8x-a3D">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="S61-Ph-pHg" id="n5O-s5-TRc"/>
+                                    <outlet property="delegate" destination="S61-Ph-pHg" id="1Un-d6-R53"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="II6-6u-bJL" firstAttribute="trailing" secondItem="oS0-8x-a3D" secondAttribute="trailing" id="FW8-wC-rhz"/>
+                            <constraint firstItem="II6-6u-bJL" firstAttribute="bottom" secondItem="oS0-8x-a3D" secondAttribute="bottom" id="Hvw-Xd-DIl"/>
+                            <constraint firstItem="oS0-8x-a3D" firstAttribute="top" secondItem="II6-6u-bJL" secondAttribute="top" id="Mup-2X-MPJ"/>
+                            <constraint firstItem="oS0-8x-a3D" firstAttribute="leading" secondItem="II6-6u-bJL" secondAttribute="leading" id="Rwn-4Q-s6a"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="II6-6u-bJL"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="oS0-8x-a3D" id="r7F-o4-x23"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KH2-Ds-ezt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-58" y="697"/>
+        </scene>
+        <!--Setting Explication Table View Controller-->
+        <scene sceneID="Ncl-tJ-umy">
+            <objects>
+                <tableViewController id="sAR-HQ-wU7" customClass="SettingExplicationTableViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="InF-o6-zmu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="ej7-Wz-hBO">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="2Iw-p0-WYD" customClass="BaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="35" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2Iw-p0-WYD" id="ETW-9d-FOd">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLK-ae-bwm">
+                                                    <rect key="frame" x="20" y="10" width="335" height="23.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="JLK-ae-bwm" secondAttribute="trailing" constant="20" symbolic="YES" id="KOZ-72-eKg"/>
+                                                <constraint firstAttribute="bottom" secondItem="JLK-ae-bwm" secondAttribute="bottom" constant="10" id="aSR-49-u16"/>
+                                                <constraint firstItem="JLK-ae-bwm" firstAttribute="top" secondItem="ETW-9d-FOd" secondAttribute="top" constant="10" id="fMQ-Hk-IsE"/>
+                                                <constraint firstItem="JLK-ae-bwm" firstAttribute="leading" secondItem="ETW-9d-FOd" secondAttribute="leading" constant="20" symbolic="YES" id="uli-EP-BqU"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="sAR-HQ-wU7" id="tcS-v5-yE3"/>
+                            <outlet property="delegate" destination="sAR-HQ-wU7" id="ZLz-nG-cpb"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="explicationTextView" destination="JLK-ae-bwm" id="L6u-Xh-qIr"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rwf-ki-iDj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="825" y="-8"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="urb-xF-L64"/>
+    </inferredMetricsTieBreakers>
+</document>

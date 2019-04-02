@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RolesInBandTableViewCell" rowHeight="72" id="rJF-bs-PjX" customClass="RolesInBandTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="402" height="72"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rJF-bs-PjX" id="1KD-HV-yz9">
+                <rect key="frame" x="0.0" y="0.0" width="402" height="71.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="s8e-Qc-Zbp">
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="71.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Control Denied" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7HG-Yf-hho">
+                                <rect key="frame" x="5" y="5" width="392" height="48.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJM-AJ-BxB">
+                                <rect key="frame" x="5" y="53.5" width="392" height="18"/>
+                                <string key="text">Guitars, Vocals	(1995-2001)</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="7HG-Yf-hho" secondAttribute="trailing" constant="5" id="1Fw-mP-5L1"/>
+                            <constraint firstItem="XJM-AJ-BxB" firstAttribute="leading" secondItem="s8e-Qc-Zbp" secondAttribute="leading" constant="5" id="5Kl-Nf-cng"/>
+                            <constraint firstAttribute="trailing" secondItem="XJM-AJ-BxB" secondAttribute="trailing" constant="5" id="6Cy-eg-dxp"/>
+                            <constraint firstItem="7HG-Yf-hho" firstAttribute="leading" secondItem="s8e-Qc-Zbp" secondAttribute="leading" constant="5" id="gT9-sH-NY9"/>
+                            <constraint firstItem="7HG-Yf-hho" firstAttribute="top" secondItem="s8e-Qc-Zbp" secondAttribute="top" constant="5" id="z8z-1Y-abp"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="s8e-Qc-Zbp" firstAttribute="leading" secondItem="1KD-HV-yz9" secondAttribute="leading" id="7fq-Ij-LVZ"/>
+                    <constraint firstAttribute="bottom" secondItem="s8e-Qc-Zbp" secondAttribute="bottom" id="9kd-Yd-W3Q"/>
+                    <constraint firstItem="s8e-Qc-Zbp" firstAttribute="top" secondItem="1KD-HV-yz9" secondAttribute="top" id="aId-Y2-QlH"/>
+                    <constraint firstAttribute="trailing" secondItem="s8e-Qc-Zbp" secondAttribute="trailing" id="jVh-SE-6s5"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="bandNameLabel" destination="7HG-Yf-hho" id="O45-JO-RDh"/>
+                <outlet property="rolesAndYearsActiveLabel" destination="XJM-AJ-BxB" id="cy0-Je-QgS"/>
+            </connections>
+            <point key="canvasLocation" x="17.600000000000001" y="136.73163418290855"/>
+        </tableViewCell>
+    </objects>
+</document>

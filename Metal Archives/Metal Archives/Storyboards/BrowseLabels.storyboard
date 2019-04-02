@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Browse Labels Alphabetically View Controller-->
+        <scene sceneID="We3-jT-MaS">
+            <objects>
+                <viewController storyboardIdentifier="BrowseLabelsAlphabeticallyViewController" id="oxT-sJ-3Jb" customClass="BrowseLabelsAlphabeticallyViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8uT-Ss-69x">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GWJ-ev-0Kh">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="oxT-sJ-3Jb" id="UeY-Za-XCz"/>
+                                    <outlet property="delegate" destination="oxT-sJ-3Jb" id="bGI-PC-CDN"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Mtu-vf-AGU" firstAttribute="bottom" secondItem="GWJ-ev-0Kh" secondAttribute="bottom" id="Ej7-SF-Cja"/>
+                            <constraint firstItem="Mtu-vf-AGU" firstAttribute="trailing" secondItem="GWJ-ev-0Kh" secondAttribute="trailing" id="RjI-cs-4ob"/>
+                            <constraint firstItem="GWJ-ev-0Kh" firstAttribute="leading" secondItem="8uT-Ss-69x" secondAttribute="leading" id="UJO-FI-bcd"/>
+                            <constraint firstItem="GWJ-ev-0Kh" firstAttribute="top" secondItem="Mtu-vf-AGU" secondAttribute="top" id="wKD-sm-PCB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Mtu-vf-AGU"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="GWJ-ev-0Kh" id="7Td-kM-dXU"/>
+                        <segue destination="Efz-fi-bJh" kind="show" identifier="ShowResults" id="5Oh-1k-YTB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="98C-WS-1L3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4" y="-116"/>
+        </scene>
+        <!--Browse Labels By Country View Controller-->
+        <scene sceneID="79P-ZI-UL1">
+            <objects>
+                <viewController storyboardIdentifier="BrowseLabelsByCountryViewController" id="aRf-jL-TTS" customClass="BrowseLabelsByCountryViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Mfu-GL-4A7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kik-8A-1G7">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="aRf-jL-TTS" id="4hE-Wh-DdC"/>
+                                    <outlet property="delegate" destination="aRf-jL-TTS" id="QMy-NE-XFn"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Kik-8A-1G7" firstAttribute="leading" secondItem="Tpw-xK-4Uu" secondAttribute="leading" id="FRG-Fu-n05"/>
+                            <constraint firstItem="Tpw-xK-4Uu" firstAttribute="trailing" secondItem="Kik-8A-1G7" secondAttribute="trailing" id="Hnx-6u-AcZ"/>
+                            <constraint firstItem="Kik-8A-1G7" firstAttribute="top" secondItem="Tpw-xK-4Uu" secondAttribute="top" id="j70-jL-ov9"/>
+                            <constraint firstItem="Tpw-xK-4Uu" firstAttribute="bottom" secondItem="Kik-8A-1G7" secondAttribute="bottom" id="nGV-Cj-Ce8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Tpw-xK-4Uu"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="Kik-8A-1G7" id="uB0-t5-mRz"/>
+                        <segue destination="NuR-XC-FGg" kind="show" identifier="ShowResults" id="ktr-bT-wci"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SgF-a1-vrq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4" y="605"/>
+        </scene>
+        <!--Browse Labels By Country Result View Controller-->
+        <scene sceneID="bBm-Th-b9i">
+            <objects>
+                <viewController id="NuR-XC-FGg" customClass="BrowseLabelsByCountryResultViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ou4-4L-U8C">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HLh-Td-3hY">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="NuR-XC-FGg" id="oxk-kI-QuO"/>
+                                    <outlet property="delegate" destination="NuR-XC-FGg" id="wbt-Ko-eAz"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="53d-dO-Qhn" firstAttribute="bottom" secondItem="HLh-Td-3hY" secondAttribute="bottom" id="XGb-xf-f7C"/>
+                            <constraint firstItem="53d-dO-Qhn" firstAttribute="trailing" secondItem="HLh-Td-3hY" secondAttribute="trailing" id="eTJ-rd-Ew2"/>
+                            <constraint firstItem="HLh-Td-3hY" firstAttribute="top" secondItem="53d-dO-Qhn" secondAttribute="top" id="kpv-Aq-04w"/>
+                            <constraint firstItem="HLh-Td-3hY" firstAttribute="leading" secondItem="53d-dO-Qhn" secondAttribute="leading" id="maT-Yj-83D"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="53d-dO-Qhn"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="HLh-Td-3hY" id="Hvu-WW-85D"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yUH-I7-rjy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="815" y="605"/>
+        </scene>
+        <!--Browse Labels Alphabetically Result View Controller-->
+        <scene sceneID="CpO-Er-QFW">
+            <objects>
+                <viewController id="Efz-fi-bJh" customClass="BrowseLabelsAlphabeticallyResultViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="09S-B3-SnJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YbI-lk-iTT">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Efz-fi-bJh" id="mNb-Nw-Ufs"/>
+                                    <outlet property="delegate" destination="Efz-fi-bJh" id="nie-kL-WZ4"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7Qb-gd-pFl" firstAttribute="bottom" secondItem="YbI-lk-iTT" secondAttribute="bottom" id="5pQ-d4-23g"/>
+                            <constraint firstItem="YbI-lk-iTT" firstAttribute="top" secondItem="7Qb-gd-pFl" secondAttribute="top" id="Rvt-Ep-W5b"/>
+                            <constraint firstItem="YbI-lk-iTT" firstAttribute="leading" secondItem="7Qb-gd-pFl" secondAttribute="leading" id="dL0-v5-N1u"/>
+                            <constraint firstItem="7Qb-gd-pFl" firstAttribute="trailing" secondItem="YbI-lk-iTT" secondAttribute="trailing" id="sxr-yD-EWC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7Qb-gd-pFl"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="YbI-lk-iTT" id="YOg-fZ-seY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pH1-15-qeu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="801" y="-116"/>
+        </scene>
+    </scenes>
+</document>

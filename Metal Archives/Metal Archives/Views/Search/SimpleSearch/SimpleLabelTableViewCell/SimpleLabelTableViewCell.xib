@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="74" id="qze-4W-TIK" customClass="SimpleLabelTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="389" height="74"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qze-4W-TIK" id="CWp-yv-u6p">
+                <rect key="frame" x="0.0" y="0.0" width="389" height="73.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zsV-Rv-aer">
+                        <rect key="frame" x="20" y="15" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="zsV-Rv-aer" secondAttribute="height" multiplier="1:1" id="0JX-iv-WrV"/>
+                            <constraint firstAttribute="height" constant="44" id="CDB-YL-Mxj"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="305 Death Squad" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gva-WC-gZt">
+                        <rect key="frame" x="74" y="5" width="305" height="17.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="United States" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LY-00-uGi">
+                        <rect key="frame" x="74" y="27.5" width="305" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Funeral Doom, Death/Doom Metal, Sludge" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tz2-LC-VQ9">
+                        <rect key="frame" x="74" y="50.5" width="305" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Tz2-LC-VQ9" secondAttribute="trailing" constant="10" id="4LL-1Y-cYQ"/>
+                    <constraint firstItem="zsV-Rv-aer" firstAttribute="centerY" secondItem="CWp-yv-u6p" secondAttribute="centerY" id="4r4-zc-d1i"/>
+                    <constraint firstItem="zsV-Rv-aer" firstAttribute="top" relation="greaterThanOrEqual" secondItem="CWp-yv-u6p" secondAttribute="top" constant="5" id="5sf-eX-QSR"/>
+                    <constraint firstItem="zsV-Rv-aer" firstAttribute="leading" secondItem="CWp-yv-u6p" secondAttribute="leading" constant="20" symbolic="YES" id="5ua-uH-ifG"/>
+                    <constraint firstItem="gva-WC-gZt" firstAttribute="leading" secondItem="zsV-Rv-aer" secondAttribute="trailing" constant="10" id="8AM-1r-6rO"/>
+                    <constraint firstItem="5LY-00-uGi" firstAttribute="leading" secondItem="zsV-Rv-aer" secondAttribute="trailing" constant="10" id="QLX-1b-a6I"/>
+                    <constraint firstItem="Tz2-LC-VQ9" firstAttribute="top" secondItem="5LY-00-uGi" secondAttribute="bottom" constant="5" id="T9W-b9-VCw"/>
+                    <constraint firstItem="gva-WC-gZt" firstAttribute="top" secondItem="CWp-yv-u6p" secondAttribute="top" constant="5" id="Wld-Fc-RAl"/>
+                    <constraint firstAttribute="trailing" secondItem="gva-WC-gZt" secondAttribute="trailing" constant="10" id="ZCa-lz-SOB"/>
+                    <constraint firstItem="Tz2-LC-VQ9" firstAttribute="leading" secondItem="zsV-Rv-aer" secondAttribute="trailing" constant="10" id="cbZ-ax-nMZ"/>
+                    <constraint firstAttribute="trailing" secondItem="5LY-00-uGi" secondAttribute="trailing" constant="10" id="eX9-fi-c82"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zsV-Rv-aer" secondAttribute="bottom" constant="5" id="gbs-Nl-oFv"/>
+                    <constraint firstAttribute="bottom" secondItem="Tz2-LC-VQ9" secondAttribute="bottom" constant="5" id="vYM-MK-7aP"/>
+                    <constraint firstItem="5LY-00-uGi" firstAttribute="top" secondItem="gva-WC-gZt" secondAttribute="bottom" constant="5" id="zVx-oH-1Ur"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="countryLabel" destination="5LY-00-uGi" id="na5-IJ-NZh"/>
+                <outlet property="labelNameLabel" destination="gva-WC-gZt" id="B5b-WW-yJ1"/>
+                <outlet property="specialisationLabel" destination="Tz2-LC-VQ9" id="bk2-Jd-R68"/>
+                <outlet property="thumbnailImageView" destination="zsV-Rv-aer" id="jXr-ib-3xr"/>
+                <outlet property="thumbnailImageViewHeightConstraint" destination="CDB-YL-Mxj" id="Qmu-bX-PpH"/>
+            </connections>
+            <point key="canvasLocation" x="124" y="156.52173913043478"/>
+        </tableViewCell>
+    </objects>
+</document>

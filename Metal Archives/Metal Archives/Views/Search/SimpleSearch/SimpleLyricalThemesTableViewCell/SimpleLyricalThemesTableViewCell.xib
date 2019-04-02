@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="98" id="5Fd-P3-Ikj" customClass="SimpleLyricalThemesTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="391" height="98"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Fd-P3-Ikj" id="pn0-Bt-2GK">
+                <rect key="frame" x="0.0" y="0.0" width="391" height="97.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XjB-fX-dxz">
+                        <rect key="frame" x="20" y="27" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="XjB-fX-dxz" secondAttribute="height" multiplier="1:1" id="YcN-ut-jkm"/>
+                            <constraint firstAttribute="height" constant="44" id="gKt-sQ-3D2"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="753" text="4saken1 (a.k.a. Forsaken One)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCn-IZ-fnx">
+                        <rect key="frame" x="74" y="5" width="307" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="United States" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfB-Oa-cfc">
+                        <rect key="frame" x="74" y="30.5" width="307" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Avant-garde Black Metal" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEI-Ud-kgx">
+                        <rect key="frame" x="74" y="53.5" width="307" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lyrical themes: Death" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qsf-j2-Ak6">
+                        <rect key="frame" x="74" y="76.5" width="307" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="qsf-j2-Ak6" firstAttribute="leading" secondItem="XjB-fX-dxz" secondAttribute="trailing" constant="10" id="3XZ-Ym-b3N"/>
+                    <constraint firstItem="XjB-fX-dxz" firstAttribute="leading" secondItem="pn0-Bt-2GK" secondAttribute="leading" constant="20" symbolic="YES" id="5ra-8b-sv5"/>
+                    <constraint firstAttribute="trailing" secondItem="cfB-Oa-cfc" secondAttribute="trailing" constant="10" id="Cg7-K9-xhf"/>
+                    <constraint firstItem="xCn-IZ-fnx" firstAttribute="leading" secondItem="XjB-fX-dxz" secondAttribute="trailing" constant="10" id="FPf-y4-SbQ"/>
+                    <constraint firstItem="XjB-fX-dxz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="pn0-Bt-2GK" secondAttribute="top" constant="5" id="GIc-Zt-fU4"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="XjB-fX-dxz" secondAttribute="bottom" constant="5" id="J80-Pw-0Ak"/>
+                    <constraint firstAttribute="trailing" secondItem="mEI-Ud-kgx" secondAttribute="trailing" constant="10" id="Moe-BC-WHo"/>
+                    <constraint firstItem="xCn-IZ-fnx" firstAttribute="top" secondItem="pn0-Bt-2GK" secondAttribute="top" constant="5" id="PvF-Tf-q8p"/>
+                    <constraint firstItem="mEI-Ud-kgx" firstAttribute="top" secondItem="cfB-Oa-cfc" secondAttribute="bottom" constant="5" id="STD-he-H0g"/>
+                    <constraint firstItem="qsf-j2-Ak6" firstAttribute="top" secondItem="mEI-Ud-kgx" secondAttribute="bottom" constant="5" id="cQZ-oR-uEm"/>
+                    <constraint firstItem="XjB-fX-dxz" firstAttribute="centerY" secondItem="pn0-Bt-2GK" secondAttribute="centerY" id="gOe-7Y-xCM"/>
+                    <constraint firstAttribute="bottom" secondItem="qsf-j2-Ak6" secondAttribute="bottom" constant="5" id="hye-F1-8Qx"/>
+                    <constraint firstAttribute="trailing" secondItem="xCn-IZ-fnx" secondAttribute="trailing" constant="10" id="jTd-DM-Fzs"/>
+                    <constraint firstItem="cfB-Oa-cfc" firstAttribute="top" secondItem="xCn-IZ-fnx" secondAttribute="bottom" constant="5" id="jed-E0-xLg"/>
+                    <constraint firstAttribute="trailing" secondItem="qsf-j2-Ak6" secondAttribute="trailing" constant="10" id="nYA-Tf-G8L"/>
+                    <constraint firstItem="mEI-Ud-kgx" firstAttribute="leading" secondItem="XjB-fX-dxz" secondAttribute="trailing" constant="10" id="sbu-cU-ozZ"/>
+                    <constraint firstItem="cfB-Oa-cfc" firstAttribute="leading" secondItem="XjB-fX-dxz" secondAttribute="trailing" constant="10" id="yl4-MW-CsB"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="countryLabel" destination="cfB-Oa-cfc" id="Y8q-iT-NLX"/>
+                <outlet property="genreLabel" destination="mEI-Ud-kgx" id="h06-FG-2da"/>
+                <outlet property="lyricalThemesLabel" destination="qsf-j2-Ak6" id="dLb-13-H5O"/>
+                <outlet property="nameLabel" destination="xCn-IZ-fnx" id="7z4-h8-WO4"/>
+                <outlet property="thumbnailImageView" destination="XjB-fX-dxz" id="qJj-Dp-hvr"/>
+                <outlet property="thumbnailImageViewHeightConstraint" destination="gKt-sQ-3D2" id="KeU-0v-2IH"/>
+            </connections>
+            <point key="canvasLocation" x="181.59999999999999" y="197.00149925037482"/>
+        </tableViewCell>
+    </objects>
+</document>

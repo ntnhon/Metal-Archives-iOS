@@ -1,0 +1,29 @@
+platform :ios, '10.0'
+
+use_frameworks!
+
+target 'Metal Archives' do
+    pod 'Alamofire'
+    pod 'AlamofireNetworkActivityIndicator'
+    pod 'SlideMenuControllerSwift'
+    pod 'Kanna'
+    pod 'UIColor_Hex_Swift'
+    pod 'SDWebImage', '~> 4.0'
+    pod 'Toaster'
+    pod 'BetterSegmentedControl', '~> 1.0'
+    pod 'Charts'
+    pod 'SkyFloatingLabelTextField', '~> 3.0'
+    pod 'AttributedLib'
+    pod 'Firebase/Core'
+    pod 'Firebase/Messaging'
+    pod 'Crashlytics'
+    pod 'Siren'
+    pod 'NotificationBannerSwift'
+end
+
+target 'Metal Archives Widget' do
+     pod 'Alamofire'
+     pod 'UIColor_Hex_Swift'
+     pod 'SDWebImage', '~> 4.0'
+     pod 'Kanna'
+end
