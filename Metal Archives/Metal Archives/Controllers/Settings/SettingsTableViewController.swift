@@ -14,12 +14,8 @@ final class SettingsTableViewController: UITableViewController {
     @IBOutlet private var detailLabels: [UILabel]!
     @IBOutlet private var switches: [UISwitch]!
     
-    //Themes
-    @IBOutlet private weak var defaultThemeTableViewCell: BaseTableViewCell!
-    @IBOutlet private weak var lightThemeTableViewCell: BaseTableViewCell!
-    @IBOutlet private weak var vintageThemeTableViewCell: BaseTableViewCell!
-    @IBOutlet private weak var unicornThemeTableViewCell: BaseTableViewCell!
-    @IBOutlet private var themeTableViewCells: [BaseTableViewCell]!
+    //Theme
+    @IBOutlet private weak var themeLabel: UILabel!
     
     //Font Size
     @IBOutlet private weak var defaultFontSizeTableViewCell: BaseTableViewCell!
@@ -45,6 +41,7 @@ final class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
         self.initAppearance()
         self.initThumbnailSwitch()
+        self.updateThemeTitle()
         self.choosenWidgetSections = UserDefaults.choosenWidgetSections()
         self.title = "Settings"
     }
@@ -75,13 +72,6 @@ final class SettingsTableViewController: UITableViewController {
         self.mediumFontSizeLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         self.largeFontSizeLabel.textColor = Settings.currentTheme.bodyTextColor
         self.largeFontSizeLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-    }
-    
-    private func displayRestartAlert() {
-        let alert = UIAlertController(title: "Restart required", message: "Restart application for changes to take effect.", preferredStyle: .alert)
-        let okayAction = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
-        alert.addAction(okayAction)
-        self.present(alert, animated: true, completion: nil)
     }
 
     private func initThumbnailSwitch() {
@@ -117,6 +107,8 @@ final class SettingsTableViewController: UITableViewController {
             }
         case let chooseWidgetSectionsViewController as ChooseWidgetSectionsViewController:
             chooseWidgetSectionsViewController.delegate = self
+        case let themeListTableViewController as ThemeListTableViewController:
+            themeListTableViewController.delegate = self
             
         default:
             break
@@ -125,46 +117,13 @@ final class SettingsTableViewController: UITableViewController {
 }
 
 //MARK: - Theme customization
-extension SettingsTableViewController {
-    private func didTapDefaultThemeTableViewCell() {
-        self.setCurrentTheme(.default)
+extension SettingsTableViewController: ThemeListTableViewControllerDelegate {
+    func didChangeTheme() {
+        self.updateThemeTitle()
     }
     
-    private func didTapLightThemeTableViewCell() {
-        self.setCurrentTheme(.light)
-    }
-    
-    private func didTapVintageThemeTableViewCell() {
-        self.setCurrentTheme(.vintage)
-    }
-    
-    private func didTapUnicornThemeTableViewCell() {
-        self.setCurrentTheme(.unicorn)
-    }
-    
-    private func setCurrentTheme(_ selectedTheme: Theme) {
-        var selectedThemeTableViewCell: BaseTableViewCell?
-        
-        switch selectedTheme {
-        case .default: selectedThemeTableViewCell = self.defaultThemeTableViewCell
-        case .light: selectedThemeTableViewCell = self.lightThemeTableViewCell
-        case .vintage: selectedThemeTableViewCell = self.vintageThemeTableViewCell
-        case .unicorn: selectedThemeTableViewCell = self.unicornThemeTableViewCell
-        }
-        
-        self.themeTableViewCells.forEach { (eachThemeTableViewCell) in
-            if eachThemeTableViewCell == selectedThemeTableViewCell {
-                eachThemeTableViewCell.accessoryType = .checkmark
-            } else {
-                eachThemeTableViewCell.accessoryType = .none
-            }
-        }
-        
-        UserDefaults.setTheme(selectedTheme)
-        
-        self.displayRestartAlert()
-        
-        Analytics.logEvent(AnalyticsEvent.ChangeTheme, parameters: nil)
+    private func updateThemeTitle() {
+        self.themeLabel.text = UserDefaults.selectedTheme().description
     }
 }
 
@@ -233,15 +192,7 @@ extension SettingsTableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let selectedCell = tableView.cellForRow(at: indexPath)
-        if selectedCell == self.defaultThemeTableViewCell {
-            self.didTapDefaultThemeTableViewCell()
-        } else if selectedCell == self.lightThemeTableViewCell {
-            self.didTapLightThemeTableViewCell()
-        } else if selectedCell == self.vintageThemeTableViewCell {
-            self.didTapVintageThemeTableViewCell()
-        } else if selectedCell == self.unicornThemeTableViewCell {
-            self.didTapUnicornThemeTableViewCell()
-        } else if selectedCell == self.defaultFontSizeTableViewCell {
+        if selectedCell == self.defaultFontSizeTableViewCell {
             self.didTapDefaultFontSizeTableViewCell()
         } else if selectedCell == self.mediumFontSizeTableViewCell {
             self.didTapMediumFontSizeTableViewCell()
@@ -253,25 +204,6 @@ extension SettingsTableViewController {
 
 extension SettingsTableViewController {
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
-        switch UserDefaults.selectedTheme() {
-        case .default:
-            if cell == self.defaultThemeTableViewCell {
-                cell.accessoryType = .checkmark
-            }
-        case .light:
-            if cell == self.lightThemeTableViewCell {
-                cell.accessoryType = .checkmark
-            }
-        case .vintage:
-            if cell == self.vintageThemeTableViewCell {
-                cell.accessoryType = .checkmark
-            }
-        case .unicorn:
-            if cell == self.unicornThemeTableViewCell {
-                cell.accessoryType = .checkmark
-            }
-        }
         
         switch UserDefaults.selectedFontSize() {
         case .default:

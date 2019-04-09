@@ -80,6 +80,8 @@
 		C018B78C2243C01D00CDFFB8 /* String+RemoveEmptySpaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05309F322235BE20027D11E /* String+RemoveEmptySpaces.swift */; };
 		C018B78D2243C05C00CDFFB8 /* BandUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01839E02225401500FF88B7 /* BandUpdate.swift */; };
 		C018B78E2243C06F00CDFFB8 /* BandAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01839DE22253E6100FF88B7 /* BandAddition.swift */; };
+		C01D5870225CE28100DC7556 /* ThemeListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */; };
+		C01D5872225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */; };
 		C03270CD220AE309009FA337 /* ReleaseHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270CC220AE309009FA337 /* ReleaseHeaderTableViewCell.swift */; };
 		C03270CF220AE31A009FA337 /* ReleaseHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03270CE220AE31A009FA337 /* ReleaseHeaderTableViewCell.xib */; };
 		C03270D1220B1AAD009FA337 /* ReleaseElementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */; };
@@ -522,6 +524,8 @@
 		C018B77F2243B49500CDFFB8 /* LatestReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LatestReviewTableViewCell.xib; sourceTree = "<group>"; };
 		C018B7852243B9FC00CDFFB8 /* UpcomingAlbumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbumTableViewCell.swift; sourceTree = "<group>"; };
 		C018B7872243BBC800CDFFB8 /* UpcomingAlbumTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingAlbumTableViewCell.xib; sourceTree = "<group>"; };
+		C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeListTableViewController.swift; sourceTree = "<group>"; };
+		C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DisplayRestartAlert.swift"; sourceTree = "<group>"; };
 		C03270CC220AE309009FA337 /* ReleaseHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		C03270CE220AE31A009FA337 /* ReleaseHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseElementTableViewCell.swift; sourceTree = "<group>"; };
@@ -970,6 +974,7 @@
 				C00D3637223D9EFE00B29B43 /* SettingsTableViewController.swift */,
 				C0A1F93F224153A7005C2C83 /* SettingExplicationTableViewController.swift */,
 				C0F0BE7F2243F79F00B90605 /* ChooseWidgetSectionsViewController.swift */,
+				C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1963,6 +1968,7 @@
 				C0FF16C8220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift */,
 				C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */,
 				C07268F3220F8C1E0000EB66 /* UIViewController+DisplayErrorLoadingAlert.swift */,
+				C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */,
 			);
 			path = UIViewController;
 			sourceTree = "<group>";
@@ -2815,6 +2821,7 @@
 				C06C6C5921FFBE2300D37519 /* Country.swift in Sources */,
 				C008388222008D1900B35996 /* UIViewController+CheckPhotoLibraryPermission.swift in Sources */,
 				C0A48CEE222181BD0047FC70 /* Toaster+DisplayMessageShortly.swift in Sources */,
+				C01D5870225CE28100DC7556 /* ThemeListTableViewController.swift in Sources */,
 				C053CF8022247F0700B056A8 /* PastRosterListViewController.swift in Sources */,
 				C00D3631223D98D700B29B43 /* DetailTableViewCell.swift in Sources */,
 				C0FE9635221C48CC003C4B59 /* UITableViewCell+ShowHideSeparator.swift in Sources */,
@@ -2965,6 +2972,7 @@
 				C0B990CD22079222000DBD86 /* ReviewTableViewCell.swift in Sources */,
 				C06F1DF421F7488700B49D39 /* NotificationName.swift in Sources */,
 				C03270E2220B7B37009FA337 /* RequestReleaseOtherVersion.swift in Sources */,
+				C01D5872225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift in Sources */,
 				C06C6C6521FFD5C100D37519 /* ExpandedButton.swift in Sources */,
 				C053DD5022269ADB0028568B /* ReleaseStatisticTableViewCell.swift in Sources */,
 				C0328021220A228200FC9A44 /* Song.swift in Sources */,
