@@ -26,6 +26,16 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.registerCells()
         self.fetch()
         self.extensionContext?.widgetLargestAvailableDisplayMode = .compact
+        
+        self.tableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
+    }
+    
+    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if self.extensionContext?.widgetActiveDisplayMode == .compact {
+            self.preferredContentSize = CGSize(width: self.tableView.contentSize.width, height: 200)//200 or 300 or whatever, iOS doesn't care cause it will always allow a fixed height. The idea is to change the preferredContentSize to force animation happen
+        } else {
+            self.preferredContentSize = self.tableView.contentSize
+        }
     }
     
     private func registerCells() {
@@ -41,12 +51,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        switch activeDisplayMode {
-        case .expanded:
-            self.preferredContentSize = CGSize(width: maxSize.width, height: self.tableView.contentSize.height)
-        case .compact:
-            self.preferredContentSize = CGSize(width: maxSize.width, height: 200)
-        }
+//        switch activeDisplayMode {
+//        case .expanded:
+//            self.preferredContentSize = self.tableView.contentSize
+//        case .compact:
+//            self.preferredContentSize = maxSize
+//        }
+        self.preferredContentSize = self.tableView.contentSize
     }
     
     private func fetch() {
@@ -89,8 +100,6 @@ extension TodayViewController: PagableManagerDelegate {
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
         self.tableView.reloadData()
-        self.tableView.setNeedsLayout()
-        self.tableView.layoutIfNeeded()
         self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
     }
     
