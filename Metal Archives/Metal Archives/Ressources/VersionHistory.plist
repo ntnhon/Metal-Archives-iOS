@@ -4,6 +4,14 @@
 <array>
 	<dict>
 		<key>number</key>
+		<string>2.2</string>
+		<key>date</key>
+		<string>April 2019</string>
+		<key>features</key>
+		<string>- Fix crashes on iOS 10 &amp; 11. - Add default discography mode option. - Fix Today Widget&apos;s height issue</string>
+	</dict>
+	<dict>
+		<key>number</key>
 		<string>2.1</string>
 		<key>date</key>
 		<string>April 2019</string>
