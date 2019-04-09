@@ -397,6 +397,7 @@
 		C0F0BE832244097D00B90605 /* UserDefaults+ConvenienceMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A1F93D224143DC005C2C83 /* UserDefaults+ConvenienceMethods.swift */; };
 		C0F0BE842244099800B90605 /* WidgetSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F0BE812243FA0B00B90605 /* WidgetSection.swift */; };
 		C0F1537F21EF5DE500355616 /* MetalArchivesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1537E21EF5DE500355616 /* MetalArchivesAPI.swift */; };
+		C0F7E7FC225D26F800F907A6 /* FontSizeListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F7E7FB225D26F800F907A6 /* FontSizeListTableViewController.swift */; };
 		C0FBBE6A2208750A00226FB1 /* SimilarBandTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBBE692208750A00226FB1 /* SimilarBandTableViewCell.swift */; };
 		C0FBBE6C2208751C00226FB1 /* SimilarBandTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0FBBE6B2208751C00226FB1 /* SimilarBandTableViewCell.xib */; };
 		C0FBBE6E2208DECF00226FB1 /* RelatedLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBBE6D2208DECF00226FB1 /* RelatedLink.swift */; };
@@ -828,6 +829,7 @@
 		C0F0BE8522440C6000B90605 /* Metal Archives Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Metal Archives Widget.entitlements"; sourceTree = "<group>"; };
 		C0F0BE8622440C6B00B90605 /* Metal Archives.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Metal Archives.entitlements"; sourceTree = "<group>"; };
 		C0F1537E21EF5DE500355616 /* MetalArchivesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalArchivesAPI.swift; sourceTree = "<group>"; };
+		C0F7E7FB225D26F800F907A6 /* FontSizeListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeListTableViewController.swift; sourceTree = "<group>"; };
 		C0FBBE692208750A00226FB1 /* SimilarBandTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarBandTableViewCell.swift; sourceTree = "<group>"; };
 		C0FBBE6B2208751C00226FB1 /* SimilarBandTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimilarBandTableViewCell.xib; sourceTree = "<group>"; };
 		C0FBBE6D2208DECF00226FB1 /* RelatedLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedLink.swift; sourceTree = "<group>"; };
@@ -975,6 +977,7 @@
 				C0A1F93F224153A7005C2C83 /* SettingExplicationTableViewController.swift */,
 				C0F0BE7F2243F79F00B90605 /* ChooseWidgetSectionsViewController.swift */,
 				C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */,
+				C0F7E7FB225D26F800F907A6 /* FontSizeListTableViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2905,6 +2908,7 @@
 				C00D362D223D957800B29B43 /* Library.swift in Sources */,
 				C071307321ECDDC700082BC6 /* BandAdditionOrUpdateTableViewCell.swift in Sources */,
 				C06F1DFD21F767AB00B49D39 /* Band.swift in Sources */,
+				C0F7E7FC225D26F800F907A6 /* FontSizeListTableViewController.swift in Sources */,
 				C053DD3922268F7E0028568B /* RequestStatisticDetails.swift in Sources */,
 				C05FC9B6222AD29400D4B0DF /* BaseTableViewCell.swift in Sources */,
 				C053DD36222682120028568B /* ReleaseStatistic.swift in Sources */,
