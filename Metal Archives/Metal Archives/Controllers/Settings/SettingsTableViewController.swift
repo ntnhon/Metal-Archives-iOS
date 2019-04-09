@@ -14,22 +14,12 @@ final class SettingsTableViewController: UITableViewController {
     @IBOutlet private var detailLabels: [UILabel]!
     @IBOutlet private var switches: [UISwitch]!
     
-    //Themes
-    @IBOutlet private weak var defaultThemeTableViewCell: BaseTableViewCell!
-    @IBOutlet private weak var lightThemeTableViewCell: BaseTableViewCell!
-    @IBOutlet private weak var vintageThemeTableViewCell: BaseTableViewCell!
-    @IBOutlet private weak var unicornThemeTableViewCell: BaseTableViewCell!
-    @IBOutlet private var themeTableViewCells: [BaseTableViewCell]!
-    
+    //Theme
+    @IBOutlet private weak var themeLabel: UILabel!
     //Font Size
-    @IBOutlet private weak var defaultFontSizeTableViewCell: BaseTableViewCell!
-    @IBOutlet private weak var defaultFontSizeLabel: UILabel!
-    @IBOutlet private weak var mediumFontSizeTableViewCell: BaseTableViewCell!
-    @IBOutlet private weak var mediumFontSizeLabel: UILabel!
-    @IBOutlet private weak var largeFontSizeTableViewCell: BaseTableViewCell!
-    @IBOutlet private weak var largeFontSizeLabel: UILabel!
-    @IBOutlet private var fontSizeTableViewCells: [BaseTableViewCell]!
-    
+    @IBOutlet private weak var fontSizeLabel: UILabel!
+    //Discography Type
+    @IBOutlet private weak var discographyTypeLabel: UILabel!
     //Thumbnail
     @IBOutlet private weak var thumbnailSwitch: UISwitch!
     
@@ -45,6 +35,9 @@ final class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
         self.initAppearance()
         self.initThumbnailSwitch()
+        self.updateThemeTitle()
+        self.updateFontSizeLabel()
+        self.updateDiscographyTypeLabel()
         self.choosenWidgetSections = UserDefaults.choosenWidgetSections()
         self.title = "Settings"
     }
@@ -68,20 +61,6 @@ final class SettingsTableViewController: UITableViewController {
             $0.tintColor = Settings.currentTheme.secondaryTitleColor
             $0.onTintColor = Settings.currentTheme.titleColor
         })
-        
-        self.defaultFontSizeLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.defaultFontSizeLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        self.mediumFontSizeLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.mediumFontSizeLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        self.largeFontSizeLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.largeFontSizeLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-    }
-    
-    private func displayRestartAlert() {
-        let alert = UIAlertController(title: "Restart required", message: "Restart application for changes to take effect.", preferredStyle: .alert)
-        let okayAction = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
-        alert.addAction(okayAction)
-        self.present(alert, animated: true, completion: nil)
     }
 
     private func initThumbnailSwitch() {
@@ -118,92 +97,51 @@ final class SettingsTableViewController: UITableViewController {
         case let chooseWidgetSectionsViewController as ChooseWidgetSectionsViewController:
             chooseWidgetSectionsViewController.delegate = self
             
+        case let themeListTableViewController as ThemeListTableViewController:
+            themeListTableViewController.delegate = self
+            
+        case let fontSizeListTableViewController as FontSizeListTableViewController:
+            fontSizeListTableViewController.delegate = self
+            
+        case let discographyTypeListTableViewController as DiscographyTypeListTableViewController:
+            discographyTypeListTableViewController.delegate = self
+            
         default:
             break
         }
     }
 }
 
-//MARK: - Theme customization
-extension SettingsTableViewController {
-    private func didTapDefaultThemeTableViewCell() {
-        self.setCurrentTheme(.default)
+//MARK: - ThemeListTableViewControllerDelegate
+extension SettingsTableViewController: ThemeListTableViewControllerDelegate {
+    func didChangeTheme() {
+        self.updateThemeTitle()
     }
     
-    private func didTapLightThemeTableViewCell() {
-        self.setCurrentTheme(.light)
-    }
-    
-    private func didTapVintageThemeTableViewCell() {
-        self.setCurrentTheme(.vintage)
-    }
-    
-    private func didTapUnicornThemeTableViewCell() {
-        self.setCurrentTheme(.unicorn)
-    }
-    
-    private func setCurrentTheme(_ selectedTheme: Theme) {
-        var selectedThemeTableViewCell: BaseTableViewCell?
-        
-        switch selectedTheme {
-        case .default: selectedThemeTableViewCell = self.defaultThemeTableViewCell
-        case .light: selectedThemeTableViewCell = self.lightThemeTableViewCell
-        case .vintage: selectedThemeTableViewCell = self.vintageThemeTableViewCell
-        case .unicorn: selectedThemeTableViewCell = self.unicornThemeTableViewCell
-        }
-        
-        self.themeTableViewCells.forEach { (eachThemeTableViewCell) in
-            if eachThemeTableViewCell == selectedThemeTableViewCell {
-                eachThemeTableViewCell.accessoryType = .checkmark
-            } else {
-                eachThemeTableViewCell.accessoryType = .none
-            }
-        }
-        
-        UserDefaults.setTheme(selectedTheme)
-        
-        self.displayRestartAlert()
-        
-        Analytics.logEvent(AnalyticsEvent.ChangeTheme, parameters: nil)
+    private func updateThemeTitle() {
+        self.themeLabel.text = UserDefaults.selectedTheme().description
     }
 }
 
-//MARK: - Font size customization
-extension SettingsTableViewController {
-    private func didTapDefaultFontSizeTableViewCell() {
-        self.setCurrentFontSize(.default)
+//MARK: - FontSizeListTableViewControllerDelegate
+extension SettingsTableViewController: FontSizeListTableViewControllerDelegate {
+    func didChangeFontSize() {
+        self.updateFontSizeLabel()
     }
     
-    private func didTapMediumFontSizeTableViewCell() {
-        self.setCurrentFontSize(.medium)
+    private func updateFontSizeLabel() {
+        self.fontSizeLabel.text = UserDefaults.selectedFontSize().description
+    }
+}
+
+//MARK: - DiscographyTypeListTableViewControllerDelegate
+extension SettingsTableViewController: DiscographyTypeListTableViewControllerDelegate {
+    func didChangeDiscographyType() {
+        self.updateDiscographyTypeLabel()
     }
     
-    private func didTapLargeFontSizeTableViewCell() {
-        self.setCurrentFontSize(.large)
-    }
-    
-    private func setCurrentFontSize(_ selectedFontSize: FontSize) {
-        var selectedFontSizeTableViewCell: BaseTableViewCell?
-        
-        switch selectedFontSize {
-        case .default: selectedFontSizeTableViewCell = self.defaultFontSizeTableViewCell
-        case .medium: selectedFontSizeTableViewCell = self.mediumFontSizeTableViewCell
-        case .large: selectedFontSizeTableViewCell = self.largeFontSizeTableViewCell
-        }
-        
-        self.fontSizeTableViewCells.forEach { (eachThemeTableViewCell) in
-            if eachThemeTableViewCell == selectedFontSizeTableViewCell {
-                eachThemeTableViewCell.accessoryType = .checkmark
-            } else {
-                eachThemeTableViewCell.accessoryType = .none
-            }
-        }
-        
-        UserDefaults.setFontSize(selectedFontSize)
-        
-        self.displayRestartAlert()
-        
-        Analytics.logEvent(AnalyticsEvent.ChangeTheme, parameters: nil)
+    private func updateDiscographyTypeLabel() {
+        self.discographyTypeLabel.text = UserDefaults.selectedDiscographyType().description
     }
 }
 
@@ -231,61 +169,5 @@ extension SettingsTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let selectedCell = tableView.cellForRow(at: indexPath)
-        if selectedCell == self.defaultThemeTableViewCell {
-            self.didTapDefaultThemeTableViewCell()
-        } else if selectedCell == self.lightThemeTableViewCell {
-            self.didTapLightThemeTableViewCell()
-        } else if selectedCell == self.vintageThemeTableViewCell {
-            self.didTapVintageThemeTableViewCell()
-        } else if selectedCell == self.unicornThemeTableViewCell {
-            self.didTapUnicornThemeTableViewCell()
-        } else if selectedCell == self.defaultFontSizeTableViewCell {
-            self.didTapDefaultFontSizeTableViewCell()
-        } else if selectedCell == self.mediumFontSizeTableViewCell {
-            self.didTapMediumFontSizeTableViewCell()
-        } else if selectedCell == self.largeFontSizeTableViewCell {
-            self.didTapLargeFontSizeTableViewCell()
-        }
-    }
-}
-
-extension SettingsTableViewController {
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
-        switch UserDefaults.selectedTheme() {
-        case .default:
-            if cell == self.defaultThemeTableViewCell {
-                cell.accessoryType = .checkmark
-            }
-        case .light:
-            if cell == self.lightThemeTableViewCell {
-                cell.accessoryType = .checkmark
-            }
-        case .vintage:
-            if cell == self.vintageThemeTableViewCell {
-                cell.accessoryType = .checkmark
-            }
-        case .unicorn:
-            if cell == self.unicornThemeTableViewCell {
-                cell.accessoryType = .checkmark
-            }
-        }
-        
-        switch UserDefaults.selectedFontSize() {
-        case .default:
-            if cell == self.defaultFontSizeTableViewCell {
-                cell.accessoryType = .checkmark
-            }
-        case .medium:
-            if cell == self.mediumFontSizeTableViewCell {
-                cell.accessoryType = .checkmark
-            }
-        case .large:
-            if cell == self.largeFontSizeTableViewCell {
-                cell.accessoryType = .checkmark
-            }
-        }
     }
 }

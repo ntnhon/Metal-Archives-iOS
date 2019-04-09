@@ -16,7 +16,7 @@ final class BandDetailViewController: RefreshableViewController {
     var bandURLString: String!
 
     private var band: Band!
-    private var currentDiscographyType: DiscographyType = .complete
+    private var currentDiscographyType: DiscographyType = UserDefaults.selectedDiscographyType()
     private var currentMembersType: MembersType?
     private var availableMembersType: [MembersType]!
     private var lineUpHeaderCell: LineUpHeaderTableViewCell!

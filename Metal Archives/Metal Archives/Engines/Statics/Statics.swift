@@ -71,12 +71,15 @@ let monthList: [MonthInYear] = {
     
     let shortDateFormatter = DateFormatter()
     shortDateFormatter.dateFormat = "MMM yyyy"
+    shortDateFormatter.locale = Locale(identifier: "en_US_POSIX")
     
     let longDateFormatter = DateFormatter()
     longDateFormatter.dateFormat = "yyyy - MMMM"
+    longDateFormatter.locale = Locale(identifier: "en_US_POSIX")
     
     let requestParameterDateFormatter = DateFormatter()
     requestParameterDateFormatter.dateFormat = "yyyy-MM"
+    requestParameterDateFormatter.locale = Locale(identifier: "en_US_POSIX")
     
     var startDate: Date! = shortDateFormatter.date(from: "Jul 2002")
     let endDate = Date()

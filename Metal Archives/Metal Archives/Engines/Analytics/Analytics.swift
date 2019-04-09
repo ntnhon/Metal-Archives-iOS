@@ -82,6 +82,7 @@ struct AnalyticsEvent {
     static let ChangeThumbnailEnabled = "change_thumbnail_enabled"
     static let ChangeWidgetSections = "change_widget_sections"
     static let ViewSettingsExplication = "view_settings_explication"
+    static let ChangeDefaultDiscographyType = "change_default_discography_type"
     //About
     static let SelectAnAboutOption = "select_an_about_option"
     //Review
