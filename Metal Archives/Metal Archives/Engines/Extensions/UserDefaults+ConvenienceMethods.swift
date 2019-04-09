@@ -43,6 +43,17 @@ extension UserDefaults {
         return FontSize(rawValue: fontSizeRawValue) ?? .default
     }
     
+    //MARK: - Discography Type
+    private static let discographyTypeKey = "DiscographyTypeKey"
+    static func setDiscographyType(_ discographyType: DiscographyType) {
+        defaults.set(discographyType.rawValue, forKey: discographyTypeKey)
+    }
+    
+    static func selectedDiscographyType() -> DiscographyType {
+        let discographyTypeRawValue = defaults.integer(forKey: discographyTypeKey)
+        return DiscographyType(rawValue: discographyTypeRawValue) ?? .complete
+    }
+    
     //MARK: - Thumbnail
     private static let thumbnailEnabledKey = "ThumbnailEnabledKey"
     static func setThumbnailEnabled(_ enabled: Bool) {

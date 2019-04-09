@@ -18,6 +18,8 @@ final class SettingsTableViewController: UITableViewController {
     @IBOutlet private weak var themeLabel: UILabel!
     //Font Size
     @IBOutlet private weak var fontSizeLabel: UILabel!
+    //Discography Type
+    @IBOutlet private weak var discographyTypeLabel: UILabel!
     //Thumbnail
     @IBOutlet private weak var thumbnailSwitch: UISwitch!
     
@@ -35,6 +37,7 @@ final class SettingsTableViewController: UITableViewController {
         self.initThumbnailSwitch()
         self.updateThemeTitle()
         self.updateFontSizeLabel()
+        self.updateDiscographyTypeLabel()
         self.choosenWidgetSections = UserDefaults.choosenWidgetSections()
         self.title = "Settings"
     }
@@ -100,6 +103,9 @@ final class SettingsTableViewController: UITableViewController {
         case let fontSizeListTableViewController as FontSizeListTableViewController:
             fontSizeListTableViewController.delegate = self
             
+        case let discographyTypeListTableViewController as DiscographyTypeListTableViewController:
+            discographyTypeListTableViewController.delegate = self
+            
         default:
             break
         }
@@ -125,6 +131,17 @@ extension SettingsTableViewController: FontSizeListTableViewControllerDelegate {
     
     private func updateFontSizeLabel() {
         self.fontSizeLabel.text = UserDefaults.selectedFontSize().description
+    }
+}
+
+//MARK: - DiscographyTypeListTableViewControllerDelegate
+extension SettingsTableViewController: DiscographyTypeListTableViewControllerDelegate {
+    func didChangeDiscographyType() {
+        self.updateDiscographyTypeLabel()
+    }
+    
+    private func updateDiscographyTypeLabel() {
+        self.discographyTypeLabel.text = UserDefaults.selectedDiscographyType().description
     }
 }
 
