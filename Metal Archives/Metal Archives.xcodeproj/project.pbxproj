@@ -3313,7 +3313,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B5FF8BF7938B393A21BD7E3A /* Pods-Metal Archives.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Metal Archives/Metal Archives.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -3336,7 +3336,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5D5876ACADF08DA20C4ADAB7 /* Pods-Metal Archives.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Metal Archives/Metal Archives.entitlements";
 				CODE_SIGN_STYLE = Automatic;
