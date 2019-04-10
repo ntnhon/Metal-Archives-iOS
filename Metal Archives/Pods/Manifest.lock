@@ -87,22 +87,22 @@ PODS:
   - UIColor_Hex_Swift (4.2.0)
 
 DEPENDENCIES:
-  - Alamofire
-  - AlamofireNetworkActivityIndicator
-  - AttributedLib
-  - BetterSegmentedControl (~> 1.0)
-  - Charts
-  - Crashlytics
+  - Alamofire (~> 4.8.0)
+  - AlamofireNetworkActivityIndicator (~> 2.3.0)
+  - AttributedLib (~> 2.1.1)
+  - BetterSegmentedControl (~> 1.0.3)
+  - Charts (~> 3.2.1)
+  - Crashlytics (~> 3.12.0)
   - Firebase/Core
   - Firebase/Messaging
-  - Kanna
-  - NotificationBannerSwift
+  - Kanna (~> 4.0.3)
+  - NotificationBannerSwift (~> 2.0.1)
   - SDWebImage (~> 4.0)
-  - Siren
-  - SkyFloatingLabelTextField (~> 3.0)
-  - SlideMenuControllerSwift
-  - Toaster
-  - UIColor_Hex_Swift
+  - Siren (~> 4.0.1)
+  - SkyFloatingLabelTextField (~> 3.6.0)
+  - SlideMenuControllerSwift (~> 4.0.0)
+  - Toaster (~> 2.1.1)
+  - UIColor_Hex_Swift (~> 4.2.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -163,6 +163,6 @@ SPEC CHECKSUMS:
   Toaster: a6c9532de1ded8105e77376f7dffeb2e12b46dbb
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
 
-PODFILE CHECKSUM: cf60517072802128ff8479176fe65fc7660dc89c
+PODFILE CHECKSUM: 59d677a7826d450aa48a76a55c3624e22d73d97a
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1
