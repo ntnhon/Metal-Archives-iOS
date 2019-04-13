@@ -138,6 +138,7 @@ extension AppDelegate {
             choosenWidgetsString += $0.description
             choosenWidgetsString += ", "
         })
+
         Analytics.logEvent(AnalyticsEvent.OpenWithSettings, parameters: ["theme": Settings.currentTheme.description, "font_size": Settings.currentFontSize.description,"thumbnail_enabled": UserDefaults.thumbnailEnabled(), "widget_sections": choosenWidgetsString, "num_of_sessions": UserDefaults.numberOfSessions()])
         
         SDWebImageManager.shared().imageDownloader?.maxConcurrentDownloads = 10

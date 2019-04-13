@@ -57,7 +57,7 @@ final class AboutTableViewController: UITableViewController {
 //MARK: - Actions
 extension AboutTableViewController {
     private func didTapGithub() {
-        let urlString = "https://github.com/ntnhon/MetalArchive-iOS"
+        let urlString = "https://github.com/ntnhon/Metal-Archives-iOS"
         self.presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertMessage: urlString)
         
         Analytics.logEvent(AnalyticsEvent.SelectAnAboutOption, parameters: [AnalyticsParameter.Option: "Github"])
