@@ -82,6 +82,7 @@
 		C018B78E2243C06F00CDFFB8 /* BandAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01839DE22253E6100FF88B7 /* BandAddition.swift */; };
 		C01D5870225CE28100DC7556 /* ThemeListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */; };
 		C01D5872225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */; };
+		C0310A012266175000880B75 /* Crashlytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0310A002266175000880B75 /* Crashlytics.swift */; };
 		C03270CD220AE309009FA337 /* ReleaseHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270CC220AE309009FA337 /* ReleaseHeaderTableViewCell.swift */; };
 		C03270CF220AE31A009FA337 /* ReleaseHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03270CE220AE31A009FA337 /* ReleaseHeaderTableViewCell.xib */; };
 		C03270D1220B1AAD009FA337 /* ReleaseElementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */; };
@@ -529,6 +530,7 @@
 		C018B7872243BBC800CDFFB8 /* UpcomingAlbumTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingAlbumTableViewCell.xib; sourceTree = "<group>"; };
 		C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeListTableViewController.swift; sourceTree = "<group>"; };
 		C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DisplayRestartAlert.swift"; sourceTree = "<group>"; };
+		C0310A002266175000880B75 /* Crashlytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crashlytics.swift; sourceTree = "<group>"; };
 		C03270CC220AE309009FA337 /* ReleaseHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		C03270CE220AE31A009FA337 /* ReleaseHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseElementTableViewCell.swift; sourceTree = "<group>"; };
@@ -905,6 +907,7 @@
 			isa = PBXGroup;
 			children = (
 				C006FB182249119000CA6CCD /* Analytics.swift */,
+				C0310A002266175000880B75 /* Crashlytics.swift */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -2887,6 +2890,7 @@
 				C06B624E2242491E00A3FE6B /* BrowseLabelsByCountryResultTableViewCell.swift in Sources */,
 				C0A48CF02221D76C0047FC70 /* Error+Code&Domain.swift in Sources */,
 				C0A2BF7821F67293002CCFEC /* UIViewController+OpenURLInBrowsers.swift in Sources */,
+				C0310A012266175000880B75 /* Crashlytics.swift in Sources */,
 				C00838872200F21200B35996 /* ReadMoreViewController.swift in Sources */,
 				C0A1F94A224187FD005C2C83 /* ArtistRIPViewController.swift in Sources */,
 				C09A18AE21FF56B300152908 /* SlideMenuController+AutoRotate.swift in Sources */,

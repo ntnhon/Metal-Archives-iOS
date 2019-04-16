@@ -10,6 +10,7 @@ import UIKit
 import SDWebImage
 import Toaster
 import FirebaseAnalytics
+import Crashlytics
 
 //MARK: - Properties
 final class BandDetailViewController: RefreshableViewController {
@@ -84,6 +85,7 @@ final class BandDetailViewController: RefreshableViewController {
                 self?.bandParameters = [AnalyticsParameter.BandName: band.name, AnalyticsParameter.BandID: band.id, AnalyticsParameter.BandCountry: band.country.nameAndEmoji]
                 
                 Analytics.logEvent(AnalyticsEvent.ViewBand, parameters: self?.bandParameters)
+                Crashlytics.sharedInstance().setObjectValue(self?.band, forKey: CrashlyticsKey.Band)
             }
         }
     }
@@ -399,9 +401,12 @@ extension BandDetailViewController {
         }
         
         if let `selectedRelease` = selectedRelease {
+            Analytics.logEvent(AnalyticsEvent.ViewBandRelease, parameters: [AnalyticsParameter.BandName: band.name, AnalyticsParameter.BandID: band.id, AnalyticsParameter.BandCountry: band.country.nameAndEmoji, AnalyticsParameter.ReleaseTitle: selectedRelease.title, AnalyticsParameter.ReleaseID: selectedRelease.id])
+            
+            Crashlytics.sharedInstance().setObjectValue(selectedRelease, forKey: CrashlyticsKey.SelectedRelease)
+            
             self.pushReleaseDetailViewController(urlString: selectedRelease.urlString, animated: true)
             
-            Analytics.logEvent(AnalyticsEvent.ViewBandRelease, parameters: [AnalyticsParameter.BandName: band.name, AnalyticsParameter.BandID: band.id, AnalyticsParameter.BandCountry: band.country.nameAndEmoji, AnalyticsParameter.ReleaseTitle: selectedRelease.title, AnalyticsParameter.ReleaseID: selectedRelease.id])
         }
     }
 }
@@ -765,6 +770,8 @@ extension BandDetailViewController: DiscographyHeaderTableViewCellDelegate {
         self.tableView.endUpdates()
         
         Analytics.logEvent(AnalyticsEvent.ChangeDiscographyType, parameters: [AnalyticsParameter.BandName: band.name, AnalyticsParameter.BandID: band.id, AnalyticsParameter.BandCountry: band.country.nameAndEmoji, AnalyticsParameter.DiscographyType: self.currentDiscographyType.description])
+        
+        Crashlytics.sharedInstance().setValue(discographyType.description, forKey: CrashlyticsKey.DiscographyMode)
     }
 }
 
@@ -778,5 +785,7 @@ extension BandDetailViewController: MembersHeaderTableViewCellDelegate {
         self.tableView.endUpdates()
         
         Analytics.logEvent(AnalyticsEvent.ChangeMemberType, parameters: [AnalyticsParameter.BandName: band.name, AnalyticsParameter.BandID: band.id, AnalyticsParameter.BandCountry: band.country.nameAndEmoji, AnalyticsParameter.MemberType: self.currentMembersType!.description])
+        
+        Crashlytics.sharedInstance().setValue(self.currentMembersType?.description, forKey: CrashlyticsKey.MemberType)
     }
 }

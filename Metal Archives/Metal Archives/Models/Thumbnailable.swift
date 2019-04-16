@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Thumbnailable {
+class Thumbnailable: NSObject {
     let urlString: String
     let id: String
     let imageType: ImageType
@@ -19,6 +19,10 @@ class Thumbnailable {
     private var triedJPEG = false
     private var triedGIF = false
     
+    override var description: String {
+        return self.id
+    }
+    
     init?(urlString: String, imageType: ImageType) {
         if let id = urlString.components(separatedBy: "/").last {
             self.id = id
@@ -28,6 +32,7 @@ class Thumbnailable {
         
         self.urlString = urlString
         self.imageType = imageType
+        super.init()
         self.generateImageURLString()
     }
     

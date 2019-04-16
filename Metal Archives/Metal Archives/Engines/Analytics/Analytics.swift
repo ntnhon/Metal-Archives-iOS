@@ -6,11 +6,19 @@
 //  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
 //
 
-import Foundation
-
 struct AnalyticsEvent {
-    //Theme
-    static let OpenWithSettings = "open_with_settings"
+    //Settins
+    static let UseThemeDefault = "use_theme_default"
+    static let UseThemeLight = "use_theme_light"
+    static let UseThemeVintage = "use_theme_vintage"
+    static let UseThemeUnicorn = "use_theme_unicorn"
+    static let EnabledThumbnail = "enabled_thumbnail"
+    static let DisabledThumbnail = "disabled_thumbnail"
+    static let UseFontSizeDefault = "use_font_size_default"
+    static let UseFontSizeMedium = "use_font_size_medium"
+    static let UseFontSizeLarge = "use_font_size_large"
+    static let TodayWidget1Section = "today_widget_1_section"
+    static let TodayWidget2Sections = "today_widget_2_sections"
     //Fetch more
     static let FetchMore = "fetch_more"
     //Push Notification

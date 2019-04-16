@@ -9,7 +9,7 @@
 import Foundation
 import Kanna
 
-final class Release {
+final class Release: NSObject {
     private(set) var id: String!
     private(set) var urlString: String!
     private(set) var band: BandLite?
@@ -34,6 +34,10 @@ final class Release {
     
     func setOtherVersions(_ otherVersions: [ReleaseOtherVersion]) {
         self.otherVersions = otherVersions
+    }
+    
+    override var description: String {
+        return "\(self.id ?? "") - \(self.title ?? "") - \(self.urlString ?? "")"
     }
     
     init?(data: Data) {

@@ -9,38 +9,38 @@
 import Foundation
 import Kanna
 
-final class Band {
+final class Band: NSObject {
     private(set) var id: String!
-    private(set) var  name: String!
-    private(set) var  urlString: String!
-    private(set) var  country: Country!
-    private(set) var  genre: String!
-    private(set) var  status: BandStatus!
+    private(set) var name: String!
+    private(set) var urlString: String!
+    private(set) var country: Country!
+    private(set) var genre: String!
+    private(set) var status: BandStatus!
     
-    private(set) var  location: String!
-    private(set) var  formedIn: String!
-    private(set) var  yearsActiveString: String!
-    private(set) var  oldBands: [BandAncient]?
-    private(set) var  lyricalTheme: String!
-    private(set) var  lastLabel: LabelLiteInBand!
-    private(set) var  shortHTMLDescription: String?
-    private(set) var  completeHTMLDescription: String?
-    private(set) var  addedOnDate: Date?
-    private(set) var  lastModifiedOnDate: Date?
-    private(set) var  logoURLString: String?
-    private(set) var  photoURLString: String?
-    private(set) var  discography: Discography? {
+    private(set) var location: String!
+    private(set) var formedIn: String!
+    private(set) var yearsActiveString: String!
+    private(set) var oldBands: [BandAncient]?
+    private(set) var lyricalTheme: String!
+    private(set) var lastLabel: LabelLiteInBand!
+    private(set) var shortHTMLDescription: String?
+    private(set) var completeHTMLDescription: String?
+    private(set) var addedOnDate: Date?
+    private(set) var lastModifiedOnDate: Date?
+    private(set) var logoURLString: String?
+    private(set) var photoURLString: String?
+    private(set) var discography: Discography? {
         didSet {
             self.findCorrespondingReleasesForReviews()
         }
     }
     
     //Band detail
-    private(set) var  completeLineup: [ArtistLite]?
-    private(set) var  currentLineup: [ArtistLite]?
-    private(set) var  lastKnownLineup: [ArtistLite]?
-    private(set) var  pastMembers: [ArtistLite]?
-    private(set) var  liveMusicians: [ArtistLite]?
+    private(set) var completeLineup: [ArtistLite]?
+    private(set) var currentLineup: [ArtistLite]?
+    private(set) var lastKnownLineup: [ArtistLite]?
+    private(set) var pastMembers: [ArtistLite]?
+    private(set) var liveMusicians: [ArtistLite]?
     lazy var hasNoMember: Bool = {
         return completeLineup == nil
     }()
@@ -63,7 +63,7 @@ final class Band {
     private(set) var moreToLoad = true
     
     //Similar artist
-    private(set) var  similarArtists: [BandSimilar]?
+    private(set) var similarArtists: [BandSimilar]?
     
     private(set) var relatedLinks: [RelatedLink]?
     
@@ -412,6 +412,11 @@ final class Band {
     }
 }
 
+extension Band {
+    override var description: String {
+        return "\(self.id ?? "") - \(self.name ?? "") - \(self.country.nameAndEmoji)"
+    }
+}
 
 extension Band {
     func setReadMoreString(_ readMoreString: String) {

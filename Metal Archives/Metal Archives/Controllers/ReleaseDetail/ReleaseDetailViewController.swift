@@ -9,6 +9,7 @@
 import UIKit
 import Toaster
 import FirebaseAnalytics
+import Crashlytics
 
 //MARK: - Properties
 final class ReleaseDetailViewController: RefreshableViewController {
@@ -88,6 +89,8 @@ final class ReleaseDetailViewController: RefreshableViewController {
                 self?.tableView.reloadData()
                 
                 Analytics.logEvent(AnalyticsEvent.ViewRelease, parameters: [AnalyticsParameter.ReleaseTitle: release.title, AnalyticsParameter.ReleaseID: release.id])
+                
+                Crashlytics.sharedInstance().setValue(release, forKey: CrashlyticsKey.Release)
             }
         }
     }
@@ -531,5 +534,7 @@ extension ReleaseDetailViewController: ReleaseMemberHeaderTableViewCellDelegate 
         self.tableView.endUpdates()
         
         Analytics.logEvent(AnalyticsEvent.ChangeLineUpType, parameters: [AnalyticsParameter.ReleaseTitle: self.release.title, AnalyticsParameter.ReleaseID: self.release.id, AnalyticsParameter.LineUpType: self.currentLineUpType.description])
+        
+        Crashlytics.sharedInstance().setValue(self.currentLineUpType.description, forKey: CrashlyticsKey.LineupType)
     }
 }

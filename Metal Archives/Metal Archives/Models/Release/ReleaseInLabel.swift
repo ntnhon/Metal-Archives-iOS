@@ -15,16 +15,16 @@ final class ReleaseInLabel: Thumbnailable {
     let year: Int?
     let catalogID: String
     let format: String
-    let description: String
+    let releaseDescription: String
     
-    init?(bands: [BandLite], release: ReleaseExtraLite, type: String, year: Int?, catalogID: String, format: String, description: String) {
+    init?(bands: [BandLite], release: ReleaseExtraLite, type: String, year: Int?, catalogID: String, format: String, releaseDescription: String) {
         self.bands = bands
         self.release = release
         self.type = type
         self.year = year
         self.catalogID = catalogID
         self.format = format
-        self.description = description
+        self.releaseDescription = releaseDescription
         super.init(urlString: release.urlString, imageType: .release)
     }
 }
@@ -84,7 +84,7 @@ extension ReleaseInLabel: Pagable {
             let description = eachReleaseDetail[6]
             
             if let `release` = release {
-                if let releaseInLabel = ReleaseInLabel(bands: bands, release: release, type: type, year: year, catalogID: catalogID, format: format, description: description) {
+                if let releaseInLabel = ReleaseInLabel(bands: bands, release: release, type: type, year: year, catalogID: catalogID, format: format, releaseDescription: description) {
                     list.append(releaseInLabel)
                 }
             }

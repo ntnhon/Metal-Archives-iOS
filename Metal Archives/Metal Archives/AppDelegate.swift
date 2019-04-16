@@ -132,15 +132,6 @@ extension AppDelegate {
         Settings.currentFontSize = UserDefaults.selectedFontSize()
         Settings.thumbnailEnabled = UserDefaults.thumbnailEnabled()
         
-        
-        var choosenWidgetsString = ""
-        UserDefaults.choosenWidgetSections().forEach({
-            choosenWidgetsString += $0.description
-            choosenWidgetsString += ", "
-        })
-
-        Analytics.logEvent(AnalyticsEvent.OpenWithSettings, parameters: ["theme": Settings.currentTheme.description, "font_size": Settings.currentFontSize.description,"thumbnail_enabled": UserDefaults.thumbnailEnabled(), "widget_sections": choosenWidgetsString, "num_of_sessions": UserDefaults.numberOfSessions()])
-        
         SDWebImageManager.shared().imageDownloader?.maxConcurrentDownloads = 10
         
         //Register for Push Notification
@@ -154,6 +145,33 @@ extension AppDelegate {
             }
         }
         Messaging.messaging().delegate = self
+        
+        //Log app settings
+        switch Settings.currentTheme! {
+        case .default: Analytics.logEvent(AnalyticsEvent.UseThemeDefault, parameters: nil)
+        case .light: Analytics.logEvent(AnalyticsEvent.UseThemeLight, parameters: nil)
+        case .vintage: Analytics.logEvent(AnalyticsEvent.UseThemeVintage, parameters: nil)
+        case .unicorn: Analytics.logEvent(AnalyticsEvent.UseThemeUnicorn, parameters: nil)
+        }
+        
+        if UserDefaults.thumbnailEnabled() {
+            Analytics.logEvent(AnalyticsEvent.EnabledThumbnail, parameters: nil)
+        } else {
+            Analytics.logEvent(AnalyticsEvent.DisabledThumbnail, parameters: nil)
+        }
+        
+        switch Settings.currentFontSize! {
+        case .default: Analytics.logEvent(AnalyticsEvent.UseFontSizeDefault, parameters: nil)
+        case .medium: Analytics.logEvent(AnalyticsEvent.UseFontSizeMedium, parameters: nil)
+        case .large: Analytics.logEvent(AnalyticsEvent.UseFontSizeLarge, parameters: nil)
+        }
+        
+        if UserDefaults.choosenWidgetSections().count == 1 {
+            Analytics.logEvent(AnalyticsEvent.TodayWidget1Section, parameters: ["widget_name": UserDefaults.choosenWidgetSections()[0].description])
+        } else if UserDefaults.choosenWidgetSections().count == 2 {
+            let widgetNames = UserDefaults.choosenWidgetSections().map({$0.description}).joined(separator: ", ")
+            Analytics.logEvent(AnalyticsEvent.TodayWidget2Sections, parameters: ["widget_name": widgetNames])
+        }
     }
     
     private func initAppearance() {

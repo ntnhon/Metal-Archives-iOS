@@ -16,6 +16,10 @@ final class ReleaseLite: Thumbnailable {
     let averagePoint: Int?
     let reviewsURLString: String?
     
+    override var description: String {
+        return "\(self.id) - \(self.title) - \(self.year) - \(self.type.description)"
+    }
+    
     init?(urlString: String, type: ReleaseType, title: String, year: Int, numberOfReviews: Int?, averagePoint: Int?, reviewsURLString: String?) {
         self.title = title
         self.year = year

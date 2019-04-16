@@ -58,7 +58,7 @@ final class ReleaseInLabelTableViewCell: ThumbnailableTableViewCell, Registerabl
         
         self.catalogIDLabel.text = release.catalogID
         self.formatLabel.text = release.format
-        self.descriptionLabel.text = release.description
+        self.descriptionLabel.text = release.releaseDescription
         self.setThumbnailImageView(with: release, placeHolderImageName: Ressources.Images.vinyl)
         
     }
