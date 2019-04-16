@@ -8,6 +8,7 @@
 
 struct AnalyticsEvent {
     //Settins
+    static let NumberOfSessions = "num_of_sessions"
     static let UseThemeDefault = "use_theme_default"
     static let UseThemeLight = "use_theme_light"
     static let UseThemeVintage = "use_theme_vintage"

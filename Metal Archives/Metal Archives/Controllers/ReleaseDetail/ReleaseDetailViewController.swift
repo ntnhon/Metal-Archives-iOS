@@ -90,7 +90,7 @@ final class ReleaseDetailViewController: RefreshableViewController {
                 
                 Analytics.logEvent(AnalyticsEvent.ViewRelease, parameters: [AnalyticsParameter.ReleaseTitle: release.title, AnalyticsParameter.ReleaseID: release.id])
                 
-                Crashlytics.sharedInstance().setValue(release, forKey: CrashlyticsKey.Release)
+                Crashlytics.sharedInstance().setObjectValue(release, forKey: CrashlyticsKey.Release)
             }
         }
     }
@@ -535,6 +535,6 @@ extension ReleaseDetailViewController: ReleaseMemberHeaderTableViewCellDelegate 
         
         Analytics.logEvent(AnalyticsEvent.ChangeLineUpType, parameters: [AnalyticsParameter.ReleaseTitle: self.release.title, AnalyticsParameter.ReleaseID: self.release.id, AnalyticsParameter.LineUpType: self.currentLineUpType.description])
         
-        Crashlytics.sharedInstance().setValue(self.currentLineUpType.description, forKey: CrashlyticsKey.LineupType)
+        Crashlytics.sharedInstance().setObjectValue(self.currentLineUpType.description, forKey: CrashlyticsKey.LineupType)
     }
 }

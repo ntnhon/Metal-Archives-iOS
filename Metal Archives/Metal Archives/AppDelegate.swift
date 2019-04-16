@@ -172,6 +172,8 @@ extension AppDelegate {
             let widgetNames = UserDefaults.choosenWidgetSections().map({$0.description}).joined(separator: ", ")
             Analytics.logEvent(AnalyticsEvent.TodayWidget2Sections, parameters: ["widget_name": widgetNames])
         }
+        
+        Analytics.logEvent(AnalyticsEvent.NumberOfSessions, parameters: ["count": UserDefaults.numberOfSessions()])
     }
     
     private func initAppearance() {

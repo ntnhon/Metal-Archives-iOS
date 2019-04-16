@@ -9,7 +9,7 @@
 import Foundation
 import Kanna
 
-final class Release: NSObject {
+final class Release {
     private(set) var id: String!
     private(set) var urlString: String!
     private(set) var band: BandLite?
@@ -35,10 +35,10 @@ final class Release: NSObject {
     func setOtherVersions(_ otherVersions: [ReleaseOtherVersion]) {
         self.otherVersions = otherVersions
     }
-    
-    override var description: String {
-        return "\(self.id ?? "") - \(self.title ?? "") - \(self.urlString ?? "")"
-    }
+//    
+//    override var description: String {
+//        return "\(self.id ?? "") - \(self.title ?? "") - \(self.urlString ?? "")"
+//    }
     
     init?(data: Data) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
@@ -296,7 +296,7 @@ final class Release: NSObject {
             }
             //End of: if (table["class"] == "display table_lyrics")
             
-            if self.reviews == nil || self.reviews.count == 0 {
+            if (self.reviews == nil || self.reviews.count == 0) {
                 self.reviews = [ReviewLiteInRelease]()
             }
             
