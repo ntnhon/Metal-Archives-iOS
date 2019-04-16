@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ntnhon/Metal-Archives-iOS/master/Metal%20Archives/Metal%20Archives/Assets.xcassets/AppIcon.appiconset/180.png" alt="Metal Archives Logo"/>
+</p>
+
 ## Metal Archives on iOS
 ![License](https://img.shields.io/badge/license-Apache%202-blue.svg)
 ![Xcode 10.0+](https://img.shields.io/badge/Xcode-10.0%2B-blue.svg)
