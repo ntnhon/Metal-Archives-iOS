@@ -1,7 +1,12 @@
 ## Metal Archives on iOS
+![License](https://img.shields.io/badge/license-Apache%202-blue.svg)
+![Xcode 10.0+](https://img.shields.io/badge/Xcode-10.0%2B-blue.svg)
+![iOS 10.0+](https://img.shields.io/badge/iOS-10.0%2B-blue.svg)
+![Swift 4.0+](https://img.shields.io/badge/Swift-4.0%2B-orange.svg)
+
 Metal Archives *(a.k.a. Encyclopaedia Metallum)* is the biggest encyclopedia of all metal bands around the world. From most well-known worldwide bands like [*Metallica*](https://www.metal-archives.com/bands/Metallica/125) to underground local bands in countries that you may never have [heard of](https://www.metal-archives.com/lists/BZ).
 
-Official website: [https://www.metal-archives.com/](https://www.metal-archives.com/)
+Official website: [https://www.metal-archives.com/](https://www.metal-archives.com/)  
 Official facebook: [https://www.facebook.com/metal.archives](https://www.facebook.com/metal.archives)
 
 Available on [App Store](https://itunes.apple.com/us/app/id1074038930) since January 2016, this application is an unofficial iOS version of the site. It is created in need of an adapted interface on mobile devices for quick researches.
@@ -32,10 +37,11 @@ The application provides almost everything you can do on the site for research p
  - Shortcut (3D touch) for quick actions: open search page, open with a random band.
  - Today Widget which display updates from the homepage: band latest additions, band latest updates, latest reviews, upcoming albums.
  - Customizable interface:
--- 4 built-in themes: default, light, vintage, unicorn.
--- 3 font size options: default, medium, large.
--- Enable/disable thumbnails.
--- Today widget sections.
+   - 4 built-in themes: default, light, vintage, unicorn.
+   - 3 font size options: default, medium, large.
+   - Default discography mode.
+   - Enable/disable thumbnails.
+   - Today widget sections.
 
 **Todo list:**
 - [ ] WatchOS extension.
