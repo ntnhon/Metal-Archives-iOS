@@ -65,6 +65,11 @@ extension AboutTableViewController {
     
     private func didTapContactAuthor() {
         let mailComposerVC = MFMailComposeViewController()
+        
+        guard let _ = mailComposerVC.view else {
+            return
+        }
+        
         mailComposerVC.view.tintColor = Settings.currentTheme.titleColor
         mailComposerVC.mailComposeDelegate = self
         mailComposerVC.setSubject("[Metal Archives iOS] Contact author")
