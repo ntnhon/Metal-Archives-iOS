@@ -32,12 +32,12 @@ extension BandPastRoster: Pagable {
         
         guard
             let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listPastRoster = json?["aaData"] as? [[String]]
+            let listPastRoster = json["aaData"] as? [[String]]
             else {
                 return nil
         }
         
-        let totalRecords = json?["iTotalRecords"] as? Int
+        let totalRecords = json["iTotalRecords"] as? Int
         
         listPastRoster.forEach { (eachBandPastRosterDetail) in
             

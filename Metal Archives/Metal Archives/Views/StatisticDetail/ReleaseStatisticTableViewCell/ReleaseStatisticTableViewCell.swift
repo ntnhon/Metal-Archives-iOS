@@ -24,11 +24,11 @@ final class ReleaseStatisticTableViewCell: BaseTableViewCell, RegisterableCell {
         let albumsEntry = BarChartDataEntry(x: Double(0), y: Double(releaseStatistic.albums))
         let songsEntry = BarChartDataEntry(x: Double(0.5), y: Double(releaseStatistic.songs))
         
-        let albumsDataSet = BarChartDataSet(values: [albumsEntry], label: "Albums (\(releaseStatistic.albums.formattedWithSeparator))")
+        let albumsDataSet = BarChartDataSet(entries: [albumsEntry], label: "Albums (\(releaseStatistic.albums.formattedWithSeparator))")
         albumsDataSet.colors = [Settings.currentTheme.activeStatusColor]
         albumsDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
         
-        let songsDataSet = BarChartDataSet(values: [songsEntry], label: "Songs (\(releaseStatistic.songs.formattedWithSeparator))")
+        let songsDataSet = BarChartDataSet(entries: [songsEntry], label: "Songs (\(releaseStatistic.songs.formattedWithSeparator))")
         songsDataSet.colors = [Settings.currentTheme.closedStatusColor]
         songsDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
         

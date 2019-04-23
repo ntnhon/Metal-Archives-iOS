@@ -27,7 +27,7 @@ final class LabelStatisticTableViewCell: BaseTableViewCell, RegisterableCell {
         let unknownEntry = PieChartDataEntry(value: Double(labelStatistic.unknown.count), label: "\(labelStatistic.unknown.description) (\(labelStatistic.unknown.count.formattedWithSeparator))")
         
         
-        let pieChartDataSet = PieChartDataSet(values: [activeEntry, closedEntry, changedNameEntry, unknownEntry], label: "\(labelStatistic.total.formattedWithSeparator) labels")
+        let pieChartDataSet = PieChartDataSet(entries: [activeEntry, closedEntry, changedNameEntry, unknownEntry], label: "\(labelStatistic.total.formattedWithSeparator) labels")
         
         pieChartDataSet.colors = [labelStatistic.active.color, labelStatistic.closed.color, labelStatistic.changedName.color, labelStatistic.unknown.color]
         

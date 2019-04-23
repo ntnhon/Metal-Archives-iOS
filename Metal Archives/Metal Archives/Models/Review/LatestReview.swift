@@ -39,12 +39,12 @@ extension LatestReview: Pagable {
         
         guard
             let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listLatestReviews = json?["aaData"] as? [[String]]
+            let listLatestReviews = json["aaData"] as? [[String]]
             else {
                 return nil
         }
         
-        let totalRecords = json?["iTotalRecords"] as? Int
+        let totalRecords = json["iTotalRecords"] as? Int
         
         listLatestReviews.forEach { (reviewDetail) in
             guard reviewDetail.count == 7 else {

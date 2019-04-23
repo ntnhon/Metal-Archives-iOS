@@ -17,12 +17,12 @@ final class ArtistUpdate: ArtistAdditionOrUpdate, Pagable {
         
         guard
             let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listBandLatestAdditions = json?["aaData"] as? [[String]]
+            let listBandLatestAdditions = json["aaData"] as? [[String]]
             else {
                 return nil
         }
         
-        let totalRecords = json?["iTotalRecords"] as? Int
+        let totalRecords = json["iTotalRecords"] as? Int
         
         listBandLatestAdditions.forEach { (bandDetails) in
             

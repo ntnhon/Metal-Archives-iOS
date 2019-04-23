@@ -17,12 +17,12 @@ final class SimpleSearchResultMusicGenre: SimpleSearchResultBandNameOrMusicGenre
         
         guard
             let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listSimpleSearchResultMusicGenre = json?["aaData"] as? [[String]]
+            let listSimpleSearchResultMusicGenre = json["aaData"] as? [[String]]
             else {
                 return nil
         }
         
-        let totalRecords = json?["iTotalRecords"] as? Int
+        let totalRecords = json["iTotalRecords"] as? Int
         
         listSimpleSearchResultMusicGenre.forEach { (eachDetail) in
             var band: BandLite?

@@ -1,30 +1,27 @@
 # Attributed
 [![Build Status](https://travis-ci.org/Nirma/Attributed.svg?branch=master)](https://travis-ci.org/Nirma/Attributed)
 ![CodeCov](https://img.shields.io/codecov/c/github/Nirma/Attributed.svg)
-![Swift 4.0](https://img.shields.io/badge/Swift-4.0-orange.svg)
+![Swift 4.2](https://img.shields.io/badge/Swift-4.2-orange.svg)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/AttributedLib.svg)](#cocoapods)
-[![CocoaPods](https://img.shields.io/cocoapods/dt/AttributedLib.svg)]()
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
 µframework for Attributed strings.
 
 ## What is Attributed?
-Attributed aims to be a drop in replacement to the current programming interface of `NSAttributedString`.
-The existing interface to using attributed strings has a few flaws, namely if you dont know the Key and type of value 
-needed to set a certain attribute, you have spend time checking documentation or the reading the comments for `NSAttributedString`.
-Another concern is safety, passing a dictionary of type `[String: Any]` to the constructor of `NSAttributedString` is a potential crash at runtime waiting to happen.
+Attributed aims to be a drop in replacement to the current version of the `NSAttributedString` API.
 
-By wrapping the current official interface to `NSAttributedString` into a fluent easy to use API, Attributed was made
-in an attempt to give developers an alternative option to the official interface.
+The `NSAttributedString` interface has a few shortcomings. If you donʼt know the key and type of value needed to set a certain attribute, you have to spend time checking documentation. Another concern is safety: passing a dictionary of type `[String: Any]` to the constructor of `NSAttributedString` is a potential crash at runtime waiting to happen.
+
+Attributed provides developers a nicer alternative by extending the current `NSAttributedString` interface with a fluent, strongly typed, and easy to use API.
 
 # Features
-- [x] Create `NSAttributedString` instances with a simple and fluid interface
+- [x] Create `NSAttributedString` instances with a strongly typed, simple, and fluid interface
 - [x] Combine `NSAttributedString`s with `+`
 - [x] Partially apply Attributes to parts of an `NSAttributedString` by providing a `Range`
 
-### Dont see a feature you need?
-Feel free to open an Issue requesting the feature you want or send over a pull request!
+### Donʼt see a feature you need?
+Feel free to open an [issue](https://github.com/Nirma/Attributed/issues) requesting the feature you want or send over a pull request!
 
 # Usage  
 
@@ -58,7 +55,7 @@ then simply apply the `Attributes` to a `String`:
 ```
 
 ### Combining `NSAttributedString` with `+`
-This library defines a `+` operator for concatentating instances of `NSAttributedString`.
+This library defines an concatenation operator `+` for concatentating instances of `NSAttributedString`.
 `+` works with `NSAttributedString` no different than it does for `String`.
 This can be useful for combining `NSAttributedStrings` with different attributes to produce the 
 desired effect without having to specify ranges to apply different attributes to.
@@ -104,14 +101,6 @@ pod 'AttributedLib'
 
 ## Contribution
 Contributions are more than welcome!
-
-There are currently three main branches and their use is described as follows: 
-
-| Branch | Purpose |
-|:---:|:---:|
-|`master`| The latest stable release. |
-| `development` | Next release development branch. *Not safe to point to directly* |
-| `attributed-3.0` | The next major release of Attributed, release goal is currently set for April 18, 2018. |
 
 ## License
 

@@ -24,11 +24,11 @@ final class ReviewStatisticTableViewCell: BaseTableViewCell, RegisterableCell {
         let approvedReviewsEntry = BarChartDataEntry(x: Double(0), y: Double(reviewStatistic.approvedReviews))
         let uniqueAlbumsEntry = BarChartDataEntry(x: Double(0.5), y: Double(reviewStatistic.uniqueAlbum))
         
-        let approvedReviewsDataSet = BarChartDataSet(values: [approvedReviewsEntry], label: "Approved reviews (\(reviewStatistic.approvedReviews.formattedWithSeparator))")
+        let approvedReviewsDataSet = BarChartDataSet(entries: [approvedReviewsEntry], label: "Approved reviews (\(reviewStatistic.approvedReviews.formattedWithSeparator))")
         approvedReviewsDataSet.colors = [Settings.currentTheme.activeStatusColor]
         approvedReviewsDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
         
-        let uniqueAlbumsDataSet = BarChartDataSet(values: [uniqueAlbumsEntry], label: "Unique albums (\(reviewStatistic.uniqueAlbum.formattedWithSeparator))")
+        let uniqueAlbumsDataSet = BarChartDataSet(entries: [uniqueAlbumsEntry], label: "Unique albums (\(reviewStatistic.uniqueAlbum.formattedWithSeparator))")
         uniqueAlbumsDataSet.colors = [Settings.currentTheme.closedStatusColor]
         uniqueAlbumsDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
         

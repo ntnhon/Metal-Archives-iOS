@@ -29,12 +29,12 @@ extension AdvancedSearchResultBand: Pagable {
         
         guard
             let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listBandAdvancedSearchResult = json?["aaData"] as? [[String]]
+            let listBandAdvancedSearchResult = json["aaData"] as? [[String]]
             else {
                 return nil
         }
         
-        let totalRecords = json?["iTotalRecords"] as? Int
+        let totalRecords = json["iTotalRecords"] as? Int
         
         listBandAdvancedSearchResult.forEach { (eachSearchResult) in
             var band: BandLite?

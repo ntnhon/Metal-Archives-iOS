@@ -2716,7 +2716,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Metal Archives/Pods-Metal Archives-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Metal Archives/Pods-Metal Archives-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityIndicator/AlamofireNetworkActivityIndicator.framework",
 				"${BUILT_PRODUCTS_DIR}/AttributedLib/AttributedLib.framework",
@@ -2761,7 +2761,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Metal Archives/Pods-Metal Archives-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Metal Archives/Pods-Metal Archives-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3170,7 +3170,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "info.nguyenthanhnhon.Metal-Archives.Metal-Archives-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3192,7 +3192,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "info.nguyenthanhnhon.Metal-Archives.Metal-Archives-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -3331,7 +3331,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "info.nguyenthanhnhon.Metal-Archives";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3354,7 +3354,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "info.nguyenthanhnhon.Metal-Archives";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

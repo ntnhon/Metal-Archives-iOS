@@ -31,12 +31,12 @@ extension SimpleSearchResultLabelName: Pagable {
         
         guard
             let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listSimpleSearchResultLabelName = json?["aaData"] as? [[String]]
+            let listSimpleSearchResultLabelName = json["aaData"] as? [[String]]
             else {
                 return nil
         }
         
-        let totalRecords = json?["iTotalRecords"] as? Int
+        let totalRecords = json["iTotalRecords"] as? Int
         
         listSimpleSearchResultLabelName.forEach { (eachDetail) in
             var label: LabelLite?

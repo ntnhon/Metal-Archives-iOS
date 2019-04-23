@@ -35,12 +35,12 @@ extension UpcomingAlbum: Pagable {
         
         guard
             let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listUpcomingAlbums = json?["aaData"] as? [[String]]
+            let listUpcomingAlbums = json["aaData"] as? [[String]]
             else {
             return nil
         }
         
-        let totalRecords = json?["iTotalRecords"] as? Int
+        let totalRecords = json["iTotalRecords"] as? Int
         
         listUpcomingAlbums.forEach { (upcomingAlbumDetail) in
             

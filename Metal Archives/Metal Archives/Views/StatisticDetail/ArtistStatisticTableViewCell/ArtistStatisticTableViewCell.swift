@@ -23,13 +23,13 @@ final class ArtistStatisticTableViewCell: BaseTableViewCell, RegisterableCell {
     func drawChart(forArtistStatistic artistStatistic: ArtistStatistic) {
         //Total
         let totalEntry = BarChartDataEntry(x: Double(0), y: Double(artistStatistic.total))
-        let totalDataSet = BarChartDataSet(values: [totalEntry], label: "Total artist (\(artistStatistic.total.formattedWithSeparator))")
+        let totalDataSet = BarChartDataSet(entries: [totalEntry], label: "Total artist (\(artistStatistic.total.formattedWithSeparator))")
         totalDataSet.colors = [Settings.currentTheme.changedNameStatusColor, Settings.currentTheme.closedStatusColor]
         totalDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
         
         //Deceased
         let deceasedEntry = BarChartDataEntry(x: Double(0.2), y: Double(artistStatistic.deceased))
-        let deceasedDataSet = BarChartDataSet(values: [deceasedEntry], label: "Deceased artist (\(artistStatistic.deceased.formattedWithSeparator))")
+        let deceasedDataSet = BarChartDataSet(entries: [deceasedEntry], label: "Deceased artist (\(artistStatistic.deceased.formattedWithSeparator))")
         deceasedDataSet.colors = [Settings.currentTheme.closedStatusColor, Settings.currentTheme.closedStatusColor]
         deceasedDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
         
@@ -37,32 +37,32 @@ final class ArtistStatisticTableViewCell: BaseTableViewCell, RegisterableCell {
         //Still playing
         let stillPlayingEntry = BarChartDataEntry(x: Double(0.4), y: Double(artistStatistic.stillPlaying))
         
-        let stillPlayingDataSet = BarChartDataSet(values: [stillPlayingEntry], label: "Still playing (\(artistStatistic.stillPlaying.formattedWithSeparator))")
+        let stillPlayingDataSet = BarChartDataSet(entries: [stillPlayingEntry], label: "Still playing (\(artistStatistic.stillPlaying.formattedWithSeparator))")
         stillPlayingDataSet.colors = [Settings.currentTheme.activeStatusColor]
         stillPlayingDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
     
         
         //Quit playing
         let quitPlayingEntry = BarChartDataEntry(x: Double(0.6), y: Double(artistStatistic.quitPlaying))
-        let quitPlayingDataSet = BarChartDataSet(values: [quitPlayingEntry], label: "Quit playing (\(artistStatistic.quitPlaying.formattedWithSeparator))")
+        let quitPlayingDataSet = BarChartDataSet(entries: [quitPlayingEntry], label: "Quit playing (\(artistStatistic.quitPlaying.formattedWithSeparator))")
         quitPlayingDataSet.colors = [.gray]
         quitPlayingDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
         
         //Female
         let femaleEntry = BarChartDataEntry(x: Double(0.8), y: Double(artistStatistic.female))
-        let femaleDataSet = BarChartDataSet(values: [femaleEntry], label: "Female (\(artistStatistic.female.formattedWithSeparator))")
+        let femaleDataSet = BarChartDataSet(entries: [femaleEntry], label: "Female (\(artistStatistic.female.formattedWithSeparator))")
         femaleDataSet.colors = [.magenta]
         femaleDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
         
         //Male
         let maleEntry = BarChartDataEntry(x: Double(1), y: Double(artistStatistic.male))
-        let maleDataSet = BarChartDataSet(values: [maleEntry], label: "Male (\(artistStatistic.male.formattedWithSeparator))")
+        let maleDataSet = BarChartDataSet(entries: [maleEntry], label: "Male (\(artistStatistic.male.formattedWithSeparator))")
         maleDataSet.colors = [.cyan]
         maleDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
         
         //Unknown
         let unknownEntry = BarChartDataEntry(x: Double(1.2), y: Double(artistStatistic.unknownOrEntities))
-        let unknownDataSet = BarChartDataSet(values: [unknownEntry], label: "Unknown or entities (such as orchestras) (\(artistStatistic.unknownOrEntities.formattedWithSeparator))")
+        let unknownDataSet = BarChartDataSet(entries: [unknownEntry], label: "Unknown or entities (such as orchestras) (\(artistStatistic.unknownOrEntities.formattedWithSeparator))")
         unknownDataSet.colors = [.yellow]
         unknownDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
         

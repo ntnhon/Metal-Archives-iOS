@@ -25,7 +25,7 @@ final class MemberStatisticTableViewCell: BaseTableViewCell, RegisterableCell {
         let inactiveEntry = PieChartDataEntry(value: Double(memberStatistic.inactive), label: "Inactive members (\(memberStatistic.inactive.formattedWithSeparator))")
         
         
-        let pieChartDataSet = PieChartDataSet(values: [activeEntry, inactiveEntry], label: "\(memberStatistic.total.formattedWithSeparator) registered members")
+        let pieChartDataSet = PieChartDataSet(entries: [activeEntry, inactiveEntry], label: "\(memberStatistic.total.formattedWithSeparator) registered members")
         
         pieChartDataSet.colors = [Settings.currentTheme.activeStatusColor, Settings.currentTheme.closedStatusColor]
         

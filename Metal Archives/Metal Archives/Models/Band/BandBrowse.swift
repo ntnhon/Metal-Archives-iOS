@@ -35,12 +35,12 @@ extension BandBrowse: Pagable {
         
         guard
             let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listBandBrowse = json?["aaData"] as? [[String]]
+            let listBandBrowse = json["aaData"] as? [[String]]
             else {
                 return nil
         }
         
-        let totalRecords = json?["iTotalRecords"] as? Int
+        let totalRecords = json["iTotalRecords"] as? Int
         
         listBandBrowse.forEach { (bandDetails) in
             var bandName: String?

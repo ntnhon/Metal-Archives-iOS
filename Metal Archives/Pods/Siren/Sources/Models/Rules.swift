@@ -46,6 +46,11 @@ public struct Rules {
         return Rules(promptFrequency: .daily, forAlertType: .skip)
     }
 
+    /// Performs a version check weekly, but allows the user to skip updating the app until the next time the app becomes active.
+    public static var hinting: Rules {
+        return Rules(promptFrequency: .weekly, forAlertType: .option)
+    }
+
     /// Performs a version check daily, but allows the user to skip updating the app until the next time the app becomes active.
     public static var persistent: Rules {
         return Rules(promptFrequency: .daily, forAlertType: .option)
@@ -61,7 +66,7 @@ public struct Rules {
 // Rules-related Constants
 public extension Rules {
     /// Determines the type of alert to present after a successful version check has been performed.
-    public enum AlertType {
+    enum AlertType {
         /// Forces the user to update your app (1 button alert).
         case force
         /// Presents the user with option to update app now or at next launch (2 button alert).
@@ -75,7 +80,7 @@ public extension Rules {
 
     /// Determines the frequency in which the user is prompted to update the app
     /// once a new version is available in the App Store and if they have not updated yet.
-    public enum UpdatePromptFrequency: UInt {
+    enum UpdatePromptFrequency: UInt {
         /// Version check performed every time the app is launched.
         case immediately = 0
         /// Version check performed once a day.

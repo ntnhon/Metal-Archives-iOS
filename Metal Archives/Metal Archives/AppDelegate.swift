@@ -224,9 +224,10 @@ extension AppDelegate {
 //MARK: - Check new version
 extension AppDelegate {
     private func checkNewVersion() {
-        Siren.shared.wail { (result, error) in
-            if let `result` = result {
-                switch result.alertAction {
+        Siren.shared.wail(performCheck: PerformCheck.onForeground) { results in
+            switch results {
+            case .success(let updateResults):
+                switch updateResults.alertAction {
                 case .appStore:
                     Analytics.logEvent(AnalyticsEvent.OpenAppStoreToUpdate, parameters: nil)
                 case .nextTime:
@@ -236,7 +237,7 @@ extension AppDelegate {
                 case .unknown:
                     return
                 }
-            } else if let `error` = error {
+            case .failure(let error):
                 Analytics.logEvent(AnalyticsEvent.ErrorCheckingUpdate, parameters: ["error": error.localizedDescription])
             }
         }

@@ -1,7 +1,7 @@
 //
 // Attributes.swift
 //
-// Copyright (c) 2016-2018 Nicholas Maccharoli
+// Copyright (c) 2016-2019 Nicholas Maccharoli
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,6 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-
 
 import Foundation
 
@@ -49,7 +48,7 @@ public struct Attributes {
     }
 
     public func strikeThroughStyle(_ strikeThroughStyle: NSUnderlineStyle) -> Attributes {
-        return self + Attributes(dictionary: [NSAttributedString.Key.strikethroughStyle: strikeThroughStyle.rawValue])
+        return self + Attributes(dictionary: [NSAttributedString.Key.strikethroughStyle: strikeThroughStyle.rawValue, NSAttributedString.Key.baselineOffset : NSNumber(floatLiteral: 1.5)])
     }
 
     public func underlineStyle(_ underlineStyle: NSUnderlineStyle) -> Attributes {

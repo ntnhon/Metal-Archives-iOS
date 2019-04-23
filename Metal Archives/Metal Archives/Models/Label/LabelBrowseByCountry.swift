@@ -35,12 +35,12 @@ extension LabelBrowseByCountry: Pagable {
         
         guard
             let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listLabelBrowseByCountry = json?["aaData"] as? [[String]]
+            let listLabelBrowseByCountry = json["aaData"] as? [[String]]
             else {
                 return nil
         }
         
-        let totalRecords = json?["iTotalRecords"] as? Int
+        let totalRecords = json["iTotalRecords"] as? Int
         
         listLabelBrowseByCountry.forEach { (labelDetails) in
             var name: String?

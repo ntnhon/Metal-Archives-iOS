@@ -39,12 +39,12 @@ extension ReleaseInLabel: Pagable {
         
         guard
             let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listRelease = json?["aaData"] as? [[String]]
+            let listRelease = json["aaData"] as? [[String]]
             else {
                 return nil
         }
         
-        let totalRecords = json?["iTotalRecords"] as? Int
+        let totalRecords = json["iTotalRecords"] as? Int
         
         listRelease.forEach { (eachReleaseDetail) in
             let bandRawString = eachReleaseDetail[0].replacingOccurrences(of: " / ", with: "😡")

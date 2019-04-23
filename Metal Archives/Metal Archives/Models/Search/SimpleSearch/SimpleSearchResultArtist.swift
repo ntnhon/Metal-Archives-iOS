@@ -34,12 +34,12 @@ extension SimpleSearchResultArtist: Pagable {
         
         guard
             let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listSimpleSearchResultArtist = json?["aaData"] as? [[String]]
+            let listSimpleSearchResultArtist = json["aaData"] as? [[String]]
             else {
                 return nil
         }
         
-        let totalRecords = json?["iTotalRecords"] as? Int
+        let totalRecords = json["iTotalRecords"] as? Int
         
         listSimpleSearchResultArtist.forEach { (eachDetail) in
             var artist: ArtistExtraLite?

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Sabintsev iOS Projects. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /// PresentationManager for Siren
 public struct PresentationManager {
@@ -123,9 +123,8 @@ extension PresentationManager {
         case .force:
             alertController?.addAction(updateAlertAction(completion: handler))
         case .option:
-
-            alertController?.addAction(updateAlertAction(completion: handler))
             alertController?.addAction(nextTimeAlertAction(completion: handler))
+            alertController?.addAction(updateAlertAction(completion: handler))
         case .skip:
             alertController?.addAction(updateAlertAction(completion: handler))
             alertController?.addAction(nextTimeAlertAction(completion: handler))
@@ -135,7 +134,7 @@ extension PresentationManager {
         }
 
         // If the alertType is .none, an alert will not be presented.
-        // If the `updaterWindow` is not hidden, than an alert is already presented.
+        // If the `updaterWindow` is not hidden, then an alert is already presented.
         // The latter prevents `UIAlertControllers` from appearing on top of each other.
         if rules.alertType != .none && updaterWindow.isHidden {
             alertController?.show(window: updaterWindow)
@@ -182,7 +181,6 @@ extension PresentationManager {
 
         let action = UIAlertAction(title: title, style: .default) { _ in
             self.cleanUpAlertController()
-            UserDefaults.shouldPerformVersionCheckOnSubsequentLaunch = true
 
             handler?(.nextTime)
             return

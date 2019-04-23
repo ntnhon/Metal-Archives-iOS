@@ -33,12 +33,12 @@ extension SimpleSearchResultAlbumTitle: Pagable {
         
         guard
             let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listSimpleSearchResultAlbumTitle = json?["aaData"] as? [[String]]
+            let listSimpleSearchResultAlbumTitle = json["aaData"] as? [[String]]
             else {
                 return nil
         }
         
-        let totalRecords = json?["iTotalRecords"] as? Int
+        let totalRecords = json["iTotalRecords"] as? Int
         
         listSimpleSearchResultAlbumTitle.forEach { (eachDetail) in
             var bands: [BandLite]?

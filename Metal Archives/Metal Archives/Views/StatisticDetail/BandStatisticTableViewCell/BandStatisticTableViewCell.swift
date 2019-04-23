@@ -28,7 +28,7 @@ final class BandStatisticTableViewCell: BaseTableViewCell, RegisterableCell {
         let unknownEntry = PieChartDataEntry(value: Double(bandStatistic.unknown.count), label: "\(bandStatistic.unknown.description) (\(bandStatistic.unknown.count.formattedWithSeparator))")
         
         
-        let pieChartDataSet = PieChartDataSet(values: [activeEntry, onHoldEntry, splitUpEntry, changedNameEntry, unknownEntry], label: "\(bandStatistic.total.formattedWithSeparator) approved bands")
+        let pieChartDataSet = PieChartDataSet(entries: [activeEntry, onHoldEntry, splitUpEntry, changedNameEntry, unknownEntry], label: "\(bandStatistic.total.formattedWithSeparator) approved bands")
         
         pieChartDataSet.colors = [bandStatistic.active.color, bandStatistic.onHold.color, bandStatistic.splitUp.color, bandStatistic.changedName.color, bandStatistic.unknown.color]
         
