@@ -17,7 +17,7 @@ final class StatisticTableViewCell: BaseTableViewCell, RegisterableCell {
         self.statisticLabel.font = Settings.currentFontSize.bodyTextFont
     }
 
-    func fill(with statistic: String) {
-        self.statisticLabel.text = statistic
+    func fill(with statisticString: NSAttributedString) {
+        self.statisticLabel.attributedText = statisticString
     }
 }

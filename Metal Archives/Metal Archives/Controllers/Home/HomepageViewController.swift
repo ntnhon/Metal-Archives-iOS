@@ -14,7 +14,7 @@ import NotificationBannerSwift
 final class HomepageViewController: RefreshableViewController {
     @IBOutlet private weak var searchButton: UIButton!
     
-    private var statisticString: String?
+    private var statisticAttrString: NSAttributedString?
     private var newsPagableManager = PagableManager<News>()
     private var bandAdditionPagableManager = PagableManager<BandAddition>()
     private var bandUpdatePagableManager = PagableManager<BandUpdate>()
@@ -96,7 +96,7 @@ final class HomepageViewController: RefreshableViewController {
     }
     
     override func refresh() {
-        self.statisticString = nil
+        self.statisticAttrString = nil
         self.newsPagableManager.reset()
         self.bandAdditionPagableManager.reset()
         self.bandUpdatePagableManager.reset()
@@ -113,11 +113,19 @@ final class HomepageViewController: RefreshableViewController {
     
     private func loadHomepage() {
         
-        RequestHelper.HomePage.Statistic.fetchStats(onSuccess: { [weak self] (statisticString) in
-            self?.statisticString = statisticString
-            self?.tableView.reloadData()
-        }) { (error) in
+        RequestHelper.HomePage.Statistic.fetchStats { [weak self] (completion: () throws -> HomepageStatistic) in
             
+            defer {
+                self?.tableView.reloadData()
+            }
+            
+            do {
+                let homepageStatistic = try completion()
+                self?.statisticAttrString = homepageStatistic.generateAttrSummary()
+            } catch let error {
+                Toast.displayMessageShortly(error.localizedDescription)
+                self?.statisticAttrString = NSAttributedString(string: "Error parsing statistic informations.")
+            }
         }
         
         self.newsPagableManager.fetch { [weak self] (error) in
@@ -310,12 +318,12 @@ extension HomepageViewController {
     }
     
     private func cellForStatsSection(at indexPath: IndexPath) -> UITableViewCell {
-        guard let `statisticString` = self.statisticString else {
+        guard let `statisticAttrString` = self.statisticAttrString else {
             return self.loadingCell(atIndexPath: indexPath)
         }
         
         let cell = StatisticTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        cell.fill(with: statisticString)
+        cell.fill(with: statisticAttrString)
         return cell
     }
     

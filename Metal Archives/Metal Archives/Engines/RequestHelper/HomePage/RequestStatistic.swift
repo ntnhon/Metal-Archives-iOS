@@ -12,26 +12,31 @@ extension RequestHelper.HomePage {
     final class Statistic {
         private static let requestURLString = "https://www.metal-archives.com/index/ajax-stats"
         
-        typealias FetchStatisticSuccessfullyCompletion = (_ response: String) -> Void
-        typealias FetchStatisticErrorCompletion = (Error) -> Void
-        
         private init () {}
         
-        static func fetchStats(onSuccess: @escaping FetchStatisticSuccessfullyCompletion, onError: @escaping FetchStatisticErrorCompletion) {
-            let requestURL = URL(string: requestURLString)!
+        static func fetchStats(completionHandler: @escaping (() throws -> HomepageStatistic) -> Void) {
+            guard let requestURL = URL(string: requestURLString) else {
+                completionHandler { throw MANetworkingError.badURL(requestURLString) }
+                return
+            }
             
             RequestHelper.shared.alamofireManager.request(requestURL).responseString { (response) in
                 switch response.result {
                 case .success:
-                    if let responseString = response.value {
-                        //Remove hyperlink at the end
-                        let truncatedString = String(responseString.split(separator: ".")[0])
-                        onSuccess(truncatedString)
-                    } else {
-                        assertionFailure("Error fetching statistic.")
+                    guard let responseString = response.value else {
+                        completionHandler { throw MANetworkingError.badResponse(response) }
+                        return
                     }
+                    
+                    do {
+                        let homepageStatistic = try HomepageStatistic(fromRawStatString: responseString)
+                        completionHandler { return homepageStatistic }
+                    } catch {
+                        completionHandler { throw error }
+                    }
+                    
                 case .failure(let error):
-                    onError(error)
+                    completionHandler { throw error }
                 }
             }
         }
