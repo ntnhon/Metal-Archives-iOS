@@ -21,14 +21,47 @@ final class HomepageViewController: RefreshableViewController {
     private var latestReviewPagableManager = PagableManager<LatestReview>()
     private var upcomingAlbumPagableManager = PagableManager<UpcomingAlbum>()
     
+    /// English and Latin title, don't mind weird characters, they are needed for flipped effect (last character)
+    private let navBarTitle = (english: "Metal archiveÎ", latin: "Encyclopaedia metalluÈ")
+    private var isDisplayingEnglishTitle = true {
+        didSet {
+            self.title = self.isDisplayingEnglishTitle ? self.navBarTitle.english : self.navBarTitle.latin
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Metal Archives"
         self.addToggleMenuButton()
         self.initSearchButton()
         self.loadHomepage()
         self.initObservers()
         self.alertNewVersion()
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Homepage", style: .plain, target: nil, action: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.title = nil
+        self.stylizedNavBar(false)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.stylizedNavBar(true)
+        self.isDisplayingEnglishTitle = true
+    }
+    
+    private func stylizedNavBar(_ stylized: Bool) {
+        if stylized {
+            let attrs = [
+                NSAttributedString.Key.foregroundColor: Settings.currentTheme.tableViewBackgroundColor,
+                NSAttributedString.Key.font: UIFont(name: "PastorofMuppets", size: 34)!
+            ]
+            
+            self.navigationController?.navigationBar.titleTextAttributes = attrs
+        } else {
+            self.navigationController?.navigationBar.titleTextAttributes = nil
+        }
     }
     
     override func initAppearance() {
@@ -45,7 +78,7 @@ final class HomepageViewController: RefreshableViewController {
         UpcomingAlbumTableViewCell.register(with: self.tableView)
         ViewMoreTableViewCell.register(with: self.tableView)
     }
-    
+
     private func initSearchButton() {
         self.searchButton.backgroundColor = Settings.currentTheme.backgroundColor
         self.searchButton.layer.shadowColor = Settings.currentTheme.bodyTextColor.cgColor
@@ -187,6 +220,21 @@ extension HomepageViewController {
         } else if segue.identifier == "ShowLatestUpdates" {
             guard let latestAdditionsViewController = segue.destination as? LatestAdditionsOrUpdatesViewController else { return }
             latestAdditionsViewController.type = .updates
+        }
+    }
+}
+
+//MARK: - UIScrollViewDelegate
+extension HomepageViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0 {
+            if !self.isDisplayingEnglishTitle {
+                self.isDisplayingEnglishTitle = true
+            }
+        } else {
+            if self.isDisplayingEnglishTitle {
+                self.isDisplayingEnglishTitle = false
+            }
         }
     }
 }
