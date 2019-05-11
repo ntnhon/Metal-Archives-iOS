@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ArtistLite: Thumbnailable {
+final class ArtistLite: ThumbnailableObject {
     let name: String
     let instrumentsInBand: String
     private(set) var bands: [BandLite]?

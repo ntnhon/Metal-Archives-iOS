@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ReleaseLite: Thumbnailable {
+final class ReleaseLite: ThumbnailableObject {
     let title: String
     let type: ReleaseType
     let year: Int

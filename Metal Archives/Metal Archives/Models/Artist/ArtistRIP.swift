@@ -9,7 +9,7 @@
 import Foundation
 import AttributedLib
 
-final class ArtistRIP: Thumbnailable {
+final class ArtistRIP: ThumbnailableObject {
     let name: String
     let country: Country?
     let bands: [BandLite]

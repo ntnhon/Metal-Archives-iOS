@@ -8,7 +8,7 @@
 
 import Foundation
 
-class LabelAdditionOrUpdate: Thumbnailable {
+class LabelAdditionOrUpdate: ThumbnailableObject {
     let name: String
     let status: LabelStatus
     let country: Country?

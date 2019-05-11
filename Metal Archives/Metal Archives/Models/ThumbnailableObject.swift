@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Thumbnailable: NSObject {
+class ThumbnailableObject: NSObject {
     let urlString: String
     let id: String
     let imageType: ImageType

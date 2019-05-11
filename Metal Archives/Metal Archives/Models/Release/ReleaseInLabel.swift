@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ReleaseInLabel: Thumbnailable {
+final class ReleaseInLabel: ThumbnailableObject {
     let bands: [BandLite]
     let release: ReleaseExtraLite
     let type: String

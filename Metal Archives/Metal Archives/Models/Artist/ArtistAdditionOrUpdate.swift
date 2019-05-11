@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ArtistAdditionOrUpdate: Thumbnailable {
+class ArtistAdditionOrUpdate: ThumbnailableObject {
     let nameInBand: String
     let realFullName: String?
     let country: Country?

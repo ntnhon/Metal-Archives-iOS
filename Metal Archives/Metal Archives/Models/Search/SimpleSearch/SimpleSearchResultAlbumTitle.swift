@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class SimpleSearchResultAlbumTitle: Thumbnailable {
+final class SimpleSearchResultAlbumTitle: ThumbnailableObject {
     let bands: [BandLite]
     let release: ReleaseExtraLite
     let type: String

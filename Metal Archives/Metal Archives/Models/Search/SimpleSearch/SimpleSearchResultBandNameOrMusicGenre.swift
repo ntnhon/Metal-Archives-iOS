@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SimpleSearchResultBandNameOrMusicGenre: Thumbnailable {
+class SimpleSearchResultBandNameOrMusicGenre: ThumbnailableObject {
     let band: BandLite
     let aka: String?
     let genre: String

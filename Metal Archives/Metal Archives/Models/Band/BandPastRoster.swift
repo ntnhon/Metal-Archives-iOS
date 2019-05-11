@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class BandPastRoster: Thumbnailable {
+final class BandPastRoster: ThumbnailableObject {
     let name: String
     let genre: String
     let country: Country

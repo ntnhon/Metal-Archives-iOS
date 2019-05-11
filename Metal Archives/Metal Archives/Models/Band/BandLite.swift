@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class BandLite: Thumbnailable {
+final class BandLite: ThumbnailableObject {
     let name: String
     
     init?(name: String, urlString: String) {

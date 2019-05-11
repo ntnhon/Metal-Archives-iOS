@@ -20,7 +20,7 @@ class ThumbnailableTableViewCell: UITableViewCell {
         self.thumbnailImageViewHeightConstraint.constant = Settings.thumbnailHeight
     }
     
-    func setThumbnailImageView(with thumbnailableObject: Thumbnailable, placeHolderImageName: String) {
+    func setThumbnailImageView(with thumbnailableObject: ThumbnailableObject, placeHolderImageName: String) {
         if thumbnailableObject.noImage {
             self.thumbnailImageView.image = UIImage(named: placeHolderImageName)
             thumbnailableObject.resetStates()

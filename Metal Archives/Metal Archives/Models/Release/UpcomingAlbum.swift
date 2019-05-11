@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class UpcomingAlbum: Thumbnailable {
+final class UpcomingAlbum: ThumbnailableObject {
     let bands: [BandLite]
     let release: ReleaseExtraLite
     let releaseType: String

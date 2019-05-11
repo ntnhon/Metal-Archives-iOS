@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ReleaseExtraLite: Thumbnailable {
+final class ReleaseExtraLite: ThumbnailableObject {
     let name: String
     
     init?(urlString: String, name: String) {

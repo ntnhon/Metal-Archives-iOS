@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class LabelLite: Thumbnailable {
+final class LabelLite: ThumbnailableObject {
     let name: String
     
     init?(urlString: String, name: String) {

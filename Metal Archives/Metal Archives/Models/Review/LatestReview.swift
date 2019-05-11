@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class LatestReview: Thumbnailable {
+final class LatestReview: ThumbnailableObject {
     let dateString: String
     let reviewURLString: String
     let band: BandLite

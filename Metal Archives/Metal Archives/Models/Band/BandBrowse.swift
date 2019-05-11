@@ -9,7 +9,7 @@
 import Foundation
 
 //Use for Browse band: alphabetically, country and genre
-final class BandBrowse: Thumbnailable {
+final class BandBrowse: ThumbnailableObject {
     let name: String
     let countryOrLocation: String
     let genre: String

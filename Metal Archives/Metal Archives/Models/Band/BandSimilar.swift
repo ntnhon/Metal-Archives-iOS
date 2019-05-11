@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class BandSimilar: Thumbnailable {
+final class BandSimilar: ThumbnailableObject {
     let name: String
     let country: Country
     let genre: String

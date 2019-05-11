@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ArtistLiteInRelease: Thumbnailable {
+final class ArtistLiteInRelease: ThumbnailableObject {
     let name: String
     let additionalDetail: String?
     let lineUpType: LineUpType

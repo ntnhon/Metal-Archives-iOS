@@ -8,7 +8,7 @@
 
 import Foundation
 
-class BandAdditionOrUpdate: Thumbnailable {
+class BandAdditionOrUpdate: ThumbnailableObject {
     let name: String
     let country: Country
     let genre: String

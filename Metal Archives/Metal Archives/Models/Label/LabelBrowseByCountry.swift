@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class LabelBrowseByCountry: Thumbnailable {
+final class LabelBrowseByCountry: ThumbnailableObject {
     let name: String
     let specialisation: String
     let status: LabelStatus

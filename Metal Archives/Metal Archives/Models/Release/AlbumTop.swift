@@ -20,7 +20,7 @@ enum AlbumTopType: Int, CustomStringConvertible, CaseIterable {
     }
 }
 
-final class AlbumTop: Thumbnailable {
+final class AlbumTop: ThumbnailableObject {
     let band: BandLite
     let release: ReleaseExtraLite
     let count: Int

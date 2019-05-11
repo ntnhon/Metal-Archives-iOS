@@ -20,7 +20,7 @@ enum BandTopType: Int, CustomStringConvertible, CaseIterable {
     }
 }
 
-final class BandTop: Thumbnailable {
+final class BandTop: ThumbnailableObject {
     let name: String
     let count: Int
     
