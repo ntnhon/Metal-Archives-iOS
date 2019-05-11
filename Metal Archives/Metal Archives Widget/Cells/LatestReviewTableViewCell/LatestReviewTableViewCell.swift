@@ -47,7 +47,7 @@ final class LatestReviewTableViewCell: ThumbnailableTableViewCell, RegisterableC
         
         self.authorLabel.text = "Written by \(latestReview.author)"
         
-        self.setThumbnailImageView(with: latestReview, placeHolderImageName: Ressources.Images.vinyl)
+        self.setThumbnailImageView(with: latestReview.release)
     }
     
     private func colorByRating(_ rating: Int) -> UIColor {

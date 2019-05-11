@@ -52,6 +52,6 @@ final class ArtistRIPTableViewCell: ThumbnailableTableViewCell, RegisterableCell
         self.dateOfDeathLabel.text = "R.I.P: \(artist.dateOfDeath)"
         self.causeOfDeathLabel.text = artist.causeOfDeath
         
-        self.setThumbnailImageView(with: artist, placeHolderImageName: Ressources.Images.person)
+        self.setThumbnailImageView(with: artist)
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class UpcomingAlbum: ThumbnailableObject {
+final class UpcomingAlbum {
     let bands: [BandLite]
     let release: ReleaseExtraLite
     let releaseType: ReleaseType
@@ -47,7 +47,6 @@ final class UpcomingAlbum: ThumbnailableObject {
         self.releaseType = releaseType
         self.genre = array[3]
         self.date = array[4]
-        super.init(urlString: release.urlString, imageType: .release)
     }
 }
 

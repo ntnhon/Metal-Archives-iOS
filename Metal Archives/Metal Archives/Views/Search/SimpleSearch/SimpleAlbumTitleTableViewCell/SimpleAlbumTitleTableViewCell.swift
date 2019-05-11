@@ -40,6 +40,6 @@ final class SimpleAlbumTitleTableViewCell: ThumbnailableTableViewCell, Registera
         self.typeLabel.text = result.type
         self.dateLabel.text = result.dateString
         
-        self.setThumbnailImageView(with: result.release, placeHolderImageName: Ressources.Images.vinyl)
+        self.setThumbnailImageView(with: result.release)
     }
 }

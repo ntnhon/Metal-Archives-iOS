@@ -30,7 +30,7 @@ final class SimilarBandTableViewCell: ThumbnailableTableViewCell, RegisterableCe
     }
 
     func bind(band: BandSimilar) {
-        self.setThumbnailImageView(with: band, placeHolderImageName: Ressources.Images.band)
+        self.setThumbnailImageView(with: band)
         self.bandNameLabel.text = band.name
         self.similarScoreLabel.text = "\(band.score)"
         self.countryLabel.text = band.country.nameAndEmoji

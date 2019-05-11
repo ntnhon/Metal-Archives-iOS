@@ -29,7 +29,7 @@ final class ReviewTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
         self.releaseTitleLabel.text = review.releaseTitle
         
         if let release = review.release {
-            self.setThumbnailImageView(with: release, placeHolderImageName: Ressources.Images.vinyl)
+            self.setThumbnailImageView(with: release)
         } else {
             self.thumbnailImageView.image = UIImage(named: Ressources.Images.vinyl)
         }

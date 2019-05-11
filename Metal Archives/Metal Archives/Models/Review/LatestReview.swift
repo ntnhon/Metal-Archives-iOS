@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class LatestReview: ThumbnailableObject {
+final class LatestReview {
     let title: String
     let reviewURLString: String
     let band: BandLite
@@ -57,7 +57,6 @@ final class LatestReview: ThumbnailableObject {
         self.dateString = array[0]
         self.timeString = array[6]
         self.author = author
-        super.init(urlString: release.urlString, imageType: .release)
     }
 }
 

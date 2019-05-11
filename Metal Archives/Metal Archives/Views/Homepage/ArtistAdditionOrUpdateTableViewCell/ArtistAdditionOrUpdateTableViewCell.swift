@@ -68,6 +68,6 @@ final class ArtistAdditionOrUpdateTableViewCell: ThumbnailableTableViewCell, Reg
         let agoString = "(\(value) \(unit) ago)"
         
         self.dateLabel.text = "\(defaultDateFormatter.string(from: artist.updatedDate))" + " " + agoString
-        self.setThumbnailImageView(with: artist, placeHolderImageName: Ressources.Images.person)
+        self.setThumbnailImageView(with: artist)
     }
 }

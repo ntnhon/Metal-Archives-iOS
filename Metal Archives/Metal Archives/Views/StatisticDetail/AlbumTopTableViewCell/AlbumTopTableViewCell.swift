@@ -34,7 +34,7 @@ final class AlbumTopTableViewCell: ThumbnailableTableViewCell, RegisterableCell 
         self.bandNameLabel.text = album.band.name
         self.releaseTitleLabel.text = album.release.name
         self.countLabel.text = "\(album.count)"
-        self.setThumbnailImageView(with: album, placeHolderImageName: Ressources.Images.vinyl)
+        self.setThumbnailImageView(with: album)
         self.setNeedsLayout()
         self.layoutIfNeeded()
     }

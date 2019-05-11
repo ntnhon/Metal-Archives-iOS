@@ -56,6 +56,6 @@ final class SimpleLabelTableViewCell: ThumbnailableTableViewCell, RegisterableCe
         }
         
         self.specialisationLabel.text = result.specialisation
-        self.setThumbnailImageView(with: result.label, placeHolderImageName: Ressources.Images.labelIcon)
+        self.setThumbnailImageView(with: result.label)
     }
 }

@@ -22,16 +22,16 @@ class ThumbnailableTableViewCell: BaseTableViewCell {
         self.thumbnailImageViewHeightConstraint.constant = Settings.thumbnailHeight
     }
     
-    func setThumbnailImageView(with thumbnailableObject: ThumbnailableObject, placeHolderImageName: String) {
+    func setThumbnailImageView(with thumbnailableObject: ThumbnailableObject) {
         if thumbnailableObject.noImage || !Settings.thumbnailEnabled {
-            self.thumbnailImageView.image = UIImage(named: placeHolderImageName)
+            self.thumbnailImageView.image = thumbnailableObject.placeHolderImage
             thumbnailableObject.resetStates()
         }
         else if let imageURLString = thumbnailableObject.imageURLString {
             self.thumbnailImageView.sd_setImage(with: URL(string: imageURLString)) { [weak self] (image, error, cachType, url) in
                 if let _ = error {
                     thumbnailableObject.retryGenerateImageURLString()
-                    self?.setThumbnailImageView(with: thumbnailableObject, placeHolderImageName: placeHolderImageName)
+                    self?.setThumbnailImageView(with: thumbnailableObject)
                 } else {
                     thumbnailableObject.foundRightURL()
                 }

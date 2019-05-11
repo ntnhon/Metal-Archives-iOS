@@ -6,12 +6,21 @@
 //  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class ThumbnailableObject: NSObject {
     let urlString: String
     let id: String
     let imageType: ImageType
+    lazy var placeHolderImage: UIImage = {
+        switch imageType {
+        case .bandLogo: return #imageLiteral(resourceName: "band")
+        case .bandPhoto: return #imageLiteral(resourceName: "band")
+        case .artist: return #imageLiteral(resourceName: "person")
+        case .release: return #imageLiteral(resourceName: "vinyl")
+        case .label: return #imageLiteral(resourceName: "label")
+        }
+    }()
     private(set) var noImage = false
     private(set) var imageURLString: String?
     

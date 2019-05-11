@@ -47,6 +47,6 @@ final class LabelAdditionOrUpdateTableViewCell: ThumbnailableTableViewCell, Regi
         
         self.dateLabel.text = "\(defaultDateFormatter.string(from: label.updatedDate))" + " " + agoString
         
-        self.setThumbnailImageView(with: label, placeHolderImageName: Ressources.Images.labelIcon)
+        self.setThumbnailImageView(with: label)
     }
 }

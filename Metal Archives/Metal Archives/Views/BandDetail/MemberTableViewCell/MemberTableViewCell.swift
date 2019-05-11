@@ -29,6 +29,6 @@ final class MemberTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
         self.nameLabel.text = member.name
         self.instrumentsInBandLabel.text = member.instrumentsInBand
         self.seeAlsoLabel.text = member.seeAlsoString
-        self.setThumbnailImageView(with: member, placeHolderImageName: Ressources.Images.person)
+        self.setThumbnailImageView(with: member)
     }
 }

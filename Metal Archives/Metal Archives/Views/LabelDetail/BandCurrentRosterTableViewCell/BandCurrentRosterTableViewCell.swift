@@ -29,6 +29,6 @@ final class BandCurrentRosterTableViewCell: ThumbnailableTableViewCell, Register
         self.nameLabel.text = band.name
         self.genreLabel.text = band.genre
         self.countryLabel.text = band.country.nameAndEmoji
-        self.setThumbnailImageView(with: band, placeHolderImageName: Ressources.Images.band)
+        self.setThumbnailImageView(with: band)
     }
 }

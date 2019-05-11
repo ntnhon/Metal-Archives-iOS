@@ -42,7 +42,7 @@ final class SimpleSongTitleTableViewCell: ThumbnailableTableViewCell, Registerab
             self.bandNameLabel.textColor = Settings.currentTheme.bodyTextColor
         }
         
-        self.setThumbnailImageView(with: result.release, placeHolderImageName: Ressources.Images.vinyl)
+        self.setThumbnailImageView(with: result.release)
     }
 }
 

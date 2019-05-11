@@ -37,6 +37,6 @@ final class BrowseBandsResultTableViewCell: ThumbnailableTableViewCell, Register
         self.statusLabel.text = band.status.description
         self.statusLabel.textColor = band.status.color
         
-        self.setThumbnailImageView(with: band, placeHolderImageName: Ressources.Images.band)
+        self.setThumbnailImageView(with: band)
     }
 }

@@ -127,7 +127,7 @@ extension TodayViewController: UITableViewDelegate {
             url = URL(string: "ma://review/\(review.reviewURLString)")
         case .upcomingAlbums:
             let album = self.upcomingAlbumPagableManager.objects[indexPath.row]
-            url = URL(string: "ma://release/\(album.urlString)")
+            url = URL(string: "ma://release/\(album.release.urlString)")
         }
         
         if let `url` = url {

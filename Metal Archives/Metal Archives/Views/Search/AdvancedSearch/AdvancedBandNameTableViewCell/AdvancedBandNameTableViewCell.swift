@@ -34,6 +34,6 @@ final class AdvancedBandNameTableViewCell: ThumbnailableTableViewCell, Registera
         })
         self.detailsLabel.text = detailsString
         
-        self.setThumbnailImageView(with: result.band, placeHolderImageName: Ressources.Images.band)
+        self.setThumbnailImageView(with: result.band)
     }
 }

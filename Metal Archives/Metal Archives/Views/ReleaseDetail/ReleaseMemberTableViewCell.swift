@@ -24,6 +24,6 @@ final class ReleaseMemberTableViewCell: ThumbnailableTableViewCell, Registerable
     func fill(with artist: ArtistLiteInRelease) {
         self.artistNameLabel.text = artist.name
         self.instrumentsLabel.text = artist.instrumentString
-        self.setThumbnailImageView(with: artist, placeHolderImageName: Ressources.Images.person)
+        self.setThumbnailImageView(with: artist)
     }
 }

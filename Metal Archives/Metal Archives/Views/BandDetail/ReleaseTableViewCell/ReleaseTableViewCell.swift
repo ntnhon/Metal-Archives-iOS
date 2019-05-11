@@ -40,7 +40,7 @@ final class ReleaseTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
             self.reviewLabel.text = ""
         }
         
-        self.setThumbnailImageView(with: release, placeHolderImageName: Ressources.Images.vinyl)
+        self.setThumbnailImageView(with: release)
     }
     
     private func adjustReleaseTitleAttributes(releaseType: ReleaseType?) {

@@ -56,6 +56,6 @@ final class BrowseLabelsByCountryResultTableViewCell: ThumbnailableTableViewCell
             self.onlineShoppingLabel.textColor = Settings.currentTheme.bodyTextColor
         }
         
-        self.setThumbnailImageView(with: label, placeHolderImageName: Ressources.Images.labelIcon)
+        self.setThumbnailImageView(with: label)
     }
 }

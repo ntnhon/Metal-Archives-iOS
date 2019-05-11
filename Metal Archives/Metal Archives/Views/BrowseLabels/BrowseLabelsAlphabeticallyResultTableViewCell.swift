@@ -66,6 +66,6 @@ final class BrowseLabelsAlphabeticallyResultTableViewCell: ThumbnailableTableVie
             self.onlineShoppingLabel.textColor = Settings.currentTheme.bodyTextColor
         }
         
-        self.setThumbnailImageView(with: label, placeHolderImageName: Ressources.Images.labelIcon)
+        self.setThumbnailImageView(with: label)
     }
 }

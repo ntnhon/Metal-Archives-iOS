@@ -29,6 +29,6 @@ final class BandTopTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
         self.orderLabel.text = "#\(order)"
         self.nameLabel.text = band.name
         self.countLabel.text = "\(band.count)"
-        self.setThumbnailImageView(with: band, placeHolderImageName: Ressources.Images.band)
+        self.setThumbnailImageView(with: band)
     }
 }

@@ -52,6 +52,6 @@ final class SimpleBandNameOrMusicGenreTableViewCell: ThumbnailableTableViewCell,
         self.countryLabel.text = result.country.nameAndEmoji
         self.genreLabel.text = result.genre
         
-        self.setThumbnailImageView(with: result, placeHolderImageName: Ressources.Images.band)
+        self.setThumbnailImageView(with: result)
     }
 }

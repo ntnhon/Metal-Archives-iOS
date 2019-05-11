@@ -39,6 +39,6 @@ final class AdvancedAlbumTableViewCell: ThumbnailableTableViewCell, Registerable
         })
         self.detailsLabel.text = detailsString
         
-        self.setThumbnailImageView(with: result.release, placeHolderImageName: Ressources.Images.vinyl)
+        self.setThumbnailImageView(with: result.release)
     }
 }

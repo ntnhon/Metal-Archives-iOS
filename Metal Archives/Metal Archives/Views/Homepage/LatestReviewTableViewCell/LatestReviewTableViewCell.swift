@@ -44,6 +44,6 @@ final class LatestReviewTableViewCell: ThumbnailableTableViewCell, RegisterableC
         
         self.authorLabel.text = "Written by \(latestReview.author.name)"
         
-        self.setThumbnailImageView(with: latestReview, placeHolderImageName: Ressources.Images.vinyl)
+        self.setThumbnailImageView(with: latestReview.release)
     }
 }

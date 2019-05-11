@@ -19,6 +19,6 @@ final class SubLabelTableViewCell: ThumbnailableTableViewCell, RegisterableCell 
 
     func fill(with subLabel: LabelLite) {
         self.nameLabel.text = subLabel.name
-        self.setThumbnailImageView(with: subLabel, placeHolderImageName: Ressources.Images.labelIcon)
+        self.setThumbnailImageView(with: subLabel)
     }
 }

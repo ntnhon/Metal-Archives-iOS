@@ -66,6 +66,6 @@ final class SimpleArtistTableViewCell: ThumbnailableTableViewCell, RegisterableC
         }
         self.bandsNameLabel.attributedText = generateAttributedStringFromStrings(bandNames, as: .secondaryTitle, withSeparator: ", ")
         
-        self.setThumbnailImageView(with: result.artist, placeHolderImageName: Ressources.Images.person)
+        self.setThumbnailImageView(with: result.artist)
     }
 }

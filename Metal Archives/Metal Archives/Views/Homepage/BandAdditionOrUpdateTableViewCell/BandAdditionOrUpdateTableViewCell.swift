@@ -35,6 +35,6 @@ final class BandAdditionOrUpdateTableViewCell: ThumbnailableTableViewCell, Regis
         self.dateLabel.text = band.updatedDateAndTimeString
         self.countryLabel.text = band.country.nameAndEmoji
         self.genreLabel.text = band.genre
-        self.setThumbnailImageView(with: band, placeHolderImageName: Ressources.Images.band)
+        self.setThumbnailImageView(with: band)
     }
 }

@@ -39,6 +39,6 @@ final class BandPastRosterTableViewCell: ThumbnailableTableViewCell, Registerabl
         }
         
         self.genreLabel.text = band.genre
-        self.setThumbnailImageView(with: band, placeHolderImageName: Ressources.Images.band)
+        self.setThumbnailImageView(with: band)
     }
 }

@@ -56,6 +56,6 @@ final class SimpleLyricalThemesTableViewCell: ThumbnailableTableViewCell, Regist
         self.genreLabel.text = result.genre
         self.countryLabel.text = result.country.nameAndEmoji
         self.lyricalThemesLabel.text = "Lyrical themes: \(result.lyricalThemes)"
-        self.setThumbnailImageView(with: result.band, placeHolderImageName: Ressources.Images.band)
+        self.setThumbnailImageView(with: result.band)
     }
 }
