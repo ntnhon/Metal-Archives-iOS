@@ -33,4 +33,16 @@ extension Pagable {
         
         return formattedRequestURLString
     }
+    
+    static func parseTotalRecordsAndArrayOfRawValues(_ data: Data) -> (totalRecords: Int?, [[String]])? {
+        guard
+            let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
+            let array = json["aaData"] as? [[String]]
+            else {
+                return nil
+        }
+        
+        let totalRecords = json["iTotalRecords"] as? Int
+        return (totalRecords, array)
+    }
 }

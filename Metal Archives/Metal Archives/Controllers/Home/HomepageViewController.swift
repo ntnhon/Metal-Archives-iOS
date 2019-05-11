@@ -229,11 +229,11 @@ extension HomepageViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0 {
             if !self.isDisplayingEnglishTitle {
-                self.isDisplayingEnglishTitle = true
+                self.isDisplayingEnglishTitle.toggle()
             }
         } else {
             if self.isDisplayingEnglishTitle {
-                self.isDisplayingEnglishTitle = false
+                self.isDisplayingEnglishTitle.toggle()
             }
         }
     }

@@ -14,27 +14,13 @@ final class BandAddition: BandAdditionOrUpdate, Pagable {
     static var displayLenght = 200
     
     static func parseListFrom(data: Data) -> (objects: [BandAddition]?, totalRecords: Int?)? {
+        guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
+            return nil
+        }
         var list: [BandAddition] = []
         
-        guard
-            let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listBandLatestAdditions = json["aaData"] as? [[String]]
-            else {
-                return nil
-        }
-        
-        let totalRecords = json["iTotalRecords"] as? Int
-        
-        listBandLatestAdditions.forEach { (bandDetails) in
-            
-            let updatedDateString = bandDetails[0]
-            let name = String((bandDetails[1].subString(after: "\">", before: "</a>", options: .caseInsensitive)) ?? "")
-            let urlString = String(bandDetails[1].subString(after: "href=\"", before: "\">", options: .caseInsensitive) ?? "")
-            let countryURLString = String(bandDetails[2].subString(after: "href=\"", before: "\">", options: .caseInsensitive) ?? "" )
-            let genre = bandDetails[3]
-            let updatedDateAndTimeString = bandDetails[4]
-            
-            if let bandAddition = BandAddition(updatedDateString: updatedDateString, name: name, urlString: urlString, countryURLString: countryURLString, genre: genre, updatedDateAndTimeString: updatedDateAndTimeString) {
+        array.forEach { (bandDetails) in
+            if let bandAddition = BandAddition(from: bandDetails) {
                 list.append(bandAddition)
             }
         }
