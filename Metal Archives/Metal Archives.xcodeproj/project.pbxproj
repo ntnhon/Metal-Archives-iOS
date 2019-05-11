@@ -307,6 +307,7 @@
 		C07CFC2E220E2C7B009142A0 /* ReleaseElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07CFC2D220E2C7B009142A0 /* ReleaseElement.swift */; };
 		C07F8BE42287123200295146 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F8BE32287123200295146 /* User.swift */; };
 		C07F8BE5228721C700295146 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F8BE32287123200295146 /* User.swift */; };
+		C07F8BE6228734EF00295146 /* ReleaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D3604223D5E5C00B29B43 /* ReleaseType.swift */; };
 		C084540021EE184E00E6D676 /* RequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08453FF21EE184E00E6D676 /* RequestHelper.swift */; };
 		C084540421EE197200E6D676 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C084540321EE197200E6D676 /* Alamofire.framework */; };
 		C084540621EE197700E6D676 /* SlideMenuControllerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C084540521EE197700E6D676 /* SlideMenuControllerSwift.framework */; };
@@ -2839,6 +2840,7 @@
 				C06B629A2242828B00A3FE6B /* BandAdditionOrUpdate.swift in Sources */,
 				C0F0BE842244099800B90605 /* WidgetSection.swift in Sources */,
 				C06B62A42242832700A3FE6B /* StringProtocol.swift in Sources */,
+				C07F8BE6228734EF00295146 /* ReleaseType.swift in Sources */,
 				C07F8BE5228721C700295146 /* User.swift in Sources */,
 				C06B62A52242833B00A3FE6B /* String+Utilities.swift in Sources */,
 				C018B78C2243C01D00CDFFB8 /* String+RemoveEmptySpaces.swift in Sources */,

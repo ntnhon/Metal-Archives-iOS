@@ -9,21 +9,53 @@
 import Foundation
 
 final class LatestReview: ThumbnailableObject {
-    let dateString: String
+    let title: String
     let reviewURLString: String
     let band: BandLite
     let release: ReleaseExtraLite
     let rating: Int
+    let dateString: String
     let timeString: String
-    let author: String
+    let author: User
     
-    init?(dateString: String, reviewURLString: String, band: BandLite, release: ReleaseExtraLite, rating: Int, timeString: String, author: String) {
-        self.dateString = dateString
-        self.reviewURLString = reviewURLString
+    /*
+     Sample array:
+     "May 2",
+     "<a href="https://www.metal-archives.com/reviews/Meshuggah/Destroy_Erase_Improve/53/eletrikk/472675" title="Only If They Kept This Sound" class="iconContainer ui-state-default ui-corner-all"><span class="ui-icon ui-icon-search">Read</span></a>",
+     "<a href="https://www.metal-archives.com/bands/Meshuggah/21">Meshuggah</a>",
+     "<a href="https://www.metal-archives.com/albums/Meshuggah/Destroy_Erase_Improve/53">Destroy Erase Improve</a>",
+     "88%",
+     "<a href="https://www.metal-archives.com/users/eletrikk" class="profileMenu">eletrikk</a>",
+     "07:29"
+     */
+    
+    init?(from array: [String]) {
+        guard array.count == 7 else { return nil }
+        
+        guard
+            let reviewURLSubstring = array[1].subString(after: #"href=""#, before: #"" "#, options: .caseInsensitive),
+            let titleSubstring = array[1].subString(after: #"title=""#, before: #"" "#, options: .caseInsensitive) else {
+                return nil
+        }
+        
+        guard
+            let band = BandLite(from: array[2]),
+            let release = ReleaseExtraLite(from: array[3]),
+            let author = User(from: array[5]) else {
+            return nil
+        }
+        
+        guard let rating = Int(array[4].replacingOccurrences(of: "%", with: "")) else {
+            return nil
+        }
+        
+        self.title = String(titleSubstring)
+        self.reviewURLString = String(reviewURLSubstring)
         self.band = band
         self.release = release
         self.rating = rating
-        self.timeString = timeString
+        self.dateString = array[0]
+        self.timeString = array[6]
         self.author = author
         super.init(urlString: release.urlString, imageType: .release)
     }
@@ -35,57 +67,15 @@ extension LatestReview: Pagable {
     static var displayLenght = 200
     
     static func parseListFrom(data: Data) -> (objects: [LatestReview]?, totalRecords: Int?)? {
+        guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
+            return nil
+        }
         var list: [LatestReview] = []
         
-        guard
-            let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listLatestReviews = json["aaData"] as? [[String]]
-            else {
-                return nil
-        }
-        
-        let totalRecords = json["iTotalRecords"] as? Int
-        
-        listLatestReviews.forEach { (reviewDetail) in
-            guard reviewDetail.count == 7 else {
-                assertionFailure("Unexpected data format.")
-                return
+        array.forEach { (latestReviewDetails) in
+            if let latestReview = LatestReview(from: latestReviewDetails) {
+                list.append(latestReview)
             }
-            
-            let updatedDate = reviewDetail[0]
-            
-            var reviewURLString: String?
-            if let reviewURLSubString = reviewDetail[1].subString(after: "href=\"", before: "\" title", options: .caseInsensitive) {
-                reviewURLString = String(reviewURLSubString)
-            }
- 
-            var band: BandLite?
-            if let bandNameSubString = reviewDetail[2].subString(after: "\">", before: "</a>", options: .caseInsensitive),
-                let bandURLSubString = reviewDetail[2].subString(after: "href=\"", before: "\">", options: .caseInsensitive) {
-                band = BandLite(name: String(bandNameSubString), urlString: String(bandURLSubString))
-            }
-            
-            var release: ReleaseExtraLite?
-            if let releaseNameSubString = reviewDetail[3].subString(after: "\">", before: "</a>", options: .caseInsensitive),
-                let releaseURLSubString = reviewDetail[3].subString(after: "href=\"", before: "\">", options: .caseInsensitive) {
-                release = ReleaseExtraLite(urlString: String(releaseURLSubString), name: String(releaseNameSubString))
-            }
-
-            let rating = Int(reviewDetail[4].replacingOccurrences(of: "%", with: ""))
-            
-            var author: String?
-            if let authorSubString = reviewDetail[5].subString(after: "\">", before: "</a>", options: .caseInsensitive) {
-                author = String(authorSubString)
-            }
-            let timeString = reviewDetail[6]
-            
-            
-            if let `reviewURLString` = reviewURLString, let `band` = band, let `release` = release, let `rating` = rating, let `author` = author {
-                if let latestReview = LatestReview(dateString: updatedDate, reviewURLString: reviewURLString, band: band, release: release, rating: rating, timeString: timeString, author: author) {
-                    list.append(latestReview)
-                }
-            }
-            
         }
         
         if list.count == 0 {

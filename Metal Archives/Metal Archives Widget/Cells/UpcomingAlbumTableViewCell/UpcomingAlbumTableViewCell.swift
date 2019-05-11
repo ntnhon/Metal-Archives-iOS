@@ -51,7 +51,7 @@ final class UpcomingAlbumTableViewCell: ThumbnailableTableViewCell, Registerable
         self.bandsNameLabel.text = bandsNames
         
         self.releaseTitleLabel.text = upcomingAlbum.release.name
-        self.releaseTypeLabel.text = upcomingAlbum.releaseType
+        self.releaseTypeLabel.text = upcomingAlbum.releaseType.description
         self.genreLabel.text = upcomingAlbum.genre
         self.dateLabel.text = upcomingAlbum.date
         self.setThumbnailImageView(with: upcomingAlbum, placeHolderImageName: Ressources.Images.vinyl)

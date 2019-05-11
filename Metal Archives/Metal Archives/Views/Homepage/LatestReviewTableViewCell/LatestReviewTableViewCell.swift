@@ -42,7 +42,7 @@ final class LatestReviewTableViewCell: ThumbnailableTableViewCell, RegisterableC
         self.ratingLabel.text = "\(latestReview.rating)%"
         self.ratingLabel.textColor = UIColor.colorByRating(latestReview.rating)
         
-        self.authorLabel.text = "Written by \(latestReview.author)"
+        self.authorLabel.text = "Written by \(latestReview.author.name)"
         
         self.setThumbnailImageView(with: latestReview, placeHolderImageName: Ressources.Images.vinyl)
     }

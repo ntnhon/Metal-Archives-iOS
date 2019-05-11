@@ -15,4 +15,15 @@ final class BandLite: ThumbnailableObject {
         self.name = name
         super.init(urlString: urlString, imageType: .bandLogo)
     }
+    
+    //Sample string: <a href="https://www.metal-archives.com/bands/Meshuggah/21">Meshuggah</a>
+    init?(from string: String) {
+        guard let urlSubstring = string.subString(after: #"href=""#, before: #"">"#, options: .caseInsensitive),
+            let nameSubstring = string.subString(after: #"">"#, before: "</a>", options: .caseInsensitive) else {
+                return nil
+        }
+        
+        self.name = String(nameSubstring)
+        super.init(urlString: String(urlSubstring), imageType: .bandLogo)
+    }
 }

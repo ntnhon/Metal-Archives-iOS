@@ -15,6 +15,8 @@ class ThumbnailableObject: NSObject {
     private(set) var noImage = false
     private(set) var imageURLString: String?
     
+    // Photo name on server can be guessed by contructing a name base on object type
+    // but photo extention can be any type, so we have to try with most well-known types manually
     private var triedPNG = false
     private var triedJPEG = false
     private var triedGIF = false

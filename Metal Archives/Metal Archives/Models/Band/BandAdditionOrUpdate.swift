@@ -16,7 +16,7 @@ class BandAdditionOrUpdate: ThumbnailableObject {
     let user: User
     
     /*
-     Example of an array:
+     Sample array:
      "May 11",
      "<a href="https://www.metal-archives.com/bands/Xeno_Ooze/3540452533">Xeno Ooze</a>",
      "<a href="https://www.metal-archives.com/lists/US">United States</a>",

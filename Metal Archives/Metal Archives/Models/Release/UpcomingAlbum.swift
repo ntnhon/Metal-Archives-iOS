@@ -11,16 +11,42 @@ import Foundation
 final class UpcomingAlbum: ThumbnailableObject {
     let bands: [BandLite]
     let release: ReleaseExtraLite
-    let releaseType: String
+    let releaseType: ReleaseType
     let genre: String
     let date: String
     
-    init?(bands: [BandLite], release: ReleaseExtraLite, releaseType: String, genre: String, date: String) {
+    /*
+     Sample array:
+     "<a href="https://www.metal-archives.com/bands/Kalmankantaja/3540342889">Kalmankantaja</a> / <a href="https://www.metal-archives.com/bands/Drudensang/3540369476">Drudensang</a> / <a href="https://www.metal-archives.com/bands/Hiisi/3540401566">Hiisi</a>",
+     "<a href="https://www.metal-archives.com/albums/Kalmankantaja_-_Drudensang_-_Hiisi/Essence_of_Black_Mysticism/775924">Essence of Black Mysticism</a>",
+     "Split",
+     "Depressive Black Metal (early), Atmospheric Black Metal (later) | Black Metal | Black Metal",
+     "May 13th, 2019"
+     */
+    
+    init?(from array: [String]) {
+        guard array.count == 5 else { return nil }
+        
+        guard let release = ReleaseExtraLite(from: array[1]) else { return nil }
+        
+        guard let releaseType = ReleaseType(typeString: array[2]) else { return nil }
+        
+        // Workaround: In case of split release where there are many bands
+        // replace " / " by a special character in order to split by this character (cause split string function only splits by character, not a string)
+        var bands = [BandLite]()
+        array[0].replacingOccurrences(of: " / ", with: "😡").split(separator: "😡").forEach({
+            if let band = BandLite(from: String($0)) {
+                bands.append(band)
+            }
+        })
+        
+        guard bands.count > 0 else { return nil }
+        
         self.bands = bands
         self.release = release
         self.releaseType = releaseType
-        self.genre = genre
-        self.date = date
+        self.genre = array[3]
+        self.date = array[4]
         super.init(urlString: release.urlString, imageType: .release)
     }
 }
@@ -31,47 +57,15 @@ extension UpcomingAlbum: Pagable {
     static var displayLenght = 100
     
     static func parseListFrom(data: Data) -> (objects: [UpcomingAlbum]?, totalRecords: Int?)? {
-        var list: [UpcomingAlbum] = []
-        
-        guard
-            let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listUpcomingAlbums = json["aaData"] as? [[String]]
-            else {
+        guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
             return nil
         }
+        var list: [UpcomingAlbum] = []
         
-        let totalRecords = json["iTotalRecords"] as? Int
-        
-        listUpcomingAlbums.forEach { (upcomingAlbumDetail) in
-            
-            let bandRawString = upcomingAlbumDetail[0].replacingOccurrences(of: " / ", with: "😡")
-            let bandRawStringComponents = bandRawString.split(separator: "😡")
-            var bands: [BandLite] = []
-            for i in 0..<bandRawStringComponents.count {
-                let bandString = bandRawStringComponents[i]
-                
-                if let bandNameSubString = bandString.subString(after: "\">", before: "</a>", options: .caseInsensitive),
-                    let bandURLSubString = bandString.subString(after: "href=\"", before: "\">", options: .caseInsensitive) {
-                    
-                    if let band = BandLite(name: String(bandNameSubString), urlString: String(bandURLSubString)) {
-                        bands.append(band)
-                    }
-                }
-            }
-            
-            var release: ReleaseExtraLite?
-            if let releaseNameSubString = upcomingAlbumDetail[1].subString(after: "\">", before: "</a>", options: .caseInsensitive),
-                let releaseURLSubString = upcomingAlbumDetail[1].subString(after: "href=\"", before: "\">", options: .caseInsensitive) {
-                release = ReleaseExtraLite(urlString: String(releaseURLSubString), name: String(releaseNameSubString))
-            }
-            let releaseType = upcomingAlbumDetail[2]
-            let genre = upcomingAlbumDetail[3]
-            let date = upcomingAlbumDetail[4]
-            
-            if let `release` = release, let upcomingAlbum = UpcomingAlbum(bands: bands, release: release, releaseType: releaseType, genre: genre, date: date) {
+        array.forEach { (upcomingAlbumDetails) in
+            if let upcomingAlbum = UpcomingAlbum(from: upcomingAlbumDetails) {
                 list.append(upcomingAlbum)
             }
-            
         }
         
         if list.count == 0 {
