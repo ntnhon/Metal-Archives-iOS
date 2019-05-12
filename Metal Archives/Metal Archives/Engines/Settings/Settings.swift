@@ -15,13 +15,23 @@ struct Settings {
     static let numberOfRetries = 5
     static let segmentedHeaderHeight: CGFloat = 35
     static let thumbnailHeight: CGFloat = {
-        let preferredHeight = screenWith/5
+        let preferredHeight = screenWidth/5
         let maxHeight: CGFloat = 72.0
         if preferredHeight > maxHeight {
             return maxHeight
         }
         return preferredHeight
     }()
+    
+    // CollectionView Settings
+    static let numberOfNewsItemPerRow = 1
+    static let newsCollectionViewCellHeight: CGFloat = screenWidth / 4
+    static let generalCollectionViewCellHeight: CGFloat = 150
+    static let numberOfGeneralItemPerrow = 3
+    static let collectionViewItemSpacing: CGFloat = 8
+    static let collectionViewContentInset = UIEdgeInsets(top: 4, left: 20, bottom: 8, right: 20)
+    static let collectionViewCellWidth: CGFloat = screenWidth - collectionViewContentInset.left - collectionViewContentInset.right
+    
     static var currentTheme: Theme!
     static var currentFontSize: FontSize!
     static var thumbnailEnabled: Bool!
@@ -237,7 +247,7 @@ enum Theme: Int, CustomStringConvertible {
     }
     
     var tableViewSeparatorColor: UIColor {
-        return secondaryTitleColor
+        return .clear
     }
     
     var iconTintColor: UIColor {

@@ -312,7 +312,7 @@ extension ReleaseDetailViewController {
                 let navLyricViewController = UINavigationController(rootViewController: lyricViewController)
                 navLyricViewController.modalPresentationStyle = .popover
                 navLyricViewController.popoverPresentationController?.permittedArrowDirections = .any
-                navLyricViewController.preferredContentSize = CGSize(width: screenWith - 50, height: screenHeight*2/3)
+                navLyricViewController.preferredContentSize = CGSize(width: screenWidth - 50, height: screenHeight*2/3)
                 
                 navLyricViewController.popoverPresentationController?.delegate = self
                 navLyricViewController.popoverPresentationController?.sourceView = self.tableView

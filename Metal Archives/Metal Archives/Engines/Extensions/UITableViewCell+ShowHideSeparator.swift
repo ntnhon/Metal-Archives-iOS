@@ -10,7 +10,7 @@ import UIKit
 
 extension UITableViewCell {
     func hideSeparator() {
-        self.separatorInset = UIEdgeInsets(top: 0, left: screenWith, bottom: 0, right: 0)
+        self.separatorInset = UIEdgeInsets(top: 0, left: screenWidth, bottom: 0, right: 0)
     }
     
     func showSeparator() {

@@ -37,6 +37,11 @@ final class HomepageViewController: RefreshableViewController {
         self.initObservers()
         self.alertNewVersion()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Homepage", style: .plain, target: nil, action: nil)
+        
+        if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+            self.navigationItem.largeTitleDisplayMode = .always
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -52,16 +57,16 @@ final class HomepageViewController: RefreshableViewController {
     }
     
     private func stylizedNavBar(_ stylized: Bool) {
-        if stylized {
-            let attrs = [
-                NSAttributedString.Key.foregroundColor: Settings.currentTheme.tableViewBackgroundColor,
-                NSAttributedString.Key.font: UIFont(name: "PastorofMuppets", size: 34)!
-            ]
-            
-            self.navigationController?.navigationBar.titleTextAttributes = attrs
-        } else {
-            self.navigationController?.navigationBar.titleTextAttributes = nil
+        let attrs = stylized ?
+            [
+            NSAttributedString.Key.foregroundColor: Settings.currentTheme.tableViewBackgroundColor,
+            NSAttributedString.Key.font: UIFont(name: "PastorofMuppets", size: 34)!
+            ] : nil
+
+        if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.largeTitleTextAttributes = attrs
         }
+        self.navigationController?.navigationBar.titleTextAttributes = attrs
     }
     
     override func initAppearance() {
@@ -154,7 +159,7 @@ final class HomepageViewController: RefreshableViewController {
             
             do {
                 let homepageStatistic = try completion()
-                self?.statisticAttrString = homepageStatistic.generateAttrSummary()
+                self?.statisticAttrString = homepageStatistic.summaryAttributedText
             } catch let error {
                 Toast.displayMessageShortly(error.localizedDescription)
                 self?.statisticAttrString = NSAttributedString(string: "Error parsing statistic informations.")
@@ -227,15 +232,17 @@ extension HomepageViewController {
 //MARK: - UIScrollViewDelegate
 extension HomepageViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0 {
-            if !self.isDisplayingEnglishTitle {
-                self.isDisplayingEnglishTitle.toggle()
-            }
-        } else {
-            if self.isDisplayingEnglishTitle {
-                self.isDisplayingEnglishTitle.toggle()
-            }
-        }
+//        if scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0 {
+//            if !self.isDisplayingEnglishTitle {
+//                self.isDisplayingEnglishTitle.toggle()
+//            }
+//        } else {
+//            if self.isDisplayingEnglishTitle {
+//                self.isDisplayingEnglishTitle.toggle()
+//            }
+//        }
+        
+        self.isDisplayingEnglishTitle = scrollView.contentOffset.y <= 0
     }
 }
 
@@ -248,7 +255,7 @@ extension HomepageViewController: UITableViewDelegate {
         //Section: Stats
         case 0: self.didSelectRowInStatisticsSection(at: indexPath)
         //Section: News
-        case 1: self.didSelectRowInNewsSection(at: indexPath)
+        case 1: return
         //Section: Latest additions
         case 2: self.didSelectRowInLatestAdditionsSection(at: indexPath)
         //Section: Latest updates
@@ -304,24 +311,6 @@ extension HomepageViewController: UITableViewDataSource {
         //Section: Upcoming albums
         case 5: return self.numberOfRowsInUpcomingAlbumsSection()
         default: fatalError("Impossible case!")
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        //Section: Stats
-        case 0: return nil
-        //Section: News
-        case 1: return "NEWS"
-        //Section: Latest additions
-        case 2: return "LATEST ADDITIONS"
-        //Section: Latest updates
-        case 3: return "LATEST UPDATES"
-        //Section: Latest reviews
-        case 4: return "LATEST REVIEWS"
-        //Section: Upcoming albums
-        case 5: return "UPCOMING ALBUMS"
-        default: return nil
         }
     }
     
@@ -393,15 +382,18 @@ extension HomepageViewController {
         }
         
         let cell = NewsTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        let news = self.newsPagableManager.objects[indexPath.row]
-        cell.fill(with: news)
+        cell.newsArray = self.newsPagableManager.objects
+        cell.seeAll = {
+            let newsArchiveViewController = UIStoryboard(name: "NewsArchive", bundle: nil).instantiateViewController(withIdentifier: "NewsArchiveViewController" ) as! NewsArchiveViewController
+            self.navigationController?.pushViewController(newsArchiveViewController, animated: true)
+        }
         return cell
     }
-    
-    private func didSelectRowInNewsSection(at indexPath: IndexPath) {
-        let newsArchiveViewController = UIStoryboard(name: "NewsArchive", bundle: nil).instantiateViewController(withIdentifier: "NewsArchiveViewController" ) as! NewsArchiveViewController
-        self.navigationController?.pushViewController(newsArchiveViewController, animated: true)
-    }
+//
+//    private func didSelectRowInNewsSection(at indexPath: IndexPath) {
+//        let newsArchiveViewController = UIStoryboard(name: "NewsArchive", bundle: nil).instantiateViewController(withIdentifier: "NewsArchiveViewController" ) as! NewsArchiveViewController
+//        self.navigationController?.pushViewController(newsArchiveViewController, animated: true)
+//    }
 }
 
 //MARK: - Section LATEST ADDITIONS

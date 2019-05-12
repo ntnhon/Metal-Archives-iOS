@@ -62,7 +62,7 @@ extension UICollectionViewCell {
 }
 
 extension RegisterableCell where Self : UICollectionViewCell {
-    static func register(_ collectionView: UICollectionView) {
+    static func register(with collectionView: UICollectionView) {
         if let cellNib = self.nib {
             collectionView.register(cellNib, forCellWithReuseIdentifier: identifier)
         } else {

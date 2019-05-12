@@ -26,4 +26,5 @@ target 'Metal Archives Widget' do
      pod 'UIColor_Hex_Swift'
      pod 'SDWebImage', '~> 4.0'
      pod 'Kanna'
+     pod 'AttributedLib'
 end

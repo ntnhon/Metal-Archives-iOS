@@ -8,6 +8,7 @@
 
 import Foundation
 import Kanna
+import AttributedLib
 
 final class News {
     let title: String
@@ -15,6 +16,16 @@ final class News {
     let htmlBody: String
     let author: String
     let urlString: String
+    
+    lazy var summaryAttributedText: NSAttributedString = {
+        let attrString = NSMutableAttributedString()
+        
+        attrString.append("\(title)\n".at.attributed(with: titleAttributes))
+        attrString.append("By \(author) at \(date)\n".at.attributed(with: secondaryTitleAttributes))
+        attrString.append(htmlBody.at.attributed(with: bodyTextAttributes))
+        
+        return attrString
+    }()
     
     lazy var dateString: String = {
        return dateOnlyFormatter.string(from: self.date)

@@ -13,6 +13,23 @@ final class HomepageStatistic {
     let numOfUsers: Int
     let numOfReviews: Int
     
+    lazy var summaryAttributedText: NSAttributedString = {
+        let attrString = NSMutableAttributedString()
+        
+        attrString.append("There are currently:\n- ".at.attributed(with: bodyTextAttributes))
+        
+        attrString.append("\(self.numOfBands.formattedWithSeparator) ".at.attributed(with: hilightedBodyTextAttributes))
+        attrString.append("bands.\n- ".at.attributed(with: bodyTextAttributes))
+        
+        attrString.append("\(self.numOfUsers.formattedWithSeparator) ".at.attributed(with: hilightedBodyTextAttributes))
+        attrString.append(" registerd users.\n- ".at.attributed(with: bodyTextAttributes))
+        
+        attrString.append("\(self.numOfReviews.formattedWithSeparator) ".at.attributed(with: hilightedBodyTextAttributes))
+        attrString.append(" reviews.".at.attributed(with: bodyTextAttributes))
+        
+        return attrString
+    }()
+    
     init(fromRawStatString string: String) throws {
         guard
             let numOfBandsString = RegexHelpers.firstMatch(for: Category.bands.regex, inString: string),
@@ -31,34 +48,6 @@ final class HomepageStatistic {
         self.numOfBands = numOfBands
         self.numOfUsers = numOfUsers
         self.numOfReviews = numOfReviews
-    }
-    
-    func generateAttrSummary() -> NSAttributedString {
-        let bodyTextAttributes = Attributes {
-            return $0.foreground(color: Settings.currentTheme.bodyTextColor)
-                .font(Settings.currentFontSize.bodyTextFont)
-                .alignment(.justified)
-        }
-        
-        let hilightedBodyTextAttributes = Attributes {
-            return $0.foreground(color: Settings.currentTheme.secondaryTitleColor)
-                .font(Settings.currentFontSize.bodyTextFont)
-                .alignment(.justified)
-        }
-        let attrString = NSMutableAttributedString()
-
-        attrString.append("There are currently:\n- ".at.attributed(with: bodyTextAttributes))
-        
-        attrString.append("\(self.numOfBands.formattedWithSeparator) ".at.attributed(with: hilightedBodyTextAttributes))
-        attrString.append("bands.\n- ".at.attributed(with: bodyTextAttributes))
-        
-        attrString.append("\(self.numOfUsers.formattedWithSeparator) ".at.attributed(with: hilightedBodyTextAttributes))
-        attrString.append(" registerd users.\n- ".at.attributed(with: bodyTextAttributes))
-        
-        attrString.append("\(self.numOfReviews.formattedWithSeparator) ".at.attributed(with: hilightedBodyTextAttributes))
-        attrString.append(" reviews.".at.attributed(with: bodyTextAttributes))
-        
-        return attrString
     }
 }
 

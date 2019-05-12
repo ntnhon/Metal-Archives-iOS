@@ -33,31 +33,7 @@ final class SearchTipsViewController: BaseViewController {
     private func showTips() {
         let tipsMutableAttrString = NSMutableAttributedString()
         
-        let titleTextAttributes = Attributes {
-            return $0.foreground(color: Settings.currentTheme.titleColor)
-                    .font(UIFont.systemFont(ofSize: 20, weight: .bold))
-        }
-        
-        let secondaryTitleAttributes = Attributes {
-            return $0.foreground(color: Settings.currentTheme.secondaryTitleColor)
-                    .font(Settings.currentFontSize.secondaryTitleFont)
-        }
-        
-        let bodyTextAttributes = Attributes {
-            return $0.foreground(color: Settings.currentTheme.bodyTextColor)
-                    .font(Settings.currentFontSize.bodyTextFont)
-                    .alignment(.justified)
-        }
-        
-        let indentedBodyTextAttributes = Attributes {
-            return $0.foreground(color: Settings.currentTheme.bodyTextColor)
-                    .font(Settings.currentFontSize.bodyTextFont)
-                    .alignment(.justified)
-                    .headIndent(20)
-                    .firstLineHeadIndent(20)
-        }
-        
-        tipsMutableAttrString.append("Search features\n".at.attributed(with: titleTextAttributes))
+        tipsMutableAttrString.append("Search features\n".at.attributed(with: titleAttributes))
         tipsMutableAttrString.append("Unlike the first version of the site, the search engine supports many powerful (and standard, really) search features.\n\n".at.attributed(with: bodyTextAttributes))
         tipsMutableAttrString.append("Keyword matching\n".at.attributed(with: secondaryTitleAttributes))
         tipsMutableAttrString.append("By default, a keyword search will return results containing the full keyword (or similar words). For example, searching for bands with the keyword hell will return all bands containing the word \"hell\", including bands such as \"Hell Patrol\" or \"Black Hell\". It also considers words with case-change as different words; that means \"HellBorn\" will also be returned in the results (since it treats the name as \"Hell Born\" internally), but not \"Hellborn\".\n\n".at.attributed(with: indentedBodyTextAttributes))
@@ -71,7 +47,7 @@ final class SearchTipsViewController: BaseViewController {
         tipsMutableAttrString.append("Use the - operator to exclude terms from your search. Say you want to search for death metal bands, but want to exclude melodeath and deathcore, then you would search for death metal -deathcore -melodic.\n\n".at.attributed(with: indentedBodyTextAttributes))
         tipsMutableAttrString.append("Boolean operators\n".at.attributed(with: secondaryTitleAttributes))
         tipsMutableAttrString.append("By default, searching with multiple keywords is treated as an AND operator. If you want results containing either \"black\" OR \"death\", use the || symbol. Searching for black death is the equivalent of black AND death, while searching for black || death is the equivalent of \"black OR death\".\n\n".at.attributed(with: indentedBodyTextAttributes))
-        tipsMutableAttrString.append("Advanced search\n".at.attributed(with: titleTextAttributes))
+        tipsMutableAttrString.append("Advanced search\n".at.attributed(with: titleAttributes))
         tipsMutableAttrString.append("You can also perform an advanced search, by combining several available filters. For example, you can view a list of all the thrash metal bands from Norway, or all the pagan black metal bands in Germany formed before 1995, or all the disbanded satanic power metal bands from Gothenburg, Sweden 😉.\n\n".at.attributed(with: bodyTextAttributes))
         tipsMutableAttrString.append("New in v2:\n".at.attributed(with: bodyTextAttributes))
         tipsMutableAttrString.append("- You can search by year of formation/active, and specify a year range. To search for all bands formed exactly in 1980, put the year in both fields; to search for all bands formed before (and up to) 1980, leave the first year blank and enter 1980 in the second field, and so on.\n".at.attributed(with: indentedBodyTextAttributes))

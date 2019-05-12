@@ -18,7 +18,7 @@ final class ImFeelingLuckyView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.frame = CGRect(x: 0, y: 0, width: screenWith, height: 44)
+        self.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 44)
         
         self.imFeelingLuckyButton.backgroundColor = self.tintColor
         self.imFeelingLuckyButton.setTitleColor(.white, for: .normal)

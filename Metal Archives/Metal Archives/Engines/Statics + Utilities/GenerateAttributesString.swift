@@ -56,3 +56,35 @@ func generateAttributedStringFromStrings(_ strings: [String], as type: Attribute
     
     return concatenatedAttrString
 }
+
+let bodyTextAttributes = Attributes {
+    return $0.foreground(color: Settings.currentTheme.bodyTextColor)
+        .font(Settings.currentFontSize.bodyTextFont)
+        .alignment(.justified)
+}
+
+let hilightedBodyTextAttributes = Attributes {
+    return $0.foreground(color: Settings.currentTheme.secondaryTitleColor)
+        .font(Settings.currentFontSize.bodyTextFont)
+        .alignment(.justified)
+}
+
+let secondaryTitleAttributes = Attributes {
+    return $0.foreground(color: Settings.currentTheme.secondaryTitleColor)
+        .font(Settings.currentFontSize.secondaryTitleFont)
+        .alignment(.justified)
+}
+
+let titleAttributes = Attributes {
+    return $0.foreground(color: Settings.currentTheme.titleColor)
+        .font(Settings.currentFontSize.titleFont)
+        .alignment(.justified)
+}
+
+let indentedBodyTextAttributes = Attributes {
+    return $0.foreground(color: Settings.currentTheme.bodyTextColor)
+        .font(Settings.currentFontSize.bodyTextFont)
+        .alignment(.justified)
+        .headIndent(20)
+        .firstLineHeadIndent(20)
+}

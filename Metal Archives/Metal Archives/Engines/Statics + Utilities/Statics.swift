@@ -11,7 +11,7 @@ import UIKit
 
 let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
 
-let screenWith: CGFloat = {
+let screenWidth: CGFloat = {
     return UIScreen.main.bounds.width
 }()
 
@@ -103,4 +103,3 @@ let monthList: [MonthInYear] = {
     
     return monthList
 }()
-
