@@ -79,6 +79,7 @@ final class HomepageViewController: RefreshableViewController {
         NewsTableViewCell.register(with: self.tableView)
         StatisticTableViewCell.register(with: self.tableView)
         BandAdditionOrUpdateTableViewCell.register(with: self.tableView)
+        AdditionOrUpdateTableViewCell.register(with: self.tableView)
         LatestReviewTableViewCell.register(with: self.tableView)
         UpcomingAlbumTableViewCell.register(with: self.tableView)
         ViewMoreTableViewCell.register(with: self.tableView)
@@ -221,10 +222,10 @@ extension HomepageViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowLatestAdditions"{
             guard let latestAdditionsViewController = segue.destination as? LatestAdditionsOrUpdatesViewController else { return }
-            latestAdditionsViewController.type = .additions
+            latestAdditionsViewController.mode = .additions
         } else if segue.identifier == "ShowLatestUpdates" {
             guard let latestAdditionsViewController = segue.destination as? LatestAdditionsOrUpdatesViewController else { return }
-            latestAdditionsViewController.type = .updates
+            latestAdditionsViewController.mode = .updates
         }
     }
 }
@@ -257,7 +258,7 @@ extension HomepageViewController: UITableViewDelegate {
         //Section: News
         case 1: return
         //Section: Latest additions
-        case 2: self.didSelectRowInLatestAdditionsSection(at: indexPath)
+        case 2: return
         //Section: Latest updates
         case 3: self.didSelectRowInLatestUpdatesSection(at: indexPath)
         //Section: Latest reviews
@@ -301,7 +302,7 @@ extension HomepageViewController: UITableViewDataSource {
         //Section: Stats
         case 0: return self.numberOfRowsInStatisticsSection()
         //Section: News
-        case 1: return self.numberOfRowsInNewsSection()
+        case 1: return 1
         //Section: Latest additions
         case 2: return self.numberOfRowsInLatestAdditionsSection()
         //Section: Latest updates
@@ -371,10 +372,6 @@ extension HomepageViewController {
 
 //MARK: - Section NEWS
 extension HomepageViewController {
-    private func numberOfRowsInNewsSection() -> Int {
-        return 1
-    }
-    
     private func cellForNewsSection(at indexPath: IndexPath) -> UITableViewCell {
         //Don't check totalRecords is nil or not because News doesn't have such parameter
         guard self.newsPagableManager.objects.count > 0 else {
@@ -389,64 +386,32 @@ extension HomepageViewController {
         }
         return cell
     }
-//
-//    private func didSelectRowInNewsSection(at indexPath: IndexPath) {
-//        let newsArchiveViewController = UIStoryboard(name: "NewsArchive", bundle: nil).instantiateViewController(withIdentifier: "NewsArchiveViewController" ) as! NewsArchiveViewController
-//        self.navigationController?.pushViewController(newsArchiveViewController, animated: true)
-//    }
 }
 
 //MARK: - Section LATEST ADDITIONS
 extension HomepageViewController {
     private func numberOfRowsInLatestAdditionsSection() -> Int {
-        guard let _ = self.bandAdditionPagableManager.totalRecords else {
-            return 1
-        }
-        
-        if self.bandUpdatePagableManager.objects.count > Settings.shortListDisplayCount {
-            return Settings.shortListDisplayCount + 1
-        }
-        
-        return self.bandAdditionPagableManager.objects.count + 1
+        return 1
     }
     
     private func cellForLatestAdditionsSection(at indexPath: IndexPath) -> UITableViewCell {
-        guard let _ = self.bandAdditionPagableManager.totalRecords else {
-            return self.loadingCell(atIndexPath: indexPath)
+        let cell = AdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        
+        cell.bands = self.bandAdditionPagableManager.objects
+        
+        cell.seeAll = {
+            self.performSegue(withIdentifier: "ShowLatestAdditions", sender: nil)
+            
+            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more latest additions"])
         }
         
-        if indexPath.row == Settings.shortListDisplayCount || indexPath.row == self.bandAdditionPagableManager.objects.count {
-            return self.viewMoreCell(message: "More latest additions", atIndex: indexPath)
+        cell.didSelectBand = { band in
+            self.pushBandDetailViewController(urlString: band.urlString, animated: true)
+            
+            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "BandAddition"])
         }
-        
-        let cell = BandAdditionOrUpdateTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        
-        let band = self.bandAdditionPagableManager.objects[indexPath.row]
-        cell.fill(with: band)
         
         return cell
-    }
-    
-    private func didSelectRowInLatestAdditionsSection(at indexPath: IndexPath) {
-        guard let _ = self.bandAdditionPagableManager.totalRecords else {
-            return
-        }
-        
-        if indexPath.row == Settings.shortListDisplayCount || indexPath.row == self.bandAdditionPagableManager.objects.count  {
-            self.didSelectBandLatestAddtionsViewMore()
-            return
-        }
-        
-        let selectedBand = self.bandAdditionPagableManager.objects[indexPath.row]
-        self.pushBandDetailViewController(urlString: selectedBand.urlString, animated: true)
-        
-        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "BandAddition"])
-    }
-    
-    private func didSelectBandLatestAddtionsViewMore() {
-        self.performSegue(withIdentifier: "ShowLatestAdditions", sender: nil)
-        
-        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more latest additions"])
     }
 }
 

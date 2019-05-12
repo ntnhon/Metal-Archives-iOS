@@ -25,12 +25,12 @@ struct Settings {
     
     // CollectionView Settings
     static let numberOfNewsItemPerRow = 1
-    static let newsCollectionViewCellHeight: CGFloat = screenWidth / 4
-    static let generalCollectionViewCellHeight: CGFloat = 150
-    static let numberOfGeneralItemPerrow = 3
+    static let newsCollectionViewCellHeight: CGFloat = ceil(screenHeight / 6)
+    static let generalCollectionViewCellHeight: CGFloat = ceil(screenHeight / 11)
+    static let numberOfGeneralItemPerRow = 3
     static let collectionViewItemSpacing: CGFloat = 8
-    static let collectionViewContentInset = UIEdgeInsets(top: 4, left: 20, bottom: 8, right: 20)
-    static let collectionViewCellWidth: CGFloat = screenWidth - collectionViewContentInset.left - collectionViewContentInset.right
+    static let collectionViewContentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+    static let collectionViewCellWidth: CGFloat = screenWidth - collectionViewContentInset.left - collectionViewContentInset.right - collectionViewItemSpacing
     
     static var currentTheme: Theme!
     static var currentFontSize: FontSize!
@@ -254,7 +254,9 @@ enum Theme: Int, CustomStringConvertible {
         return secondaryTitleColor
     }
     
-    
+    var collectionViewSeparatorColor: UIColor {
+        return bodyTextColor.withAlphaComponent(0.5)
+    }
     
     var reviewTitleColor: UIColor {
         return bodyTextColor

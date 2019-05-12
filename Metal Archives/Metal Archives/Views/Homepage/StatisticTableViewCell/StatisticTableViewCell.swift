@@ -10,14 +10,16 @@ import UIKit
 
 final class StatisticTableViewCell: BaseTableViewCell, RegisterableCell {
     @IBOutlet private weak var statisticLabel: UILabel!
+    @IBOutlet private weak var separatorView: UIView!
     
     override func initAppearance() {
         super.initAppearance()
-        self.statisticLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.statisticLabel.font = Settings.currentFontSize.bodyTextFont
+        statisticLabel.textColor = Settings.currentTheme.bodyTextColor
+        statisticLabel.font = Settings.currentFontSize.bodyTextFont
+        separatorView.backgroundColor = Settings.currentTheme.collectionViewSeparatorColor
     }
 
     func fill(with statisticString: NSAttributedString) {
-        self.statisticLabel.attributedText = statisticString
+        statisticLabel.attributedText = statisticString
     }
 }

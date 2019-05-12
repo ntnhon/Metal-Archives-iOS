@@ -21,6 +21,8 @@ func calculateCollectionViewHeight(cellHeight: CGFloat,itemPerRow: Int) -> CGFlo
         fatalError("Item per row for collection view must be greater than 0")
     }
     
-    let totalItemSpacing = Settings.collectionViewItemSpacing * CGFloat(itemPerRow - 1)
-    return cellHeight * CGFloat(itemPerRow) + Settings.collectionViewContentInset.top + Settings.collectionViewContentInset.bottom + totalItemSpacing
+    //let totalItemSpacing = Settings.collectionViewItemSpacing * CGFloat(itemPerRow - 1)
+    //Workaround
+    let totalItemSpacing = Settings.collectionViewItemSpacing * CGFloat(itemPerRow - 1) + 4 //4 is magic number
+    return ceil(cellHeight * CGFloat(itemPerRow) + Settings.collectionViewContentInset.top + Settings.collectionViewContentInset.bottom + totalItemSpacing)
 }

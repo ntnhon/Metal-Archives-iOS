@@ -306,6 +306,11 @@
 		C0795B942288528A00E5D94F /* NewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0795B932288528A00E5D94F /* NewsCollectionViewCell.xib */; };
 		C0795B9522885A9900E5D94F /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04872BF21EE841900ECFDC2 /* News.swift */; };
 		C0795B9622885B8500E5D94F /* GenerateAttributesString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0162B4F2245A070000BF22E /* GenerateAttributesString.swift */; };
+		C0795B99228866ED00E5D94F /* AdditionOrUpdateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0795B98228866ED00E5D94F /* AdditionOrUpdateTableViewCell.swift */; };
+		C0795B9C2288672E00E5D94F /* AdditionOrUpdateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0795B9B2288672E00E5D94F /* AdditionOrUpdateTableViewCell.xib */; };
+		C0795B9F22886CF500E5D94F /* BandAdditionOrUpdateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0795B9E22886CF500E5D94F /* BandAdditionOrUpdateCollectionViewCell.swift */; };
+		C0795BA122886D2600E5D94F /* BandAdditionOrUpdateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0795BA022886D2600E5D94F /* BandAdditionOrUpdateCollectionViewCell.xib */; };
+		C0795BA322886DA500E5D94F /* ThumbnailableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0795BA222886DA500E5D94F /* ThumbnailableCollectionViewCell.swift */; };
 		C07CFC2E220E2C7B009142A0 /* ReleaseElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07CFC2D220E2C7B009142A0 /* ReleaseElement.swift */; };
 		C07F8BE42287123200295146 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F8BE32287123200295146 /* User.swift */; };
 		C07F8BE5228721C700295146 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F8BE32287123200295146 /* User.swift */; };
@@ -747,6 +752,11 @@
 		C0795B882288131900E5D94F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		C0795B8A2288234F00E5D94F /* BetterSnappingLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetterSnappingLayout.swift; sourceTree = "<group>"; };
 		C0795B932288528A00E5D94F /* NewsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCollectionViewCell.xib; sourceTree = "<group>"; };
+		C0795B98228866ED00E5D94F /* AdditionOrUpdateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionOrUpdateTableViewCell.swift; sourceTree = "<group>"; };
+		C0795B9B2288672E00E5D94F /* AdditionOrUpdateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdditionOrUpdateTableViewCell.xib; sourceTree = "<group>"; };
+		C0795B9E22886CF500E5D94F /* BandAdditionOrUpdateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandAdditionOrUpdateCollectionViewCell.swift; sourceTree = "<group>"; };
+		C0795BA022886D2600E5D94F /* BandAdditionOrUpdateCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BandAdditionOrUpdateCollectionViewCell.xib; sourceTree = "<group>"; };
+		C0795BA222886DA500E5D94F /* ThumbnailableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailableCollectionViewCell.swift; sourceTree = "<group>"; };
 		C07CFC2D220E2C7B009142A0 /* ReleaseElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseElement.swift; sourceTree = "<group>"; };
 		C07F8BE32287123200295146 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C08453FF21EE184E00E6D676 /* RequestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHelper.swift; sourceTree = "<group>"; };
@@ -1370,6 +1380,7 @@
 			isa = PBXGroup;
 			children = (
 				C05FC9B3222AC9E200D4B0DF /* ThumbnailableTableViewCell.swift */,
+				C0795BA222886DA500E5D94F /* ThumbnailableCollectionViewCell.swift */,
 				C05FC9B5222AD29400D4B0DF /* BaseTableViewCell.swift */,
 				C0C19C8222878380008B68F8 /* BaseCollectionViewCell.swift */,
 				C03270DC220B477C009FA337 /* SimpleTableViewCell */,
@@ -2023,6 +2034,33 @@
 			path = BetterSnappingLayout;
 			sourceTree = "<group>";
 		};
+		C0795B972288663800E5D94F /* AdditionOrUpdate */ = {
+			isa = PBXGroup;
+			children = (
+				C0795B9D22886C9700E5D94F /* BandAdditionOrUpdateCollectionViewCell */,
+				C0795B9A228866F900E5D94F /* AdditionOrUpdateTableViewCell */,
+			);
+			path = AdditionOrUpdate;
+			sourceTree = "<group>";
+		};
+		C0795B9A228866F900E5D94F /* AdditionOrUpdateTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0795B98228866ED00E5D94F /* AdditionOrUpdateTableViewCell.swift */,
+				C0795B9B2288672E00E5D94F /* AdditionOrUpdateTableViewCell.xib */,
+			);
+			path = AdditionOrUpdateTableViewCell;
+			sourceTree = "<group>";
+		};
+		C0795B9D22886C9700E5D94F /* BandAdditionOrUpdateCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0795B9E22886CF500E5D94F /* BandAdditionOrUpdateCollectionViewCell.swift */,
+				C0795BA022886D2600E5D94F /* BandAdditionOrUpdateCollectionViewCell.xib */,
+			);
+			path = BandAdditionOrUpdateCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		C07CFC27220E2A14009142A0 /* UIViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2453,6 +2491,7 @@
 		C0FF16C6220CE34F00B8EBB9 /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
+				C0795B972288663800E5D94F /* AdditionOrUpdate */,
 				C0C19C7E22878319008B68F8 /* News */,
 				C01839EF2225BF5B00FF88B7 /* ArtistAdditionOrUpdateTableViewCell */,
 				C01839EA2225748200FF88B7 /* LabelAdditionOrUpdateTableViewCell */,
@@ -2656,6 +2695,7 @@
 				C071307F21ECF4E500082BC6 /* LeftMenuOptionTableViewCell.xib in Resources */,
 				C053CF8422248BB500B056A8 /* RelatedLink.storyboard in Resources */,
 				C0858F052236C26B00595B48 /* MA_Countries.plist in Resources */,
+				C0795BA122886D2600E5D94F /* BandAdditionOrUpdateCollectionViewCell.xib in Resources */,
 				C053CF662223FB5000B056A8 /* LabelHeaderTableViewCell.xib in Resources */,
 				C03280022209E0F000FC9A44 /* ReleaseDetail.storyboard in Resources */,
 				C0FE9625221C0558003C4B59 /* ArtistHeaderTableViewCell.xib in Resources */,
@@ -2684,6 +2724,7 @@
 				C03F441022307723005D7AA8 /* SimpleAlbumTitleTableViewCell.xib in Resources */,
 				C0FBBE722208E28800226FB1 /* RelatedLinkTableViewCell.xib in Resources */,
 				C053DD7C22271E9C0028568B /* Search.storyboard in Resources */,
+				C0795B9C2288672E00E5D94F /* AdditionOrUpdateTableViewCell.xib in Resources */,
 				C0332FF2220252E4008B34E0 /* SimpleTableViewCell.xib in Resources */,
 				C05309E522232FA50027D11E /* LabelDetail.storyboard in Resources */,
 				C03F440B22307128005D7AA8 /* SimpleLyricalThemesTableViewCell.xib in Resources */,
@@ -2894,6 +2935,7 @@
 				C07F8BE42287123200295146 /* User.swift in Sources */,
 				C0AABDE8221D8AB00044A2CF /* MonthInYear.swift in Sources */,
 				C061021521EF92670025F8C1 /* Settings.swift in Sources */,
+				C0795B99228866ED00E5D94F /* AdditionOrUpdateTableViewCell.swift in Sources */,
 				C053DD4C22269A740028568B /* MemberStatisticTableViewCell.swift in Sources */,
 				C053DD272226777C0028568B /* StatisticsViewController.swift in Sources */,
 				C0FE963B221CA969003C4B59 /* RefreshableViewController.swift in Sources */,
@@ -3049,6 +3091,7 @@
 				C053CF642223FB3C00B056A8 /* LabelHeaderTableViewCell.swift in Sources */,
 				C0F0BE822243FA0B00B90605 /* WidgetSection.swift in Sources */,
 				C06C6C5B21FFC4FE00D37519 /* BandStatus.swift in Sources */,
+				C0795B9F22886CF500E5D94F /* BandAdditionOrUpdateCollectionViewCell.swift in Sources */,
 				C06F1DFF21F7688900B49D39 /* LabelLiteInBand.swift in Sources */,
 				C0332FE222019370008B34E0 /* ReleaseLite.swift in Sources */,
 				C03280092209F78100FC9A44 /* RequestStatistic.swift in Sources */,
@@ -3056,6 +3099,7 @@
 				C013363D223809B700963940 /* AdvancedSearchBandStatusListViewController.swift in Sources */,
 				C0602BD121EA866700046367 /* LeftMenuViewController.swift in Sources */,
 				C0795B892288131900E5D94F /* Utilities.swift in Sources */,
+				C0795BA322886DA500E5D94F /* ThumbnailableCollectionViewCell.swift in Sources */,
 				C05FC9B0222AC4DB00D4B0DF /* RegisterableCell.swift in Sources */,
 				C00D3635223D9ABF00B29B43 /* LibraryCopyrightViewController.swift in Sources */,
 				C01839E522256AF100FF88B7 /* LabelAdditionOrUpdate.swift in Sources */,

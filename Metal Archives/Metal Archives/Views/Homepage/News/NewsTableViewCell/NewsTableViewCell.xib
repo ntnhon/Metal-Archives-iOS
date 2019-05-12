@@ -19,13 +19,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="News Archives" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7K-NT-LkE">
-                        <rect key="frame" x="20" y="20" width="395" height="34.5"/>
+                        <rect key="frame" x="20" y="10" width="395" height="33.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="XYB-49-T06">
-                        <rect key="frame" x="0.0" y="54.5" width="490" height="150"/>
+                        <rect key="frame" x="0.0" y="43.5" width="490" height="150"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="150" id="4lU-1m-dcx"/>
@@ -42,22 +42,32 @@
                         </connections>
                     </collectionView>
                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TNO-S5-dgt">
-                        <rect key="frame" x="423" y="22.5" width="47" height="30"/>
+                        <rect key="frame" x="423" y="12" width="47" height="30"/>
                         <state key="normal" title="See All"/>
                         <connections>
                             <action selector="didTapSeeAllButton" destination="WQM-gR-Jcc" eventType="touchUpInside" id="m5A-2K-Dcp"/>
                         </connections>
                     </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iu9-oe-gSR">
+                        <rect key="frame" x="0.0" y="203.5" width="490" height="1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="uvj-Rl-yOZ"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="XYB-49-T06" firstAttribute="leading" secondItem="KG8-hf-oAG" secondAttribute="leading" id="038-SU-hGt"/>
                     <constraint firstAttribute="trailing" secondItem="TNO-S5-dgt" secondAttribute="trailing" constant="20" symbolic="YES" id="0XN-c2-Njj"/>
                     <constraint firstItem="TNO-S5-dgt" firstAttribute="leading" secondItem="Y7K-NT-LkE" secondAttribute="trailing" constant="8" symbolic="YES" id="384-Ry-ocw"/>
                     <constraint firstItem="Y7K-NT-LkE" firstAttribute="leading" secondItem="KG8-hf-oAG" secondAttribute="leading" constant="20" symbolic="YES" id="9nC-Hi-1cn"/>
-                    <constraint firstAttribute="bottom" secondItem="XYB-49-T06" secondAttribute="bottom" id="Aeo-PS-IV4"/>
+                    <constraint firstItem="Iu9-oe-gSR" firstAttribute="leading" secondItem="KG8-hf-oAG" secondAttribute="leading" id="AMk-GU-SaG"/>
                     <constraint firstItem="XYB-49-T06" firstAttribute="top" secondItem="Y7K-NT-LkE" secondAttribute="bottom" id="BqJ-WU-a1z"/>
-                    <constraint firstItem="Y7K-NT-LkE" firstAttribute="top" secondItem="KG8-hf-oAG" secondAttribute="top" constant="20" symbolic="YES" id="Eul-Iq-QZa"/>
+                    <constraint firstItem="Y7K-NT-LkE" firstAttribute="top" secondItem="KG8-hf-oAG" secondAttribute="top" constant="10" id="Eul-Iq-QZa"/>
+                    <constraint firstAttribute="trailing" secondItem="Iu9-oe-gSR" secondAttribute="trailing" id="Ln4-EB-LnD"/>
                     <constraint firstAttribute="trailing" secondItem="XYB-49-T06" secondAttribute="trailing" id="MQP-yB-cet"/>
+                    <constraint firstItem="Iu9-oe-gSR" firstAttribute="top" secondItem="XYB-49-T06" secondAttribute="bottom" constant="10" id="bp8-Ga-rZi"/>
+                    <constraint firstAttribute="bottom" secondItem="Iu9-oe-gSR" secondAttribute="bottom" id="kCk-HO-X2s"/>
                     <constraint firstItem="TNO-S5-dgt" firstAttribute="centerY" secondItem="Y7K-NT-LkE" secondAttribute="centerY" id="kpN-gk-NCG"/>
                 </constraints>
             </tableViewCellContentView>
@@ -65,6 +75,7 @@
                 <outlet property="collectionView" destination="XYB-49-T06" id="ZFc-W8-f90"/>
                 <outlet property="collectionViewHeightConstraint" destination="4lU-1m-dcx" id="PeX-ra-Jif"/>
                 <outlet property="seeAllButton" destination="TNO-S5-dgt" id="qD8-kJ-Ikz"/>
+                <outlet property="separatorView" destination="Iu9-oe-gSR" id="Tsb-SN-FXc"/>
                 <outlet property="titleLabel" destination="Y7K-NT-LkE" id="c14-ma-6Fh"/>
             </connections>
             <point key="canvasLocation" x="113.59999999999999" y="157.87106446776613"/>

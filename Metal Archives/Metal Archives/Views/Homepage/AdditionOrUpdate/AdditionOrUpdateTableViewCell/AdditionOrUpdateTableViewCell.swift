@@ -1,35 +1,57 @@
 //
-//  NewsTableViewCell.swift
+//  AdditionOrUpdateTableViewCell.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 14/01/2019.
+//  Created by Thanh-Nhon Nguyen on 12/05/2019.
 //  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
 //
 
 import UIKit
 
-final class NewsTableViewCell: BaseTableViewCell, RegisterableCell {
-    @IBOutlet private weak var collectionView: UICollectionView!
-    @IBOutlet private weak var collectionViewHeightConstraint: NSLayoutConstraint!
+final class AdditionOrUpdateTableViewCell: BaseTableViewCell, RegisterableCell {
+    enum Mode {
+        case additions, updates
+    }
+    
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var seeAllButton: UIButton!
+    @IBOutlet private weak var typeSegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var separatorView: UIView!
-
-    var newsArray = [News]() {
+    
+    var mode: AdditionOrUpdateTableViewCell.Mode = .additions
+    
+    var seeAll: (() -> Void)?
+    var changeType: ((_ type: AdditionOrUpdateType) -> Void)?
+    var didSelectBand: ((_ band: BandAdditionOrUpdate) -> Void)?
+    
+    var bands = [BandAdditionOrUpdate]() {
         didSet {
             collectionView.reloadData()
         }
     }
     
-    var seeAll: (() -> Void)?
+    var labels = [LabelAdditionOrUpdate]() {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
+    var artist = [ArtistAdditionOrUpdate]() {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        NewsCollectionViewCell.register(with: collectionView)
+        BandAdditionOrUpdateCollectionViewCell.register(with: collectionView)
         collectionView.contentInset = Settings.collectionViewContentInset
         collectionView.decelerationRate = .fast
-        collectionViewHeightConstraint.constant = calculateCollectionViewHeight(cellHeight: Settings.newsCollectionViewCellHeight, itemPerRow: Settings.numberOfNewsItemPerRow)
+        collectionViewHeightConstraint.constant = calculateCollectionViewHeight(cellHeight: Settings.generalCollectionViewCellHeight, itemPerRow: Settings.numberOfGeneralItemPerRow)
     }
+    
     
     override func initAppearance() {
         super.initAppearance()
@@ -43,40 +65,46 @@ final class NewsTableViewCell: BaseTableViewCell, RegisterableCell {
         backgroundColor = Settings.currentTheme.backgroundColor
         collectionView.backgroundColor = Settings.currentTheme.backgroundColor
         
+        typeSegmentedControl.tintColor = Settings.currentTheme.iconTintColor
+        
         separatorView.backgroundColor = Settings.currentTheme.collectionViewSeparatorColor
     }
     
     @IBAction private func didTapSeeAllButton() {
         seeAll?()
     }
+    
 }
 
 //MARK: - UICollectionViewDataSource
-extension NewsTableViewCell: UICollectionViewDataSource {
+extension AdditionOrUpdateTableViewCell: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return newsArray.count
+        return bands.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = NewsCollectionViewCell.dequeueFrom(collectionView, forIndexPath: indexPath)
-        cell.fill(with: newsArray[indexPath.item])
+        let cell = BandAdditionOrUpdateCollectionViewCell.dequeueFrom(collectionView, forIndexPath: indexPath)
+        cell.fill(with: bands[indexPath.item])
+        cell.showSeparator((indexPath.item + 1) % Settings.numberOfGeneralItemPerRow == 0)
         return cell
     }
 }
 
 //MARK: - UICollectionViewDelegate
-extension NewsTableViewCell: UICollectionViewDelegate {
-    
+extension AdditionOrUpdateTableViewCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        didSelectBand?(bands[indexPath.item])
+    }
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
-extension NewsTableViewCell: UICollectionViewDelegateFlowLayout {
+extension AdditionOrUpdateTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: Settings.collectionViewCellWidth, height: Settings.newsCollectionViewCellHeight)
+        return .init(width: Settings.collectionViewCellWidth, height: Settings.generalCollectionViewCellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

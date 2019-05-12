@@ -16,15 +16,13 @@ final class HomepageStatistic {
     lazy var summaryAttributedText: NSAttributedString = {
         let attrString = NSMutableAttributedString()
         
-        attrString.append("There are currently:\n- ".at.attributed(with: bodyTextAttributes))
+        attrString.append("\(self.numOfBands.formattedWithSeparator)".at.attributed(with: hilightedBodyTextAttributes))
+        attrString.append(" bands, ".at.attributed(with: bodyTextAttributes))
         
-        attrString.append("\(self.numOfBands.formattedWithSeparator) ".at.attributed(with: hilightedBodyTextAttributes))
-        attrString.append("bands.\n- ".at.attributed(with: bodyTextAttributes))
+        attrString.append("\(self.numOfUsers.formattedWithSeparator)".at.attributed(with: hilightedBodyTextAttributes))
+        attrString.append(" registerd users\n& ".at.attributed(with: bodyTextAttributes))
         
-        attrString.append("\(self.numOfUsers.formattedWithSeparator) ".at.attributed(with: hilightedBodyTextAttributes))
-        attrString.append(" registerd users.\n- ".at.attributed(with: bodyTextAttributes))
-        
-        attrString.append("\(self.numOfReviews.formattedWithSeparator) ".at.attributed(with: hilightedBodyTextAttributes))
+        attrString.append("\(self.numOfReviews.formattedWithSeparator)".at.attributed(with: hilightedBodyTextAttributes))
         attrString.append(" reviews.".at.attributed(with: bodyTextAttributes))
         
         return attrString

@@ -10,11 +10,11 @@ import UIKit
 import Toaster
 import FirebaseAnalytics
 
-enum LatestAdditionsOrUpdatesViewControllerType {
-    case additions, updates
-}
-
 final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
+    
+    enum Mode {
+        case additions, updates
+    }
 
     private var segmentedControl: UISegmentedControl!
     private var messageLabel: UILabel!
@@ -29,7 +29,7 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
         }
     }
     
-    var type: LatestAdditionsOrUpdatesViewControllerType!
+    var mode: LatestAdditionsOrUpdatesViewController.Mode!
     
     private var bandAdditionPagableManager: PagableManager<BandAddition>!
     private var bandUpdatePagableManager: PagableManager<BandUpdate>!
@@ -68,7 +68,7 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
     override func refresh() {
         switch self.currentLatestAdditionType {
         case .bands:
-            if self.type! == .additions {
+            if self.mode! == .additions {
                 self.initBandAdditionPagableManager()
                 self.tableView.reloadData()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
@@ -82,7 +82,7 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
                 }
             }
         case .labels:
-            if self.type! == .additions {
+            if self.mode! == .additions {
                 self.initLabelAdditionPagableManager()
                 self.tableView.reloadData()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
@@ -96,7 +96,7 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
                 }
             }
         case .artists:
-            if self.type! == .additions {
+            if self.mode! == .additions {
                 self.initArtistAdditionPagableManager()
                 self.tableView.reloadData()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
@@ -111,7 +111,7 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
             }
         }
         
-        switch self.type! {
+        switch self.mode! {
         case .additions:
             Analytics.logEvent(AnalyticsEvent.RefreshLatestAdditions, parameters: [AnalyticsParameter.SectionName: self.currentLatestAdditionType.description])
         case .updates:
@@ -125,7 +125,7 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
         var total: Int?
         switch self.currentLatestAdditionType {
         case .bands:
-            if self.type! == .additions {
+            if self.mode! == .additions {
                 count = self.bandAdditionPagableManager.objects.count
                 total = self.bandAdditionPagableManager.totalRecords
             } else {
@@ -133,7 +133,7 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
                 total = self.bandUpdatePagableManager.totalRecords
             }
         case .labels:
-            if self.type! == .additions {
+            if self.mode! == .additions {
                 count = self.labelAdditionPagableManager.objects.count
                 total = self.labelAdditionPagableManager.totalRecords
             } else {
@@ -141,7 +141,7 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
                 total = self.labelUpdatePagableManager.totalRecords
             }
         case .artists:
-            if self.type! == .additions {
+            if self.mode! == .additions {
                 count = self.artistAdditionPagableManager.objects.count
                 total = self.artistAdditionPagableManager.totalRecords
             } else {
@@ -160,19 +160,19 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
     private func fetchData() {
         switch self.currentLatestAdditionType {
         case .bands:
-            if self.type! == .additions {
+            if self.mode! == .additions {
                 self.bandAdditionPagableManager.fetch()
             } else {
                 self.bandUpdatePagableManager.fetch()
             }
         case .labels:
-            if self.type! == .additions {
+            if self.mode! == .additions {
                 self.labelAdditionPagableManager.fetch()
             } else {
                 self.labelUpdatePagableManager.fetch()
             }
         case .artists:
-            if self.type! == .additions {
+            if self.mode! == .additions {
                 self.artistAdditionPagableManager.fetch()
             } else {
                 self.artistUpdatePagableManager.fetch()
@@ -182,7 +182,7 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
     
     private func initNavBarAttributes() {
         
-        switch self.type! {
+        switch self.mode! {
         case .additions: self.title = "Latest Additions"
         case .updates: self.title = "Latest Updates"
         }
@@ -217,7 +217,7 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
     }
     
     private func initPagableManagers() {
-        switch self.type! {
+        switch self.mode! {
         case .additions:
             self.initBandAdditionPagableManager()
             self.initLabelAdditionPagableManager()
@@ -267,7 +267,7 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
         self.tableView.reloadData()
         
         
-        switch self.type! {
+        switch self.mode! {
         case .additions:
             Analytics.logEvent(AnalyticsEvent.ChangeSectionInLatestAdditions, parameters: [AnalyticsParameter.SectionName: self.currentLatestAdditionType.description])
         case .updates:
@@ -309,7 +309,7 @@ extension LatestAdditionsOrUpdatesViewController: PagableManagerDelegate {
         self.refreshSuccessfully()
         self.tableView.reloadData()
         
-        switch self.type! {
+        switch self.mode! {
         case .additions:
             Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: ["Module": "Latest additions", AnalyticsParameter.SectionName: self.currentLatestAdditionType.description])
         case .updates:
@@ -382,7 +382,7 @@ extension LatestAdditionsOrUpdatesViewController: MonthListViewControllerDelegat
         self.initPagableManagers()
         self.refresh()
         
-        switch self.type! {
+        switch self.mode! {
         case .additions:
             Analytics.logEvent(AnalyticsEvent.ChangeMonthInLatestAdditions, parameters: [AnalyticsParameter.Month: self.selectedMonth.shortDisplayString])
         case .updates:
@@ -394,7 +394,7 @@ extension LatestAdditionsOrUpdatesViewController: MonthListViewControllerDelegat
 //MARK: - BandAdditionOrUpdate
 extension LatestAdditionsOrUpdatesViewController {
     private func numberOfRowsInBandCase() -> Int {
-        switch self.type! {
+        switch self.mode! {
         case .additions:
             guard let _ = self.bandAdditionPagableManager else {
                 return 0
@@ -417,7 +417,7 @@ extension LatestAdditionsOrUpdatesViewController {
     }
     
     private func cellForRowsInBandCase(at indexPath: IndexPath) -> UITableViewCell {
-        switch self.type! {
+        switch self.mode! {
         case .additions: return self.cellForRowsInBandAdditionCase(at: indexPath)
         case .updates: return self.cellForRowsInBandUpdateCase(at: indexPath)
         }
@@ -451,7 +451,7 @@ extension LatestAdditionsOrUpdatesViewController {
     
     private func didSelectRowInBandCase(at indexPath: IndexPath) {
         var bandURLString: String?
-        switch self.type! {
+        switch self.mode! {
         case .additions:
             let band = self.bandAdditionPagableManager.objects[indexPath.row]
             bandURLString = band.urlString
@@ -471,7 +471,7 @@ extension LatestAdditionsOrUpdatesViewController {
     }
     
     private func willDisplayCellInBandCase(at indexPath: IndexPath) {
-        switch self.type! {
+        switch self.mode! {
         case .additions:
             if self.bandAdditionPagableManager.moreToLoad && indexPath.row == self.bandAdditionPagableManager.objects.count {
                 self.bandAdditionPagableManager.fetch()
@@ -491,7 +491,7 @@ extension LatestAdditionsOrUpdatesViewController {
 //MARK: - LabelAdditionOrUpdate
 extension LatestAdditionsOrUpdatesViewController {
     private func numberOfRowsInLabelCase() -> Int {
-        switch self.type! {
+        switch self.mode! {
         case .additions:
             guard let _ = self.labelAdditionPagableManager else {
                 return 0
@@ -515,7 +515,7 @@ extension LatestAdditionsOrUpdatesViewController {
     }
     
     private func cellForRowsInLabelCase(at indexPath: IndexPath) -> UITableViewCell {
-        switch self.type! {
+        switch self.mode! {
         case .additions: return self.cellForRowsInLabelAdditionCase(at: indexPath)
         case .updates: return self.cellForRowsInLabelUpdateCase(at: indexPath)
         }
@@ -549,7 +549,7 @@ extension LatestAdditionsOrUpdatesViewController {
     
     private func didSelectRowInLabelCase(at indexPath: IndexPath) {
         var labelURLString: String?
-        switch self.type! {
+        switch self.mode! {
         case .additions:
             let label = self.labelAdditionPagableManager.objects[indexPath.row]
             labelURLString = label.urlString
@@ -569,7 +569,7 @@ extension LatestAdditionsOrUpdatesViewController {
     }
     
     private func willDisplayCellInLabelCase(at indexPath: IndexPath) {
-        switch self.type! {
+        switch self.mode! {
         case .additions:
             if self.labelAdditionPagableManager.moreToLoad && indexPath.row == self.labelAdditionPagableManager.objects.count {
                 self.labelAdditionPagableManager.fetch()
@@ -591,7 +591,7 @@ extension LatestAdditionsOrUpdatesViewController {
 //MARK: - ArtistAdditionOrUpdate
 extension LatestAdditionsOrUpdatesViewController {
     private func numberOfRowsInArtistCase() -> Int {
-        switch self.type! {
+        switch self.mode! {
         case .additions:
             guard let _ = self.artistAdditionPagableManager else {
                 return 0
@@ -614,7 +614,7 @@ extension LatestAdditionsOrUpdatesViewController {
     }
     
     private func cellForRowsInArtistCase(at indexPath: IndexPath) -> UITableViewCell {
-        switch self.type! {
+        switch self.mode! {
         case .additions: return self.cellForRowsInArtistAdditionCase(at: indexPath)
         case .updates: return self.cellForRowsInArtistUpdateCase(at: indexPath)
         }
@@ -648,7 +648,7 @@ extension LatestAdditionsOrUpdatesViewController {
     
     private func didSelectRowInArtistCase(at indexPath: IndexPath) {
         var artist: ArtistAdditionOrUpdate?
-        switch self.type! {
+        switch self.mode! {
         case .additions:
             artist = self.artistAdditionPagableManager.objects[indexPath.row]
             
@@ -666,7 +666,7 @@ extension LatestAdditionsOrUpdatesViewController {
     }
     
     private func willDisplayCellInArtistCase(at indexPath: IndexPath) {
-        switch self.type! {
+        switch self.mode! {
         case .additions:
             if self.artistAdditionPagableManager.moreToLoad && indexPath.row == self.artistAdditionPagableManager.objects.count {
                 self.artistAdditionPagableManager.fetch()
