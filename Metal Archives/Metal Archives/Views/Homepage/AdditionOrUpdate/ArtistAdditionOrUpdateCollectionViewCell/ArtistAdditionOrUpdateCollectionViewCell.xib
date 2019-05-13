@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="MeR-Vn-tgm" customClass="ArtistAdditionOrUpdateCollectionViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="448" height="89"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="448" height="89"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z4N-Kl-VyY">
+                        <rect key="frame" x="0.0" y="0.0" width="89" height="89"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="z4N-Kl-VyY" secondAttribute="height" multiplier="1:1" id="K4y-NR-iqS"/>
+                        </constraints>
+                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2EK-Mt-ITA">
+                        <rect key="frame" x="97" y="4" width="351" height="81"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TV0-Ha-idu">
+                                <rect key="frame" x="0.0" y="0.0" width="351" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="brZ-S0-5tZ">
+                                <rect key="frame" x="0.0" y="20.5" width="351" height="20.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bands name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hen-I4-AYd">
+                                        <rect key="frame" x="0.0" y="0.0" width="247" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="United States" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6Y-Gi-rKP">
+                                        <rect key="frame" x="247" y="0.0" width="104" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="2019-01-01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uU3-am-DnF">
+                                <rect key="frame" x="0.0" y="41" width="351" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="smo-Sx-QN4">
+                        <rect key="frame" x="97" y="88" width="351" height="1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Y8E-u7-bei"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="z4N-Kl-VyY" firstAttribute="top" secondItem="MeR-Vn-tgm" secondAttribute="top" id="7rp-TY-N5E"/>
+                <constraint firstItem="2EK-Mt-ITA" firstAttribute="leading" secondItem="z4N-Kl-VyY" secondAttribute="trailing" constant="8" symbolic="YES" id="B5k-eA-Ozt"/>
+                <constraint firstAttribute="bottom" secondItem="smo-Sx-QN4" secondAttribute="bottom" id="CX9-dE-Kbb"/>
+                <constraint firstItem="smo-Sx-QN4" firstAttribute="leading" secondItem="z4N-Kl-VyY" secondAttribute="trailing" constant="8" symbolic="YES" id="dAX-ML-qhQ"/>
+                <constraint firstItem="smo-Sx-QN4" firstAttribute="top" secondItem="2EK-Mt-ITA" secondAttribute="bottom" constant="3" id="dT9-Ew-Kew"/>
+                <constraint firstAttribute="bottom" secondItem="z4N-Kl-VyY" secondAttribute="bottom" id="e44-Il-Sx4"/>
+                <constraint firstAttribute="trailing" secondItem="2EK-Mt-ITA" secondAttribute="trailing" id="qxH-lQ-sdg"/>
+                <constraint firstAttribute="trailing" secondItem="smo-Sx-QN4" secondAttribute="trailing" id="sJQ-qC-ZO8"/>
+                <constraint firstItem="z4N-Kl-VyY" firstAttribute="leading" secondItem="MeR-Vn-tgm" secondAttribute="leading" id="vco-is-34B"/>
+                <constraint firstItem="2EK-Mt-ITA" firstAttribute="top" secondItem="MeR-Vn-tgm" secondAttribute="top" constant="4" id="wTI-PV-Q1O"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="JpJ-gi-6ig"/>
+            <size key="customSize" width="448" height="89"/>
+            <connections>
+                <outlet property="bandsNameLabel" destination="hen-I4-AYd" id="lcV-3D-SxG"/>
+                <outlet property="countryLabel" destination="C6Y-Gi-rKP" id="iip-t5-n2M"/>
+                <outlet property="dateLabel" destination="uU3-am-DnF" id="szr-8Y-SzW"/>
+                <outlet property="nameLabel" destination="TV0-Ha-idu" id="whB-54-yxO"/>
+                <outlet property="separatorView" destination="smo-Sx-QN4" id="jOD-m2-J9C"/>
+                <outlet property="thumbnailImageView" destination="z4N-Kl-VyY" id="Bla-0h-N8z"/>
+            </connections>
+            <point key="canvasLocation" x="198.55072463768118" y="75.334821428571431"/>
+        </collectionViewCell>
+    </objects>
+</document>

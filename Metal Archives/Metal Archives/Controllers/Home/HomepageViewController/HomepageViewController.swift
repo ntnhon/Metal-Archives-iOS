@@ -16,10 +16,21 @@ final class HomepageViewController: RefreshableViewController {
     
     private var statisticAttrString: NSAttributedString?
     private var newsPagableManager = PagableManager<News>()
+    //Latest additions
     private var bandAdditionPagableManager = PagableManager<BandAddition>()
+    private var labelAdditionPagableManager = PagableManager<LabelAddition>()
+    private var artistAdditionPagableManager = PagableManager<ArtistAddition>()
+    var latestAdditionDelegate: HomepageViewControllerLatestAdditionDelegate?
+    //Latest updates
     private var bandUpdatePagableManager = PagableManager<BandUpdate>()
     private var latestReviewPagableManager = PagableManager<LatestReview>()
     private var upcomingAlbumPagableManager = PagableManager<UpcomingAlbum>()
+    
+    var latestAdditionType: AdditionOrUpdateType = .bands {
+        didSet {
+            respondToAdditionTypeChange()
+        }
+    }
     
     /// English and Latin title, don't mind weird characters, they are needed for flipped effect (last character)
     private let navBarTitle = (english: "Metal archiveÎ", latin: "Encyclopaedia metalluÈ")
@@ -37,11 +48,6 @@ final class HomepageViewController: RefreshableViewController {
         self.initObservers()
         self.alertNewVersion()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Homepage", style: .plain, target: nil, action: nil)
-        
-        if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.prefersLargeTitles = true
-            self.navigationItem.largeTitleDisplayMode = .always
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -62,10 +68,6 @@ final class HomepageViewController: RefreshableViewController {
             NSAttributedString.Key.foregroundColor: Settings.currentTheme.tableViewBackgroundColor,
             NSAttributedString.Key.font: UIFont(name: "PastorofMuppets", size: 34)!
             ] : nil
-
-        if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.largeTitleTextAttributes = attrs
-        }
         self.navigationController?.navigationBar.titleTextAttributes = attrs
     }
     
@@ -171,11 +173,16 @@ final class HomepageViewController: RefreshableViewController {
             self?.tableView.reloadData()
         }
         
+        //Latest additions
         self.bandAdditionPagableManager = PagableManager<BandAddition>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString])
         self.bandAdditionPagableManager.fetch { [weak self] (error) in
-            self?.tableView.reloadData()
+            self?.respondToAdditionTypeChange()
         }
         
+        self.labelAdditionPagableManager = PagableManager<LabelAddition>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
+        self.artistAdditionPagableManager = PagableManager<ArtistAddition>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString])
+        
+        //Latest updates
         self.bandUpdatePagableManager = PagableManager<BandUpdate>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString])
         self.bandUpdatePagableManager.fetch { [weak self] (error) in
             self?.tableView.reloadData()
@@ -214,6 +221,53 @@ final class HomepageViewController: RefreshableViewController {
         alert.addAction(cancelAction)
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func respondToAdditionTypeChange() {
+        switch latestAdditionType {
+        case .bands:
+            if let _ = bandAdditionPagableManager.totalRecords {
+                self.latestAdditionDelegate?.didFinishFetchingBandAdditions(bandAdditionPagableManager.objects)
+                return
+            }
+            
+            bandAdditionPagableManager.fetch { [weak self] (error) in
+                if let _ = error {
+                    self?.latestAdditionDelegate?.didFailFetching()
+                    return
+                }
+                
+                self?.latestAdditionDelegate?.didFinishFetchingBandAdditions(self?.bandAdditionPagableManager.objects ?? [])
+            }
+        case .labels:
+            if let _ = labelAdditionPagableManager.totalRecords {
+                self.latestAdditionDelegate?.didFinishFetchingLabelAdditions(labelAdditionPagableManager.objects)
+                return
+            }
+            
+            labelAdditionPagableManager.fetch { [weak self] (error) in
+                if let _ = error {
+                    self?.latestAdditionDelegate?.didFailFetching()
+                    return
+                }
+                
+                self?.latestAdditionDelegate?.didFinishFetchingLabelAdditions(self?.labelAdditionPagableManager.objects ?? [])
+            }
+        case .artists:
+            if let _ = artistAdditionPagableManager.totalRecords {
+                self.latestAdditionDelegate?.didFinishFetchingArtistAdditions(artistAdditionPagableManager.objects)
+                return
+            }
+            
+            artistAdditionPagableManager.fetch { [weak self] (error) in
+                if let _ = error {
+                    self?.latestAdditionDelegate?.didFailFetching()
+                    return
+                }
+                
+                self?.latestAdditionDelegate?.didFinishFetchingArtistAdditions(self?.artistAdditionPagableManager.objects ?? [])
+            }
+        }
     }
 }
 
@@ -397,7 +451,8 @@ extension HomepageViewController {
     private func cellForLatestAdditionsSection(at indexPath: IndexPath) -> UITableViewCell {
         let cell = AdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         
-        cell.bands = self.bandAdditionPagableManager.objects
+        cell.selectedType = latestAdditionType
+        latestAdditionDelegate = cell
         
         cell.seeAll = {
             self.performSegue(withIdentifier: "ShowLatestAdditions", sender: nil)
@@ -409,6 +464,20 @@ extension HomepageViewController {
             self.pushBandDetailViewController(urlString: band.urlString, animated: true)
             
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "BandAddition"])
+        }
+        
+        cell.didSelectLabel = { label in
+            self.pushLabelDetailViewController(urlString: label.urlString, animated: true)
+            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "LabelAddition"])
+        }
+        
+        cell.didSelectArtist = { artist in
+            self.takeActionFor(actionableObject: artist)
+            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "ArtistAddition"])
+        }
+        
+        cell.changeType = { selectedType in
+            self.latestAdditionType = selectedType
         }
         
         return cell

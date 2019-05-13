@@ -38,6 +38,9 @@
                             <segment title="Labels"/>
                             <segment title="Artists"/>
                         </segments>
+                        <connections>
+                            <action selector="typeSegmentedControlValueChanged" destination="rFh-dz-R2f" eventType="valueChanged" id="sgZ-Di-V9w"/>
+                        </connections>
                     </segmentedControl>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8Lo-mc-OuU">
                         <rect key="frame" x="0.0" y="98" width="474" height="91.5"/>

@@ -247,7 +247,7 @@ enum Theme: Int, CustomStringConvertible {
     }
     
     var tableViewSeparatorColor: UIColor {
-        return .clear
+        return secondaryTitleColor
     }
     
     var iconTintColor: UIColor {
