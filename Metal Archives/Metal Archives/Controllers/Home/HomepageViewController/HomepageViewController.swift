@@ -90,9 +90,8 @@ final class HomepageViewController: RefreshableViewController {
         LoadingTableViewCell.register(with: self.tableView)
         NewsTableViewCell.register(with: self.tableView)
         StatisticTableViewCell.register(with: self.tableView)
-        BandAdditionOrUpdateTableViewCell.register(with: self.tableView)
         AdditionOrUpdateTableViewCell.register(with: self.tableView)
-        LatestReviewTableViewCell.register(with: self.tableView)
+        LatestReviewsTableViewCell.register(with: self.tableView)
         UpcomingAlbumTableViewCell.register(with: self.tableView)
         ViewMoreTableViewCell.register(with: self.tableView)
     }
@@ -347,16 +346,6 @@ extension HomepageViewController {
 //MARK: - UIScrollViewDelegate
 extension HomepageViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0 {
-//            if !self.isDisplayingEnglishTitle {
-//                self.isDisplayingEnglishTitle.toggle()
-//            }
-//        } else {
-//            if self.isDisplayingEnglishTitle {
-//                self.isDisplayingEnglishTitle.toggle()
-//            }
-//        }
-        
         self.isDisplayingEnglishTitle = scrollView.contentOffset.y <= 0
     }
 }
@@ -369,14 +358,6 @@ extension HomepageViewController: UITableViewDelegate {
         switch indexPath.section {
         //Section: Stats
         case 0: self.didSelectRowInStatisticsSection(at: indexPath)
-        //Section: News
-        case 1: return
-        //Section: Latest additions
-        case 2: return
-        //Section: Latest updates
-        case 3: return
-        //Section: Latest reviews
-        case 4: self.didSelectRowInLatestReviewsSection(at: indexPath)
         //Section: Upcoming albums
         case 5: self.didSelectRowInUpcomingAlbumsSection(at: indexPath)
         default: return
@@ -413,19 +394,8 @@ extension HomepageViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        //Section: Stats
-        case 0: return self.numberOfRowsInStatisticsSection()
-        //Section: News
-        case 1: return 1
-        //Section: Latest additions
-        case 2: return 1
-        //Section: Latest updates
-        case 3: return 1
-        //Section: Latest reviews
-        case 4: return self.numberOfRowsInLatestReviewsSection()
-        //Section: Upcoming albums
         case 5: return self.numberOfRowsInUpcomingAlbumsSection()
-        default: fatalError("Impossible case!")
+        default: return 1
         }
     }
     
@@ -465,10 +435,6 @@ extension HomepageViewController {
 
 //MARK: - Section STATISTICS
 extension HomepageViewController {
-    private func numberOfRowsInStatisticsSection() -> Int {
-        return 1
-    }
-    
     private func cellForStatsSection(at indexPath: IndexPath) -> UITableViewCell {
         guard let `statisticAttrString` = self.statisticAttrString else {
             return self.loadingCell(atIndexPath: indexPath)
@@ -494,7 +460,7 @@ extension HomepageViewController {
         
         let cell = NewsTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
         cell.newsArray = self.newsPagableManager.objects
-        cell.seeAll = {
+        cell.seeAll = {[unowned self] in
             let newsArchiveViewController = UIStoryboard(name: "NewsArchive", bundle: nil).instantiateViewController(withIdentifier: "NewsArchiveViewController" ) as! NewsArchiveViewController
             self.navigationController?.pushViewController(newsArchiveViewController, animated: true)
         }
@@ -511,29 +477,29 @@ extension HomepageViewController {
         cell.mode = .additions
         latestAdditionsDelegate = cell
         
-        cell.seeAll = {
+        cell.seeAll = {[unowned self] in
             self.performSegue(withIdentifier: "ShowLatestAdditions", sender: nil)
             
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more latest additions"])
         }
         
-        cell.didSelectBand = { band in
+        cell.didSelectBand = { [unowned self] band in
             self.pushBandDetailViewController(urlString: band.urlString, animated: true)
             
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "BandAddition"])
         }
         
-        cell.didSelectLabel = { label in
+        cell.didSelectLabel = { [unowned self] label in
             self.pushLabelDetailViewController(urlString: label.urlString, animated: true)
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "LabelAddition"])
         }
         
-        cell.didSelectArtist = { artist in
+        cell.didSelectArtist = { [unowned self] artist in
             self.takeActionFor(actionableObject: artist)
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "ArtistAddition"])
         }
         
-        cell.changeType = { selectedType in
+        cell.changeType = { [unowned self] selectedType in
             self.latestAdditionType = selectedType
         }
         
@@ -550,109 +516,54 @@ extension HomepageViewController {
         cell.mode = .updates
         latestUpdatesDelegate = cell
         
-        cell.seeAll = {
+        cell.seeAll = {[unowned self] in
             self.performSegue(withIdentifier: "ShowLatestUpdates", sender: nil)
             
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more latest updates"])
         }
         
-        cell.didSelectBand = { band in
+        cell.didSelectBand = { [unowned self] band in
             self.pushBandDetailViewController(urlString: band.urlString, animated: true)
             
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "BandUpdate"])
         }
         
-        cell.didSelectLabel = { label in
+        cell.didSelectLabel = { [unowned self] label in
             self.pushLabelDetailViewController(urlString: label.urlString, animated: true)
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "LabelUpdate"])
         }
         
-        cell.didSelectArtist = { artist in
+        cell.didSelectArtist = { [unowned self] artist in
             self.takeActionFor(actionableObject: artist)
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "ArtistUpdate"])
         }
         
-        cell.changeType = { selectedType in
+        cell.changeType = { [unowned self] selectedType in
             self.latestUpdateType = selectedType
         }
         
         return cell
     }
-//
-//    private func didSelectRowInLatestUpdatesSection(at indexPath: IndexPath) {
-//        guard let _ = self.bandUpdatePagableManager.totalRecords else {
-//            return
-//        }
-//
-//        if indexPath.row == Settings.shortListDisplayCount || indexPath.row == self.bandUpdatePagableManager.objects.count  {
-//            self.didSelectBandLatestUpdatesViewMore()
-//            return
-//        }
-//
-//        let selectedBand = self.bandUpdatePagableManager.objects[indexPath.row]
-//        self.pushBandDetailViewController(urlString: selectedBand.urlString, animated: true)
-//
-//        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "BandUpdate"])
-//    }
-//
-//    private func didSelectBandLatestUpdatesViewMore() {
-//        self.performSegue(withIdentifier: "ShowLatestUpdates", sender: nil)
-//
-//        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more latest updates"])
-//    }
 }
 
 //MARK: - Section LATEST REVIEWS
 extension HomepageViewController {
-    private func numberOfRowsInLatestReviewsSection() -> Int {
-        guard let _ = self.latestReviewPagableManager.totalRecords else {
-            return 1
-        }
-        
-        if self.latestReviewPagableManager.objects.count > Settings.shortListDisplayCount {
-            return Settings.shortListDisplayCount + 1
-        }
-        
-        return self.latestReviewPagableManager.objects.count + 1
-    }
-    
     private func cellForLatestReviewsSection(at indexPath: IndexPath) -> UITableViewCell {
-        guard let _ = self.latestReviewPagableManager.totalRecords else {
-            return self.loadingCell(atIndexPath: indexPath)
+        let cell = LatestReviewsTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        
+        cell.latestReviews = latestReviewPagableManager.objects
+        
+        cell.seeAll = { [unowned self] in
+            self.performSegue(withIdentifier: "ShowLatestReviews", sender: nil)
+            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more latest reviews"])
         }
         
-        if indexPath.row == Settings.shortListDisplayCount || indexPath.row == self.latestReviewPagableManager.objects.count {
-            return self.viewMoreCell(message: "More latest reviews", atIndex: indexPath)
+        cell.didSelectLatestReview = { [unowned self] latestReview in
+            self.takeActionFor(actionableObject: latestReview)
+            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "LatestReview"])
         }
-        
-        let cell = LatestReviewTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        
-        let latestReview = self.latestReviewPagableManager.objects[indexPath.row]
-        cell.fill(with: latestReview)
         
         return cell
-    }
-    
-    private func didSelectRowInLatestReviewsSection(at indexPath: IndexPath) {
-        guard let _ = self.latestReviewPagableManager.totalRecords else {
-            return
-        }
-        
-        if indexPath.row == Settings.shortListDisplayCount || indexPath.row == self.latestReviewPagableManager.objects.count {
-            self.didSelectLatestReviewsViewMore()
-            return
-        }
-        
-        let latestReview = self.latestReviewPagableManager.objects[indexPath.row]
-        self.takeActionFor(actionableObject: latestReview)
-        
-        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "LatestReview"])
-    }
-    
-    private func didSelectLatestReviewsViewMore() {
-        self.performSegue(withIdentifier: "ShowLatestReviews", sender: nil)
-        
-        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more latest reviews"])
     }
 }
 

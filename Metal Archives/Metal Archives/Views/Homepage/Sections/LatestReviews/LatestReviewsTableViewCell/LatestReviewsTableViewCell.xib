@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="149" id="Rbd-6Z-7si" customClass="LatestReviewsTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="461" height="149"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rbd-6Z-7si" id="7jk-Tb-oZd">
+                <rect key="frame" x="0.0" y="0.0" width="461" height="148.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latest Reviews" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tge-L6-G2P">
+                        <rect key="frame" x="20" y="10" width="366" height="30"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntc-eS-e7w">
+                        <rect key="frame" x="394" y="10" width="47" height="30"/>
+                        <state key="normal" title="See All"/>
+                        <connections>
+                            <action selector="didTapSeeAllButton" destination="Rbd-6Z-7si" eventType="touchUpInside" id="WGC-hB-peB"/>
+                        </connections>
+                    </button>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="DQD-XP-PPr">
+                        <rect key="frame" x="0.0" y="48" width="461" height="89.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="89.5" id="KaT-gA-lWJ"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="l1E-3s-Cy7" customClass="BetterSnappingLayout" customModule="Metal_Archives" customModuleProvider="target">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <connections>
+                            <outlet property="dataSource" destination="Rbd-6Z-7si" id="rbL-wa-vvW"/>
+                            <outlet property="delegate" destination="Rbd-6Z-7si" id="8Yd-Qv-GVy"/>
+                        </connections>
+                    </collectionView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7N-5P-8dz">
+                        <rect key="frame" x="0.0" y="147.5" width="461" height="1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="aTI-kj-5ua"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="DQD-XP-PPr" firstAttribute="leading" secondItem="7jk-Tb-oZd" secondAttribute="leading" id="42R-oq-lIs"/>
+                    <constraint firstItem="ntc-eS-e7w" firstAttribute="centerY" secondItem="tge-L6-G2P" secondAttribute="centerY" id="Dta-Kl-dpE"/>
+                    <constraint firstItem="R7N-5P-8dz" firstAttribute="leading" secondItem="7jk-Tb-oZd" secondAttribute="leading" id="HB0-j7-2Dx"/>
+                    <constraint firstItem="tge-L6-G2P" firstAttribute="top" secondItem="7jk-Tb-oZd" secondAttribute="top" constant="10" id="IFU-dF-I87"/>
+                    <constraint firstItem="DQD-XP-PPr" firstAttribute="top" secondItem="tge-L6-G2P" secondAttribute="bottom" constant="8" symbolic="YES" id="NIY-gq-YYc"/>
+                    <constraint firstAttribute="trailing" secondItem="DQD-XP-PPr" secondAttribute="trailing" id="Uhr-TH-DRg"/>
+                    <constraint firstAttribute="trailing" secondItem="ntc-eS-e7w" secondAttribute="trailing" constant="20" symbolic="YES" id="YZI-9H-0fI"/>
+                    <constraint firstItem="tge-L6-G2P" firstAttribute="leading" secondItem="7jk-Tb-oZd" secondAttribute="leading" constant="20" symbolic="YES" id="eF9-6f-65a"/>
+                    <constraint firstItem="R7N-5P-8dz" firstAttribute="top" secondItem="DQD-XP-PPr" secondAttribute="bottom" constant="10" id="rIC-rJ-if9"/>
+                    <constraint firstItem="ntc-eS-e7w" firstAttribute="leading" secondItem="tge-L6-G2P" secondAttribute="trailing" constant="8" symbolic="YES" id="tbe-2l-tK0"/>
+                    <constraint firstAttribute="bottom" secondItem="R7N-5P-8dz" secondAttribute="bottom" id="ugt-m7-iDB"/>
+                    <constraint firstAttribute="trailing" secondItem="R7N-5P-8dz" secondAttribute="trailing" id="zHA-cg-jxz"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="collectionView" destination="DQD-XP-PPr" id="tLm-Xa-NMR"/>
+                <outlet property="collectionViewHeightConstraint" destination="KaT-gA-lWJ" id="Xdi-rV-6X5"/>
+                <outlet property="seeAllButton" destination="ntc-eS-e7w" id="TPa-Wv-KtY"/>
+                <outlet property="separatorView" destination="R7N-5P-8dz" id="4XN-3l-fEW"/>
+                <outlet property="titleLabel" destination="tge-L6-G2P" id="31p-S6-KOS"/>
+            </connections>
+            <point key="canvasLocation" x="121.0144927536232" y="102.79017857142857"/>
+        </tableViewCell>
+    </objects>
+</document>

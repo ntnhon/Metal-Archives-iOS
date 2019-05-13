@@ -85,8 +85,6 @@ final class AdditionOrUpdateTableViewCell: BaseTableViewCell, RegisterableCell {
         typeSegmentedControl.tintColor = Settings.currentTheme.iconTintColor
         
         separatorView.backgroundColor = Settings.currentTheme.collectionViewSeparatorColor
-        
-        
     }
     
     @IBAction private func didTapSeeAllButton() {
