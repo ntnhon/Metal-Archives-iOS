@@ -574,30 +574,13 @@ extension HomepageViewController {
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more upcoming albums"])
         }
         
+        cell.didSelectUpcomingAlbum = { [unowned self] upcomingAlbum in
+            self.takeActionFor(actionableObject: upcomingAlbum)
+            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "UpcomingAlbum"])
+        }
+        
         return cell
     }
-//
-//    private func didSelectRowInUpcomingAlbumsSection(at indexPath: IndexPath) {
-//        guard let _ = self.upcomingAlbumPagableManager.totalRecords else {
-//            return
-//        }
-//
-//        if indexPath.row == Settings.shortListDisplayCount || indexPath.row == self.upcomingAlbumPagableManager.objects.count {
-//            self.didSelectUpcomingAlbumsViewMore()
-//            return
-//        }
-//
-//        let upcomingAlbum = self.upcomingAlbumPagableManager.objects[indexPath.row]
-//        self.takeActionFor(actionableObject: upcomingAlbum)
-//
-//        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "UpcomingAlbum"])
-//    }
-//
-//    private func didSelectUpcomingAlbumsViewMore() {
-//        self.performSegue(withIdentifier: "ShowUpcomingAlbums", sender: nil)
-//
-//        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more upcoming albums"])
-//    }
 }
 
 //MARK: - Alert new version

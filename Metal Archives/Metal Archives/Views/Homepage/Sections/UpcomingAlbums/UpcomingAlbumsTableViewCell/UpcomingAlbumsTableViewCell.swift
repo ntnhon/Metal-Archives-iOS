@@ -17,6 +17,7 @@ final class UpcomingAlbumsTableViewCell: BaseTableViewCell, RegisterableCell {
     @IBOutlet private weak var separatorView: UIView!
     
     var seeAll: (() -> Void)?
+    var didSelectUpcomingAlbum: ((_ upcomingAlbum: UpcomingAlbum) -> Void)?
     
     var upcomingAlbums = [UpcomingAlbum]() {
         didSet {
@@ -72,7 +73,7 @@ extension UpcomingAlbumsTableViewCell: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
 extension UpcomingAlbumsTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        didSelectUpcomingAlbum?(upcomingAlbums[indexPath.item])
     }
 }
 
