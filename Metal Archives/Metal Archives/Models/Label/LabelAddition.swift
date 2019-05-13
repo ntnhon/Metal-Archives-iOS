@@ -14,35 +14,14 @@ final class LabelAddition: LabelAdditionOrUpdate, Pagable {
     static var displayLenght = 200
     
     static func parseListFrom(data: Data) -> (objects: [LabelAddition]?, totalRecords: Int?)? {
+        guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
+            return nil
+        }
         var list: [LabelAddition] = []
         
-        guard
-            let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listBandLatestAdditions = json["aaData"] as? [[String]]
-            else {
-                return nil
-        }
-        
-        let totalRecords = json["iTotalRecords"] as? Int
-        
-        listBandLatestAdditions.forEach { (bandDetails) in
-            
-            let name = String((bandDetails[1].subString(after: "\">", before: "</a>", options: .caseInsensitive)) ?? "")
-            let urlString = String(bandDetails[1].subString(after: "href=\"", before: "\">", options: .caseInsensitive) ?? "")
-            let statusString = String(bandDetails[2].subString(after: "\">", before: "</", options: .caseInsensitive) ?? "")
-            let status = LabelStatus(statusString: statusString)
-            let countryName = bandDetails[3].replacingOccurrences(of: "&nbsp;", with: "")
-            let country = Country(name: countryName)
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            let updatedDate = dateFormatter.date(from: bandDetails[4])
-
-            
-            if let `updatedDate` = updatedDate {
-                if let labelAddition = LabelAddition(urlString: urlString, name: name, status: status, country: country, updatedDate: updatedDate) {
-                    list.append(labelAddition)
-                }
+        array.forEach { (labelDetails) in
+            if let labelAddition = LabelAddition(from: labelDetails) {
+                list.append(labelAddition)
             }
         }
         
