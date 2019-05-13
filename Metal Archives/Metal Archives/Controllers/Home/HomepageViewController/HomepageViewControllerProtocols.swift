@@ -9,9 +9,9 @@
 import Foundation
 
 // Have to use long names cause swift doesn't allow nested protocols
-protocol HomepageViewControllerLatestAdditionDelegate {
-    func didFinishFetchingBandAdditions(_ bands: [BandAdditionOrUpdate])
-    func didFinishFetchingLabelAdditions(_ labels: [LabelAdditionOrUpdate])
-    func didFinishFetchingArtistAdditions(_ artists: [ArtistAdditionOrUpdate])
+protocol HomepageViewControllerLatestAdditionOrUpdateDelegate {
+    func didFinishFetchingBandAdditionOrUpdate(_ bands: [BandAdditionOrUpdate])
+    func didFinishFetchingLabelAdditionOrUpdate(_ labels: [LabelAdditionOrUpdate])
+    func didFinishFetchingArtistAdditionOrUpdate(_ artists: [ArtistAdditionOrUpdate])
     func didFailFetching()
 }

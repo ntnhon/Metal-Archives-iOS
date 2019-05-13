@@ -1620,6 +1620,36 @@
 			path = ArtistAdditionOrUpdateCollectionViewCell;
 			sourceTree = "<group>";
 		};
+		C066137C2289779C00F99006 /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				C0C19C7E22878319008B68F8 /* News */,
+				C0795B972288663800E5D94F /* AdditionOrUpdate */,
+				C066137E22898F6B00F99006 /* LatestReviews */,
+			);
+			path = Sections;
+			sourceTree = "<group>";
+		};
+		C066137D228977EB00F99006 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				C01839EF2225BF5B00FF88B7 /* ArtistAdditionOrUpdateTableViewCell */,
+				C01839EA2225748200FF88B7 /* LabelAdditionOrUpdateTableViewCell */,
+				C0AABDED221DEE990044A2CF /* UpcomingAlbumTableViewCell */,
+				C071307121ECDDA900082BC6 /* BandAdditionOrUpdateTableViewCell */,
+				C071307621ECE0B300082BC6 /* LatestReviewTableViewCell */,
+				C071306821ECD22A00082BC6 /* StatisticTableViewCell */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		C066137E22898F6B00F99006 /* LatestReviews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LatestReviews;
+			sourceTree = "<group>";
+		};
 		C06B6241224235E900A3FE6B /* BrowseLabels */ = {
 			isa = PBXGroup;
 			children = (
@@ -2074,10 +2104,10 @@
 		C0795B972288663800E5D94F /* AdditionOrUpdate */ = {
 			isa = PBXGroup;
 			children = (
+				C0795B9A228866F900E5D94F /* AdditionOrUpdateTableViewCell */,
 				C066137722896CB800F99006 /* ArtistAdditionOrUpdateCollectionViewCell */,
 				C06613722289699F00F99006 /* LabelAdditionOrUpdateCollectionViewCell */,
 				C0795B9D22886C9700E5D94F /* BandAdditionOrUpdateCollectionViewCell */,
-				C0795B9A228866F900E5D94F /* AdditionOrUpdateTableViewCell */,
 			);
 			path = AdditionOrUpdate;
 			sourceTree = "<group>";
@@ -2530,14 +2560,8 @@
 		C0FF16C6220CE34F00B8EBB9 /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
-				C0795B972288663800E5D94F /* AdditionOrUpdate */,
-				C0C19C7E22878319008B68F8 /* News */,
-				C01839EF2225BF5B00FF88B7 /* ArtistAdditionOrUpdateTableViewCell */,
-				C01839EA2225748200FF88B7 /* LabelAdditionOrUpdateTableViewCell */,
-				C0AABDED221DEE990044A2CF /* UpcomingAlbumTableViewCell */,
-				C071307121ECDDA900082BC6 /* BandAdditionOrUpdateTableViewCell */,
-				C071307621ECE0B300082BC6 /* LatestReviewTableViewCell */,
-				C071306821ECD22A00082BC6 /* StatisticTableViewCell */,
+				C066137D228977EB00F99006 /* TableViewCells */,
+				C066137C2289779C00F99006 /* Sections */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";

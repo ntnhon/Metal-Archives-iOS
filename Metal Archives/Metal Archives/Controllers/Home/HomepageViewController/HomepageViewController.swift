@@ -20,17 +20,27 @@ final class HomepageViewController: RefreshableViewController {
     private var bandAdditionPagableManager = PagableManager<BandAddition>()
     private var labelAdditionPagableManager = PagableManager<LabelAddition>()
     private var artistAdditionPagableManager = PagableManager<ArtistAddition>()
-    var latestAdditionDelegate: HomepageViewControllerLatestAdditionDelegate?
-    //Latest updates
-    private var bandUpdatePagableManager = PagableManager<BandUpdate>()
-    private var latestReviewPagableManager = PagableManager<LatestReview>()
-    private var upcomingAlbumPagableManager = PagableManager<UpcomingAlbum>()
-    
+    var latestAdditionsDelegate: HomepageViewControllerLatestAdditionOrUpdateDelegate?
     var latestAdditionType: AdditionOrUpdateType = .bands {
         didSet {
             respondToAdditionTypeChange()
         }
     }
+    //Latest updates
+    private var bandUpdatePagableManager = PagableManager<BandUpdate>()
+    private var labelUpdatePagableManager = PagableManager<LabelUpdate>()
+    private var artistUpdatePagableManager = PagableManager<ArtistUpdate>()
+    var latestUpdatesDelegate: HomepageViewControllerLatestAdditionOrUpdateDelegate?
+    var latestUpdateType: AdditionOrUpdateType = .bands {
+        didSet {
+            respondToUpdateTypeChange()
+        }
+    }
+    
+    private var latestReviewPagableManager = PagableManager<LatestReview>()
+    private var upcomingAlbumPagableManager = PagableManager<UpcomingAlbum>()
+    
+   
     
     /// English and Latin title, don't mind weird characters, they are needed for flipped effect (last character)
     private let navBarTitle = (english: "Metal archiveÎ", latin: "Encyclopaedia metalluÈ")
@@ -180,13 +190,16 @@ final class HomepageViewController: RefreshableViewController {
         }
         
         self.labelAdditionPagableManager = PagableManager<LabelAddition>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
-        self.artistAdditionPagableManager = PagableManager<ArtistAddition>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString])
+        self.artistAdditionPagableManager = PagableManager<ArtistAddition>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
         
         //Latest updates
         self.bandUpdatePagableManager = PagableManager<BandUpdate>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString])
         self.bandUpdatePagableManager.fetch { [weak self] (error) in
-            self?.tableView.reloadData()
+            self?.respondToUpdateTypeChange()
         }
+        self.labelUpdatePagableManager = PagableManager<LabelUpdate>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
+        self.artistUpdatePagableManager = PagableManager<ArtistUpdate>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
+        
         
         self.latestReviewPagableManager =  PagableManager<LatestReview>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString])
         self.latestReviewPagableManager.fetch { [weak self] (error) in
@@ -227,45 +240,92 @@ final class HomepageViewController: RefreshableViewController {
         switch latestAdditionType {
         case .bands:
             if let _ = bandAdditionPagableManager.totalRecords {
-                self.latestAdditionDelegate?.didFinishFetchingBandAdditions(bandAdditionPagableManager.objects)
+                self.latestAdditionsDelegate?.didFinishFetchingBandAdditionOrUpdate(bandAdditionPagableManager.objects)
                 return
             }
             
             bandAdditionPagableManager.fetch { [weak self] (error) in
                 if let _ = error {
-                    self?.latestAdditionDelegate?.didFailFetching()
+                    self?.latestAdditionsDelegate?.didFailFetching()
                     return
                 }
                 
-                self?.latestAdditionDelegate?.didFinishFetchingBandAdditions(self?.bandAdditionPagableManager.objects ?? [])
+                self?.latestAdditionsDelegate?.didFinishFetchingBandAdditionOrUpdate(self?.bandAdditionPagableManager.objects ?? [])
             }
         case .labels:
             if let _ = labelAdditionPagableManager.totalRecords {
-                self.latestAdditionDelegate?.didFinishFetchingLabelAdditions(labelAdditionPagableManager.objects)
+                self.latestAdditionsDelegate?.didFinishFetchingLabelAdditionOrUpdate(labelAdditionPagableManager.objects)
                 return
             }
             
             labelAdditionPagableManager.fetch { [weak self] (error) in
                 if let _ = error {
-                    self?.latestAdditionDelegate?.didFailFetching()
+                    self?.latestAdditionsDelegate?.didFailFetching()
                     return
                 }
                 
-                self?.latestAdditionDelegate?.didFinishFetchingLabelAdditions(self?.labelAdditionPagableManager.objects ?? [])
+                self?.latestAdditionsDelegate?.didFinishFetchingLabelAdditionOrUpdate(self?.labelAdditionPagableManager.objects ?? [])
             }
         case .artists:
             if let _ = artistAdditionPagableManager.totalRecords {
-                self.latestAdditionDelegate?.didFinishFetchingArtistAdditions(artistAdditionPagableManager.objects)
+                self.latestAdditionsDelegate?.didFinishFetchingArtistAdditionOrUpdate(artistAdditionPagableManager.objects)
                 return
             }
             
             artistAdditionPagableManager.fetch { [weak self] (error) in
                 if let _ = error {
-                    self?.latestAdditionDelegate?.didFailFetching()
+                    self?.latestAdditionsDelegate?.didFailFetching()
                     return
                 }
                 
-                self?.latestAdditionDelegate?.didFinishFetchingArtistAdditions(self?.artistAdditionPagableManager.objects ?? [])
+                self?.latestAdditionsDelegate?.didFinishFetchingArtistAdditionOrUpdate(self?.artistAdditionPagableManager.objects ?? [])
+            }
+        }
+    }
+    
+    private func respondToUpdateTypeChange() {
+        switch latestUpdateType {
+        case .bands:
+            if let _ = bandUpdatePagableManager.totalRecords {
+                self.latestUpdatesDelegate?.didFinishFetchingBandAdditionOrUpdate(bandUpdatePagableManager.objects)
+                return
+            }
+            
+            bandUpdatePagableManager.fetch { [weak self] (error) in
+                if let _ = error {
+                    self?.latestUpdatesDelegate?.didFailFetching()
+                    return
+                }
+                
+                self?.latestUpdatesDelegate?.didFinishFetchingBandAdditionOrUpdate(self?.bandUpdatePagableManager.objects ?? [])
+            }
+        case .labels:
+            if let _ = labelUpdatePagableManager.totalRecords {
+                self.latestUpdatesDelegate?.didFinishFetchingLabelAdditionOrUpdate(labelUpdatePagableManager.objects)
+                return
+            }
+            
+            labelUpdatePagableManager.fetch { [weak self] (error) in
+                if let _ = error {
+                    self?.latestUpdatesDelegate?.didFailFetching()
+                    return
+                }
+                
+                self?.latestUpdatesDelegate?.didFinishFetchingLabelAdditionOrUpdate(self?.labelUpdatePagableManager.objects ?? [])
+            }
+        case .artists:
+            if let _ = artistUpdatePagableManager.totalRecords {
+                self.latestUpdatesDelegate?.didFinishFetchingArtistAdditionOrUpdate(artistUpdatePagableManager.objects)
+                return
+            }
+            
+            artistUpdatePagableManager.fetch { [weak self] (error) in
+                if let _ = error {
+                    self?.latestUpdatesDelegate?.didFailFetching()
+                    return
+                }
+                
+                self?.latestUpdatesDelegate?.didFinishFetchingArtistAdditionOrUpdate(self?.artistUpdatePagableManager.objects ?? [])
             }
         }
     }
@@ -314,7 +374,7 @@ extension HomepageViewController: UITableViewDelegate {
         //Section: Latest additions
         case 2: return
         //Section: Latest updates
-        case 3: self.didSelectRowInLatestUpdatesSection(at: indexPath)
+        case 3: return
         //Section: Latest reviews
         case 4: self.didSelectRowInLatestReviewsSection(at: indexPath)
         //Section: Upcoming albums
@@ -358,9 +418,9 @@ extension HomepageViewController: UITableViewDataSource {
         //Section: News
         case 1: return 1
         //Section: Latest additions
-        case 2: return self.numberOfRowsInLatestAdditionsSection()
+        case 2: return 1
         //Section: Latest updates
-        case 3: return self.numberOfRowsInLatestUpdatesSection()
+        case 3: return 1
         //Section: Latest reviews
         case 4: return self.numberOfRowsInLatestReviewsSection()
         //Section: Upcoming albums
@@ -444,15 +504,12 @@ extension HomepageViewController {
 
 //MARK: - Section LATEST ADDITIONS
 extension HomepageViewController {
-    private func numberOfRowsInLatestAdditionsSection() -> Int {
-        return 1
-    }
-    
     private func cellForLatestAdditionsSection(at indexPath: IndexPath) -> UITableViewCell {
         let cell = AdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         
         cell.selectedType = latestAdditionType
-        latestAdditionDelegate = cell
+        cell.mode = .additions
+        latestAdditionsDelegate = cell
         
         cell.seeAll = {
             self.performSegue(withIdentifier: "ShowLatestAdditions", sender: nil)
@@ -486,56 +543,63 @@ extension HomepageViewController {
 
 //MARK: - Section LATEST UPDATES
 extension HomepageViewController {
-    private func numberOfRowsInLatestUpdatesSection() -> Int {
-        guard let _ = self.bandUpdatePagableManager.totalRecords else {
-            return 1
-        }
-        
-        if self.bandUpdatePagableManager.objects.count > Settings.shortListDisplayCount {
-            return Settings.shortListDisplayCount + 1
-        }
-        
-        return self.bandUpdatePagableManager.objects.count + 1
-    }
-    
     private func cellForLatestUpdatesSection(at indexPath: IndexPath) -> UITableViewCell {
-        guard let _ = self.bandUpdatePagableManager.totalRecords else {
-            return self.loadingCell(atIndexPath: indexPath)
+        let cell = AdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        
+        cell.selectedType = latestAdditionType
+        cell.mode = .updates
+        latestUpdatesDelegate = cell
+        
+        cell.seeAll = {
+            self.performSegue(withIdentifier: "ShowLatestUpdates", sender: nil)
+            
+            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more latest updates"])
         }
         
-        if indexPath.row == Settings.shortListDisplayCount || indexPath.row == self.bandUpdatePagableManager.objects.count  {
-            return self.viewMoreCell(message: "More latest updates", atIndex: indexPath)
+        cell.didSelectBand = { band in
+            self.pushBandDetailViewController(urlString: band.urlString, animated: true)
+            
+            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "BandUpdate"])
         }
         
-        let cell = BandAdditionOrUpdateTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        cell.didSelectLabel = { label in
+            self.pushLabelDetailViewController(urlString: label.urlString, animated: true)
+            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "LabelUpdate"])
+        }
         
-        let band = self.bandUpdatePagableManager.objects[indexPath.row]
-        cell.fill(with: band)
+        cell.didSelectArtist = { artist in
+            self.takeActionFor(actionableObject: artist)
+            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "ArtistUpdate"])
+        }
+        
+        cell.changeType = { selectedType in
+            self.latestUpdateType = selectedType
+        }
         
         return cell
     }
-    
-    private func didSelectRowInLatestUpdatesSection(at indexPath: IndexPath) {
-        guard let _ = self.bandUpdatePagableManager.totalRecords else {
-            return
-        }
-        
-        if indexPath.row == Settings.shortListDisplayCount || indexPath.row == self.bandUpdatePagableManager.objects.count  {
-            self.didSelectBandLatestUpdatesViewMore()
-            return
-        }
-        
-        let selectedBand = self.bandUpdatePagableManager.objects[indexPath.row]
-        self.pushBandDetailViewController(urlString: selectedBand.urlString, animated: true)
-        
-        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "BandUpdate"])
-    }
-    
-    private func didSelectBandLatestUpdatesViewMore() {
-        self.performSegue(withIdentifier: "ShowLatestUpdates", sender: nil)
-        
-        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more latest updates"])
-    }
+//
+//    private func didSelectRowInLatestUpdatesSection(at indexPath: IndexPath) {
+//        guard let _ = self.bandUpdatePagableManager.totalRecords else {
+//            return
+//        }
+//
+//        if indexPath.row == Settings.shortListDisplayCount || indexPath.row == self.bandUpdatePagableManager.objects.count  {
+//            self.didSelectBandLatestUpdatesViewMore()
+//            return
+//        }
+//
+//        let selectedBand = self.bandUpdatePagableManager.objects[indexPath.row]
+//        self.pushBandDetailViewController(urlString: selectedBand.urlString, animated: true)
+//
+//        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "BandUpdate"])
+//    }
+//
+//    private func didSelectBandLatestUpdatesViewMore() {
+//        self.performSegue(withIdentifier: "ShowLatestUpdates", sender: nil)
+//
+//        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more latest updates"])
+//    }
 }
 
 //MARK: - Section LATEST REVIEWS

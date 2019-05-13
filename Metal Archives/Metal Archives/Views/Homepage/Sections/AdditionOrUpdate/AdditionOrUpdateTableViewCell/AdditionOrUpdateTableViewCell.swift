@@ -21,7 +21,14 @@ final class AdditionOrUpdateTableViewCell: BaseTableViewCell, RegisterableCell {
     enum Mode {
         case additions, updates
     }
-    var mode: AdditionOrUpdateTableViewCell.Mode = .additions
+    var mode: AdditionOrUpdateTableViewCell.Mode = .additions {
+        didSet {
+            switch mode {
+            case .additions: titleLabel.text = "Latest Additions"
+            case .updates: titleLabel.text = "Latest Updates"
+            }
+        }
+    }
     
     var seeAll: (() -> Void)?
     var changeType: ((_ type: AdditionOrUpdateType) -> Void)?
@@ -78,6 +85,8 @@ final class AdditionOrUpdateTableViewCell: BaseTableViewCell, RegisterableCell {
         typeSegmentedControl.tintColor = Settings.currentTheme.iconTintColor
         
         separatorView.backgroundColor = Settings.currentTheme.collectionViewSeparatorColor
+        
+        
     }
     
     @IBAction private func didTapSeeAllButton() {
@@ -149,16 +158,16 @@ extension AdditionOrUpdateTableViewCell: UICollectionViewDelegateFlowLayout {
 }
 
 //MARK: - HomepageViewControllerLatestAdditionDelegate
-extension AdditionOrUpdateTableViewCell: HomepageViewControllerLatestAdditionDelegate {
-    func didFinishFetchingBandAdditions(_ bands: [BandAdditionOrUpdate]) {
+extension AdditionOrUpdateTableViewCell: HomepageViewControllerLatestAdditionOrUpdateDelegate {
+    func didFinishFetchingBandAdditionOrUpdate(_ bands: [BandAdditionOrUpdate]) {
         self.bands = bands
     }
     
-    func didFinishFetchingLabelAdditions(_ labels: [LabelAdditionOrUpdate]) {
+    func didFinishFetchingLabelAdditionOrUpdate(_ labels: [LabelAdditionOrUpdate]) {
         self.labels = labels
     }
     
-    func didFinishFetchingArtistAdditions(_ artists: [ArtistAdditionOrUpdate]) {
+    func didFinishFetchingArtistAdditionOrUpdate(_ artists: [ArtistAdditionOrUpdate]) {
         self.artists = artists
     }
     
