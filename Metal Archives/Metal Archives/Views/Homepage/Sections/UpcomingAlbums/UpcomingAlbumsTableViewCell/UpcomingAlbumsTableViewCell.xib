@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="131" id="eHC-cS-dfL" customClass="UpcomingAlbumsTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="453" height="131"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eHC-cS-dfL" id="oaQ-dn-tRi">
+                <rect key="frame" x="0.0" y="0.0" width="453" height="130.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming Albums" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKA-QU-wYn">
+                        <rect key="frame" x="20" y="10" width="358" height="30"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n2T-WQ-SS0">
+                        <rect key="frame" x="386" y="10" width="47" height="30"/>
+                        <state key="normal" title="See All"/>
+                        <connections>
+                            <action selector="didTapSeeAllButton" destination="eHC-cS-dfL" eventType="touchUpInside" id="Q7B-or-geL"/>
+                        </connections>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcm-iD-OMk">
+                        <rect key="frame" x="0.0" y="129.5" width="453" height="1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="9jd-CS-8Jw"/>
+                        </constraints>
+                    </view>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="KFh-SE-iRd">
+                        <rect key="frame" x="0.0" y="48" width="453" height="71.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="71.5" id="rAR-pR-vPW"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qHL-uz-UGz" customClass="BetterSnappingLayout" customModule="Metal_Archives" customModuleProvider="target">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <connections>
+                            <outlet property="dataSource" destination="eHC-cS-dfL" id="Msx-Ht-OG4"/>
+                            <outlet property="delegate" destination="eHC-cS-dfL" id="BFA-bC-0ex"/>
+                        </connections>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="KFh-SE-iRd" firstAttribute="top" secondItem="QKA-QU-wYn" secondAttribute="bottom" constant="8" symbolic="YES" id="67f-pO-hNh"/>
+                    <constraint firstAttribute="trailing" secondItem="pcm-iD-OMk" secondAttribute="trailing" id="H17-XG-F9h"/>
+                    <constraint firstItem="QKA-QU-wYn" firstAttribute="top" secondItem="oaQ-dn-tRi" secondAttribute="top" constant="10" id="MSN-PC-hQF"/>
+                    <constraint firstItem="n2T-WQ-SS0" firstAttribute="leading" secondItem="QKA-QU-wYn" secondAttribute="trailing" constant="8" symbolic="YES" id="Pap-L4-PmL"/>
+                    <constraint firstItem="n2T-WQ-SS0" firstAttribute="centerY" secondItem="QKA-QU-wYn" secondAttribute="centerY" id="SSg-bG-Vim"/>
+                    <constraint firstAttribute="trailing" secondItem="n2T-WQ-SS0" secondAttribute="trailing" constant="20" symbolic="YES" id="Xkl-In-dRJ"/>
+                    <constraint firstItem="QKA-QU-wYn" firstAttribute="leading" secondItem="oaQ-dn-tRi" secondAttribute="leading" constant="20" symbolic="YES" id="Zjv-2Z-NKL"/>
+                    <constraint firstItem="pcm-iD-OMk" firstAttribute="top" secondItem="KFh-SE-iRd" secondAttribute="bottom" constant="10" id="baU-DD-HOw"/>
+                    <constraint firstItem="KFh-SE-iRd" firstAttribute="leading" secondItem="oaQ-dn-tRi" secondAttribute="leading" id="kFW-VW-9Ki"/>
+                    <constraint firstItem="pcm-iD-OMk" firstAttribute="leading" secondItem="oaQ-dn-tRi" secondAttribute="leading" id="kIS-a5-JsZ"/>
+                    <constraint firstAttribute="trailing" secondItem="KFh-SE-iRd" secondAttribute="trailing" id="t1o-yZ-JJX"/>
+                    <constraint firstAttribute="bottom" secondItem="pcm-iD-OMk" secondAttribute="bottom" id="uOe-9c-u66"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="collectionView" destination="KFh-SE-iRd" id="xdt-SP-Z7n"/>
+                <outlet property="collectionViewHeightConstraint" destination="rAR-pR-vPW" id="H6e-Er-GZy"/>
+                <outlet property="seeAllButton" destination="n2T-WQ-SS0" id="2l5-Xe-am7"/>
+                <outlet property="separatorView" destination="pcm-iD-OMk" id="8ym-AP-8gU"/>
+                <outlet property="titleLabel" destination="QKA-QU-wYn" id="wZj-E8-Dan"/>
+            </connections>
+            <point key="canvasLocation" x="176.08695652173915" y="142.96875"/>
+        </tableViewCell>
+    </objects>
+</document>

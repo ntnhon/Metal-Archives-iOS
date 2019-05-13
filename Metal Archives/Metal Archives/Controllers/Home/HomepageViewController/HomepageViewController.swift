@@ -92,7 +92,7 @@ final class HomepageViewController: RefreshableViewController {
         StatisticTableViewCell.register(with: self.tableView)
         AdditionOrUpdateTableViewCell.register(with: self.tableView)
         LatestReviewsTableViewCell.register(with: self.tableView)
-        UpcomingAlbumTableViewCell.register(with: self.tableView)
+        UpcomingAlbumsTableViewCell.register(with: self.tableView)
         ViewMoreTableViewCell.register(with: self.tableView)
     }
 
@@ -358,8 +358,6 @@ extension HomepageViewController: UITableViewDelegate {
         switch indexPath.section {
         //Section: Stats
         case 0: self.didSelectRowInStatisticsSection(at: indexPath)
-        //Section: Upcoming albums
-        case 5: self.didSelectRowInUpcomingAlbumsSection(at: indexPath)
         default: return
         }
     }
@@ -393,10 +391,7 @@ extension HomepageViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 5: return self.numberOfRowsInUpcomingAlbumsSection()
-        default: return 1
-        }
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -569,56 +564,40 @@ extension HomepageViewController {
 
 //MARK: - Section UPCOMING ALBUMS
 extension HomepageViewController {
-    private func numberOfRowsInUpcomingAlbumsSection() -> Int {
-        guard let _ = self.upcomingAlbumPagableManager.totalRecords else {
-            return 1
-        }
-        
-        if self.upcomingAlbumPagableManager.objects.count > Settings.shortListDisplayCount {
-            return Settings.shortListDisplayCount + 1
-        }
-        
-        return self.upcomingAlbumPagableManager.objects.count + 1
-    }
-    
     private func cellForUpcomingAlbumsSection(at indexPath: IndexPath) -> UITableViewCell {
-        guard let _ = self.upcomingAlbumPagableManager.totalRecords else {
-            return self.loadingCell(atIndexPath: indexPath)
+        let cell = UpcomingAlbumsTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        
+        cell.upcomingAlbums = upcomingAlbumPagableManager.objects
+        
+        cell.seeAll = { [unowned self] in
+            self.performSegue(withIdentifier: "ShowUpcomingAlbums", sender: nil)
+            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more upcoming albums"])
         }
-        
-        if indexPath.row == Settings.shortListDisplayCount || indexPath.row == self.upcomingAlbumPagableManager.objects.count {
-            return self.viewMoreCell(message: "More upcoming albums", atIndex: indexPath)
-        }
-        
-        let cell = UpcomingAlbumTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        
-        let upcomingAlbum = self.upcomingAlbumPagableManager.objects[indexPath.row]
-        cell.fill(with: upcomingAlbum)
         
         return cell
     }
-    
-    private func didSelectRowInUpcomingAlbumsSection(at indexPath: IndexPath) {
-        guard let _ = self.upcomingAlbumPagableManager.totalRecords else {
-            return
-        }
-        
-        if indexPath.row == Settings.shortListDisplayCount || indexPath.row == self.upcomingAlbumPagableManager.objects.count {
-            self.didSelectUpcomingAlbumsViewMore()
-            return
-        }
-        
-        let upcomingAlbum = self.upcomingAlbumPagableManager.objects[indexPath.row]
-        self.takeActionFor(actionableObject: upcomingAlbum)
-        
-        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "UpcomingAlbum"])
-    }
-    
-    private func didSelectUpcomingAlbumsViewMore() {
-        self.performSegue(withIdentifier: "ShowUpcomingAlbums", sender: nil)
-        
-        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more upcoming albums"])
-    }
+//
+//    private func didSelectRowInUpcomingAlbumsSection(at indexPath: IndexPath) {
+//        guard let _ = self.upcomingAlbumPagableManager.totalRecords else {
+//            return
+//        }
+//
+//        if indexPath.row == Settings.shortListDisplayCount || indexPath.row == self.upcomingAlbumPagableManager.objects.count {
+//            self.didSelectUpcomingAlbumsViewMore()
+//            return
+//        }
+//
+//        let upcomingAlbum = self.upcomingAlbumPagableManager.objects[indexPath.row]
+//        self.takeActionFor(actionableObject: upcomingAlbum)
+//
+//        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "UpcomingAlbum"])
+//    }
+//
+//    private func didSelectUpcomingAlbumsViewMore() {
+//        self.performSegue(withIdentifier: "ShowUpcomingAlbums", sender: nil)
+//
+//        Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more upcoming albums"])
+//    }
 }
 
 //MARK: - Alert new version
