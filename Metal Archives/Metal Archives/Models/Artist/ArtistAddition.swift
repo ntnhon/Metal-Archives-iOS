@@ -14,49 +14,14 @@ final class ArtistAddition: ArtistAdditionOrUpdate, Pagable {
     static var displayLenght = 200
     
     static func parseListFrom(data: Data) -> (objects: [ArtistAddition]?, totalRecords: Int?)? {
+        guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
+            return nil
+        }
         var list: [ArtistAddition] = []
         
-        guard
-            let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listBandLatestAdditions = json["aaData"] as? [[String]]
-            else {
-                return nil
-        }
-        
-        let totalRecords = json["iTotalRecords"] as? Int
-        
-        listBandLatestAdditions.forEach { (bandDetails) in
-            
-            let nameInBand = String((bandDetails[1].subString(after: "\">", before: "</a>", options: .caseInsensitive)) ?? "")
-            let urlString = String(bandDetails[1].subString(after: "href=\"", before: "\">", options: .caseInsensitive) ?? "")
-            var realFullName: String?
-            if let realFullNameSubString = bandDetails[1].subString(after: "(", before: ")", options: .caseInsensitive) {
-                realFullName = String(realFullNameSubString)
-            }
-            
-            let countryName = bandDetails[2].replacingOccurrences(of: "</a>", with: "")
-            let country = Country(name: countryName)
-            
-            var bands: [BandLite] = []
-            //Parse list of bands
-            bandDetails[3].components(separatedBy: ",").forEach({ (eachATag) in
-                
-                if let bandNameSubString = eachATag.subString(after: "\">", before: "</a>", options: .caseInsensitive),
-                    let bandURLSubString = eachATag.subString(after: "href=\"", before: "\">", options: .caseInsensitive) {
-                    if let band = BandLite(name: String(bandNameSubString), urlString: String(bandURLSubString)) {
-                        bands.append(band)
-                    }
-                }
-            })
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            let updatedDate = dateFormatter.date(from: bandDetails[4])
-            
-            if let `updatedDate` = updatedDate {
-                if let artist = ArtistAddition(urlString: urlString, nameInBand: nameInBand, realFullName: realFullName, country: country, bands: bands, updatedDate: updatedDate) {
-                    list.append(artist)
-                }
+        array.forEach { (artistDetails) in
+            if let artistAddition = ArtistAddition(from: artistDetails) {
+                list.append(artistAddition)
             }
         }
         
