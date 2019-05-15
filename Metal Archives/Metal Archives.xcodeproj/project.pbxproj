@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8805F1F21291EB9313EB707A /* Pods_Metal_ArchivesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EED03F29AC7BB9EE0B7F9D25 /* Pods_Metal_ArchivesTests.framework */; };
 		955E9CC6FE7F6F6E9D18A6D5 /* Pods_Metal_Archives_Widget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8BA00F138939FF255125F82 /* Pods_Metal_Archives_Widget.framework */; };
 		9B4B74CB68626BDBF23C6C58 /* Pods_Metal_Archives.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69197B05E0690D7395A5F473 /* Pods_Metal_Archives.framework */; };
 		C006FB16224900A000CA6CCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C006FB15224900A000CA6CCD /* GoogleService-Info.plist */; };
@@ -495,6 +496,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1843473E3902B380B0E8C2E9 /* Pods-Metal ArchivesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Metal ArchivesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Metal ArchivesTests/Pods-Metal ArchivesTests.release.xcconfig"; sourceTree = "<group>"; };
+		244C281F0566314D79E33364 /* Pods-Metal ArchivesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Metal ArchivesTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Metal ArchivesTests/Pods-Metal ArchivesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5D5876ACADF08DA20C4ADAB7 /* Pods-Metal Archives.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Metal Archives.release.xcconfig"; path = "Pods/Target Support Files/Pods-Metal Archives/Pods-Metal Archives.release.xcconfig"; sourceTree = "<group>"; };
 		69197B05E0690D7395A5F473 /* Pods_Metal_Archives.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Metal_Archives.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5FF8BF7938B393A21BD7E3A /* Pods-Metal Archives.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Metal Archives.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Metal Archives/Pods-Metal Archives.debug.xcconfig"; sourceTree = "<group>"; };
@@ -950,6 +953,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8805F1F21291EB9313EB707A /* Pods_Metal_ArchivesTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -970,6 +974,8 @@
 				5D5876ACADF08DA20C4ADAB7 /* Pods-Metal Archives.release.xcconfig */,
 				B7BBA88E1D5C432A82827A4B /* Pods-Metal Archives Widget.debug.xcconfig */,
 				B7C790FE63B41E66E0C050E7 /* Pods-Metal Archives Widget.release.xcconfig */,
+				244C281F0566314D79E33364 /* Pods-Metal ArchivesTests.debug.xcconfig */,
+				1843473E3902B380B0E8C2E9 /* Pods-Metal ArchivesTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2732,9 +2738,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C0BE33B721E68CDF001ED000 /* Build configuration list for PBXNativeTarget "Metal ArchivesTests" */;
 			buildPhases = (
+				52A1AF731D73ED6EE35AA2A2 /* [CP] Check Pods Manifest.lock */,
 				C0BE339C21E68CDF001ED000 /* Sources */,
 				C0BE339D21E68CDF001ED000 /* Frameworks */,
 				C0BE339E21E68CDF001ED000 /* Resources */,
+				0F681523761A3BC897251DF9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2958,6 +2966,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0F681523761A3BC897251DF9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Metal ArchivesTests/Pods-Metal ArchivesTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Kanna/Kanna.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kanna.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Metal ArchivesTests/Pods-Metal ArchivesTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3A0DFF69BCB82DE4E75D2B8F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2974,6 +3004,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Metal Archives-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		52A1AF731D73ED6EE35AA2A2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Metal ArchivesTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3680,6 +3732,7 @@
 		};
 		C0BE33B821E68CDF001ED000 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 244C281F0566314D79E33364 /* Pods-Metal ArchivesTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -3700,7 +3753,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Metal ArchivesTests/Metal ArchivesTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Metal Archives.app/Metal Archives";
 			};
@@ -3708,6 +3761,7 @@
 		};
 		C0BE33B921E68CDF001ED000 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1843473E3902B380B0E8C2E9 /* Pods-Metal ArchivesTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -3727,7 +3781,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "nguyenthanhnhon.info.Metal-ArchivesTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Metal ArchivesTests/Metal ArchivesTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Metal Archives.app/Metal Archives";
 			};
@@ -3747,7 +3801,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "nguyenthanhnhon.info.Metal-ArchivesUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Metal Archives";
 			};
@@ -3767,7 +3821,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "nguyenthanhnhon.info.Metal-ArchivesUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Metal Archives";
 			};

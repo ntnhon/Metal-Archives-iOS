@@ -27,3 +27,7 @@ end
 target 'Metal Archives Widget' do
      common_pods
 end
+
+target 'Metal ArchivesTests' do
+    pod 'Kanna'
+end
