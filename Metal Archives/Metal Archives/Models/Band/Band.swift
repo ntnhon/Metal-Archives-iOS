@@ -25,8 +25,7 @@ final class Band: NSObject {
     private(set) var lastLabel: LabelLiteInBand!
     private(set) var shortHTMLDescription: String?
     private(set) var completeHTMLDescription: String?
-    private(set) var addedOnDate: Date?
-    private(set) var lastModifiedOnDate: Date?
+    private(set) var auditTrail: AuditTrail!
     private(set) var logoURLString: String?
     private(set) var photoURLString: String?
     private(set) var discography: Discography? {
@@ -116,34 +115,9 @@ final class Band: NSObject {
                 self.shortHTMLDescription = div.innerHTML?.replacingOccurrences(of: prefix, with: "")
             }
                 
-                //Extract "Added on", "Last edited"
             else if (div["id"] == "auditTrail") {
-                //2019-01-29 04:29:49
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                var i = 0
-                for td in div.css("td") {
-                    if (i == 2) {
-                        if let addedOnString = (td.text?.replacingOccurrences(of: "Added on: ", with: "")),
-                            let addedOnDate =  dateFormatter.date(from: addedOnString) {
-                            self.addedOnDate = addedOnDate
-                        } else {
-                            self.addedOnDate = nil
-                        }
-                    }
-                    else if (i == 3) {
-                        if let lastModifiedOnString = (td.text?.replacingOccurrences(of: "Last modified on: ", with: "")),
-                            let lastModifiedOnDate = dateFormatter.date(from: lastModifiedOnString) {
-                            self.lastModifiedOnDate = lastModifiedOnDate
-                        } else {
-                            self.lastModifiedOnDate = nil
-                        }
-                        
-                        break
-                    }
-                    
-                    i = i + 1
-                }
+                guard let innerHTML = div.innerHTML else { return nil }
+                self.auditTrail = AuditTrail(from: innerHTML)
             }
                 
                 //Extract logo and band photo
@@ -216,7 +190,7 @@ final class Band: NSObject {
     
     private static func parseBandArtists(inDiv div: XMLElement) -> [ArtistLite]? {
         var arrayArtists = [ArtistLite]()
-        
+        print(div.innerHTML)
         if let table = div.at_css("table") {
             for tr in table.css("tr") {
                 if (tr["class"] == "lineupHeaders") {

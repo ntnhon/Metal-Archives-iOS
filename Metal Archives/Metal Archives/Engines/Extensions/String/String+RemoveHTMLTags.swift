@@ -28,6 +28,9 @@ extension String {
         var isInATag = false
         
         for character in self {
+            if character == "\n" || character == "\t" {
+                continue
+            }
             
             if character == "<" {
                 isInATag = true
@@ -37,29 +40,21 @@ extension String {
             if character != ">" && isInATag {
                 continue
             }
-            
-            if character == "\n" || character == "\t" {
-                continue
-            }
-            
+        
             if character == ">" {
                 isInATag = false
                 continue
             }
             
             if character == " " {
-                if let lastCharacter = newString.last {
-                    if lastCharacter == " " {
-                        continue
-                    } else if lastCharacter == "," {
-                        // Allow space after comma
-                        newString.append(character)
-                        continue
-                    }
-                } else {
-                    // Begin at the string, skip space
+                guard let lastCharacter = newString.last, lastCharacter != " " else {
                     continue
                 }
+            }
+            
+            // Add a space after a ) or : if the next character is not a , and not a space
+            if let lastCharacter = newString.last, lastCharacter == ")" || lastCharacter == ":", character != "," && character != " " {
+                newString.append(" ")
             }
             
             newString.append(character)

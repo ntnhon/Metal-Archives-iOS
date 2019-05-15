@@ -16,6 +16,11 @@ class ParseBandActiveYearsStringTests: XCTestCase {
         let resultString = testString.removeHTMLTagsAndNoisySpaces()
         let expectedString = "1990-2003 (as Septic Flesh), 2007-present"
         XCTAssertEqual(resultString, expectedString)
+        
+        let testString2 = "\n\t\t\t\t\t\n\t\t\t\t\t\t (R.I.P. 2001)\t\t\t\t\t\tSee also:\n\t\t\t\t\t\tex-Control Denied, ex-Mantas, ex-Slaughter, ex-Voodoocult\t\t\t\t\t\n\t\t\t\t"
+        let resultString2 = testString2.removeHTMLTagsAndNoisySpaces()
+        let expectedString2 = "(R.I.P. 2001) See also: ex-Control Denied, ex-Mantas, ex-Slaughter, ex-Voodoocult"
+        XCTAssertEqual(resultString2, expectedString2)
     }
 
     func testRemoveHTMLTagsAndNoisySpacesInCaseWithHTMLTag() {

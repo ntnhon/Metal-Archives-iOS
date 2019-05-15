@@ -252,18 +252,18 @@ final class BandHeaderDetailTableViewCell: BaseTableViewCell, RegisterableCell {
             var addedOnString = "N/A"
             var lastModifiedOnString = "N/A"
             
-            if let addedOnDate = band.addedOnDate {
+            if let addedOnDate = band.auditTrail.addedOnDate {
                 addedOnString = defaultDateFormatter.string(from: addedOnDate)
                 
             }
             
-            if let lastModifiedOnDate = band.lastModifiedOnDate {
+            if let lastModifiedOnDate = band.auditTrail.modifiedOnDate {
                 lastModifiedOnString = defaultDateFormatter.string(from: lastModifiedOnDate)
             }
             
             self.lastModifiedOnLabel.text = "Added on: \(addedOnString)\nLast modified on: \(lastModifiedOnString)"
             
-        } else if let lastModifiedOnDate = band.lastModifiedOnDate {
+        } else if let lastModifiedOnDate = band.auditTrail.modifiedOnDate {
             
             let (value, unit) = lastModifiedOnDate.distanceFromNow()
             self.lastModifiedOnLabel.text = "Updated \(value) \(unit) ago"
