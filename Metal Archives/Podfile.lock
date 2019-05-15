@@ -99,7 +99,7 @@ DEPENDENCIES:
   - Firebase/Messaging
   - Kanna
   - NotificationBannerSwift
-  - SDWebImage (~> 4.0)
+  - SDWebImage
   - Siren
   - SkyFloatingLabelTextField (~> 3.0)
   - SlideMenuControllerSwift
@@ -165,6 +165,6 @@ SPEC CHECKSUMS:
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
   UIColor_Hex_Swift: 8be7432edacb7fa91c78aa05ef3c30b66e4f9415
 
-PODFILE CHECKSUM: ce5738a8ac01be42834426c7eccc40adc5050036
+PODFILE CHECKSUM: 8e39060d7f6dc21b386048b77b3d59e75d5d2d78
 
 COCOAPODS: 1.6.1

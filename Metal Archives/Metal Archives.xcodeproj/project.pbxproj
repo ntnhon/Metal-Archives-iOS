@@ -130,6 +130,7 @@
 		C04872BC21EE700500ECFDC2 /* LatestReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04872BB21EE700500ECFDC2 /* LatestReview.swift */; };
 		C04872BE21EE7AB600ECFDC2 /* UpcomingAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04872BD21EE7AB600ECFDC2 /* UpcomingAlbum.swift */; };
 		C04872C021EE841900ECFDC2 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04872BF21EE841900ECFDC2 /* News.swift */; };
+		C04C5005228C0C7A00DAFBF1 /* ParseBandActiveYearsStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C5004228C0C7A00DAFBF1 /* ParseBandActiveYearsStringTests.swift */; };
 		C051B6B52219FDDA0030E5EE /* ReviewDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C051B6B42219FDDA0030E5EE /* ReviewDetailTableViewCell.swift */; };
 		C051B6B72219FDEB0030E5EE /* ReviewDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C051B6B62219FDEB0030E5EE /* ReviewDetailTableViewCell.xib */; };
 		C05309E322232ECB0027D11E /* LabelDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05309E222232ECB0027D11E /* LabelDetailViewController.swift */; };
@@ -407,7 +408,6 @@
 		C0BE339021E68CDD001ED000 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE338F21E68CDC001ED000 /* AppDelegate.swift */; };
 		C0BE339721E68CDF001ED000 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0BE339621E68CDF001ED000 /* Assets.xcassets */; };
 		C0BE339A21E68CDF001ED000 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0BE339821E68CDF001ED000 /* LaunchScreen.storyboard */; };
-		C0BE33A521E68CDF001ED000 /* Metal_ArchivesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE33A421E68CDF001ED000 /* Metal_ArchivesTests.swift */; };
 		C0BE33B021E68CDF001ED000 /* Metal_ArchivesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE33AF21E68CDF001ED000 /* Metal_ArchivesUITests.swift */; };
 		C0C19C7D22878206008B68F8 /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0C19C7C22878206008B68F8 /* NewsTableViewCell.xib */; };
 		C0C19C812287833B008B68F8 /* NewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C19C802287833B008B68F8 /* NewsCollectionViewCell.swift */; };
@@ -429,6 +429,7 @@
 		C0F0BE832244097D00B90605 /* UserDefaults+ConvenienceMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A1F93D224143DC005C2C83 /* UserDefaults+ConvenienceMethods.swift */; };
 		C0F0BE842244099800B90605 /* WidgetSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F0BE812243FA0B00B90605 /* WidgetSection.swift */; };
 		C0F1537F21EF5DE500355616 /* MetalArchivesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1537E21EF5DE500355616 /* MetalArchivesAPI.swift */; };
+		C0F5DB45228B608100888FED /* String+RemoveHTMLTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F5DB44228B608100888FED /* String+RemoveHTMLTags.swift */; };
 		C0F7E7FC225D26F800F907A6 /* FontSizeListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F7E7FB225D26F800F907A6 /* FontSizeListTableViewController.swift */; };
 		C0F7E802225D2EBD00F907A6 /* DiscographyTypeListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F7E801225D2EBD00F907A6 /* DiscographyTypeListTableViewController.swift */; };
 		C0F7E803225D37B900F907A6 /* DiscographyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D3602223D5E4100B29B43 /* DiscographyType.swift */; };
@@ -610,6 +611,8 @@
 		C04872BB21EE700500ECFDC2 /* LatestReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestReview.swift; sourceTree = "<group>"; };
 		C04872BD21EE7AB600ECFDC2 /* UpcomingAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbum.swift; sourceTree = "<group>"; };
 		C04872BF21EE841900ECFDC2 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		C04C5004228C0C7A00DAFBF1 /* ParseBandActiveYearsStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseBandActiveYearsStringTests.swift; sourceTree = "<group>"; };
+		C04C5007228C0CD100DAFBF1 /* Metal ArchivesTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Metal ArchivesTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		C051B6B42219FDDA0030E5EE /* ReviewDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailTableViewCell.swift; sourceTree = "<group>"; };
 		C051B6B62219FDEB0030E5EE /* ReviewDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewDetailTableViewCell.xib; sourceTree = "<group>"; };
 		C05309E222232ECB0027D11E /* LabelDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelDetailViewController.swift; sourceTree = "<group>"; };
@@ -867,7 +870,6 @@
 		C0BE339921E68CDF001ED000 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0BE339B21E68CDF001ED000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0BE33A021E68CDF001ED000 /* Metal ArchivesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Metal ArchivesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0BE33A421E68CDF001ED000 /* Metal_ArchivesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metal_ArchivesTests.swift; sourceTree = "<group>"; };
 		C0BE33A621E68CDF001ED000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0BE33AB21E68CDF001ED000 /* Metal ArchivesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Metal ArchivesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0BE33AF21E68CDF001ED000 /* Metal_ArchivesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metal_ArchivesUITests.swift; sourceTree = "<group>"; };
@@ -892,6 +894,7 @@
 		C0F0BE8522440C6000B90605 /* Metal Archives Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Metal Archives Widget.entitlements"; sourceTree = "<group>"; };
 		C0F0BE8622440C6B00B90605 /* Metal Archives.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Metal Archives.entitlements"; sourceTree = "<group>"; };
 		C0F1537E21EF5DE500355616 /* MetalArchivesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalArchivesAPI.swift; sourceTree = "<group>"; };
+		C0F5DB44228B608100888FED /* String+RemoveHTMLTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RemoveHTMLTags.swift"; sourceTree = "<group>"; };
 		C0F7E7FB225D26F800F907A6 /* FontSizeListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeListTableViewController.swift; sourceTree = "<group>"; };
 		C0F7E801225D2EBD00F907A6 /* DiscographyTypeListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyTypeListTableViewController.swift; sourceTree = "<group>"; };
 		C0FBBE692208750A00226FB1 /* SimilarBandTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarBandTableViewCell.swift; sourceTree = "<group>"; };
@@ -912,6 +915,7 @@
 		C0FF16C8220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentReviewViewController.swift"; sourceTree = "<group>"; };
 		C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PushAViewController.swift"; sourceTree = "<group>"; };
 		D8BA00F138939FF255125F82 /* Pods_Metal_Archives_Widget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Metal_Archives_Widget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EED03F29AC7BB9EE0B7F9D25 /* Pods_Metal_ArchivesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Metal_ArchivesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1273,6 +1277,14 @@
 				C03F440F22307723005D7AA8 /* SimpleAlbumTitleTableViewCell.xib */,
 			);
 			path = SimpleAlbumTitleTableViewCell;
+			sourceTree = "<group>";
+		};
+		C04C5006228C0CA300DAFBF1 /* Extensions & Utilities Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C04C5004228C0C7A00DAFBF1 /* ParseBandActiveYearsStringTests.swift */,
+			);
+			path = "Extensions & Utilities Tests";
 			sourceTree = "<group>";
 		};
 		C051B6AB2219F04B0030E5EE /* ReviewDetail */ = {
@@ -2217,6 +2229,7 @@
 				C05F3EB722064C2100FC0F35 /* String+Utilities.swift */,
 				C09A18A421FF182B00152908 /* String+HTMLToAttributedString.swift */,
 				C05309F322235BE20027D11E /* String+RemoveEmptySpaces.swift */,
+				C0F5DB44228B608100888FED /* String+RemoveHTMLTags.swift */,
 			);
 			path = String;
 			sourceTree = "<group>";
@@ -2543,7 +2556,8 @@
 		C0BE33A321E68CDF001ED000 /* Metal ArchivesTests */ = {
 			isa = PBXGroup;
 			children = (
-				C0BE33A421E68CDF001ED000 /* Metal_ArchivesTests.swift */,
+				C04C5007228C0CD100DAFBF1 /* Metal ArchivesTests-Bridging-Header.h */,
+				C04C5006228C0CA300DAFBF1 /* Extensions & Utilities Tests */,
 				C0BE33A621E68CDF001ED000 /* Info.plist */,
 			);
 			path = "Metal ArchivesTests";
@@ -2639,6 +2653,7 @@
 				69197B05E0690D7395A5F473 /* Pods_Metal_Archives.framework */,
 				C06B62842242815000A3FE6B /* NotificationCenter.framework */,
 				D8BA00F138939FF255125F82 /* Pods_Metal_Archives_Widget.framework */,
+				EED03F29AC7BB9EE0B7F9D25 /* Pods_Metal_ArchivesTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2755,6 +2770,7 @@
 					};
 					C0BE339F21E68CDF001ED000 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = C0BE338B21E68CDC001ED000;
 					};
 					C0BE33AA21E68CDF001ED000 = {
@@ -3287,6 +3303,7 @@
 				C06E92D3225391A0006EE887 /* VersionHistoryViewController.swift in Sources */,
 				C0A1F93E224143DC005C2C83 /* UserDefaults+ConvenienceMethods.swift in Sources */,
 				C00D3624223D6E1C00B29B43 /* AboutTableViewController.swift in Sources */,
+				C0F5DB45228B608100888FED /* String+RemoveHTMLTags.swift in Sources */,
 				C053DD672226DE2E0028568B /* RequestTop100Bands.swift in Sources */,
 				C008388422009ECE00B35996 /* Date+Distance.swift in Sources */,
 				C071306B21ECD24800082BC6 /* StatisticTableViewCell.swift in Sources */,
@@ -3371,7 +3388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0BE33A521E68CDF001ED000 /* Metal_ArchivesTests.swift in Sources */,
+				C04C5005228C0C7A00DAFBF1 /* ParseBandActiveYearsStringTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3634,8 +3651,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
+				HEADER_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(SRCROOT)/Pods/**",
+				);
 				INFOPLIST_FILE = "Metal ArchivesTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3644,6 +3666,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "nguyenthanhnhon.info.Metal-ArchivesTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Metal ArchivesTests/Metal ArchivesTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Metal Archives.app/Metal Archives";
@@ -3655,8 +3679,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
+				HEADER_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(SRCROOT)/Pods/**",
+				);
 				INFOPLIST_FILE = "Metal ArchivesTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3665,6 +3694,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "nguyenthanhnhon.info.Metal-ArchivesTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Metal ArchivesTests/Metal ArchivesTests-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Metal Archives.app/Metal Archives";

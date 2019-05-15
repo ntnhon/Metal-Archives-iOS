@@ -15,6 +15,7 @@ import Firebase
 import Crashlytics
 import UserNotifications
 import Siren
+import FirebaseMessaging
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

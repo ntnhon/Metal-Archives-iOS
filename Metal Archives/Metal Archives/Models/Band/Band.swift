@@ -75,128 +75,40 @@ final class Band: NSObject {
         }
         
         for div in doc.css("div") {
+            
+//            switch div["id"] {
+//            case "band_info":
+//                guard let results = Band.parseBandInfoDiv(div) else {
+//                    return nil
+//                }
+//                self.name = results.name
+//                self.urlString = results.urlString
+//                self.id = results.id
+//            }
             // Extract band's name and link from div with id = "band_info"
             if (div["id"] == "band_info") {
-                if let a = div.at_css("a"), let bandName = a.text, let urlString = a["href"] {
-                    self.name = bandName
-                    self.urlString = urlString
-                } else {
-                    #warning("Handle error")
+                guard let results = Band.parseBandInfoDiv(div) else {
                     return nil
                 }
-                
-                if let id = self.urlString.components(separatedBy: "/").last {
-                    self.id = id
-                } else {
-                    #warning("Handle error")
-                    return nil
-                }
-                
+                self.name = results.name
+                self.urlString = results.urlString
+                self.id = results.id
             }
                 // Extract band's others detail from div with id = "band_stats"
             else if (div["id"] == "band_stats") {
-                var i = 0
-                for dd in div.css("dd") {
-                    
-                    if (i == 0) {
-                        // Country of origin
-                        if let a = dd.at_css("a"), let countryURLString = a["href"],
-                            let countryISO = countryURLString.components(separatedBy: "/").last,
-                            let country = Country(iso: countryISO) {
-                                self.country = country
-                            
-                        } else {
-                            #warning("Handle error")
-                            return nil
-                        }
-                    }
-                    else if (i == 1) {
-                        // Location
-                        location = dd.text!
-                    }
-                    else if (i == 2) {
-                        //Status
-                        if let statusString = dd.text {
-                            status = BandStatus(statusString: statusString)
-                        }
-                        
-                    }
-                    else if (i == 3) {
-                        //Formed in
-                        formedIn = dd.text!
-                    }
-                    else if (i == 4) {
-                        //Genre
-                        genre = dd.text!
-                    }
-                    else if (i == 5) {
-                        //Lyrical themes
-                        self.lyricalTheme = dd.text!
-                    }
-                    else if (i == 6) {
-                        //Label
-                        if let a = dd.at_css("a") {
-                            if let labelName = a.text, let labelURLString = a["href"] {
-                                self.lastLabel = LabelLiteInBand(name: labelName, urlString: labelURLString)
-                            }
-                            
-                        }
-                        else {
-                            if let labelName = dd.text {
-                                self.lastLabel = LabelLiteInBand(name: labelName, urlString: nil)
-                            }
-                        }
-   
-                    }
-                    else if (i == 7) {
-                        
-                        //Change all "strong" tag to "a" tag
-                        let yearsActiveHTML = dd.innerHTML?.replacingOccurrences(of: "strong", with: "a")
-                        
-                        if let yearsActiveDoc = try? Kanna.HTML(html: yearsActiveHTML!, encoding: String.Encoding.utf8) {
-                            
-                            self.oldBands = [BandAncient]()
-                            for a in yearsActiveDoc.css("a") {
-                                if let ancientBandURLString = a["href"],
-                                    let ancientBandName = a.text {
-                                    
-                                    let ancientBand = BandAncient(name: ancientBandName, urlString: ancientBandURLString)
-                                    self.oldBands?.append(ancientBand)
-                                }
-                            }
-                            
-                        }
-                        
-                        var yearsActiveString = dd.text
-                        yearsActiveString = yearsActiveString?.replacingOccurrences(of: "\n", with: "")
-                        yearsActiveString = yearsActiveString?.replacingOccurrences(of: "\t", with: "")
-                        yearsActiveString = yearsActiveString?.replacingOccurrences(of: " ", with: "")
-                        yearsActiveString = yearsActiveString?.replacingOccurrences(of: ",", with: ", ")
-                        yearsActiveString = yearsActiveString?.replacingOccurrences(of: "(", with: " (")
-                        yearsActiveString = yearsActiveString?.replacingOccurrences(of: "(as", with: "(as ")
-                        
-                        if let `yearsActiveString` = yearsActiveString {
-                            if let oldBands = self.oldBands {
-                                if oldBands.count > 0 {
-                                    self.yearsActiveString = Band.generateYearsActiveString(yearsActiveBand: oldBands, yearsActiveString: yearsActiveString)
-                                } else {
-                                    self.yearsActiveString = yearsActiveString
-                                }
-                            } else {
-                                self.yearsActiveString = yearsActiveString
-                            }
-                        } else {
-                            #warning("Handle error")
-                            return nil
-                        }
-                        
-                        if self.oldBands?.count == 0 {
-                            self.oldBands = nil
-                        }
-                    }
-                    
-                    i = i + 1
+                guard let results = Band.parseBandStatsDiv(div) else {
+                    return nil
                 }
+
+                self.country = results.country
+                self.location = results.location
+                self.status = results.status
+                self.formedIn = results.formedIn
+                self.genre = results.genre
+                self.lyricalTheme = results.lyricalTheme
+                self.lastLabel = results.lastLabel
+                self.oldBands = results.oldBands
+                self.yearsActiveString = results.yearsActiveString
             }
                 // Extract band's comment
             else if (div["class"] == "band_comment clear") {
@@ -302,25 +214,6 @@ final class Band: NSObject {
         }
     }
     
-    private static func generateYearsActiveString(yearsActiveBand: [BandAncient], yearsActiveString: String) -> String {
-        var yearsActiveStringComponents = yearsActiveString.components(separatedBy: CharacterSet(charactersIn: "()"))
-        //Replace ancient band name correctly
-        for i in 0...yearsActiveBand.count-1 {
-            let ancientBand = yearsActiveBand[i] as BandAncient
-            
-            yearsActiveStringComponents[i*2+1] = "(as \(ancientBand.name))"
-            
-        }
-        
-        var returnString = ""
-        
-        for i in 0...yearsActiveStringComponents.count-1 {
-            returnString = returnString.appending(yearsActiveStringComponents[i])
-        }
-        
-        return returnString
-    }
-    
     private static func parseBandArtists(inDiv div: XMLElement) -> [ArtistLite]? {
         var arrayArtists = [ArtistLite]()
         
@@ -409,6 +302,163 @@ final class Band: NSObject {
         }
         
         return arrayArtists
+    }
+}
+
+//MARK: - Parse band's details by divs
+extension Band {
+    /*
+     Sample data:
+     <div id="band_info">
+     
+     <h1 class="band_name"><a href="https://www.metal-archives.com/bands/Death/141">Death</a></h1>
+     
+     
+     <div class="clear block_spacer_5"></div>
+     */
+    
+    fileprivate static func parseBandInfoDiv(_ div: XMLElement) -> (name: String, urlString: String, id: String)? {
+        guard let a = div.at_css("a"), let bandName = a.text, let urlString = a["href"] else { return nil
+        }
+
+        guard let id = urlString.components(separatedBy: "/").last else {
+            return nil
+        }
+        
+        return (bandName, urlString, id)
+    }
+    
+    /*
+     Sample data:
+     <div id="band_stats">
+     <dl class="float_left">
+     <dt>Country of origin:</dt>
+     <dd><a href="https://www.metal-archives.com/lists/US">United States</a></dd>
+     <dt>Location:</dt>
+     <dd>Altamonte Springs, Florida</dd>
+     <dt>Status:</dt>
+     <dd class="split_up">Split-up</dd>
+     <dt>Formed in:</dt>
+     <dd>1984</dd>
+     </dl>
+     <dl class="float_right">
+     <dt>Genre:</dt>
+     <dd>Death Metal (early), Death/Progressive Metal (later)</dd>
+     <dt>Lyrical themes:</dt>
+     <dd>Death, Gore (early); Society, Enlightenment (later)</dd>
+     <dt>Last label:</dt>
+     <dd><a href="https://www.metal-archives.com/labels/Nuclear_Blast/2">Nuclear Blast</a></dd>
+     </dl>
+     <dl style="width: 100%;" class="clear">
+     <dt>Years active:</dt>
+     <dd>
+     
+     1983-1984                                (as <a href="https://www.metal-archives.com/bands/Mantas/35328">Mantas</a>),
+     1984-2001                                    </dd>
+     </dl>
+     </div>
+     */
+    fileprivate static func parseBandStatsDiv(_ div: XMLElement) -> (country: Country, location: String, status: BandStatus, formedIn: String, genre: String, lyricalTheme: String, lastLabel: LabelLiteInBand, oldBands: [BandAncient]?, yearsActiveString: String)? {
+        
+        var country: Country?
+        var location: String?
+        var status: BandStatus?
+        var formedIn: String?
+        var genre: String?
+        var lyricalTheme: String?
+        var lastLabel: LabelLiteInBand?
+        var oldBands: [BandAncient]?
+        var yearsActiveString: String?
+        
+        var i = 0
+        let dds = div.css("dd")
+        for dt in div.css("dt") {
+            defer { i += 1}
+            
+            guard let dtText = dt.text else { continue }
+            
+            if dtText.contains("Country") {
+                if let a = dds[i].at_css("a"), let countryUrlString = a["href"], let countryISO = countryUrlString.components(separatedBy: "/").last {
+                    country = Country(iso: countryISO)
+                }
+                continue
+            }
+            
+            if dtText.contains("Location") {
+                location = dds[i].text
+                continue
+            }
+            
+            if dtText.contains("Status") {
+                if let statusString = dds[i].text {
+                    status = BandStatus(statusString: statusString)
+                }
+                continue
+            }
+            
+            if dtText.contains("Formed") {
+                formedIn = dds[i].text
+                continue
+            }
+            
+            if dtText.contains("Genre") {
+                genre = dds[i].text
+                continue
+            }
+            
+            if dtText.contains("Lyrical") {
+                lyricalTheme = dds[i].text
+                continue
+            }
+            
+            if dtText.contains("label") {
+                if let a = dds[i].at_css("a"), let labelName = a.text {
+                    if let labelUrlString = a["href"] {
+                        lastLabel = LabelLiteInBand(name: labelName, urlString: labelUrlString)
+                    }
+                } else if let labelName = dds[i].text {
+                    lastLabel = LabelLiteInBand(name: labelName)
+                }
+                continue
+            }
+            
+            if dtText.contains("Years") {
+                if let results = Band.parseOldBandsAndYearsActiveString(dds[i]) {
+                    oldBands = results.oldBands
+                    yearsActiveString = results.yearsActiveString
+                }
+                continue
+            }
+            
+        }
+        
+        if let country = country, let location = location, let status = status, let formedIn = formedIn, let genre = genre, let lyricalTheme = lyricalTheme, let lastLabel = lastLabel, let yearsActiveString = yearsActiveString {
+            return (country, location, status, formedIn, genre, lyricalTheme, lastLabel, oldBands, yearsActiveString)
+        }
+        
+        return nil
+    }
+    
+    fileprivate static func parseOldBandsAndYearsActiveString(_ div: XMLElement) -> (oldBands: [BandAncient]?, yearsActiveString: String)? {
+        
+        guard let rawTextString = div.innerHTML else { return nil }
+
+        var oldBands = [BandAncient]()
+        
+        // Use regex to find out A tags
+        RegexHelpers.listMatches(for: #"<a\s.*?</a>"#, inString: rawTextString).forEach { (aTag) in
+            if let results = getUrlAndValueFrom(tagA: aTag) {
+                oldBands.append(.init(name: results.value, urlString: results.urlString))
+            }
+        }
+        
+        let yearsActiveString = rawTextString.removeHTMLTagsAndNoisySpaces()
+
+        if oldBands.count == 0 {
+            return (nil, yearsActiveString)
+        }
+        
+        return (oldBands, yearsActiveString)
     }
 }
 
