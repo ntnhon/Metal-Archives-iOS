@@ -1,0 +1,48 @@
+<div id="band_tab_members_current">
+<div class="ui-tabs-panel-content">
+<table class="display lineupTable" cellpadding="0" cellspacing="0">
+
+
+<tr class="lineupRow">
+
+<td width="200" valign="top">
+<a href="https://www.metal-archives.com/artists/Necro./758878" class="bold">Necro.</a>
+
+</td>
+<td>
+Drums                                    </td>
+</tr>
+
+
+
+<tr class="lineupRow">
+
+<td width="200" valign="top">
+<a href="https://www.metal-archives.com/artists/Malignus/20660" class="bold">M.v.K</a>
+
+</td>
+<td>
+Guitars                                    </td>
+</tr>
+<tr class="lineupBandsRow">
+<td colspan="2">
+See also:
+<a href="https://www.metal-archives.com/bands/S.U.N.D.S./60212">S.U.N.D.S.</a>, ex-<a href="https://www.metal-archives.com/bands/Nihilum/39545">Nihilum</a>, ex-<a href="https://www.metal-archives.com/bands/Vermen/59553">Vermen</a>, Cold June, ex-<a href="https://www.metal-archives.com/bands/Flagellum_Dei/11146">Flagellum Dei</a>, ex-<a href="https://www.metal-archives.com/bands/Revage/54995">Revage</a> (live), ex-Cold Floor to Embrace, ex-W.O.U.N.D.                    </td>
+</tr>
+
+
+
+<tr class="lineupRow">
+
+<td width="200" valign="top">
+<a href="https://www.metal-archives.com/artists/N./758877" class="bold">N.</a>
+
+</td>
+<td>
+Vocals                                    </td>
+</tr>
+
+</table>
+
+</div>
+</div>

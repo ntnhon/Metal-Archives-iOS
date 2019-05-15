@@ -132,13 +132,8 @@ final class Band: NSObject {
                 
             else if (div["id"] == "band_tab_members") {
                 if let div_band_members = div.at_css("div") {
-                    var isLastKnown = false
-                    
-                    if let _ = div_band_members.text?.range(of: "Last known") {
-                        isLastKnown = true
-                    }
-                    
-                    
+                    let isLastKnown = div_band_members.text?.range(of: "Last known") != nil
+
                     for subDiv in div_band_members.css("div") {
                         
                         if (subDiv["id"] == "band_tab_members_current") {
@@ -188,7 +183,7 @@ final class Band: NSObject {
         }
     }
     
-    private static func parseBandArtists(inDiv div: XMLElement) -> [ArtistLite]? {
+    static func parseBandArtists(inDiv div: XMLElement) -> [ArtistLite]? {
         var artists = [ArtistLite]()
         
         let trs = div.css("tr")
@@ -216,14 +211,14 @@ final class Band: NSObject {
             
             // Check the next <tr>, if it's class is "lineupBandsRow" then parse bands and seeAlsoString
             // Use regex to find out A tags
-            guard trs[i+1]["class"] == "lineupBandsRow" else {
+            guard i + 1 < trs.count, trs[i + 1]["class"] == "lineupBandsRow" else {
                 if let artist = ArtistLite(urlString: urlString, name: name, instrumentsInBand: instrumentsString, bands: nil, seeAlsoString: nil) {
                     artists.append(artist)
                 }
                 continue
             }
             
-            guard let nextTrInnerHTML = trs[i+1].innerHTML else {
+            guard let nextTrInnerHTML = trs[i + 1].innerHTML else {
                 continue
             }
             

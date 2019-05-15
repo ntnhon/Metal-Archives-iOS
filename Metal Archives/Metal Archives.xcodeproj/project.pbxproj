@@ -124,6 +124,7 @@
 		C03C5E72221BFEFE0054E55A /* ArtistHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C5E71221BFEFE0054E55A /* ArtistHeaderTableViewCell.swift */; };
 		C03E4035228C718A004429E9 /* ParseBandMembersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */; };
 		C03E4036228C718A004429E9 /* DeathLastKnownLineup.txt in Resources */ = {isa = PBXBuildFile; fileRef = C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */; };
+		C03E403B228CA9D8004429E9 /* GravesCurrentLineup.txt in Resources */ = {isa = PBXBuildFile; fileRef = C03E403A228CA9D8004429E9 /* GravesCurrentLineup.txt */; };
 		C03E6B482247F167007153B9 /* UINavigationController+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E6B472247F167007153B9 /* UINavigationController+Theme.swift */; };
 		C03F440922306FEC005D7AA8 /* SimpleLyricalThemesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F440822306FEC005D7AA8 /* SimpleLyricalThemesTableViewCell.swift */; };
 		C03F440B22307128005D7AA8 /* SimpleLyricalThemesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03F440A22307128005D7AA8 /* SimpleLyricalThemesTableViewCell.xib */; };
@@ -611,6 +612,7 @@
 		C03C5E71221BFEFE0054E55A /* ArtistHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseBandMembersTests.swift; sourceTree = "<group>"; };
 		C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DeathLastKnownLineup.txt; sourceTree = "<group>"; };
+		C03E403A228CA9D8004429E9 /* GravesCurrentLineup.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = GravesCurrentLineup.txt; sourceTree = "<group>"; };
 		C03E6B472247F167007153B9 /* UINavigationController+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Theme.swift"; sourceTree = "<group>"; };
 		C03F440822306FEC005D7AA8 /* SimpleLyricalThemesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLyricalThemesTableViewCell.swift; sourceTree = "<group>"; };
 		C03F440A22307128005D7AA8 /* SimpleLyricalThemesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleLyricalThemesTableViewCell.xib; sourceTree = "<group>"; };
@@ -1269,6 +1271,7 @@
 		C03E4032228C717D004429E9 /* ParseBandMembersTests */ = {
 			isa = PBXGroup;
 			children = (
+				C03E403A228CA9D8004429E9 /* GravesCurrentLineup.txt */,
 				C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */,
 				C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */,
 			);
@@ -2953,6 +2956,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C03E4036228C718A004429E9 /* DeathLastKnownLineup.txt in Resources */,
+				C03E403B228CA9D8004429E9 /* GravesCurrentLineup.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
