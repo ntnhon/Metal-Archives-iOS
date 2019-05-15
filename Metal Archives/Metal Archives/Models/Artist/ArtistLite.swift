@@ -11,25 +11,19 @@ import Foundation
 final class ArtistLite: ThumbnailableObject {
     let name: String
     let instrumentsInBand: String
-    private(set) var bands: [BandLite]?
-    private(set) var seeAlsoString: String?
+    let bands: [BandLite]?
+    let seeAlsoString: String?
     
-    init?(urlString: String, name: String, instrumentsInBand: String) {
+    init?(urlString: String, name: String, instrumentsInBand: String, bands: [BandLite]?, seeAlsoString: String?) {
         self.name = name
         self.instrumentsInBand = instrumentsInBand
-        super.init(urlString: urlString, imageType: .artist)
-    }
-    
-    init?() {
-        return nil
-    }
-    
-    func setBands(_ bands: [BandLite]?) {
-        self.bands = bands
-    }
-    
-    func setSeeAlsoString(_ seeAlsoString: String?) {
+        if let bands = bands, bands.count == 0 {
+            self.bands = nil
+        } else {
+            self.bands = bands
+        }
         self.seeAlsoString = seeAlsoString
+        super.init(urlString: urlString, imageType: .artist)
     }
 }
 

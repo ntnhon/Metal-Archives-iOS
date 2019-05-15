@@ -43,7 +43,7 @@ final class Band: NSObject {
     lazy var hasNoMember: Bool = {
         return completeLineup == nil
     }()
-
+    
     
     private var didAssociateReleasesToReviews = false
     private(set) var  reviews: [ReviewLite]? {
@@ -75,15 +75,15 @@ final class Band: NSObject {
         
         for div in doc.css("div") {
             
-//            switch div["id"] {
-//            case "band_info":
-//                guard let results = Band.parseBandInfoDiv(div) else {
-//                    return nil
-//                }
-//                self.name = results.name
-//                self.urlString = results.urlString
-//                self.id = results.id
-//            }
+            //            switch div["id"] {
+            //            case "band_info":
+            //                guard let results = Band.parseBandInfoDiv(div) else {
+            //                    return nil
+            //                }
+            //                self.name = results.name
+            //                self.urlString = results.urlString
+            //                self.id = results.id
+            //            }
             // Extract band's name and link from div with id = "band_info"
             if (div["id"] == "band_info") {
                 guard let results = Band.parseBandInfoDiv(div) else {
@@ -98,7 +98,7 @@ final class Band: NSObject {
                 guard let results = Band.parseBandStatsDiv(div) else {
                     return nil
                 }
-
+                
                 self.country = results.country
                 self.location = results.location
                 self.status = results.status
@@ -189,93 +189,63 @@ final class Band: NSObject {
     }
     
     private static func parseBandArtists(inDiv div: XMLElement) -> [ArtistLite]? {
-        var arrayArtists = [ArtistLite]()
-        print(div.innerHTML)
-        if let table = div.at_css("table") {
-            for tr in table.css("tr") {
-                if (tr["class"] == "lineupHeaders") {
+        var artists = [ArtistLite]()
+        
+        let trs = div.css("tr")
+        
+        for i in 0..<trs.count {
+            // This is the <tr> that contains seeAlsoString, skip when encounter
+            if trs[i]["class"] == "lineupBandsRow" {
+                continue
+            }
+            
+            // There must be 2 <td>
+            // 1st <td> for for artist's name and url
+            // 2nd <td> for instruments string
+            let tds = trs[i].css("td")
+            guard tds.count == 2 else {
+                continue
+            }
+            
+            guard let a = tds[0].at_css("a"),
+                let urlString = a["href"],
+                let name = a.text,
+                let instrumentsString = tds[1].text?.removeHTMLTagsAndNoisySpaces() else {
                     continue
+            }
+            
+            // Check the next <tr>, if it's class is "lineupBandsRow" then parse bands and seeAlsoString
+            // Use regex to find out A tags
+            guard trs[i+1]["class"] == "lineupBandsRow" else {
+                if let artist = ArtistLite(urlString: urlString, name: name, instrumentsInBand: instrumentsString, bands: nil, seeAlsoString: nil) {
+                    artists.append(artist)
                 }
-                
-                if (tr["class"] == "lineupRow") {
-                    var name: String?
-                    var urlString: String?
-                    var instrumentsInBandString: String?
-                    
-                    var i = 0
-                    for td in tr.css("td") {
-                        if (i == 0) {
-                            if let a = td.at_css("a") {
-                                name = a.text
-                                urlString = a["href"]
-                            }
-                        }
-                        else if (i == 1) {
-                            instrumentsInBandString = td.text
-                            instrumentsInBandString = instrumentsInBandString?.replacingOccurrences(of: "&nbsp;", with: " ")
-                            instrumentsInBandString = instrumentsInBandString?.replacingOccurrences(of: "\n", with: "")
-                            instrumentsInBandString = instrumentsInBandString?.replacingOccurrences(of: "\t", with: "")
-                        }
-                        
-                        i = i + 1
-                    }
-                    
-                    
-                    if let `urlString` = urlString, let `name` = name, let `instrumentsInBandString` = instrumentsInBandString {
-                        if let artist = ArtistLite(urlString: urlString, name: name, instrumentsInBand: instrumentsInBandString) {
-                            arrayArtists.append(artist)
-                        }
-                        
-                    } else {
-                        #warning("Handle error")
-                    }
-                   
+                continue
+            }
+            
+            guard let nextTrInnerHTML = trs[i+1].innerHTML else {
+                continue
+            }
+            
+            var bands = [BandLite]()
+            RegexHelpers.listMatches(for: #"<a\s.*?</a>"#, inString: nextTrInnerHTML).forEach { (aTag) in
+                if let results = getUrlAndValueFrom(tagA: aTag), let band = BandLite(name: results.value, urlString: results.urlString) {
+                    bands.append(band)
                 }
-                    
-                else if (tr["class"] == "lineupBandsRow") {
-                    let artist = arrayArtists[arrayArtists.count-1]
-                    
-                    if let td = tr.at_css("td") {
-                        var seeAlsoString = td.text
-                        seeAlsoString = seeAlsoString?.replacingOccurrences(of: "\t", with: "")
-                        seeAlsoString = seeAlsoString?.replacingOccurrences(of: "\n", with: "")
-                        
-                        //Work around for case: " (R.I.P 2015)See also"
-                        seeAlsoString = seeAlsoString?.replacingOccurrences(of: "See also:", with: "See also: ")
-                        seeAlsoString = seeAlsoString?.replacingOccurrences(of: ")See", with: ") See")
-                        
-                        if var stringTemp = seeAlsoString {
-                            if stringTemp.count > 0 && stringTemp[0] == " " {
-                                stringTemp.remove(at: stringTemp.startIndex)
-                                seeAlsoString = stringTemp
-                            }
-                        }
-                        
-                        artist.setSeeAlsoString(seeAlsoString)
-                    }
-                    
-                    var bands = [BandLite]()
-                    
-                    for a in tr.css("a") {
-                        let bandName = a.text
-                        let bandURLString = a["href"]
-                        
-                        if let `bandName` = bandName, let `bandURLString` = bandURLString {
-                            if let band = BandLite(name: bandName, urlString: bandURLString) {
-                                bands.append(band)
-                                artist.setBands(bands)
-                            }
-                        }
-                    }
-                }
+            }
+            
+            let seeAlsoString = nextTrInnerHTML.removeHTMLTagsAndNoisySpaces()
+            
+            if let artist = ArtistLite(urlString: urlString, name: name, instrumentsInBand: instrumentsString, bands: bands, seeAlsoString: seeAlsoString) {
+                artists.append(artist)
             }
         }
         
-        if arrayArtists.count == 0 {
+        if artists.count == 0 {
             return nil
         }
         
-        return arrayArtists
+        return artists
     }
 }
 
@@ -294,7 +264,7 @@ extension Band {
     fileprivate static func parseBandInfoDiv(_ div: XMLElement) -> (name: String, urlString: String, id: String)? {
         guard let a = div.at_css("a"), let bandName = a.text, let urlString = a["href"] else { return nil
         }
-
+        
         guard let id = urlString.components(separatedBy: "/").last else {
             return nil
         }
@@ -416,7 +386,7 @@ extension Band {
     fileprivate static func parseOldBandsAndYearsActiveString(_ div: XMLElement) -> (oldBands: [BandAncient]?, yearsActiveString: String)? {
         
         guard let rawTextString = div.innerHTML else { return nil }
-
+        
         var oldBands = [BandAncient]()
         
         // Use regex to find out A tags
@@ -427,7 +397,7 @@ extension Band {
         }
         
         let yearsActiveString = rawTextString.removeHTMLTagsAndNoisySpaces()
-
+        
         if oldBands.count == 0 {
             return (nil, yearsActiveString)
         }

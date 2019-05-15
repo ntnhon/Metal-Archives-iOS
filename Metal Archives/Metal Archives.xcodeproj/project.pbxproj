@@ -121,6 +121,8 @@
 		C0332FF022024B7C008B34E0 /* SimpleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0332FEF22024B7C008B34E0 /* SimpleTableViewCell.swift */; };
 		C0332FF2220252E4008B34E0 /* SimpleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0332FF1220252E4008B34E0 /* SimpleTableViewCell.xib */; };
 		C03C5E72221BFEFE0054E55A /* ArtistHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C5E71221BFEFE0054E55A /* ArtistHeaderTableViewCell.swift */; };
+		C03E4035228C718A004429E9 /* ParseBandMembersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */; };
+		C03E4036228C718A004429E9 /* DeathLastKnownLineup.txt in Resources */ = {isa = PBXBuildFile; fileRef = C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */; };
 		C03E6B482247F167007153B9 /* UINavigationController+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E6B472247F167007153B9 /* UINavigationController+Theme.swift */; };
 		C03F440922306FEC005D7AA8 /* SimpleLyricalThemesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F440822306FEC005D7AA8 /* SimpleLyricalThemesTableViewCell.swift */; };
 		C03F440B22307128005D7AA8 /* SimpleLyricalThemesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03F440A22307128005D7AA8 /* SimpleLyricalThemesTableViewCell.xib */; };
@@ -604,6 +606,8 @@
 		C0332FEF22024B7C008B34E0 /* SimpleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableViewCell.swift; sourceTree = "<group>"; };
 		C0332FF1220252E4008B34E0 /* SimpleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleTableViewCell.xib; sourceTree = "<group>"; };
 		C03C5E71221BFEFE0054E55A /* ArtistHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseBandMembersTests.swift; sourceTree = "<group>"; };
+		C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DeathLastKnownLineup.txt; sourceTree = "<group>"; };
 		C03E6B472247F167007153B9 /* UINavigationController+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Theme.swift"; sourceTree = "<group>"; };
 		C03F440822306FEC005D7AA8 /* SimpleLyricalThemesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLyricalThemesTableViewCell.swift; sourceTree = "<group>"; };
 		C03F440A22307128005D7AA8 /* SimpleLyricalThemesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleLyricalThemesTableViewCell.xib; sourceTree = "<group>"; };
@@ -1256,6 +1260,15 @@
 			path = ReleaseDetail;
 			sourceTree = "<group>";
 		};
+		C03E4032228C717D004429E9 /* ParseBandMembersTests */ = {
+			isa = PBXGroup;
+			children = (
+				C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */,
+				C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */,
+			);
+			path = ParseBandMembersTests;
+			sourceTree = "<group>";
+		};
 		C03F440622306FB7005D7AA8 /* SimpleBandNameOrMusicGenreTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1294,6 +1307,7 @@
 		C04C500A228C344000DAFBF1 /* Parsing Tests */ = {
 			isa = PBXGroup;
 			children = (
+				C03E4032228C717D004429E9 /* ParseBandMembersTests */,
 				C04C500B228C349300DAFBF1 /* ParseAuditTrailTests.swift */,
 			);
 			path = "Parsing Tests";
@@ -2930,6 +2944,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C03E4036228C718A004429E9 /* DeathLastKnownLineup.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3405,6 +3420,7 @@
 			files = (
 				C04C500C228C349300DAFBF1 /* ParseAuditTrailTests.swift in Sources */,
 				C04C5005228C0C7A00DAFBF1 /* ParseBandActiveYearsStringTests.swift in Sources */,
+				C03E4035228C718A004429E9 /* ParseBandMembersTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

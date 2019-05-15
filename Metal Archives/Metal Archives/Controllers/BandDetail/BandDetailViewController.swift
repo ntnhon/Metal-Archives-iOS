@@ -506,7 +506,7 @@ extension BandDetailViewController {
         guard let `currentMembersType` = self.currentMembersType else {
             return UITableViewCell()
         }
-        var member = ArtistLite()
+        var member: ArtistLite?
         
         switch currentMembersType {
         case .complete: member = band.completeLineup![indexPath.row - 1]
@@ -529,7 +529,7 @@ extension BandDetailViewController {
             return
         }
         
-        var member = ArtistLite()
+        var member: ArtistLite?
         
         switch currentMembersType {
         case .complete: member = band.completeLineup![indexPath.row - 1]
