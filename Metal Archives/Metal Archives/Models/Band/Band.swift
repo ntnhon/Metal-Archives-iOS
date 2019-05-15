@@ -75,26 +75,24 @@ final class Band: NSObject {
         
         for div in doc.css("div") {
             
-            //            switch div["id"] {
-            //            case "band_info":
-            //                guard let results = Band.parseBandInfoDiv(div) else {
-            //                    return nil
-            //                }
-            //                self.name = results.name
-            //                self.urlString = results.urlString
-            //                self.id = results.id
-            //            }
-            // Extract band's name and link from div with id = "band_info"
-            if (div["id"] == "band_info") {
+            switch (div["id"], div["class"]) {
+            case ("band_info", nil):
                 guard let results = Band.parseBandInfoDiv(div) else {
                     return nil
                 }
                 self.name = results.name
                 self.urlString = results.urlString
                 self.id = results.id
-            }
-                // Extract band's others detail from div with id = "band_stats"
-            else if (div["id"] == "band_stats") {
+            
+            case ("band_info", nil):
+                guard let results = Band.parseBandInfoDiv(div) else {
+                    return nil
+                }
+                self.name = results.name
+                self.urlString = results.urlString
+                self.id = results.id
+            
+            case ("band_stats", nil):
                 guard let results = Band.parseBandStatsDiv(div) else {
                     return nil
                 }
@@ -108,32 +106,27 @@ final class Band: NSObject {
                 self.lastLabel = results.lastLabel
                 self.oldBands = results.oldBands
                 self.yearsActiveString = results.yearsActiveString
-            }
-                // Extract band's comment
-            else if (div["class"] == "band_comment clear") {
+                
+            case (nil, "band_comment clear"):
                 let prefix = "\n\t    <!-- Max 400 characters. Open the rest in a dialogue box-->\n\t    \t\t    \t"
                 self.shortHTMLDescription = div.innerHTML?.replacingOccurrences(of: prefix, with: "")
-            }
                 
-            else if (div["id"] == "auditTrail") {
+            case ("auditTrail", nil):
                 guard let innerHTML = div.innerHTML else { return nil }
                 self.auditTrail = AuditTrail(from: innerHTML)
-            }
                 
-                //Extract logo and band photo
-            else if (div["class"] == "band_name_img") {
+            case (nil, "band_name_img"):
                 let a = div.at_css("a")
                 self.logoURLString = a?["href"]
-            }
-            else if (div["class"] == "band_img") {
+                
+            case (nil, "band_img"):
                 let a = div.at_css("a")
                 self.photoURLString = a?["href"]
-            }
                 
-            else if (div["id"] == "band_tab_members") {
+            case ("band_tab_members", nil):
                 if let div_band_members = div.at_css("div") {
                     let isLastKnown = div_band_members.text?.range(of: "Last known") != nil
-
+                    
                     for subDiv in div_band_members.css("div") {
                         
                         if (subDiv["id"] == "band_tab_members_current") {
@@ -177,8 +170,9 @@ final class Band: NSObject {
                     } else {
                         self.completeLineup = completeLineup
                     }
-                    
                 }
+                
+            default: continue
             }
         }
     }
