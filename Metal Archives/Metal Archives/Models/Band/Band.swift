@@ -75,104 +75,102 @@ final class Band: NSObject {
         
         for div in doc.css("div") {
             
-            switch (div["id"], div["class"]) {
-            case ("band_info", nil):
-                guard let results = Band.parseBandInfoDiv(div) else {
-                    return nil
-                }
-                self.name = results.name
-                self.urlString = results.urlString
-                self.id = results.id
-            
-            case ("band_info", nil):
-                guard let results = Band.parseBandInfoDiv(div) else {
-                    return nil
-                }
-                self.name = results.name
-                self.urlString = results.urlString
-                self.id = results.id
-            
-            case ("band_stats", nil):
-                guard let results = Band.parseBandStatsDiv(div) else {
-                    return nil
-                }
-                
-                self.country = results.country
-                self.location = results.location
-                self.status = results.status
-                self.formedIn = results.formedIn
-                self.genre = results.genre
-                self.lyricalTheme = results.lyricalTheme
-                self.lastLabel = results.lastLabel
-                self.oldBands = results.oldBands
-                self.yearsActiveString = results.yearsActiveString
-                
-            case (nil, "band_comment clear"):
-                let prefix = "\n\t    <!-- Max 400 characters. Open the rest in a dialogue box-->\n\t    \t\t    \t"
-                self.shortHTMLDescription = div.innerHTML?.replacingOccurrences(of: prefix, with: "")
-                
-            case ("auditTrail", nil):
-                guard let innerHTML = div.innerHTML else { return nil }
-                self.auditTrail = AuditTrail(from: innerHTML)
-                
-            case (nil, "band_name_img"):
-                let a = div.at_css("a")
-                self.logoURLString = a?["href"]
-                
-            case (nil, "band_img"):
-                let a = div.at_css("a")
-                self.photoURLString = a?["href"]
-                
-            case ("band_tab_members", nil):
-                if let div_band_members = div.at_css("div") {
-                    let isLastKnown = div_band_members.text?.range(of: "Last known") != nil
+            if let id = div["id"] {
+                switch id {
+                case "band_info":
+                    guard let results = Band.parseBandInfoDiv(div) else {
+                        return nil
+                    }
+                    self.name = results.name
+                    self.urlString = results.urlString
+                    self.id = results.id
                     
-                    for subDiv in div_band_members.css("div") {
+                case "band_stats":
+                    guard let results = Band.parseBandStatsDiv(div) else {
+                        return nil
+                    }
+                    
+                    self.country = results.country
+                    self.location = results.location
+                    self.status = results.status
+                    self.formedIn = results.formedIn
+                    self.genre = results.genre
+                    self.lyricalTheme = results.lyricalTheme
+                    self.lastLabel = results.lastLabel
+                    self.oldBands = results.oldBands
+                    self.yearsActiveString = results.yearsActiveString
+                    
+                case "auditTrail":
+                    guard let innerHTML = div.innerHTML else { return nil }
+                    self.auditTrail = AuditTrail(from: innerHTML)
+                    
+                case "band_tab_members":
+                    if let div_band_members = div.at_css("div") {
+                        let isLastKnown = div_band_members.text?.range(of: "Last known") != nil
                         
-                        if (subDiv["id"] == "band_tab_members_current") {
-                            if isLastKnown {
-                                self.lastKnownLineup = Band.parseBandArtists(inDiv: subDiv)
-                            }
-                            else {
-                                self.currentLineup = Band.parseBandArtists(inDiv: subDiv)
-                            }
+                        for subDiv in div_band_members.css("div") {
                             
+                            if (subDiv["id"] == "band_tab_members_current") {
+                                if isLastKnown {
+                                    self.lastKnownLineup = Band.parseBandArtists(inDiv: subDiv)
+                                }
+                                else {
+                                    self.currentLineup = Band.parseBandArtists(inDiv: subDiv)
+                                }
+                                
+                            }
+                            else if (subDiv["id"] == "band_tab_members_past") {
+                                self.pastMembers = Band.parseBandArtists(inDiv: subDiv)
+                            }
+                            else if (subDiv["id"] == "band_tab_members_live") {
+                                self.liveMusicians = Band.parseBandArtists(inDiv: subDiv)
+                            }
                         }
-                        else if (subDiv["id"] == "band_tab_members_past") {
-                            self.pastMembers = Band.parseBandArtists(inDiv: subDiv)
+                        
+                        
+                        var completeLineup = [ArtistLite]()
+                        
+                        if let currentLineup = self.currentLineup {
+                            completeLineup.append(contentsOf: currentLineup)
                         }
-                        else if (subDiv["id"] == "band_tab_members_live") {
-                            self.liveMusicians = Band.parseBandArtists(inDiv: subDiv)
+                        
+                        if let lastKnownLineup = self.lastKnownLineup {
+                            completeLineup.append(contentsOf: lastKnownLineup)
+                        }
+                        
+                        if let pastMembers = self.pastMembers {
+                            completeLineup.append(contentsOf: pastMembers)
+                        }
+                        
+                        if let liveMusicians = self.liveMusicians {
+                            completeLineup.append(contentsOf: liveMusicians)
+                        }
+                        
+                        if completeLineup.count == 0 {
+                            self.completeLineup = nil
+                        } else {
+                            self.completeLineup = completeLineup
                         }
                     }
                     
-                    
-                    var completeLineup = [ArtistLite]()
-                    
-                    if let currentLineup = self.currentLineup {
-                        completeLineup.append(contentsOf: currentLineup)
-                    }
-                    
-                    if let lastKnownLineup = self.lastKnownLineup {
-                        completeLineup.append(contentsOf: lastKnownLineup)
-                    }
-                    
-                    if let pastMembers = self.pastMembers {
-                        completeLineup.append(contentsOf: pastMembers)
-                    }
-                    
-                    if let liveMusicians = self.liveMusicians {
-                        completeLineup.append(contentsOf: liveMusicians)
-                    }
-                    
-                    if completeLineup.count == 0 {
-                        self.completeLineup = nil
-                    } else {
-                        self.completeLineup = completeLineup
-                    }
+                default: continue
                 }
-                
-            default: continue
+            } else if let `class` = div["class"] {
+                switch `class` {
+                case "band_comment clear":
+                    let prefix = "\n\t    <!-- Max 400 characters. Open the rest in a dialogue box-->\n\t    \t\t    \t"
+                    self.shortHTMLDescription = div.innerHTML?.replacingOccurrences(of: prefix, with: "")
+                    
+                case "band_name_img":
+                    let a = div.at_css("a")
+                    self.logoURLString = a?["href"]
+                    
+                case "band_img":
+                    let a = div.at_css("a")
+                    self.photoURLString = a?["href"]
+                    
+                default: continue
+                }
             }
         }
     }
