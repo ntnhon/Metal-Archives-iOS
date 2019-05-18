@@ -12,6 +12,7 @@ import XCTest
 class ParseAuditTrailTests: XCTestCase {
     
     func testParseAuditTrailWithCompleteInformation() {
+        // Given
         let inputString = """
         <table>
         <tr>
@@ -31,8 +32,12 @@ class ParseAuditTrailTests: XCTestCase {
         </tr>
             </table>
         """
+        
+        // When
         let auditTrail = AuditTrail(from: inputString)
-        XCTAssertNotNil(auditTrail)
+        
+        // Then
+        XCTAssertNotNil(auditTrail, "AuditTrail should be parsed successfully.")
         
         XCTAssertEqual(auditTrail.addedByUser!.name, "Disciple_Of_Metal")
         XCTAssertEqual(auditTrail.addedByUser!.urlString, "https://www.metal-archives.com/users/Disciple_Of_Metal")
@@ -45,6 +50,7 @@ class ParseAuditTrailTests: XCTestCase {
     }
     
     func testParseAuditTrailWithIncompletionInformation() {
+        // Given
         let inputString = """
         <table>
         <tr>
@@ -65,7 +71,11 @@ class ParseAuditTrailTests: XCTestCase {
                     <td class="writeAction" colspan="2">Duplicate? Please <a href="javascript:popupReportDialog(2, 7656);">file a report</a> for merging.</td>
             </table>
         """
+        
+        // When
         let auditTrail = AuditTrail(from: inputString)
+        
+        // Then
         XCTAssertNotNil(auditTrail)
         XCTAssertNil(auditTrail.addedByUser)
         XCTAssertNil(auditTrail.addedOnDate)

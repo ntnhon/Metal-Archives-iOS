@@ -38,8 +38,9 @@ struct AuditTrail {
      </table>
      */
     init(from string: String) {
-        if let addedOnSubstring = string.subString(after: "Added on: ", before: "</td>", options: .caseInsensitive) {
-            self.addedOnDate = defaultDateFormatter.date(from: String(addedOnSubstring))
+        if let addedOnSubstring = string.subString(after: "Added on: ", before: "</td>", options: .caseInsensitive),
+            let addedOnDate = defaultDateFormatter.date(from: String(addedOnSubstring)) {
+            self.addedOnDate = addedOnDate
         } else {
             self.addedOnDate = nil
         }
@@ -50,8 +51,9 @@ struct AuditTrail {
             self.modifiedOnDate = nil
         }
         
-        if let addedBySustring = string.subString(after: "Added by", before: "</td>", options: .caseInsensitive) {
-            self.addedByUser = User(from: String(addedBySustring))
+        if let addedBySustring = string.subString(after: "Added by", before: "</td>", options: .caseInsensitive),
+            let addedByUser = User(from: String(addedBySustring)) {
+            self.addedByUser = addedByUser
         } else {
             self.addedByUser = nil
         }

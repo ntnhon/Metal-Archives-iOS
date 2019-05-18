@@ -13,6 +13,7 @@ import XCTest
 class ParseBandMembersTests: XCTestCase {
     
     func testParseArtistsWithCompleteInformation() {
+        // Given
         // Load from mock file
         // Original url: https://www.metal-archives.com/bands/Death/141
         let testBundle = Bundle(for: type(of: self))
@@ -20,6 +21,7 @@ class ParseBandMembersTests: XCTestCase {
         let inputString = try! String(contentsOfFile: path)
         let doc = try! Kanna.HTML(html: inputString, encoding: String.Encoding.utf8)
         
+        // When
         let artists = Band.parseBandArtists(inDiv: doc.at_css("table")!)
     
         /*
@@ -27,7 +29,8 @@ class ParseBandMembersTests: XCTestCase {
          copy this " "
          */
 
-        XCTAssertEqual(artists!.count, 4)
+        // Then
+        XCTAssertEqual(artists!.count, 4, "List of artists should be parsed successfully.")
         
         // 1: Chuck Schuldiner
         XCTAssertEqual(artists![0].name, "Chuck Schuldiner")
@@ -99,6 +102,7 @@ class ParseBandMembersTests: XCTestCase {
     }
     
     func testParseArtistsWithIncompleteInformation() {
+        // Given
         // Load from mock file
         // Original url: https://www.metal-archives.com/bands/Graves/3540442067
         let testBundle = Bundle(for: type(of: self))
@@ -106,9 +110,11 @@ class ParseBandMembersTests: XCTestCase {
         let inputString = try! String(contentsOfFile: path)
         let doc = try! Kanna.HTML(html: inputString, encoding: String.Encoding.utf8)
         
+        // When
         let artists = Band.parseBandArtists(inDiv: doc.at_css("table")!)
         
-        XCTAssertEqual(artists!.count, 3)
+        // Then
+        XCTAssertEqual(artists!.count, 3, "List of artists should be parsed successfully.")
         
         // 1: Necro.
         XCTAssertEqual(artists![0].name, "Necro.")

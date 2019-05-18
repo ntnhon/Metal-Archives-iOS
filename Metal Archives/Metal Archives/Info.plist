@@ -89,5 +89,7 @@
 	<array>
 		<string>PASTOROF.TTF</string>
 	</array>
+	<key>FirebaseScreenReportingEnabled</key>
+	<false/>
 </dict>
 </plist>
