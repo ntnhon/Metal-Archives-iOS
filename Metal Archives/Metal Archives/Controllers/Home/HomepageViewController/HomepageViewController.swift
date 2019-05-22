@@ -52,12 +52,13 @@ final class HomepageViewController: RefreshableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.addToggleMenuButton()
-        self.initSearchButton()
-        self.loadHomepage()
-        self.initObservers()
-        self.alertNewVersion()
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Homepage", style: .plain, target: nil, action: nil)
+//        self.addToggleMenuButton()
+//        self.initSearchButton()
+//        self.loadHomepage()
+//        self.initObservers()
+//        self.alertNewVersion()
+//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Homepage", style: .plain, target: nil, action: nil)
+        pushBandDetailViewController(urlString: "https://www.metal-archives.com/bands/Lamb_of_God/59", animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

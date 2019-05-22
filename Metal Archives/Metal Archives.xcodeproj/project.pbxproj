@@ -227,6 +227,8 @@
 		C0602BDF21EA9CE800046367 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0602BDE21EA9CE800046367 /* Statics.swift */; };
 		C061021521EF92670025F8C1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C061021421EF92670025F8C1 /* Settings.swift */; };
 		C061021B21EFE1610025F8C1 /* ViewMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C061021A21EFE1610025F8C1 /* ViewMoreTableViewCell.swift */; };
+		C0622B6C2295EB640002E80D /* BandHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0622B6B2295EB640002E80D /* BandHeaderView.swift */; };
+		C0622B742295F24A0002E80D /* BandHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0622B732295F24A0002E80D /* BandHeaderView.xib */; };
 		C065BCA5222D27C10009808A /* NewsDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C065BCA4222D27C10009808A /* NewsDetailTableViewCell.xib */; };
 		C065BCA8222D3E460009808A /* BaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C065BCA7222D3E460009808A /* BaseTextField.swift */; };
 		C066137122895C3700F99006 /* HomepageViewControllerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066137022895C3700F99006 /* HomepageViewControllerProtocols.swift */; };
@@ -456,6 +458,9 @@
 		C0FE963B221CA969003C4B59 /* RefreshableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE963A221CA969003C4B59 /* RefreshableViewController.swift */; };
 		C0FF16C9220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FF16C8220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift */; };
 		C0FF16CB220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */; };
+		C0FFE1F522958C6900909765 /* SmokedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFE1F422958C6900909765 /* SmokedImageView.swift */; };
+		C0FFE1F922958F4200909765 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFE1F822958F4200909765 /* UIView+Layout.swift */; };
+		C0FFE1FC2295941F00909765 /* UtileBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFE1FB2295941F00909765 /* UtileBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -716,6 +721,8 @@
 		C0602BDE21EA9CE800046367 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
 		C061021421EF92670025F8C1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C061021A21EFE1610025F8C1 /* ViewMoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMoreTableViewCell.swift; sourceTree = "<group>"; };
+		C0622B6B2295EB640002E80D /* BandHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandHeaderView.swift; sourceTree = "<group>"; };
+		C0622B732295F24A0002E80D /* BandHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BandHeaderView.xib; sourceTree = "<group>"; };
 		C065BCA4222D27C10009808A /* NewsDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsDetailTableViewCell.xib; sourceTree = "<group>"; };
 		C065BCA7222D3E460009808A /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
 		C066137022895C3700F99006 /* HomepageViewControllerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewControllerProtocols.swift; sourceTree = "<group>"; };
@@ -927,6 +934,9 @@
 		C0FE963A221CA969003C4B59 /* RefreshableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableViewController.swift; sourceTree = "<group>"; };
 		C0FF16C8220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentReviewViewController.swift"; sourceTree = "<group>"; };
 		C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PushAViewController.swift"; sourceTree = "<group>"; };
+		C0FFE1F422958C6900909765 /* SmokedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokedImageView.swift; sourceTree = "<group>"; };
+		C0FFE1F822958F4200909765 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		C0FFE1FB2295941F00909765 /* UtileBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtileBarView.swift; sourceTree = "<group>"; };
 		D8BA00F138939FF255125F82 /* Pods_Metal_Archives_Widget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Metal_Archives_Widget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EED03F29AC7BB9EE0B7F9D25 /* Pods_Metal_ArchivesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Metal_ArchivesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1603,6 +1613,7 @@
 				C05937DE222F378F00F7C2A9 /* UITextField+CustomClearButton.swift */,
 				C0A1F93D224143DC005C2C83 /* UserDefaults+ConvenienceMethods.swift */,
 				C03E6B472247F167007153B9 /* UINavigationController+Theme.swift */,
+				C0FFE1F822958F4200909765 /* UIView+Layout.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1647,6 +1658,15 @@
 				C0B990D22207A14D000DBD86 /* ViewMoreTableViewCell.xib */,
 			);
 			path = ViewMoreTableViewCell;
+			sourceTree = "<group>";
+		};
+		C0622B682295EADD0002E80D /* BandHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				C0622B6B2295EB640002E80D /* BandHeaderView.swift */,
+				C0622B732295F24A0002E80D /* BandHeaderView.xib */,
+			);
+			path = BandHeaderView;
 			sourceTree = "<group>";
 		};
 		C065BCA6222D3E250009808A /* BaseTextField */ = {
@@ -1876,6 +1896,7 @@
 		C06F1E0621F7B8AA00B49D39 /* BandDetail */ = {
 			isa = PBXGroup;
 			children = (
+				C0622B682295EADD0002E80D /* BandHeaderView */,
 				C0756050222C6DD200DA7119 /* BandHeaderDetailTableViewCell */,
 				C0756056222C6E5E00DA7119 /* DiscographyHeaderTableViewCell */,
 				C0756051222C6DEB00DA7119 /* ReleaseTableViewCell */,
@@ -1918,6 +1939,8 @@
 		C071306021ECC43000082BC6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C0FFE1FA229593C800909765 /* UtileBarView */,
+				C0FFE1F322958C4D00909765 /* SmokedImageView */,
 				C06B6241224235E900A3FE6B /* BrowseLabels */,
 				C0A1F9432241849A005C2C83 /* ArtistRIP */,
 				C00D35F5223D018200B29B43 /* BrowseBands */,
@@ -2681,6 +2704,22 @@
 			path = Homepage;
 			sourceTree = "<group>";
 		};
+		C0FFE1F322958C4D00909765 /* SmokedImageView */ = {
+			isa = PBXGroup;
+			children = (
+				C0FFE1F422958C6900909765 /* SmokedImageView.swift */,
+			);
+			path = SmokedImageView;
+			sourceTree = "<group>";
+		};
+		C0FFE1FA229593C800909765 /* UtileBarView */ = {
+			isa = PBXGroup;
+			children = (
+				C0FFE1FB2295941F00909765 /* UtileBarView.swift */,
+			);
+			path = UtileBarView;
+			sourceTree = "<group>";
+		};
 		C3CC4573347414ECAC2FC58D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2873,6 +2912,7 @@
 				C066139322899EDA00F99006 /* UpcomingAlbumCollectionViewCell.xib in Resources */,
 				C00D35FB223D042500B29B43 /* BrowseBandsResultTableViewCell.xib in Resources */,
 				C06613882289955C00F99006 /* LatestReviewCollectionViewCell.xib in Resources */,
+				C0622B742295F24A0002E80D /* BandHeaderView.xib in Resources */,
 				C0C19C7D22878206008B68F8 /* NewsTableViewCell.xib in Resources */,
 				C013364A22384E8700963940 /* AdvancedBandNameTableViewCell.xib in Resources */,
 				C0795B942288528A00E5D94F /* NewsCollectionViewCell.xib in Resources */,
@@ -3181,6 +3221,7 @@
 				C03270E9220B933F009FA337 /* ReviewViewController.swift in Sources */,
 				C06C6C6221FFCF5300D37519 /* UIImage+RoundedCorner.swift in Sources */,
 				C0FF16C9220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift in Sources */,
+				C0FFE1F522958C6900909765 /* SmokedImageView.swift in Sources */,
 				C032801F2209FBF700FC9A44 /* RequestBandRelatedLinks.swift in Sources */,
 				C0A1F95122419927005C2C83 /* BrowseLabelsAlphabeticallyViewController.swift in Sources */,
 				C0FE9637221C572F003C4B59 /* BandReviewListViewController.swift in Sources */,
@@ -3229,6 +3270,7 @@
 				C04872BA21EE368700ECFDC2 /* StringProtocol.swift in Sources */,
 				C053DD2A222679520028568B /* Statistic.swift in Sources */,
 				C0ECE6F7221B19CC00489A8E /* ArtistDetailViewController.swift in Sources */,
+				C0FFE1FC2295941F00909765 /* UtileBarView.swift in Sources */,
 				C0A1F95622419BC5005C2C83 /* BrowseLabelsAlphabeticallyResultViewController.swift in Sources */,
 				C00D362A223D86F600B29B43 /* OpenSourceLibrariesViewController.swift in Sources */,
 				C06F929B2231D3100079E63E /* SimpleArtistTableViewCell.swift in Sources */,
@@ -3263,6 +3305,7 @@
 				C06B624822423E7900A3FE6B /* BrowseLabelsByCountryViewController.swift in Sources */,
 				C00D3605223D5E5C00B29B43 /* ReleaseType.swift in Sources */,
 				C071306721ECCB4100082BC6 /* NewsTableViewCell.swift in Sources */,
+				C0FFE1F922958F4200909765 /* UIView+Layout.swift in Sources */,
 				C06B62432242362800A3FE6B /* BrowseLabelsAlphabeticallyResultTableViewCell.swift in Sources */,
 				C0332FE4220196BF008B34E0 /* Discography.swift in Sources */,
 				C071307821ECE0CC00082BC6 /* LatestReviewTableViewCell.swift in Sources */,
@@ -3297,6 +3340,7 @@
 				C0BAD4B5222EED6300C4D38D /* SimpleSearchResultArtist.swift in Sources */,
 				C0AA06BC22395F09001BE21D /* AdvancedSongTableViewCell.swift in Sources */,
 				C06DC34D22705A1E005D513E /* RegexHelpers.swift in Sources */,
+				C0622B6C2295EB640002E80D /* BandHeaderView.swift in Sources */,
 				C0ECE700221B465D00489A8E /* RequestArtistDetail.swift in Sources */,
 				C0BAD4A9222ECC5A00C4D38D /* SimpleSearchResultMusicGenre.swift in Sources */,
 				C0DC881E220763E600A9187B /* ReviewLite.swift in Sources */,

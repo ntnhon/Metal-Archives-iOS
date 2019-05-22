@@ -37,6 +37,8 @@ struct Settings {
     static var currentTheme: Theme!
     static var currentFontSize: FontSize!
     static var thumbnailEnabled: Bool!
+    
+    static let strechyImageViewHeight: CGFloat = screenHeight / 4
 }
 
 enum FontSize: Int, CustomStringConvertible {
