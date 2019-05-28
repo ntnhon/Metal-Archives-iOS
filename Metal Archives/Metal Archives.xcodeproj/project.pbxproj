@@ -346,6 +346,8 @@
 		C0858F072237078800595B48 /* AdvancedSearchCountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0858F062237078800595B48 /* AdvancedSearchCountryListViewController.swift */; };
 		C08607FE225235F800FE750F /* MonthInYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AABDE7221D8AB00044A2CF /* MonthInYear.swift */; };
 		C094BCAF229D27B70005BF3E /* HomepageNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C094BCAE229D27B70005BF3E /* HomepageNavigationController.swift */; };
+		C094BCB2229D44750005BF3E /* BandInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C094BCB1229D44750005BF3E /* BandInfoTableViewCell.swift */; };
+		C094BCB4229D44A20005BF3E /* BandInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C094BCB3229D44A20005BF3E /* BandInfoTableViewCell.xib */; };
 		C098587721FD09100069C348 /* UIStackView+SetBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C098587621FD09100069C348 /* UIStackView+SetBackgroundColor.swift */; };
 		C09A18A521FF182B00152908 /* String+HTMLToAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09A18A421FF182B00152908 /* String+HTMLToAttributedString.swift */; };
 		C09A18A821FF4CD400152908 /* PhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09A18A721FF4CD400152908 /* PhotoViewerViewController.swift */; };
@@ -818,6 +820,8 @@
 		C0858F042236C26B00595B48 /* MA_Countries.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MA_Countries.plist; sourceTree = "<group>"; };
 		C0858F062237078800595B48 /* AdvancedSearchCountryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchCountryListViewController.swift; sourceTree = "<group>"; };
 		C094BCAE229D27B70005BF3E /* HomepageNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageNavigationController.swift; sourceTree = "<group>"; };
+		C094BCB1229D44750005BF3E /* BandInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInfoTableViewCell.swift; sourceTree = "<group>"; };
+		C094BCB3229D44A20005BF3E /* BandInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BandInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C098587621FD09100069C348 /* UIStackView+SetBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+SetBackgroundColor.swift"; sourceTree = "<group>"; };
 		C09A18A421FF182B00152908 /* String+HTMLToAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTMLToAttributedString.swift"; sourceTree = "<group>"; };
 		C09A18A721FF4CD400152908 /* PhotoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerViewController.swift; sourceTree = "<group>"; };
@@ -1890,6 +1894,7 @@
 		C06F1E0621F7B8AA00B49D39 /* BandDetail */ = {
 			isa = PBXGroup;
 			children = (
+				C094BCB0229D44610005BF3E /* BandInfoTableViewCell */,
 				C0CAC19B229886D50044363E /* BandPhotoAndNameTableViewCell */,
 				C0756050222C6DD200DA7119 /* BandHeaderDetailTableViewCell */,
 				C0756056222C6E5E00DA7119 /* DiscographyHeaderTableViewCell */,
@@ -2365,6 +2370,15 @@
 				C06B6294224281A500A3FE6B /* RequestRelatedLinks.swift */,
 			);
 			path = RequestHelper;
+			sourceTree = "<group>";
+		};
+		C094BCB0229D44610005BF3E /* BandInfoTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C094BCB1229D44750005BF3E /* BandInfoTableViewCell.swift */,
+				C094BCB3229D44A20005BF3E /* BandInfoTableViewCell.xib */,
+			);
+			path = BandInfoTableViewCell;
 			sourceTree = "<group>";
 		};
 		C09A18A621FF4CAD00152908 /* PhotoViewer */ = {
@@ -2942,6 +2956,7 @@
 				C0A1F94C22418B10005C2C83 /* ArtistRIP.storyboard in Resources */,
 				C06B62502242496B00A3FE6B /* BrowseLabelsByCountryResultTableViewCell.xib in Resources */,
 				C065BCA5222D27C10009808A /* NewsDetailTableViewCell.xib in Resources */,
+				C094BCB4229D44A20005BF3E /* BandInfoTableViewCell.xib in Resources */,
 				C0ECE6F2221AB32B00489A8E /* Lyric.storyboard in Resources */,
 				C0661376228969D900F99006 /* LabelAdditionOrUpdateCollectionViewCell.xib in Resources */,
 				C0BE339A21E68CDF001ED000 /* LaunchScreen.storyboard in Resources */,
@@ -3377,6 +3392,7 @@
 				C06C6C5B21FFC4FE00D37519 /* BandStatus.swift in Sources */,
 				C0795B9F22886CF500E5D94F /* BandAdditionOrUpdateCollectionViewCell.swift in Sources */,
 				C06F1DFF21F7688900B49D39 /* LabelLiteInBand.swift in Sources */,
+				C094BCB2229D44750005BF3E /* BandInfoTableViewCell.swift in Sources */,
 				C0332FE222019370008B34E0 /* ReleaseLite.swift in Sources */,
 				C03280092209F78100FC9A44 /* RequestStatistic.swift in Sources */,
 				C00D361A223D5F6800B29B43 /* ReleaseFormat.swift in Sources */,

@@ -142,8 +142,10 @@ extension BandDetailViewController {
     
     private func configureTableView() {
         BandPhotoAndNameTableViewCell.register(with: tableView)
+        BandInfoTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.contentInset = .init(top: Settings.strechyImageViewHeight - Settings.bandPhotoImageViewHeight / 3 * 4, left: 0, bottom: 0, right: 0)
         
         // observe when tableView is scrolled to animate alphas because scrollViewDidScroll doesn't capture enough event.
@@ -190,13 +192,20 @@ extension BandDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        switch indexPath.row {
+        case 0:
             let cell = bandPhotoAndNameTableViewCell(forRowAt: indexPath)
             return cell
+            
+        case 1:
+            let cell = bandInfoTableViewCell(forRowAt: indexPath)
+            return cell
+            
+        default:
+            let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+            cell.textLabel?.text = "\(indexPath.row)"
+            return cell
         }
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = "\(indexPath.row)"
-        return cell
     }
 }
 
@@ -214,6 +223,17 @@ extension BandDetailViewController {
             self.presentPhotoViewer(photoURLString: bandPhotoURLString, description: band.name)
         }
         bandPhotoAndNameTableViewCell = cell
+        return cell
+    }
+    
+    // MARK: - Band's info
+    func bandInfoTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = BandInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.fill(with: band!)
+        cell.tappedLastModifiedOn = { [unowned self] in
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+        }
         return cell
     }
 }
