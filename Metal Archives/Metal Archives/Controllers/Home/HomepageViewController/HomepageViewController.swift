@@ -40,7 +40,6 @@ final class HomepageViewController: RefreshableViewController {
     private var latestReviewPagableManager = PagableManager<LatestReview>()
     private var upcomingAlbumPagableManager = PagableManager<UpcomingAlbum>()
     
-   
     
     /// English and Latin title, don't mind weird characters, they are needed for flipped effect (last character)
     private let navBarTitle = (english: "Metal archiveÎ", latin: "Encyclopaedia metalluÈ")
@@ -52,13 +51,19 @@ final class HomepageViewController: RefreshableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.addToggleMenuButton()
-//        self.initSearchButton()
-//        self.loadHomepage()
-//        self.initObservers()
-//        self.alertNewVersion()
-//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Homepage", style: .plain, target: nil, action: nil)
-        pushBandDetailViewController(urlString: "https://www.metal-archives.com/bands/Lamb_of_God/59", animated: true)
+        self.addToggleMenuButton()
+        self.initSearchButton()
+        self.loadHomepage()
+        self.initObservers()
+        self.alertNewVersion()
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Homepage", style: .plain, target: nil, action: nil)
+        //pushBandDetailViewController(urlString: "https://www.metal-archives.com/bands/When_Death_Replaces_Life/3540453629", animated: true)
+        //pushBandDetailViewController(urlString: "https://www.metal-archives.com/bands/Lamb_of_God/59", animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {

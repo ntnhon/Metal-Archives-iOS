@@ -12,8 +12,6 @@ final class SmokedImageView: UIView {
     var imageView: UIImageView!
     private var smokedView: UIView!
     
-    private let minSmokeDegree: CGFloat = 0.1
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initSubviews()
@@ -25,7 +23,7 @@ final class SmokedImageView: UIView {
     }
     
     private func initSubviews() {
-        clipsToBounds = false
+        clipsToBounds = true
         backgroundColor = .clear
         
         imageView = UIImageView(frame: .zero)
@@ -38,10 +36,10 @@ final class SmokedImageView: UIView {
         smokedView.fillSuperview()
 
         smokedView.backgroundColor = .black
-        smokedView.alpha = minSmokeDegree
+        smokedView.alpha = 0
     }
     
     func smokeDegree(_ degree: CGFloat) {
-        smokedView.alpha = max(minSmokeDegree, degree)
+        smokedView.alpha = degree
     }
 }

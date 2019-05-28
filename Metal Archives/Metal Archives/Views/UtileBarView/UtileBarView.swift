@@ -14,14 +14,19 @@ final class UtileBarView: UIView {
     var titleLabel: UILabel!
     private var shareButton: UIButton!
     
+    var didTapBackButton: (() -> Void)?
+    var didTapShareButton: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initSubviews()
+        initActions()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initSubviews()
+        initActions()
     }
     
     private func initSubviews() {
@@ -35,7 +40,9 @@ final class UtileBarView: UIView {
         backgroundView.fillSuperview()
         
         backButton = UIButton(type: .system)
+        backButton.contentEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 32)
         backButton.setImage(#imageLiteral(resourceName: "back"), for: .normal)
+        backButton.tintColor = Settings.currentTheme.bodyTextColor
         backButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         titleLabel = UILabel(frame: .zero)
@@ -48,6 +55,7 @@ final class UtileBarView: UIView {
         
         shareButton = UIButton(type: .system)
         shareButton.setImage(#imageLiteral(resourceName: "share"), for: .normal)
+        shareButton.tintColor = Settings.currentTheme.bodyTextColor
         shareButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         let stackView = UIStackView(arrangedSubviews: [
@@ -59,9 +67,21 @@ final class UtileBarView: UIView {
         stackView.fillSuperview(padding: .init(top: 20, left: 10, bottom: 0, right: 10))
     }
     
-    func backgroundAlpha(_ alpha: CGFloat) {
+    private func initActions() {
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+    }
+    
+    func setAlphaForBackgroundAndTitleLabel(_ alpha: CGFloat) {
         backgroundView.alpha = alpha
         titleLabel.alpha = alpha
-        print(alpha)
+    }
+    
+    @objc private func backButtonTapped() {
+        didTapBackButton?()
+    }
+    
+    @objc private func shareButtonTapped() {
+        didTapShareButton?()
     }
 }

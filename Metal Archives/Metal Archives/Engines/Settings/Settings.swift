@@ -39,6 +39,7 @@ struct Settings {
     static var thumbnailEnabled: Bool!
     
     static let strechyImageViewHeight: CGFloat = screenHeight / 4
+    static let bandPhotoImageViewHeight: CGFloat = screenHeight / 8
 }
 
 enum FontSize: Int, CustomStringConvertible {

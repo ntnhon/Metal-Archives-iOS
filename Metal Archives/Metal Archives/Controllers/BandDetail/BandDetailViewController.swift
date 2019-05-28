@@ -21,15 +21,37 @@ final class BandDetailViewController: BaseViewController {
     
     var bandURLString: String!
     private var band: Band?
+    private unowned var bandPhotoAndNameTableViewCell: BandPhotoAndNameTableViewCell?
+    private var tableViewLastContentOffsetY: CGFloat?
+    private var isScrollingFast = false
     
-    private let headerHeight = screenHeight / 6
+    private var tableViewContentOffsetObserver: NSKeyValueObservation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerCellsAndViews()
+        configureTableView()
         configureStretchyImageView()
-        navigationController?.isNavigationBarHidden = true
+        handleUtileBarViewActions()
         reloadBand()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingToParent {
+            tableViewContentOffsetObserver?.invalidate()
+            tableViewContentOffsetObserver = nil
+        }
+        
+        stretchyLogoSmokedImageView.transform = .identity
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 
     private func reloadBand() {
@@ -44,10 +66,6 @@ final class BandDetailViewController: BaseViewController {
                     self?.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL)
                 }
                 
-                if let photoURLString = band.photoURLString, let photoURL = URL(string: photoURLString) {
-
-                }
-                
                 self?.utileBarView.titleLabel.text = band.name
                 
                 self?.title = band.name
@@ -58,10 +76,59 @@ final class BandDetailViewController: BaseViewController {
         }
     }
     
-    private func registerCellsAndViews() {
-        tableView.register(BandHeaderView.self, forHeaderFooterViewReuseIdentifier: "\(BandHeaderView.self)")
-        tableView.register(UINib(nibName: "BandHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "BandHeaderView")
+    private func handleUtileBarViewActions() {
+        utileBarView.didTapBackButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
         
+        utileBarView.didTapShareButton = { [unowned self] in
+            guard let `band` = self.band, let url = URL(string: band.urlString) else { return }
+            
+            self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(band.name!) in browser", alertMessage: band.urlString, shareMessage: "Share this band URL")
+            
+            Analytics.logEvent(AnalyticsEvent.ShareBand, parameters: nil)
+        }
+    }
+
+    private func calculateAndApplyAlphaForBandPhotoAndNameCellAndUltileNavBar() {
+        // Calculate alpha base of distant between utileBarView and the cell
+        // the cell should only be dimmed only when the cell frame overlaps the utileBarView
+        
+        guard let bandPhotoAndNameTableViewCell = bandPhotoAndNameTableViewCell, let bandNameLabel = bandPhotoAndNameTableViewCell.nameLabel else {
+            return
+        }
+        
+        let bandNameLabelFrameInThisView = bandPhotoAndNameTableViewCell.convert(bandNameLabel.frame, to: view)
+        let distanceFromBandNameLableToUtileBarView = bandNameLabelFrameInThisView.origin.y - (utileBarView.frame.origin.y + utileBarView.frame.size.height)
+        
+        // alpha = distance / label's height (dim base on label's frame)
+        bandPhotoAndNameTableViewCell.alpha = (distanceFromBandNameLableToUtileBarView + bandNameLabel.frame.height) / bandNameLabel.frame.height
+        utileBarView.setAlphaForBackgroundAndTitleLabel(1 - bandPhotoAndNameTableViewCell.alpha)
+    }
+    
+    func calculateAndApplyAlphaForStretchyLogoSmokedImageView() {
+        
+        let scaleRatio = abs(tableView.contentOffset.y) / tableView.contentInset.top
+        
+        guard scaleRatio >= 0 && scaleRatio <= 2 else { return }
+        
+        if scaleRatio > 1.0 {
+            // Zoom stretchyLogoSmokedImageView
+            stretchyLogoSmokedImageView.transform = CGAffineTransform(scaleX: scaleRatio, y: scaleRatio)
+        } else {
+            guard tableView.contentOffset.y < 0 else { return }
+            // Move stretchyLogoSmokedImageView up
+            let translationY = (20 * scaleRatio)
+            stretchyLogoSmokedImageView.transform = CGAffineTransform(translationX: 0, y: translationY)
+            
+            stretchyLogoSmokedImageView.smokeDegree(1 - scaleRatio)
+            
+        }
+    }
+    
+    private func presentBandLogoInPhotoViewer() {
+        guard let band = band, let bandLogoURLString = band.logoURLString else { return }
+        presentPhotoViewer(photoURLString: bandLogoURLString, description: band.name)
     }
 }
 
@@ -71,30 +138,43 @@ extension BandDetailViewController {
         stretchyLogoSmokedImageView.clipsToBounds = false
         stretchyLogoSmokedImageView.contentMode = .scaleAspectFill
         stretchyLogoSmokedImageViewHeightConstraint.constant = Settings.strechyImageViewHeight
-
+    }
+    
+    private func configureTableView() {
+        BandPhotoAndNameTableViewCell.register(with: tableView)
+        
         tableView.backgroundColor = .clear
-        tableView.contentInset = .init(top: Settings.strechyImageViewHeight - (headerHeight / 2), left: 0, bottom: 0, right: 0)
+        tableView.contentInset = .init(top: Settings.strechyImageViewHeight - Settings.bandPhotoImageViewHeight / 3 * 4, left: 0, bottom: 0, right: 0)
+        
+        // observe when tableView is scrolled to animate alphas because scrollViewDidScroll doesn't capture enough event.
+        tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
+            self?.calculateAndApplyAlphaForBandPhotoAndNameCellAndUltileNavBar()
+            self?.calculateAndApplyAlphaForStretchyLogoSmokedImageView()
+        }
+        
+        // detect taps on band's logo, have to do this because band's logo is overlaid by tableView
+        tableView.backgroundView = UIView()
+        let backgroundViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tableViewBackgroundViewTapped))
+        tableView.backgroundView?.addGestureRecognizer(backgroundViewTapGestureRecognizer)
+    }
+    
+    @objc private func tableViewBackgroundViewTapped() {
+        presentBandLogoInPhotoViewer()
     }
 }
 // MARK: - UITableViewDelegate
 extension BandDetailViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return headerHeight
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let band = self.band else { return nil }
-        
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "\(BandHeaderView.self)") as! BandHeaderView
-        headerView.fill(with: band)
-        return headerView
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            presentBandLogoInPhotoViewer()
+        }
     }
 }
 
 // MARK: - UITableViewDataSource
 extension BandDetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let band = self.band else {
+        guard let _ = self.band else {
             return 0
         }
         
@@ -102,7 +182,7 @@ extension BandDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let band = self.band else {
+        guard let _ = self.band else {
             return 0
         }
         
@@ -110,29 +190,30 @@ extension BandDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            let cell = bandPhotoAndNameTableViewCell(forRowAt: indexPath)
+            return cell
+        }
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         cell.textLabel?.text = "\(indexPath.row)"
         return cell
     }
 }
 
-// MARK: - UIScrollViewDelegate
-extension BandDetailViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let scaleRatio = abs(scrollView.contentOffset.y) / scrollView.contentInset.top
-        
-        guard scaleRatio >= 0 && scaleRatio <= 2 else { return }
-        
-        if scaleRatio > 1.0 {
-            stretchyLogoSmokedImageView.transform = CGAffineTransform(scaleX: scaleRatio, y: scaleRatio)
-        } else {
-            stretchyLogoSmokedImageViewTopConstraint.constant = (20 * scaleRatio)
-            
-            // Prevent bar from becoming transparent when scrolling up too much
-            if scrollView.contentOffset.y < 0 {
-                utileBarView.backgroundAlpha(1 - scaleRatio)
-                stretchyLogoSmokedImageView.smokeDegree(1 - scaleRatio)
+// MARK: - Custom cells
+extension BandDetailViewController {
+    // MARK: - Photo & Name
+    func bandPhotoAndNameTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = BandPhotoAndNameTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.fill(with: band!)
+        cell.tappedPhotoImageView = { [unowned self] in
+            guard let band = self.band, let bandPhotoURLString = band.photoURLString else {
+                return
             }
+            
+            self.presentPhotoViewer(photoURLString: bandPhotoURLString, description: band.name)
         }
+        bandPhotoAndNameTableViewCell = cell
+        return cell
     }
 }
