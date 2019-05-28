@@ -19,7 +19,7 @@ final class Band: NSObject {
     
     private(set) var location: String!
     private(set) var formedIn: String!
-    private(set) var yearsActiveString: String!
+    private(set) var yearsActiveAttributedString: NSAttributedString!
     private(set) var oldBands: [BandAncient]?
     private(set) var lyricalTheme: String!
     private(set) var lastLabel: LabelLiteInBand!
@@ -98,7 +98,7 @@ final class Band: NSObject {
                     self.lyricalTheme = results.lyricalTheme
                     self.lastLabel = results.lastLabel
                     self.oldBands = results.oldBands
-                    self.yearsActiveString = results.yearsActiveString
+                    self.yearsActiveAttributedString = Band.generateYearsActiveAttributedString(from: results.yearsActiveString, withOldBands: results.oldBands)
                     
                 case "auditTrail":
                     guard let innerHTML = div.innerHTML else { return nil }
@@ -233,6 +233,27 @@ final class Band: NSObject {
         }
         
         return artists
+    }
+    
+    private static func generateYearsActiveAttributedString(from yearsActiveString: String, withOldBands oldBands: [BandAncient]?) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(string: yearsActiveString)
+        
+        attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(yearsActiveString.startIndex..., in: yearsActiveString))
+        
+        let pastBandNames = RegexHelpers.listGroups(for: #"\(as ([^)]+)\)"#, inString: yearsActiveString)
+        
+        for oldBandName in pastBandNames {
+            let oldBandNameRange = yearsActiveString.range(of: oldBandName)!
+            let oldBandNameNSRange = NSRange(oldBandNameRange, in: yearsActiveString)
+            
+            if let oldBands = oldBands, oldBands.contains(where: {$0.name == oldBandName}) {
+                attributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor, .font: Settings.currentFontSize.secondaryTitleFont], range: oldBandNameNSRange)
+            } else {
+                attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.secondaryTitleFont], range: oldBandNameNSRange)
+            }
+        }
+        
+        return attributedString
     }
 }
 

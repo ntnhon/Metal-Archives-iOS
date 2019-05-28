@@ -26,7 +26,9 @@ final class BandInfoTableViewCell: BaseTableViewCell, RegisterableCell {
     private weak var band: Band!
     private var fullyDisplayLastModifiedOnDate = false
     
-    var tappedLastModifiedOn: (() -> Void)?
+    var tappedYearsActiveLabel: (() -> Void)?
+    var tappedLastModifiedOnLabel: (() -> Void)?
+    var tappedLastLabelLabel: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,9 +42,20 @@ final class BandInfoTableViewCell: BaseTableViewCell, RegisterableCell {
             $0.font = Settings.currentFontSize.bodyTextFont
         })
         
+        let yearsActiveLabelTap = UITapGestureRecognizer(target: self, action: #selector(didTapYearsActiveLabel))
+        yearsActiveLabel.isUserInteractionEnabled = true
+        yearsActiveLabel.addGestureRecognizer(yearsActiveLabelTap)
+        
+        let lastLabelLabelTap = UITapGestureRecognizer(target: self, action: #selector(didTapLastLabelLabel))
+        lastLabelLabel.isUserInteractionEnabled = true
+        lastLabelLabel.addGestureRecognizer(lastLabelLabelTap)
+        
         let lastModifiedOnLabelTap = UITapGestureRecognizer(target: self, action: #selector(didTapLastModifiedOnLabel))
         lastModifiedOnLabel.isUserInteractionEnabled = true
         lastModifiedOnLabel.addGestureRecognizer(lastModifiedOnLabelTap)
+        
+        lastModifiedOnLabel.textColor = Settings.currentTheme.secondaryTitleColor
+        lastModifiedOnLabel.font = Settings.currentFontSize.secondaryTitleFont
     }
     
     func fill(with band: Band) {
@@ -50,26 +63,26 @@ final class BandInfoTableViewCell: BaseTableViewCell, RegisterableCell {
         
         countryLabel.text = band.country.nameAndEmoji
         locationLabel.text = band.location
-        
         statusLabel.text = band.status.description
         statusLabel.textColor = band.status.color
-        
         formedInLabel.text = band.formedIn
-        
-        yearsActiveLabel.text = band.yearsActiveString
-        if let _ = band.oldBands {
-            yearsActiveLabel.textColor = Settings.currentTheme.titleColor
-            yearsActiveLabel.font = Settings.currentFontSize.secondaryTitleFont
-        } else {
-            yearsActiveLabel.textColor = Settings.currentTheme.bodyTextColor
-            yearsActiveLabel.font = Settings.currentFontSize.bodyTextFont
-        }
-        
         genreLabel.text = band.genre
-        lastLabelLabel.text = band.lastLabel.name
         aboutLabel.text = band.shortHTMLDescription?.htmlToString
+        yearsActiveLabel.attributedText = band.yearsActiveAttributedString
         
+        setLastLabelLabel()
         setLastModifiedOnLabel()
+    }
+    
+    private func setLastLabelLabel() {
+        lastLabelLabel.text = band.lastLabel.name
+        if let _ = band.lastLabel.urlString {
+            lastLabelLabel.textColor = Settings.currentTheme.secondaryTitleColor
+            lastLabelLabel.font = Settings.currentFontSize.secondaryTitleFont
+        } else {
+            lastLabelLabel.textColor = Settings.currentTheme.bodyTextColor
+            lastLabelLabel.font = Settings.currentFontSize.bodyTextFont
+        }
     }
     
     private func setLastModifiedOnLabel() {
@@ -95,9 +108,17 @@ final class BandInfoTableViewCell: BaseTableViewCell, RegisterableCell {
         }
     }
     
+    @objc private func didTapYearsActiveLabel() {
+        tappedYearsActiveLabel?()
+    }
+    
+    @objc private func didTapLastLabelLabel() {
+        tappedLastLabelLabel?()
+    }
+    
     @objc private func didTapLastModifiedOnLabel() {
         fullyDisplayLastModifiedOnDate.toggle()
         setLastModifiedOnLabel()
-        tappedLastModifiedOn?()
+        tappedLastModifiedOnLabel?()
     }
 }

@@ -300,8 +300,6 @@
 		C06F1E0121F7694600B49D39 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06F1E0021F7694600B49D39 /* Artist.swift */; };
 		C06F1E0321F76D2600B49D39 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06F1E0221F76D2600B49D39 /* Review.swift */; };
 		C06F1E0521F76E1C00B49D39 /* BandAncient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06F1E0421F76E1C00B49D39 /* BandAncient.swift */; };
-		C06F1E0821F7B8FA00B49D39 /* BandHeaderDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06F1E0721F7B8FA00B49D39 /* BandHeaderDetailTableViewCell.swift */; };
-		C06F1E0A21F7B94200B49D39 /* BandHeaderDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06F1E0921F7B94200B49D39 /* BandHeaderDetailTableViewCell.xib */; };
 		C06F92912231C8500079E63E /* SimpleSongTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06F92902231C8500079E63E /* SimpleSongTitleTableViewCell.swift */; };
 		C06F92932231CA310079E63E /* SimpleSongTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06F92922231CA310079E63E /* SimpleSongTitleTableViewCell.xib */; };
 		C06F92962231CD310079E63E /* SimpleLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06F92952231CD310079E63E /* SimpleLabelTableViewCell.swift */; };
@@ -778,8 +776,6 @@
 		C06F1E0021F7694600B49D39 /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		C06F1E0221F76D2600B49D39 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		C06F1E0421F76E1C00B49D39 /* BandAncient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandAncient.swift; sourceTree = "<group>"; };
-		C06F1E0721F7B8FA00B49D39 /* BandHeaderDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandHeaderDetailTableViewCell.swift; sourceTree = "<group>"; };
-		C06F1E0921F7B94200B49D39 /* BandHeaderDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BandHeaderDetailTableViewCell.xib; sourceTree = "<group>"; };
 		C06F92902231C8500079E63E /* SimpleSongTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSongTitleTableViewCell.swift; sourceTree = "<group>"; };
 		C06F92922231CA310079E63E /* SimpleSongTitleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleSongTitleTableViewCell.xib; sourceTree = "<group>"; };
 		C06F92952231CD310079E63E /* SimpleLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLabelTableViewCell.swift; sourceTree = "<group>"; };
@@ -1896,7 +1892,6 @@
 			children = (
 				C094BCB0229D44610005BF3E /* BandInfoTableViewCell */,
 				C0CAC19B229886D50044363E /* BandPhotoAndNameTableViewCell */,
-				C0756050222C6DD200DA7119 /* BandHeaderDetailTableViewCell */,
 				C0756056222C6E5E00DA7119 /* DiscographyHeaderTableViewCell */,
 				C0756051222C6DEB00DA7119 /* ReleaseTableViewCell */,
 				C0756057222C6E6B00DA7119 /* LineUpHeaderTableViewCell */,
@@ -2002,15 +1997,6 @@
 				C071307E21ECF4E500082BC6 /* LeftMenuOptionTableViewCell.xib */,
 			);
 			path = LeftMenuOptionTableViewCell;
-			sourceTree = "<group>";
-		};
-		C0756050222C6DD200DA7119 /* BandHeaderDetailTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C06F1E0721F7B8FA00B49D39 /* BandHeaderDetailTableViewCell.swift */,
-				C06F1E0921F7B94200B49D39 /* BandHeaderDetailTableViewCell.xib */,
-			);
-			path = BandHeaderDetailTableViewCell;
 			sourceTree = "<group>";
 		};
 		C0756051222C6DEB00DA7119 /* ReleaseTableViewCell */ = {
@@ -2960,7 +2946,6 @@
 				C0ECE6F2221AB32B00489A8E /* Lyric.storyboard in Resources */,
 				C0661376228969D900F99006 /* LabelAdditionOrUpdateCollectionViewCell.xib in Resources */,
 				C0BE339A21E68CDF001ED000 /* LaunchScreen.storyboard in Resources */,
-				C06F1E0A21F7B94200B49D39 /* BandHeaderDetailTableViewCell.xib in Resources */,
 				C053DD5222269B010028568B /* ReleaseStatisticTableViewCell.xib in Resources */,
 				C071307021ECD73500082BC6 /* StatisticTableViewCell.xib in Resources */,
 				C0107029222DC9840092D3A5 /* ImFeelingLuckyView.xib in Resources */,
@@ -3320,7 +3305,6 @@
 				C06C6C5E21FFCF2100D37519 /* UIImage+Alpha.swift in Sources */,
 				C07CFC2E220E2C7B009142A0 /* ReleaseElement.swift in Sources */,
 				C0AA06CB2239AC52001BE21D /* BrowseBandsAlphabeticallyViewController.swift in Sources */,
-				C06F1E0821F7B8FA00B49D39 /* BandHeaderDetailTableViewCell.swift in Sources */,
 				C06B624822423E7900A3FE6B /* BrowseLabelsByCountryViewController.swift in Sources */,
 				C00D3605223D5E5C00B29B43 /* ReleaseType.swift in Sources */,
 				C071306721ECCB4100082BC6 /* NewsTableViewCell.swift in Sources */,

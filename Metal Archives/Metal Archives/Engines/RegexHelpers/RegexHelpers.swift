@@ -69,11 +69,15 @@ struct RegexHelpers {
         
         var groupMatches: [String] = []
         for match in matches {
-            let rangeCount = match.numberOfRanges
+            let numberOfRangesInMatch = match.numberOfRanges
             
-            for group in 0..<rangeCount {
-                let range = Range(match.range(at: group), in: string)!
-                groupMatches.append(String(string[range]))
+            for rangeIndex in 1..<numberOfRangesInMatch {
+                let range = match.range(at: rangeIndex);
+                if range.location != NSNotFound {
+                    if let rangeInString = Range(range, in: string) {
+                        groupMatches.append(String(string[rangeInString]))
+                    }
+                }
             }
         }
         

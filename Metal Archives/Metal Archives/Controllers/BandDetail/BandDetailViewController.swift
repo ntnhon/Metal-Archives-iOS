@@ -46,7 +46,7 @@ final class BandDetailViewController: BaseViewController {
             tableViewContentOffsetObserver?.invalidate()
             tableViewContentOffsetObserver = nil
         }
-        
+        navigationController?.isNavigationBarHidden = false
         stretchyLogoSmokedImageView.transform = .identity
     }
     
@@ -129,6 +129,35 @@ final class BandDetailViewController: BaseViewController {
     private func presentBandLogoInPhotoViewer() {
         guard let band = band, let bandLogoURLString = band.logoURLString else { return }
         presentPhotoViewer(photoURLString: bandLogoURLString, description: band.name)
+    }
+    
+    private func presentOldBands() {
+        guard let oldBands = band?.oldBands else { return }
+        
+        if oldBands.count == 1 {
+            let oldBand = oldBands[0]
+            self.pushBandDetailViewController(urlString: oldBand.urlString, animated: true)
+            
+        } else {
+            var alertController: UIAlertController!
+            
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                alertController = UIAlertController(title: "View \(band!.name!)'s old bands", message: nil, preferredStyle: .alert)
+            } else {
+                alertController = UIAlertController(title: "View \(band!.name!)'s old bands", message: nil, preferredStyle: .actionSheet)
+            }
+            
+            for eachOldBand in oldBands {
+                let bandAction = UIAlertAction(title: eachOldBand.name, style: .default, handler: { (action) in
+                    self.pushBandDetailViewController(urlString: eachOldBand.urlString, animated: true)
+                })
+                alertController.addAction(bandAction)
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
 }
 
@@ -230,9 +259,17 @@ extension BandDetailViewController {
     func bandInfoTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = BandInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: band!)
-        cell.tappedLastModifiedOn = { [unowned self] in
+        
+        cell.tappedYearsActiveLabel = { [unowned self] in
+            self.presentOldBands()
+        }
+        cell.tappedLastModifiedOnLabel = { [unowned self] in
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
+        }
+        cell.tappedLastLabelLabel = { [unowned self] in
+            guard let lastLabelUrlString = self.band?.lastLabel.urlString else { return }
+            self.pushLabelDetailViewController(urlString: lastLabelUrlString, animated: true)
         }
         return cell
     }
