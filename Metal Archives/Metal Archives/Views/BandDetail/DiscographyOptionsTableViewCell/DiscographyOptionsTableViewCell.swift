@@ -8,10 +8,8 @@
 
 import UIKit
 
-
-
 final class DiscographyOptionsTableViewCell: BaseTableViewCell, RegisterableCell {
-    @IBOutlet weak var orderingButton: UIButton!
+    @IBOutlet private(set) weak var orderingButton: UIButton!
     @IBOutlet weak var discographyTypeButton: UIButton!
     
     var tappedOrderingButton: (() -> Void)?
@@ -32,5 +30,16 @@ final class DiscographyOptionsTableViewCell: BaseTableViewCell, RegisterableCell
     
     @IBAction private func discographyTypeButtonTapped() {
         tappedDiscographyTypeButton?()
+    }
+    
+    func setOrderingTitle(isAscending: Bool) {
+        UIView.performWithoutAnimation {
+            if isAscending {
+                orderingButton.setTitle("Release years ⬆", for: .normal)
+            } else {
+                orderingButton.setTitle("Release years ⬇", for: .normal)
+            }
+            layoutIfNeeded()
+        }
     }
 }

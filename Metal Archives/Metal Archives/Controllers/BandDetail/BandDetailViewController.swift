@@ -22,7 +22,10 @@ final class BandDetailViewController: BaseViewController {
     var bandURLString: String!
     private var band: Band?
     private var currentMenuOption: BandMenuOption = .discography
+    
     private var currentDiscographyType: DiscographyType = UserDefaults.selectedDiscographyType()
+    private var isAscendingOrderDiscography = true
+    
     private unowned var bandPhotoAndNameTableViewCell: BandPhotoAndNameTableViewCell?
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     
@@ -368,13 +371,26 @@ extension BandDetailViewController {
         
         let cell = ReleaseTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         var release: ReleaseLite?
+        var index = 0
+        
+        if isAscendingOrderDiscography {
+            index = indexPath.row - 1
+        } else {
+            switch currentDiscographyType {
+            case .complete: index = discography.complete.count - indexPath.row
+            case .main: index = discography.main.count - indexPath.row
+            case .lives: index = discography.lives.count - indexPath.row
+            case .demos: index = discography.demos.count - indexPath.row
+            case .misc: index = discography.misc.count - indexPath.row
+            }
+        }
         
         switch currentDiscographyType {
-        case .complete: release = discography.complete[indexPath.row - 1]
-        case .main: release = discography.main[indexPath.row - 1]
-        case .lives: release = discography.lives[indexPath.row - 1]
-        case .demos: release = discography.demos[indexPath.row - 1]
-        case .misc: release = discography.misc[indexPath.row - 1]
+        case .complete: release = discography.complete[index]
+        case .main: release = discography.main[index]
+        case .lives: release = discography.lives[index]
+        case .demos: release = discography.demos[index]
+        case .misc: release = discography.misc[index]
         }
         
         if let release = release {
@@ -405,6 +421,7 @@ extension BandDetailViewController {
         }
         
         cell.discographyTypeButton.setTitle(description, for: .normal)
+        cell.setOrderingTitle(isAscending: isAscendingOrderDiscography)
         
         cell.tappedDiscographyTypeButton = { [unowned self] in
             let rect = cell.convert(cell.discographyTypeButton.frame, to: self.view)
@@ -412,8 +429,11 @@ extension BandDetailViewController {
         }
         
         cell.tappedOrderingButton = { [unowned self] in
-            print("order")
+            self.isAscendingOrderDiscography.toggle()
+            cell.setOrderingTitle(isAscending: self.isAscendingOrderDiscography)
+            self.tableView.reloadSections([1], with: .automatic)
         }
+        
         return cell
     }
     

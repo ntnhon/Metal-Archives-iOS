@@ -21,11 +21,15 @@ final class ReleaseTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
         releaseTitleLabel.text = release.title
         releaseDetailsLabel.attributedText = release.attributedDescription
         
-        if release.type == .fullLength {
+        switch release.type {
+        case .fullLength:
             releaseTitleLabel.textColor = Settings.currentTheme.titleColor
             releaseTitleLabel.font = Settings.currentFontSize.titleFont
-        } else {
+        case .demo:
             releaseTitleLabel.textColor = Settings.currentTheme.bodyTextColor
+            releaseTitleLabel.font = Settings.currentFontSize.bodyTextFont
+        default:
+            releaseTitleLabel.textColor = Settings.currentTheme.secondaryTitleColor
             releaseTitleLabel.font = Settings.currentFontSize.secondaryTitleFont
         }
         
