@@ -21,10 +21,8 @@ final class BandDetailViewController: BaseViewController {
     
     var bandURLString: String!
     private var band: Band?
+    private var currentMenuOption: BandMenuOption = .discography
     private unowned var bandPhotoAndNameTableViewCell: BandPhotoAndNameTableViewCell?
-    private var tableViewLastContentOffsetY: CGFloat?
-    private var isScrollingFast = false
-    
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     
     override func viewDidLoad() {
@@ -33,6 +31,7 @@ final class BandDetailViewController: BaseViewController {
         configureStretchyImageView()
         handleUtileBarViewActions()
         reloadBand()
+        navigationController?.interactivePopGestureRecognizer?.delegate = navigationController as! HomepageNavigationController
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -172,6 +171,7 @@ extension BandDetailViewController {
     private func configureTableView() {
         BandPhotoAndNameTableViewCell.register(with: tableView)
         BandInfoTableViewCell.register(with: tableView)
+        BandMenuTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -193,6 +193,7 @@ extension BandDetailViewController {
         presentBandLogoInPhotoViewer()
     }
 }
+
 // MARK: - UITableViewDelegate
 extension BandDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -229,7 +230,9 @@ extension BandDetailViewController: UITableViewDataSource {
         case 1:
             let cell = bandInfoTableViewCell(forRowAt: indexPath)
             return cell
-            
+        case 2:
+            let cell = bandMenuOptionsTableViewCell(forRowAt: indexPath)
+            return cell
         default:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             cell.textLabel?.text = "\(indexPath.row)"
@@ -240,7 +243,6 @@ extension BandDetailViewController: UITableViewDataSource {
 
 // MARK: - Custom cells
 extension BandDetailViewController {
-    // MARK: - Photo & Name
     func bandPhotoAndNameTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = BandPhotoAndNameTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: band!)
@@ -255,7 +257,6 @@ extension BandDetailViewController {
         return cell
     }
     
-    // MARK: - Band's info
     func bandInfoTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = BandInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: band!)
@@ -272,5 +273,19 @@ extension BandDetailViewController {
             self.pushLabelDetailViewController(urlString: lastLabelUrlString, animated: true)
         }
         return cell
+    }
+    
+    func bandMenuOptionsTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = BandMenuTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.horizontalMenuView.delegate = self
+        return cell
+    }
+}
+
+extension BandDetailViewController: HorizontalMenuViewDelegate {
+    func didSelectItem(atIndex index: Int) {
+        currentMenuOption = BandMenuOption(rawValue: index) ?? .discography
+        
+        tableView.reloadData()
     }
 }

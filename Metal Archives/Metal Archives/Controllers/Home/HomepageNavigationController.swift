@@ -8,8 +8,12 @@
 
 import UIKit
 
-final class HomepageNavigationController: UINavigationController {
+final class HomepageNavigationController: UINavigationController, UIGestureRecognizerDelegate {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return topViewController?.preferredStatusBarStyle ?? .default
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
     }
 }

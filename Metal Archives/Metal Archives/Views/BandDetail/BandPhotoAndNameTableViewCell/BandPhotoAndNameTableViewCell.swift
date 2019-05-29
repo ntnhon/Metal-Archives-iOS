@@ -35,6 +35,7 @@ final class BandPhotoAndNameTableViewCell: BaseTableViewCell, RegisterableCell {
         
         photoImageViewHeightConstraint.constant = Settings.bandPhotoImageViewHeight
         
+        photoImageView.sd_showActivityIndicatorView()
         photoImageView.isUserInteractionEnabled = true
         let photoImageViewTapGestureRegconizer = UITapGestureRecognizer(target: self, action: #selector(photoImageViewTapped))
         photoImageView.addGestureRecognizer(photoImageViewTapGestureRegconizer)

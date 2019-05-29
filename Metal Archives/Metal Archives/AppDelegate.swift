@@ -41,7 +41,7 @@ extension AppDelegate {
         SlideMenuOptions.leftViewWidth = 215
         SlideMenuOptions.contentViewOpacity = 0.3
         // Prevent user from swiping menu up and down and closing the slide menu in the same time
-        SlideMenuOptions.simultaneousGestureRecognizers = false
+        SlideMenuOptions.panGesturesEnabled = false
         SlideMenuOptions.opacityViewBackgroundColor = Settings.currentTheme.slideMenuControllerOpacityBackgroundColor
         
         let slideMenuController = SlideMenuController(mainViewController: homepageNavigationViewController, leftMenuViewController: leftMenuViewController)

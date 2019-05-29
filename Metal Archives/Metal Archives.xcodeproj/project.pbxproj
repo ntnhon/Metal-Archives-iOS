@@ -319,6 +319,8 @@
 		C07268F4220F8C1E0000EB66 /* UIViewController+DisplayErrorLoadingAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07268F3220F8C1E0000EB66 /* UIViewController+DisplayErrorLoadingAlert.swift */; };
 		C074FEDE2205C45B0086909E /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C074FEDD2205C45B0086909E /* MemberTableViewCell.swift */; };
 		C074FEE02205C46E0086909E /* MemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C074FEDF2205C46E0086909E /* MemberTableViewCell.xib */; };
+		C0752958229E83D30067B5E1 /* HorizontalMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0752957229E83D30067B5E1 /* HorizontalMenuView.swift */; };
+		C075295B229E841A0067B5E1 /* BandMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C075295A229E841A0067B5E1 /* BandMenuTableViewCell.swift */; };
 		C0795B892288131900E5D94F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0795B882288131900E5D94F /* Utilities.swift */; };
 		C0795B8B2288234F00E5D94F /* BetterSnappingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0795B8A2288234F00E5D94F /* BetterSnappingLayout.swift */; };
 		C0795B942288528A00E5D94F /* NewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0795B932288528A00E5D94F /* NewsCollectionViewCell.xib */; };
@@ -795,6 +797,8 @@
 		C07268F3220F8C1E0000EB66 /* UIViewController+DisplayErrorLoadingAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DisplayErrorLoadingAlert.swift"; sourceTree = "<group>"; };
 		C074FEDD2205C45B0086909E /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
 		C074FEDF2205C46E0086909E /* MemberTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberTableViewCell.xib; sourceTree = "<group>"; };
+		C0752957229E83D30067B5E1 /* HorizontalMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalMenuView.swift; sourceTree = "<group>"; };
+		C075295A229E841A0067B5E1 /* BandMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMenuTableViewCell.swift; sourceTree = "<group>"; };
 		C0795B882288131900E5D94F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		C0795B8A2288234F00E5D94F /* BetterSnappingLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetterSnappingLayout.swift; sourceTree = "<group>"; };
 		C0795B932288528A00E5D94F /* NewsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1890,6 +1894,7 @@
 		C06F1E0621F7B8AA00B49D39 /* BandDetail */ = {
 			isa = PBXGroup;
 			children = (
+				C0752959229E840A0067B5E1 /* BandMenuTableViewCell */,
 				C094BCB0229D44610005BF3E /* BandInfoTableViewCell */,
 				C0CAC19B229886D50044363E /* BandPhotoAndNameTableViewCell */,
 				C0756056222C6E5E00DA7119 /* DiscographyHeaderTableViewCell */,
@@ -1933,6 +1938,7 @@
 		C071306021ECC43000082BC6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C0752956229E83650067B5E1 /* HorizontalMenuView */,
 				C0FFE1FA229593C800909765 /* UtileBarView */,
 				C0FFE1F322958C4D00909765 /* SmokedImageView */,
 				C06B6241224235E900A3FE6B /* BrowseLabels */,
@@ -1997,6 +2003,22 @@
 				C071307E21ECF4E500082BC6 /* LeftMenuOptionTableViewCell.xib */,
 			);
 			path = LeftMenuOptionTableViewCell;
+			sourceTree = "<group>";
+		};
+		C0752956229E83650067B5E1 /* HorizontalMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				C0752957229E83D30067B5E1 /* HorizontalMenuView.swift */,
+			);
+			path = HorizontalMenuView;
+			sourceTree = "<group>";
+		};
+		C0752959229E840A0067B5E1 /* BandMenuTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C075295A229E841A0067B5E1 /* BandMenuTableViewCell.swift */,
+			);
+			path = BandMenuTableViewCell;
 			sourceTree = "<group>";
 		};
 		C0756051222C6DEB00DA7119 /* ReleaseTableViewCell */ = {
@@ -3292,6 +3314,7 @@
 				C0ECE6F0221AB1E400489A8E /* LyricViewController.swift in Sources */,
 				C066139122899EBC00F99006 /* UpcomingAlbumCollectionViewCell.swift in Sources */,
 				C05309E7222338CA0027D11E /* Label.swift in Sources */,
+				C075295B229E841A0067B5E1 /* BandMenuTableViewCell.swift in Sources */,
 				C06B624E2242491E00A3FE6B /* BrowseLabelsByCountryResultTableViewCell.swift in Sources */,
 				C0A48CF02221D76C0047FC70 /* Error+Code&Domain.swift in Sources */,
 				C0A2BF7821F67293002CCFEC /* UIViewController+OpenURLInBrowsers.swift in Sources */,
@@ -3380,6 +3403,7 @@
 				C0332FE222019370008B34E0 /* ReleaseLite.swift in Sources */,
 				C03280092209F78100FC9A44 /* RequestStatistic.swift in Sources */,
 				C00D361A223D5F6800B29B43 /* ReleaseFormat.swift in Sources */,
+				C0752958229E83D30067B5E1 /* HorizontalMenuView.swift in Sources */,
 				C013363D223809B700963940 /* AdvancedSearchBandStatusListViewController.swift in Sources */,
 				C0602BD121EA866700046367 /* LeftMenuViewController.swift in Sources */,
 				C0795B892288131900E5D94F /* Utilities.swift in Sources */,
