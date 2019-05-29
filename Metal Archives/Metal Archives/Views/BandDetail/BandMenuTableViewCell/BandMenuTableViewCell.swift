@@ -25,9 +25,11 @@ enum BandMenuOption: Int, CustomStringConvertible, CaseIterable {
 
 final class BandMenuTableViewCell: BaseTableViewCell, RegisterableCell {
     private(set) var horizontalMenuView: HorizontalMenuView!
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
+        backgroundColor = Settings.currentTheme.backgroundColor
         
         let bandMenuOptionStrings = BandMenuOption.allCases.map({return $0.description})
         horizontalMenuView = HorizontalMenuView(options: bandMenuOptionStrings, font: Settings.currentFontSize.secondaryTitleFont, normalColor: Settings.currentTheme.bodyTextColor, highlightColor: Settings.currentTheme.secondaryTitleColor)
@@ -37,10 +39,10 @@ final class BandMenuTableViewCell: BaseTableViewCell, RegisterableCell {
         horizontalMenuView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             horizontalMenuView.topAnchor.constraint(equalTo: topAnchor),
-            horizontalMenuView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            horizontalMenuView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             horizontalMenuView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            horizontalMenuView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            horizontalMenuView.heightAnchor.constraint(equalToConstant: 30)
+            horizontalMenuView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 10),
+            horizontalMenuView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight)
             ])
     }
     

@@ -24,10 +24,10 @@ final class SmokedImageView: UIView {
     
     private func initSubviews() {
         clipsToBounds = true
-        backgroundColor = .clear
+        backgroundColor = Settings.currentTheme.backgroundColor
         
         imageView = UIImageView(frame: .zero)
-        imageView.backgroundColor = .clear
+        imageView.backgroundColor = Settings.currentTheme.backgroundColor
         addSubview(imageView)
         imageView.fillSuperview()
         

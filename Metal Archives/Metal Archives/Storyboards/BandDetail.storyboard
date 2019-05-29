@@ -68,6 +68,40 @@
             </objects>
             <point key="canvasLocation" x="53.600000000000001" y="91.304347826086968"/>
         </scene>
+        <!--Discography Option List View Controller-->
+        <scene sceneID="OhD-Z4-ATr">
+            <objects>
+                <viewController storyboardIdentifier="DiscographyOptionListViewController" id="C13-rb-fQO" customClass="DiscographyOptionListViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UM7-Qx-cZZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eTy-IB-Mht">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="C13-rb-fQO" id="aed-nc-1uq"/>
+                                    <outlet property="delegate" destination="C13-rb-fQO" id="tM6-fP-MhJ"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="eTy-IB-Mht" secondAttribute="trailing" id="2tP-pw-JEB"/>
+                            <constraint firstItem="eTy-IB-Mht" firstAttribute="top" secondItem="toe-oe-y1q" secondAttribute="top" id="Enr-Yg-fsF"/>
+                            <constraint firstItem="toe-oe-y1q" firstAttribute="bottom" secondItem="eTy-IB-Mht" secondAttribute="bottom" id="Gay-TF-Vbh"/>
+                            <constraint firstItem="eTy-IB-Mht" firstAttribute="leading" secondItem="toe-oe-y1q" secondAttribute="leading" id="k1V-od-UGM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="toe-oe-y1q"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="eTy-IB-Mht" id="cAy-gg-asJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bgV-t4-XtZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1001" y="730"/>
+        </scene>
         <!--Band Review List View Controller-->
         <scene sceneID="cW9-NT-SaI">
             <objects>

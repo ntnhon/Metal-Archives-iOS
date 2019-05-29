@@ -18,7 +18,6 @@ final class BandInfoTableViewCell: BaseTableViewCell, RegisterableCell {
     @IBOutlet private weak var lyricalThemesLabel: UILabel!
     @IBOutlet private weak var lastLabelLabel: UILabel!
     @IBOutlet private weak var lastModifiedOnLabel: UILabel!
-    @IBOutlet private weak var aboutLabel: UILabel!
     
     @IBOutlet private var iconImageViews: [UIImageView]!
     @IBOutlet private var labels: [UILabel]!
@@ -67,7 +66,6 @@ final class BandInfoTableViewCell: BaseTableViewCell, RegisterableCell {
         statusLabel.textColor = band.status.color
         formedInLabel.text = band.formedIn
         genreLabel.text = band.genre
-        aboutLabel.text = band.shortHTMLDescription?.htmlToString
         yearsActiveLabel.attributedText = band.yearsActiveAttributedString
         
         setLastLabelLabel()

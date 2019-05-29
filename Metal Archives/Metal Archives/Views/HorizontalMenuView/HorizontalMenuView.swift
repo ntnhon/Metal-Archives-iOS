@@ -8,6 +8,9 @@
 
 import UIKit
 
+fileprivate let shuttleViewHeight: CGFloat = 3
+fileprivate let shuttleViewSpacing: CGFloat = 4
+
 protocol HorizontalMenuViewDelegate {
     func didSelectItem(atIndex index: Int)
 }
@@ -17,9 +20,7 @@ final class HorizontalMenuView: UIView {
     private let font: UIFont
     private let normalColor: UIColor
     private let highlightColor: UIColor
-    
-    private static let shuttleViewHeight: CGFloat = 3
-    private static let shuttleViewSpacing: CGFloat = 4
+
     private let shuttleView: UIView = {
         let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 0, height: shuttleViewHeight)))
         return view
@@ -27,12 +28,17 @@ final class HorizontalMenuView: UIView {
     
     private var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: .zero)
+        scrollView.showsHorizontalScrollIndicator = false
         return scrollView
     }()
     private var stackView: UIStackView!
     private var lastSelectedLabel: UILabel!
     
     var delegate: HorizontalMenuViewDelegate?
+    
+    lazy var intrinsicHeight: CGFloat = {
+        return self.lastSelectedLabel.intrinsicContentSize.height + self.shuttleView.frame.height + shuttleViewSpacing
+    }()
     
     init(options: [String], font: UIFont, normalColor: UIColor, highlightColor: UIColor) {
         self.options = options
@@ -60,7 +66,7 @@ final class HorizontalMenuView: UIView {
         firstLabel.text = options[0]
         firstLabel.font = font
         
-        shuttleView.frame = CGRect(x: 0, y: firstLabel.intrinsicContentSize.height + HorizontalMenuView.shuttleViewSpacing, width: firstLabel.intrinsicContentSize.width, height: HorizontalMenuView.shuttleViewHeight)
+        shuttleView.frame = CGRect(x: 0, y: firstLabel.intrinsicContentSize.height + shuttleViewSpacing, width: firstLabel.intrinsicContentSize.width, height: shuttleViewHeight)
         
         // Init stackView
         let spacing: CGFloat = 10
@@ -120,7 +126,7 @@ final class HorizontalMenuView: UIView {
     
     private func alignShuttle(with label: UILabel) {
         let newX = label.frame.origin.x
-        let newOrigin = CGPoint(x: newX, y: label.frame.height + HorizontalMenuView.shuttleViewSpacing)
+        let newOrigin = CGPoint(x: newX, y: label.frame.height + shuttleViewSpacing)
         let newSize = CGSize(width: label.frame.width, height: shuttleView.frame.height)
         let newFrame = CGRect(origin: newOrigin, size: newSize)
         shuttleView.frame = newFrame

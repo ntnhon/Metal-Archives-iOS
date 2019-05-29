@@ -19,6 +19,14 @@ final class Discography {
         return []
     }()
     
+    lazy var completeDescription: String = {
+        if self.complete.count <= 1 {
+            return "Complete (\(self.complete.count) release)"
+        }
+        
+        return "Complete (\(self.complete.count) releases)"
+    }()
+    
     lazy var main: [ReleaseLite] = {
         if let `releases` = self.releases {
            return releases.filter {
@@ -27,6 +35,14 @@ final class Discography {
         }
         
         return []
+    }()
+    
+    lazy var mainDescription: String = {
+        if self.main.count <= 1 {
+            return "Main (\(self.main.count) release)"
+        }
+        
+        return "Main (\(self.main.count) releases)"
     }()
     
     lazy var lives: [ReleaseLite] = {
@@ -39,6 +55,14 @@ final class Discography {
         return []
     }()
     
+    lazy var livesDescription: String = {
+        if self.lives.count <= 1 {
+            return "Lives (\(self.lives.count) release)"
+        }
+        
+        return "Lives (\(self.lives.count) releases)"
+    }()
+    
     lazy var demos: [ReleaseLite] = {
         if let `releases` = self.releases {
             return releases.filter {
@@ -49,6 +73,14 @@ final class Discography {
         return []
     }()
     
+    lazy var demosDescription: String = {
+        if self.demos.count <= 1 {
+            return "Demos (\(self.demos.count) release)"
+        }
+        
+        return "Demos (\(self.demos.count) releases)"
+    }()
+    
     lazy var misc: [ReleaseLite] = {
         if let `releases` = self.releases {
             return releases.filter {
@@ -57,6 +89,14 @@ final class Discography {
         }
         
         return []
+    }()
+    
+    lazy var miscDescription: String = {
+        if self.misc.count <= 1 {
+            return "Misc. (\(self.misc.count) release)"
+        }
+        
+        return "Misc. (\(self.misc.count) releases)"
     }()
     
     init?(data: Data) {
