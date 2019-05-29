@@ -35,11 +35,69 @@ final class Band: NSObject {
     }
     
     //Band detail
+    private(set) var isLastKnown: Bool = false
     private(set) var completeLineup: [ArtistLite]?
     private(set) var currentLineup: [ArtistLite]?
     private(set) var lastKnownLineup: [ArtistLite]?
     private(set) var pastMembers: [ArtistLite]?
     private(set) var liveMusicians: [ArtistLite]?
+    
+    lazy var completeLineupDescription: String = {
+        if let complete = self.completeLineup {
+            if complete.count <= 1 {
+                return "Complete lineup (\(complete.count) member)"
+            } else {
+                return "Complete lineup (\(complete.count) members)"
+            }
+        }
+        
+        return "Complete lineup (0 member)"
+    }()
+    lazy var currentLineupDescription: String = {
+        if let current = self.currentLineup {
+            if current.count <= 1 {
+                return "Current lineup (\(current.count) member)"
+            } else {
+                return "Current lineup (\(current.count) members)"
+            }
+        }
+        
+        return "Current lineup (0 member)"
+    }()
+    lazy var lastKnownLineupDescription: String = {
+        if let lastKnown = self.lastKnownLineup {
+            if lastKnown.count <= 1 {
+                return "Last known lineup (\(lastKnown.count) member)"
+            } else {
+                return "Last known lineup (\(lastKnown.count) members)"
+            }
+        }
+        
+        return "Last known lineup (0 member)"
+    }()
+    lazy var pastMembersDescription: String = {
+        if let pastMembers = self.pastMembers {
+            if pastMembers.count <= 1 {
+                return "Past members (\(pastMembers.count) member)"
+            } else {
+                return "Past members (\(pastMembers.count) members)"
+            }
+        }
+        
+        return "Past members (0 member)"
+    }()
+    lazy var liveMusiciansDescription: String = {
+        if let liveMusicians = self.liveMusicians {
+            if liveMusicians.count <= 1 {
+                return "Live musicians (\(liveMusicians.count) member)"
+            } else {
+                return "Live musicians (\(liveMusicians.count) members)"
+            }
+        }
+        
+        return "Live musicians (0 member)"
+    }()
+    
     lazy var hasNoMember: Bool = {
         return completeLineup == nil
     }()
@@ -106,7 +164,7 @@ final class Band: NSObject {
                     
                 case "band_tab_members":
                     if let div_band_members = div.at_css("div") {
-                        let isLastKnown = div_band_members.text?.range(of: "Last known") != nil
+                        self.isLastKnown = div_band_members.text?.range(of: "Last known") != nil
                         
                         for subDiv in div_band_members.css("div") {
                             

@@ -18,14 +18,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Yg-5v-qID">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Yg-5v-qID" customClass="FilledButton" customModule="Metal_Archives" customModuleProvider="target">
                         <rect key="frame" x="348" y="10" width="46" height="23.5"/>
                         <state key="normal" title="Button"/>
                         <connections>
                             <action selector="orderingButtonTapped" destination="nog-zW-bTb" eventType="touchUpInside" id="CT1-U7-Kdg"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLU-sl-o9r">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLU-sl-o9r" customClass="FilledButton" customModule="Metal_Archives" customModuleProvider="target">
                         <rect key="frame" x="20" y="7" width="46" height="30"/>
                         <state key="normal" title="Button"/>
                         <connections>

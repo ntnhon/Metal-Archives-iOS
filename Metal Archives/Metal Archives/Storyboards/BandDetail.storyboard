@@ -102,6 +102,40 @@
             </objects>
             <point key="canvasLocation" x="1001" y="730"/>
         </scene>
+        <!--Member Type List View Controller-->
+        <scene sceneID="RiN-Yt-Eac">
+            <objects>
+                <viewController storyboardIdentifier="MemberTypeListViewController" id="FEx-QS-ybU" customClass="MemberTypeListViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RiW-dZ-hMV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z7q-gh-dft">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="FEx-QS-ybU" id="0AX-05-AQo"/>
+                                    <outlet property="delegate" destination="FEx-QS-ybU" id="ppw-yC-eJp"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="z7q-gh-dft" firstAttribute="leading" secondItem="dEB-3X-yPm" secondAttribute="leading" id="AJ0-8T-BSm"/>
+                            <constraint firstItem="dEB-3X-yPm" firstAttribute="bottom" secondItem="z7q-gh-dft" secondAttribute="bottom" id="aaO-nD-8px"/>
+                            <constraint firstItem="z7q-gh-dft" firstAttribute="top" secondItem="dEB-3X-yPm" secondAttribute="top" id="fEw-QR-jdp"/>
+                            <constraint firstItem="dEB-3X-yPm" firstAttribute="trailing" secondItem="z7q-gh-dft" secondAttribute="trailing" id="zpR-HX-lqA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dEB-3X-yPm"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="z7q-gh-dft" id="I2Z-OX-lr2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pvw-i0-Yzd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1806" y="790"/>
+        </scene>
         <!--Band Review List View Controller-->
         <scene sceneID="cW9-NT-SaI">
             <objects>

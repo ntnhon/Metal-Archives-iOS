@@ -323,6 +323,10 @@
 		C0752962229EBE3B0067B5E1 /* DiscographyOptionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0752961229EBE3B0067B5E1 /* DiscographyOptionListViewController.swift */; };
 		C0752965229ECC2B0067B5E1 /* ReleaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0752964229ECC2B0067B5E1 /* ReleaseTableViewCell.swift */; };
 		C0752967229ECC320067B5E1 /* ReleaseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0752966229ECC320067B5E1 /* ReleaseTableViewCell.xib */; };
+		C075296A229F0CDE0067B5E1 /* MemberOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0752969229F0CDE0067B5E1 /* MemberOptionTableViewCell.swift */; };
+		C075296C229F0CE50067B5E1 /* MemberOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C075296B229F0CE50067B5E1 /* MemberOptionTableViewCell.xib */; };
+		C075296E229F32AB0067B5E1 /* MemberTypeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C075296D229F32AA0067B5E1 /* MemberTypeListViewController.swift */; };
+		C0752970229F3E550067B5E1 /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C075296F229F3E550067B5E1 /* FilledButton.swift */; };
 		C0795B892288131900E5D94F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0795B882288131900E5D94F /* Utilities.swift */; };
 		C0795B8B2288234F00E5D94F /* BetterSnappingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0795B8A2288234F00E5D94F /* BetterSnappingLayout.swift */; };
 		C0795B942288528A00E5D94F /* NewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0795B932288528A00E5D94F /* NewsCollectionViewCell.xib */; };
@@ -803,6 +807,10 @@
 		C0752961229EBE3B0067B5E1 /* DiscographyOptionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyOptionListViewController.swift; sourceTree = "<group>"; };
 		C0752964229ECC2B0067B5E1 /* ReleaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTableViewCell.swift; sourceTree = "<group>"; };
 		C0752966229ECC320067B5E1 /* ReleaseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseTableViewCell.xib; sourceTree = "<group>"; };
+		C0752969229F0CDE0067B5E1 /* MemberOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberOptionTableViewCell.swift; sourceTree = "<group>"; };
+		C075296B229F0CE50067B5E1 /* MemberOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberOptionTableViewCell.xib; sourceTree = "<group>"; };
+		C075296D229F32AA0067B5E1 /* MemberTypeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTypeListViewController.swift; sourceTree = "<group>"; };
+		C075296F229F3E550067B5E1 /* FilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButton.swift; sourceTree = "<group>"; };
 		C0795B882288131900E5D94F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		C0795B8A2288234F00E5D94F /* BetterSnappingLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetterSnappingLayout.swift; sourceTree = "<group>"; };
 		C0795B932288528A00E5D94F /* NewsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1892,6 +1900,7 @@
 				C0FE9636221C572F003C4B59 /* BandReviewListViewController.swift */,
 				C0FE9638221C9557003C4B59 /* BandSimilarArtistListViewController.swift */,
 				C0752961229EBE3B0067B5E1 /* DiscographyOptionListViewController.swift */,
+				C075296D229F32AA0067B5E1 /* MemberTypeListViewController.swift */,
 			);
 			path = BandDetail;
 			sourceTree = "<group>";
@@ -1899,11 +1908,12 @@
 		C06F1E0621F7B8AA00B49D39 /* BandDetail */ = {
 			isa = PBXGroup;
 			children = (
-				C0752963229ECC100067B5E1 /* ReleaseTableViewCell */,
-				C075295C229E97700067B5E1 /* DiscographyOptionsTableViewCell */,
-				C0752959229E840A0067B5E1 /* BandMenuTableViewCell */,
-				C094BCB0229D44610005BF3E /* BandInfoTableViewCell */,
 				C0CAC19B229886D50044363E /* BandPhotoAndNameTableViewCell */,
+				C094BCB0229D44610005BF3E /* BandInfoTableViewCell */,
+				C0752959229E840A0067B5E1 /* BandMenuTableViewCell */,
+				C075295C229E97700067B5E1 /* DiscographyOptionsTableViewCell */,
+				C0752963229ECC100067B5E1 /* ReleaseTableViewCell */,
+				C0752968229F0CBB0067B5E1 /* MemberOptionTableViewCell */,
 				C0756057222C6E6B00DA7119 /* LineUpHeaderTableViewCell */,
 				C0756052222C6E0600DA7119 /* MemberTableViewCell */,
 				C0756053222C6E2600DA7119 /* ReviewTableViewCell */,
@@ -1960,6 +1970,7 @@
 				C06F1E0621F7B8AA00B49D39 /* BandDetail */,
 				C09A4F6021F3259000421485 /* NewsDetail */,
 				C071307B21ECF4C100082BC6 /* LeftMenuOptionTableViewCell */,
+				C075296F229F3E550067B5E1 /* FilledButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2041,6 +2052,15 @@
 				C0752966229ECC320067B5E1 /* ReleaseTableViewCell.xib */,
 			);
 			path = ReleaseTableViewCell;
+			sourceTree = "<group>";
+		};
+		C0752968229F0CBB0067B5E1 /* MemberOptionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0752969229F0CDE0067B5E1 /* MemberOptionTableViewCell.swift */,
+				C075296B229F0CE50067B5E1 /* MemberOptionTableViewCell.xib */,
+			);
+			path = MemberOptionTableViewCell;
 			sourceTree = "<group>";
 		};
 		C0756052222C6E0600DA7119 /* MemberTableViewCell */ = {
@@ -2941,6 +2961,7 @@
 				C00D363A223D9F2300B29B43 /* Settings.storyboard in Resources */,
 				C053CF7622244F9000B056A8 /* BandPastRosterTableViewCell.xib in Resources */,
 				C01839EE222574A200FF88B7 /* LabelAdditionOrUpdateTableViewCell.xib in Resources */,
+				C075296C229F0CE50067B5E1 /* MemberOptionTableViewCell.xib in Resources */,
 				C066139322899EDA00F99006 /* UpcomingAlbumCollectionViewCell.xib in Resources */,
 				C00D35FB223D042500B29B43 /* BrowseBandsResultTableViewCell.xib in Resources */,
 				C06613882289955C00F99006 /* LatestReviewCollectionViewCell.xib in Resources */,
@@ -3244,6 +3265,7 @@
 				C0795B99228866ED00E5D94F /* AdditionOrUpdateTableViewCell.swift in Sources */,
 				C053DD4C22269A740028568B /* MemberStatisticTableViewCell.swift in Sources */,
 				C053DD272226777C0028568B /* StatisticsViewController.swift in Sources */,
+				C075296E229F32AB0067B5E1 /* MemberTypeListViewController.swift in Sources */,
 				C0FE963B221CA969003C4B59 /* RefreshableViewController.swift in Sources */,
 				C084540021EE184E00E6D676 /* RequestHelper.swift in Sources */,
 				C053DD80222727760028568B /* AdvancedSearchViewController.swift in Sources */,
@@ -3278,6 +3300,7 @@
 				C09A18A821FF4CD400152908 /* PhotoViewerViewController.swift in Sources */,
 				C0162B502245A070000BF22E /* GenerateAttributesString.swift in Sources */,
 				C053DD7E2227275B0028568B /* SimpleSearchViewController.swift in Sources */,
+				C075296A229F0CDE0067B5E1 /* MemberOptionTableViewCell.swift in Sources */,
 				C01336442238272B00963940 /* AdvancedSearchBandsResultsViewController.swift in Sources */,
 				C013363F223811CD00963940 /* BaseAdvancedSearchTableViewController.swift in Sources */,
 				C00D35F9223D033D00B29B43 /* BrowseBandsResultTableViewCell.swift in Sources */,
@@ -3397,6 +3420,7 @@
 				C0858EFE2236B38400595B48 /* AdvancedSearchBandsViewController.swift in Sources */,
 				C06F1E0521F76E1C00B49D39 /* BandAncient.swift in Sources */,
 				C00D3638223D9EFE00B29B43 /* SettingsTableViewController.swift in Sources */,
+				C0752970229F3E550067B5E1 /* FilledButton.swift in Sources */,
 				C0AA06C022395FF1001BE21D /* AdvancedSearchSongsResultsViewController.swift in Sources */,
 				C053CF7C22245EA500B056A8 /* SublabelListViewController.swift in Sources */,
 				C06B62402242313300A3FE6B /* LabelBrowseAlphabetically.swift in Sources */,

@@ -20,14 +20,18 @@ final class BandDetailViewController: BaseViewController {
     @IBOutlet private weak var utileBarView: UtileBarView!
     
     var bandURLString: String!
+    private unowned var bandPhotoAndNameTableViewCell: BandPhotoAndNameTableViewCell?
+    private var tableViewContentOffsetObserver: NSKeyValueObservation?
+    
     private var band: Band?
     private var currentMenuOption: BandMenuOption = .discography
     
+    // Discography
     private var currentDiscographyType: DiscographyType = UserDefaults.selectedDiscographyType()
     private var isAscendingOrderDiscography = true
     
-    private unowned var bandPhotoAndNameTableViewCell: BandPhotoAndNameTableViewCell?
-    private var tableViewContentOffsetObserver: NSKeyValueObservation?
+    // Members
+    private var currentMemberType: MembersType = .complete
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,8 +74,9 @@ final class BandDetailViewController: BaseViewController {
                 }
                 
                 self?.utileBarView.titleLabel.text = band.name
-                
                 self?.title = band.name
+                self?.currentMemberType = band.isLastKnown ? .lastKnown : .current
+                
                 self?.tableView.reloadData()
                 
                 Crashlytics.sharedInstance().setObjectValue(self?.band, forKey: CrashlyticsKey.Band)
@@ -173,11 +178,14 @@ extension BandDetailViewController {
     }
     
     private func configureTableView() {
+        SimpleTableViewCell.register(with: tableView)
         BandPhotoAndNameTableViewCell.register(with: tableView)
         BandInfoTableViewCell.register(with: tableView)
         BandMenuTableViewCell.register(with: tableView)
         DiscographyOptionsTableViewCell.register(with: tableView)
         ReleaseTableViewCell.register(with: tableView)
+        MemberOptionTableViewCell.register(with: tableView)
+        MemberTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -203,6 +211,8 @@ extension BandDetailViewController {
 // MARK: - UITableViewDelegate
 extension BandDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         if indexPath.section == 0 && indexPath.row == 0 {
             presentBandLogoInPhotoViewer()
             return
@@ -210,6 +220,7 @@ extension BandDetailViewController: UITableViewDelegate {
         
         switch currentMenuOption {
         case .discography: didSelectDiscographyCell(atIndexPath: indexPath)
+        case .members: didSelectMemberCell(atIndexPath: indexPath)
         default: return
         }
     }
@@ -351,17 +362,18 @@ extension BandDetailViewController {
     private func numberOfRowForDiscographySection() -> Int {
         guard let band = band, let discography = band.discography else { return 0 }
         
+        // return at least 2 rows: 1 for the options, 1 for displaying message
         switch currentDiscographyType {
-        case .complete: return discography.complete.count + 1
-        case .main: return discography.main.count + 1
-        case .lives: return discography.lives.count + 1
-        case .demos: return discography.demos.count + 1
-        case .misc: return discography.misc.count + 1
+        case .complete: return max(discography.complete.count + 1, 2)
+        case .main: return max(discography.main.count + 1, 2)
+        case .lives: return max(discography.lives.count + 1, 2)
+        case .demos: return max(discography.demos.count + 1, 2)
+        case .misc: return max(discography.misc.count + 1, 2)
         }
     }
     
     private func discographyCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let band = band, let discography = band.discography else {
+        guard let _ = band else {
             return UITableViewCell()
         }
         
@@ -370,6 +382,30 @@ extension BandDetailViewController {
         }
         
         let cell = ReleaseTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        if let release = release(forIndexPath: indexPath) {
+            cell.fill(with: release)
+            return cell
+        }
+
+        let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        simpleCell.displayAsBodyText()
+        simpleCell.fill(with: "No release for \"\(currentDiscographyType.description)\"")
+        return simpleCell
+    }
+    
+    private func didSelectDiscographyCell(atIndexPath indexPath: IndexPath) {
+        guard indexPath.row != 0 else { return }
+        
+        if let release = release(forIndexPath: indexPath) {
+            pushReleaseDetailViewController(urlString: release.urlString, animated: true)
+        }
+    }
+    
+    private func release(forIndexPath indexPath: IndexPath) -> ReleaseLite? {
+        guard let band = band, let discography = band.discography else {
+            return nil
+        }
+        
         var release: ReleaseLite?
         var index = 0
         
@@ -385,23 +421,32 @@ extension BandDetailViewController {
             }
         }
         
+        guard index >= 0 else { return nil }
+        
         switch currentDiscographyType {
-        case .complete: release = discography.complete[index]
-        case .main: release = discography.main[index]
-        case .lives: release = discography.lives[index]
-        case .demos: release = discography.demos[index]
-        case .misc: release = discography.misc[index]
+        case .complete:
+            if discography.complete.count > index {
+                release = discography.complete[index]
+            }
+        case .main:
+            if discography.main.count > index {
+                release = discography.main[index]
+            }
+        case .lives:
+            if discography.lives.count > index {
+                release = discography.lives[index]
+            }
+        case .demos:
+            if discography.demos.count > index {
+                release = discography.demos[index]
+            }
+        case .misc:
+            if discography.misc.count > index {
+                release = discography.misc[index]
+            }
         }
         
-        if let release = release {
-            cell.fill(with: release)
-        }
-
-        return cell
-    }
-    
-    private func didSelectDiscographyCell(atIndexPath indexPath: IndexPath) {
-        
+        return release
     }
     
     private func discographyOptionsTableViewCell(atIndexPath indexPath: IndexPath) -> UITableViewCell {
@@ -420,7 +465,7 @@ extension BandDetailViewController {
         case .misc: description = discography.miscDescription
         }
         
-        cell.discographyTypeButton.setTitle(description, for: .normal)
+        cell.discographyTypeButton.setTitle(" " + description + " ≡ ", for: .normal)
         cell.setOrderingTitle(isAscending: isAscendingOrderDiscography)
         
         cell.tappedDiscographyTypeButton = { [unowned self] in
@@ -448,10 +493,9 @@ extension BandDetailViewController {
         
         discographyOptionListViewController.modalPresentationStyle = .popover
         discographyOptionListViewController.popoverPresentationController?.permittedArrowDirections = .any
-        //discographyOptionListViewController.preferredContentSize = CGSize(width: screenWidth - 50, height: screenHeight*2/3)
         
         discographyOptionListViewController.popoverPresentationController?.delegate = self
-        discographyOptionListViewController.popoverPresentationController?.sourceView = self.tableView
+        discographyOptionListViewController.popoverPresentationController?.sourceView = view
     
         discographyOptionListViewController.popoverPresentationController?.sourceRect = rect
         
@@ -467,12 +511,142 @@ extension BandDetailViewController {
 // MARK: - Members
 extension BandDetailViewController {
     private func numberOfRowForMemberSection() -> Int {
-        guard let band = band, let completeLineup = band.completeLineup else { return 0 }
-        return completeLineup.count
+        guard let band = band else { return 0 }
+        
+        switch currentMemberType {
+        case .complete:
+            if let complete = band.completeLineup {
+                return complete.count + 1
+            }
+        case .lastKnown:
+            if let lastKnown = band.lastKnownLineup {
+                return lastKnown.count + 1
+            }
+        case .current:
+            if let current = band.currentLineup {
+                return current.count + 1
+            }
+        case .past:
+            if let past = band.pastMembers {
+                return past.count + 1
+            }
+        case .live:
+            if let live = band.liveMusicians {
+                return live.count + 1
+            }
+        }
+        
+        return 2
+    }
+    
+    private func didSelectMemberCell(atIndexPath indexPath: IndexPath) {
+        guard let artist = artist(forRowAt: indexPath) else { return }
+        
+        pushArtistDetailViewController(urlString: artist.urlString, animated: true)
     }
     
     private func memberCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let band = band, band.hasNoMember == false else {
+            return UITableViewCell()
+        }
+        if indexPath.row == 0 {
+            return memberOptionTableViewCell(forRowAt: indexPath)
+        }
+        
+        let cell = MemberTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        
+        if let artist = artist(forRowAt: indexPath) {
+            cell.fill(with: artist)
+            return cell
+        }
+        
+        let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        simpleCell.fill(with: "No artist for \"\(currentMemberType.description)\"")
+        return simpleCell
+    }
+    
+    private func artist(forRowAt indexPath: IndexPath) -> ArtistLite? {
+        guard let band = band else { return nil }
+        
+        var artist: ArtistLite?
+        let index = indexPath.row - 1
+        
+        switch currentMemberType {
+        case .complete:
+            if let complete = band.completeLineup, complete.count > index {
+                artist = complete[index]
+            }
+            
+        case .current:
+            if let current = band.currentLineup, current.count > index {
+                artist = current[index]
+            }
+        case .lastKnown:
+            if let lastKnown = band.lastKnownLineup, lastKnown.count > index {
+                artist = lastKnown[index]
+            }
+        case .past:
+            if let past = band.pastMembers, past.count > index {
+                artist = past[index]
+            }
+        case .live:
+            if let live = band.liveMusicians, live.count > index {
+                artist = live[index]
+            }
+        }
+        
+        return artist
+    }
+    
+    private func memberOptionTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = MemberOptionTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        
+        guard let band = band else {
+            return cell
+        }
+        
+        var description = ""
+        switch currentMemberType {
+        case .complete: description = band.completeLineupDescription
+        case .lastKnown: description = band.lastKnownLineupDescription
+        case .current: description = band.currentLineupDescription
+        case .past: description = band.pastMembersDescription
+        case .live: description = band.liveMusiciansDescription
+        }
+        
+        cell.memberTypeButton.setTitle(" " + description + " ≡ ", for: .normal)
+        
+        cell.tappedMemberTypeButton = { [unowned self] in
+            let rect = cell.convert(cell.memberTypeButton.frame, to: self.view)
+            self.displayMemberTypeList(fromRect: rect)
+        }
+
+        return cell
+    }
+    
+    private func displayMemberTypeList(fromRect rect: CGRect) {
+        guard let band = band else {
+            return
+        }
+        
+        let memberTypeListViewController = UIStoryboard(name: "BandDetail", bundle: nil).instantiateViewController(withIdentifier: "MemberTypeListViewController") as! MemberTypeListViewController
+        memberTypeListViewController.band = band
+        memberTypeListViewController.currentMemberType = currentMemberType
+        
+        memberTypeListViewController.modalPresentationStyle = .popover
+        memberTypeListViewController.popoverPresentationController?.permittedArrowDirections = .any
+        
+        memberTypeListViewController.popoverPresentationController?.delegate = self
+        memberTypeListViewController.popoverPresentationController?.sourceView = view
+        
+        memberTypeListViewController.popoverPresentationController?.sourceRect = rect
+        
+        memberTypeListViewController.selectedMemberType = { [unowned self] (currentMemberType) in
+            self.currentMemberType = currentMemberType
+            self.tableView.reloadSections([1], with: .automatic)
+        }
+        
+        self.present(memberTypeListViewController, animated: true, completion: nil)
     }
 }
 

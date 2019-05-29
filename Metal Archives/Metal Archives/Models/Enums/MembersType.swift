@@ -13,11 +13,11 @@ enum MembersType: Int, CustomStringConvertible, CaseIterable {
     
     var description: String {
         switch self {
-        case .complete: return "Complete"
-        case .current: return "Current"
-        case .lastKnown: return "Last Known"
-        case .past: return "Past"
-        case .live: return "Live"
+        case .complete: return "Complete lineup"
+        case .current: return "Current lineup"
+        case .lastKnown: return "Last known lineup"
+        case .past: return "Past members"
+        case .live: return "Live musicians"
         }
         
     }

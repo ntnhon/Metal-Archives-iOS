@@ -25,7 +25,7 @@ final class MemberTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
         self.seeAlsoLabel.font = Settings.currentFontSize.bodyTextFont
     }
     
-    func bind(with member: ArtistLite) {
+    func fill(with member: ArtistLite) {
         self.nameLabel.text = member.name
         self.instrumentsInBandLabel.text = member.instrumentsInBand
         self.seeAlsoLabel.text = member.seeAlsoString
