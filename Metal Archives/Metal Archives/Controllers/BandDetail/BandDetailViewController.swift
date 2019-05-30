@@ -517,6 +517,10 @@ extension BandDetailViewController {
     private func numberOfRowForMemberSection() -> Int {
         guard let band = band else { return 0 }
         
+        if band.hasNoMember {
+            return 1
+        }
+        
         switch currentMemberType {
         case .complete:
             if let complete = band.completeLineup {
@@ -550,9 +554,16 @@ extension BandDetailViewController {
     }
     
     private func memberCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let band = band, band.hasNoMember == false else {
+        guard let band = band else {
             return UITableViewCell()
         }
+        
+        if band.hasNoMember {
+            let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            simpleCell.fill(with: "No artist added")
+            return simpleCell
+        }
+        
         if indexPath.row == 0 {
             return memberOptionTableViewCell(forRowAt: indexPath)
         }
@@ -658,6 +669,11 @@ extension BandDetailViewController {
 extension BandDetailViewController {
     private func numberOfRowForReviewSection() -> Int {
         guard let band = band else { return 0 }
+        
+        guard let _ = band.reviewLitePagableManager.totalRecords else {
+            return 1
+        }
+        
         if band.reviewLitePagableManager.moreToLoad {
             return band.reviewLitePagableManager.objects.count + 1
         }
@@ -667,6 +683,12 @@ extension BandDetailViewController {
     private func reviewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let band = band else {
             return UITableViewCell()
+        }
+        
+        guard let _ = band.reviewLitePagableManager.totalRecords else {
+            let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            simpleCell.fill(with: "No review yet")
+            return simpleCell
         }
         
         if indexPath.row == band.reviewLitePagableManager.objects.count && band.reviewLitePagableManager.moreToLoad {
@@ -704,13 +726,24 @@ extension BandDetailViewController {
 // MARK: - Similar Artists
 extension BandDetailViewController {
     private func numberOfRowForSimilarArtistSection() -> Int {
-        guard let band = band, let similarArtists = band.similarArtists else { return 0 }
+        guard let band = band else { return 0 }
+        
+        guard let similarArtists = band.similarArtists else {
+            return 1
+        }
+        
         return similarArtists.count
     }
     
     private func similarArtistCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let band = band, let similarArtists = band.similarArtists else {
+        guard let band = band else {
             return UITableViewCell()
+        }
+        
+        guard let similarArtists = band.similarArtists else {
+            let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            simpleCell.fill(with: "No similar band")
+            return simpleCell
         }
         
         let cell = SimilarBandTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
@@ -723,12 +756,24 @@ extension BandDetailViewController {
 // MARK: - About
 extension BandDetailViewController {
     private func numberOfRowForAboutSection() -> Int {
-        guard let band = band, let _ = band.completeHTMLDescription else { return 0 }
+        guard let _ = band else { return 0 }
         return 1
     }
     
     private func aboutCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let band = band else {
+            return UITableViewCell()
+        }
+        
+        let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        
+        if let about = band.completeHTMLDescription {
+            simpleCell.fill(with: about)
+        } else {
+            simpleCell.fill(with: "No information added")
+        }
+        
+        return simpleCell
     }
 }
 
