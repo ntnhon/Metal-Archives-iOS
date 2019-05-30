@@ -3,7 +3,6 @@ PODS:
   - AlamofireNetworkActivityIndicator (2.4.0):
     - Alamofire (~> 4.8)
   - AttributedLib (3.0.0)
-  - BetterSegmentedControl (1.0.3)
   - Charts (3.3.0):
     - Charts/Core (= 3.3.0)
   - Charts/Core (3.3.0)
@@ -92,7 +91,6 @@ DEPENDENCIES:
   - Alamofire
   - AlamofireNetworkActivityIndicator
   - AttributedLib
-  - BetterSegmentedControl (~> 1.0)
   - Charts
   - Crashlytics
   - Firebase/Core
@@ -111,7 +109,6 @@ SPEC REPOS:
     - Alamofire
     - AlamofireNetworkActivityIndicator
     - AttributedLib
-    - BetterSegmentedControl
     - Charts
     - Crashlytics
     - Fabric
@@ -140,7 +137,6 @@ SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AlamofireNetworkActivityIndicator: 9acc3de3ca6645bf0efed462396b0df13dd3e7b8
   AttributedLib: ad537d4f9285ed57fc4d9103dd83c2ee6be1582b
-  BetterSegmentedControl: 4e3bd0bd517b0f6077c9e17f5663a01cff48e2c5
   Charts: ec1f57f9340054155691e84d4544a1d239d382c5
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
@@ -165,6 +161,6 @@ SPEC CHECKSUMS:
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
   UIColor_Hex_Swift: 8be7432edacb7fa91c78aa05ef3c30b66e4f9415
 
-PODFILE CHECKSUM: e9a583f39d272c25d0991f91b73031d08aa15296
+PODFILE CHECKSUM: 845a5a112e06f079c58a1a52fd692ddad4bcf26d
 
 COCOAPODS: 1.6.1

@@ -40,7 +40,7 @@ final class UtileBarView: UIView {
         backgroundView.fillSuperview()
         
         backButton = UIButton(type: .system)
-        backButton.contentEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 32)
+        backButton.contentEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: 20)
         backButton.setImage(#imageLiteral(resourceName: "back"), for: .normal)
         backButton.tintColor = Settings.currentTheme.bodyTextColor
         backButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -54,6 +54,7 @@ final class UtileBarView: UIView {
         titleLabel.alpha = 0
         
         shareButton = UIButton(type: .system)
+        shareButton.contentEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: 20)
         shareButton.setImage(#imageLiteral(resourceName: "share"), for: .normal)
         shareButton.tintColor = Settings.currentTheme.bodyTextColor
         shareButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)

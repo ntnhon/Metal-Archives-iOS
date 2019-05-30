@@ -26,9 +26,9 @@ final class DiscographyOptionsTableViewCell: BaseTableViewCell, RegisterableCell
     func setOrderingTitle(isAscending: Bool) {
         UIView.performWithoutAnimation {
             if isAscending {
-                orderingButton.setTitle(" Release years ⬆ ", for: .normal)
+                orderingButton.setTitle(" Release years ▲ ", for: .normal)
             } else {
-                orderingButton.setTitle(" Release years ⬇ ", for: .normal)
+                orderingButton.setTitle(" Release years ▼ ", for: .normal)
             }
             layoutIfNeeded()
         }

@@ -88,7 +88,6 @@
 		C03270D3220B1ABD009FA337 /* ReleaseElementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03270D2220B1ABD009FA337 /* ReleaseElementTableViewCell.xib */; };
 		C03270D5220B364F009FA337 /* ReleaseMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270D4220B364F009FA337 /* ReleaseMemberTableViewCell.swift */; };
 		C03270D7220B3728009FA337 /* ReleaseMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03270D6220B3728009FA337 /* ReleaseMemberTableViewCell.xib */; };
-		C03270D9220B3838009FA337 /* ReleaseMemberHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270D8220B3838009FA337 /* ReleaseMemberHeaderTableViewCell.swift */; };
 		C03270DB220B476C009FA337 /* ReleaseReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270DA220B476C009FA337 /* ReleaseReviewTableViewCell.swift */; };
 		C03270DE220B47A4009FA337 /* ReleaseReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03270DD220B47A4009FA337 /* ReleaseReviewTableViewCell.xib */; };
 		C03270E0220B79BE009FA337 /* ReleaseOtherVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270DF220B79BE009FA337 /* ReleaseOtherVersion.swift */; };
@@ -115,7 +114,6 @@
 		C0332FE4220196BF008B34E0 /* Discography.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0332FE3220196BF008B34E0 /* Discography.swift */; };
 		C0332FEA2201D4CB008B34E0 /* BandLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0332FE92201D4CB008B34E0 /* BandLite.swift */; };
 		C0332FEC2201D502008B34E0 /* ArtistLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0332FEB2201D502008B34E0 /* ArtistLite.swift */; };
-		C0332FEE22024A1D008B34E0 /* LineUpHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0332FED22024A1D008B34E0 /* LineUpHeaderTableViewCell.swift */; };
 		C0332FF022024B7C008B34E0 /* SimpleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0332FEF22024B7C008B34E0 /* SimpleTableViewCell.swift */; };
 		C0332FF2220252E4008B34E0 /* SimpleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0332FF1220252E4008B34E0 /* SimpleTableViewCell.xib */; };
 		C03C5E72221BFEFE0054E55A /* ArtistHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C5E71221BFEFE0054E55A /* ArtistHeaderTableViewCell.swift */; };
@@ -588,7 +586,6 @@
 		C03270D2220B1ABD009FA337 /* ReleaseElementTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseElementTableViewCell.xib; sourceTree = "<group>"; };
 		C03270D4220B364F009FA337 /* ReleaseMemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseMemberTableViewCell.swift; sourceTree = "<group>"; };
 		C03270D6220B3728009FA337 /* ReleaseMemberTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseMemberTableViewCell.xib; sourceTree = "<group>"; };
-		C03270D8220B3838009FA337 /* ReleaseMemberHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseMemberHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		C03270DA220B476C009FA337 /* ReleaseReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseReviewTableViewCell.swift; sourceTree = "<group>"; };
 		C03270DD220B47A4009FA337 /* ReleaseReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseReviewTableViewCell.xib; sourceTree = "<group>"; };
 		C03270DF220B79BE009FA337 /* ReleaseOtherVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseOtherVersion.swift; sourceTree = "<group>"; };
@@ -615,7 +612,6 @@
 		C0332FE3220196BF008B34E0 /* Discography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discography.swift; sourceTree = "<group>"; };
 		C0332FE92201D4CB008B34E0 /* BandLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLite.swift; sourceTree = "<group>"; };
 		C0332FEB2201D502008B34E0 /* ArtistLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistLite.swift; sourceTree = "<group>"; };
-		C0332FED22024A1D008B34E0 /* LineUpHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineUpHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		C0332FEF22024B7C008B34E0 /* SimpleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableViewCell.swift; sourceTree = "<group>"; };
 		C0332FF1220252E4008B34E0 /* SimpleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleTableViewCell.xib; sourceTree = "<group>"; };
 		C03C5E71221BFEFE0054E55A /* ArtistHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -1220,7 +1216,6 @@
 				C03270D2220B1ABD009FA337 /* ReleaseElementTableViewCell.xib */,
 				C03270D4220B364F009FA337 /* ReleaseMemberTableViewCell.swift */,
 				C03270D6220B3728009FA337 /* ReleaseMemberTableViewCell.xib */,
-				C03270D8220B3838009FA337 /* ReleaseMemberHeaderTableViewCell.swift */,
 				C03270DA220B476C009FA337 /* ReleaseReviewTableViewCell.swift */,
 				C03270DD220B47A4009FA337 /* ReleaseReviewTableViewCell.xib */,
 				C03270E3220B83AC009FA337 /* ReleaseOtherVersionTableViewCell.swift */,
@@ -1908,7 +1903,6 @@
 				C075295C229E97700067B5E1 /* DiscographyOptionsTableViewCell */,
 				C0752963229ECC100067B5E1 /* ReleaseTableViewCell */,
 				C0752968229F0CBB0067B5E1 /* MemberOptionTableViewCell */,
-				C0756057222C6E6B00DA7119 /* LineUpHeaderTableViewCell */,
 				C0756052222C6E0600DA7119 /* MemberTableViewCell */,
 				C0756053222C6E2600DA7119 /* ReviewTableViewCell */,
 				C0756054222C6E3400DA7119 /* SimilarBandTableViewCell */,
@@ -2091,14 +2085,6 @@
 				C0FBBE712208E28800226FB1 /* RelatedLinkTableViewCell.xib */,
 			);
 			path = RelatedLinkTableViewCell;
-			sourceTree = "<group>";
-		};
-		C0756057222C6E6B00DA7119 /* LineUpHeaderTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C0332FED22024A1D008B34E0 /* LineUpHeaderTableViewCell.swift */,
-			);
-			path = LineUpHeaderTableViewCell;
 			sourceTree = "<group>";
 		};
 		C0756058222C6E7E00DA7119 /* ReviewDetailTableViewCell */ = {
@@ -3157,7 +3143,6 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityIndicator/AlamofireNetworkActivityIndicator.framework",
 				"${BUILT_PRODUCTS_DIR}/AttributedLib/AttributedLib.framework",
-				"${BUILT_PRODUCTS_DIR}/BetterSegmentedControl/BetterSegmentedControl.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kanna/Kanna.framework",
@@ -3180,7 +3165,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityIndicator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AttributedLib.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BetterSegmentedControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kanna.framework",
@@ -3436,7 +3420,6 @@
 				C01839E522256AF100FF88B7 /* LabelAdditionOrUpdate.swift in Sources */,
 				C0AABDE1221D4A4D0044A2CF /* RelatedLinkListViewController.swift in Sources */,
 				C0F1537F21EF5DE500355616 /* MetalArchivesAPI.swift in Sources */,
-				C03270D9220B3838009FA337 /* ReleaseMemberHeaderTableViewCell.swift in Sources */,
 				C053DD7A22271E920028568B /* SearchViewController.swift in Sources */,
 				C0BAD4A5222EC70200C4D38D /* SimpleSearchResultBandName.swift in Sources */,
 				C0661374228969B300F99006 /* LabelAdditionOrUpdateCollectionViewCell.swift in Sources */,
@@ -3546,7 +3529,6 @@
 				C01839EC2225749A00FF88B7 /* LabelAdditionOrUpdateTableViewCell.swift in Sources */,
 				C0FF16CB220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift in Sources */,
 				C06F1E0321F76D2600B49D39 /* Review.swift in Sources */,
-				C0332FEE22024A1D008B34E0 /* LineUpHeaderTableViewCell.swift in Sources */,
 				C06613812289903300F99006 /* LatestReviewsTableViewCell.swift in Sources */,
 				C0A1F945224184C1005C2C83 /* ArtistRIPTableViewCell.swift in Sources */,
 				C053CF682224085B00B056A8 /* LabelStatus.swift in Sources */,

@@ -15,7 +15,6 @@ import Crashlytics
 final class BandDetailViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var stretchyLogoSmokedImageView: SmokedImageView!
-    @IBOutlet private weak var stretchyLogoSmokedImageViewTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var stretchyLogoSmokedImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var utileBarView: UtileBarView!
     
@@ -35,8 +34,8 @@ final class BandDetailViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        stretchyLogoSmokedImageViewHeightConstraint.constant = Settings.strechyBandLogoImageViewHeight
         configureTableView()
-        configureStretchyImageView()
         handleUtileBarViewActions()
         reloadBand()
         navigationController?.interactivePopGestureRecognizer?.delegate = navigationController as! HomepageNavigationController
@@ -114,26 +113,6 @@ final class BandDetailViewController: BaseViewController {
         utileBarView.setAlphaForBackgroundAndTitleLabel(1 - bandPhotoAndNameTableViewCell.alpha)
     }
     
-    private func calculateAndApplyAlphaForStretchyLogoSmokedImageView() {
-        
-        let scaleRatio = abs(tableView.contentOffset.y) / tableView.contentInset.top
-        
-        guard scaleRatio >= 0 && scaleRatio <= 2 else { return }
-        
-        if scaleRatio > 1.0 {
-            // Zoom stretchyLogoSmokedImageView
-            stretchyLogoSmokedImageView.transform = CGAffineTransform(scaleX: scaleRatio, y: scaleRatio)
-        } else {
-            guard tableView.contentOffset.y < 0 else { return }
-            // Move stretchyLogoSmokedImageView up
-            let translationY = (20 * scaleRatio)
-            stretchyLogoSmokedImageView.transform = CGAffineTransform(translationX: 0, y: translationY)
-            
-            stretchyLogoSmokedImageView.smokeDegree(1 - scaleRatio)
-            
-        }
-    }
-    
     private func presentBandLogoInPhotoViewer() {
         guard let band = band, let bandLogoURLString = band.logoURLString else { return }
         presentPhotoViewer(photoURLString: bandLogoURLString, description: band.name)
@@ -171,12 +150,6 @@ final class BandDetailViewController: BaseViewController {
 
 // MARK: - UI Configurations
 extension BandDetailViewController {
-    private func configureStretchyImageView() {
-        stretchyLogoSmokedImageView.clipsToBounds = false
-        stretchyLogoSmokedImageView.contentMode = .scaleAspectFill
-        stretchyLogoSmokedImageViewHeightConstraint.constant = Settings.strechyImageViewHeight
-    }
-    
     private func configureTableView() {
         SimpleTableViewCell.register(with: tableView)
         LoadingTableViewCell.register(with: tableView)
@@ -193,12 +166,12 @@ extension BandDetailViewController {
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.contentInset = .init(top: Settings.strechyImageViewHeight - Settings.bandPhotoImageViewHeight / 3 * 4, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = .init(top: Settings.strechyBandLogoImageViewHeight - Settings.bandPhotoImageViewHeight / 2, left: 0, bottom: 0, right: 0)
         
         // observe when tableView is scrolled to animate alphas because scrollViewDidScroll doesn't capture enough event.
         tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
             self?.calculateAndApplyAlphaForBandPhotoAndNameCellAndUltileNavBar()
-            self?.calculateAndApplyAlphaForStretchyLogoSmokedImageView()
+            self?.stretchyLogoSmokedImageView.calculateAndApplyAlpha(withTableView: tableView)
         }
         
         // detect taps on band's logo, have to do this because band's logo is overlaid by tableView

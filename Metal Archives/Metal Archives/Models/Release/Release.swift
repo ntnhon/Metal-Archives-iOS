@@ -28,17 +28,16 @@ final class Release {
     private(set) var lastModifiedOnDate: Date!
     
     private(set) var elements: [ReleaseElement]!
-    private(set) var lineUp: [ArtistLiteInRelease]!
+    private(set) var completeLineup: [ArtistLiteInRelease]!
+    private(set) var bandMembers: [ArtistLiteInRelease]!
+    private(set) var guestSession: [ArtistLiteInRelease]!
+    private(set) var otherStaff: [ArtistLiteInRelease]!
     private(set) var reviews: [ReviewLiteInRelease]!
     private(set) var otherVersions: [ReleaseOtherVersion]!
     
     func setOtherVersions(_ otherVersions: [ReleaseOtherVersion]) {
         self.otherVersions = otherVersions
     }
-//    
-//    override var description: String {
-//        return "\(self.id ?? "") - \(self.title ?? "") - \(self.urlString ?? "")"
-//    }
     
     init?(data: Data) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
@@ -164,7 +163,15 @@ final class Release {
             }
             
             if (div["id"] == "album_tabs_lineup") {
-                self.lineUp = Release.parseLineup(div_album_tabs_lineup: div)
+                let results = Release.parseLineup(div_album_tabs_lineup: div)
+                bandMembers = results.bandMembers
+                guestSession = results.guestSession
+                otherStaff = results.otherStaff
+                
+                completeLineup = [ArtistLiteInRelease]()
+                completeLineup.append(contentsOf: results.bandMembers)
+                completeLineup.append(contentsOf: results.guestSession)
+                completeLineup.append(contentsOf: results.otherStaff)
             }
             // End of if (div["id"] == "album_tabs_lineup")
             
@@ -344,27 +351,29 @@ final class Release {
         }
     }
     
-    private static func parseLineup(div_album_tabs_lineup: XMLElement) -> [ArtistLiteInRelease] {
-        var arrayArtists = [ArtistLiteInRelease]()
+    private static func parseLineup(div_album_tabs_lineup: XMLElement) -> (bandMembers: [ArtistLiteInRelease], guestSession: [ArtistLiteInRelease], otherStaff: [ArtistLiteInRelease]) {
+        var bandMembers = [ArtistLiteInRelease]()
+        var guestSession = [ArtistLiteInRelease]()
+        var otherStaff = [ArtistLiteInRelease]()
         
         if let div_album_members = div_album_tabs_lineup.at_css("div") {
             for div in div_album_members.css("div") {
                 if (div["id"] == "album_members_lineup") {
                     // Band's member
-                    arrayArtists.append(contentsOf: Release.parseMembers(document: div, lineUpType: .member))
+                    bandMembers.append(contentsOf: Release.parseMembers(document: div, lineUpType: .member))
                 }
                 else if (div["id"] == "album_members_guest") {
                     // Guest/Session
-                    arrayArtists.append(contentsOf: Release.parseMembers(document: div, lineUpType: .guest))
+                    guestSession.append(contentsOf: Release.parseMembers(document: div, lineUpType: .guest))
                 }
                 else if (div["id"] == "album_members_misc") {
                     // Misc.
-                    arrayArtists.append(contentsOf: Release.parseMembers(document: div, lineUpType: .other))
+                    otherStaff.append(contentsOf: Release.parseMembers(document: div, lineUpType: .other))
                 }
             }
         }
         
-        return arrayArtists
+        return (bandMembers, guestSession, otherStaff)
     }
     
     private static func parseMembers(document: XMLElement, lineUpType: LineUpType) -> [ArtistLiteInRelease] {

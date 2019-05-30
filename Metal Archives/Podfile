@@ -14,7 +14,6 @@ target 'Metal Archives' do
     pod 'AlamofireNetworkActivityIndicator'
     pod 'SlideMenuControllerSwift'
     pod 'Toaster'
-    pod 'BetterSegmentedControl', '~> 1.0'
     pod 'Charts'
     pod 'SkyFloatingLabelTextField', '~> 3.0'
     pod 'Firebase/Core'

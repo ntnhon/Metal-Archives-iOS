@@ -38,7 +38,7 @@ struct Settings {
     static var currentFontSize: FontSize!
     static var thumbnailEnabled: Bool!
     
-    static let strechyImageViewHeight: CGFloat = screenHeight / 4
+    static let strechyBandLogoImageViewHeight: CGFloat = screenHeight / 4
     static let bandPhotoImageViewHeight: CGFloat = screenHeight / 8
 }
 

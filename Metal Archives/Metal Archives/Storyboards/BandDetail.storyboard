@@ -59,7 +59,6 @@
                     <connections>
                         <outlet property="stretchyLogoSmokedImageView" destination="GiK-tY-2HG" id="V4A-1j-ph7"/>
                         <outlet property="stretchyLogoSmokedImageViewHeightConstraint" destination="NMk-Ry-q76" id="yFi-je-Xrv"/>
-                        <outlet property="stretchyLogoSmokedImageViewTopConstraint" destination="nOn-ZR-NUv" id="U5G-li-0We"/>
                         <outlet property="tableView" destination="9Sx-i2-YRh" id="HKY-dD-BMF"/>
                         <outlet property="utileBarView" destination="an2-Q1-IJv" id="zjB-0o-s04"/>
                     </connections>
