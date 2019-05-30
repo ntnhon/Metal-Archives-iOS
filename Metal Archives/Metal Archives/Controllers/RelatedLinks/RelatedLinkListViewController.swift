@@ -58,7 +58,7 @@ extension RelatedLinkListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let relatedLink = self.relatedLinks[indexPath.row]
         let cell = RelatedLinkTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        cell.bind(relatedLink: relatedLink)
+        cell.fill(with: relatedLink)
         
         return cell
     }

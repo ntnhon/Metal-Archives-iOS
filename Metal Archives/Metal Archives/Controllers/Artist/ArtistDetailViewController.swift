@@ -314,7 +314,7 @@ extension ArtistDetailViewController {
     private func cellForLink(atIndexPath indexPath: IndexPath) -> UITableViewCell {
         let link = self.artist.links![indexPath.row]
         let linkCell = RelatedLinkTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        linkCell.bind(relatedLink: link)
+        linkCell.fill(with: link)
         
         return linkCell
     }

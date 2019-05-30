@@ -14,16 +14,16 @@ final class RelatedLinkTableViewCell: BaseTableViewCell, RegisterableCell {
     
     override func initAppearance() {
         super.initAppearance()
-        self.linkTitleLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.linkTitleLabel.font = Settings.currentFontSize.bodyTextFont
+        linkTitleLabel.textColor = Settings.currentTheme.bodyTextColor
+        linkTitleLabel.font = Settings.currentFontSize.bodyTextFont
 
-        self.favIconImageView.sd_setShowActivityIndicatorView(true)
-        self.favIconImageView.tintColor = Settings.currentTheme.secondaryTitleColor
+        favIconImageView.sd_setShowActivityIndicatorView(true)
+        favIconImageView.tintColor = Settings.currentTheme.secondaryTitleColor
     }
     
-    func bind(relatedLink: RelatedLink) {
-        self.linkTitleLabel.text = relatedLink.title
-        self.favIconImageView.sd_setImage(with: URL(string: relatedLink.favIconURLString)!) { [weak self] (image, error, cacheType, url) in
+    func fill(with relatedLink: RelatedLink) {
+        linkTitleLabel.text = relatedLink.title
+        favIconImageView.sd_setImage(with: URL(string: relatedLink.favIconURLString)) { [weak self] (image, error, cacheType, url) in
             if let _ = error {
                 self?.favIconImageView.image = #imageLiteral(resourceName: "hyperlink")
             }

@@ -41,7 +41,7 @@ final class BandMenuTableViewCell: BaseTableViewCell, RegisterableCell {
             horizontalMenuView.topAnchor.constraint(equalTo: topAnchor),
             horizontalMenuView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             horizontalMenuView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            horizontalMenuView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 10),
+            horizontalMenuView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             horizontalMenuView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight)
             ])
     }

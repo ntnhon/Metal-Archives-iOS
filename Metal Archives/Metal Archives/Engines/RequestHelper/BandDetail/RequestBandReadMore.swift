@@ -31,7 +31,7 @@ extension RequestHelper.BandDetail {
     }
     
     private static func extractReadMore(data: Data) -> String {
-        let noReadMoreString = "This band has no more information."
+        let noReadMoreString = "No information added"
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8) else {
             return noReadMoreString
         }

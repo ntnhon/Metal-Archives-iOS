@@ -533,7 +533,7 @@ extension LabelDetailViewController {
         
         let cell = RelatedLinkTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
         let link = links[indexPath.row]
-        cell.bind(relatedLink: link)
+        cell.fill(with: link)
         
         return cell
     }

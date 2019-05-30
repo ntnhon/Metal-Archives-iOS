@@ -189,6 +189,7 @@ extension BandDetailViewController {
         MemberTableViewCell.register(with: tableView)
         ReviewTableViewCell.register(with: tableView)
         SimilarBandTableViewCell.register(with: tableView)
+        RelatedLinkTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -225,6 +226,8 @@ extension BandDetailViewController: UITableViewDelegate {
         case .discography: didSelectDiscographyCell(atIndexPath: indexPath)
         case .members: didSelectMemberCell(atIndexPath: indexPath)
         case .reviews: didSelectReviewCell(atIndexPath: indexPath)
+        case .similarArtists: didSelectSimilarArtistCell(atIndexPath: indexPath)
+        case .relatedLinks: didSelectRelatedLinkCell(atIndexPath: indexPath)
         default: return
         }
     }
@@ -751,6 +754,12 @@ extension BandDetailViewController {
         cell.fill(with: similarArtist)
         return cell
     }
+    
+    private func didSelectSimilarArtistCell(atIndexPath indexPath: IndexPath) {
+        guard let band = band, let similarArtists = band.similarArtists else { return }
+        
+        pushBandDetailViewController(urlString: similarArtists[indexPath.row].urlString, animated: true)
+    }
 }
 
 // MARK: - About
@@ -780,11 +789,32 @@ extension BandDetailViewController {
 // MARK: - Related Links
 extension BandDetailViewController {
     private func numberOfRowsForRelatedLinkSection() -> Int {
-        guard let band = band, let relatedLinks = band.relatedLinks else { return 0 }
+        guard let band = band else { return 0 }
+        guard let relatedLinks = band.relatedLinks else { return 1 }
         return relatedLinks.count
     }
     
     private func relatedLinkCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let band = band else {
+            return UITableViewCell()
+        }
+        
+        guard let relatedLinks = band.relatedLinks else {
+            let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            simpleCell.fill(with: "No link added")
+            return simpleCell
+        }
+        
+        let cell = RelatedLinkTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        let relatedLink = relatedLinks[indexPath.row]
+        cell.fill(with: relatedLink)
+        return cell
+    }
+    
+    private func didSelectRelatedLinkCell(atIndexPath indexPath: IndexPath) {
+        guard let band = band, let relatedLinks = band.relatedLinks else { return }
+        let relatedLink = relatedLinks[indexPath.row]
+        guard let url = URL(string: relatedLink.urlString) else { return }
+        presentAlertOpenURLInBrowsers(url, alertMessage: relatedLink.urlString)
     }
 }
