@@ -188,6 +188,7 @@ extension BandDetailViewController {
         MemberOptionTableViewCell.register(with: tableView)
         MemberTableViewCell.register(with: tableView)
         ReviewTableViewCell.register(with: tableView)
+        SimilarBandTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -708,7 +709,14 @@ extension BandDetailViewController {
     }
     
     private func similarArtistCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let band = band, let similarArtists = band.similarArtists else {
+            return UITableViewCell()
+        }
+        
+        let cell = SimilarBandTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        let similarArtist = similarArtists[indexPath.row]
+        cell.fill(with: similarArtist)
+        return cell
     }
 }
 

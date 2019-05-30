@@ -462,7 +462,6 @@
 		C0FE9631221C4480003C4B59 /* RolesInReleaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE9630221C4480003C4B59 /* RolesInReleaseTableViewCell.swift */; };
 		C0FE9633221C448C003C4B59 /* RolesInReleaseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0FE9632221C448C003C4B59 /* RolesInReleaseTableViewCell.xib */; };
 		C0FE9635221C48CC003C4B59 /* UITableViewCell+ShowHideSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE9634221C48CC003C4B59 /* UITableViewCell+ShowHideSeparator.swift */; };
-		C0FE9639221C9557003C4B59 /* BandSimilarArtistListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE9638221C9557003C4B59 /* BandSimilarArtistListViewController.swift */; };
 		C0FE963B221CA969003C4B59 /* RefreshableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE963A221CA969003C4B59 /* RefreshableViewController.swift */; };
 		C0FF16C9220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FF16C8220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift */; };
 		C0FF16CB220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */; };
@@ -946,7 +945,6 @@
 		C0FE9630221C4480003C4B59 /* RolesInReleaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolesInReleaseTableViewCell.swift; sourceTree = "<group>"; };
 		C0FE9632221C448C003C4B59 /* RolesInReleaseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RolesInReleaseTableViewCell.xib; sourceTree = "<group>"; };
 		C0FE9634221C48CC003C4B59 /* UITableViewCell+ShowHideSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ShowHideSeparator.swift"; sourceTree = "<group>"; };
-		C0FE9638221C9557003C4B59 /* BandSimilarArtistListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilarArtistListViewController.swift; sourceTree = "<group>"; };
 		C0FE963A221CA969003C4B59 /* RefreshableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableViewController.swift; sourceTree = "<group>"; };
 		C0FF16C8220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentReviewViewController.swift"; sourceTree = "<group>"; };
 		C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PushAViewController.swift"; sourceTree = "<group>"; };
@@ -1895,7 +1893,6 @@
 			isa = PBXGroup;
 			children = (
 				C06F1DF821F7631D00B49D39 /* BandDetailViewController.swift */,
-				C0FE9638221C9557003C4B59 /* BandSimilarArtistListViewController.swift */,
 				C0752961229EBE3B0067B5E1 /* DiscographyOptionListViewController.swift */,
 				C075296D229F32AA0067B5E1 /* MemberTypeListViewController.swift */,
 			);
@@ -3491,7 +3488,6 @@
 				C053DD672226DE2E0028568B /* RequestTop100Bands.swift in Sources */,
 				C008388422009ECE00B35996 /* Date+Distance.swift in Sources */,
 				C071306B21ECD24800082BC6 /* StatisticTableViewCell.swift in Sources */,
-				C0FE9639221C9557003C4B59 /* BandSimilarArtistListViewController.swift in Sources */,
 				C0332FEA2201D4CB008B34E0 /* BandLite.swift in Sources */,
 				C071307D21ECF4DD00082BC6 /* LeftMenuOptionTableViewCell.swift in Sources */,
 				C01839DF22253E6100FF88B7 /* BandAddition.swift in Sources */,

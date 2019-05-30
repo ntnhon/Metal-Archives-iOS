@@ -16,24 +16,29 @@ final class SimilarBandTableViewCell: ThumbnailableTableViewCell, RegisterableCe
     
     override func initAppearance() {
         super.initAppearance()
-        self.bandNameLabel.textColor = Settings.currentTheme.titleColor
-        self.bandNameLabel.font = Settings.currentFontSize.titleFont
+        thumbnailImageViewHeightConstraint.constant = screenWidth / 5
         
-        self.similarScoreLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.similarScoreLabel.font = Settings.currentFontSize.bodyTextFont
+        bandNameLabel.textColor = Settings.currentTheme.titleColor
+        bandNameLabel.font = Settings.currentFontSize.titleFont
         
-        self.countryLabel.textColor = Settings.currentTheme.secondaryTitleColor
-        self.countryLabel.font = Settings.currentFontSize.secondaryTitleFont
+        similarScoreLabel.textColor = Settings.currentTheme.bodyTextColor
+        similarScoreLabel.font = Settings.currentFontSize.secondaryTitleFont
         
-        self.genreLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.genreLabel.font = Settings.currentFontSize.bodyTextFont
+        countryLabel.textColor = Settings.currentTheme.secondaryTitleColor
+        countryLabel.font = Settings.currentFontSize.secondaryTitleFont
+        
+        genreLabel.textColor = Settings.currentTheme.bodyTextColor
+        genreLabel.font = Settings.currentFontSize.bodyTextFont
     }
 
-    func bind(band: BandSimilar) {
-        self.setThumbnailImageView(with: band)
-        self.bandNameLabel.text = band.name
-        self.similarScoreLabel.text = "\(band.score)"
-        self.countryLabel.text = band.country.nameAndEmoji
-        self.genreLabel.text = band.genre
+    func fill(with band: BandSimilar) {
+        setThumbnailImageView(with: band)
+        bandNameLabel.text = band.name
+        
+        similarScoreLabel.text = "\(band.score)"
+        similarScoreLabel.textColor = UIColor.colorByRating(band.score)
+        
+        countryLabel.text = band.country.nameAndEmoji
+        genreLabel.text = band.genre
     }
 }
