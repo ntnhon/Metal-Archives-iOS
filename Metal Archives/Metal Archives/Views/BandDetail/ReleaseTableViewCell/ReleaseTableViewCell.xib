@@ -25,11 +25,11 @@
                             <constraint firstAttribute="width" secondItem="h5T-I2-0XW" secondAttribute="height" multiplier="1:1" id="m50-WY-qJH"/>
                         </constraints>
                     </imageView>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="P7l-xB-qMC">
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="P7l-xB-qMC">
                         <rect key="frame" x="92" y="20" width="351" height="65.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Sound of Perseverance" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KfW-ip-bVn">
-                                <rect key="frame" x="0.0" y="0.0" width="351" height="45"/>
+                                <rect key="frame" x="0.0" y="0.0" width="351" height="44"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

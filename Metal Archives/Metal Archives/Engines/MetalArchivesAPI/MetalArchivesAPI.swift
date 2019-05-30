@@ -52,9 +52,8 @@ extension MetalArchivesAPI {
         
         //Reviews
         fetchGroup.enter()
-        band.fetchMoreReviews(onSuccess: {
-            fetchGroup.leave()
-        }) { (error) in
+        band.reviewLitePagableManager.fetch { (error) in
+            storedError = error
             fetchGroup.leave()
         }
         
@@ -79,6 +78,7 @@ extension MetalArchivesAPI {
         }
         
         fetchGroup.notify(queue: DispatchQueue.main) {
+            band.associateReleasesToReviews()
             completion(band, storedError)
         }
     }

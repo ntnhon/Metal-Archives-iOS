@@ -179,6 +179,7 @@ extension BandDetailViewController {
     
     private func configureTableView() {
         SimpleTableViewCell.register(with: tableView)
+        LoadingTableViewCell.register(with: tableView)
         BandPhotoAndNameTableViewCell.register(with: tableView)
         BandInfoTableViewCell.register(with: tableView)
         BandMenuTableViewCell.register(with: tableView)
@@ -186,6 +187,7 @@ extension BandDetailViewController {
         ReleaseTableViewCell.register(with: tableView)
         MemberOptionTableViewCell.register(with: tableView)
         MemberTableViewCell.register(with: tableView)
+        ReviewTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -221,6 +223,7 @@ extension BandDetailViewController: UITableViewDelegate {
         switch currentMenuOption {
         case .discography: didSelectDiscographyCell(atIndexPath: indexPath)
         case .members: didSelectMemberCell(atIndexPath: indexPath)
+        case .reviews: didSelectReviewCell(atIndexPath: indexPath)
         default: return
         }
     }
@@ -653,12 +656,47 @@ extension BandDetailViewController {
 // MARK: - Reviews
 extension BandDetailViewController {
     private func numberOfRowForReviewSection() -> Int {
-        guard let band = band, let reviews = band.reviews else { return 0 }
-        return reviews.count
+        guard let band = band else { return 0 }
+        if band.reviewLitePagableManager.moreToLoad {
+            return band.reviewLitePagableManager.objects.count + 1
+        }
+        return band.reviewLitePagableManager.objects.count
     }
     
     private func reviewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let band = band else {
+            return UITableViewCell()
+        }
+        
+        if indexPath.row == band.reviewLitePagableManager.objects.count && band.reviewLitePagableManager.moreToLoad {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            loadingCell.displayIsLoading()
+            band.reviewLitePagableManager.fetch { [weak self] (error) in
+                if let _ = error { return }
+                self?.band?.associateReleasesToReviews()
+                self?.tableView.reloadSections([1], with: .automatic)
+            }
+            return loadingCell
+        }
+        
+        let cell = ReviewTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        let review = band.reviewLitePagableManager.objects[indexPath.row]
+        cell.fill(with: review)
+        return cell
+    }
+    
+    private func didSelectReviewCell(atIndexPath indexPath: IndexPath) {
+        guard let band = band else { return }
+        
+        // tapped loading cell => return
+        if indexPath.row == band.reviewLitePagableManager.objects.count && band.reviewLitePagableManager.moreToLoad {
+            return
+        }
+        
+        let review = band.reviewLitePagableManager.objects[indexPath.row]
+        if let release = review.release {
+            pushReleaseDetailViewController(urlString: release.urlString, animated: true)
+        }
     }
 }
 

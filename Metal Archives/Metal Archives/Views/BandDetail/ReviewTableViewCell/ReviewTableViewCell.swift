@@ -10,32 +10,45 @@ import UIKit
 
 final class ReviewTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
     @IBOutlet private weak var releaseTitleLabel: UILabel!
-    @IBOutlet private weak var ratingLabel: UILabel!
-    @IBOutlet private weak var authorAndDateLabel: UILabel!
-    
+    @IBOutlet private weak var ratingAndUserLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+
     override func initAppearance() {
         super.initAppearance()
-        self.releaseTitleLabel.textColor = Settings.currentTheme.titleColor
-        self.releaseTitleLabel.font = Settings.currentFontSize.secondaryTitleFont
+        thumbnailImageViewHeightConstraint.constant = screenWidth / 5
+        releaseTitleLabel.font = Settings.currentFontSize.bodyTextFont
+        releaseTitleLabel.textColor = Settings.currentTheme.bodyTextColor
         
-        self.ratingLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.ratingLabel.font = Settings.currentFontSize.bodyTextFont
+        ratingAndUserLabel.font = Settings.currentFontSize.bodyTextFont
+        ratingAndUserLabel.textColor = Settings.currentTheme.bodyTextColor
         
-        self.authorAndDateLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.authorAndDateLabel.font = Settings.currentFontSize.bodyTextFont
+        dateLabel.font = Settings.currentFontSize.bodyTextFont
+        dateLabel.textColor = Settings.currentTheme.bodyTextColor
     }
     
     func fill(with review: ReviewLite) {
-        self.releaseTitleLabel.text = review.releaseTitle
+        releaseTitleLabel.text = review.releaseTitle
         
+        if let release = review.release {
+            switch release.type {
+            case .fullLength:
+                releaseTitleLabel.textColor = Settings.currentTheme.titleColor
+                releaseTitleLabel.font = Settings.currentFontSize.titleFont
+            case .demo:
+                releaseTitleLabel.textColor = Settings.currentTheme.bodyTextColor
+                releaseTitleLabel.font = Settings.currentFontSize.bodyTextFont
+            default:
+                releaseTitleLabel.textColor = Settings.currentTheme.secondaryTitleColor
+                releaseTitleLabel.font = Settings.currentFontSize.secondaryTitleFont
+            }
+        }
+        
+        ratingAndUserLabel.attributedText = review.ratingAndUsernameAttributedString
+        dateLabel.text = review.dateString
         if let release = review.release {
             self.setThumbnailImageView(with: release)
         } else {
             self.thumbnailImageView.image = UIImage(named: Ressources.Images.vinyl)
         }
-        
-        self.authorAndDateLabel.text = "By \(review.author) on \(review.dateString)"
-        self.ratingLabel.text = "\(review.rating)%"
-        self.ratingLabel.textColor = UIColor.colorByRating(review.rating)
     }
 }

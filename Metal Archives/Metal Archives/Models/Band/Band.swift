@@ -28,11 +28,7 @@ final class Band: NSObject {
     private(set) var auditTrail: AuditTrail!
     private(set) var logoURLString: String?
     private(set) var photoURLString: String?
-    private(set) var discography: Discography? {
-        didSet {
-            self.findCorrespondingReleasesForReviews()
-        }
-    }
+    private(set) var discography: Discography?
     
     //Band detail
     private(set) var isLastKnown: Bool = false
@@ -102,22 +98,10 @@ final class Band: NSObject {
         return completeLineup == nil
     }()
     
-    
-    private var didAssociateReleasesToReviews = false
-    private(set) var  reviews: [ReviewLite]? {
-        didSet {
-            if let total = totalReviews, let count = reviews?.count {
-                if total == 0 {
-                    self.moreToLoad = false
-                } else {
-                    self.moreToLoad = count < total
-                }
-            }
-        }
-    }
-    private(set) var totalReviews: Int?
-    private(set) var currentReviewsPage: Int = 0
-    private(set) var moreToLoad = true
+    lazy private(set) var reviewLitePagableManager: PagableManager<ReviewLite> = {
+        let manager = PagableManager<ReviewLite>(options: ["<BAND_ID>": self.id])
+        return manager
+    }()
     
     //Similar artist
     private(set) var similarArtists: [BandSimilar]?
@@ -487,11 +471,6 @@ extension Band {
         self.discography = discography
     }
     
-    func setReviews(_ reviews: [ReviewLite]?, totalReviews: Int?) {
-        self.reviews = reviews
-        self.totalReviews = totalReviews
-    }
-    
     func setSimilarArtists(_ similarArtists: [BandSimilar]?) {
         self.similarArtists = similarArtists
     }
@@ -499,92 +478,20 @@ extension Band {
     func setRelatedLinks(_ relatedLinks: [RelatedLink]?) {
         self.relatedLinks = relatedLinks
     }
-}
-
-extension Band {
-    private func findCorrespondingReleasesForReviews() {
-        if self.didAssociateReleasesToReviews {
-            return
-        }
-        
-        guard let `reviews` = self.reviews, let `discography` = self.discography else { return }
-        
-        for i in 0..<reviews.count {
-            for j in 0..<discography.complete.count {
-                if discography.complete[j].title == reviews[i].releaseTitle {
-                    reviews[i].associateToRelease(discography.complete[j])
+    
+    func associateReleasesToReviews() {
+        guard let discography = discography else { return }
+        for review in reviewLitePagableManager.objects {
+            if let _ = review.release {
+                continue
+            }
+            
+            for release in discography.complete {
+                if release.title == review.releaseTitle {
+                    review.associateToRelease(release)
                     break
                 }
             }
-        }
-        
-        self.didAssociateReleasesToReviews = true
-    }
-}
-
-//MARK: - Fetch reviews
-extension Band {
-    func fetchMoreReviews(onSuccess: @escaping (() -> Void), onError: @escaping ((Error) -> Void)) {
-        if !self.moreToLoad {
-            return
-        }
-        self.didAssociateReleasesToReviews = false
-        
-        let requestReviewsURLString =
-        "https://www.metal-archives.com/review/ajax-list-band/id/<BAND_ID>//json/1?sEcho=1&iColumns=4&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=3&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true"
-        
-        let displayStart = self.currentReviewsPage * 200
-        let requestURLString = requestReviewsURLString.replacingOccurrences(of: "<BAND_ID>", with: self.id).replacingOccurrences(of: "<DISPLAY_START>", with: "\(displayStart)").replacingOccurrences(of: "<DISPLAY_LENGTH>", with: "\(200)")
-        let requestURL = URL(string: requestURLString)!
-        
-        RequestHelper.shared.alamofireManager.request(requestURL).responseJSON { [weak self] (response) in
-            switch response.result {
-            case .success:
-                self?.extractReviews(json: response.value as? [String: Any])
-                onSuccess()
-            case .failure(let error): onError(error)
-            }
-        }
-    }
-    
-    func extractReviews(json: [String: Any]?){
-        var list: [ReviewLite] = []
-        
-        let totalReviews = json?["iTotalRecords"] as? Int
-        if let listReviews = json?["aaData"] as? [[String]] {
-            listReviews.forEach { (reviewDetail) in
-                let urlString = String(reviewDetail[0].subString(after: "href='", before: "'>", options: .caseInsensitive) ?? "")
-                let releaseTitle = String(reviewDetail[0].subString(after: "'>", before: "</a>", options: .caseInsensitive) ?? "")
-                let point = Int(reviewDetail[1].replacingOccurrences(of: "%", with: ""))
-                let author = String(reviewDetail[2].subString(after: "\">", before: "</a>", options: .caseInsensitive) ?? "")
-                let dateString = reviewDetail[3]
-                
-                
-                if let `point` = point {
-                    if let review = ReviewLite(urlString: urlString, releaseTitle: releaseTitle, point: point, dateString: dateString, author: author) {
-                        list.append(review)
-                    }
-                } else {
-                    #warning("Handle error")
-                }
-            }
-            
-            if list.count == 0 {
-                return
-            }
-            
-            if self.reviews == nil {
-                self.reviews = [ReviewLite]()
-            }
-            if let `totalReviews` = totalReviews {
-                self.totalReviews = totalReviews
-            }
-            
-            self.reviews?.append(contentsOf: list)
-            self.findCorrespondingReleasesForReviews()
-            self.currentReviewsPage += 1
-        } else {
-            fatalError("Impossible case!")
         }
     }
 }
