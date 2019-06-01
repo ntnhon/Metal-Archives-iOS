@@ -127,6 +127,7 @@ extension AppDelegate {
 extension AppDelegate {
     private func initAppSettings() {
         UserDefaults.registerDefaultValues()
+        FirebaseConfiguration.shared.setLoggerLevel(.min)
         FirebaseApp.configure()
         
         Settings.currentTheme = UserDefaults.selectedTheme()

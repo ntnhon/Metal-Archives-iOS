@@ -215,6 +215,12 @@ extension BandDetailViewController: UITableViewDelegate {
         return view
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let emptyView = UIView()
+        emptyView.backgroundColor = Settings.currentTheme.backgroundColor
+        return emptyView
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 1

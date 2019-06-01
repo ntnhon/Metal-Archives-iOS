@@ -311,7 +311,6 @@
 		C071307A21ECE0D600082BC6 /* LatestReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C071307921ECE0D600082BC6 /* LatestReviewTableViewCell.xib */; };
 		C071307D21ECF4DD00082BC6 /* LeftMenuOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C071307C21ECF4DD00082BC6 /* LeftMenuOptionTableViewCell.swift */; };
 		C071307F21ECF4E500082BC6 /* LeftMenuOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C071307E21ECF4E500082BC6 /* LeftMenuOptionTableViewCell.xib */; };
-		C07268F4220F8C1E0000EB66 /* UIViewController+DisplayErrorLoadingAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07268F3220F8C1E0000EB66 /* UIViewController+DisplayErrorLoadingAlert.swift */; };
 		C074FEDE2205C45B0086909E /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C074FEDD2205C45B0086909E /* MemberTableViewCell.swift */; };
 		C074FEE02205C46E0086909E /* MemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C074FEDF2205C46E0086909E /* MemberTableViewCell.xib */; };
 		C0752958229E83D30067B5E1 /* HorizontalMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0752957229E83D30067B5E1 /* HorizontalMenuView.swift */; };
@@ -427,6 +426,7 @@
 		C0C19C8322878380008B68F8 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C19C8222878380008B68F8 /* BaseCollectionViewCell.swift */; };
 		C0CAC19D229886ED0044363E /* BandPhotoAndNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CAC19C229886ED0044363E /* BandPhotoAndNameTableViewCell.swift */; };
 		C0CAC19F229887130044363E /* BandPhotoAndNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CAC19E229887130044363E /* BandPhotoAndNameTableViewCell.xib */; };
+		C0D6320822A08A2D00CAE52F /* ReleaseTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6320722A08A2D00CAE52F /* ReleaseTitleTableViewCell.swift */; };
 		C0DC881E220763E600A9187B /* ReviewLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DC881D220763E600A9187B /* ReviewLite.swift */; };
 		C0ECE6F0221AB1E400489A8E /* LyricViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ECE6EF221AB1E400489A8E /* LyricViewController.swift */; };
 		C0ECE6F2221AB32B00489A8E /* Lyric.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0ECE6F1221AB32B00489A8E /* Lyric.storyboard */; };
@@ -791,7 +791,6 @@
 		C071307921ECE0D600082BC6 /* LatestReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LatestReviewTableViewCell.xib; sourceTree = "<group>"; };
 		C071307C21ECF4DD00082BC6 /* LeftMenuOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuOptionTableViewCell.swift; sourceTree = "<group>"; };
 		C071307E21ECF4E500082BC6 /* LeftMenuOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeftMenuOptionTableViewCell.xib; sourceTree = "<group>"; };
-		C07268F3220F8C1E0000EB66 /* UIViewController+DisplayErrorLoadingAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DisplayErrorLoadingAlert.swift"; sourceTree = "<group>"; };
 		C074FEDD2205C45B0086909E /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
 		C074FEDF2205C46E0086909E /* MemberTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberTableViewCell.xib; sourceTree = "<group>"; };
 		C0752957229E83D30067B5E1 /* HorizontalMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalMenuView.swift; sourceTree = "<group>"; };
@@ -909,6 +908,7 @@
 		C0C19C8222878380008B68F8 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		C0CAC19C229886ED0044363E /* BandPhotoAndNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandPhotoAndNameTableViewCell.swift; sourceTree = "<group>"; };
 		C0CAC19E229887130044363E /* BandPhotoAndNameTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BandPhotoAndNameTableViewCell.xib; sourceTree = "<group>"; };
+		C0D6320722A08A2D00CAE52F /* ReleaseTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTitleTableViewCell.swift; sourceTree = "<group>"; };
 		C0DC881D220763E600A9187B /* ReviewLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLite.swift; sourceTree = "<group>"; };
 		C0ECE6EF221AB1E400489A8E /* LyricViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricViewController.swift; sourceTree = "<group>"; };
 		C0ECE6F1221AB32B00489A8E /* Lyric.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Lyric.storyboard; sourceTree = "<group>"; };
@@ -1210,6 +1210,7 @@
 		C03270CB220AE2B3009FA337 /* ReleaseDetail */ = {
 			isa = PBXGroup;
 			children = (
+				C0D6320622A08A0C00CAE52F /* ReleaseTitleTableViewCell */,
 				C03270CC220AE309009FA337 /* ReleaseHeaderTableViewCell.swift */,
 				C03270CE220AE31A009FA337 /* ReleaseHeaderTableViewCell.xib */,
 				C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */,
@@ -2286,7 +2287,6 @@
 				C008388122008D1900B35996 /* UIViewController+CheckPhotoLibraryPermission.swift */,
 				C0FF16C8220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift */,
 				C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */,
-				C07268F3220F8C1E0000EB66 /* UIViewController+DisplayErrorLoadingAlert.swift */,
 				C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */,
 			);
 			path = UIViewController;
@@ -2678,6 +2678,14 @@
 				C0CAC19E229887130044363E /* BandPhotoAndNameTableViewCell.xib */,
 			);
 			path = BandPhotoAndNameTableViewCell;
+			sourceTree = "<group>";
+		};
+		C0D6320622A08A0C00CAE52F /* ReleaseTitleTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0D6320722A08A2D00CAE52F /* ReleaseTitleTableViewCell.swift */,
+			);
+			path = ReleaseTitleTableViewCell;
 			sourceTree = "<group>";
 		};
 		C0ECE6EE221AB1BD00489A8E /* Lyric */ = {
@@ -3237,6 +3245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0D6320822A08A2D00CAE52F /* ReleaseTitleTableViewCell.swift in Sources */,
 				C07F8BE42287123200295146 /* User.swift in Sources */,
 				C0AABDE8221D8AB00044A2CF /* MonthInYear.swift in Sources */,
 				C061021521EF92670025F8C1 /* Settings.swift in Sources */,
@@ -3540,7 +3549,6 @@
 				C0AABDEC221DED3B0044A2CF /* UpcomingAlbumsViewController.swift in Sources */,
 				C0C19C8322878380008B68F8 /* BaseCollectionViewCell.swift in Sources */,
 				C0BAD49C222EBCAB00C4D38D /* SimpleSearchResultViewController.swift in Sources */,
-				C07268F4220F8C1E0000EB66 /* UIViewController+DisplayErrorLoadingAlert.swift in Sources */,
 				C053DD6F2226EA1A0028568B /* AlbumTop.swift in Sources */,
 				C04872BC21EE700500ECFDC2 /* LatestReview.swift in Sources */,
 				C0ECE6F4221ABF5000489A8E /* RequestLyric.swift in Sources */,

@@ -25,15 +25,17 @@ final class SmokedImageView: UIView {
     private func initSubviews() {
         clipsToBounds = false
         backgroundColor = Settings.currentTheme.backgroundColor
-        
+
         imageView = UIImageView(frame: .zero)
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = Settings.currentTheme.backgroundColor
         addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.fillSuperview()
         
         smokedView = UIView(frame: .zero)
         addSubview(smokedView)
+        smokedView.translatesAutoresizingMaskIntoConstraints = false
         smokedView.fillSuperview()
 
         smokedView.backgroundColor = Settings.currentTheme.backgroundColor
@@ -41,20 +43,19 @@ final class SmokedImageView: UIView {
     }
     
     func calculateAndApplyAlpha(withTableView tableView: UITableView) {
+        guard tableView.contentOffset.y < 0 else { return }
         
         let scaleRatio = abs(tableView.contentOffset.y) / tableView.contentInset.top
         
-        guard scaleRatio >= 0 && scaleRatio <= 2 else { return }
+        // Move stretchyLogoSmokedImageView up
+        let translationY = -5 * (1 / scaleRatio)
+        imageView.transform = CGAffineTransform(translationX: 0, y: translationY)
+        smokedView.transform = CGAffineTransform(translationX: 0, y: translationY)
+        smokedView.alpha = 1 - scaleRatio
         
-        if scaleRatio > 1.0 {
+        if scaleRatio >= 1.0 {
             // Zoom stretchyLogoSmokedImageView
-            transform = CGAffineTransform(scaleX: scaleRatio, y: scaleRatio)
-        } else {
-            guard tableView.contentOffset.y < 0 else { return }
-            // Move stretchyLogoSmokedImageView up
-            let translationY = (20 * scaleRatio)
-            transform = CGAffineTransform(translationX: 0, y: translationY)
-            smokedView.alpha = 1 - scaleRatio
+            imageView.transform = CGAffineTransform(scaleX: scaleRatio, y: scaleRatio)
         }
     }
 }
