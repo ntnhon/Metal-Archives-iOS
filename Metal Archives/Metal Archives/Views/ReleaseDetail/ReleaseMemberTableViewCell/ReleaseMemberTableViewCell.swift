@@ -14,16 +14,18 @@ final class ReleaseMemberTableViewCell: ThumbnailableTableViewCell, Registerable
     
     override func initAppearance() {
         super.initAppearance()
-        self.artistNameLabel.textColor = Settings.currentTheme.titleColor
-        self.artistNameLabel.font = Settings.currentFontSize.secondaryTitleFont
+        thumbnailImageViewHeightConstraint.constant = screenWidth / 5
         
-        self.instrumentsLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.instrumentsLabel.font = Settings.currentFontSize.bodyTextFont
+        artistNameLabel.textColor = Settings.currentTheme.titleColor
+        artistNameLabel.font = Settings.currentFontSize.secondaryTitleFont
+        
+        instrumentsLabel.textColor = Settings.currentTheme.bodyTextColor
+        instrumentsLabel.font = Settings.currentFontSize.bodyTextFont
     }
     
     func fill(with artist: ArtistLiteInRelease) {
-        self.artistNameLabel.text = artist.name
-        self.instrumentsLabel.text = artist.instrumentString
-        self.setThumbnailImageView(with: artist)
+        artistNameLabel.text = artist.name
+        instrumentsLabel.text = artist.instrumentString
+        setThumbnailImageView(with: artist)
     }
 }

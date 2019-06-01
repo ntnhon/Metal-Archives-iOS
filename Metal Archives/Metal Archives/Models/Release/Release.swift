@@ -34,6 +34,51 @@ final class Release {
     private(set) var reviews: [ReviewLiteInRelease]!
     private(set) var otherVersions: [ReleaseOtherVersion]!
     
+    lazy var completeLineupDescription: String = {
+        if let complete = self.completeLineup {
+            if complete.count <= 1 {
+                return "Complete lineup (\(complete.count) artist)"
+            } else {
+                return "Complete lineup (\(complete.count) artists)"
+            }
+        }
+        
+        return "Complete lineup (0 artist)"
+    }()
+    lazy var bandMembersDescription: String = {
+        if let bandMembers = self.bandMembers {
+            if bandMembers.count <= 1 {
+                return "Band members (\(bandMembers.count) artist)"
+            } else {
+                return "Band members (\(bandMembers.count) artists)"
+            }
+        }
+        
+        return "Band members (0 artist)"
+    }()
+    lazy var guestSessionDescription: String = {
+        if let guestSession = self.guestSession {
+            if guestSession.count <= 1 {
+                return "Guest/session musicians (\(guestSession.count) artist)"
+            } else {
+                return "Guest/session musicians (\(guestSession.count) artists)"
+            }
+        }
+        
+        return "Guest/session musicians (0 artist)"
+    }()
+    lazy var otherStaffDescription: String = {
+        if let otherStaff = self.otherStaff {
+            if otherStaff.count <= 1 {
+                return "Other staff (\(otherStaff.count) artist)"
+            } else {
+                return "Other staff (\(otherStaff.count) artists)"
+            }
+        }
+        
+        return "Other staff (0 artist)"
+    }()
+    
     func setOtherVersions(_ otherVersions: [ReleaseOtherVersion]) {
         self.otherVersions = otherVersions
     }

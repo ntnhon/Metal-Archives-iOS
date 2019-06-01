@@ -15,20 +15,22 @@ final class MemberTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
     
     override func initAppearance() {
         super.initAppearance()
-        self.nameLabel.textColor = Settings.currentTheme.titleColor
-        self.nameLabel.font = Settings.currentFontSize.secondaryTitleFont
+        thumbnailImageViewHeightConstraint.constant = screenWidth / 5
         
-        self.instrumentsInBandLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.instrumentsInBandLabel.font = Settings.currentFontSize.bodyTextFont
+        nameLabel.textColor = Settings.currentTheme.titleColor
+        nameLabel.font = Settings.currentFontSize.secondaryTitleFont
         
-        self.seeAlsoLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.seeAlsoLabel.font = Settings.currentFontSize.bodyTextFont
+        instrumentsInBandLabel.textColor = Settings.currentTheme.bodyTextColor
+        instrumentsInBandLabel.font = Settings.currentFontSize.bodyTextFont
+        
+        seeAlsoLabel.textColor = Settings.currentTheme.bodyTextColor
+        seeAlsoLabel.font = Settings.currentFontSize.bodyTextFont
     }
     
     func fill(with member: ArtistLite) {
-        self.nameLabel.text = member.name
-        self.instrumentsInBandLabel.text = member.instrumentsInBand
-        self.seeAlsoLabel.text = member.seeAlsoString
-        self.setThumbnailImageView(with: member)
+        nameLabel.text = member.name
+        instrumentsInBandLabel.text = member.instrumentsInBand
+        seeAlsoLabel.text = member.seeAlsoString
+        setThumbnailImageView(with: member)
     }
 }

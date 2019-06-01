@@ -67,5 +67,39 @@
             </objects>
             <point key="canvasLocation" x="53.600000000000001" y="91.304347826086968"/>
         </scene>
+        <!--Lineup Option List View Controller-->
+        <scene sceneID="DXq-de-xCP">
+            <objects>
+                <viewController storyboardIdentifier="LineupOptionListViewController" id="n0c-Oc-B81" customClass="LineupOptionListViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Jo4-tu-KPY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Y18-RH-4s0">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="n0c-Oc-B81" id="dfc-zq-DSQ"/>
+                                    <outlet property="delegate" destination="n0c-Oc-B81" id="lw5-Vy-eOh"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Y18-RH-4s0" firstAttribute="leading" secondItem="OAp-9w-jfp" secondAttribute="leading" id="Rq9-YX-hDZ"/>
+                            <constraint firstItem="Y18-RH-4s0" firstAttribute="top" secondItem="OAp-9w-jfp" secondAttribute="top" id="dwV-Fm-Sn7"/>
+                            <constraint firstItem="OAp-9w-jfp" firstAttribute="trailing" secondItem="Y18-RH-4s0" secondAttribute="trailing" id="hET-B9-miC"/>
+                            <constraint firstItem="OAp-9w-jfp" firstAttribute="bottom" secondItem="Y18-RH-4s0" secondAttribute="bottom" id="lhI-N2-oUC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="OAp-9w-jfp"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="Y18-RH-4s0" id="ced-ae-aHj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ovP-OG-o9K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="943" y="91"/>
+        </scene>
     </scenes>
 </document>

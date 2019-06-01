@@ -22,6 +22,7 @@ final class ReleaseDetailViewController: BaseViewController {
     
     private var release: Release!
     private var currentReleaseMenuOption: ReleaseMenuOption = .trackList
+    private var currentLineupType: LineUpType = .member
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     private unowned var releaseTitleAndTypeTableViewCell: ReleaseTitleAndTypeTableViewCell?
 
@@ -82,6 +83,8 @@ final class ReleaseDetailViewController: BaseViewController {
         ReleaseInfoTableViewCell.register(with: tableView)
         ReleaseMenuTableViewCell.register(with: tableView)
         ReleaseElementTableViewCell.register(with: tableView)
+        LineupOptionTableViewCell.register(with: tableView)
+        ReleaseMemberTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -165,6 +168,22 @@ extension ReleaseDetailViewController: UITableViewDelegate {
         }
         
         return 20
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return nil
+        }
+        
+        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: screenWidth, height: 20)))
+        view.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let emptyView = UIView()
+        emptyView.backgroundColor = Settings.currentTheme.backgroundColor
+        return emptyView
     }
 }
 
@@ -318,11 +337,86 @@ extension ReleaseDetailViewController {
 extension ReleaseDetailViewController {
     private func numberOfRowsInLineupSection() -> Int {
         guard let release = release else { return 0 }
-        return release.completeLineup.count
+        
+        switch currentLineupType {
+        case .complete: return release.completeLineup.count + 1
+        case .member: return release.bandMembers.count + 1
+        case .guest: return release.guestSession.count + 1
+        case .other: return release.otherStaff.count + 1
+        }
     }
     
     private func memberCellFor(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let release = release else {
+            return UITableViewCell()
+        }
+        
+        if indexPath.row == 0 {
+            return lineupOptionCell(forRowAt: indexPath)
+        }
+        
+        let cell = ReleaseMemberTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        
+        var artist: ArtistLiteInRelease?
+        switch currentLineupType {
+        case .complete: artist = release.completeLineup[indexPath.row - 1]
+        case .member: artist = release.bandMembers[indexPath.row - 1]
+        case .guest: artist = release.guestSession[indexPath.row - 1]
+        case .other: artist = release.otherStaff[indexPath.row - 1]
+        }
+        
+        if let artist = artist {
+            cell.fill(with: artist)
+        }
+        
+        return cell
+    }
+    
+    private func lineupOptionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = LineupOptionTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.tappedLineupOptionButton = { [unowned self] in
+            let rect = cell.convert(cell.lineupOptionButton.frame, to: self.view)
+            self.displayLineupOptionList(fromRect: rect)
+        }
+        
+        var description: String?
+        switch currentLineupType {
+        case .complete: description = release.completeLineupDescription
+        case .member: description = release.bandMembersDescription
+        case .guest: description = release.guestSessionDescription
+        case .other: description = release.otherStaffDescription
+        }
+        
+        if let description = description {
+            cell.lineupOptionButton.setTitle(" " + description + " ≡ ", for: .normal)
+        }
+        
+        return cell
+    }
+    
+    private func displayLineupOptionList(fromRect rect: CGRect) {
+        guard let release = release else {
+            return
+        }
+        
+        let lineupOptionListViewController = UIStoryboard(name: "ReleaseDetail", bundle: nil).instantiateViewController(withIdentifier: "LineupOptionListViewController") as! LineupOptionListViewController
+        lineupOptionListViewController.release = release
+        lineupOptionListViewController.currentLineupType = currentLineupType
+        
+        lineupOptionListViewController.modalPresentationStyle = .popover
+        lineupOptionListViewController.popoverPresentationController?.permittedArrowDirections = .any
+        
+        lineupOptionListViewController.popoverPresentationController?.delegate = self
+        lineupOptionListViewController.popoverPresentationController?.sourceView = view
+        
+        lineupOptionListViewController.popoverPresentationController?.sourceRect = rect
+        
+        lineupOptionListViewController.selectedLineupType = { [unowned self] (lineupType) in
+            self.currentLineupType = lineupType
+            self.tableView.reloadSections([1], with: .automatic)
+        }
+        
+        present(lineupOptionListViewController, animated: true, completion: nil)
     }
 }
 

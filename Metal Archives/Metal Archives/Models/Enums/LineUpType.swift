@@ -8,8 +8,8 @@
 
 import Foundation
 
-enum LineUpType: CustomStringConvertible {
-    case complete, member, guest, other
+enum LineUpType: Int, CustomStringConvertible, CaseIterable {
+    case complete = 0, member, guest, other
     
     var description: String {
         switch self {
