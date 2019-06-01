@@ -24,7 +24,22 @@ final class ReleaseMemberTableViewCell: ThumbnailableTableViewCell, Registerable
     }
     
     func fill(with artist: ArtistLiteInRelease) {
-        artistNameLabel.text = artist.name
+        
+        if let additionalDetail = artist.additionalDetail {
+            let nameAndDetailString = "\(artist.name) (\(additionalDetail))"
+            let mutableAttributedString = NSMutableAttributedString(string: nameAndDetailString)
+            mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.titleColor, .font: Settings.currentFontSize.secondaryTitleFont], range: NSRange(nameAndDetailString.startIndex..., in: nameAndDetailString))
+            
+            if let rangeOfDetail = nameAndDetailString.range(of: "(\(additionalDetail))") {
+                mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor], range: NSRange(rangeOfDetail, in: nameAndDetailString))
+            }
+            
+            artistNameLabel.attributedText = mutableAttributedString
+        } else {
+            artistNameLabel.text = artist.name
+        }
+        
+        
         instrumentsLabel.text = artist.instrumentString
         setThumbnailImageView(with: artist)
     }

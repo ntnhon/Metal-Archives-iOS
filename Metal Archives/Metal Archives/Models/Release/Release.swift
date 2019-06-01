@@ -429,16 +429,9 @@ final class Release {
                         artistName = a.text
                         artistURLString = a["href"]
                     }
-                    artistAdditionalDetail = td.text
-                    artistAdditionalDetail = artistAdditionalDetail?.replacingOccurrences(of: "\n", with: "")
-                    artistAdditionalDetail = artistAdditionalDetail?.replacingOccurrences(of: "\t", with: "")
-                    
-                    //                    if (artistAdditionalDetail?.rangeOfString(artist.name!) == nil) {
-                    //                        artist.forDiscAdditionalDetail = additionalDetailString
-                    //                    }
-                    //                    else {
-                    //                        artist.forDiscAdditionalDetail = ""
-                    //                    }
+                    if let artistAdditionalDetailSubstring = td.text?.subString(after: "(", before: ")", options: .caseInsensitive) {
+                        artistAdditionalDetail = String(artistAdditionalDetailSubstring)
+                    }
                 }
                 else if (i == 1) {
                     artistInstrumentString = td.text
