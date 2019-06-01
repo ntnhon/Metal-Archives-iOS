@@ -70,6 +70,8 @@ final class BandDetailViewController: BaseViewController {
                 
                 if let logoURLString = band.logoURLString, let logoURL = URL(string: logoURLString) {
                     self?.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
+                } else {
+                    self?.tableView.contentInset = .zero
                 }
                 
                 self?.utileBarView.titleLabel.text = band.name
@@ -250,12 +252,12 @@ extension BandDetailViewController: UITableViewDataSource {
         }
         
         switch currentMenuOption {
-        case .discography: return numberOfRowForDiscographySection()
-        case .members: return numberOfRowForMemberSection()
-        case .reviews: return numberOfRowForReviewSection()
-        case .similarArtists: return numberOfRowForSimilarArtistSection()
-        case .about: return numberOfRowForAboutSection()
-        case .relatedLinks: return numberOfRowsForRelatedLinkSection()
+        case .discography: return numberOfRowsInDiscographySection()
+        case .members: return numberOfRowsInMemberSection()
+        case .reviews: return numberOfRowsInReviewSection()
+        case .similarArtists: return numberOfRowsInSimilarArtistSection()
+        case .about: return numberOfRowsInAboutSection()
+        case .relatedLinks: return numberOfRowssInRelatedLinkSection()
         }
     }
     
@@ -331,7 +333,6 @@ extension BandDetailViewController {
 extension BandDetailViewController: HorizontalMenuViewDelegate {
     func didSelectItem(atIndex index: Int) {
         currentMenuOption = BandMenuOption(rawValue: index) ?? .discography
-        
         tableView.reloadSections([1], with: .automatic)
     }
 }
@@ -345,7 +346,7 @@ extension BandDetailViewController: UIPopoverPresentationControllerDelegate {
 
 // MARK: - Discography
 extension BandDetailViewController {
-    private func numberOfRowForDiscographySection() -> Int {
+    private func numberOfRowsInDiscographySection() -> Int {
         guard let band = band, let discography = band.discography else { return 0 }
         
         // return at least 2 rows: 1 for the options, 1 for displaying message
@@ -496,7 +497,7 @@ extension BandDetailViewController {
 
 // MARK: - Members
 extension BandDetailViewController {
-    private func numberOfRowForMemberSection() -> Int {
+    private func numberOfRowsInMemberSection() -> Int {
         guard let band = band else { return 0 }
         
         if band.hasNoMember {
@@ -649,7 +650,7 @@ extension BandDetailViewController {
 
 // MARK: - Reviews
 extension BandDetailViewController {
-    private func numberOfRowForReviewSection() -> Int {
+    private func numberOfRowsInReviewSection() -> Int {
         guard let band = band else { return 0 }
         
         guard let _ = band.reviewLitePagableManager.totalRecords else {
@@ -707,7 +708,7 @@ extension BandDetailViewController {
 
 // MARK: - Similar Artists
 extension BandDetailViewController {
-    private func numberOfRowForSimilarArtistSection() -> Int {
+    private func numberOfRowsInSimilarArtistSection() -> Int {
         guard let band = band else { return 0 }
         
         guard let similarArtists = band.similarArtists else {
@@ -743,7 +744,7 @@ extension BandDetailViewController {
 
 // MARK: - About
 extension BandDetailViewController {
-    private func numberOfRowForAboutSection() -> Int {
+    private func numberOfRowsInAboutSection() -> Int {
         guard let _ = band else { return 0 }
         return 1
     }
@@ -767,7 +768,7 @@ extension BandDetailViewController {
 
 // MARK: - Related Links
 extension BandDetailViewController {
-    private func numberOfRowsForRelatedLinkSection() -> Int {
+    private func numberOfRowssInRelatedLinkSection() -> Int {
         guard let band = band else { return 0 }
         guard let relatedLinks = band.relatedLinks else { return 1 }
         return relatedLinks.count

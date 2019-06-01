@@ -12,14 +12,14 @@ class BaseTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.initAppearance()
+        initAppearance()
     }
     
     func initAppearance() {
-        self.backgroundColor = Settings.currentTheme.backgroundColor
-        self.tintColor = Settings.currentTheme.iconTintColor
+        backgroundColor = Settings.currentTheme.backgroundColor
+        tintColor = Settings.currentTheme.iconTintColor
         let coloredView = UIView(frame: self.frame)
         coloredView.backgroundColor = Settings.currentTheme.tableViewCellSelectionColor
-        self.selectedBackgroundView = coloredView
+        selectedBackgroundView = coloredView
     }
 }

@@ -112,7 +112,7 @@ final class ReleaseInfoTableViewCell: BaseTableViewCell, RegisterableCell {
     
     @objc private func didTapLastModifiedOnLabel() {
         fullyDisplayLastModifiedOnDate.toggle()
-        setLabelLabel()
+        setLastModifiedOnLabel()
         tappedLastModifiedOnLabel?()
     }
 }

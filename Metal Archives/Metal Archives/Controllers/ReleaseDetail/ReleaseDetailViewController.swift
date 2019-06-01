@@ -21,6 +21,7 @@ final class ReleaseDetailViewController: BaseViewController {
     var urlString: String!
     
     private var release: Release!
+    private var currentReleaseMenuOption: ReleaseMenuOption = .trackList
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     private unowned var releaseTitleAndTypeTableViewCell: ReleaseTitleAndTypeTableViewCell?
 
@@ -79,6 +80,8 @@ final class ReleaseDetailViewController: BaseViewController {
         LoadingTableViewCell.register(with: tableView)
         ReleaseTitleAndTypeTableViewCell.register(with: tableView)
         ReleaseInfoTableViewCell.register(with: tableView)
+        ReleaseMenuTableViewCell.register(with: tableView)
+        ReleaseElementTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -147,6 +150,13 @@ extension ReleaseDetailViewController: UIPopoverPresentationControllerDelegate {
 extension ReleaseDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard indexPath.section == 1 else { return }
+        
+        switch currentReleaseMenuOption {
+        case .trackList: didSelectElementCell(atIndexPath: indexPath)
+        default: return
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -161,26 +171,39 @@ extension ReleaseDetailViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 extension ReleaseDetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
+        guard let _ = release else { return 0 }
         return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let _ = release else { return 0 }
         if section == 0 {
-            return 2
+            return 3
         }
         
-        return 100
+        switch currentReleaseMenuOption {
+        case .trackList: return numberOfRowsInTracklistSection()
+        case .lineup: return numberOfRowsInLineupSection()
+        case .reviews: return numberOfRowsInReviewsSection()
+        case .otherVersions: return numberOfRowsInOtherVersionsSection()
+        case .additionalNotes: return numberOfRowsInAdditionalNotesSection()
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section, indexPath.row) {
         case (0, 0): return releaseTitleTableViewCell(forRowAt: indexPath)
         case (0, 1): return releaseInfoTableViewCell(forRowAt: indexPath)
+        case (0, 2): return releaseMenuTableViewCell(forRowAt: indexPath)
         default:
-            return UITableViewCell()
+            switch currentReleaseMenuOption {
+            case .trackList: return releaseElementCell(forRowAt: indexPath)
+            case .lineup: return memberCellFor(forRowAt: indexPath)
+            case .reviews: return reviewCell(forRowAt: indexPath)
+            case .otherVersions: return otherVersionCell(forRowAt: indexPath)
+            case .additionalNotes: return additionalNotesCell(forRowAt: indexPath)
+            }
         }
-        
-        
     }
 }
 
@@ -190,7 +213,9 @@ extension ReleaseDetailViewController {
         guard let release = release else {
             return UITableViewCell()
         }
+        
         let cell = ReleaseTitleAndTypeTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.backgroundColor = .clear
         releaseTitleAndTypeTableViewCell = cell
         cell.fill(with: release)
         return cell
@@ -203,6 +228,136 @@ extension ReleaseDetailViewController {
         
         let cell = ReleaseInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: release)
+        
+
+        cell.tappedLastModifiedOnLabel = { [unowned self] in
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+        }
+        cell.tappedLabelLabel = { [unowned self] in
+            guard let labelUrlString = release.label.urlString else { return }
+            self.pushLabelDetailViewController(urlString: labelUrlString, animated: true)
+        }
+        
         return cell
+    }
+    
+    private func releaseMenuTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let _ = release else {
+            return UITableViewCell()
+        }
+        
+        let cell = ReleaseMenuTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.horizontalMenuView.delegate = self
+        return cell
+    }
+}
+
+// MARK: - HorizontalMenuViewDelegate
+extension ReleaseDetailViewController: HorizontalMenuViewDelegate {
+    func didSelectItem(atIndex index: Int) {
+        currentReleaseMenuOption = ReleaseMenuOption(rawValue: index) ?? .trackList
+        tableView.reloadSections([1], with: .automatic)
+    }
+}
+
+// MARK: - Tracklist
+extension ReleaseDetailViewController {
+    private func numberOfRowsInTracklistSection() -> Int {
+        guard let release = release else { return 0 }
+        return release.elements.count
+    }
+    
+    private func releaseElementCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let release = release else {
+            return UITableViewCell()
+        }
+        
+        let cell = ReleaseElementTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        let element = release.elements[indexPath.row]
+        cell.fill(with: element)
+        return cell
+    }
+    
+    private func didSelectElementCell(atIndexPath indexPath: IndexPath) {
+        guard let release = release else {
+            return
+        }
+    
+        let element = release.elements[indexPath.row]
+        guard element.type == .song, let song = element as? Song else { return }
+        
+        if let lyricID = song.lyricID {
+            ToastCenter.default.cancelAll()
+            let lyricViewController = UIStoryboard(name: "Lyric", bundle: nil).instantiateViewController(withIdentifier: "LyricViewController") as! LyricViewController
+            lyricViewController.lyricID = lyricID
+            lyricViewController.title = song.title
+            
+            let navLyricViewController = UINavigationController(rootViewController: lyricViewController)
+            navLyricViewController.modalPresentationStyle = .popover
+            navLyricViewController.popoverPresentationController?.permittedArrowDirections = .any
+            navLyricViewController.preferredContentSize = CGSize(width: screenWidth - 50, height: screenHeight * 2 / 3)
+            
+            navLyricViewController.popoverPresentationController?.delegate = self
+            navLyricViewController.popoverPresentationController?.sourceView = self.tableView
+            
+            let rect = tableView.rectForRow(at: indexPath)
+            navLyricViewController.popoverPresentationController?.sourceRect = rect
+            
+            present(navLyricViewController, animated: true, completion: nil)
+            
+            Analytics.logEvent(AnalyticsEvent.ViewLyric, parameters: [AnalyticsParameter.ReleaseTitle: release.title!, AnalyticsParameter.ReleaseID: release.id!, AnalyticsParameter.SongTitle: song.title])
+        } else {
+            ToastCenter.default.cancelAll()
+            Toast(text: "This song has no lyric", duration: Delay.short).show()
+        }
+    }
+}
+
+// MARK: - Lineup
+extension ReleaseDetailViewController {
+    private func numberOfRowsInLineupSection() -> Int {
+        guard let release = release else { return 0 }
+        return release.completeLineup.count
+    }
+    
+    private func memberCellFor(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+}
+
+// MARK: - Reviews
+extension ReleaseDetailViewController {
+    private func numberOfRowsInReviewsSection() -> Int {
+        guard let release = release else { return 0 }
+        return release.reviews.count
+    }
+    
+    private func reviewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+}
+
+// MARK: - Other versions
+extension ReleaseDetailViewController {
+    private func numberOfRowsInOtherVersionsSection() -> Int {
+        guard let release = release else { return 0 }
+        return release.otherVersions.count
+    }
+    
+    private func otherVersionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+}
+
+// MARK: - Additional Notes
+extension ReleaseDetailViewController {
+    private func numberOfRowsInAdditionalNotesSection() -> Int {
+        guard let _ = release else { return 0 }
+        return 1
+    }
+    
+    private func additionalNotesCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 
 fileprivate let shuttleViewHeight: CGFloat = 3
 fileprivate let shuttleViewSpacing: CGFloat = 4
+fileprivate let stackViewSpacing: CGFloat = 20
 
 protocol HorizontalMenuViewDelegate {
     func didSelectItem(atIndex index: Int)
@@ -49,6 +50,7 @@ final class HorizontalMenuView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         // Init scrollView
         addSubview(scrollView)
+        scrollView.contentInset = .init(top: 0, left: 10, bottom: 0, right: 10)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
@@ -57,23 +59,15 @@ final class HorizontalMenuView: UIView {
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor)
             ])
         
-        
         // Init shuttleView
         scrollView.addSubview(shuttleView)
         shuttleView.backgroundColor = highlightColor
         
-        let firstLabel = UILabel()
-        firstLabel.text = options[0]
-        firstLabel.font = font
-        
-        shuttleView.frame = CGRect(x: 0, y: firstLabel.intrinsicContentSize.height + shuttleViewSpacing, width: firstLabel.intrinsicContentSize.width, height: shuttleViewHeight)
-        
         // Init stackView
-        let spacing: CGFloat = 10
         stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .fill
-        stackView.spacing = spacing
+        stackView.spacing = stackViewSpacing
         stackView.distribution = .fill
         scrollView.addSubview(stackView)
         
@@ -111,6 +105,11 @@ final class HorizontalMenuView: UIView {
         fatalError()
     }
     
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        alignShuttle(with: lastSelectedLabel)
+    }
+    
     @objc private func tappedLabel(sender: UITapGestureRecognizer) {
         let label = sender.view as! UILabel
         UIView.animate(withDuration: 0.35) { [unowned self] in
@@ -125,9 +124,9 @@ final class HorizontalMenuView: UIView {
     }
     
     private func alignShuttle(with label: UILabel) {
-        let newX = label.frame.origin.x
+        let newX = label.frame.origin.x - stackViewSpacing / 2
         let newOrigin = CGPoint(x: newX, y: label.frame.height + shuttleViewSpacing)
-        let newSize = CGSize(width: label.frame.width, height: shuttleView.frame.height)
+        let newSize = CGSize(width: label.frame.width + stackViewSpacing, height: shuttleView.frame.height)
         let newFrame = CGRect(origin: newOrigin, size: newSize)
         shuttleView.frame = newFrame
     }

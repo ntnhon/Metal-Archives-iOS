@@ -46,6 +46,8 @@ final class BandPhotoAndNameTableViewCell: BaseTableViewCell, RegisterableCell {
             photoImageView.sd_setImage(with: photoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
         } else {
             photoImageView.image = #imageLiteral(resourceName: "band")
+            photoImageView.backgroundColor = Settings.currentTheme.backgroundColor
+            photoImageView.contentMode = .scaleAspectFit
         }
         
         nameLabel.text = band.name
