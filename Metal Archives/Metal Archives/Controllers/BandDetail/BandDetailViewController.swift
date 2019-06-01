@@ -69,7 +69,7 @@ final class BandDetailViewController: BaseViewController {
                 self?.band = band
                 
                 if let logoURLString = band.logoURLString, let logoURL = URL(string: logoURLString) {
-                    self?.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL)
+                    self?.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
                 }
                 
                 self?.utileBarView.titleLabel.text = band.name

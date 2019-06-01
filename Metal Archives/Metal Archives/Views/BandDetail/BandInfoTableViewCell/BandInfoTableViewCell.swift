@@ -22,7 +22,7 @@ final class BandInfoTableViewCell: BaseTableViewCell, RegisterableCell {
     @IBOutlet private var iconImageViews: [UIImageView]!
     @IBOutlet private var labels: [UILabel]!
     
-    private weak var band: Band!
+    private unowned var band: Band!
     private var fullyDisplayLastModifiedOnDate = false
     
     var tappedYearsActiveLabel: (() -> Void)?

@@ -43,7 +43,7 @@ final class BandPhotoAndNameTableViewCell: BaseTableViewCell, RegisterableCell {
     
     func fill(with band: Band) {
         if let photoURLString = band.photoURLString, let photoURL = URL(string: photoURLString) {
-            photoImageView.sd_setImage(with: photoURL)
+            photoImageView.sd_setImage(with: photoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
         } else {
             photoImageView.image = #imageLiteral(resourceName: "band")
         }

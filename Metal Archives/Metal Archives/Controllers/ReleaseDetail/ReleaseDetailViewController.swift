@@ -22,6 +22,7 @@ final class ReleaseDetailViewController: BaseViewController {
     
     private var release: Release!
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
+    private unowned var releaseTitleAndTypeTableViewCell: ReleaseTitleAndTypeTableViewCell?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,11 +60,7 @@ final class ReleaseDetailViewController: BaseViewController {
                 self?.release = release
                 
                 if let coverURLString = release.coverURLString, let coverURL = URL(string: coverURLString) {
-                    self?.stretchyLogoSmokedImageView.imageView.sd_setImage(with: coverURL, completed: { (image, error, cache, url) in
-                        if let image = image {
-                            self?.calculateAndApplyCoverImageViewHeight(fromImage: image)
-                        }
-                    })
+                    self?.stretchyLogoSmokedImageView.imageView.sd_setImage(with: coverURL)
                 }
                 
                 self?.utileBarView.titleLabel.text = release.title
@@ -80,14 +77,16 @@ final class ReleaseDetailViewController: BaseViewController {
     private func configureTableView() {
         SimpleTableViewCell.register(with: tableView)
         LoadingTableViewCell.register(with: tableView)
-        ReleaseTitleTableViewCell.register(with: tableView)
+        ReleaseTitleAndTypeTableViewCell.register(with: tableView)
+        ReleaseInfoTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.contentInset = .init(top: screenWidth, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = .init(top: stretchyLogoSmokedImageViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
         
         // observe when tableView is scrolled to animate alphas because scrollViewDidScroll doesn't capture enough event.
         tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
+            self?.calculateAndApplyAlphaForReleaseTitleTypeAndUltileNavBar()
             self?.stretchyLogoSmokedImageView.calculateAndApplyAlpha(withTableView: tableView)
         }
         
@@ -119,10 +118,21 @@ final class ReleaseDetailViewController: BaseViewController {
             Analytics.logEvent(AnalyticsEvent.ShareRelease, parameters: nil)
         }
     }
-    
-    private func calculateAndApplyCoverImageViewHeight(fromImage image: UIImage) {
-        let height = image.size.height * screenWidth / image.size.width
-        stretchyLogoSmokedImageViewHeightConstraint.constant = height
+
+    private func calculateAndApplyAlphaForReleaseTitleTypeAndUltileNavBar() {
+        // Calculate alpha base of distant between utileBarView and the cell
+        // the cell should only be dimmed only when the cell frame overlaps the utileBarView
+        
+        guard let releaseTitleAndTypeTableViewCell = releaseTitleAndTypeTableViewCell, let releaseTitleLabel = releaseTitleAndTypeTableViewCell.titleLabel else {
+            return
+        }
+        
+        let releaseTitleLabelFrameInThisView = releaseTitleAndTypeTableViewCell.convert(releaseTitleLabel.frame, to: view)
+        let distanceFromReleaseTitleLableToUtileBarView = releaseTitleLabelFrameInThisView.origin.y - (utileBarView.frame.origin.y + utileBarView.frame.size.height)
+        
+        // alpha = distance / label's height (dim base on label's frame)
+        releaseTitleAndTypeTableViewCell.alpha = (distanceFromReleaseTitleLableToUtileBarView + releaseTitleLabel.frame.height) / releaseTitleLabel.frame.height
+        utileBarView.setAlphaForBackgroundAndTitleLabel(1 - releaseTitleAndTypeTableViewCell.alpha)
     }
 }
 
@@ -138,6 +148,14 @@ extension ReleaseDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 1
+        }
+        
+        return 20
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -148,7 +166,7 @@ extension ReleaseDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 1
+            return 2
         }
         
         return 100
@@ -157,6 +175,7 @@ extension ReleaseDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section, indexPath.row) {
         case (0, 0): return releaseTitleTableViewCell(forRowAt: indexPath)
+        case (0, 1): return releaseInfoTableViewCell(forRowAt: indexPath)
         default:
             return UITableViewCell()
         }
@@ -171,8 +190,19 @@ extension ReleaseDetailViewController {
         guard let release = release else {
             return UITableViewCell()
         }
-        let cell = ReleaseTitleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        cell.titleLabel.text = release.title
+        let cell = ReleaseTitleAndTypeTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        releaseTitleAndTypeTableViewCell = cell
+        cell.fill(with: release)
+        return cell
+    }
+    
+    private func releaseInfoTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let release = release else {
+            return UITableViewCell()
+        }
+        
+        let cell = ReleaseInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.fill(with: release)
         return cell
     }
 }
