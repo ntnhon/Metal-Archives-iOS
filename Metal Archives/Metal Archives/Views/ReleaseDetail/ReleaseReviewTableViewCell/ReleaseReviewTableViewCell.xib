@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReleaseReviewTableViewCell" rowHeight="91" id="00S-DP-lxU" customClass="ReleaseReviewTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="372" height="91"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="00S-DP-lxU" id="YCE-XB-QDJ">
+                <rect key="frame" x="0.0" y="0.0" width="372" height="90.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="QVa-Fh-NIE">
+                        <rect key="frame" x="20" y="10" width="332" height="70.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Death Changes their Style" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idQ-5p-jBL">
+                                <rect key="frame" x="0.0" y="0.0" width="332" height="45"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Hellblazer • 100% • December 11th, 2016" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSy-bk-uzt">
+                                <rect key="frame" x="0.0" y="50" width="332" height="20.5"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="QVa-Fh-NIE" firstAttribute="leading" secondItem="YCE-XB-QDJ" secondAttribute="leading" constant="20" symbolic="YES" id="NvS-MU-xP4"/>
+                    <constraint firstAttribute="bottom" secondItem="QVa-Fh-NIE" secondAttribute="bottom" constant="10" id="VPZ-Wz-73L"/>
+                    <constraint firstItem="QVa-Fh-NIE" firstAttribute="top" secondItem="YCE-XB-QDJ" secondAttribute="top" constant="10" id="Yfj-gA-ww9"/>
+                    <constraint firstAttribute="trailing" secondItem="QVa-Fh-NIE" secondAttribute="trailing" constant="20" symbolic="YES" id="isg-sW-w2f"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="detailsLabel" destination="bSy-bk-uzt" id="vyP-1r-z4K"/>
+                <outlet property="titleLabel" destination="idQ-5p-jBL" id="Hr0-jA-JiP"/>
+            </connections>
+            <point key="canvasLocation" x="113.59999999999999" y="105.69715142428787"/>
+        </tableViewCell>
+    </objects>
+</document>

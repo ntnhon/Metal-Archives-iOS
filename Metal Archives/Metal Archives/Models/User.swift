@@ -23,4 +23,9 @@ struct User {
         self.name = String(nameSubstring)
         self.urlString = String(urlSubstring)
     }
+    
+    init(name: String, urlString: String) {
+        self.name = name
+        self.urlString = urlString
+    }
 }

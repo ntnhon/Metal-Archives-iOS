@@ -332,7 +332,7 @@ final class Release {
                 var reviewTitle: String?
                 var reviewRating: Int?
                 var reviewDateString: String?
-                var reviewAuthor: String?
+                var reviewAuthor: User?
                 for tr in table.css("tr") {
                     var i = 0
                     for td in tr.css("td") {
@@ -351,8 +351,8 @@ final class Release {
                             }
                         }
                         else if (i == 3) {
-                            if let a = td.at_css("a") {
-                                reviewAuthor = a.text
+                            if let a = td.at_css("a"), let authorName = a.text, let authorURLString = a["href"] {
+                                reviewAuthor = User(name: authorName, urlString: authorURLString)
                             }
                         }
                         else if (i == 4) {

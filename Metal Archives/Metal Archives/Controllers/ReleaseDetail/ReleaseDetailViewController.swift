@@ -23,6 +23,7 @@ final class ReleaseDetailViewController: BaseViewController {
     private var release: Release!
     private var currentReleaseMenuOption: ReleaseMenuOption = .trackList
     private var currentLineupType: LineUpType = .member
+    private var isAscendingOrderReview = false
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     private unowned var releaseTitleAndTypeTableViewCell: ReleaseTitleAndTypeTableViewCell?
 
@@ -85,6 +86,8 @@ final class ReleaseDetailViewController: BaseViewController {
         ReleaseElementTableViewCell.register(with: tableView)
         LineupOptionTableViewCell.register(with: tableView)
         ReleaseMemberTableViewCell.register(with: tableView)
+        ReleaseReviewOptionTableViewCell.register(with: tableView)
+        ReleaseReviewTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -158,6 +161,8 @@ extension ReleaseDetailViewController: UITableViewDelegate {
         
         switch currentReleaseMenuOption {
         case .trackList: didSelectElementCell(atIndexPath: indexPath)
+        case .lineup: didSelectMemberCell(atIndexPath: indexPath)
+        case .reviews: didSelectReviewCell(atIndexPath: indexPath)
         default: return
         }
     }
@@ -418,17 +423,81 @@ extension ReleaseDetailViewController {
         
         present(lineupOptionListViewController, animated: true, completion: nil)
     }
+    
+    private func didSelectMemberCell(atIndexPath indexPath: IndexPath) {
+        guard indexPath.row > 0 else { return }
+        
+        var artist: ArtistLiteInRelease?
+        switch currentLineupType {
+        case .complete: artist = release.completeLineup[indexPath.row - 1]
+        case .member: artist = release.bandMembers[indexPath.row - 1]
+        case .guest: artist = release.guestSession[indexPath.row - 1]
+        case .other: artist = release.otherStaff[indexPath.row - 1]
+        }
+        
+        if let artist = artist {
+            pushArtistDetailViewController(urlString: artist.urlString, animated: true)
+        }
+    }
 }
 
 // MARK: - Reviews
 extension ReleaseDetailViewController {
     private func numberOfRowsInReviewsSection() -> Int {
         guard let release = release else { return 0 }
-        return release.reviews.count
+        return release.reviews.count + 1
     }
     
     private func reviewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let release = release else {
+            return UITableViewCell()
+        }
+        
+        if indexPath.row == 0 {
+            return reviewOptionCell(forRowAt: indexPath)
+        }
+        
+        let cell = ReleaseReviewTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        var index = 0
+        
+        if isAscendingOrderReview {
+            index = release.reviews.count - indexPath.row
+        } else {
+            index = indexPath.row - 1
+        }
+        
+        let review = release.reviews[index]
+        cell.fill(with: review)
+        return cell
+    }
+    
+    private func reviewOptionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let _ = release else {
+            return UITableViewCell()
+        }
+        
+        let cell = ReleaseReviewOptionTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.setOrderingTitle(isAscending: isAscendingOrderReview)
+        cell.tappedOrderingButton = { [unowned self] in
+            self.isAscendingOrderReview.toggle()
+            cell.setOrderingTitle(isAscending: self.isAscendingOrderReview)
+            self.tableView.reloadSections([1], with: .automatic)
+        }
+        return cell
+    }
+    
+    private func didSelectReviewCell(atIndexPath indexPath: IndexPath) {
+        guard indexPath.row > 0 else { return }
+        var index = 0
+        
+        if isAscendingOrderReview {
+            index = release.reviews.count - indexPath.row
+        } else {
+            index = indexPath.row - 1
+        }
+        
+        let review = release.reviews[index]
+        presentReviewController(urlString: review.urlString, animated: true, completion: nil)
     }
 }
 

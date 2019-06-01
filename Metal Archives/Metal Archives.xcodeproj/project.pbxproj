@@ -206,6 +206,8 @@
 		C05606F622A30D2A006F5BC1 /* LineupOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05606F522A30D2A006F5BC1 /* LineupOptionTableViewCell.swift */; };
 		C05606F822A30D52006F5BC1 /* LineupOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05606F722A30D52006F5BC1 /* LineupOptionTableViewCell.xib */; };
 		C05606FB22A311AC006F5BC1 /* LineupOptionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05606FA22A311AC006F5BC1 /* LineupOptionListViewController.swift */; };
+		C05606FF22A3206F006F5BC1 /* ReleaseReviewOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05606FE22A3206F006F5BC1 /* ReleaseReviewOptionTableViewCell.swift */; };
+		C056070122A320A2006F5BC1 /* ReleaseReviewOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C056070022A320A2006F5BC1 /* ReleaseReviewOptionTableViewCell.xib */; };
 		C05937DB222F252E00F7C2A9 /* SimpleBandNameOrMusicGenreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05937DA222F252E00F7C2A9 /* SimpleBandNameOrMusicGenreTableViewCell.swift */; };
 		C05937DD222F27BF00F7C2A9 /* SimpleBandNameOrMusicGenreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05937DC222F27BF00F7C2A9 /* SimpleBandNameOrMusicGenreTableViewCell.xib */; };
 		C05937DF222F378F00F7C2A9 /* UITextField+CustomClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05937DE222F378F00F7C2A9 /* UITextField+CustomClearButton.swift */; };
@@ -711,6 +713,8 @@
 		C05606F522A30D2A006F5BC1 /* LineupOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupOptionTableViewCell.swift; sourceTree = "<group>"; };
 		C05606F722A30D52006F5BC1 /* LineupOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineupOptionTableViewCell.xib; sourceTree = "<group>"; };
 		C05606FA22A311AC006F5BC1 /* LineupOptionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupOptionListViewController.swift; sourceTree = "<group>"; };
+		C05606FE22A3206F006F5BC1 /* ReleaseReviewOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseReviewOptionTableViewCell.swift; sourceTree = "<group>"; };
+		C056070022A320A2006F5BC1 /* ReleaseReviewOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseReviewOptionTableViewCell.xib; sourceTree = "<group>"; };
 		C05937DA222F252E00F7C2A9 /* SimpleBandNameOrMusicGenreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleBandNameOrMusicGenreTableViewCell.swift; sourceTree = "<group>"; };
 		C05937DC222F27BF00F7C2A9 /* SimpleBandNameOrMusicGenreTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleBandNameOrMusicGenreTableViewCell.xib; sourceTree = "<group>"; };
 		C05937DE222F378F00F7C2A9 /* UITextField+CustomClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+CustomClearButton.swift"; sourceTree = "<group>"; };
@@ -1228,8 +1232,8 @@
 				C05606F322A30621006F5BC1 /* ReleaseElementTableViewCell */,
 				C05606F422A30CDA006F5BC1 /* LineupOptionTableViewCell */,
 				C05606F922A30FE3006F5BC1 /* ReleaseMemberTableViewCell */,
-				C03270DA220B476C009FA337 /* ReleaseReviewTableViewCell.swift */,
-				C03270DD220B47A4009FA337 /* ReleaseReviewTableViewCell.xib */,
+				C05606FD22A32054006F5BC1 /* ReleaseReviewOptionTableViewCell */,
+				C05606FC22A319C9006F5BC1 /* ReleaseReviewTableViewCell */,
 				C03270E3220B83AC009FA337 /* ReleaseOtherVersionTableViewCell.swift */,
 				C03270E5220B83F1009FA337 /* ReleaseOtherVersionTableViewCell.xib */,
 			);
@@ -1491,6 +1495,24 @@
 				C03270D6220B3728009FA337 /* ReleaseMemberTableViewCell.xib */,
 			);
 			path = ReleaseMemberTableViewCell;
+			sourceTree = "<group>";
+		};
+		C05606FC22A319C9006F5BC1 /* ReleaseReviewTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C03270DA220B476C009FA337 /* ReleaseReviewTableViewCell.swift */,
+				C03270DD220B47A4009FA337 /* ReleaseReviewTableViewCell.xib */,
+			);
+			path = ReleaseReviewTableViewCell;
+			sourceTree = "<group>";
+		};
+		C05606FD22A32054006F5BC1 /* ReleaseReviewOptionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C05606FE22A3206F006F5BC1 /* ReleaseReviewOptionTableViewCell.swift */,
+				C056070022A320A2006F5BC1 /* ReleaseReviewOptionTableViewCell.xib */,
+			);
+			path = ReleaseReviewOptionTableViewCell;
 			sourceTree = "<group>";
 		};
 		C05937D8222F24D000F7C2A9 /* Search */ = {
@@ -3010,6 +3032,7 @@
 				C075296C229F0CE50067B5E1 /* MemberOptionTableViewCell.xib in Resources */,
 				C066139322899EDA00F99006 /* UpcomingAlbumCollectionViewCell.xib in Resources */,
 				C00D35FB223D042500B29B43 /* BrowseBandsResultTableViewCell.xib in Resources */,
+				C056070122A320A2006F5BC1 /* ReleaseReviewOptionTableViewCell.xib in Resources */,
 				C06613882289955C00F99006 /* LatestReviewCollectionViewCell.xib in Resources */,
 				C0C19C7D22878206008B68F8 /* NewsTableViewCell.xib in Resources */,
 				C013364A22384E8700963940 /* AdvancedBandNameTableViewCell.xib in Resources */,
@@ -3316,6 +3339,7 @@
 				C05606FB22A311AC006F5BC1 /* LineupOptionListViewController.swift in Sources */,
 				C084540021EE184E00E6D676 /* RequestHelper.swift in Sources */,
 				C053DD80222727760028568B /* AdvancedSearchViewController.swift in Sources */,
+				C05606FF22A3206F006F5BC1 /* ReleaseReviewOptionTableViewCell.swift in Sources */,
 				C0AA06B222394934001BE21D /* AdvancedSearchResultAlbum.swift in Sources */,
 				C03280132209FA5D00FC9A44 /* RequestBandDetail.swift in Sources */,
 				C066137122895C3700F99006 /* HomepageViewControllerProtocols.swift in Sources */,
