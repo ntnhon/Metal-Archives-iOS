@@ -343,17 +343,41 @@ extension ReleaseDetailViewController {
     private func numberOfRowsInLineupSection() -> Int {
         guard let release = release else { return 0 }
         
-        switch currentLineupType {
-        case .complete: return release.completeLineup.count + 1
-        case .member: return release.bandMembers.count + 1
-        case .guest: return release.guestSession.count + 1
-        case .other: return release.otherStaff.count + 1
+        if release.completeLineup.count == 0 {
+            return 1
         }
+        
+        switch currentLineupType {
+        case .complete:
+            if release.completeLineup.count > 0 {
+                return release.completeLineup.count + 1
+            }
+        case .member:
+            if release.bandMembers.count > 0 {
+                return release.bandMembers.count + 1
+            }
+        case .guest:
+            if release.guestSession.count > 0 {
+                return release.guestSession.count + 1
+            }
+        case .other:
+            if release.otherStaff.count > 0 {
+                return release.otherStaff.count + 1
+            }
+        }
+        
+        return 2
     }
     
     private func memberCellFor(forRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let release = release else {
             return UITableViewCell()
+        }
+        
+        if release.completeLineup.count == 0 {
+            let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            simpleCell.fill(with: "No artist added")
+            return simpleCell
         }
         
         if indexPath.row == 0 {
@@ -364,17 +388,32 @@ extension ReleaseDetailViewController {
         
         var artist: ArtistLiteInRelease?
         switch currentLineupType {
-        case .complete: artist = release.completeLineup[indexPath.row - 1]
-        case .member: artist = release.bandMembers[indexPath.row - 1]
-        case .guest: artist = release.guestSession[indexPath.row - 1]
-        case .other: artist = release.otherStaff[indexPath.row - 1]
+        case .complete:
+            if release.completeLineup.count > 0 {
+                artist = release.completeLineup[indexPath.row - 1]
+            }
+        case .member:
+            if release.bandMembers.count > 0 {
+                artist = release.bandMembers[indexPath.row - 1]
+            }
+        case .guest:
+            if release.guestSession.count > 0 {
+                artist = release.guestSession[indexPath.row - 1]
+            }
+        case .other:
+            if release.otherStaff.count > 0 {
+                artist = release.otherStaff[indexPath.row - 1]
+            }
         }
         
         if let artist = artist {
             cell.fill(with: artist)
+            return cell
         }
         
-        return cell
+        let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        simpleCell.fill(with: "No artist of this type")
+        return simpleCell
     }
     
     private func lineupOptionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -445,12 +484,23 @@ extension ReleaseDetailViewController {
 extension ReleaseDetailViewController {
     private func numberOfRowsInReviewsSection() -> Int {
         guard let release = release else { return 0 }
+        
+        if release.reviews.count == 0 {
+            return 1
+        }
+        
         return release.reviews.count + 1
     }
     
     private func reviewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let release = release else {
             return UITableViewCell()
+        }
+        
+        if release.reviews.count == 0 {
+            let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            simpleCell.fill(with: "No review yet")
+            return simpleCell
         }
         
         if indexPath.row == 0 {
@@ -487,7 +537,8 @@ extension ReleaseDetailViewController {
     }
     
     private func didSelectReviewCell(atIndexPath indexPath: IndexPath) {
-        guard indexPath.row > 0 else { return }
+        guard let release = release, release.reviews.count > 0, indexPath.row > 0 else { return }
+
         var index = 0
         
         if isAscendingOrderReview {
