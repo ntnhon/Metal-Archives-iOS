@@ -73,6 +73,7 @@ final class ReviewLite {
     }
 }
 
+// MARK: - Pagable
 extension ReviewLite: Pagable {
     static var rawRequestURLString = "https://www.metal-archives.com/review/ajax-list-band/id/<BAND_ID>//json/1?sEcho=1&iColumns=4&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=3&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true"
     
@@ -94,5 +95,21 @@ extension ReviewLite: Pagable {
             return (nil, nil)
         }
         return (list, totalRecords)
+    }
+}
+
+// MARK: - Actionable
+extension ReviewLite: Actionable {
+    var actionableElements: [ActionableElement] {
+        var elements = [ActionableElement]()
+        if let release = release {
+            let releaseElement = ActionableElement(name: release.title, urlString: release.urlString, type: .release)
+            elements.append(releaseElement)
+        }
+
+        let reviewElement = ActionableElement(name: "By \(user.name) - \(rating)%", urlString: urlString, type: .review)
+        elements.append(reviewElement)
+        
+        return elements
     }
 }

@@ -700,9 +700,7 @@ extension BandDetailViewController {
         }
         
         let review = band.reviewLitePagableManager.objects[indexPath.row]
-        if let release = review.release {
-            pushReleaseDetailViewController(urlString: release.urlString, animated: true)
-        }
+        takeActionFor(actionableObject: review)
     }
 }
 

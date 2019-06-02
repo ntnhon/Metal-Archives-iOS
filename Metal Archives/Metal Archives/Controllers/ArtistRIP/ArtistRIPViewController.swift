@@ -91,7 +91,7 @@ extension ArtistRIPViewController: YearListViewControllerDelegate {
         self.initManager()
         self.artistRIPPagableManager.fetch()
         
-        Analytics.logEvent(AnalyticsEvent.ChangeArtistRIPYear, parameters: [AnalyticsParameter.Year: self.year])
+        Analytics.logEvent(AnalyticsEvent.ChangeArtistRIPYear, parameters: [AnalyticsParameter.Year: self.year!])
     }
 }
 
