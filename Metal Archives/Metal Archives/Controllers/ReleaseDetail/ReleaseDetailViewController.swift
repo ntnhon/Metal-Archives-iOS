@@ -88,6 +88,7 @@ final class ReleaseDetailViewController: BaseViewController {
         ReleaseMemberTableViewCell.register(with: tableView)
         ReleaseReviewOptionTableViewCell.register(with: tableView)
         ReleaseReviewTableViewCell.register(with: tableView)
+        ReleaseOtherVersionTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -163,6 +164,7 @@ extension ReleaseDetailViewController: UITableViewDelegate {
         case .trackList: didSelectElementCell(atIndexPath: indexPath)
         case .lineup: didSelectMemberCell(atIndexPath: indexPath)
         case .reviews: didSelectReviewCell(atIndexPath: indexPath)
+        case .otherVersions: didSelectOtherVersionCell(atIndexPath: indexPath)
         default: return
         }
     }
@@ -556,11 +558,41 @@ extension ReleaseDetailViewController {
 extension ReleaseDetailViewController {
     private func numberOfRowsInOtherVersionsSection() -> Int {
         guard let release = release else { return 0 }
-        return release.otherVersions.count
+        return max(release.otherVersions.count, 1)
     }
     
     private func otherVersionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let release = release else {
+            return UITableViewCell()
+        }
+        
+        if release.otherVersions.count == 0 {
+            let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            simpleCell.fill(with: "No other version")
+            return simpleCell
+        }
+        
+        let cell = ReleaseOtherVersionTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        let otherVersion = release.otherVersions[indexPath.row]
+        cell.fill(with: otherVersion)
+        
+        if indexPath.row == 0 {
+            cell.markAsThisVersion()
+        }
+        
+        return cell
+    }
+    
+    private func didSelectOtherVersionCell(atIndexPath indexPath: IndexPath) {
+        guard let release = release, release.otherVersions.count > 0 else { return }
+        
+        if indexPath.row == 0 {
+            Toast.displayMessageShortly("This version")
+            return
+        }
+        
+        let otherVersion = release.otherVersions[indexPath.row]
+        pushReleaseDetailViewController(urlString: otherVersion.urlString, animated: true)
     }
 }
 
@@ -572,6 +604,16 @@ extension ReleaseDetailViewController {
     }
     
     private func additionalNotesCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let release = release else {
+            return UITableViewCell()
+        }
+        let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        if let additionalNotes = release.additionalHTMLNotes?.htmlToString {
+            simpleCell.fill(with: additionalNotes)
+        } else {
+            simpleCell.fill(with: "No additional notes")
+        }
+        
+        return simpleCell
     }
 }

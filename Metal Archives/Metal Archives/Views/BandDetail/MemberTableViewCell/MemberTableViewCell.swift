@@ -30,7 +30,7 @@ final class MemberTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
     func fill(with member: ArtistLite) {
         nameLabel.text = member.name
         instrumentsInBandLabel.text = member.instrumentsInBand
-        seeAlsoLabel.text = member.seeAlsoString
+        seeAlsoLabel.attributedText = member.seeAlsoAttributedString
         setThumbnailImageView(with: member)
     }
 }

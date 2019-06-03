@@ -12,7 +12,26 @@ final class ArtistLite: ThumbnailableObject {
     let name: String
     let instrumentsInBand: String
     let bands: [BandLite]?
-    let seeAlsoString: String?
+    private let seeAlsoString: String?
+    
+    lazy var seeAlsoAttributedString: NSAttributedString? = {
+        guard let seeAlsoString = self.seeAlsoString else { return nil }
+        
+        let mutableAttributedString = NSMutableAttributedString(string: seeAlsoString)
+        mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(seeAlsoString.startIndex..., in: seeAlsoString))
+        
+        guard let bands = self.bands else {
+            return mutableAttributedString
+        }
+        
+        for band in bands {
+            if let bandNameRange = seeAlsoString.range(of: band.name) {
+                mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor], range: NSRange(bandNameRange, in: seeAlsoString))
+            }
+        }
+        
+        return mutableAttributedString
+    }()
     
     init?(urlString: String, name: String, instrumentsInBand: String, bands: [BandLite]?, seeAlsoString: String?) {
         self.name = name

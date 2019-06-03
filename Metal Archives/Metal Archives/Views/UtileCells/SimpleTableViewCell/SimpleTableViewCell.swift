@@ -13,31 +13,31 @@ final class SimpleTableViewCell: BaseTableViewCell, RegisterableCell {
     
     override func initAppearance() {
         super.initAppearance()
-        self.displayAsBodyText()
+        displayAsBodyText()
     }
     
     func inverseColors() {
-        self.contentView.backgroundColor = Settings.currentTheme.bodyTextColor
-        self.backgroundColor = Settings.currentTheme.bodyTextColor
-        self.titleLabel.textColor = Settings.currentTheme.backgroundColor
+        contentView.backgroundColor = Settings.currentTheme.bodyTextColor
+        backgroundColor = Settings.currentTheme.bodyTextColor
+        titleLabel.textColor = Settings.currentTheme.backgroundColor
     }
     
     func displayAsTitle() {
-        self.titleLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.titleLabel.font = Settings.currentFontSize.titleFont
+        titleLabel.textColor = Settings.currentTheme.bodyTextColor
+        titleLabel.font = Settings.currentFontSize.titleFont
     }
     
     func displayAsSecondaryTitle() {
-        self.titleLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.titleLabel.font = Settings.currentFontSize.secondaryTitleFont
+        titleLabel.textColor = Settings.currentTheme.bodyTextColor
+        titleLabel.font = Settings.currentFontSize.secondaryTitleFont
     }
     
     func displayAsBodyText() {
-        self.titleLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.titleLabel.font = Settings.currentFontSize.bodyTextFont
+        titleLabel.textColor = Settings.currentTheme.bodyTextColor
+        titleLabel.font = Settings.currentFontSize.bodyTextFont
     }
     
     func fill(with string: String) {
-        self.titleLabel.text = string
+        titleLabel.text = string
     }
 }

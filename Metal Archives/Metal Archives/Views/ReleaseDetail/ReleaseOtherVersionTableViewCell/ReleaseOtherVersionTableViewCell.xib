@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="109" id="RZL-zx-7Hr" customClass="ReleaseOtherVersionTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="109"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RZL-zx-7Hr" id="Wnh-kE-KdE">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="108.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="FIl-Ow-kbT">
+                        <rect key="frame" x="20" y="10" width="374" height="88.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2002 (Unofficial) (titled &quot;Human / Symbolic&quot;) • Agat Company" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ND9-6V-RNV">
+                                <rect key="frame" x="0.0" y="0.0" width="374" height="47.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" text="Cassette • 88561-2036-4" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Mr-fV-2cx">
+                                <rect key="frame" x="0.0" y="47.5" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="748" text="Digipak, Remastered, Limited edition" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSP-S0-aSO">
+                                <rect key="frame" x="0.0" y="68" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="FIl-Ow-kbT" secondAttribute="bottom" constant="10" id="DOU-Js-d0z"/>
+                    <constraint firstAttribute="trailing" secondItem="FIl-Ow-kbT" secondAttribute="trailing" constant="20" symbolic="YES" id="V3T-xu-sgo"/>
+                    <constraint firstItem="FIl-Ow-kbT" firstAttribute="leading" secondItem="Wnh-kE-KdE" secondAttribute="leading" constant="20" symbolic="YES" id="adX-X9-W56"/>
+                    <constraint firstItem="FIl-Ow-kbT" firstAttribute="top" secondItem="Wnh-kE-KdE" secondAttribute="top" constant="10" id="gGP-Qe-6Jc"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="dateAndLabelNameLabel" destination="ND9-6V-RNV" id="CtV-xI-wGe"/>
+                <outlet property="descriptionLabel" destination="cSP-S0-aSO" id="aFk-tP-0u8"/>
+                <outlet property="formatAndCatalogIDLabel" destination="2Mr-fV-2cx" id="7fJ-bG-Yxg"/>
+            </connections>
+            <point key="canvasLocation" x="1.6000000000000001" y="146.17691154422789"/>
+        </tableViewCell>
+    </objects>
+</document>

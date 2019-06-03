@@ -1035,6 +1035,15 @@
 			path = ReadMore;
 			sourceTree = "<group>";
 		};
+		C0091F8522A565DA007E8FC1 /* ReleaseOtherVersionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C03270E3220B83AC009FA337 /* ReleaseOtherVersionTableViewCell.swift */,
+				C03270E5220B83F1009FA337 /* ReleaseOtherVersionTableViewCell.xib */,
+			);
+			path = ReleaseOtherVersionTableViewCell;
+			sourceTree = "<group>";
+		};
 		C00D35F5223D018200B29B43 /* BrowseBands */ = {
 			isa = PBXGroup;
 			children = (
@@ -1234,8 +1243,7 @@
 				C05606F922A30FE3006F5BC1 /* ReleaseMemberTableViewCell */,
 				C05606FD22A32054006F5BC1 /* ReleaseReviewOptionTableViewCell */,
 				C05606FC22A319C9006F5BC1 /* ReleaseReviewTableViewCell */,
-				C03270E3220B83AC009FA337 /* ReleaseOtherVersionTableViewCell.swift */,
-				C03270E5220B83F1009FA337 /* ReleaseOtherVersionTableViewCell.xib */,
+				C0091F8522A565DA007E8FC1 /* ReleaseOtherVersionTableViewCell */,
 			);
 			path = ReleaseDetail;
 			sourceTree = "<group>";

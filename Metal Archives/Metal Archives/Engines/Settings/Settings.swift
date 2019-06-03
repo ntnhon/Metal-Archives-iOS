@@ -97,6 +97,17 @@ enum FontSize: Int, CustomStringConvertible {
         }
     }
     
+    var italicBodyTextFont: UIFont {
+        switch self {
+        case .default:
+            return UIFont.italicSystemFont(ofSize: 14)
+        case .medium:
+            return UIFont.italicSystemFont(ofSize: 16)
+        case .large:
+            return UIFont.italicSystemFont(ofSize: 18)
+        }
+    }
+    
     var reviewTitleFont: UIFont {
         switch self {
         case .default:

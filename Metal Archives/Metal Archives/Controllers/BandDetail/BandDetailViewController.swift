@@ -532,8 +532,7 @@ extension BandDetailViewController {
     
     private func didSelectMemberCell(atIndexPath indexPath: IndexPath) {
         guard let artist = artist(forRowAt: indexPath) else { return }
-        
-        pushArtistDetailViewController(urlString: artist.urlString, animated: true)
+        takeActionFor(actionableObject: artist)
     }
     
     private func memberCell(forRowAt indexPath: IndexPath) -> UITableViewCell {

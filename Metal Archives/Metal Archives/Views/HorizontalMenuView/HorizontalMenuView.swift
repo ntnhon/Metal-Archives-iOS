@@ -122,7 +122,7 @@ final class HorizontalMenuView: UIView {
         
         delegate?.didSelectItem(atIndex: label.tag)
     }
-    
+
     private func alignShuttle(with label: UILabel) {
         let newX = label.frame.origin.x - stackViewSpacing / 2
         let newOrigin = CGPoint(x: newX, y: label.frame.height + shuttleViewSpacing)

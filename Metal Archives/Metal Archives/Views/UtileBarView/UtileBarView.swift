@@ -46,7 +46,7 @@ final class UtileBarView: UIView {
         backButton.setImage(#imageLiteral(resourceName: "back"), for: .normal)
         backButton.tintColor = Settings.currentTheme.bodyTextColor
         addSubview(backButton)
-        backButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 10, right: 0))
+        backButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 15, right: 0))
         backButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         // Init titleLabel
@@ -56,18 +56,18 @@ final class UtileBarView: UIView {
         titleLabel.textAlignment = .center
         titleLabel.alpha = 0
         addSubview(titleLabel)
-        titleLabel.anchor(top: nil, leading: backButton.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: 10, right: 0))
+        titleLabel.anchor(top: nil, leading: backButton.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: 15, right: 10))
         titleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         
         // Init shareButton
         shareButton = UIButton(type: .system)
-        shareButton.contentEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: 20)
+        shareButton.contentEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: 10)
         shareButton.setImage(#imageLiteral(resourceName: "share"), for: .normal)
         shareButton.tintColor = Settings.currentTheme.bodyTextColor
         addSubview(shareButton)
-        shareButton.anchor(top: nil, leading: titleLabel.trailingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 10, bottom: 10, right: -10))
+        shareButton.anchor(top: nil, leading: titleLabel.trailingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 15, right: 0))
         shareButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 //
 //        let stackView = UIStackView(arrangedSubviews: [
