@@ -63,24 +63,28 @@ final class BandDetailViewController: BaseViewController {
     private func reloadBand() {
         
         MetalArchivesAPI.reloadBand(bandURLString: self.bandURLString) { [weak self] (band, error) in
+            guard let self = self else { return }
+            
             if let _ = error {
-                self?.reloadBand()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                    self.reloadBand()
+                })
             } else if let `band` = band {
-                self?.band = band
+                self.band = band
                 
                 if let logoURLString = band.logoURLString, let logoURL = URL(string: logoURLString) {
-                    self?.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
+                    self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
                 } else {
-                    self?.tableView.contentInset = .zero
+                    self.tableView.contentInset = .init(top: self.utileBarView.frame.origin.y + self.utileBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
                 }
                 
-                self?.utileBarView.titleLabel.text = band.name
-                self?.title = band.name
-                self?.currentMemberType = band.isLastKnown ? .lastKnown : .current
+                self.utileBarView.titleLabel.text = band.name
+                self.title = band.name
+                self.currentMemberType = band.isLastKnown ? .lastKnown : .current
                 
-                self?.tableView.reloadData()
+                self.tableView.reloadData()
                 
-                Crashlytics.sharedInstance().setObjectValue(self?.band, forKey: CrashlyticsKey.Band)
+                Crashlytics.sharedInstance().setObjectValue(self.band, forKey: CrashlyticsKey.Band)
             }
         }
     }

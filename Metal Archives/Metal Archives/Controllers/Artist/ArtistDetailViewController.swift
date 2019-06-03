@@ -10,11 +10,20 @@ import UIKit
 import Toaster
 import FirebaseAnalytics
 
-final class ArtistDetailViewController: RefreshableViewController {
+final class ArtistDetailViewController: BaseViewController {
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var stretchyLogoSmokedImageView: SmokedImageView!
+    @IBOutlet private weak var stretchyLogoSmokedImageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var utileBarView: UtileBarView!
+    
+    private var tableViewContentOffsetObserver: NSKeyValueObservation?
+    private unowned var artistNameTableViewCell: ArtistNameTableViewCell?
+    
     var urlString: String!
     private var artist: Artist!
     
     private var artistInfoTypes: [ArtistInfoType]!
+    private var currentArtistInfoType: ArtistInfoType!
     
     private var activeBandsRoles: [Any]!
     private var pastBandsRoles: [Any]!
@@ -24,59 +33,55 @@ final class ArtistDetailViewController: RefreshableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.reloadArtist()
+        stretchyLogoSmokedImageViewHeightConstraint.constant = screenWidth
+        configureTableView()
+        handleUtileBarViewActions()
+        reloadArtist()
     }
     
-    override func initAppearance() {
-        super.initAppearance()        //Hide 1st header
-        self.tableView.contentInset = UIEdgeInsets(top: -CGFloat.leastNormalMagnitude, left: 0, bottom: 0, right: 0)
-        
-        ArtistHeaderTableViewCell.register(with: self.tableView)
-        SimpleTableViewCell.register(with: self.tableView)
-        RelatedLinkTableViewCell.register(with: self.tableView)
-        RolesInBandTableViewCell.register(with: self.tableView)
-        RolesInReleaseTableViewCell.register(with: self.tableView)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
     }
     
-    override func refresh() {
-        self.numberOfTries = 0
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-            self.reloadArtist()
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingToParent {
+            tableViewContentOffsetObserver?.invalidate()
+            tableViewContentOffsetObserver = nil
         }
-        
-        Analytics.logEvent(AnalyticsEvent.RefreshArtist, parameters: nil)
+        navigationController?.isNavigationBarHidden = false
+        stretchyLogoSmokedImageView.transform = .identity
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     private func reloadArtist() {
-        
-        if self.numberOfTries == Settings.numberOfRetries {
-            //Dimiss controller
-            self.endRefreshing()
-            Toast.displayMessageShortly("Error loading artist. Please retry.")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.navigationController?.popViewController(animated: true)
-            }
-            return
-        }
-        
-        self.numberOfTries += 1
-        self.removeShareBarButton()
-        
         MetalArchivesAPI.reloadArtist(urlString: urlString) { [weak self] (artist, error) in
+            guard let self = self else { return }
             if let _ = error {
-                self?.reloadArtist()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                    self.reloadArtist()
+                })
             } else {
                 if let `artist` = artist {
                     DispatchQueue.main.async {
-                        self?.artist = artist
-                        self?.title = artist.bandMemberName
-                        self?.addShareBarButton()
-                        self?.determineArtistInfoTypes()
-                        self?.determineArtistRoles()
-                        self?.refreshSuccessfully()
-                        self?.tableView.reloadData()
+                        self.artist = artist
+                        self.utileBarView.titleLabel.text = artist.bandMemberName
                         
-                        Analytics.logEvent(AnalyticsEvent.ViewArtist, parameters: [AnalyticsParameter.ArtistName: artist.bandMemberName, AnalyticsParameter.ArtistID: artist.id])
+                        if let photoUrlString = artist.photoURLString, let photoURL = URL(string: photoUrlString) {
+                            self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: photoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
+                        } else {
+                            self.tableView.contentInset = .init(top: self.utileBarView.frame.origin.y + self.utileBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
+                        }
+                        
+                        self.determineArtistInfoTypes()
+                        self.determineArtistRoles()
+                        self.tableView.reloadData()
+                        
+                        Analytics.logEvent(AnalyticsEvent.ViewArtist, parameters: [AnalyticsParameter.ArtistName: artist.bandMemberName!, AnalyticsParameter.ArtistID: artist.id!])
                     }
                 }
             }
@@ -84,302 +89,329 @@ final class ArtistDetailViewController: RefreshableViewController {
     }
     
     private func determineArtistInfoTypes() {
-        self.artistInfoTypes = [ArtistInfoType]()
-        if let _ = self.artist.trivia {
-            self.artistInfoTypes.append(.trivia)
+        artistInfoTypes = [ArtistInfoType]()
+        if let _ = artist.activeBands {
+            artistInfoTypes.append(.activeBands)
         }
         
-        if let _ = self.artist.pastBands {
-            self.artistInfoTypes.append(.pastBands)
+        if let _ = artist.pastBands {
+            artistInfoTypes.append(.pastBands)
         }
         
-        if let _ = self.artist.activeBands {
-            self.artistInfoTypes.append(.activeBands)
+        if let _ = artist.live {
+            artistInfoTypes.append(.live)
         }
         
-        if let _ = self.artist.live {
-            self.artistInfoTypes.append(.live)
+        if let _ = artist.guestSession {
+            artistInfoTypes.append(.guestSession)
         }
         
-        if let _ = self.artist.guestSession {
-            self.artistInfoTypes.append(.guestSession)
+        if let _ = artist.miscStaff {
+            artistInfoTypes.append(.miscStaff)
         }
         
-        if let _ = self.artist.miscStaff {
-            self.artistInfoTypes.append(.miscStaff)
+        if let _ = artist.biography {
+            artistInfoTypes.append(.biography)
         }
         
-        if let _ = self.artist.links {
-            self.artistInfoTypes.append(.links)
+        if let _ = artist.links {
+            artistInfoTypes.append(.links)
         }
+        
+        currentArtistInfoType = artistInfoTypes[0]
     }
     
     private func determineArtistRoles() {
-        if let pastBands = self.artist.pastBands {
-            self.pastBandsRoles = []
+        if let pastBands = artist.pastBands {
+            pastBandsRoles = []
             pastBands.forEach { (rolesInBand) in
-                self.pastBandsRoles.append(rolesInBand)
+                pastBandsRoles.append(rolesInBand)
                 rolesInBand.rolesInReleases?.forEach({ (rolesInRelease) in
-                    self.pastBandsRoles.append(rolesInRelease)
+                    pastBandsRoles.append(rolesInRelease)
                 })
             }
         }
         
-        if let activeBands = self.artist.activeBands {
-            self.activeBandsRoles = []
+        if let activeBands = artist.activeBands {
+            activeBandsRoles = []
             activeBands.forEach { (rolesInBand) in
-                self.activeBandsRoles.append(rolesInBand)
+                activeBandsRoles.append(rolesInBand)
                 rolesInBand.rolesInReleases?.forEach({ (rolesInRelease) in
-                    self.activeBandsRoles.append(rolesInRelease)
+                    activeBandsRoles.append(rolesInRelease)
                 })
             }
         }
         
-        if let live = self.artist.live {
-            self.liveRoles = []
+        if let live = artist.live {
+            liveRoles = []
             live.forEach { (rolesInBand) in
-                self.liveRoles.append(rolesInBand)
+                liveRoles.append(rolesInBand)
                 rolesInBand.rolesInReleases?.forEach({ (rolesInRelease) in
-                    self.liveRoles.append(rolesInRelease)
+                    liveRoles.append(rolesInRelease)
                 })
             }
         }
         
-        if let guestSession = self.artist.guestSession {
-            self.guestSessionRoles = []
+        if let guestSession = artist.guestSession {
+            guestSessionRoles = []
             guestSession.forEach { (rolesInBand) in
-                self.guestSessionRoles.append(rolesInBand)
+                guestSessionRoles.append(rolesInBand)
                 rolesInBand.rolesInReleases?.forEach({ (rolesInRelease) in
-                    self.guestSessionRoles.append(rolesInRelease)
+                    guestSessionRoles.append(rolesInRelease)
                 })
             }
         }
         
-        if let miscStaff = self.artist.miscStaff {
-            self.miscStaffRoles = []
+        if let miscStaff = artist.miscStaff {
+            miscStaffRoles = []
             miscStaff.forEach { (rolesInBand) in
-                self.miscStaffRoles.append(rolesInBand)
+                miscStaffRoles.append(rolesInBand)
                 rolesInBand.rolesInReleases?.forEach({ (rolesInRelease) in
-                    self.miscStaffRoles.append(rolesInRelease)
+                    miscStaffRoles.append(rolesInRelease)
                 })
             }
         }
     }
-}
-
-//MARK: - Share
-extension ArtistDetailViewController {
-    private func removeShareBarButton() {
-        self.navigationItem.rightBarButtonItem = nil
-    }
     
-    private func addShareBarButton() {
-        let shareBarButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShareButton))
-        self.navigationItem.rightBarButtonItem = shareBarButton
-    }
-    
-    @objc private func didTapShareButton() {
-        guard let `artist` = self.artist, let url = URL(string: artist.urlString) else { return }
+    private func configureTableView() {
+        SimpleTableViewCell.register(with: tableView)
+        ArtistNameTableViewCell.register(with: tableView)
+        ArtistInfoTableViewCell.register(with: tableView)
+        ArtistMenuTableViewCell.register(with: tableView)
+        RolesInBandTableViewCell.register(with: tableView)
+        RolesInReleaseTableViewCell.register(with: tableView)
         
-        self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(artist.bandMemberName!) in browser", alertMessage: artist.urlString, shareMessage: "Share this artist URL")
+        tableView.backgroundColor = .clear
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.contentInset = .init(top: stretchyLogoSmokedImageViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
         
-        Analytics.logEvent(AnalyticsEvent.ShareArtist, parameters: [AnalyticsParameter.ArtistName: artist.bandMemberName, AnalyticsParameter.ArtistID: artist.id])
-    }
-}
-
-//MARK: - UITableViewDelegate
-extension ArtistDetailViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        //Hide 1st section header
-        if section == 0 {
-            return CGFloat.leastNormalMagnitude
+        // observe when tableView is scrolled to animate alphas because scrollViewDidScroll doesn't capture enough event.
+        tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
+            self?.calculateAndApplyAlphaForArtistNameAndUltileNavBar()
+            self?.stretchyLogoSmokedImageView.calculateAndApplyAlpha(withTableView: tableView)
         }
-        return UITableView.automaticDimension
+        
+        // detect taps on band's logo, have to do this because band's logo is overlaid by tableView
+        tableView.backgroundView = UIView()
+        let backgroundViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tableViewBackgroundViewTapped))
+        tableView.backgroundView?.addGestureRecognizer(backgroundViewTapGestureRecognizer)
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        //Section Header
+    @objc private func tableViewBackgroundViewTapped() {
+        presentArtistInPhotoViewer()
+    }
+    
+    private func presentArtistInPhotoViewer() {
+        guard let artist = artist, let photoURLString = artist.photoURLString else { return }
+        presentPhotoViewer(photoURLString: photoURLString, description: "\(artist.realFullName!) (\(artist.bandMemberName!))")
+    }
+    
+    private func handleUtileBarViewActions() {
+        utileBarView.didTapBackButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        utileBarView.didTapShareButton = { [unowned self] in
+            guard let artist = self.artist, let url = URL(string: artist.urlString) else { return }
+            
+            self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(artist.bandMemberName!) in browser", alertMessage: artist.urlString, shareMessage: "Share this release URL")
+            
+            Analytics.logEvent(AnalyticsEvent.ShareRelease, parameters: nil)
+        }
+    }
+    
+    private func calculateAndApplyAlphaForArtistNameAndUltileNavBar() {
+        // Calculate alpha base of distant between utileBarView and the cell
+        // the cell should only be dimmed only when the cell frame overlaps the utileBarView
+        
+        guard let artistNameTableViewCell = artistNameTableViewCell, let artistNameLabel = artistNameTableViewCell.nameLabel else {
+            return
+        }
+        
+        let artistNameLabellFrameInThisView = artistNameTableViewCell.convert(artistNameLabel.frame, to: view)
+        let distanceFromArtistNameLabelLabelToUtileBarView = artistNameLabellFrameInThisView.origin.y - (utileBarView.frame.origin.y + utileBarView.frame.size.height)
+        
+        // alpha = distance / label's height (dim base on label's frame)
+        artistNameTableViewCell.alpha = (distanceFromArtistNameLabelLabelToUtileBarView + artistNameLabel.frame.height) / artistNameLabel.frame.height
+        utileBarView.setAlphaForBackgroundAndTitleLabel(1 - artistNameTableViewCell.alpha)
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension ArtistDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let _ = artist, indexPath.section > 0 else { return }
+        
+        switch currentArtistInfoType! {
+        case .biography: return
+        case .links: return
+        default: didSelectRolesTableViewCell(atIndexPath: indexPath)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 1
+        }
+        
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             return nil
         }
         
-        let artistInfoType = self.artistInfoTypes[section - 1]
-        return artistInfoType.description
+        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: screenWidth, height: 20)))
+        view.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        return view
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        //Section Header
-        if indexPath.section == 0 {
-            return
-        }
-        
-        let artistInfoType = self.artistInfoTypes[indexPath.section - 1]
-        self.didSelectRowForArtistInfoType(artistInfoType: artistInfoType, atIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let emptyView = UIView()
+        emptyView.backgroundColor = Settings.currentTheme.backgroundColor
+        return emptyView
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension ArtistDetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        if let _ = self.artist {
-            //+ 1 for header section
-            return self.artistInfoTypes.count + 1
-        }
-        return 0
+        guard let _ = artist else { return 0 }
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0: return self.numberOfRowsInHeaderSection()
-        default:
-            let artistInfoType = self.artistInfoTypes[section - 1]
-            return self.numberOfRowsInArtistInfoTypeSection(artistInfoType)
+        guard let artist = artist else { return 0}
+        
+        if section == 0 {
+            return 3
+        }
+        
+        switch currentArtistInfoType! {
+        case .activeBands: return activeBandsRoles.count
+        case .pastBands: return pastBandsRoles.count
+        case .live: return liveRoles.count
+        case .guestSession: return guestSessionRoles.count
+        case .miscStaff: return miscStaffRoles.count
+        case .biography: return 1
+        case .links:
+            if let links = artist.links {
+                return links.count
+            }
+            
+            return 1
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0: return self.cellForHeaderSection(atIndexPath: indexPath)
+        guard let _ = artist else {
+            return UITableViewCell()
+        }
+        
+        switch (indexPath.section, indexPath.row) {
+        case (0, 0): return artistNameTableViewCell(forRowAt: indexPath)
+        case (0, 1): return artistInfoTableViewCell(forRowAt: indexPath)
+        case (0, 2): return artistOptionTableViewCell(forRowAt: indexPath)
         default:
-            let artistInfoType = self.artistInfoTypes[indexPath.section - 1]
-            return self.cellForArtistInfoType(artistInfoType, atIndexPath: indexPath)
+            switch currentArtistInfoType! {
+            case .biography: return UITableViewCell()
+            case .links: return UITableViewCell()
+            default: return rolesTableViewCell(forRowAt: indexPath)
+            }
         }
     }
 }
 
-
-//MARK: - Header
+// MARK: - Custom cells
 extension ArtistDetailViewController {
-    private func numberOfRowsInHeaderSection() -> Int {
-        return 1
-    }
-    
-    private func cellForHeaderSection(atIndexPath indexPath: IndexPath) -> UITableViewCell {
-        let headerCell = ArtistHeaderTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        headerCell.fill(with: artist)
-        headerCell.delegate = self
-        return headerCell
-    }
-}
-
-//MARK: - ArtistHeaderTableViewCellDelegate
-extension ArtistDetailViewController: ArtistHeaderTableViewCellDelegate {
-    func didTapPhotoImageView() {
-        guard let photoURLString = self.artist.photoURLString else {
-            return
+    private func artistNameTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let artist = artist else {
+            return UITableViewCell()
         }
         
-        self.presentPhotoViewer(photoURLString: photoURLString, description: artist.bandMemberName)
-        
-        Analytics.logEvent(AnalyticsEvent.ViewArtistPhoto, parameters: [AnalyticsParameter.ArtistName: artist.bandMemberName, AnalyticsParameter.ArtistID: artist.id])
-    }
-    
-    func didTapBiographyLabel() {
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
-        
-        Analytics.logEvent(AnalyticsEvent.ViewArtistBio, parameters: [AnalyticsParameter.ArtistName: artist.bandMemberName, AnalyticsParameter.ArtistID: artist.id])
-    }
-}
-
-//MARK: - ArtistInfoType
-extension ArtistDetailViewController {
-    private func numberOfRowsInArtistInfoTypeSection(_ artistInfoType: ArtistInfoType) -> Int {
-        switch artistInfoType {
-        case .trivia: return 1
-        case .activeBands: return self.activeBandsRoles.count
-        case .pastBands: return self.pastBandsRoles.count
-        case .live: return self.liveRoles.count
-        case .guestSession: return self.guestSessionRoles.count
-        case .miscStaff: return self.miscStaffRoles.count
-        case .links: return self.artist.links!.count
-        }
-    }
-    
-    private func cellForArtistInfoType(_ artistInfoType: ArtistInfoType, atIndexPath indexPath: IndexPath) -> UITableViewCell {
-        switch artistInfoType {
-        case .trivia: return self.cellForTrivia(atIndexPath: indexPath)
-        case .links: return self.cellForLink(atIndexPath: indexPath)
-        default: return self.cellForRolesInBand(withArtistInfoType: artistInfoType, atIndexPath: indexPath)
-        }
-    }
-    
-    private func cellForTrivia(atIndexPath indexPath: IndexPath) -> UITableViewCell {
-        let cell = SimpleTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        cell.fill(with: self.artist.trivia!)
+        let cell = ArtistNameTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        artistNameTableViewCell = cell
+        cell.fill(with: artist.bandMemberName)
         return cell
     }
     
-    private func cellForLink(atIndexPath indexPath: IndexPath) -> UITableViewCell {
-        let link = self.artist.links![indexPath.row]
-        let linkCell = RelatedLinkTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        linkCell.fill(with: link)
+    private func artistInfoTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let artist = artist else {
+            return UITableViewCell()
+        }
         
-        return linkCell
+        let cell = ArtistInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.fill(with: artist)
+        return cell
     }
     
-    private func cellForRolesInBand(withArtistInfoType artistInfoType: ArtistInfoType, atIndexPath indexPath: IndexPath) -> UITableViewCell {
-        var roles: Any!
-        switch artistInfoType {
-        case .trivia, .links: return UITableViewCell()
-        case .activeBands: roles = self.activeBandsRoles[indexPath.row]
-        case .pastBands: roles = self.pastBandsRoles[indexPath.row]
-        case .live: roles = self.liveRoles[indexPath.row]
-        case .guestSession: roles = self.guestSessionRoles[indexPath.row]
-        case .miscStaff: roles = self.miscStaffRoles[indexPath.row]
-        }
+    private func artistOptionTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = ArtistMenuTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        
+        var options = [String]()
+        artistInfoTypes.forEach({
+            options.append($0.description)
+        })
+        cell.initMenu(with: options)
+        cell.horizontalMenuView.delegate = self
+        
+        return cell
+    }
     
-        if let `roles` = roles as? RolesInBand {
-            let cell = RolesInBandTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-            cell.fill(with: roles)
+    private func rolesTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        var roles: Any?
+        
+        switch currentArtistInfoType! {
+        case .activeBands: roles = activeBandsRoles[indexPath.row]
+        case .pastBands: roles = pastBandsRoles[indexPath.row]
+        case .live: roles = liveRoles[indexPath.row]
+        case .guestSession: roles = guestSessionRoles[indexPath.row]
+        case .miscStaff: roles = miscStaffRoles[indexPath.row]
+        default: return UITableViewCell()
+        }
+        
+        if let rolesInBand = roles as? RolesInBand {
+            let cell = RolesInBandTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            cell.fill(with: rolesInBand)
             return cell
-        } else if let `roles` = roles as? RolesInRelease {
-            let cell = RolesInReleaseTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-            cell.fill(with: roles)
+        } else if let rolesInRelease = roles as? RolesInRelease {
+            let cell = RolesInReleaseTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            cell.fill(with: rolesInRelease)
             return cell
         }
         
         return UITableViewCell()
     }
     
-    private func didSelectRowForArtistInfoType(artistInfoType: ArtistInfoType, atIndexPath indexPath: IndexPath) {
-        switch artistInfoType {
-        case .trivia: return
-        case .pastBands: return self.didSelectRoles(roles: self.pastBandsRoles[indexPath.row])
-        case .activeBands: return self.didSelectRoles(roles: self.activeBandsRoles[indexPath.row])
-        case .live: return self.didSelectRoles(roles: self.liveRoles[indexPath.row])
-        case .guestSession: return self.didSelectRoles(roles: self.guestSessionRoles[indexPath.row])
-        case .miscStaff: return self.didSelectRoles(roles: self.miscStaffRoles[indexPath.row])
-        case .links: return self.didSelectLink(link: self.artist.links![indexPath.row])
+    private func didSelectRolesTableViewCell(atIndexPath indexPath: IndexPath) {
+        guard let artist = artist else { return }
+        
+        var roles: Any?
+        
+        switch currentArtistInfoType! {
+        case .activeBands: roles = activeBandsRoles[indexPath.row]
+        case .pastBands: roles = pastBandsRoles[indexPath.row]
+        case .live: roles = liveRoles[indexPath.row]
+        case .guestSession: roles = guestSessionRoles[indexPath.row]
+        case .miscStaff: roles = miscStaffRoles[indexPath.row]
+        default: return
         }
-    }
-    
-    private func didSelectRoles(roles: Any) {
-        if let rolesInBand = roles as? RolesInBand {
-            self.didSelectRolesInBand(rolesInBand: rolesInBand)
+        
+        if let rolesInBand = roles as? RolesInBand, let bandURLString = rolesInBand.bandURLString {
+            pushBandDetailViewController(urlString: bandURLString, animated: true)
         } else if let rolesInRelease = roles as? RolesInRelease {
-            self.didSelectRolesInRelease(rolesInRelease: rolesInRelease)
+            pushReleaseDetailViewController(urlString: rolesInRelease.releaseURLString, animated: true)
         }
     }
-    
-    private func didSelectRolesInBand(rolesInBand: RolesInBand) {
-        if let bandURLString = rolesInBand.bandURLString {
-            self.pushBandDetailViewController(urlString: bandURLString, animated: true)
-            
-            Analytics.logEvent(AnalyticsEvent.ViewArtistRoleInBand, parameters:[AnalyticsParameter.ArtistName: artist.bandMemberName, AnalyticsParameter.ArtistID: artist.id])
-        }
-    }
-    
-    private func didSelectRolesInRelease(rolesInRelease: RolesInRelease) {
-        self.pushReleaseDetailViewController(urlString: rolesInRelease.releaseURLString, animated: true)
-        
-        Analytics.logEvent(AnalyticsEvent.ViewArtistRoleInRelease, parameters:[AnalyticsParameter.ArtistName: artist.bandMemberName, AnalyticsParameter.ArtistID: artist.id])
-    }
-    
-    private func didSelectLink(link: RelatedLink) {
-        self.presentAlertOpenURLInBrowsers(URL(string: link.urlString)!, alertTitle: "Open this link in browser", alertMessage: link.urlString, shareMessage: "Share this link")
-        
-        Analytics.logEvent(AnalyticsEvent.ViewArtistLink, parameters:[AnalyticsParameter.ArtistName: artist.bandMemberName, AnalyticsParameter.ArtistID: artist.id])
+}
+
+// MARK: - HorizontalMenuViewDelegate
+extension ArtistDetailViewController: HorizontalMenuViewDelegate {
+    func didSelectItem(atIndex index: Int) {
+        currentArtistInfoType = artistInfoTypes[index]
+        tableView.reloadSections([1], with: .automatic)
     }
 }

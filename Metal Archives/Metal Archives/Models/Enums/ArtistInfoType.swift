@@ -9,16 +9,16 @@
 import Foundation
 
 enum ArtistInfoType: CustomStringConvertible {
-    case trivia, pastBands, activeBands, live, guestSession, miscStaff, links
+    case pastBands, activeBands, live, guestSession, miscStaff, biography, links
     
     var description: String {
         switch self {
-        case .trivia: return "Trivia"
         case .pastBands: return "Past Bands"
         case .activeBands: return "Active Bands"
         case .live: return "Live"
         case .guestSession: return "Guest/Session"
         case .miscStaff: return "Misc. Staff"
+        case .biography: return "Biography"
         case .links: return "Links"
         }
     }

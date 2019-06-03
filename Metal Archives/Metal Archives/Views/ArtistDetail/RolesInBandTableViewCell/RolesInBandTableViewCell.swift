@@ -14,21 +14,20 @@ final class RolesInBandTableViewCell: BaseTableViewCell, RegisterableCell {
 
     override func initAppearance() {
         super.initAppearance()
-        self.hideSeparator()
-        self.bandNameLabel.textColor = Settings.currentTheme.titleColor
-        self.bandNameLabel.font = Settings.currentFontSize.titleFont
+        bandNameLabel.textColor = Settings.currentTheme.titleColor
+        bandNameLabel.font = Settings.currentFontSize.titleFont
         
-        self.rolesAndYearsActiveLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.rolesAndYearsActiveLabel.font = Settings.currentFontSize.bodyTextFont
+        rolesAndYearsActiveLabel.textColor = Settings.currentTheme.bodyTextColor
+        rolesAndYearsActiveLabel.font = Settings.currentFontSize.bodyTextFont
     }
     
     func fill(with rolesInBand: RolesInBand) {
-        self.bandNameLabel.text = rolesInBand.bandName.uppercased()
+        bandNameLabel.text = rolesInBand.bandName.uppercased()
         if let roleAndYearsActive = rolesInBand.roleAndYearsActive {
-            self.rolesAndYearsActiveLabel.isHidden = false
-            self.rolesAndYearsActiveLabel.text = roleAndYearsActive
+            rolesAndYearsActiveLabel.isHidden = false
+            rolesAndYearsActiveLabel.text = roleAndYearsActive
         } else {
-            self.rolesAndYearsActiveLabel.isHidden = true
+            rolesAndYearsActiveLabel.isHidden = true
         }
     }
 }

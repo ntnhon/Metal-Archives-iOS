@@ -10,25 +10,20 @@ import UIKit
 
 final class RolesInReleaseTableViewCell: BaseTableViewCell, RegisterableCell {
     @IBOutlet private weak var releaseTitleLabel: UILabel!
-    @IBOutlet private weak var yearLabel: UILabel!
-    @IBOutlet private weak var rolesLabel: UILabel!
+    @IBOutlet private weak var yearAndRolesLabel: UILabel!
     
     override func initAppearance() {
         super.initAppearance()
-        self.hideSeparator()
-        self.releaseTitleLabel.textColor = Settings.currentTheme.secondaryTitleColor
-        self.releaseTitleLabel.font = Settings.currentFontSize.secondaryTitleFont
+
+        releaseTitleLabel.textColor = Settings.currentTheme.secondaryTitleColor
+        releaseTitleLabel.font = Settings.currentFontSize.secondaryTitleFont
         
-        self.yearLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.yearLabel.font = Settings.currentFontSize.bodyTextFont
-        
-        self.rolesLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.rolesLabel.font = Settings.currentFontSize.bodyTextFont
+        yearAndRolesLabel.textColor = Settings.currentTheme.bodyTextColor
+        yearAndRolesLabel.font = Settings.currentFontSize.bodyTextFont
     }
     
     func fill(with rolesInRelease: RolesInRelease) {
-        self.releaseTitleLabel.text = rolesInRelease.releaseTitle
-        self.yearLabel.text = "\(rolesInRelease.year!)"
-        self.rolesLabel.text = rolesInRelease.roles
+        releaseTitleLabel.attributedText = rolesInRelease.releaseTitleAttributedString
+        yearAndRolesLabel.text = "\(rolesInRelease.year!) • \(rolesInRelease.roles!)"
     }
 }

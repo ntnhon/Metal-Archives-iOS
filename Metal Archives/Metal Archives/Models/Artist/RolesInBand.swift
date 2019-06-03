@@ -33,12 +33,7 @@ final class RolesInBand {
         }
         
         if let p = div_member_in_band.at_css("p") {
-            var temp = p.text
-            temp = temp?.replacingOccurrences(of: "\n", with: "")
-            temp = temp?.replacingOccurrences(of: "\t", with: "")
-            //temp = temp?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-            temp = temp?.trimmingCharacters(in: .whitespaces)
-            self.roleAndYearsActive = temp
+            self.roleAndYearsActive = p.text?.removeHTMLTagsAndNoisySpaces()
         }
         
         if let table = div_member_in_band.at_css("table") {

@@ -16,6 +16,8 @@
 		C008388422009ECE00B35996 /* Date+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008388322009ECE00B35996 /* Date+Distance.swift */; };
 		C00838872200F21200B35996 /* ReadMoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00838862200F21200B35996 /* ReadMoreViewController.swift */; };
 		C00838892200F23000B35996 /* ReadMore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C00838882200F23000B35996 /* ReadMore.storyboard */; };
+		C0091F8822A592F6007E8FC1 /* ArtistNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0091F8722A592F6007E8FC1 /* ArtistNameTableViewCell.swift */; };
+		C0091F8C22A5A611007E8FC1 /* ArtistMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0091F8B22A5A611007E8FC1 /* ArtistMenuTableViewCell.swift */; };
 		C00D35F9223D033D00B29B43 /* BrowseBandsResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D35F8223D033D00B29B43 /* BrowseBandsResultTableViewCell.swift */; };
 		C00D35FB223D042500B29B43 /* BrowseBandsResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00D35FA223D042500B29B43 /* BrowseBandsResultTableViewCell.xib */; };
 		C00D35FF223D4F0A00B29B43 /* BrowseBandsByCountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D35FE223D4F0A00B29B43 /* BrowseBandsByCountryViewController.swift */; };
@@ -114,7 +116,7 @@
 		C0332FEC2201D502008B34E0 /* ArtistLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0332FEB2201D502008B34E0 /* ArtistLite.swift */; };
 		C0332FF022024B7C008B34E0 /* SimpleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0332FEF22024B7C008B34E0 /* SimpleTableViewCell.swift */; };
 		C0332FF2220252E4008B34E0 /* SimpleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0332FF1220252E4008B34E0 /* SimpleTableViewCell.xib */; };
-		C03C5E72221BFEFE0054E55A /* ArtistHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C5E71221BFEFE0054E55A /* ArtistHeaderTableViewCell.swift */; };
+		C03C5E72221BFEFE0054E55A /* ArtistInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */; };
 		C03E4035228C718A004429E9 /* ParseBandMembersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */; };
 		C03E4036228C718A004429E9 /* DeathLastKnownLineup.txt in Resources */ = {isa = PBXBuildFile; fileRef = C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */; };
 		C03E403B228CA9D8004429E9 /* GravesCurrentLineup.txt in Resources */ = {isa = PBXBuildFile; fileRef = C03E403A228CA9D8004429E9 /* GravesCurrentLineup.txt */; };
@@ -461,13 +463,12 @@
 		C0FBBE6E2208DECF00226FB1 /* RelatedLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBBE6D2208DECF00226FB1 /* RelatedLink.swift */; };
 		C0FBBE702208E22100226FB1 /* RelatedLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBBE6F2208E22100226FB1 /* RelatedLinkTableViewCell.swift */; };
 		C0FBBE722208E28800226FB1 /* RelatedLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0FBBE712208E28800226FB1 /* RelatedLinkTableViewCell.xib */; };
-		C0FE9625221C0558003C4B59 /* ArtistHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0FE9624221C0558003C4B59 /* ArtistHeaderTableViewCell.xib */; };
+		C0FE9625221C0558003C4B59 /* ArtistInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0FE9624221C0558003C4B59 /* ArtistInfoTableViewCell.xib */; };
 		C0FE9627221C3142003C4B59 /* RolesInBandTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE9626221C3142003C4B59 /* RolesInBandTableViewCell.swift */; };
 		C0FE9629221C3153003C4B59 /* RolesInBandTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0FE9628221C3153003C4B59 /* RolesInBandTableViewCell.xib */; };
 		C0FE962F221C3B10003C4B59 /* UIView+InitFromNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE962E221C3B10003C4B59 /* UIView+InitFromNib.swift */; };
 		C0FE9631221C4480003C4B59 /* RolesInReleaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE9630221C4480003C4B59 /* RolesInReleaseTableViewCell.swift */; };
 		C0FE9633221C448C003C4B59 /* RolesInReleaseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0FE9632221C448C003C4B59 /* RolesInReleaseTableViewCell.xib */; };
-		C0FE9635221C48CC003C4B59 /* UITableViewCell+ShowHideSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE9634221C48CC003C4B59 /* UITableViewCell+ShowHideSeparator.swift */; };
 		C0FE963B221CA969003C4B59 /* RefreshableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE963A221CA969003C4B59 /* RefreshableViewController.swift */; };
 		C0FF16C9220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FF16C8220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift */; };
 		C0FF16CB220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */; };
@@ -528,6 +529,8 @@
 		C008388322009ECE00B35996 /* Date+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Distance.swift"; sourceTree = "<group>"; };
 		C00838862200F21200B35996 /* ReadMoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreViewController.swift; sourceTree = "<group>"; };
 		C00838882200F23000B35996 /* ReadMore.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReadMore.storyboard; sourceTree = "<group>"; };
+		C0091F8722A592F6007E8FC1 /* ArtistNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistNameTableViewCell.swift; sourceTree = "<group>"; };
+		C0091F8B22A5A611007E8FC1 /* ArtistMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistMenuTableViewCell.swift; sourceTree = "<group>"; };
 		C00D35F8223D033D00B29B43 /* BrowseBandsResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseBandsResultTableViewCell.swift; sourceTree = "<group>"; };
 		C00D35FA223D042500B29B43 /* BrowseBandsResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BrowseBandsResultTableViewCell.xib; sourceTree = "<group>"; };
 		C00D35FE223D4F0A00B29B43 /* BrowseBandsByCountryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseBandsByCountryViewController.swift; sourceTree = "<group>"; };
@@ -620,7 +623,7 @@
 		C0332FEB2201D502008B34E0 /* ArtistLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistLite.swift; sourceTree = "<group>"; };
 		C0332FEF22024B7C008B34E0 /* SimpleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableViewCell.swift; sourceTree = "<group>"; };
 		C0332FF1220252E4008B34E0 /* SimpleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleTableViewCell.xib; sourceTree = "<group>"; };
-		C03C5E71221BFEFE0054E55A /* ArtistHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseBandMembersTests.swift; sourceTree = "<group>"; };
 		C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DeathLastKnownLineup.txt; sourceTree = "<group>"; };
 		C03E403A228CA9D8004429E9 /* GravesCurrentLineup.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = GravesCurrentLineup.txt; sourceTree = "<group>"; };
@@ -950,13 +953,12 @@
 		C0FBBE6D2208DECF00226FB1 /* RelatedLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedLink.swift; sourceTree = "<group>"; };
 		C0FBBE6F2208E22100226FB1 /* RelatedLinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedLinkTableViewCell.swift; sourceTree = "<group>"; };
 		C0FBBE712208E28800226FB1 /* RelatedLinkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RelatedLinkTableViewCell.xib; sourceTree = "<group>"; };
-		C0FE9624221C0558003C4B59 /* ArtistHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtistHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		C0FE9624221C0558003C4B59 /* ArtistInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtistInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C0FE9626221C3142003C4B59 /* RolesInBandTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolesInBandTableViewCell.swift; sourceTree = "<group>"; };
 		C0FE9628221C3153003C4B59 /* RolesInBandTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RolesInBandTableViewCell.xib; sourceTree = "<group>"; };
 		C0FE962E221C3B10003C4B59 /* UIView+InitFromNib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+InitFromNib.swift"; sourceTree = "<group>"; };
 		C0FE9630221C4480003C4B59 /* RolesInReleaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolesInReleaseTableViewCell.swift; sourceTree = "<group>"; };
 		C0FE9632221C448C003C4B59 /* RolesInReleaseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RolesInReleaseTableViewCell.xib; sourceTree = "<group>"; };
-		C0FE9634221C48CC003C4B59 /* UITableViewCell+ShowHideSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ShowHideSeparator.swift"; sourceTree = "<group>"; };
 		C0FE963A221CA969003C4B59 /* RefreshableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableViewController.swift; sourceTree = "<group>"; };
 		C0FF16C8220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentReviewViewController.swift"; sourceTree = "<group>"; };
 		C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PushAViewController.swift"; sourceTree = "<group>"; };
@@ -1042,6 +1044,22 @@
 				C03270E5220B83F1009FA337 /* ReleaseOtherVersionTableViewCell.xib */,
 			);
 			path = ReleaseOtherVersionTableViewCell;
+			sourceTree = "<group>";
+		};
+		C0091F8622A592D8007E8FC1 /* ArtistNameTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0091F8722A592F6007E8FC1 /* ArtistNameTableViewCell.swift */,
+			);
+			path = ArtistNameTableViewCell;
+			sourceTree = "<group>";
+		};
+		C0091F8A22A5A602007E8FC1 /* ArtistMenuTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0091F8B22A5A611007E8FC1 /* ArtistMenuTableViewCell.swift */,
+			);
+			path = ArtistMenuTableViewCell;
 			sourceTree = "<group>";
 		};
 		C00D35F5223D018200B29B43 /* BrowseBands */ = {
@@ -1690,7 +1708,6 @@
 				C008388322009ECE00B35996 /* Date+Distance.swift */,
 				C0B990D022079904000DBD86 /* UIColor+colorByRating.swift */,
 				C0FE962E221C3B10003C4B59 /* UIView+InitFromNib.swift */,
-				C0FE9634221C48CC003C4B59 /* UITableViewCell+ShowHideSeparator.swift */,
 				C0A48CED222181BD0047FC70 /* Toaster+DisplayMessageShortly.swift */,
 				C0A48CEF2221D76C0047FC70 /* Error+Code&Domain.swift */,
 				C053DD562226C2680028568B /* PieChartView+Setup.swift */,
@@ -2176,13 +2193,13 @@
 			path = ReviewDetailTableViewCell;
 			sourceTree = "<group>";
 		};
-		C0756059222C6E8B00DA7119 /* ArtistHeaderTableViewCell */ = {
+		C0756059222C6E8B00DA7119 /* ArtistInfoTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				C03C5E71221BFEFE0054E55A /* ArtistHeaderTableViewCell.swift */,
-				C0FE9624221C0558003C4B59 /* ArtistHeaderTableViewCell.xib */,
+				C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */,
+				C0FE9624221C0558003C4B59 /* ArtistInfoTableViewCell.xib */,
 			);
-			path = ArtistHeaderTableViewCell;
+			path = ArtistInfoTableViewCell;
 			sourceTree = "<group>";
 		};
 		C075605A222C6E9900DA7119 /* RolesInBandTableViewCell */ = {
@@ -2806,7 +2823,9 @@
 		C0ECE707221B60AA00489A8E /* ArtistDetail */ = {
 			isa = PBXGroup;
 			children = (
-				C0756059222C6E8B00DA7119 /* ArtistHeaderTableViewCell */,
+				C0091F8A22A5A602007E8FC1 /* ArtistMenuTableViewCell */,
+				C0091F8622A592D8007E8FC1 /* ArtistNameTableViewCell */,
+				C0756059222C6E8B00DA7119 /* ArtistInfoTableViewCell */,
 				C075605A222C6E9900DA7119 /* RolesInBandTableViewCell */,
 				C075605B222C6EA900DA7119 /* RolesInReleaseTableViewCell */,
 			);
@@ -3052,7 +3071,7 @@
 				C0795BA122886D2600E5D94F /* BandAdditionOrUpdateCollectionViewCell.xib in Resources */,
 				C053CF662223FB5000B056A8 /* LabelHeaderTableViewCell.xib in Resources */,
 				C03280022209E0F000FC9A44 /* ReleaseDetail.storyboard in Resources */,
-				C0FE9625221C0558003C4B59 /* ArtistHeaderTableViewCell.xib in Resources */,
+				C0FE9625221C0558003C4B59 /* ArtistInfoTableViewCell.xib in Resources */,
 				C03270EB220B9360009FA337 /* Review.storyboard in Resources */,
 				C03270E6220B83F1009FA337 /* ReleaseOtherVersionTableViewCell.xib in Resources */,
 				C06F92932231CA310079E63E /* SimpleSongTitleTableViewCell.xib in Resources */,
@@ -3365,7 +3384,6 @@
 				C01D5870225CE28100DC7556 /* ThemeListTableViewController.swift in Sources */,
 				C053CF8022247F0700B056A8 /* PastRosterListViewController.swift in Sources */,
 				C00D3631223D98D700B29B43 /* DetailTableViewCell.swift in Sources */,
-				C0FE9635221C48CC003C4B59 /* UITableViewCell+ShowHideSeparator.swift in Sources */,
 				C0A1F94222416B82005C2C83 /* ArtistRIP.swift in Sources */,
 				C06F92962231CD310079E63E /* SimpleLabelTableViewCell.swift in Sources */,
 				C03280172209FB1900FC9A44 /* RequestBandDiscography.swift in Sources */,
@@ -3468,7 +3486,7 @@
 				C0AABDEF221DEEBC0044A2CF /* UpcomingAlbumTableViewCell.swift in Sources */,
 				C053DD592226C4770028568B /* BarLineChartViewBase+Setup.swift in Sources */,
 				C074FEDE2205C45B0086909E /* MemberTableViewCell.swift in Sources */,
-				C03C5E72221BFEFE0054E55A /* ArtistHeaderTableViewCell.swift in Sources */,
+				C03C5E72221BFEFE0054E55A /* ArtistInfoTableViewCell.swift in Sources */,
 				C02BB8F22284C27900EB72EC /* ParseHelper.swift in Sources */,
 				C06B6295224281A500A3FE6B /* RequestRelatedLinks.swift in Sources */,
 				C0BAD4B5222EED6300C4D38D /* SimpleSearchResultArtist.swift in Sources */,
@@ -3494,6 +3512,7 @@
 				C03270D5220B364F009FA337 /* ReleaseMemberTableViewCell.swift in Sources */,
 				C09A4F6221F325B200421485 /* NewsDetailTableViewCell.swift in Sources */,
 				C06B624C2242486B00A3FE6B /* LabelBrowseByCountry.swift in Sources */,
+				C0091F8C22A5A611007E8FC1 /* ArtistMenuTableViewCell.swift in Sources */,
 				C0858EFE2236B38400595B48 /* AdvancedSearchBandsViewController.swift in Sources */,
 				C06F1E0521F76E1C00B49D39 /* BandAncient.swift in Sources */,
 				C05606EF22A2FDBB006F5BC1 /* ReleaseMenuOption.swift in Sources */,
@@ -3594,6 +3613,7 @@
 				C05937DF222F378F00F7C2A9 /* UITextField+CustomClearButton.swift in Sources */,
 				C053DD6D2226E91A0028568B /* Top100AlbumsViewController.swift in Sources */,
 				C0FE9631221C4480003C4B59 /* RolesInReleaseTableViewCell.swift in Sources */,
+				C0091F8822A592F6007E8FC1 /* ArtistNameTableViewCell.swift in Sources */,
 				C0B990D52207A89D000DBD86 /* BandSimilar.swift in Sources */,
 				C051B6B52219FDDA0030E5EE /* ReviewDetailTableViewCell.swift in Sources */,
 				C053DD572226C2680028568B /* PieChartView+Setup.swift in Sources */,

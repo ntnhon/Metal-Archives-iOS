@@ -1,48 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hpR-EJ-bfJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HQV-Ej-ses">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Artist Detail View Controller-->
-        <scene sceneID="ARb-CS-JT8">
+        <scene sceneID="urk-r9-gHh">
             <objects>
-                <viewController storyboardIdentifier="ArtistDetailViewController" id="hpR-EJ-bfJ" customClass="ArtistDetailViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="UXi-NT-x4T">
+                <viewController storyboardIdentifier="ArtistDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HQV-Ej-ses" customClass="ArtistDetailViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0sb-VM-KT5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="k84-5i-did">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gs-2h-ED5" customClass="SmokedImageView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="UZK-t1-fcx"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="9Y8-DO-Cco">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="hpR-EJ-bfJ" id="sUg-sY-Kb3"/>
-                                    <outlet property="delegate" destination="hpR-EJ-bfJ" id="5zI-kL-ozp"/>
+                                    <outlet property="dataSource" destination="HQV-Ej-ses" id="xTc-1h-jdv"/>
+                                    <outlet property="delegate" destination="HQV-Ej-ses" id="cUw-Vg-y22"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C8b-Ee-OQC" customClass="UtileBarView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="pgj-o0-Jyr"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="k84-5i-did" firstAttribute="leading" secondItem="obb-bW-aT8" secondAttribute="leading" id="0LQ-37-VyH"/>
-                            <constraint firstItem="obb-bW-aT8" firstAttribute="trailing" secondItem="k84-5i-did" secondAttribute="trailing" id="rzf-Ao-qcy"/>
-                            <constraint firstItem="k84-5i-did" firstAttribute="top" secondItem="obb-bW-aT8" secondAttribute="top" id="vsf-i5-Lzx"/>
-                            <constraint firstItem="obb-bW-aT8" firstAttribute="bottom" secondItem="k84-5i-did" secondAttribute="bottom" id="yqj-8K-Wxo"/>
+                            <constraint firstItem="9Y8-DO-Cco" firstAttribute="leading" secondItem="ihy-Kl-jzw" secondAttribute="leading" id="4Om-h9-mlw"/>
+                            <constraint firstItem="ihy-Kl-jzw" firstAttribute="bottom" secondItem="9Y8-DO-Cco" secondAttribute="bottom" id="BRx-p8-YhT"/>
+                            <constraint firstItem="9Y8-DO-Cco" firstAttribute="top" secondItem="0gs-2h-ED5" secondAttribute="top" id="Oly-gk-78f"/>
+                            <constraint firstItem="ihy-Kl-jzw" firstAttribute="trailing" secondItem="C8b-Ee-OQC" secondAttribute="trailing" id="Ugx-K4-QWB"/>
+                            <constraint firstItem="0gs-2h-ED5" firstAttribute="leading" secondItem="ihy-Kl-jzw" secondAttribute="leading" id="anh-UO-01b"/>
+                            <constraint firstItem="C8b-Ee-OQC" firstAttribute="top" secondItem="0sb-VM-KT5" secondAttribute="top" id="eA5-OW-w41"/>
+                            <constraint firstItem="C8b-Ee-OQC" firstAttribute="leading" secondItem="ihy-Kl-jzw" secondAttribute="leading" id="k5h-pL-V3G"/>
+                            <constraint firstItem="ihy-Kl-jzw" firstAttribute="trailing" secondItem="9Y8-DO-Cco" secondAttribute="trailing" id="kup-2H-Rjo"/>
+                            <constraint firstItem="ihy-Kl-jzw" firstAttribute="trailing" secondItem="0gs-2h-ED5" secondAttribute="trailing" id="txe-1S-lPF"/>
+                            <constraint firstItem="0gs-2h-ED5" firstAttribute="top" secondItem="0sb-VM-KT5" secondAttribute="top" id="ubx-eL-QBw"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="obb-bW-aT8"/>
+                        <viewLayoutGuide key="safeArea" id="ihy-Kl-jzw"/>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="k84-5i-did" id="gQ9-BH-muV"/>
+                        <outlet property="stretchyLogoSmokedImageView" destination="0gs-2h-ED5" id="z8e-3K-pOK"/>
+                        <outlet property="stretchyLogoSmokedImageViewHeightConstraint" destination="UZK-t1-fcx" id="4V0-PQ-o41"/>
+                        <outlet property="tableView" destination="9Y8-DO-Cco" id="vKh-6M-suK"/>
+                        <outlet property="utileBarView" destination="C8b-Ee-OQC" id="nJm-3U-bmA"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MBj-ce-qCv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2ZI-wJ-KIA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="249" y="157"/>
+            <point key="canvasLocation" x="53.600000000000001" y="91.304347826086968"/>
         </scene>
     </scenes>
 </document>

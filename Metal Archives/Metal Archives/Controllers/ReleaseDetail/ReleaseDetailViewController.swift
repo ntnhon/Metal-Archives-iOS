@@ -32,7 +32,7 @@ final class ReleaseDetailViewController: BaseViewController {
         stretchyLogoSmokedImageViewHeightConstraint.constant = screenWidth
         configureTableView()
         handleUtileBarViewActions()
-        self.reloadRelease()
+        reloadRelease()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,19 +56,24 @@ final class ReleaseDetailViewController: BaseViewController {
     
     private func reloadRelease() {
         MetalArchivesAPI.reloadRelease(urlString: urlString) { [weak self] (release, error) in
+            guard let self = self else { return }
             if let _ = error as NSError? {
-                self?.reloadRelease()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                    self.reloadRelease()
+                })
             }
             else if let `release` = release {
-                self?.release = release
+                self.release = release
                 
                 if let coverURLString = release.coverURLString, let coverURL = URL(string: coverURLString) {
-                    self?.stretchyLogoSmokedImageView.imageView.sd_setImage(with: coverURL)
+                    self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: coverURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
+                } else {
+                    self.tableView.contentInset = .init(top: self.utileBarView.frame.origin.y + self.utileBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
                 }
                 
-                self?.utileBarView.titleLabel.text = release.title
-                self?.title = release.title
-                self?.tableView.reloadData()
+                self.utileBarView.titleLabel.text = release.title
+                self.title = release.title
+                self.tableView.reloadData()
                 
                 Analytics.logEvent(AnalyticsEvent.ViewRelease, parameters: [AnalyticsParameter.ReleaseTitle: release.title!, AnalyticsParameter.ReleaseID: release.id!])
                 

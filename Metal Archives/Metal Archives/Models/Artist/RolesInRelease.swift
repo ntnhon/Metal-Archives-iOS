@@ -15,6 +15,21 @@ final class RolesInRelease {
     private(set) var releaseURLString: String!
     private(set) var roles: String!
     
+    lazy var releaseTitleAttributedString: NSAttributedString = {
+        let attributedString = NSMutableAttributedString(string: releaseTitle)
+        attributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor, .font: Settings.currentFontSize.secondaryTitleFont], range: NSRange(releaseTitle.startIndex..., in: releaseTitle))
+        
+        let additionalDetails = RegexHelpers.listMatches(for: #"\(.+\)"#, inString: releaseTitle)
+        
+        additionalDetails.forEach({
+            if let range = releaseTitle.range(of: $0) {
+                attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor], range: NSRange(range, in: releaseTitle))
+            }
+        })
+        
+        return attributedString
+    }()
+    
     init?(tr: XMLElement) {
         var i = 0
         
@@ -33,20 +48,10 @@ final class RolesInRelease {
                     self.releaseURLString = releaseURLString
                 }
                 
-                var temp = td.text
-                temp = temp?.replacingOccurrences(of: "\n", with: "")
-                temp = temp?.replacingOccurrences(of: "\t", with: "")
-                //temp = temp!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-                temp = temp?.trimmingCharacters(in: .whitespaces)
-                self.releaseTitle = temp
+                self.releaseTitle = td.text?.removeHTMLTagsAndNoisySpaces()
             }
             else if (i == 2) {
-                var temp = td.text
-                temp = temp?.replacingOccurrences(of: "\n", with: "")
-                temp = temp?.replacingOccurrences(of: "\t", with: "")
-                //temp = temp!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-                temp = temp?.trimmingCharacters(in: .whitespaces)
-                self.roles = temp
+                self.roles = td.text?.removeHTMLTagsAndNoisySpaces()
             }
             
             i = i + 1

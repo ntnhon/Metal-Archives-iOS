@@ -1,60 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="69" id="IGe-ZV-KpY" customClass="RolesInReleaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="69"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="76" id="IGe-ZV-KpY" customClass="RolesInReleaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="395" height="76"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IGe-ZV-KpY" id="qO7-Bk-apR">
-                <rect key="frame" x="0.0" y="0.0" width="393" height="68.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="395" height="75.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tvt-MW-zhr">
-                        <rect key="frame" x="259" y="0.5" width="114" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bass" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqM-aD-Zc7">
-                        <rect key="frame" x="20" y="22" width="353" height="36.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Creatures Watching over the Dead" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36J-T3-wvj">
-                        <rect key="frame" x="20" y="0.0" width="231" height="17"/>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="mNX-nc-7ru">
+                        <rect key="frame" x="30" y="0.0" width="345" height="55.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Individual Thought Patterns" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sbh-6q-S1z">
+                                <rect key="frame" x="0.0" y="0.0" width="345" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="1993 • Producer" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9X9-T1-blC">
+                                <rect key="frame" x="0.0" y="35" width="345" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Tvt-MW-zhr" firstAttribute="centerY" secondItem="36J-T3-wvj" secondAttribute="centerY" id="30D-Jo-pPb"/>
-                    <constraint firstItem="Tvt-MW-zhr" firstAttribute="leading" secondItem="36J-T3-wvj" secondAttribute="trailing" constant="8" symbolic="YES" id="33O-rb-PWL"/>
-                    <constraint firstItem="36J-T3-wvj" firstAttribute="top" secondItem="qO7-Bk-apR" secondAttribute="top" id="ErB-L9-Eni"/>
-                    <constraint firstAttribute="trailing" secondItem="Tvt-MW-zhr" secondAttribute="trailing" constant="20" symbolic="YES" id="LEj-KE-2ea"/>
-                    <constraint firstAttribute="bottom" secondItem="bqM-aD-Zc7" secondAttribute="bottom" constant="10" id="NOB-bA-wB7"/>
-                    <constraint firstItem="bqM-aD-Zc7" firstAttribute="top" secondItem="36J-T3-wvj" secondAttribute="bottom" constant="5" id="VF2-hc-A8J"/>
-                    <constraint firstItem="bqM-aD-Zc7" firstAttribute="leading" secondItem="qO7-Bk-apR" secondAttribute="leading" constant="20" symbolic="YES" id="omx-9P-aj3"/>
-                    <constraint firstItem="36J-T3-wvj" firstAttribute="leading" secondItem="qO7-Bk-apR" secondAttribute="leading" constant="20" symbolic="YES" id="tw3-tr-pBQ"/>
-                    <constraint firstAttribute="trailing" secondItem="bqM-aD-Zc7" secondAttribute="trailing" constant="20" symbolic="YES" id="xHQ-K9-zRz"/>
+                    <constraint firstItem="mNX-nc-7ru" firstAttribute="leading" secondItem="qO7-Bk-apR" secondAttribute="leading" constant="30" id="3YC-wM-gqV"/>
+                    <constraint firstAttribute="trailing" secondItem="mNX-nc-7ru" secondAttribute="trailing" constant="20" symbolic="YES" id="5zi-VT-BOt"/>
+                    <constraint firstAttribute="bottom" secondItem="mNX-nc-7ru" secondAttribute="bottom" constant="20" symbolic="YES" id="OlZ-EK-jhP"/>
+                    <constraint firstItem="mNX-nc-7ru" firstAttribute="top" secondItem="qO7-Bk-apR" secondAttribute="top" id="wzn-kQ-KWP"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="releaseTitleLabel" destination="36J-T3-wvj" id="ruS-Q8-b7u"/>
-                <outlet property="rolesLabel" destination="bqM-aD-Zc7" id="uQf-U3-Vj1"/>
-                <outlet property="yearLabel" destination="Tvt-MW-zhr" id="XaD-sH-qLO"/>
+                <outlet property="releaseTitleLabel" destination="Sbh-6q-S1z" id="u1d-pG-TaV"/>
+                <outlet property="yearAndRolesLabel" destination="9X9-T1-blC" id="vIf-EH-xTA"/>
             </connections>
-            <point key="canvasLocation" x="55.200000000000003" y="121.88905547226388"/>
+            <point key="canvasLocation" x="56.799999999999997" y="125.03748125937032"/>
         </tableViewCell>
     </objects>
 </document>
