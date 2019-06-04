@@ -89,7 +89,7 @@ extension LatestReview: Actionable {
     var actionableElements: [ActionableElement] {
         let bandElement = ActionableElement(name: self.band.name, urlString: self.band.urlString, type: .band)
         let releaseElement = ActionableElement(name: self.release.name, urlString: self.release.urlString, type: .release)
-        let reviewElement = ActionableElement(name: "By \(self.author) - \(self.rating)%", urlString: self.reviewURLString, type: .review)
+        let reviewElement = ActionableElement(name: "By \(self.author.name) - \(self.rating)%", urlString: self.reviewURLString, type: .review)
         return [bandElement, releaseElement, reviewElement]
     }
 }

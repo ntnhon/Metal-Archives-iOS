@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OLk-U9-1Sf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OLk-U9-1Sf">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,17 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4b2-xi-Cuv">
-                                <rect key="frame" x="0.0" y="634" width="375" height="33"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Close"/>
-                                <connections>
-                                    <action selector="didTapCloseButton" destination="OLk-U9-1Sf" eventType="touchUpInside" id="Mmh-69-U9q"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="LrF-Eu-P51">
-                                <rect key="frame" x="0.0" y="20" width="375" height="614"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LrF-Eu-P51">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="OLk-U9-1Sf" id="nsB-pm-stP"/>
                                     <outlet property="delegate" destination="OLk-U9-1Sf" id="zpK-gY-d7l"/>
@@ -37,19 +29,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="LrF-Eu-P51" firstAttribute="top" secondItem="htc-Q3-mJs" secondAttribute="top" id="D7W-q2-BuV"/>
-                            <constraint firstItem="LrF-Eu-P51" firstAttribute="leading" secondItem="htc-Q3-mJs" secondAttribute="leading" id="Vow-p2-qul"/>
-                            <constraint firstItem="4b2-xi-Cuv" firstAttribute="bottom" secondItem="htc-Q3-mJs" secondAttribute="bottom" id="aQJ-JW-MkP"/>
-                            <constraint firstItem="htc-Q3-mJs" firstAttribute="trailing" secondItem="LrF-Eu-P51" secondAttribute="trailing" id="kIj-EC-hgj"/>
-                            <constraint firstItem="4b2-xi-Cuv" firstAttribute="leading" secondItem="htc-Q3-mJs" secondAttribute="leading" id="nS9-dj-1Gw"/>
-                            <constraint firstItem="htc-Q3-mJs" firstAttribute="trailing" secondItem="4b2-xi-Cuv" secondAttribute="trailing" id="nqY-2d-KTs"/>
-                            <constraint firstItem="4b2-xi-Cuv" firstAttribute="top" secondItem="LrF-Eu-P51" secondAttribute="bottom" id="uz3-JK-gFE"/>
+                            <constraint firstItem="LrF-Eu-P51" firstAttribute="bottom" secondItem="htc-Q3-mJs" secondAttribute="bottom" id="2DY-N4-lsc"/>
+                            <constraint firstItem="LrF-Eu-P51" firstAttribute="leading" secondItem="htc-Q3-mJs" secondAttribute="leading" id="uDK-Zt-MsL"/>
+                            <constraint firstItem="LrF-Eu-P51" firstAttribute="top" secondItem="ocd-bc-bfo" secondAttribute="top" id="vTi-yJ-JIl"/>
+                            <constraint firstItem="LrF-Eu-P51" firstAttribute="trailing" secondItem="htc-Q3-mJs" secondAttribute="trailing" id="wSE-0W-e20"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="htc-Q3-mJs"/>
                     </view>
                     <connections>
-                        <outlet property="closeButton" destination="4b2-xi-Cuv" id="kw3-KA-FSm"/>
-                        <outlet property="tableView" destination="LrF-Eu-P51" id="6Ah-tJ-SdZ"/>
+                        <outlet property="tableView" destination="LrF-Eu-P51" id="JAr-Mi-d0c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kbk-rv-TKt" userLabel="First Responder" sceneMemberID="firstResponder"/>
