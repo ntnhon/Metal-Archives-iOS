@@ -180,6 +180,7 @@ final class ArtistDetailViewController: BaseViewController {
         ArtistMenuTableViewCell.register(with: tableView)
         RolesInBandTableViewCell.register(with: tableView)
         RolesInReleaseTableViewCell.register(with: tableView)
+        RelatedLinkTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -246,7 +247,7 @@ extension ArtistDetailViewController: UITableViewDelegate {
         
         switch currentArtistInfoType! {
         case .biography: return
-        case .links: return
+        case .links: didSelectRelatedLinkCell(atIndexPath: indexPath)
         default: didSelectRolesTableViewCell(atIndexPath: indexPath)
         }
     }
@@ -317,15 +318,15 @@ extension ArtistDetailViewController: UITableViewDataSource {
         case (0, 2): return artistOptionTableViewCell(forRowAt: indexPath)
         default:
             switch currentArtistInfoType! {
-            case .biography: return UITableViewCell()
-            case .links: return UITableViewCell()
+            case .biography: return biographyCell(forRowAt: indexPath)
+            case .links: return relatedLinkCell(forRowAt: indexPath)
             default: return rolesTableViewCell(forRowAt: indexPath)
             }
         }
     }
 }
 
-// MARK: - Custom cells
+// MARK: - Custom cells for section 0
 extension ArtistDetailViewController {
     private func artistNameTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let artist = artist else {
@@ -360,7 +361,10 @@ extension ArtistDetailViewController {
         
         return cell
     }
-    
+}
+
+// MARK: - Roles
+extension ArtistDetailViewController {
     private func rolesTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         var roles: Any?
         
@@ -387,7 +391,7 @@ extension ArtistDetailViewController {
     }
     
     private func didSelectRolesTableViewCell(atIndexPath indexPath: IndexPath) {
-        guard let artist = artist else { return }
+        guard let _ = artist else { return }
         
         var roles: Any?
         
@@ -405,6 +409,38 @@ extension ArtistDetailViewController {
         } else if let rolesInRelease = roles as? RolesInRelease {
             pushReleaseDetailViewController(urlString: rolesInRelease.releaseURLString, animated: true)
         }
+    }
+}
+
+// MARK: - Biography
+extension ArtistDetailViewController {
+    private func biographyCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let artist = artist, let biography = artist.biography else {
+            return UITableViewCell()
+        }
+        
+        let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        simpleCell.fill(with: biography)
+        return simpleCell
+    }
+}
+
+extension ArtistDetailViewController {
+    private func relatedLinkCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let artist = artist, let links = artist.links else {
+            return UITableViewCell()
+        }
+        
+        let cell = RelatedLinkTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.fill(with: links[indexPath.row])
+        return cell
+    }
+    
+    private func didSelectRelatedLinkCell(atIndexPath indexPath: IndexPath) {
+        guard let artist = artist, let links = artist.links else { return }
+        
+        let link = links[indexPath.row]
+        presentAlertOpenURLInBrowsers(URL(string: link.urlString)!, alertTitle: "Open this link in browser", alertMessage: link.urlString, shareMessage: "Share this link")
     }
 }
 
