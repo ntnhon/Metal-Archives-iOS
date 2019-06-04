@@ -72,6 +72,10 @@ final class BandDetailViewController: BaseViewController {
             } else if let `band` = band {
                 self.band = band
                 
+                if band.discography?.main.count == 0 {
+                    self.currentDiscographyType = .complete
+                }
+                
                 if let logoURLString = band.logoURLString, let logoURL = URL(string: logoURLString) {
                     self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
                 } else {
@@ -684,8 +688,10 @@ extension BandDetailViewController {
             loadingCell.displayIsLoading()
             band.reviewLitePagableManager.fetch { [weak self] (error) in
                 if let _ = error { return }
-                self?.band?.associateReleasesToReviews()
-                self?.tableView.reloadSections([1], with: .automatic)
+                DispatchQueue.main.async {
+                    self?.band?.associateReleasesToReviews()
+                    self?.tableView.reloadSections([1], with: .automatic)
+                }
             }
             return loadingCell
         }

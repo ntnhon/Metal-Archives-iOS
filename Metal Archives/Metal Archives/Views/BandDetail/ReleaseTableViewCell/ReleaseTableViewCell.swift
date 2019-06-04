@@ -11,12 +11,7 @@ import UIKit
 final class ReleaseTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
     @IBOutlet private weak var releaseTitleLabel: UILabel!
     @IBOutlet private weak var releaseDetailsLabel: UILabel!
-    
-    override func initAppearance() {
-        super.initAppearance()
-        thumbnailImageViewHeightConstraint.constant = screenWidth / 5
-    }
-    
+
     func fill(with release: ReleaseLite) {
         releaseTitleLabel.text = release.title
         releaseDetailsLabel.attributedText = release.attributedDescription

@@ -148,10 +148,7 @@ final class Label {
             }
             
             else if div["id"] == "label_tabs_notes" {
-                if var additionalNotes = div.text {
-                    additionalNotes.removeEmptySpaces()
-                    self.additionalNotes = additionalNotes
-                }
+                self.additionalNotes = div.text?.removeHTMLTagsAndNoisySpaces()
             } else if div["id"] == "auditTrail" {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"

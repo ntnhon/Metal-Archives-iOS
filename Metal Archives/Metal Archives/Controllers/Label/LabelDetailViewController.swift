@@ -19,6 +19,9 @@ final class LabelDetailViewController: BaseViewController {
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     private unowned var labelNameTableViewCell: LabelNameTableViewCell?
     
+    private var labelMenuOptions: [LabelMenuOption]!
+    private var currentLabelMenuOption: LabelMenuOption!
+    
     var urlString: String!
     
     private var label: Label!
@@ -62,12 +65,17 @@ final class LabelDetailViewController: BaseViewController {
                     self.label = label
                     self.title = label.name
                     self.utileBarView.titleLabel.text = label.name
+                    self.determineLabelMenuOptions()
                     
                     if let logoURLString = label.logoURLString, let logoURL = URL(string: logoURLString) {
                         self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
                     } else {
                         self.tableView.contentInset = .init(top: self.utileBarView.frame.origin.y + self.utileBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
                     }
+                    
+                    self.label.currentRosterPagableManager.delegate = self
+                    self.label.pastRosterPagableManager.delegate = self
+                    self.label.releasesPagableManager.delegate = self
                     
                     self.tableView.reloadData()
                 }
@@ -77,10 +85,51 @@ final class LabelDetailViewController: BaseViewController {
         }
     }
     
+    private func determineLabelMenuOptions() {
+        labelMenuOptions = [LabelMenuOption]()
+        
+        if let _ = label.subLabels {
+            labelMenuOptions.append(.subLabels)
+        }
+        
+        if let _ = label.currentRosterPagableManager.totalRecords {
+            if label.isLastKnown {
+                labelMenuOptions.append(.lastKnownRoster)
+            } else {
+                labelMenuOptions.append(.currentRoster)
+            }
+        }
+        
+        if let _ = label.pastRosterPagableManager.totalRecords {
+            labelMenuOptions.append(.pastRoster)
+        }
+        
+        if let _ = label.releasesPagableManager.totalRecords {
+            labelMenuOptions.append(.releases)
+        }
+        
+        if let _ = label.additionalNotes {
+            labelMenuOptions.append(.additionalNotes)
+        }
+        
+        if let _ = label.links {
+            labelMenuOptions.append(.links)
+        }
+        
+        currentLabelMenuOption = labelMenuOptions[0]
+    }
+    
     private func configureTableView() {
         SimpleTableViewCell.register(with: tableView)
+        LoadingTableViewCell.register(with: tableView)
         LabelNameTableViewCell.register(with: tableView)
         LabelInfoTableViewCell.register(with: tableView)
+        LabelMenuTableViewCell.register(with: tableView)
+        SubLabelTableViewCell.register(with: tableView)
+        BandCurrentRosterTableViewCell.register(with: tableView)
+        BandPastRosterTableViewCell.register(with: tableView)
+        ReleaseInLabelTableViewCell.register(with: tableView)
+        RelatedLinkTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -142,6 +191,16 @@ final class LabelDetailViewController: BaseViewController {
 extension LabelDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard let _ = label, indexPath.section > 0 else { return }
+        
+        switch currentLabelMenuOption! {
+        case .subLabels: didSelectSubLabelTableViewCell(atIndexPath: indexPath)
+        case .lastKnownRoster, .currentRoster: didSelectCurrentOrLastKnownRosterTableViewCell(atIndexPath: indexPath)
+        case .pastRoster: didSelectPastRosterTableViewCell(atIndexPath: indexPath)
+        case .releases: didSelectReleaseTableViewCell(atIndexPath: indexPath)
+        case .links: didSelectRelatedLinkTableViewCell(atIndexPath: indexPath)
+        default: return
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -180,10 +239,32 @@ extension LabelDetailViewController: UITableViewDataSource {
         guard let _ = label else { return 0 }
         
         if section == 0 {
-            return 2
+            return 3
         }
         
-        return 100
+        switch currentLabelMenuOption! {
+        case .subLabels: return label.subLabels!.count
+        case .lastKnownRoster, .currentRoster:
+            if label.currentRosterPagableManager.moreToLoad {
+                return label.currentRosterPagableManager.objects.count + 1
+            }
+            return label.currentRosterPagableManager.objects.count
+            
+        case .pastRoster:
+            if label.pastRosterPagableManager.moreToLoad {
+                return label.pastRosterPagableManager.objects.count + 1
+            }
+            return label.pastRosterPagableManager.objects.count
+            
+        case .releases:
+            if label.releasesPagableManager.moreToLoad {
+                return label.releasesPagableManager.objects.count + 1
+            }
+            return label.releasesPagableManager.objects.count
+            
+        case .additionalNotes: return 1
+        case .links: return label.links!.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -194,7 +275,16 @@ extension LabelDetailViewController: UITableViewDataSource {
         switch (indexPath.section, indexPath.row) {
         case (0, 0): return labelNameTableViewCell(forRowAt: indexPath)
         case (0, 1): return labelInfoTableViewCell(forRowAt: indexPath)
-        default: return UITableViewCell()
+        case (0, 2): return labelMenuTableViewCell(forRowAt: indexPath)
+        default:
+            switch currentLabelMenuOption! {
+            case .subLabels: return subLabelTableViewCell(forRowAt: indexPath)
+            case .lastKnownRoster, .currentRoster: return currentOrLastKnownRosterTableViewCell(forRowAt: indexPath)
+            case .pastRoster: return pastRosterTableViewCell(forRowAt: indexPath)
+            case .releases: return releaseTableViewCell(forRowAt: indexPath)
+            case .additionalNotes: return additionalNotesTableViewCell(forRowAt: indexPath)
+            case .links: return relatedLinkTableViewCell(forRowAt: indexPath)
+            }
         }
     }
 }
@@ -243,5 +333,183 @@ extension LabelDetailViewController {
         }
         
         return cell
+    }
+    
+    private func labelMenuTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let _ = label else {
+            return UITableViewCell()
+        }
+        
+        let cell = LabelMenuTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.initMenu(with: labelMenuOptions.map({$0.description}))
+        cell.horizontalMenuView.delegate = self
+        return cell
+    }
+}
+
+// MARK: - Sub-labels
+extension LabelDetailViewController {
+    private func subLabelTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let label = label else {
+            return UITableViewCell()
+        }
+        
+        let cell = SubLabelTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.fill(with: label.subLabels![indexPath.row])
+        return cell
+    }
+    
+    private func didSelectSubLabelTableViewCell(atIndexPath indexPath: IndexPath) {
+        guard let label = label else { return }
+        
+        let subLabel = label.subLabels![indexPath.row]
+        pushLabelDetailViewController(urlString: subLabel.urlString, animated: true)
+    }
+}
+
+extension LabelDetailViewController: HorizontalMenuViewDelegate {
+    func didSelectItem(atIndex index: Int) {
+        currentLabelMenuOption = labelMenuOptions[index]
+        tableView.reloadSections([1], with: .automatic)
+    }
+}
+
+// MARK: - Rosters
+extension LabelDetailViewController {
+    private func currentOrLastKnownRosterTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let label = label else {
+            return UITableViewCell()
+        }
+        
+        if label.currentRosterPagableManager.moreToLoad && indexPath.row == label.currentRosterPagableManager.objects.count {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            loadingCell.displayIsLoading()
+            label.currentRosterPagableManager.fetch()
+            return loadingCell
+        }
+        
+        let roster = label.currentRosterPagableManager.objects[indexPath.row]
+        let cell = BandCurrentRosterTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.fill(with: roster)
+        return cell
+    }
+    
+    private func didSelectCurrentOrLastKnownRosterTableViewCell(atIndexPath indexPath: IndexPath) {
+        guard let label = label else { return }
+        
+        if label.currentRosterPagableManager.moreToLoad && indexPath.row == label.currentRosterPagableManager.objects.count {
+            return
+        }
+        
+        let roster = label.currentRosterPagableManager.objects[indexPath.row]
+        pushBandDetailViewController(urlString: roster.urlString, animated: true)
+    }
+    
+    private func pastRosterTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let label = label else {
+            return UITableViewCell()
+        }
+        
+        if label.pastRosterPagableManager.moreToLoad && indexPath.row == label.pastRosterPagableManager.objects.count {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            loadingCell.displayIsLoading()
+            label.pastRosterPagableManager.fetch()
+            return loadingCell
+        }
+        
+        let pastRoster = label.pastRosterPagableManager.objects[indexPath.row]
+        let cell = BandPastRosterTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.fill(with: pastRoster)
+        return cell
+    }
+    
+    private func didSelectPastRosterTableViewCell(atIndexPath indexPath: IndexPath) {
+        guard let label = label else { return }
+        
+        if label.pastRosterPagableManager.moreToLoad && indexPath.row == label.pastRosterPagableManager.objects.count {
+            return
+        }
+        
+        let pastRoster = label.pastRosterPagableManager.objects[indexPath.row]
+        pushBandDetailViewController(urlString: pastRoster.urlString, animated: true)
+    }
+}
+
+// MARK: - Additional Notes & Related Links
+extension LabelDetailViewController {
+    private func additionalNotesTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let label = label, let additionalNotes = label.additionalNotes else {
+            return UITableViewCell()
+        }
+        
+        let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        simpleCell.fill(with: additionalNotes)
+        return simpleCell
+    }
+    
+    private func relatedLinkTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let label = label, let links = label.links else {
+            return UITableViewCell()
+        }
+        
+        let cell = RelatedLinkTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.fill(with: links[indexPath.row])
+        return cell
+    }
+    
+    private func didSelectRelatedLinkTableViewCell(atIndexPath indexPath: IndexPath) {
+        guard let label = label, let links = label.links else { return }
+        
+        let link = links[indexPath.row]
+        presentAlertOpenURLInBrowsers(URL(string: link.urlString)!, alertTitle: "Open this link in browser", alertMessage: link.urlString, shareMessage: "Share this link")
+    }
+}
+
+// MARK: - Releases
+extension LabelDetailViewController {
+    private func releaseTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let label = label else {
+            return UITableViewCell()
+        }
+        
+        if label.releasesPagableManager.moreToLoad && indexPath.row == label.releasesPagableManager.objects.count {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            loadingCell.displayIsLoading()
+            label.releasesPagableManager.fetch()
+            return loadingCell
+        }
+        
+        let release = label.releasesPagableManager.objects[indexPath.row]
+        let cell = ReleaseInLabelTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.fill(with: release)
+        return cell
+    }
+    
+    private func didSelectReleaseTableViewCell(atIndexPath indexPath: IndexPath) {
+        guard let label = label else { return }
+        
+        if label.releasesPagableManager.moreToLoad && indexPath.row == label.releasesPagableManager.objects.count {
+            return
+        }
+        
+        let release = label.releasesPagableManager.objects[indexPath.row]
+        takeActionFor(actionableObject: release)
+    }
+}
+
+//MARK: - PagableManagerProtocol
+extension LabelDetailViewController: PagableManagerDelegate {
+    func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        Toast.displayMessageShortly(errorLoadingMessage)
+    }
+    
+    func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        self.tableView.reloadSections([1], with: .automatic)
+        
+        Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
+    }
+    
+    func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        Toast.displayBlockedMessageWithDelay()
     }
 }

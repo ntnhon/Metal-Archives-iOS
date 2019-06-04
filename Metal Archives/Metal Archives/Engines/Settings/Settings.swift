@@ -15,7 +15,7 @@ struct Settings {
     static let numberOfRetries = 5
     static let segmentedHeaderHeight: CGFloat = 35
     static let thumbnailHeight: CGFloat = {
-        let preferredHeight = screenWidth/5
+        let preferredHeight = screenWidth / 5
         let maxHeight: CGFloat = 72.0
         if preferredHeight > maxHeight {
             return maxHeight

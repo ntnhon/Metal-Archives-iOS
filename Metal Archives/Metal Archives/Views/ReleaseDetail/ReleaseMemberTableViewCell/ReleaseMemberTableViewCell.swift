@@ -14,7 +14,6 @@ final class ReleaseMemberTableViewCell: ThumbnailableTableViewCell, Registerable
     
     override func initAppearance() {
         super.initAppearance()
-        thumbnailImageViewHeightConstraint.constant = screenWidth / 5
         
         artistNameLabel.textColor = Settings.currentTheme.titleColor
         artistNameLabel.font = Settings.currentFontSize.secondaryTitleFont

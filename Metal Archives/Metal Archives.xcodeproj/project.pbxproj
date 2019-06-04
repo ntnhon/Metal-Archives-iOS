@@ -83,6 +83,8 @@
 		C01D5870225CE28100DC7556 /* ThemeListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */; };
 		C01D5872225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */; };
 		C028CBE222A666A4005929F1 /* LabelNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028CBE122A666A4005929F1 /* LabelNameTableViewCell.swift */; };
+		C028CBE422A67509005929F1 /* LabelMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028CBE322A67509005929F1 /* LabelMenuOption.swift */; };
+		C028CBE722A677E4005929F1 /* LabelMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028CBE622A677E4005929F1 /* LabelMenuTableViewCell.swift */; };
 		C02BB8F22284C27900EB72EC /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02BB8F12284C27900EB72EC /* ParseHelper.swift */; };
 		C0310A012266175000880B75 /* Crashlytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0310A002266175000880B75 /* Crashlytics.swift */; };
 		C03270D1220B1AAD009FA337 /* ReleaseElementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */; };
@@ -591,6 +593,8 @@
 		C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeListTableViewController.swift; sourceTree = "<group>"; };
 		C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DisplayRestartAlert.swift"; sourceTree = "<group>"; };
 		C028CBE122A666A4005929F1 /* LabelNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNameTableViewCell.swift; sourceTree = "<group>"; };
+		C028CBE322A67509005929F1 /* LabelMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMenuOption.swift; sourceTree = "<group>"; };
+		C028CBE622A677E4005929F1 /* LabelMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMenuTableViewCell.swift; sourceTree = "<group>"; };
 		C02BB8F12284C27900EB72EC /* ParseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseHelper.swift; sourceTree = "<group>"; };
 		C0310A002266175000880B75 /* Crashlytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crashlytics.swift; sourceTree = "<group>"; };
 		C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseElementTableViewCell.swift; sourceTree = "<group>"; };
@@ -1252,6 +1256,14 @@
 			path = LabelNameTableViewCell;
 			sourceTree = "<group>";
 		};
+		C028CBE522A677CD005929F1 /* LabelMenuTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C028CBE622A677E4005929F1 /* LabelMenuTableViewCell.swift */,
+			);
+			path = LabelMenuTableViewCell;
+			sourceTree = "<group>";
+		};
 		C02BB8F02284C26800EB72EC /* ParseHelper */ = {
 			isa = PBXGroup;
 			children = (
@@ -1428,6 +1440,7 @@
 			children = (
 				C028CBE022A66653005929F1 /* LabelNameTableViewCell */,
 				C075605C222C6ECC00DA7119 /* LabelInfoTableViewCell */,
+				C028CBE522A677CD005929F1 /* LabelMenuTableViewCell */,
 				C075605D222C6ED900DA7119 /* SubLabelTableViewCell */,
 				C075605E222C6EE800DA7119 /* BandCurrentRosterTableViewCell */,
 				C075605F222C6EF400DA7119 /* BandPastRosterTableViewCell */,
@@ -1757,6 +1770,7 @@
 				C09CBC72226F22BC00E20F98 /* MAError.swift */,
 				C05606EC22A2FDA5006F5BC1 /* BandMenuOption.swift */,
 				C05606EE22A2FDBB006F5BC1 /* ReleaseMenuOption.swift */,
+				C028CBE322A67509005929F1 /* LabelMenuOption.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -3390,6 +3404,7 @@
 				C01839F92225E28200FF88B7 /* ArtistUpdate.swift in Sources */,
 				C06C6C5921FFBE2300D37519 /* Country.swift in Sources */,
 				C008388222008D1900B35996 /* UIViewController+CheckPhotoLibraryPermission.swift in Sources */,
+				C028CBE722A677E4005929F1 /* LabelMenuTableViewCell.swift in Sources */,
 				C0A48CEE222181BD0047FC70 /* Toaster+DisplayMessageShortly.swift in Sources */,
 				C0795B8B2288234F00E5D94F /* BetterSnappingLayout.swift in Sources */,
 				C01D5870225CE28100DC7556 /* ThemeListTableViewController.swift in Sources */,
@@ -3654,6 +3669,7 @@
 				C0602BCA21E9E56B00046367 /* HomepageViewController.swift in Sources */,
 				C028CBE222A666A4005929F1 /* LabelNameTableViewCell.swift in Sources */,
 				C05309F6222360320027D11E /* RequestLabelLinks.swift in Sources */,
+				C028CBE422A67509005929F1 /* LabelMenuOption.swift in Sources */,
 				C06B624A22423FCB00A3FE6B /* BrowseLabelsByCountryResultViewController.swift in Sources */,
 				C053DD732226ED450028568B /* RequestTop100Albums.swift in Sources */,
 				C06E92D522539248006EE887 /* VersionHistory.swift in Sources */,

@@ -139,14 +139,14 @@ Dortmund, Nordrhein-Westfalen
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" translatesAutoresizingMaskIntoConstraints="NO" id="ldF-hI-WDj">
-                        <rect key="frame" x="20" y="279.5" width="20" height="20"/>
+                        <rect key="frame" x="20" y="269.5" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="Dvd-xh-xjI"/>
                             <constraint firstAttribute="width" secondItem="ldF-hI-WDj" secondAttribute="height" multiplier="1:1" id="fYz-Vb-ywB"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="241" text="Last updated 1 week ago" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ut-es-dPi">
-                        <rect key="frame" x="48" y="270" width="333" height="38.5"/>
+                        <rect key="frame" x="48" y="270" width="333" height="18.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -161,7 +161,7 @@ Dortmund, Nordrhein-Westfalen
                     <constraint firstItem="G8c-67-E6v" firstAttribute="top" secondItem="cqQ-gT-YYp" secondAttribute="bottom" constant="8" symbolic="YES" id="5y1-L9-9xc"/>
                     <constraint firstItem="hiZ-tv-FNf" firstAttribute="leading" secondItem="ccu-9N-469" secondAttribute="leading" constant="20" symbolic="YES" id="6q2-SL-yqZ"/>
                     <constraint firstItem="ZbM-nC-4yJ" firstAttribute="leading" secondItem="bu4-gP-7Wf" secondAttribute="trailing" constant="8" symbolic="YES" id="8oz-cP-9FE"/>
-                    <constraint firstAttribute="bottom" secondItem="5Ut-es-dPi" secondAttribute="bottom" id="9sd-Cm-LlI"/>
+                    <constraint firstAttribute="bottom" secondItem="5Ut-es-dPi" secondAttribute="bottom" constant="20" symbolic="YES" id="9sd-Cm-LlI"/>
                     <constraint firstItem="hiZ-tv-FNf" firstAttribute="centerY" secondItem="IFm-lw-HeA" secondAttribute="centerY" id="9v7-ti-YFI"/>
                     <constraint firstItem="GxS-F0-Vv6" firstAttribute="leading" secondItem="ccu-9N-469" secondAttribute="leading" constant="20" symbolic="YES" id="BqB-MX-jSH"/>
                     <constraint firstItem="IFm-lw-HeA" firstAttribute="top" secondItem="G8c-67-E6v" secondAttribute="bottom" constant="8" symbolic="YES" id="CMz-w2-wAI"/>

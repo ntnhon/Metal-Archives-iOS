@@ -9,57 +9,48 @@
 import UIKit
 
 final class ReleaseInLabelTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
-    @IBOutlet private weak var bandsNameLabel: UILabel!
+    @IBOutlet private weak var bandNamesLabel: UILabel!
     @IBOutlet private weak var releaseTitleLabel: UILabel!
-    @IBOutlet private weak var typeLabel: UILabel!
-    @IBOutlet private weak var yearLabel: UILabel!
-    @IBOutlet private weak var catalogIDLabel: UILabel!
-    @IBOutlet private weak var formatLabel: UILabel!
+    @IBOutlet private weak var formatAndYearLabel: UILabel!
+    @IBOutlet private weak var catalogIdAndFormatLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     
     override func initAppearance() {
         super.initAppearance()
-        self.bandsNameLabel.textColor = Settings.currentTheme.titleColor
-        self.bandsNameLabel.font = Settings.currentFontSize.titleFont
         
-        self.releaseTitleLabel.textColor = Settings.currentTheme.secondaryTitleColor
-        self.releaseTitleLabel.font = Settings.currentFontSize.secondaryTitleFont
+        bandNamesLabel.textColor = Settings.currentTheme.titleColor
+        bandNamesLabel.font = Settings.currentFontSize.titleFont
         
-        self.typeLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.typeLabel.font = Settings.currentFontSize.bodyTextFont
+        releaseTitleLabel.textColor = Settings.currentTheme.secondaryTitleColor
+        releaseTitleLabel.font = Settings.currentFontSize.secondaryTitleFont
         
-        self.yearLabel.textColor =  Settings.currentTheme.bodyTextColor
-        self.yearLabel.font = Settings.currentFontSize.bodyTextFont
+        formatAndYearLabel.textColor = Settings.currentTheme.bodyTextColor
+        formatAndYearLabel.font = Settings.currentFontSize.bodyTextFont
         
-        self.catalogIDLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.catalogIDLabel.font = Settings.currentFontSize.bodyTextFont
+        catalogIdAndFormatLabel.textColor = Settings.currentTheme.bodyTextColor
+        catalogIdAndFormatLabel.font = Settings.currentFontSize.bodyTextFont
         
-        self.formatLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.formatLabel.font = Settings.currentFontSize.bodyTextFont
-        
-        self.descriptionLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.descriptionLabel.font = Settings.currentFontSize.bodyTextFont
+        descriptionLabel.textColor = Settings.currentTheme.bodyTextColor
+        descriptionLabel.font = Settings.currentFontSize.italicBodyTextFont
     }
     
     func fill(with release: ReleaseInLabel) {
-        let bandNames = release.bands.map { (band) -> String in
-            return band.name
-        }
-        self.bandsNameLabel.attributedText = generateAttributedStringFromStrings(bandNames, as: .title, withSeparator: " / ")
+        let bandNames = release.bands.map({$0.name})
         
-        self.releaseTitleLabel.text = release.release.name
-        self.typeLabel.text = release.type
+        bandNamesLabel.attributedText = generateAttributedStringFromStrings(bandNames, as: .title, withSeparator: " / ")
         
+        releaseTitleLabel.text = release.release.name
+        
+        var yearString = ""
         if let year = release.year {
-            self.yearLabel.text = "\(year)"
+            yearString = "\(year)"
         } else {
-            self.yearLabel.text = "unknown"
+            yearString = "unknown year"
         }
-        
-        self.catalogIDLabel.text = release.catalogID
-        self.formatLabel.text = release.format
-        self.descriptionLabel.text = release.releaseDescription
-        self.setThumbnailImageView(with: release)
-        
+    
+        formatAndYearLabel.text = "\(release.format) • \(yearString)"
+        catalogIdAndFormatLabel.text = "\(release.catalogID) • \(release.format)"
+        descriptionLabel.text = release.releaseDescription
+        setThumbnailImageView(with: release)
     }
 }

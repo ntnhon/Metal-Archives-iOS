@@ -14,6 +14,24 @@ final class BandPastRoster: ThumbnailableObject {
     let country: Country
     let numberOfReleases: Int
     
+    lazy var countryAndNumOfReleasesAttributedString: NSAttributedString = {
+        var countryAndNumOfReleasesString = ""
+        if numberOfReleases <= 1 {
+            countryAndNumOfReleasesString = "\(country.nameAndEmoji) • \(numberOfReleases) release"
+        } else {
+            countryAndNumOfReleasesString = "\(country.nameAndEmoji) • \(numberOfReleases) releases"
+        }
+        
+        let countryAndNumOfReleasesMutableAttributedString = NSMutableAttributedString(string: countryAndNumOfReleasesString)
+        countryAndNumOfReleasesMutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(countryAndNumOfReleasesString.startIndex..., in: countryAndNumOfReleasesString))
+        
+        if let countryRange = countryAndNumOfReleasesString.range(of: country.nameAndEmoji) {
+            countryAndNumOfReleasesMutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor], range: NSRange(countryRange, in: countryAndNumOfReleasesString))
+        }
+        
+        return countryAndNumOfReleasesMutableAttributedString
+    }()
+    
     init?(urlString: String, name: String, genre: String, country: Country, numberOfReleases: Int) {
         self.name = name
         self.genre = genre

@@ -15,20 +15,20 @@ final class BandCurrentRosterTableViewCell: ThumbnailableTableViewCell, Register
 
     override func initAppearance() {
         super.initAppearance()
-        self.nameLabel.textColor = Settings.currentTheme.titleColor
-        self.nameLabel.font = Settings.currentFontSize.titleFont
+        nameLabel.textColor = Settings.currentTheme.titleColor
+        nameLabel.font = Settings.currentFontSize.titleFont
         
-        self.genreLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.genreLabel.font = Settings.currentFontSize.bodyTextFont
+        genreLabel.textColor = Settings.currentTheme.bodyTextColor
+        genreLabel.font = Settings.currentFontSize.bodyTextFont
         
-        self.countryLabel.textColor = Settings.currentTheme.secondaryTitleColor
-        self.countryLabel.font = Settings.currentFontSize.secondaryTitleFont
+        countryLabel.textColor = Settings.currentTheme.secondaryTitleColor
+        countryLabel.font = Settings.currentFontSize.secondaryTitleFont
     }
     
     func fill(with band: BandCurrentRoster) {
-        self.nameLabel.text = band.name
-        self.genreLabel.text = band.genre
-        self.countryLabel.text = band.country.nameAndEmoji
-        self.setThumbnailImageView(with: band)
+        nameLabel.text = band.name
+        genreLabel.text = band.genre
+        countryLabel.text = band.country.nameAndEmoji
+        setThumbnailImageView(with: band)
     }
 }

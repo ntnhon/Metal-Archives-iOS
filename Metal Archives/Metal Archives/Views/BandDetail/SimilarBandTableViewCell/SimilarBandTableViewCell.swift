@@ -16,7 +16,6 @@ final class SimilarBandTableViewCell: ThumbnailableTableViewCell, RegisterableCe
     
     override func initAppearance() {
         super.initAppearance()
-        thumbnailImageViewHeightConstraint.constant = screenWidth / 5
         
         bandNameLabel.textColor = Settings.currentTheme.titleColor
         bandNameLabel.font = Settings.currentFontSize.titleFont

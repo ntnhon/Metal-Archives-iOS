@@ -13,12 +13,12 @@ final class SubLabelTableViewCell: ThumbnailableTableViewCell, RegisterableCell 
     
     override func initAppearance() {
         super.initAppearance()
-        self.nameLabel.textColor = Settings.currentTheme.titleColor
-        self.nameLabel.font = Settings.currentFontSize.titleFont
+        nameLabel.textColor = Settings.currentTheme.titleColor
+        nameLabel.font = Settings.currentFontSize.titleFont
     }
 
     func fill(with subLabel: LabelLite) {
-        self.nameLabel.text = subLabel.name
-        self.setThumbnailImageView(with: subLabel)
+        nameLabel.text = subLabel.name
+        setThumbnailImageView(with: subLabel)
     }
 }

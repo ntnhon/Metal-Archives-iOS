@@ -1,83 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="75" id="ln4-ga-m6i" customClass="BandPastRosterTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="384" height="75"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="107" id="ln4-ga-m6i" customClass="BandPastRosterTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="398" height="107"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ln4-ga-m6i" id="ZJj-BJ-2ie">
-                <rect key="frame" x="0.0" y="0.0" width="384" height="74.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="398" height="106.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OJ5-pm-hg2">
-                        <rect key="frame" x="20" y="15.5" width="44" height="44"/>
+                        <rect key="frame" x="20" y="31.5" width="44" height="44"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="OJ5-pm-hg2" secondAttribute="height" multiplier="1:1" id="WuZ-Ni-M02"/>
                             <constraint firstAttribute="height" constant="44" id="f3I-0b-AZz"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Anthrax" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ZL-kZ-uUB">
-                        <rect key="frame" x="74" y="5" width="300" height="19.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="United States" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N60-LQ-NAz">
-                        <rect key="frame" x="74" y="29.5" width="227.5" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="5 releases" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xrs-Cr-Rpd">
-                        <rect key="frame" x="311.5" y="29.5" width="62.5" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Speed/Thrash Metal, Groove Metal" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XLf-g1-GvS">
-                        <rect key="frame" x="74" y="50.5" width="300" height="19"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cyV-bA-Vtj">
+                        <rect key="frame" x="72" y="0.0" width="306" height="86.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Burn the Priest" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hqz-hv-LOe">
+                                <rect key="frame" x="0.0" y="0.0" width="306" height="35.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="United States • 2 releases" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bx-cL-PaG">
+                                <rect key="frame" x="0.0" y="40.5" width="306" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="749" text="Groove/Death Metal" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBT-Tu-HHa">
+                                <rect key="frame" x="0.0" y="66" width="306" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="OJ5-pm-hg2" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ZJj-BJ-2ie" secondAttribute="top" constant="5" id="5lW-Yp-Yp5"/>
-                    <constraint firstItem="XLf-g1-GvS" firstAttribute="top" secondItem="N60-LQ-NAz" secondAttribute="bottom" constant="5" id="9E5-T4-vEf"/>
-                    <constraint firstItem="Xrs-Cr-Rpd" firstAttribute="centerY" secondItem="N60-LQ-NAz" secondAttribute="centerY" id="Adh-5W-nfy"/>
-                    <constraint firstItem="N60-LQ-NAz" firstAttribute="top" secondItem="9ZL-kZ-uUB" secondAttribute="bottom" constant="5" id="ArY-lp-SVC"/>
-                    <constraint firstItem="9ZL-kZ-uUB" firstAttribute="top" secondItem="ZJj-BJ-2ie" secondAttribute="top" constant="5" id="D8a-rv-Tpb"/>
-                    <constraint firstItem="Xrs-Cr-Rpd" firstAttribute="leading" secondItem="N60-LQ-NAz" secondAttribute="trailing" constant="10" id="GzF-I1-k9f"/>
+                    <constraint firstItem="cyV-bA-Vtj" firstAttribute="top" secondItem="ZJj-BJ-2ie" secondAttribute="top" id="Aco-RL-2c9"/>
                     <constraint firstItem="OJ5-pm-hg2" firstAttribute="leading" secondItem="ZJj-BJ-2ie" secondAttribute="leading" constant="20" symbolic="YES" id="Jz3-Va-t3I"/>
-                    <constraint firstAttribute="trailing" secondItem="9ZL-kZ-uUB" secondAttribute="trailing" constant="10" id="KtN-bN-pSe"/>
-                    <constraint firstAttribute="bottom" secondItem="XLf-g1-GvS" secondAttribute="bottom" constant="5" id="Pk6-Ci-Pes"/>
+                    <constraint firstAttribute="trailing" secondItem="cyV-bA-Vtj" secondAttribute="trailing" constant="20" symbolic="YES" id="RbW-Zi-cdu"/>
                     <constraint firstItem="OJ5-pm-hg2" firstAttribute="centerY" secondItem="ZJj-BJ-2ie" secondAttribute="centerY" id="bdW-rZ-xV4"/>
-                    <constraint firstAttribute="trailing" secondItem="Xrs-Cr-Rpd" secondAttribute="trailing" constant="10" id="oKP-Xz-cuT"/>
-                    <constraint firstItem="XLf-g1-GvS" firstAttribute="leading" secondItem="OJ5-pm-hg2" secondAttribute="trailing" constant="10" id="rxE-1g-bTH"/>
+                    <constraint firstItem="cyV-bA-Vtj" firstAttribute="leading" secondItem="OJ5-pm-hg2" secondAttribute="trailing" constant="8" symbolic="YES" id="fcf-S2-w7s"/>
+                    <constraint firstAttribute="bottom" secondItem="cyV-bA-Vtj" secondAttribute="bottom" constant="20" symbolic="YES" id="smU-mW-PMA"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="OJ5-pm-hg2" secondAttribute="bottom" constant="5" id="wvY-TA-mG2"/>
-                    <constraint firstAttribute="trailing" secondItem="XLf-g1-GvS" secondAttribute="trailing" constant="10" id="yBf-O2-2bM"/>
-                    <constraint firstItem="9ZL-kZ-uUB" firstAttribute="leading" secondItem="OJ5-pm-hg2" secondAttribute="trailing" constant="10" id="yqb-Ov-YZZ"/>
-                    <constraint firstItem="N60-LQ-NAz" firstAttribute="leading" secondItem="OJ5-pm-hg2" secondAttribute="trailing" constant="10" id="zVt-A7-fRe"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="countryLabel" destination="N60-LQ-NAz" id="27n-MO-1t5"/>
-                <outlet property="genreLabel" destination="XLf-g1-GvS" id="BNh-Fv-7D4"/>
-                <outlet property="nameLabel" destination="9ZL-kZ-uUB" id="Q20-Us-eAs"/>
-                <outlet property="numOfReleasesLabel" destination="Xrs-Cr-Rpd" id="deS-nl-PTN"/>
+                <outlet property="countryAndNumOfReleasesLabel" destination="9bx-cL-PaG" id="ehe-bx-tGl"/>
+                <outlet property="genreLabel" destination="fBT-Tu-HHa" id="HPp-zz-izb"/>
+                <outlet property="nameLabel" destination="hqz-hv-LOe" id="swC-Gz-CQH"/>
                 <outlet property="thumbnailImageView" destination="OJ5-pm-hg2" id="ZEb-Lf-88L"/>
                 <outlet property="thumbnailImageViewHeightConstraint" destination="f3I-0b-AZz" id="U6S-VZ-iw7"/>
             </connections>
-            <point key="canvasLocation" x="-4.7999999999999998" y="165.06746626686657"/>
+            <point key="canvasLocation" x="6.4000000000000004" y="191.1544227886057"/>
         </tableViewCell>
     </objects>
 </document>
