@@ -53,7 +53,8 @@ extension MetalArchivesAPI {
         //Reviews
         fetchGroup.enter()
         band.reviewLitePagableManager.fetch { (error) in
-            storedError = error
+            // Don't care about this error because server randomly throws unknown error
+            // storedError = error
             fetchGroup.leave()
         }
         

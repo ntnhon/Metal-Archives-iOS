@@ -23,9 +23,15 @@ final class RolesInBandTableViewCell: BaseTableViewCell, RegisterableCell {
     
     func fill(with rolesInBand: RolesInBand) {
         bandNameLabel.text = rolesInBand.bandName.uppercased()
-        if let roleAndYearsActive = rolesInBand.roleAndYearsActive {
+        if let _ = rolesInBand.bandURLString {
+            bandNameLabel.textColor = Settings.currentTheme.titleColor
+        } else {
+            bandNameLabel.textColor = Settings.currentTheme.bodyTextColor
+        }
+        
+        if let _ = rolesInBand.roleAndYearsActive {
             rolesAndYearsActiveLabel.isHidden = false
-            rolesAndYearsActiveLabel.text = roleAndYearsActive
+            rolesAndYearsActiveLabel.attributedText = rolesInBand.roleAndYearsActiveAttributedString
         } else {
             rolesAndYearsActiveLabel.isHidden = true
         }

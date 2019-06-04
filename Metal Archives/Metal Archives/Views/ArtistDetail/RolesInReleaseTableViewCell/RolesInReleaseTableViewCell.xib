@@ -19,16 +19,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="mNX-nc-7ru">
-                        <rect key="frame" x="30" y="0.0" width="345" height="55.5"/>
+                        <rect key="frame" x="40" y="0.0" width="335" height="55.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Individual Thought Patterns" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sbh-6q-S1z">
-                                <rect key="frame" x="0.0" y="0.0" width="345" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="1993 • Producer" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9X9-T1-blC">
-                                <rect key="frame" x="0.0" y="35" width="345" height="20.5"/>
+                                <rect key="frame" x="0.0" y="35" width="335" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -37,7 +37,7 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="mNX-nc-7ru" firstAttribute="leading" secondItem="qO7-Bk-apR" secondAttribute="leading" constant="30" id="3YC-wM-gqV"/>
+                    <constraint firstItem="mNX-nc-7ru" firstAttribute="leading" secondItem="qO7-Bk-apR" secondAttribute="leading" constant="40" id="3YC-wM-gqV"/>
                     <constraint firstAttribute="trailing" secondItem="mNX-nc-7ru" secondAttribute="trailing" constant="20" symbolic="YES" id="5zi-VT-BOt"/>
                     <constraint firstAttribute="bottom" secondItem="mNX-nc-7ru" secondAttribute="bottom" constant="20" symbolic="YES" id="OlZ-EK-jhP"/>
                     <constraint firstItem="mNX-nc-7ru" firstAttribute="top" secondItem="qO7-Bk-apR" secondAttribute="top" id="wzn-kQ-KWP"/>

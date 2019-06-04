@@ -357,7 +357,9 @@ extension BandDetailViewController: UIPopoverPresentationControllerDelegate {
 // MARK: - Discography
 extension BandDetailViewController {
     private func numberOfRowsInDiscographySection() -> Int {
-        guard let band = band, let discography = band.discography else { return 0 }
+        guard let band = band else { return 0 }
+        
+        guard let discography = band.discography else { return 1 }
         
         // return at least 2 rows: 1 for the options, 1 for displaying message
         switch currentDiscographyType {
@@ -370,8 +372,14 @@ extension BandDetailViewController {
     }
     
     private func discographyCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let _ = band else {
+        guard let band = band else {
             return UITableViewCell()
+        }
+        
+        guard let _ = band.discography else {
+            let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            simpleCell.fill(with: "This band has no release yet")
+            return simpleCell
         }
         
         if indexPath.row == 0 {

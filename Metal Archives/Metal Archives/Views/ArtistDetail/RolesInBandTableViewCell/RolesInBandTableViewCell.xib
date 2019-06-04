@@ -19,34 +19,27 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="s8e-Qc-Zbp">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="71.5"/>
+                        <rect key="frame" x="10" y="0.0" width="392" height="51.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Control Denied" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7HG-Yf-hho">
-                                <rect key="frame" x="5" y="5" width="392" height="43.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="392" height="28.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJM-AJ-BxB">
-                                <rect key="frame" x="5" y="53.5" width="392" height="18"/>
+                                <rect key="frame" x="0.0" y="33.5" width="392" height="18"/>
                                 <string key="text">Guitars, Vocals	(1995-2001)</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="7HG-Yf-hho" secondAttribute="trailing" constant="5" id="1Fw-mP-5L1"/>
-                            <constraint firstItem="XJM-AJ-BxB" firstAttribute="leading" secondItem="s8e-Qc-Zbp" secondAttribute="leading" constant="5" id="5Kl-Nf-cng"/>
-                            <constraint firstAttribute="trailing" secondItem="XJM-AJ-BxB" secondAttribute="trailing" constant="5" id="6Cy-eg-dxp"/>
-                            <constraint firstItem="7HG-Yf-hho" firstAttribute="leading" secondItem="s8e-Qc-Zbp" secondAttribute="leading" constant="5" id="gT9-sH-NY9"/>
-                            <constraint firstItem="7HG-Yf-hho" firstAttribute="top" secondItem="s8e-Qc-Zbp" secondAttribute="top" constant="5" id="z8z-1Y-abp"/>
-                        </constraints>
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="s8e-Qc-Zbp" firstAttribute="leading" secondItem="1KD-HV-yz9" secondAttribute="leading" id="7fq-Ij-LVZ"/>
-                    <constraint firstAttribute="bottom" secondItem="s8e-Qc-Zbp" secondAttribute="bottom" id="9kd-Yd-W3Q"/>
+                    <constraint firstItem="s8e-Qc-Zbp" firstAttribute="leading" secondItem="1KD-HV-yz9" secondAttribute="leading" constant="10" id="7fq-Ij-LVZ"/>
+                    <constraint firstAttribute="bottom" secondItem="s8e-Qc-Zbp" secondAttribute="bottom" constant="20" symbolic="YES" id="9kd-Yd-W3Q"/>
                     <constraint firstItem="s8e-Qc-Zbp" firstAttribute="top" secondItem="1KD-HV-yz9" secondAttribute="top" id="aId-Y2-QlH"/>
                     <constraint firstAttribute="trailing" secondItem="s8e-Qc-Zbp" secondAttribute="trailing" id="jVh-SE-6s5"/>
                 </constraints>

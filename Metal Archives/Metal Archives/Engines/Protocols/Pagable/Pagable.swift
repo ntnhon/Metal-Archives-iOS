@@ -21,6 +21,7 @@ extension Pagable {
         let displayStart = page * self.displayLenght
         
         requestURLString = requestURLString.replacingOccurrences(of: "<DISPLAY_START>", with: "\(displayStart)")
+        requestURLString = requestURLString.replacingOccurrences(of: "<DISPLAY_LENGTH>", with: "\(self.displayLenght)")
         
         options?.forEach({ (arg) in
             let (key, value) = arg
