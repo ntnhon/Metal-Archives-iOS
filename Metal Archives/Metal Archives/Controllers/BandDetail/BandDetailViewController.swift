@@ -34,7 +34,7 @@ final class BandDetailViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        stretchyLogoSmokedImageViewHeightConstraint.constant = Settings.strechyBandLogoImageViewHeight
+        stretchyLogoSmokedImageViewHeightConstraint.constant = Settings.strechyLogoImageViewHeight
         configureTableView()
         handleUtileBarViewActions()
         reloadBand()
@@ -172,7 +172,7 @@ extension BandDetailViewController {
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.contentInset = .init(top: Settings.strechyBandLogoImageViewHeight - Settings.bandPhotoImageViewHeight / 2, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = .init(top: Settings.strechyLogoImageViewHeight - Settings.bandPhotoImageViewHeight / 2, left: 0, bottom: 0, right: 0)
         
         // observe when tableView is scrolled to animate alphas because scrollViewDidScroll doesn't capture enough event.
         tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
@@ -196,8 +196,10 @@ extension BandDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.section == 0 && indexPath.row == 0 {
-            presentBandLogoInPhotoViewer()
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                presentBandLogoInPhotoViewer()
+            }
             return
         }
         

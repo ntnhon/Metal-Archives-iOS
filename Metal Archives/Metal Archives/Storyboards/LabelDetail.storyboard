@@ -1,188 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OeT-ge-SEE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Release In Label List View Controller-->
-        <scene sceneID="nSd-VZ-esz">
-            <objects>
-                <viewController storyboardIdentifier="ReleaseInLabelListViewController" id="vhh-H3-T1T" customClass="ReleaseInLabelListViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="CjY-AT-11O">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="g63-L7-DuU">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="vhh-H3-T1T" id="98r-TO-G7T"/>
-                                    <outlet property="delegate" destination="vhh-H3-T1T" id="THo-oF-XYH"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="g63-L7-DuU" firstAttribute="leading" secondItem="f2C-Vl-dig" secondAttribute="leading" id="Tn4-kV-Gv5"/>
-                            <constraint firstItem="f2C-Vl-dig" firstAttribute="trailing" secondItem="g63-L7-DuU" secondAttribute="trailing" id="Yte-ev-i7X"/>
-                            <constraint firstItem="f2C-Vl-dig" firstAttribute="bottom" secondItem="g63-L7-DuU" secondAttribute="bottom" id="ZhC-d4-K5T"/>
-                            <constraint firstItem="g63-L7-DuU" firstAttribute="top" secondItem="f2C-Vl-dig" secondAttribute="top" id="bsm-hk-9AZ"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="f2C-Vl-dig"/>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="g63-L7-DuU" id="wDw-n5-2L2"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Cqr-xu-heg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-865" y="497"/>
-        </scene>
         <!--Label Detail View Controller-->
-        <scene sceneID="SVk-Ha-Fw9">
+        <scene sceneID="kCk-52-SdU">
             <objects>
-                <viewController storyboardIdentifier="LabelDetailViewController" id="OeT-ge-SEE" customClass="LabelDetailViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8a0-Yk-neq">
+                <viewController storyboardIdentifier="LabelDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vGZ-pj-gZn" customClass="LabelDetailViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VxU-gS-5HC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="5Kb-Sl-qZI">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IjC-3D-Nyb" customClass="SmokedImageView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="YZu-ad-gIS"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="XSk-Rl-NVE">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="OeT-ge-SEE" id="NiF-h3-CDi"/>
-                                    <outlet property="delegate" destination="OeT-ge-SEE" id="ocY-BT-dGt"/>
+                                    <outlet property="dataSource" destination="vGZ-pj-gZn" id="e2A-Se-51n"/>
+                                    <outlet property="delegate" destination="vGZ-pj-gZn" id="i5y-HI-QKr"/>
                                 </connections>
                             </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="5Kb-Sl-qZI" firstAttribute="leading" secondItem="75C-Gn-l5c" secondAttribute="leading" id="5Fy-1e-TA9"/>
-                            <constraint firstItem="75C-Gn-l5c" firstAttribute="trailing" secondItem="5Kb-Sl-qZI" secondAttribute="trailing" id="CdP-wR-don"/>
-                            <constraint firstItem="75C-Gn-l5c" firstAttribute="bottom" secondItem="5Kb-Sl-qZI" secondAttribute="bottom" id="Nol-Ab-aB6"/>
-                            <constraint firstItem="5Kb-Sl-qZI" firstAttribute="top" secondItem="75C-Gn-l5c" secondAttribute="top" id="X4L-mE-end"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="75C-Gn-l5c"/>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="5Kb-Sl-qZI" id="Dmw-Ot-D8k"/>
-                        <segue destination="tXm-Hy-JGQ" kind="show" identifier="ShowSubLabelList" id="CDk-Wj-Sq1"/>
-                        <segue destination="w8h-wp-kbo" kind="show" identifier="ShowCurrentRoster" id="QMR-Pm-APn"/>
-                        <segue destination="J22-Ta-73H" kind="show" identifier="ShowPastRoster" id="vMj-SC-FhM"/>
-                        <segue destination="vhh-H3-T1T" kind="show" identifier="ShowReleasesInLabel" id="YJs-6m-oo8"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BkJ-ox-5qC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="9" y="60"/>
-        </scene>
-        <!--Past Roster List View Controller-->
-        <scene sceneID="fHv-Qb-5gF">
-            <objects>
-                <viewController storyboardIdentifier="PastRosterListViewController" id="J22-Ta-73H" customClass="PastRosterListViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="e0O-HJ-q0E">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bpK-B5-g4A">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wdu-Wv-r1s" customClass="UtileBarView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="J22-Ta-73H" id="lzP-4K-WRD"/>
-                                    <outlet property="delegate" destination="J22-Ta-73H" id="qHr-KL-4rO"/>
-                                </connections>
-                            </tableView>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="J9q-yl-bgY"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="il0-7h-ZXx" firstAttribute="bottom" secondItem="bpK-B5-g4A" secondAttribute="bottom" id="AJZ-0o-O0Y"/>
-                            <constraint firstItem="bpK-B5-g4A" firstAttribute="top" secondItem="il0-7h-ZXx" secondAttribute="top" id="ZIT-g2-0Vo"/>
-                            <constraint firstItem="il0-7h-ZXx" firstAttribute="trailing" secondItem="bpK-B5-g4A" secondAttribute="trailing" id="eaQ-GJ-WyT"/>
-                            <constraint firstItem="bpK-B5-g4A" firstAttribute="leading" secondItem="il0-7h-ZXx" secondAttribute="leading" id="gCJ-hA-6X7"/>
+                            <constraint firstItem="wdu-Wv-r1s" firstAttribute="leading" secondItem="Iab-WN-xKm" secondAttribute="leading" id="0d7-3g-Otj"/>
+                            <constraint firstItem="Iab-WN-xKm" firstAttribute="trailing" secondItem="XSk-Rl-NVE" secondAttribute="trailing" id="8zk-wN-ljV"/>
+                            <constraint firstItem="Iab-WN-xKm" firstAttribute="trailing" secondItem="IjC-3D-Nyb" secondAttribute="trailing" id="Cr3-1I-Yl1"/>
+                            <constraint firstItem="Iab-WN-xKm" firstAttribute="trailing" secondItem="wdu-Wv-r1s" secondAttribute="trailing" id="MN8-m3-1sj"/>
+                            <constraint firstItem="IjC-3D-Nyb" firstAttribute="leading" secondItem="Iab-WN-xKm" secondAttribute="leading" id="NK4-kO-qsr"/>
+                            <constraint firstItem="Iab-WN-xKm" firstAttribute="bottom" secondItem="XSk-Rl-NVE" secondAttribute="bottom" id="ch9-4V-7cB"/>
+                            <constraint firstItem="IjC-3D-Nyb" firstAttribute="top" secondItem="VxU-gS-5HC" secondAttribute="top" id="f0m-wA-ft1"/>
+                            <constraint firstItem="XSk-Rl-NVE" firstAttribute="leading" secondItem="Iab-WN-xKm" secondAttribute="leading" id="ge8-cQ-uG4"/>
+                            <constraint firstItem="wdu-Wv-r1s" firstAttribute="top" secondItem="VxU-gS-5HC" secondAttribute="top" id="kWa-qa-xl8"/>
+                            <constraint firstItem="XSk-Rl-NVE" firstAttribute="top" secondItem="IjC-3D-Nyb" secondAttribute="top" id="uJ1-Hd-iII"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="il0-7h-ZXx"/>
+                        <viewLayoutGuide key="safeArea" id="Iab-WN-xKm"/>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="bpK-B5-g4A" id="Wd2-hm-q2U"/>
+                        <outlet property="stretchyLogoSmokedImageView" destination="IjC-3D-Nyb" id="zgA-r9-mVi"/>
+                        <outlet property="stretchyLogoSmokedImageViewHeightConstraint" destination="YZu-ad-gIS" id="dB3-zI-siq"/>
+                        <outlet property="tableView" destination="XSk-Rl-NVE" id="c0b-qu-N12"/>
+                        <outlet property="utileBarView" destination="wdu-Wv-r1s" id="EDV-6a-Uvf"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="q2O-9m-Mo5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cWe-Gr-hyo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="65" y="838"/>
-        </scene>
-        <!--Sublabel List View Controller-->
-        <scene sceneID="Anf-kJ-MdV">
-            <objects>
-                <viewController storyboardIdentifier="SublabelListViewController" id="tXm-Hy-JGQ" customClass="SublabelListViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="uOg-rP-lBW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CwY-Cz-2dv">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="tXm-Hy-JGQ" id="MU6-JZ-UZt"/>
-                                    <outlet property="delegate" destination="tXm-Hy-JGQ" id="JF1-i0-MOL"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="CwY-Cz-2dv" firstAttribute="top" secondItem="jGy-p8-bjO" secondAttribute="top" id="1xx-LA-IgW"/>
-                            <constraint firstItem="jGy-p8-bjO" firstAttribute="trailing" secondItem="CwY-Cz-2dv" secondAttribute="trailing" id="WzL-AB-xsm"/>
-                            <constraint firstItem="jGy-p8-bjO" firstAttribute="bottom" secondItem="CwY-Cz-2dv" secondAttribute="bottom" id="eQ1-wU-l5U"/>
-                            <constraint firstItem="CwY-Cz-2dv" firstAttribute="leading" secondItem="jGy-p8-bjO" secondAttribute="leading" id="nPk-Tl-3f0"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="jGy-p8-bjO"/>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="CwY-Cz-2dv" id="Z12-ic-c9O"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hzq-oz-2UO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="775" y="-361"/>
-        </scene>
-        <!--Current Roster List View Controller-->
-        <scene sceneID="XT6-eo-hZe">
-            <objects>
-                <viewController storyboardIdentifier="CurrentRosterListViewController" id="w8h-wp-kbo" customClass="CurrentRosterListViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="WS3-EU-CfW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="om3-ey-NbR">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="w8h-wp-kbo" id="y8N-Em-AW2"/>
-                                    <outlet property="delegate" destination="w8h-wp-kbo" id="J5g-Om-Q8I"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="xuV-ZA-JFY" firstAttribute="bottom" secondItem="om3-ey-NbR" secondAttribute="bottom" id="5da-Fu-gmz"/>
-                            <constraint firstItem="om3-ey-NbR" firstAttribute="top" secondItem="xuV-ZA-JFY" secondAttribute="top" id="8iQ-fy-vb5"/>
-                            <constraint firstItem="om3-ey-NbR" firstAttribute="leading" secondItem="xuV-ZA-JFY" secondAttribute="leading" id="CtW-JN-Sno"/>
-                            <constraint firstItem="xuV-ZA-JFY" firstAttribute="trailing" secondItem="om3-ey-NbR" secondAttribute="trailing" id="cmZ-cm-QKE"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="xuV-ZA-JFY"/>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="om3-ey-NbR" id="8Ek-pu-199"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vJQ-u9-yuO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="786" y="305"/>
+            <point key="canvasLocation" x="53.600000000000001" y="91.304347826086968"/>
         </scene>
     </scenes>
 </document>

@@ -230,10 +230,10 @@ final class ArtistDetailViewController: BaseViewController {
         }
         
         let artistNameLabellFrameInThisView = artistNameTableViewCell.convert(artistNameLabel.frame, to: view)
-        let distanceFromArtistNameLabelLabelToUtileBarView = artistNameLabellFrameInThisView.origin.y - (utileBarView.frame.origin.y + utileBarView.frame.size.height)
+        let distanceFromArtistNameLabelToUtileBarView = artistNameLabellFrameInThisView.origin.y - (utileBarView.frame.origin.y + utileBarView.frame.size.height)
         
         // alpha = distance / label's height (dim base on label's frame)
-        artistNameTableViewCell.alpha = (distanceFromArtistNameLabelLabelToUtileBarView + artistNameLabel.frame.height) / artistNameLabel.frame.height
+        artistNameTableViewCell.alpha = (distanceFromArtistNameLabelToUtileBarView + artistNameLabel.frame.height) / artistNameLabel.frame.height
         utileBarView.setAlphaForBackgroundAndTitleLabel(1 - artistNameTableViewCell.alpha)
     }
 }
