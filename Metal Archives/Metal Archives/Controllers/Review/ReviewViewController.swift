@@ -15,9 +15,6 @@ final class ReviewViewController: BaseViewController {
     
     var urlString: String!
     private var review: Review!
-    private weak var containingViewController: UIViewController!
-    private var initialCenter = CGPoint()
-    
     private var isDismissing = false
     
     override func viewDidLoad() {
@@ -27,6 +24,10 @@ final class ReviewViewController: BaseViewController {
         view.backgroundColor = Settings.currentTheme.backgroundColor
         tableView.backgroundColor = Settings.currentTheme.backgroundColor
         ReviewDetailTableViewCell.register(with: tableView)
+    }
+    
+    deinit {
+        print("ReviewViewController is being deinitialized")
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -45,18 +46,18 @@ final class ReviewViewController: BaseViewController {
                         self.tableView.reloadData()
                     }
                     
-                    Analytics.logEvent(AnalyticsEvent.ViewReview, parameters: [AnalyticsParameter.ReleaseTitle: review.releaseTitle!, AnalyticsParameter.ReviewTitle: review.title!])
+                    Analytics.logEvent(AnalyticsEvent.ViewReview, parameters: [AnalyticsParameter.ReleaseTitle: review.release.name, AnalyticsParameter.ReviewTitle: review.title!])
                 }
             }
         }
     }
     
     func present(in viewController: UIViewController) {
-        containingViewController = viewController
-        containingViewController.navigationController!.addChild(self)
+        viewController.addChild(self)
+        viewController.view.addSubview(view)
+        //self.didMove(toParent: viewController)
         
         view.transform = CGAffineTransform(translationX: 0, y: view.bounds.height)
-        containingViewController.navigationController!.view.addSubview(view)
         
         UIView.animate(withDuration: 0.35) { [unowned self] in
             self.view.transform = .identity
@@ -68,6 +69,7 @@ final class ReviewViewController: BaseViewController {
         UIView.animate(withDuration: 0.35, animations: { [unowned self] in
             self.view.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
         }) { [unowned self] (finished) in
+            self.willMove(toParent: nil)
             self.view.removeFromSuperview()
             self.removeFromParent()
         }
@@ -80,7 +82,7 @@ extension ReviewViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertTitle: "View this review in browser", alertMessage: "\(review.title!) - \(review.rating!)%", shareMessage: "Share this review URL")
         
-        Analytics.logEvent(AnalyticsEvent.ShareReview, parameters: [AnalyticsParameter.ReleaseTitle: review.releaseTitle!, AnalyticsParameter.ReviewTitle: review.title!])
+        Analytics.logEvent(AnalyticsEvent.ShareReview, parameters: [AnalyticsParameter.ReleaseTitle: review.release.name, AnalyticsParameter.ReviewTitle: review.title!])
     }
 }
 
@@ -109,10 +111,21 @@ extension ReviewViewController: UITableViewDataSource {
 extension ReviewViewController: ReviewDetailTableViewCellDelegate {
     func didTapCoverImageView() {
         if let coverPhotoURLString = review.coverPhotoURLString {
-            presentPhotoViewer(photoURLString: coverPhotoURLString, description: "\(review.bandName!) - \(review.releaseTitle!)")
-            
-            Analytics.logEvent(AnalyticsEvent.ViewReviewReleaseCover, parameters: [AnalyticsParameter.ReleaseTitle: review.releaseTitle!, AnalyticsParameter.ReviewTitle: review.title!])
+            presentPhotoViewer(photoURLString: coverPhotoURLString, description: "\(review.band.name) - \(review.release.name)")
+                        Analytics.logEvent(AnalyticsEvent.ViewReviewReleaseCover, parameters: [AnalyticsParameter.ReleaseTitle: review.release.name, AnalyticsParameter.ReviewTitle: review.title!])
         }
+    }
+    
+    func didTapBandNameLabel() {
+        dismiss()
+    }
+    
+    func didTapReleaseTitleLabel() {
+        
+    }
+    
+    func didTapBaseVersionLabel() {
+        
     }
 }
 
