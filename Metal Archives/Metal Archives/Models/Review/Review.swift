@@ -20,6 +20,10 @@ final class Review {
     private(set) var baseVersion: ReleaseExtraLite?
     private(set) var htmlContentString: String!
     
+    deinit {
+        print("Review is deallocated")
+    }
+    
     lazy var baseVersionAttributedString: NSAttributedString? = {
         guard let baseVersion = baseVersion else { return nil }
         

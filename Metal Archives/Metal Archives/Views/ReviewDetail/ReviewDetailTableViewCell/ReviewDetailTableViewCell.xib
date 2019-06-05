@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="417" id="MrC-K4-T8o" customClass="ReviewDetailTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="417" id="MrC-K4-T8o" customClass="ReviewDetailTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="418" height="417"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MrC-K4-T8o" id="SFa-Cq-BTL">
@@ -105,6 +105,28 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYg-c3-AZV">
+                        <rect key="frame" x="20" y="20" width="32" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="jYg-c3-AZV" secondAttribute="height" multiplier="1:1" id="BlU-Z4-apT"/>
+                            <constraint firstAttribute="height" constant="32" id="a4j-4Q-mac"/>
+                        </constraints>
+                        <state key="normal" image="X"/>
+                        <connections>
+                            <action selector="tapCloseButton" destination="MrC-K4-T8o" eventType="touchUpInside" id="unM-DA-MXV"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SmF-VH-RTv">
+                        <rect key="frame" x="366" y="20" width="32" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="xgh-lD-RSR"/>
+                            <constraint firstAttribute="width" secondItem="SmF-VH-RTv" secondAttribute="height" multiplier="1:1" id="zfG-ea-eot"/>
+                        </constraints>
+                        <state key="normal" image="share"/>
+                        <connections>
+                            <action selector="tapShareButton" destination="MrC-K4-T8o" eventType="touchUpInside" id="sed-oP-rWd"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="scq-7m-99r" firstAttribute="leading" secondItem="SFa-Cq-BTL" secondAttribute="leading" constant="20" symbolic="YES" id="0as-Eg-mGE"/>
@@ -118,6 +140,7 @@
                     <constraint firstItem="BEj-7u-vUa" firstAttribute="leading" secondItem="SFa-Cq-BTL" secondAttribute="leading" constant="20" symbolic="YES" id="Av8-iK-Te5"/>
                     <constraint firstItem="3CF-Kg-aHS" firstAttribute="centerY" secondItem="RT3-jS-F0f" secondAttribute="centerY" id="Bo7-xf-MCh"/>
                     <constraint firstItem="RD6-Sf-3ww" firstAttribute="leading" secondItem="Fuy-sR-06E" secondAttribute="trailing" constant="8" symbolic="YES" id="Csf-sJ-9yr"/>
+                    <constraint firstAttribute="trailing" secondItem="SmF-VH-RTv" secondAttribute="trailing" constant="20" symbolic="YES" id="Eop-hz-HKG"/>
                     <constraint firstAttribute="trailing" secondItem="BEj-7u-vUa" secondAttribute="trailing" constant="20" symbolic="YES" id="G4B-Zn-piz"/>
                     <constraint firstItem="NQl-Av-qXr" firstAttribute="centerY" secondItem="Pmu-AR-ey5" secondAttribute="centerY" id="GSV-OK-Ttj"/>
                     <constraint firstItem="scq-7m-99r" firstAttribute="top" secondItem="GXy-oS-i5C" secondAttribute="bottom" constant="8" symbolic="YES" id="Kjm-CR-yDP"/>
@@ -127,15 +150,18 @@
                     <constraint firstItem="R8Z-8s-V0B" firstAttribute="leading" secondItem="xz2-fw-y6J" secondAttribute="trailing" constant="8" symbolic="YES" id="Pa3-Rx-Pen"/>
                     <constraint firstItem="YXU-a5-qVe" firstAttribute="top" secondItem="RT3-jS-F0f" secondAttribute="bottom" constant="8" symbolic="YES" id="RdB-uS-2HQ"/>
                     <constraint firstItem="BEj-7u-vUa" firstAttribute="top" secondItem="bF3-EY-zVq" secondAttribute="bottom" constant="8" symbolic="YES" id="SoQ-2R-sgM"/>
+                    <constraint firstItem="jYg-c3-AZV" firstAttribute="top" secondItem="SFa-Cq-BTL" secondAttribute="top" constant="20" symbolic="YES" id="T0o-6S-OoX"/>
                     <constraint firstItem="Fuy-sR-06E" firstAttribute="leading" secondItem="SFa-Cq-BTL" secondAttribute="leading" constant="20" symbolic="YES" id="WtS-gD-k0N"/>
                     <constraint firstItem="CIs-bI-IaX" firstAttribute="leading" secondItem="SFa-Cq-BTL" secondAttribute="leading" constant="20" symbolic="YES" id="a8r-0X-Dk4"/>
                     <constraint firstItem="Fuy-sR-06E" firstAttribute="centerY" secondItem="RD6-Sf-3ww" secondAttribute="centerY" id="aCG-MB-0sZ"/>
+                    <constraint firstItem="SmF-VH-RTv" firstAttribute="top" secondItem="SFa-Cq-BTL" secondAttribute="top" constant="20" symbolic="YES" id="arY-Py-oh5"/>
                     <constraint firstAttribute="trailing" secondItem="YXU-a5-qVe" secondAttribute="trailing" constant="20" symbolic="YES" id="b06-aH-4VM"/>
                     <constraint firstItem="RT3-jS-F0f" firstAttribute="top" secondItem="R8Z-8s-V0B" secondAttribute="bottom" constant="8" symbolic="YES" id="bMf-EW-vvk"/>
                     <constraint firstItem="RT3-jS-F0f" firstAttribute="leading" secondItem="3CF-Kg-aHS" secondAttribute="trailing" constant="8" symbolic="YES" id="eBw-7z-4T8"/>
                     <constraint firstItem="Pmu-AR-ey5" firstAttribute="leading" secondItem="NQl-Av-qXr" secondAttribute="trailing" constant="8" symbolic="YES" id="gGE-9U-7Mj"/>
                     <constraint firstItem="CIs-bI-IaX" firstAttribute="centerY" secondItem="YXU-a5-qVe" secondAttribute="centerY" id="iZw-n5-6tz"/>
                     <constraint firstAttribute="trailing" secondItem="R8Z-8s-V0B" secondAttribute="trailing" constant="20" symbolic="YES" id="jMy-LO-pCI"/>
+                    <constraint firstItem="jYg-c3-AZV" firstAttribute="leading" secondItem="SFa-Cq-BTL" secondAttribute="leading" constant="20" symbolic="YES" id="k9T-fL-6HV"/>
                     <constraint firstItem="R8Z-8s-V0B" firstAttribute="top" secondItem="BEj-7u-vUa" secondAttribute="bottom" constant="8" symbolic="YES" id="pva-Kg-4Yg"/>
                     <constraint firstItem="bF3-EY-zVq" firstAttribute="leading" secondItem="SFa-Cq-BTL" secondAttribute="leading" id="qxb-1h-lxB"/>
                     <constraint firstItem="GXy-oS-i5C" firstAttribute="top" secondItem="RD6-Sf-3ww" secondAttribute="bottom" constant="8" symbolic="YES" id="rBd-aZ-SNc"/>
@@ -151,6 +177,7 @@
                 <outlet property="authorLabel" destination="Pmu-AR-ey5" id="9KU-kE-DpR"/>
                 <outlet property="bandNameLabel" destination="R8Z-8s-V0B" id="noL-a5-uqF"/>
                 <outlet property="baseVersionLabel" destination="GXy-oS-i5C" id="cEf-yb-g7T"/>
+                <outlet property="closeButton" destination="jYg-c3-AZV" id="ta3-Je-iza"/>
                 <outlet property="coverPhotoImageView" destination="bF3-EY-zVq" id="7oY-bT-fAr"/>
                 <outlet property="coverPhotoImageViewHeightConstraint" destination="SnH-Lh-L27" id="Z17-tw-A59"/>
                 <outlet property="dateLabel" destination="RD6-Sf-3ww" id="FRM-IX-kMJ"/>
@@ -158,6 +185,7 @@
                 <outlet property="releaseTitleLabel" destination="RT3-jS-F0f" id="JBJ-fr-KVo"/>
                 <outlet property="reviewContentLabel" destination="scq-7m-99r" id="Iq4-aQ-tgq"/>
                 <outlet property="reviewTitleLabel" destination="BEj-7u-vUa" id="jxm-Jr-62n"/>
+                <outlet property="shareButton" destination="SmF-VH-RTv" id="bxO-gS-btp"/>
                 <outletCollection property="iconImageViews" destination="xz2-fw-y6J" collectionClass="NSMutableArray" id="Vgk-mM-vXK"/>
                 <outletCollection property="iconImageViews" destination="3CF-Kg-aHS" collectionClass="NSMutableArray" id="SIT-3o-IRW"/>
                 <outletCollection property="iconImageViews" destination="CIs-bI-IaX" collectionClass="NSMutableArray" id="s4P-Zy-KQL"/>
@@ -168,9 +196,11 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="X" width="170.5" height="170.5"/>
         <image name="band" width="124" height="68.5"/>
         <image name="calendar" width="120" height="112.5"/>
         <image name="review" width="125" height="125"/>
+        <image name="share" width="32" height="32"/>
         <image name="star" width="116" height="111.5"/>
         <image name="vinyl" width="128" height="128"/>
     </resources>

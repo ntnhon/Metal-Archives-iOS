@@ -10,6 +10,8 @@ import UIKit
 import Toaster
 import FirebaseAnalytics
 
+fileprivate let duration = 0.35
+
 final class ReviewViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
@@ -25,9 +27,9 @@ final class ReviewViewController: BaseViewController {
         tableView.backgroundColor = Settings.currentTheme.backgroundColor
         ReviewDetailTableViewCell.register(with: tableView)
     }
-    
+
     deinit {
-        print("ReviewViewController is being deinitialized")
+        print("ReviewViewController is deallocated")
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -52,37 +54,35 @@ final class ReviewViewController: BaseViewController {
         }
     }
     
-    func present(in viewController: UIViewController) {
-        viewController.addChild(self)
-        viewController.view.addSubview(view)
-        //self.didMove(toParent: viewController)
+    func presentFromBottom(in viewController: UIViewController) {
+        if let navigationController = viewController.navigationController {
+            navigationController.addChild(self)
+            navigationController.view.addSubview(view)
+            self.didMove(toParent: navigationController)
+        } else {
+            viewController.addChild(self)
+            viewController.view.addSubview(view)
+            self.didMove(toParent: viewController)
+        }
         
         view.transform = CGAffineTransform(translationX: 0, y: view.bounds.height)
         
-        UIView.animate(withDuration: 0.35) { [unowned self] in
+        UIView.animate(withDuration: duration) { [unowned self] in
             self.view.transform = .identity
         }
     }
     
-    private func dismiss() {
+    func dismissToBottom(completion: (() -> Void)? = nil) {
         isDismissing = true
-        UIView.animate(withDuration: 0.35, animations: { [unowned self] in
+        
+        UIView.animate(withDuration: duration, animations: { [unowned self] in
             self.view.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
         }) { [unowned self] (finished) in
+            completion?()
             self.willMove(toParent: nil)
             self.view.removeFromSuperview()
             self.removeFromParent()
         }
-    }
-}
-
-//MARK: - UITableViewDelegate
-extension ReviewViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertTitle: "View this review in browser", alertMessage: "\(review.title!) - \(review.rating!)%", shareMessage: "Share this review URL")
-        
-        Analytics.logEvent(AnalyticsEvent.ShareReview, parameters: [AnalyticsParameter.ReleaseTitle: review.release.name, AnalyticsParameter.ReviewTitle: review.title!])
     }
 }
 
@@ -112,20 +112,45 @@ extension ReviewViewController: ReviewDetailTableViewCellDelegate {
     func didTapCoverImageView() {
         if let coverPhotoURLString = review.coverPhotoURLString {
             presentPhotoViewer(photoURLString: coverPhotoURLString, description: "\(review.band.name) - \(review.release.name)")
-                        Analytics.logEvent(AnalyticsEvent.ViewReviewReleaseCover, parameters: [AnalyticsParameter.ReleaseTitle: review.release.name, AnalyticsParameter.ReviewTitle: review.title!])
+            Analytics.logEvent(AnalyticsEvent.ViewReviewReleaseCover, parameters: [AnalyticsParameter.ReleaseTitle: review.release.name, AnalyticsParameter.ReviewTitle: review.title!])
         }
     }
     
     func didTapBandNameLabel() {
-        dismiss()
+        dismissToBottom { [unowned self] in
+            if let parentViewController = self.parent, parentViewController is UINavigationController {
+                (parentViewController as! UINavigationController).viewControllers.last?.pushBandDetailViewController(urlString: self.review.band.urlString, animated: true)
+            }
+        }
     }
     
     func didTapReleaseTitleLabel() {
-        
+        dismissToBottom { [unowned self] in
+            if let parentViewController = self.parent, parentViewController is UINavigationController {
+                (parentViewController as! UINavigationController).viewControllers.last?.pushReleaseDetailViewController(urlString: self.review.release.urlString, animated: true)
+            }
+        }
     }
     
     func didTapBaseVersionLabel() {
+        dismissToBottom { [unowned self] in
+            guard let baseVersionUrlString = self.review.baseVersion?.urlString else {
+                return
+            }
+            if let parentViewController = self.parent, parentViewController is UINavigationController {
+                (parentViewController as! UINavigationController).viewControllers.last?.pushReleaseDetailViewController(urlString: baseVersionUrlString, animated: true)
+            }
+        }
+    }
+    
+    func didTapCloseButton() {
+        dismissToBottom()
+    }
+    
+    func didTapShareButton() {
+        presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertTitle: "View this review in browser", alertMessage: "\(review.title!) - \(review.rating!)%", shareMessage: "Share this review URL")
         
+        Analytics.logEvent(AnalyticsEvent.ShareReview, parameters: [AnalyticsParameter.ReleaseTitle: review.release.name, AnalyticsParameter.ReviewTitle: review.title!])
     }
 }
 
@@ -136,10 +161,10 @@ extension ReviewViewController: UIScrollViewDelegate {
         
         view.transform = CGAffineTransform(translationX: view.frame.origin.x, y: -scrollView.contentOffset.y)
     }
-
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView.contentOffset.y < 0 && abs(scrollView.contentOffset.y) > 100 {
-            dismiss()
+            dismissToBottom()
         } else {
             view.transform = .identity
         }

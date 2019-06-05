@@ -76,7 +76,7 @@ extension UIViewController {
                 action = UIAlertAction(title: "💬 Review: \(element.name)", style: .default, handler: { (action) in
                     let reviewViewController = UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
                     reviewViewController.urlString = element.urlString
-                    reviewViewController.present(in: self)
+                    reviewViewController.presentFromBottom(in: self)
                 })
             }
             

@@ -19,16 +19,10 @@ extension RequestHelper {
             RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
                 switch response.result {
                 case .success:
-                    if let data = response.data {
-                        if let review = Review(data: data) {
-                            onSuccess(review)
-                        } else {
-                            #warning("Handle error")
-                            assertionFailure("Error loading review detail")
-                        }
+                    if let data = response.data, let review = Review(data: data) {
+                        onSuccess(review)
                     } else {
-                        #warning("Handle error")
-                        assertionFailure("Error loading review detail")
+                        onError(MANetworkingError.badResponse(response))
                     }
                     
                 case .failure(let error): onError(error)

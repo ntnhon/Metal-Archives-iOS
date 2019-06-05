@@ -8,11 +8,13 @@
 
 import UIKit
 
-protocol ReviewDetailTableViewCellDelegate {
+protocol ReviewDetailTableViewCellDelegate: class {
     func didTapCoverImageView()
     func didTapBandNameLabel()
     func didTapReleaseTitleLabel()
     func didTapBaseVersionLabel()
+    func didTapCloseButton()
+    func didTapShareButton()
 }
 
 final class ReviewDetailTableViewCell: BaseTableViewCell, RegisterableCell {
@@ -29,7 +31,10 @@ final class ReviewDetailTableViewCell: BaseTableViewCell, RegisterableCell {
     @IBOutlet private weak var reviewContentLabel: UILabel!
     @IBOutlet private var iconImageViews: [UIImageView]!
     
-    var delegate: ReviewDetailTableViewCellDelegate?
+    @IBOutlet private weak var closeButton: UIButton!
+    @IBOutlet private weak var shareButton: UIButton!
+    
+    weak var delegate: ReviewDetailTableViewCellDelegate?
     
     override func initAppearance() {
         super.initAppearance()
@@ -85,6 +90,9 @@ final class ReviewDetailTableViewCell: BaseTableViewCell, RegisterableCell {
         iconImageViews.forEach({
             $0.tintColor = Settings.currentTheme.iconTintColor
         })
+        
+        closeButton.tintColor = Settings.currentTheme.bodyTextColor
+        shareButton.tintColor = Settings.currentTheme.bodyTextColor
     }
 
     func fill(with review: Review) {
@@ -119,5 +127,13 @@ final class ReviewDetailTableViewCell: BaseTableViewCell, RegisterableCell {
     
     @objc private func tapBaseVersionLabel() {
         delegate?.didTapBaseVersionLabel()
+    }
+    
+    @IBAction private func tapCloseButton() {
+        delegate?.didTapCloseButton()
+    }
+    
+    @IBAction private func tapShareButton() {
+        delegate?.didTapShareButton()
     }
 }
