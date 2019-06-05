@@ -31,6 +31,10 @@ final class ArtistDetailViewController: BaseViewController {
     private var guestSessionRoles: [Any]!
     private var miscStaffRoles: [Any]!
     
+    deinit {
+        print("ArtistDetailViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         stretchyLogoSmokedImageViewHeightConstraint.constant = screenWidth

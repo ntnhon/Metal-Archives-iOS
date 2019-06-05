@@ -19,7 +19,7 @@ final class BandDetailViewController: BaseViewController {
     @IBOutlet private weak var utileBarView: UtileBarView!
     
     var bandURLString: String!
-    private unowned var bandPhotoAndNameTableViewCell: BandPhotoAndNameTableViewCell?
+    private var bandPhotoAndNameTableViewCell: BandPhotoAndNameTableViewCell?
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     
     private var band: Band?
@@ -41,6 +41,10 @@ final class BandDetailViewController: BaseViewController {
         navigationController?.interactivePopGestureRecognizer?.delegate = navigationController as! HomepageNavigationController
     }
     
+    deinit {
+        print("BandDetailViewController is deallocated")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
@@ -52,8 +56,12 @@ final class BandDetailViewController: BaseViewController {
             tableViewContentOffsetObserver?.invalidate()
             tableViewContentOffsetObserver = nil
         }
-        navigationController?.isNavigationBarHidden = false
         stretchyLogoSmokedImageView.transform = .identity
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -62,7 +70,7 @@ final class BandDetailViewController: BaseViewController {
 
     private func reloadBand() {
         
-        MetalArchivesAPI.reloadBand(bandURLString: self.bandURLString) { [weak self] (band, error) in
+        MetalArchivesAPI.reloadBand(bandURLString: bandURLString) { [weak self] (band, error) in
             guard let self = self else { return }
             
             if let _ = error {
@@ -133,7 +141,7 @@ final class BandDetailViewController: BaseViewController {
         
         if oldBands.count == 1 {
             let oldBand = oldBands[0]
-            self.pushBandDetailViewController(urlString: oldBand.urlString, animated: true)
+            pushBandDetailViewController(urlString: oldBand.urlString, animated: true)
             
         } else {
             var alertController: UIAlertController!
@@ -145,7 +153,7 @@ final class BandDetailViewController: BaseViewController {
             }
             
             for eachOldBand in oldBands {
-                let bandAction = UIAlertAction(title: eachOldBand.name, style: .default, handler: { (action) in
+                let bandAction = UIAlertAction(title: eachOldBand.name, style: .default, handler: { [unowned self] (action) in
                     self.pushBandDetailViewController(urlString: eachOldBand.urlString, animated: true)
                 })
                 alertController.addAction(bandAction)
@@ -153,7 +161,7 @@ final class BandDetailViewController: BaseViewController {
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             alertController.addAction(cancelAction)
-            self.present(alertController, animated: true, completion: nil)
+            present(alertController, animated: true, completion: nil)
         }
     }
 }

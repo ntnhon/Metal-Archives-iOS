@@ -36,6 +36,10 @@ final class Artist {
     
     private(set) var links: [RelatedLink]?
     
+    deinit {
+        print("Artist is deallocated")
+    }
+    
     init?(fromData data: Data, urlString: String) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
             let doc = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {

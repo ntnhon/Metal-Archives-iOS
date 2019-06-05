@@ -12,7 +12,7 @@ fileprivate let shuttleViewHeight: CGFloat = 3
 fileprivate let shuttleViewSpacing: CGFloat = 4
 fileprivate let stackViewSpacing: CGFloat = 20
 
-protocol HorizontalMenuViewDelegate {
+protocol HorizontalMenuViewDelegate: class {
     func didSelectItem(atIndex index: Int)
 }
 
@@ -35,7 +35,7 @@ final class HorizontalMenuView: UIView {
     private var stackView: UIStackView!
     private var lastSelectedLabel: UILabel!
     
-    var delegate: HorizontalMenuViewDelegate?
+    weak var delegate: HorizontalMenuViewDelegate?
     
     lazy var intrinsicHeight: CGFloat = {
         return self.lastSelectedLabel.intrinsicContentSize.height + self.shuttleView.frame.height + shuttleViewSpacing

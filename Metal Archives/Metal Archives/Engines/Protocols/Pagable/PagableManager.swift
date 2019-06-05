@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol PagableManagerDelegate {
+protocol PagableManagerDelegate: class {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>)
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>)
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>)
@@ -33,7 +33,7 @@ final class PagableManager<T: Pagable>: NSCopying {
     private var isFetching = false
     private var numberOfTries = 0
     
-    var delegate: PagableManagerDelegate?
+    weak var delegate: PagableManagerDelegate?
     init(options: [String: String]? = nil) {
         self.options = options
     }

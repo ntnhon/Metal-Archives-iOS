@@ -83,6 +83,10 @@ final class Release {
         self.otherVersions = otherVersions
     }
     
+    deinit {
+        print("Release is deallocated")
+    }
+    
     init?(data: Data) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
             let doc = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {

@@ -38,6 +38,10 @@ final class Label {
     private(set) var  addedOnDate: Date?
     private(set) var  lastModifiedOnDate: Date?
     
+    deinit {
+        print("Label is deallocated")
+    }
+    
     init?(fromData data: Data, urlString: String) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
             let doc = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {

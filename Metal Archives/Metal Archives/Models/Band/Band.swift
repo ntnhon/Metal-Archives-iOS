@@ -108,6 +108,10 @@ final class Band: NSObject {
     
     private(set) var relatedLinks: [RelatedLink]?
     
+    deinit {
+        print("Band is deallocated")
+    }
+    
     init?(fromData data: Data) {
         
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),

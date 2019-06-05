@@ -17,7 +17,7 @@ final class LabelDetailViewController: BaseViewController {
     @IBOutlet private weak var utileBarView: UtileBarView!
     
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
-    private unowned var labelNameTableViewCell: LabelNameTableViewCell?
+    private var labelNameTableViewCell: LabelNameTableViewCell?
     
     private var labelMenuOptions: [LabelMenuOption]!
     private var currentLabelMenuOption: LabelMenuOption!
@@ -25,6 +25,10 @@ final class LabelDetailViewController: BaseViewController {
     var urlString: String!
     
     private var label: Label!
+    
+    deinit {
+        print("LabelDetailViewController is deallocated")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

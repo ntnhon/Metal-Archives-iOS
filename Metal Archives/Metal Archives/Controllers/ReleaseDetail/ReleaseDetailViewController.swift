@@ -35,6 +35,10 @@ final class ReleaseDetailViewController: BaseViewController {
         reloadRelease()
     }
     
+    deinit {
+        print("ReleaseDetailViewController is deallocated")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
