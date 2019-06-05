@@ -13,8 +13,7 @@ final class LatestReviewCollectionViewCell: ThumbnailableCollectionViewCell, Reg
     @IBOutlet private weak var bandNameLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var releaseTitleLabel: UILabel!
-    @IBOutlet private weak var authorLabel: UILabel!
-    @IBOutlet private weak var ratingLabel: UILabel!
+    @IBOutlet private weak var authorAndRatingLabel: UILabel!
     @IBOutlet private weak var separatorView: UIView!
 
     override func initAppearance() {
@@ -29,11 +28,8 @@ final class LatestReviewCollectionViewCell: ThumbnailableCollectionViewCell, Reg
         dateLabel.textColor = Settings.currentTheme.bodyTextColor
         dateLabel.font = Settings.currentFontSize.bodyTextFont
         
-        ratingLabel.textColor = Settings.currentTheme.bodyTextColor
-        ratingLabel.font = Settings.currentFontSize.bodyTextFont
-        
-        authorLabel.textColor = Settings.currentTheme.bodyTextColor
-        authorLabel.font = Settings.currentFontSize.bodyTextFont
+        authorAndRatingLabel.textColor = Settings.currentTheme.bodyTextColor
+        authorAndRatingLabel.font = Settings.currentFontSize.bodyTextFont
         
         separatorView.backgroundColor = Settings.currentTheme.collectionViewSeparatorColor
     }
@@ -42,12 +38,7 @@ final class LatestReviewCollectionViewCell: ThumbnailableCollectionViewCell, Reg
         bandNameLabel.text = latestReview.band.name
         releaseTitleLabel.text = latestReview.release.name
         dateLabel.text = latestReview.dateString
-        
-        ratingLabel.text = "\(latestReview.rating)%"
-        ratingLabel.textColor = UIColor.colorByRating(latestReview.rating)
-        
-        authorLabel.text = "Written by \(latestReview.author.name)"
-        
+        authorAndRatingLabel.attributedText = latestReview.authorAndRatingAttributedString
         setThumbnailImageView(with: latestReview.release)
     }
     

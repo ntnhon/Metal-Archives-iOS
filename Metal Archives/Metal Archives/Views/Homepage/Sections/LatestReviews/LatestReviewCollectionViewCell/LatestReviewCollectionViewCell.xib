@@ -45,29 +45,18 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Release title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5P-ua-bTt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Release title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5P-ua-bTt">
                                 <rect key="frame" x="0.0" y="20.5" width="289" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eq5-5W-dhV">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="1000" text="hell_unicorn • 100%" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5W5-Pe-A0v">
                                 <rect key="frame" x="0.0" y="60.5" width="289" height="20.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Written by" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5W5-Pe-A0v">
-                                        <rect key="frame" x="0.0" y="0.0" width="144.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="90%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mbn-N5-bl7">
-                                        <rect key="frame" x="144.5" y="0.0" width="144.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VhB-LJ-2rQ">
@@ -94,10 +83,9 @@
             <viewLayoutGuide key="safeArea" id="DgI-Qp-ze5"/>
             <size key="customSize" width="386" height="89"/>
             <connections>
-                <outlet property="authorLabel" destination="5W5-Pe-A0v" id="z3k-6H-rAR"/>
+                <outlet property="authorAndRatingLabel" destination="5W5-Pe-A0v" id="ew1-oQ-8Qd"/>
                 <outlet property="bandNameLabel" destination="xE1-Ll-nSe" id="2B8-sm-np9"/>
                 <outlet property="dateLabel" destination="gha-0g-TLA" id="OcW-TV-uhl"/>
-                <outlet property="ratingLabel" destination="Mbn-N5-bl7" id="3mB-fX-GvV"/>
                 <outlet property="releaseTitleLabel" destination="u5P-ua-bTt" id="od3-ro-5lw"/>
                 <outlet property="separatorView" destination="VhB-LJ-2rQ" id="EMj-sd-qfw"/>
                 <outlet property="thumbnailImageView" destination="wEk-km-pWQ" id="ZPq-z5-rb0"/>

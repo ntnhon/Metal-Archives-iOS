@@ -135,6 +135,7 @@
 		C04C5005228C0C7A00DAFBF1 /* ParseBandActiveYearsStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C5004228C0C7A00DAFBF1 /* ParseBandActiveYearsStringTests.swift */; };
 		C04C5009228C2DBE00DAFBF1 /* AuditTrail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C5008228C2DBE00DAFBF1 /* AuditTrail.swift */; };
 		C04C500C228C349300DAFBF1 /* ParseAuditTrailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C500B228C349300DAFBF1 /* ParseAuditTrailTests.swift */; };
+		C04D5A0B22A85F6200A687D1 /* UIColor+colorByRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B990D022079904000DBD86 /* UIColor+colorByRating.swift */; };
 		C051B6B52219FDDA0030E5EE /* ReviewDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C051B6B42219FDDA0030E5EE /* ReviewDetailTableViewCell.swift */; };
 		C051B6B72219FDEB0030E5EE /* ReviewDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C051B6B62219FDEB0030E5EE /* ReviewDetailTableViewCell.xib */; };
 		C05309E322232ECB0027D11E /* LabelDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05309E222232ECB0027D11E /* LabelDetailViewController.swift */; };
@@ -3349,6 +3350,7 @@
 				C0795B9522885A9900E5D94F /* News.swift in Sources */,
 				C06B62A22242831500A3FE6B /* Country.swift in Sources */,
 				C06B629B224282B300A3FE6B /* ThumbnailableObject.swift in Sources */,
+				C04D5A0B22A85F6200A687D1 /* UIColor+colorByRating.swift in Sources */,
 				C018B7792243AB9000CDFFB8 /* LoadingTableViewCell.swift in Sources */,
 				C06B629E224282D000A3FE6B /* BaseTableViewCell.swift in Sources */,
 				C06B62992242826100A3FE6B /* RegisterableCell.swift in Sources */,

@@ -6,7 +6,7 @@
 //  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 final class LatestReview {
     let title: String
@@ -17,6 +17,19 @@ final class LatestReview {
     let dateString: String
     let timeString: String
     let author: User
+    
+    lazy var authorAndRatingAttributedString: NSAttributedString = {
+        let authorAndRatingString = "\(author.name) • \(rating)%"
+        let mutableAttributedString = NSMutableAttributedString(string: authorAndRatingString)
+        
+        mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(authorAndRatingString.startIndex..., in: authorAndRatingString))
+
+        if let ratingRange = authorAndRatingString.range(of: "\(rating)%") {
+            mutableAttributedString.addAttributes([.foregroundColor: UIColor.colorByRating(rating)], range: NSRange(ratingRange, in: authorAndRatingString))
+        }
+        
+        return mutableAttributedString
+    }()
     
     /*
      Sample array:

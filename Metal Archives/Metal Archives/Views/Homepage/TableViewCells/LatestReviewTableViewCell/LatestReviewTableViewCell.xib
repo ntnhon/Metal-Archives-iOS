@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,7 +25,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Fall into the Light" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ehm-KF-nu2">
-                        <rect key="frame" x="86" y="50.5" width="265.5" height="16"/>
+                        <rect key="frame" x="86" y="50.5" width="293" height="16"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -37,13 +37,7 @@
                             <constraint firstAttribute="height" constant="56" id="dQb-GE-ci2"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="85%" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ijA-D6-oIF">
-                        <rect key="frame" x="361.5" y="50.5" width="27.5" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Written by Chuck" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OnG-M6-x8l">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" text="hell_unicorn • 100%" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OnG-M6-x8l">
                         <rect key="frame" x="86" y="71.5" width="303" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
@@ -63,26 +57,23 @@
                     <constraint firstItem="OnG-M6-x8l" firstAttribute="top" secondItem="Ehm-KF-nu2" secondAttribute="bottom" constant="5" id="Etf-qs-mfm"/>
                     <constraint firstItem="zNq-BN-Xhf" firstAttribute="leading" secondItem="ifX-PT-DGR" secondAttribute="trailing" constant="10" id="KWM-gE-avc"/>
                     <constraint firstItem="ifX-PT-DGR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="qVf-ao-Kfs" secondAttribute="top" constant="5" id="KYZ-c0-lQn"/>
-                    <constraint firstItem="ijA-D6-oIF" firstAttribute="centerY" secondItem="Ehm-KF-nu2" secondAttribute="centerY" id="KtW-WT-hao"/>
                     <constraint firstAttribute="bottom" secondItem="OnG-M6-x8l" secondAttribute="bottom" constant="5" id="OM5-FN-AxP"/>
-                    <constraint firstItem="ijA-D6-oIF" firstAttribute="leading" secondItem="Ehm-KF-nu2" secondAttribute="trailing" constant="10" id="Pbx-45-6MP"/>
                     <constraint firstAttribute="trailing" secondItem="OnG-M6-x8l" secondAttribute="trailing" constant="10" id="TSF-pa-D0O"/>
-                    <constraint firstAttribute="trailing" secondItem="ijA-D6-oIF" secondAttribute="trailing" constant="10" id="VFV-bd-ExX"/>
                     <constraint firstItem="Ehm-KF-nu2" firstAttribute="leading" secondItem="ifX-PT-DGR" secondAttribute="trailing" constant="10" id="X1U-Cs-IKr"/>
                     <constraint firstItem="1r9-gG-qPz" firstAttribute="leading" secondItem="zNq-BN-Xhf" secondAttribute="trailing" constant="10" id="aEr-Hh-iIo"/>
                     <constraint firstItem="1r9-gG-qPz" firstAttribute="centerY" secondItem="zNq-BN-Xhf" secondAttribute="centerY" id="jEa-TW-Tck"/>
                     <constraint firstItem="OnG-M6-x8l" firstAttribute="leading" secondItem="ifX-PT-DGR" secondAttribute="trailing" constant="10" id="oi4-WO-F2H"/>
                     <constraint firstItem="ifX-PT-DGR" firstAttribute="centerY" secondItem="qVf-ao-Kfs" secondAttribute="centerY" id="rwE-Bv-wfe"/>
                     <constraint firstItem="zNq-BN-Xhf" firstAttribute="top" secondItem="qVf-ao-Kfs" secondAttribute="top" constant="5" id="toS-WW-fjV"/>
+                    <constraint firstAttribute="trailing" secondItem="Ehm-KF-nu2" secondAttribute="trailing" constant="20" symbolic="YES" id="yNm-aj-qdJ"/>
                     <constraint firstItem="Ehm-KF-nu2" firstAttribute="top" secondItem="zNq-BN-Xhf" secondAttribute="bottom" constant="5" id="yiF-mn-hZu"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="albumNameLabel" destination="Ehm-KF-nu2" id="aEY-Wz-2ay"/>
-                <outlet property="authorLabel" destination="OnG-M6-x8l" id="HcC-3F-amA"/>
+                <outlet property="authorAndRatingLabel" destination="OnG-M6-x8l" id="iV6-OV-Zao"/>
                 <outlet property="bandNameLabel" destination="zNq-BN-Xhf" id="mez-4p-2AL"/>
                 <outlet property="dateAndTimeLabel" destination="1r9-gG-qPz" id="UuF-lq-unJ"/>
-                <outlet property="ratingLabel" destination="ijA-D6-oIF" id="WTc-Sl-Ke4"/>
                 <outlet property="thumbnailImageView" destination="ifX-PT-DGR" id="VOV-T5-kwg"/>
                 <outlet property="thumbnailImageViewHeightConstraint" destination="dQb-GE-ci2" id="faK-RU-ljb"/>
             </connections>
