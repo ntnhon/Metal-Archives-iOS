@@ -13,12 +13,13 @@ import FirebaseAnalytics
 final class SimpleSearchViewController: UITableViewController {
     @IBOutlet private weak var searchTermTextField: BaseTextField!
     @IBOutlet private weak var searchTypeTableViewCell: BaseTableViewCell!
+    private var horizontalOptionsView: HorizontalOptionsView!
     var isBeingSelected: Bool = true {
         didSet {
             if isBeingSelected {
-                self.searchTermTextField.becomeFirstResponder()
+                searchTermTextField.becomeFirstResponder()
             } else {
-                self.searchTermTextField.resignFirstResponder()
+                searchTermTextField.resignFirstResponder()
             }
         }
     }
@@ -26,47 +27,46 @@ final class SimpleSearchViewController: UITableViewController {
     private let imFeelingLuckyView: ImFeelingLuckyView = .initFromNib()
     private var currentSimpleSearchType: SimpleSearchType = .bandName {
         didSet {
-            self.updateSimpleSearchTypeDetailLabel()
+            searchTermTextField.placeholder = currentSimpleSearchType.description
+            searchTermTextField.title = "Search by \(currentSimpleSearchType.description)"
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.imFeelingLuckyView.delegate = self
-        self.searchTermTextField.delegate = self
-        self.initAppearance()
-        self.updateSimpleSearchTypeDetailLabel()
+        imFeelingLuckyView.delegate = self
+        searchTermTextField.delegate = self
+        tableView.rowHeight = UITableView.automaticDimension
+        currentSimpleSearchType = .bandName //trigger didSet
+        initHorizontalOptionsView()
+        initAppearance()
     }
     
     private func initAppearance() {
-        self.view.backgroundColor = Settings.currentTheme.backgroundColor
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
+        view.backgroundColor = Settings.currentTheme.backgroundColor
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
         
-        self.searchTermTextField.returnKeyType = .search
-        self.searchTermTextField.inputAccessoryView = self.imFeelingLuckyView
-        
-        self.searchTypeTableViewCell.textLabel?.textColor = Settings.currentTheme.secondaryTitleColor
-        self.searchTypeTableViewCell.textLabel?.font = Settings.currentFontSize.secondaryTitleFont
-        self.searchTypeTableViewCell.textLabel?.text = "Search for"
-        
-        self.searchTypeTableViewCell.detailTextLabel?.textColor = Settings.currentTheme.bodyTextColor
-        self.searchTypeTableViewCell.detailTextLabel?.font = Settings.currentFontSize.bodyTextFont
+        searchTermTextField.returnKeyType = .search
+        searchTermTextField.inputAccessoryView = imFeelingLuckyView
     }
     
-    private func updateSimpleSearchTypeDetailLabel() {
-        self.searchTypeTableViewCell.detailTextLabel?.text = self.currentSimpleSearchType.description
+    private func initHorizontalOptionsView() {
+        let options = SimpleSearchType.allCases.map({$0.description})
+        horizontalOptionsView = HorizontalOptionsView(options: options, font: Settings.currentFontSize.bodyTextFont, textColor: Settings.currentTheme.bodyTextColor, normalColor: Settings.currentTheme.backgroundColor, highlightColor: Settings.currentTheme.secondaryTitleColor)
+        horizontalOptionsView.delegate = self
+        horizontalOptionsView.selectedIndex = currentSimpleSearchType.rawValue
+        
+        searchTypeTableViewCell.contentView.addSubview(horizontalOptionsView)
+        horizontalOptionsView.fillSuperview(padding: .init(top: -10, left: 10, bottom: -10, right:    10))
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.destination {
-        case let simpleSearchTypeListVC as SimpleSearchTypeListViewController:
-            simpleSearchTypeListVC.currentSimpleSearchType = self.currentSimpleSearchType
-            simpleSearchTypeListVC.delegate = self
         case let simpleSearchResultVC as SimpleSearchResultViewController:
-            simpleSearchResultVC.searchTerm = self.searchTermTextField.text
-            simpleSearchResultVC.simpleSearchType = self.currentSimpleSearchType
+            simpleSearchResultVC.searchTerm = searchTermTextField.text
+            simpleSearchResultVC.simpleSearchType = currentSimpleSearchType
             
             if let _ = sender as? ImFeelingLuckyView {
                 simpleSearchResultVC.isFeelingLucky = true
@@ -76,7 +76,7 @@ final class SimpleSearchViewController: UITableViewController {
                 simpleSearchResultVC.isFeelingLucky = false
             }
             
-            Analytics.logEvent(AnalyticsEvent.PerformSimpleSearch, parameters: [AnalyticsParameter.SearchType: self.currentSimpleSearchType.description, AnalyticsParameter.SearchTerm: self.searchTermTextField.text!])
+            Analytics.logEvent(AnalyticsEvent.PerformSimpleSearch, parameters: [AnalyticsParameter.SearchType: currentSimpleSearchType.description, AnalyticsParameter.SearchTerm: searchTermTextField.text!])
             
         default:
             break
@@ -96,27 +96,32 @@ extension SimpleSearchViewController {
             footerView.textLabel?.textColor = Settings.currentTheme.titleColor
         }
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 }
 
 //MARK: - ImFeelingLuckyViewDelegate
 extension SimpleSearchViewController: ImFeelingLuckyViewDelegate {
     func didTapImFeelingLuckyButton() {
-        self.performSegue(withIdentifier: "ShowSearchResult", sender: self.imFeelingLuckyView)
+        performSegue(withIdentifier: "ShowSearchResult", sender: imFeelingLuckyView)
     }
 }
 
-//MARK: - SimpleSearchTypeListViewControllerDelegate
-extension SimpleSearchViewController: SimpleSearchTypeListViewControllerDelegate {
-    func didChangeSimpleSearchType(_ simpleSearchType: SimpleSearchType) {
-        self.currentSimpleSearchType = simpleSearchType
+//MARK: - HorizontalOptionsViewDelegate
+extension SimpleSearchViewController: HorizontalOptionsViewDelegate {
+    func horizontalOptionsView(_ horizontalOptionsView: HorizontalOptionsView, didSelectItemAt index: Int) {
+        currentSimpleSearchType = SimpleSearchType(rawValue: index) ?? .bandName
         
-        Analytics.logEvent(AnalyticsEvent.ChangeSimpleSearchType, parameters: [AnalyticsParameter.SearchType: self.currentSimpleSearchType.description])
+        Analytics.logEvent(AnalyticsEvent.ChangeSimpleSearchType, parameters: [AnalyticsParameter.SearchType: currentSimpleSearchType.description])
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension SimpleSearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.performSegue(withIdentifier: "ShowSearchResult", sender: self.searchTermTextField)
+        performSegue(withIdentifier: "ShowSearchResult", sender: searchTermTextField)
         return true
     }
 }
