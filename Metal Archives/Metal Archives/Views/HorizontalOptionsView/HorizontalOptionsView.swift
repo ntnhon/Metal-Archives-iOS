@@ -155,9 +155,11 @@ final class HorizontalOptionsView: UIView {
     
     private func focus(_ label: UILabel) {
         label.layer.backgroundColor = highlightColor.cgColor
+        label.layer.borderColor = highlightColor.cgColor
     }
     
     private func defocus(_ label: UILabel) {
         label.layer.backgroundColor = normalColor.cgColor
+        label.layer.borderColor = textColor.cgColor
     }
 }
