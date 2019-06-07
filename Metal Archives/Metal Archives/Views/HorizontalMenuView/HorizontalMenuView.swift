@@ -13,7 +13,7 @@ fileprivate let shuttleViewSpacing: CGFloat = 4
 fileprivate let stackViewSpacing: CGFloat = 20
 
 protocol HorizontalMenuViewDelegate: class {
-    func didSelectItem(atIndex index: Int)
+    func horizontalMenu(_ horizontalMenu: HorizontalMenuView, didSelectItemAt index: Int)
 }
 
 final class HorizontalMenuView: UIView {
@@ -34,6 +34,17 @@ final class HorizontalMenuView: UIView {
     }()
     private var stackView: UIStackView!
     private var lastSelectedLabel: UILabel!
+    
+    var selectedIndex: Int {
+        get {
+            return lastSelectedLabel.tag
+        }
+        set {
+            if let selectedLabel = (stackView.viewWithTag(newValue) as? UILabel) {
+                animateChange(selectedLabel: selectedLabel)
+            }
+        }
+    }
     
     weak var delegate: HorizontalMenuViewDelegate?
     
@@ -81,11 +92,12 @@ final class HorizontalMenuView: UIView {
         
         var i = 0
         for option in options {
-            let label = UILabel()
+            let label = SpaciousLabel()
             label.text = option
             label.font = font
             label.textColor = normalColor
             label.textAlignment = .center
+            label.textInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
             label.tag = i
             i += 1
             stackView.addArrangedSubview(label)
@@ -96,7 +108,8 @@ final class HorizontalMenuView: UIView {
             
             if lastSelectedLabel == nil {
                 lastSelectedLabel = label
-                lastSelectedLabel.textColor = highlightColor
+                focus(lastSelectedLabel)
+                alignShuttle(with: lastSelectedLabel)
             }
         }
     }
@@ -112,15 +125,21 @@ final class HorizontalMenuView: UIView {
     
     @objc private func tappedLabel(sender: UITapGestureRecognizer) {
         let label = sender.view as! UILabel
-        UIView.animate(withDuration: 0.35) { [unowned self] in
-            self.focus(on: label)
-            self.alignShuttle(with: label)
-            self.lastSelectedLabel.textColor = self.normalColor
-            label.textColor = self.highlightColor
-            self.lastSelectedLabel = label
-        }
+        animateChange(selectedLabel: label)
+    }
+    
+    private func animateChange(selectedLabel: UILabel) {
+        guard selectedLabel != lastSelectedLabel else { return }
         
-        delegate?.didSelectItem(atIndex: label.tag)
+        self.focus(selectedLabel)
+        self.defocus(self.lastSelectedLabel)
+        self.scrollToNearestLabel(of: selectedLabel)
+        self.lastSelectedLabel = selectedLabel
+        self.delegate?.horizontalMenu(self, didSelectItemAt: selectedLabel.tag)
+        
+        UIView.animate(withDuration: 0.35) { [unowned self] in
+            self.alignShuttle(with: selectedLabel)
+        }
     }
 
     private func alignShuttle(with label: UILabel) {
@@ -131,24 +150,33 @@ final class HorizontalMenuView: UIView {
         shuttleView.frame = newFrame
     }
     
-    private func focus(on label: UILabel) {
+    private func focus(_ label: UILabel) {
+        label.textColor = highlightColor
+    }
+    
+    private func defocus(_ label: UILabel) {
+        label.textColor = normalColor
+    }
+    
+    private func scrollToNearestLabel(of label: UILabel) {
         let indexOfLabel = options.firstIndex(of: label.text!)!
-        let indexOfLastLabel = options.firstIndex(of: lastSelectedLabel.text!)!
+        let indexOfLastSelectedLabel = options.firstIndex(of: lastSelectedLabel.text!)!
         
-        var focusedLabel: UILabel = label
-        
-        if indexOfLabel > indexOfLastLabel {
+        var nearestLabel: UILabel?
+        if indexOfLabel > indexOfLastSelectedLabel {
             // shuttle goes to the right
             if indexOfLabel + 1 < options.count {
-                focusedLabel = stackView.arrangedSubviews[indexOfLabel + 1] as! UILabel
+                nearestLabel = stackView.arrangedSubviews[indexOfLabel + 1] as? UILabel
             }
         } else {
             // shuttle goes to the left
             if indexOfLabel - 1 >= 0 {
-                focusedLabel = stackView.arrangedSubviews[indexOfLabel - 1] as! UILabel
+                nearestLabel = stackView.arrangedSubviews[indexOfLabel - 1] as? UILabel
             }
         }
         
-        scrollView.scrollRectToVisible(focusedLabel.frame, animated: true)
+        if let nearestLabel = nearestLabel {
+            scrollView.scrollRectToVisible(nearestLabel.frame, animated: true)
+        }
     }
 }

@@ -11,11 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="309" id="Axa-4J-tKs" customClass="LabelInfoTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="401" height="309"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="303" id="Axa-4J-tKs" customClass="LabelInfoTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="401" height="303"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Axa-4J-tKs" id="ccu-9N-469">
-                <rect key="frame" x="0.0" y="0.0" width="401" height="308.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="401" height="302.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location" translatesAutoresizingMaskIntoConstraints="NO" id="I25-1N-whh">
@@ -139,14 +139,14 @@ Dortmund, Nordrhein-Westfalen
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" translatesAutoresizingMaskIntoConstraints="NO" id="ldF-hI-WDj">
-                        <rect key="frame" x="20" y="269.5" width="20" height="20"/>
+                        <rect key="frame" x="20" y="269" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="Dvd-xh-xjI"/>
                             <constraint firstAttribute="width" secondItem="ldF-hI-WDj" secondAttribute="height" multiplier="1:1" id="fYz-Vb-ywB"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="241" text="Last updated 1 week ago" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ut-es-dPi">
-                        <rect key="frame" x="48" y="270" width="333" height="18.5"/>
+                        <rect key="frame" x="48" y="270" width="333" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -161,7 +161,7 @@ Dortmund, Nordrhein-Westfalen
                     <constraint firstItem="G8c-67-E6v" firstAttribute="top" secondItem="cqQ-gT-YYp" secondAttribute="bottom" constant="8" symbolic="YES" id="5y1-L9-9xc"/>
                     <constraint firstItem="hiZ-tv-FNf" firstAttribute="leading" secondItem="ccu-9N-469" secondAttribute="leading" constant="20" symbolic="YES" id="6q2-SL-yqZ"/>
                     <constraint firstItem="ZbM-nC-4yJ" firstAttribute="leading" secondItem="bu4-gP-7Wf" secondAttribute="trailing" constant="8" symbolic="YES" id="8oz-cP-9FE"/>
-                    <constraint firstAttribute="bottom" secondItem="5Ut-es-dPi" secondAttribute="bottom" constant="20" symbolic="YES" id="9sd-Cm-LlI"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5Ut-es-dPi" secondAttribute="bottom" constant="10" id="9sd-Cm-LlI"/>
                     <constraint firstItem="hiZ-tv-FNf" firstAttribute="centerY" secondItem="IFm-lw-HeA" secondAttribute="centerY" id="9v7-ti-YFI"/>
                     <constraint firstItem="GxS-F0-Vv6" firstAttribute="leading" secondItem="ccu-9N-469" secondAttribute="leading" constant="20" symbolic="YES" id="BqB-MX-jSH"/>
                     <constraint firstItem="IFm-lw-HeA" firstAttribute="top" secondItem="G8c-67-E6v" secondAttribute="bottom" constant="8" symbolic="YES" id="CMz-w2-wAI"/>
@@ -239,7 +239,7 @@ Dortmund, Nordrhein-Westfalen
                 <outletCollection property="iconImageViews" destination="ldF-hI-WDj" collectionClass="NSMutableArray" id="TQg-bc-H6D"/>
                 <outletCollection property="detailLabels" destination="5Ut-es-dPi" collectionClass="NSMutableArray" id="AkE-DF-6Ls"/>
             </connections>
-            <point key="canvasLocation" x="58.399999999999999" y="275.71214392803603"/>
+            <point key="canvasLocation" x="58.399999999999999" y="273.01349325337333"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -347,6 +347,7 @@ extension LabelDetailViewController {
         let cell = LabelMenuTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.initMenu(with: labelMenuOptions.map({$0.description}))
         cell.horizontalMenuView.delegate = self
+        cell.horizontalMenuView.selectedIndex = labelMenuOptions.firstIndex(of: currentLabelMenuOption) ?? 0
         return cell
     }
 }
@@ -371,8 +372,9 @@ extension LabelDetailViewController {
     }
 }
 
+// MARK: - HorizontalMenuViewDelegate
 extension LabelDetailViewController: HorizontalMenuViewDelegate {
-    func didSelectItem(atIndex index: Int) {
+    func horizontalMenu(_ horizontalMenu: HorizontalMenuView, didSelectItemAt index: Int) {
         currentLabelMenuOption = labelMenuOptions[index]
         tableView.reloadSections([1], with: .automatic)
     }

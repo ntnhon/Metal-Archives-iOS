@@ -284,13 +284,14 @@ extension ReleaseDetailViewController {
         
         let cell = ReleaseMenuTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.horizontalMenuView.delegate = self
+        cell.horizontalMenuView.selectedIndex = currentReleaseMenuOption.rawValue
         return cell
     }
 }
 
 // MARK: - HorizontalMenuViewDelegate
 extension ReleaseDetailViewController: HorizontalMenuViewDelegate {
-    func didSelectItem(atIndex index: Int) {
+    func horizontalMenu(_ horizontalMenu: HorizontalMenuView, didSelectItemAt index: Int) {
         currentReleaseMenuOption = ReleaseMenuOption(rawValue: index) ?? .trackList
         tableView.reloadSections([1], with: .automatic)
     }

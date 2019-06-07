@@ -343,13 +343,14 @@ extension BandDetailViewController {
     private func bandMenuOptionsTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = BandMenuTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.horizontalMenuView.delegate = self
+        cell.horizontalMenuView.selectedIndex = currentMenuOption.rawValue
         return cell
     }
 }
 
 // MARK: - HorizontalMenuViewDelegate
 extension BandDetailViewController: HorizontalMenuViewDelegate {
-    func didSelectItem(atIndex index: Int) {
+    func horizontalMenu(_ horizontalMenu: HorizontalMenuView, didSelectItemAt index: Int) {
         currentMenuOption = BandMenuOption(rawValue: index) ?? .discography
         tableView.reloadSections([1], with: .automatic)
     }

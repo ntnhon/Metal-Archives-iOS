@@ -362,6 +362,7 @@ extension ArtistDetailViewController {
         })
         cell.initMenu(with: options)
         cell.horizontalMenuView.delegate = self
+        cell.horizontalMenuView.selectedIndex = artistInfoTypes.firstIndex(of: currentArtistInfoType) ?? 0
         
         return cell
     }
@@ -450,7 +451,7 @@ extension ArtistDetailViewController {
 
 // MARK: - HorizontalMenuViewDelegate
 extension ArtistDetailViewController: HorizontalMenuViewDelegate {
-    func didSelectItem(atIndex index: Int) {
+    func horizontalMenu(_ horizontalMenu: HorizontalMenuView, didSelectItemAt index: Int) {
         currentArtistInfoType = artistInfoTypes[index]
         tableView.reloadSections([1], with: .automatic)
     }
