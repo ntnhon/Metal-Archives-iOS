@@ -69,6 +69,12 @@ let hilightedBodyTextAttributes = Attributes {
         .alignment(.justified)
 }
 
+let boldBodyTextAttributes = Attributes {
+    return $0.foreground(color: Settings.currentTheme.bodyTextColor)
+        .font(Settings.currentFontSize.boldBodyTextFont)
+        .alignment(.justified)
+}
+
 let secondaryTitleAttributes = Attributes {
     return $0.foreground(color: Settings.currentTheme.secondaryTitleColor)
         .font(Settings.currentFontSize.secondaryTitleFont)

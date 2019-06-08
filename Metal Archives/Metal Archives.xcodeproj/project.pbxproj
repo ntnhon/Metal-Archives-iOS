@@ -119,6 +119,7 @@
 		C0332FEC2201D502008B34E0 /* ArtistLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0332FEB2201D502008B34E0 /* ArtistLite.swift */; };
 		C0332FF022024B7C008B34E0 /* SimpleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0332FEF22024B7C008B34E0 /* SimpleTableViewCell.swift */; };
 		C0332FF2220252E4008B34E0 /* SimpleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0332FF1220252E4008B34E0 /* SimpleTableViewCell.xib */; };
+		C0356F1B22ABA40700B4927E /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0356F1A22ABA40700B4927E /* NewsDetailViewController.swift */; };
 		C03C5E72221BFEFE0054E55A /* ArtistInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */; };
 		C03E4035228C718A004429E9 /* ParseBandMembersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */; };
 		C03E4036228C718A004429E9 /* DeathLastKnownLineup.txt in Resources */ = {isa = PBXBuildFile; fileRef = C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */; };
@@ -631,6 +632,7 @@
 		C0332FEB2201D502008B34E0 /* ArtistLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistLite.swift; sourceTree = "<group>"; };
 		C0332FEF22024B7C008B34E0 /* SimpleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableViewCell.swift; sourceTree = "<group>"; };
 		C0332FF1220252E4008B34E0 /* SimpleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleTableViewCell.xib; sourceTree = "<group>"; };
+		C0356F1A22ABA40700B4927E /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseBandMembersTests.swift; sourceTree = "<group>"; };
 		C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DeathLastKnownLineup.txt; sourceTree = "<group>"; };
@@ -1674,6 +1676,7 @@
 				C0AABDE5221D89780044A2CF /* MonthListViewController.swift */,
 				C0AABDEB221DED3B0044A2CF /* UpcomingAlbumsViewController.swift */,
 				C0A48CF12221F3010047FC70 /* LatestReviewsViewController.swift */,
+				C0356F1A22ABA40700B4927E /* NewsDetailViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -3504,6 +3507,7 @@
 				C07CFC2E220E2C7B009142A0 /* ReleaseElement.swift in Sources */,
 				C0AA06CB2239AC52001BE21D /* BrowseBandsAlphabeticallyViewController.swift in Sources */,
 				C06B624822423E7900A3FE6B /* BrowseLabelsByCountryViewController.swift in Sources */,
+				C0356F1B22ABA40700B4927E /* NewsDetailViewController.swift in Sources */,
 				C00D3605223D5E5C00B29B43 /* ReleaseType.swift in Sources */,
 				C071306721ECCB4100082BC6 /* NewsTableViewCell.swift in Sources */,
 				C0FFE1F922958F4200909765 /* UIView+Layout.swift in Sources */,

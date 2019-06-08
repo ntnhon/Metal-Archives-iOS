@@ -356,6 +356,13 @@ extension HomepageViewController: UIScrollViewDelegate {
     }
 }
 
+//MARK: - UIPopoverPresentationControllerDelegate
+extension HomepageViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+}
+
 //MARK: - UITableViewDelegate
 extension HomepageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -465,7 +472,29 @@ extension HomepageViewController {
             let newsArchiveViewController = UIStoryboard(name: "NewsArchive", bundle: nil).instantiateViewController(withIdentifier: "NewsArchiveViewController" ) as! NewsArchiveViewController
             self.navigationController?.pushViewController(newsArchiveViewController, animated: true)
         }
+        cell.didSelectNews = { [unowned self] selectedNews in
+            let cellRectInView = self.view.convert(cell.frame, to: self.view)
+            self.presentNewsDetailViewController(selectedNews, inRect: cellRectInView)
+            
+        }
         return cell
+    }
+    
+    private func presentNewsDetailViewController(_ news: News, inRect rect: CGRect) {
+        let newsDetailViewController = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "NewsDetailViewController") as! NewsDetailViewController
+        newsDetailViewController.news = news
+        
+        let navNewsDetailViewController = UINavigationController(rootViewController: newsDetailViewController)
+        navNewsDetailViewController.modalPresentationStyle = .popover
+        navNewsDetailViewController.popoverPresentationController?.permittedArrowDirections = .unknown
+        navNewsDetailViewController.preferredContentSize = CGSize(width: screenWidth - 50, height: screenHeight * 2 / 3)
+        
+        navNewsDetailViewController.popoverPresentationController?.delegate = self
+        navNewsDetailViewController.popoverPresentationController?.sourceView = self.tableView
+        
+        navNewsDetailViewController.popoverPresentationController?.sourceRect = rect
+        
+        present(navNewsDetailViewController, animated: true, completion: nil)
     }
 }
 

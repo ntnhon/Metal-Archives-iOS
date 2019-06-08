@@ -48,7 +48,6 @@ final class LyricViewController: BaseViewController {
                     self?.adjustPreferredContentSize()
                 }
             } else {
-                #warning("Handle error")
                 self?.fetchLyric()
             }
         }

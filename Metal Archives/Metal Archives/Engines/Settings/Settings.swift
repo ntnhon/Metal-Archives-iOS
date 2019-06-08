@@ -97,6 +97,17 @@ enum FontSize: Int, CustomStringConvertible {
         }
     }
     
+    var boldBodyTextFont: UIFont {
+        switch self {
+        case .default:
+            return UIFont.systemFont(ofSize: 14, weight: .bold)
+        case .medium:
+            return UIFont.systemFont(ofSize: 16, weight: .bold)
+        case .large:
+            return UIFont.systemFont(ofSize: 18, weight: .bold)
+        }
+    }
+    
     var italicBodyTextFont: UIFont {
         switch self {
         case .default:

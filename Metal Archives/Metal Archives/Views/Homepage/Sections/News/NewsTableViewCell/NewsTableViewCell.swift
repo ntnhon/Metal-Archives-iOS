@@ -22,6 +22,7 @@ final class NewsTableViewCell: BaseTableViewCell, RegisterableCell {
     }
     
     var seeAll: (() -> Void)?
+    var didSelectNews: ((News) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -70,7 +71,9 @@ extension NewsTableViewCell: UICollectionViewDataSource {
 
 //MARK: - UICollectionViewDelegate
 extension NewsTableViewCell: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        didSelectNews?(newsArray[indexPath.item])
+    }
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout

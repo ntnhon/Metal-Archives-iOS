@@ -320,6 +320,39 @@
             </objects>
             <point key="canvasLocation" x="3200" y="-461"/>
         </scene>
+        <!--News Detail View Controller-->
+        <scene sceneID="63Y-nu-hxG">
+            <objects>
+                <viewController storyboardIdentifier="NewsDetailViewController" id="Fxr-Mo-vwP" customClass="NewsDetailViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sRc-6s-4yt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="jLT-kw-H41">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="a5K-9O-MYU"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jLT-kw-H41" firstAttribute="leading" secondItem="sRc-6s-4yt" secondAttribute="leading" identifier="leading" id="6iw-od-v20"/>
+                            <constraint firstAttribute="bottom" secondItem="jLT-kw-H41" secondAttribute="bottom" identifier="bottom" id="FGo-zt-c8w"/>
+                            <constraint firstItem="jLT-kw-H41" firstAttribute="top" secondItem="sRc-6s-4yt" secondAttribute="top" identifier="top" id="xZh-KM-cmn"/>
+                            <constraint firstAttribute="trailing" secondItem="jLT-kw-H41" secondAttribute="trailing" identifier="trailing" id="yKV-bb-DZl"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="jLT-kw-H41" id="nzy-Fy-w8J"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LIb-kR-9jG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4238" y="-461"/>
+        </scene>
     </scenes>
     <resources>
         <image name="horns_search" width="128" height="128"/>

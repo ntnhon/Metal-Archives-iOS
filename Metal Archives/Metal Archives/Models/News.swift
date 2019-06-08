@@ -21,7 +21,10 @@ final class News {
         let attrString = NSMutableAttributedString()
         
         attrString.append("\(title)\n".at.attributed(with: titleAttributes))
-        attrString.append("By \(author) at \(date)\n".at.attributed(with: secondaryTitleAttributes))
+        attrString.append("By ".at.attributed(with: bodyTextAttributes))
+        attrString.append(author.at.attributed(with: secondaryTitleAttributes))
+        attrString.append(" on ".at.attributed(with: bodyTextAttributes))
+        attrString.append("\(dateString)\n".at.attributed(with: boldBodyTextAttributes))
         attrString.append(htmlBody.at.attributed(with: bodyTextAttributes))
         
         return attrString
