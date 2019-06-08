@@ -560,7 +560,7 @@ extension ReleaseDetailViewController {
         }
         
         let review = release.reviews[index]
-        presentReviewController(urlString: review.urlString, animated: true, completion: nil)
+        presentReviewController(urlString: review.urlString, animated: true)
     }
 }
 

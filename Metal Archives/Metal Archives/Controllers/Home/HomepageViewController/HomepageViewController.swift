@@ -131,7 +131,7 @@ final class HomepageViewController: RefreshableViewController {
                 return
             }
             
-            self.presentReviewController(urlString: reviewURLString, animated: true, completion: nil)
+            self.presentReviewController(urlString: reviewURLString, animated: true)
         }
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name.ShowReleaseDetail, object: nil, queue: nil) { (notification) in

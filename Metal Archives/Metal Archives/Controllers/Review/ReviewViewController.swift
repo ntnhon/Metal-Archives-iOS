@@ -11,12 +11,19 @@ import Toaster
 import FirebaseAnalytics
 
 fileprivate let duration = 0.35
+fileprivate let MAX_Y_OFFSET: CGFloat = 100
 
 final class ReviewViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     var urlString: String!
     private var review: Review!
+    
+    private let smokedBackgroundView: UIView = {
+        let view = UIView(frame: CGRect(origin: .zero, size: .init(width: screenWidth, height: screenHeight)))
+        view.backgroundColor = Settings.currentTheme.backgroundColor
+        return view
+    }()
     private var isDismissing = false
     
     override func viewDidLoad() {
@@ -57,18 +64,22 @@ final class ReviewViewController: BaseViewController {
     func presentFromBottom(in viewController: UIViewController) {
         if let navigationController = viewController.navigationController {
             navigationController.addChild(self)
+            navigationController.view.addSubview(smokedBackgroundView)
             navigationController.view.addSubview(view)
             self.didMove(toParent: navigationController)
         } else {
             viewController.addChild(self)
+            viewController.view.addSubview(smokedBackgroundView)
             viewController.view.addSubview(view)
             self.didMove(toParent: viewController)
         }
         
         view.transform = CGAffineTransform(translationX: 0, y: view.bounds.height)
+        smokedBackgroundView.transform = view.transform
         
         UIView.animate(withDuration: duration) { [unowned self] in
             self.view.transform = .identity
+            self.smokedBackgroundView.transform = .identity
         }
     }
     
@@ -77,9 +88,11 @@ final class ReviewViewController: BaseViewController {
         
         UIView.animate(withDuration: duration, animations: { [unowned self] in
             self.view.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
+            self.smokedBackgroundView.alpha = 0
         }) { [unowned self] (finished) in
             completion?()
             self.willMove(toParent: nil)
+            self.smokedBackgroundView.removeFromSuperview()
             self.view.removeFromSuperview()
             self.removeFromParent()
         }
@@ -119,7 +132,7 @@ extension ReviewViewController: ReviewDetailTableViewCellDelegate {
     func didTapBandNameLabel() {
         dismissToBottom { [unowned self] in
             if let parentViewController = self.parent, parentViewController is UINavigationController {
-                (parentViewController as! UINavigationController).viewControllers.last?.pushBandDetailViewController(urlString: self.review.band.urlString, animated: true)
+                (parentViewController as! UINavigationController).viewControllers.first?.pushBandDetailViewController(urlString: self.review.band.urlString, animated: true)
             }
         }
     }
@@ -127,7 +140,7 @@ extension ReviewViewController: ReviewDetailTableViewCellDelegate {
     func didTapReleaseTitleLabel() {
         dismissToBottom { [unowned self] in
             if let parentViewController = self.parent, parentViewController is UINavigationController {
-                (parentViewController as! UINavigationController).viewControllers.last?.pushReleaseDetailViewController(urlString: self.review.release.urlString, animated: true)
+                (parentViewController as! UINavigationController).viewControllers.first?.pushReleaseDetailViewController(urlString: self.review.release.urlString, animated: true)
             }
         }
     }
@@ -138,7 +151,7 @@ extension ReviewViewController: ReviewDetailTableViewCellDelegate {
                 return
             }
             if let parentViewController = self.parent, parentViewController is UINavigationController {
-                (parentViewController as! UINavigationController).viewControllers.last?.pushReleaseDetailViewController(urlString: baseVersionUrlString, animated: true)
+                (parentViewController as! UINavigationController).viewControllers.first?.pushReleaseDetailViewController(urlString: baseVersionUrlString, animated: true)
             }
         }
     }
@@ -160,10 +173,12 @@ extension ReviewViewController: UIScrollViewDelegate {
         guard scrollView.contentOffset.y < 0 && !isDismissing else {return}
         
         view.transform = CGAffineTransform(translationX: view.frame.origin.x, y: -scrollView.contentOffset.y)
+        smokedBackgroundView.alpha = 1 - (abs(scrollView.contentOffset.y) / MAX_Y_OFFSET)
+        print(smokedBackgroundView.alpha)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if scrollView.contentOffset.y < 0 && abs(scrollView.contentOffset.y) > 100 {
+        if scrollView.contentOffset.y < 0 && abs(scrollView.contentOffset.y) > MAX_Y_OFFSET {
             dismissToBottom()
         } else {
             view.transform = .identity

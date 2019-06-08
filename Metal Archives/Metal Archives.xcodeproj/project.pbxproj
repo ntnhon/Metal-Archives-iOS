@@ -120,6 +120,7 @@
 		C0332FF022024B7C008B34E0 /* SimpleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0332FEF22024B7C008B34E0 /* SimpleTableViewCell.swift */; };
 		C0332FF2220252E4008B34E0 /* SimpleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0332FF1220252E4008B34E0 /* SimpleTableViewCell.xib */; };
 		C0356F1B22ABA40700B4927E /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0356F1A22ABA40700B4927E /* NewsDetailViewController.swift */; };
+		C0356F1D22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0356F1C22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift */; };
 		C03C5E72221BFEFE0054E55A /* ArtistInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */; };
 		C03E4035228C718A004429E9 /* ParseBandMembersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */; };
 		C03E4036228C718A004429E9 /* DeathLastKnownLineup.txt in Resources */ = {isa = PBXBuildFile; fileRef = C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */; };
@@ -476,7 +477,6 @@
 		C0FE9631221C4480003C4B59 /* RolesInReleaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE9630221C4480003C4B59 /* RolesInReleaseTableViewCell.swift */; };
 		C0FE9633221C448C003C4B59 /* RolesInReleaseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0FE9632221C448C003C4B59 /* RolesInReleaseTableViewCell.xib */; };
 		C0FE963B221CA969003C4B59 /* RefreshableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE963A221CA969003C4B59 /* RefreshableViewController.swift */; };
-		C0FF16C9220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FF16C8220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift */; };
 		C0FF16CB220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */; };
 		C0FFE1F522958C6900909765 /* SmokedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFE1F422958C6900909765 /* SmokedImageView.swift */; };
 		C0FFE1F922958F4200909765 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFE1F822958F4200909765 /* UIView+Layout.swift */; };
@@ -633,6 +633,7 @@
 		C0332FEF22024B7C008B34E0 /* SimpleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableViewCell.swift; sourceTree = "<group>"; };
 		C0332FF1220252E4008B34E0 /* SimpleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleTableViewCell.xib; sourceTree = "<group>"; };
 		C0356F1A22ABA40700B4927E /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
+		C0356F1C22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentReviewViewController.swift"; sourceTree = "<group>"; };
 		C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseBandMembersTests.swift; sourceTree = "<group>"; };
 		C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DeathLastKnownLineup.txt; sourceTree = "<group>"; };
@@ -971,7 +972,6 @@
 		C0FE9630221C4480003C4B59 /* RolesInReleaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolesInReleaseTableViewCell.swift; sourceTree = "<group>"; };
 		C0FE9632221C448C003C4B59 /* RolesInReleaseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RolesInReleaseTableViewCell.xib; sourceTree = "<group>"; };
 		C0FE963A221CA969003C4B59 /* RefreshableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableViewController.swift; sourceTree = "<group>"; };
-		C0FF16C8220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentReviewViewController.swift"; sourceTree = "<group>"; };
 		C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PushAViewController.swift"; sourceTree = "<group>"; };
 		C0FFE1F422958C6900909765 /* SmokedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokedImageView.swift; sourceTree = "<group>"; };
 		C0FFE1F822958F4200909765 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
@@ -2422,8 +2422,8 @@
 				C0A2BF7721F67293002CCFEC /* UIViewController+OpenURLInBrowsers.swift */,
 				C09A18AB21FF50AC00152908 /* UIViewController+PresentPhotoViewerViewController.swift */,
 				C008388122008D1900B35996 /* UIViewController+CheckPhotoLibraryPermission.swift */,
-				C0FF16C8220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift */,
 				C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */,
+				C0356F1C22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift */,
 				C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */,
 			);
 			path = UIViewController;
@@ -3421,7 +3421,6 @@
 				C066137122895C3700F99006 /* HomepageViewControllerProtocols.swift in Sources */,
 				C03270E9220B933F009FA337 /* ReviewViewController.swift in Sources */,
 				C06C6C6221FFCF5300D37519 /* UIImage+RoundedCorner.swift in Sources */,
-				C0FF16C9220CE75200B8EBB9 /* UIViewController+PresentReviewViewController.swift in Sources */,
 				C0FFE1F522958C6900909765 /* SmokedImageView.swift in Sources */,
 				C032801F2209FBF700FC9A44 /* RequestBandRelatedLinks.swift in Sources */,
 				C0A1F95122419927005C2C83 /* BrowseLabelsAlphabeticallyViewController.swift in Sources */,
@@ -3571,6 +3570,7 @@
 				C00D3638223D9EFE00B29B43 /* SettingsTableViewController.swift in Sources */,
 				C0752970229F3E550067B5E1 /* FilledButton.swift in Sources */,
 				C0AA06C022395FF1001BE21D /* AdvancedSearchSongsResultsViewController.swift in Sources */,
+				C0356F1D22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift in Sources */,
 				C053CF7C22245EA500B056A8 /* SublabelListViewController.swift in Sources */,
 				C06B62402242313300A3FE6B /* LabelBrowseAlphabetically.swift in Sources */,
 				C053CF642223FB3C00B056A8 /* LabelInfoTableViewCell.swift in Sources */,

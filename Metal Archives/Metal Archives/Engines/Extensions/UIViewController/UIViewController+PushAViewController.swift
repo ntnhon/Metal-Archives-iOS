@@ -13,31 +13,31 @@ extension UIViewController {
     func pushBandDetailViewController(urlString: String, animated: Bool) {
         let bandDetailViewController = UIStoryboard(name: "BandDetail", bundle: nil).instantiateViewController(withIdentifier: "BandDetailViewController") as! BandDetailViewController
         bandDetailViewController.bandURLString = urlString
-        self.navigationController?.pushViewController(bandDetailViewController, animated: animated)
+        navigationController?.pushViewController(bandDetailViewController, animated: animated)
     }
     
     func pushReleaseDetailViewController(urlString: String, animated: Bool) {
         let releaseDetailViewController = UIStoryboard(name: "ReleaseDetail", bundle: nil).instantiateViewController(withIdentifier: "ReleaseDetailViewController") as! ReleaseDetailViewController
         releaseDetailViewController.urlString = urlString
-        self.navigationController?.pushViewController(releaseDetailViewController, animated: animated)
+        navigationController?.pushViewController(releaseDetailViewController, animated: animated)
     }
     
     func pushArtistDetailViewController(urlString: String, animated: Bool) {
         let artistDetailViewController = UIStoryboard(name: "Artist", bundle: nil).instantiateViewController(withIdentifier: "ArtistDetailViewController") as! ArtistDetailViewController
         artistDetailViewController.urlString = urlString
-        self.navigationController?.pushViewController(artistDetailViewController, animated: animated)
+        navigationController?.pushViewController(artistDetailViewController, animated: animated)
     }
     
     func pushLabelDetailViewController(urlString: String, animated: Bool) {
         let labelDetailViewController = UIStoryboard(name: "LabelDetail", bundle: nil).instantiateViewController(withIdentifier: "LabelDetailViewController") as! LabelDetailViewController
         labelDetailViewController.urlString = urlString
-        self.navigationController?.pushViewController(labelDetailViewController, animated: animated)
+        navigationController?.pushViewController(labelDetailViewController, animated: animated)
     }
     
     func pushRelatedLinkListViewController(_ relatedLinks: [RelatedLink], animated: Bool) {
         let relatedLinkListViewController = UIStoryboard(name: "RelatedLink", bundle: nil).instantiateViewController(withIdentifier: "RelatedLinkListViewController") as! RelatedLinkListViewController
         relatedLinkListViewController.relatedLinks = relatedLinks
-        self.navigationController?.pushViewController(relatedLinkListViewController, animated: true)
+        navigationController?.pushViewController(relatedLinkListViewController, animated: true)
     }
     
     func takeActionFor(actionableObject: Actionable) {
@@ -74,9 +74,7 @@ extension UIViewController {
                 })
             case .review:
                 action = UIAlertAction(title: "💬 Review: \(element.name)", style: .default, handler: { (action) in
-                    let reviewViewController = UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
-                    reviewViewController.urlString = element.urlString
-                    reviewViewController.presentFromBottom(in: self)
+                    self.presentReviewController(urlString: element.urlString, animated: true)
                 })
             }
             
@@ -86,6 +84,6 @@ extension UIViewController {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
         
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }

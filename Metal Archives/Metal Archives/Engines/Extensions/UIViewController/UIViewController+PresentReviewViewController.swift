@@ -10,11 +10,9 @@ import Foundation
 import UIKit
 
 extension UIViewController {
-    func presentReviewController(urlString: String, animated: Bool, completion: (()->Void)?) {
+    func presentReviewController(urlString: String, animated: Bool) {
         let reviewViewController = UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
         reviewViewController.urlString = urlString
-        self.present(reviewViewController, animated: animated) {
-            completion?()
-        }
+        reviewViewController.presentFromBottom(in: self)
     }
 }
