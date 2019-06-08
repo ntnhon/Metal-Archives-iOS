@@ -23,9 +23,11 @@ final class BetterSnappingLayout: UICollectionViewFlowLayout {
             let itemHorizontalCenter = layoutAttributes.center.x
             
             if abs(itemHorizontalCenter - horizontalCenter) < abs(offsetAdjusment) {
-                if velocity.x > 0 {
+                if abs(velocity.x) < 0.3 { // minimum velocityX to trigger the snapping effect
+                    offsetAdjusment = itemHorizontalCenter - horizontalCenter
+                } else if velocity.x > 0 {
                     offsetAdjusment = itemHorizontalCenter - horizontalCenter + layoutAttributes.bounds.width
-                } else {
+                } else { // velocity.x < 0
                     offsetAdjusment = itemHorizontalCenter - horizontalCenter - layoutAttributes.bounds.width
                 }
             }

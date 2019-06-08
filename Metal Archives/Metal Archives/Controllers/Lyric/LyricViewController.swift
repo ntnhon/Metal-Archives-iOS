@@ -14,32 +14,36 @@ final class LyricViewController: BaseViewController {
     
     var lyricID: String!
     private var numberOfTries = 0
+    
+    deinit {
+        print("LyricViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        self.lyricTextView.text = ""
-        self.lyricTextView.textColor = Settings.currentTheme.backgroundColor
-        self.lyricTextView.backgroundColor = Settings.currentTheme.bodyTextColor
-        self.lyricTextView.font = Settings.currentFontSize.bodyTextFont
+        lyricTextView.text = ""
+        lyricTextView.textColor = Settings.currentTheme.backgroundColor
+        lyricTextView.backgroundColor = Settings.currentTheme.bodyTextColor
+        lyricTextView.font = Settings.currentFontSize.bodyTextFont
         
-        self.view.backgroundColor = Settings.currentTheme.bodyTextColor
-        self.view.tintColor = Settings.currentTheme.backgroundColor
-        self.navigationController?.navigationBar.tintColor = Settings.currentTheme.backgroundColor
-        self.fetchLyric()
+        view.backgroundColor = Settings.currentTheme.bodyTextColor
+        view.tintColor = Settings.currentTheme.backgroundColor
+        navigationController?.navigationBar.tintColor = Settings.currentTheme.backgroundColor
+        fetchLyric()
     }
     
     private func fetchLyric() {
-        if self.numberOfTries == Settings.numberOfRetries {
+        if numberOfTries == Settings.numberOfRetries {
             //Dimiss controller
             Toast.displayMessageShortly("Error loading lyric. Please retry.")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.navigationController?.popViewController(animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
             }
             return
         }
         
-        self.numberOfTries += 1
+        numberOfTries += 1
         
         MetalArchivesAPI.fetchLyric(lyricID: lyricID) { [weak self] (lyric, error) in
             if let `lyric` = lyric {
@@ -54,9 +58,9 @@ final class LyricViewController: BaseViewController {
     }
     
     private func adjustPreferredContentSize() {
-        guard let navController = self.navigationController else { return }
+        guard let navController = navigationController else { return }
         let navPreferredContentSize = navController.preferredContentSize
-        let sizeThatFit = self.lyricTextView.sizeThatFits(CGSize(width: navPreferredContentSize.width, height: CGFloat.greatestFiniteMagnitude))
+        let sizeThatFit = lyricTextView.sizeThatFits(CGSize(width: navPreferredContentSize.width, height: CGFloat.greatestFiniteMagnitude))
         
         if sizeThatFit.height < navPreferredContentSize.height {
             navController.preferredContentSize = CGSize(width: navPreferredContentSize.width, height: sizeThatFit.height)

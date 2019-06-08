@@ -474,25 +474,24 @@ extension HomepageViewController {
         }
         cell.didSelectNews = { [unowned self] selectedNews in
             let cellRectInView = self.view.convert(cell.frame, to: self.view)
-            self.presentNewsDetailViewController(selectedNews, inRect: cellRectInView)
+            self.presentNewsDetailViewController(selectedNews)
             
         }
         return cell
     }
     
-    private func presentNewsDetailViewController(_ news: News, inRect rect: CGRect) {
+    private func presentNewsDetailViewController(_ news: News) {
         let newsDetailViewController = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "NewsDetailViewController") as! NewsDetailViewController
         newsDetailViewController.news = news
         
         let navNewsDetailViewController = UINavigationController(rootViewController: newsDetailViewController)
         navNewsDetailViewController.modalPresentationStyle = .popover
-        navNewsDetailViewController.popoverPresentationController?.permittedArrowDirections = .unknown
+        navNewsDetailViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
         navNewsDetailViewController.preferredContentSize = CGSize(width: screenWidth - 50, height: screenHeight * 2 / 3)
         
         navNewsDetailViewController.popoverPresentationController?.delegate = self
-        navNewsDetailViewController.popoverPresentationController?.sourceView = self.tableView
-        
-        navNewsDetailViewController.popoverPresentationController?.sourceRect = rect
+        navNewsDetailViewController.popoverPresentationController?.sourceView = tableView
+        navNewsDetailViewController.popoverPresentationController?.sourceRect = tableView.frame
         
         present(navNewsDetailViewController, animated: true, completion: nil)
     }
