@@ -19,7 +19,7 @@ final class BandDetailViewController: BaseViewController {
     @IBOutlet private weak var utileBarView: UtileBarView!
     
     var bandURLString: String!
-    private var bandPhotoAndNameTableViewCell: BandPhotoAndNameTableViewCell?
+    private var bandPhotoAndNameTableViewCell: BandPhotoAndNameTableViewCell!
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     
     private var band: Band?
@@ -32,10 +32,29 @@ final class BandDetailViewController: BaseViewController {
     // Members
     private var currentMemberType: MembersType = .complete
     
+    private var bandInfoTableViewCell: BandInfoTableViewCell!
+    
+    // Floating menu
+    private var horizontalMenuView: HorizontalMenuView!
+    private var horizontalMenuViewTopConstraint: NSLayoutConstraint!
+    private var bandMenuAnchorTableViewCell: BandMenuAnchorTableViewCell! {
+        didSet {
+            anchorHorizontalMenuViewToAnchorTableViewCell()
+        }
+    }
+    
+    private lazy var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat = {
+        let totalHeights = bandPhotoAndNameTableViewCell.bounds.height + bandInfoTableViewCell.bounds.height + utileBarView.bounds.height
+        return totalHeights - tableView.frame.origin.y - tableView.contentInset.top - bandPhotoAndNameTableViewCell.frame.origin.y
+    }()
+    
+    private var anchorHorizontalMenuToBandMenuAnchorTableViewCell = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         stretchyLogoSmokedImageViewHeightConstraint.constant = Settings.strechyLogoImageViewHeight
         configureTableView()
+        initHorizontalMenuView()
         handleUtileBarViewActions()
         reloadBand()
         navigationController?.interactivePopGestureRecognizer?.delegate = navigationController as! HomepageNavigationController
@@ -99,6 +118,33 @@ final class BandDetailViewController: BaseViewController {
                 Crashlytics.sharedInstance().setObjectValue(self.band, forKey: CrashlyticsKey.Band)
             }
         }
+    }
+    
+    private func initHorizontalMenuView() {
+        let bandMenuOptionStrings = BandMenuOption.allCases.map({return $0.description})
+        horizontalMenuView = HorizontalMenuView(options: bandMenuOptionStrings, font: Settings.currentFontSize.secondaryTitleFont, normalColor: Settings.currentTheme.bodyTextColor, highlightColor: Settings.currentTheme.secondaryTitleColor)
+        horizontalMenuView.backgroundColor = Settings.currentTheme.backgroundColor
+        horizontalMenuView.isHidden = true
+        horizontalMenuView.delegate = self
+        view.addSubview(horizontalMenuView)
+        
+        horizontalMenuView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            horizontalMenuView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            horizontalMenuView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            horizontalMenuView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight)
+            ])
+        horizontalMenuViewTopConstraint = horizontalMenuView.topAnchor.constraint(equalTo: view.topAnchor)
+        horizontalMenuViewTopConstraint.isActive = true
+    }
+    
+    private func anchorHorizontalMenuViewToAnchorTableViewCell() {
+        guard let bandMenuAnchorTableViewCell = bandMenuAnchorTableViewCell, anchorHorizontalMenuToBandMenuAnchorTableViewCell else { return }
+        let bandMenuAnchorTableViewCellFrameInView = bandMenuAnchorTableViewCell.positionIn(view: view)
+    
+        horizontalMenuView.isHidden = false
+        horizontalMenuViewTopConstraint.constant = max(
+            bandMenuAnchorTableViewCellFrameInView.origin.y, utileBarView.frame.origin.y + utileBarView.frame.height)
     }
     
     private func handleUtileBarViewActions() {
@@ -173,7 +219,7 @@ extension BandDetailViewController {
         LoadingTableViewCell.register(with: tableView)
         BandPhotoAndNameTableViewCell.register(with: tableView)
         BandInfoTableViewCell.register(with: tableView)
-        BandMenuTableViewCell.register(with: tableView)
+        BandMenuAnchorTableViewCell.register(with: tableView)
         DiscographyOptionsTableViewCell.register(with: tableView)
         ReleaseTableViewCell.register(with: tableView)
         MemberOptionTableViewCell.register(with: tableView)
@@ -190,6 +236,7 @@ extension BandDetailViewController {
         tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
             self?.calculateAndApplyAlphaForBandPhotoAndNameCellAndUltileNavBar()
             self?.stretchyLogoSmokedImageView.calculateAndApplyAlpha(withTableView: tableView)
+            self?.anchorHorizontalMenuViewToAnchorTableViewCell()
         }
         
         // detect taps on band's logo, have to do this because band's logo is overlaid by tableView
@@ -225,6 +272,27 @@ extension BandDetailViewController: UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch (indexPath.section, indexPath.row) {
+        case (0, 0):
+            if let bandPhotoAndNameTableViewCell = bandPhotoAndNameTableViewCell {
+                return bandPhotoAndNameTableViewCell.bounds.height
+            }
+        case (0, 1):
+            if let bandInfoTableViewCell = bandInfoTableViewCell {
+                return bandInfoTableViewCell.bounds.height
+            }
+        case (0, 2):
+            if let bandMenuAnchorTableViewCell = bandMenuAnchorTableViewCell {
+                return bandMenuAnchorTableViewCell.bounds.height
+            }
+        default:
+            return UITableView.automaticDimension
+        }
+        
+         return UITableView.automaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             return nil
@@ -247,6 +315,10 @@ extension BandDetailViewController: UITableViewDelegate {
         }
         
         return 20
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 1
     }
 }
 
@@ -281,18 +353,9 @@ extension BandDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section, indexPath.row) {
-        case (0, 0):
-            let cell = bandPhotoAndNameTableViewCell(forRowAt: indexPath)
-            return cell
-            
-        case (0, 1):
-            let cell = bandInfoTableViewCell(forRowAt: indexPath)
-            return cell
-            
-        case (0, 2):
-            let cell = bandMenuOptionsTableViewCell(forRowAt: indexPath)
-            return cell
-            
+        case (0, 0): return bandPhotoAndNameTableViewCell(forRowAt: indexPath)
+        case (0, 1): return bandInfoTableViewCell(forRowAt: indexPath)
+        case (0, 2): return bandMenuAnchorTableViewCell(forRowAt: indexPath)
         default:
             switch currentMenuOption {
             case .discography: return discographyCell(forRowAt: indexPath)
@@ -310,20 +373,20 @@ extension BandDetailViewController: UITableViewDataSource {
 extension BandDetailViewController {
     private func bandPhotoAndNameTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = BandPhotoAndNameTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        bandPhotoAndNameTableViewCell = cell
         cell.fill(with: band!)
         cell.tappedPhotoImageView = { [unowned self] in
-            guard let band = self.band, let bandPhotoURLString = band.photoURLString else {
-                return
+            if let band = self.band, let bandPhotoURLString = band.photoURLString {
+                self.presentPhotoViewer(photoURLString: bandPhotoURLString, description: band.name)
             }
-            
-            self.presentPhotoViewer(photoURLString: bandPhotoURLString, description: band.name)
         }
-        bandPhotoAndNameTableViewCell = cell
+        
         return cell
     }
     
     private func bandInfoTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = BandInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        bandInfoTableViewCell = cell
         cell.fill(with: band!)
         
         cell.tappedYearsActiveLabel = { [unowned self] in
@@ -340,10 +403,10 @@ extension BandDetailViewController {
         return cell
     }
     
-    private func bandMenuOptionsTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = BandMenuTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        cell.horizontalMenuView.delegate = self
-        cell.horizontalMenuView.selectedIndex = currentMenuOption.rawValue
+    private func bandMenuAnchorTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = BandMenuAnchorTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        bandMenuAnchorTableViewCell = cell
+        bandMenuAnchorTableViewCell.contentView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight).isActive = true
         return cell
     }
 }
@@ -352,7 +415,23 @@ extension BandDetailViewController {
 extension BandDetailViewController: HorizontalMenuViewDelegate {
     func horizontalMenu(_ horizontalMenu: HorizontalMenuView, didSelectItemAt index: Int) {
         currentMenuOption = BandMenuOption(rawValue: index) ?? .discography
-        tableView.reloadSections([1], with: .automatic)
+        pinHorizontalMenuViewThenRefreshAndScrollTableView()
+    }
+    
+    private func pinHorizontalMenuViewThenRefreshAndScrollTableView() {
+        anchorHorizontalMenuToBandMenuAnchorTableViewCell = false
+        horizontalMenuViewTopConstraint.constant = utileBarView.frame.origin.y + utileBarView.frame.height
+        tableView.reloadSections([1], with: .none)
+        tableView.scrollToRow(at: IndexPath(row: 2, section: 0), at: .top, animated: false)
+        tableView.setContentOffset(.init(x: 0, y: yOffsetNeededToPinHorizontalViewToUtileBarView), animated: false)
+        
+        stretchyLogoSmokedImageView.setAlpha(1)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + CATransaction.animationDuration()) { [weak self] in
+            guard let self = self else { return }
+            self.tableView.contentInset.bottom = max(0, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView)
+            self.anchorHorizontalMenuToBandMenuAnchorTableViewCell = true
+        }
     }
 }
 
@@ -515,7 +594,7 @@ extension BandDetailViewController {
         
         discographyOptionListViewController.selectedDiscographyType = { [unowned self] (discographyType) in
             self.currentDiscographyType = discographyType
-            self.tableView.reloadSections([1], with: .automatic)
+            self.pinHorizontalMenuViewThenRefreshAndScrollTableView()
         }
         
         self.present(discographyOptionListViewController, animated: true, completion: nil)
@@ -667,7 +746,7 @@ extension BandDetailViewController {
         
         memberTypeListViewController.selectedMemberType = { [unowned self] (currentMemberType) in
             self.currentMemberType = currentMemberType
-            self.tableView.reloadSections([1], with: .automatic)
+            self.pinHorizontalMenuViewThenRefreshAndScrollTableView()
         }
         
         self.present(memberTypeListViewController, animated: true, completion: nil)
