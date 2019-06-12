@@ -433,6 +433,11 @@ extension LatestAdditionsOrUpdatesViewController {
         let cell = BandAdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         let band = self.bandAdditionPagableManager.objects[indexPath.row]
         cell.fill(with: band)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: band.imageURLString, description: band.name, fromImageView: cell.thumbnailImageView)
+        }
+        
         return cell
     }
     
@@ -446,6 +451,11 @@ extension LatestAdditionsOrUpdatesViewController {
         let cell = BandAdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         let band = self.bandUpdatePagableManager.objects[indexPath.row]
         cell.fill(with: band)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: band.imageURLString, description: band.name, fromImageView: cell.thumbnailImageView)
+        }
+        
         return cell
     }
     
@@ -531,6 +541,11 @@ extension LatestAdditionsOrUpdatesViewController {
         let cell = LabelAdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         let label = self.labelAdditionPagableManager.objects[indexPath.row]
         cell.fill(with: label)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: label.imageURLString, description: label.name, fromImageView: cell.thumbnailImageView)
+        }
+        
         return cell
     }
     
@@ -544,6 +559,11 @@ extension LatestAdditionsOrUpdatesViewController {
         let cell = LabelAdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         let label = self.labelUpdatePagableManager.objects[indexPath.row]
         cell.fill(with: label)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: label.imageURLString, description: label.name, fromImageView: cell.thumbnailImageView)
+        }
+        
         return cell
     }
     
@@ -630,6 +650,11 @@ extension LatestAdditionsOrUpdatesViewController {
         let cell = ArtistAdditionOrUpdateTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
         let artist = self.artistAdditionPagableManager.objects[indexPath.row]
         cell.fill(with: artist)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: artist.imageURLString, description: artist.nameInBand, fromImageView: cell.thumbnailImageView)
+        }
+        
         return cell
     }
     
@@ -643,6 +668,11 @@ extension LatestAdditionsOrUpdatesViewController {
         let cell = ArtistAdditionOrUpdateTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
         let artist = self.artistUpdatePagableManager.objects[indexPath.row]
         cell.fill(with: artist)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: artist.imageURLString, description: artist.nameInBand, fromImageView: cell.thumbnailImageView)
+        }
+        
         return cell
     }
     

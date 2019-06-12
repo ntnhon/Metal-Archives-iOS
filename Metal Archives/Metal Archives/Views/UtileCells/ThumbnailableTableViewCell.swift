@@ -12,6 +12,8 @@ class ThumbnailableTableViewCell: BaseTableViewCell {
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var thumbnailImageViewHeightConstraint: NSLayoutConstraint!
     
+    var tappedThumbnailImageView: (() -> Void)?
+    
     override func initAppearance() {
         super.initAppearance()
         self.thumbnailImageView.backgroundColor = Settings.currentTheme.imageViewBackgroundColor
@@ -20,6 +22,14 @@ class ThumbnailableTableViewCell: BaseTableViewCell {
         self.thumbnailImageView.sd_setShowActivityIndicatorView(true)
         self.thumbnailImageView.sd_setIndicatorStyle(Settings.currentTheme.activityIndicatorStyle)
         self.thumbnailImageViewHeightConstraint.constant = Settings.thumbnailHeight
+        
+        let thumbnailImageViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapThumbnailImageView))
+        thumbnailImageView.isUserInteractionEnabled = true
+        thumbnailImageView.addGestureRecognizer(thumbnailImageViewTapGesture)
+    }
+    
+    @objc private func didTapThumbnailImageView() {
+        tappedThumbnailImageView?()
     }
     
     func setThumbnailImageView(with thumbnailableObject: ThumbnailableObject) {

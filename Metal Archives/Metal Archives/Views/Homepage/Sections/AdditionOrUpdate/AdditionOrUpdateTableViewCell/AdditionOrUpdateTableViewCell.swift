@@ -35,6 +35,7 @@ final class AdditionOrUpdateTableViewCell: BaseTableViewCell, RegisterableCell {
     var didSelectBand: ((_ band: BandAdditionOrUpdate) -> Void)?
     var didSelectLabel: ((_ label: LabelAdditionOrUpdate) -> Void)?
     var didSelectArtist: ((_ artist: ArtistAdditionOrUpdate) -> Void)?
+    var didSelectImageView: ((_ imageView: UIImageView, _ urlString: String?, _ description: String) -> Void)?
     
     //MARK: - Dependencies
     var bands = [BandAdditionOrUpdate]() {
@@ -116,17 +117,36 @@ extension AdditionOrUpdateTableViewCell: UICollectionViewDataSource {
         switch selectedType! {
         case .bands:
             let cell = BandAdditionOrUpdateCollectionViewCell.dequeueFrom(collectionView, forIndexPath: indexPath)
-            cell.fill(with: bands[indexPath.item])
+            let band = bands[indexPath.item]
+            cell.fill(with: band)
+            
+            cell.tappedThumbnailImageView = { [unowned self] in
+                self.didSelectImageView?(cell.thumbnailImageView, band.imageURLString, band.name)
+            }
+            
             cell.showSeparator((indexPath.item + 1) % Settings.numberOfGeneralItemPerRow == 0)
             return cell
+            
         case .labels:
             let cell = LabelAdditionOrUpdateCollectionViewCell.dequeueFrom(collectionView, forIndexPath: indexPath)
-            cell.fill(with: labels[indexPath.item])
+            let label = labels[indexPath.item]
+            cell.fill(with: label)
+            
+            cell.tappedThumbnailImageView = { [unowned self] in
+                self.didSelectImageView?(cell.thumbnailImageView, label.imageURLString, label.name)
+            }
+            
             cell.showSeparator((indexPath.item + 1) % Settings.numberOfGeneralItemPerRow == 0)
             return cell
         case .artists:
             let cell = ArtistAdditionOrUpdateCollectionViewCell.dequeueFrom(collectionView, forIndexPath: indexPath)
-            cell.fill(with: artists[indexPath.item])
+            let artist = artists[indexPath.item]
+            cell.fill(with: artist)
+            
+            cell.tappedThumbnailImageView = { [unowned self] in
+                self.didSelectImageView?(cell.thumbnailImageView, artist.imageURLString, artist.nameInBand)
+            }
+            
             cell.showSeparator((indexPath.item + 1) % Settings.numberOfGeneralItemPerRow == 0)
             return cell
         }

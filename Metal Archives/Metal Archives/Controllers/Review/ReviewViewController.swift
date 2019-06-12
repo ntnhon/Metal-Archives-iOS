@@ -120,7 +120,7 @@ extension ReviewViewController: UITableViewDataSource {
 extension ReviewViewController: ReviewDetailTableViewCellDelegate {
     func didTapCoverImageView() {
         if let coverPhotoURLString = review.coverPhotoURLString {
-            presentPhotoViewer(photoURLString: coverPhotoURLString, description: "\(review.band.name) - \(review.release.name)", fromImageView: reviewDetailTableViewCell.coverPhotoImageView)
+            presentPhotoViewer(photoUrlString: coverPhotoURLString, description: "\(review.band.name) - \(review.release.name)", fromImageView: reviewDetailTableViewCell.coverPhotoImageView)
             Analytics.logEvent(AnalyticsEvent.ViewReviewReleaseCover, parameters: [AnalyticsParameter.ReleaseTitle: review.release.name, AnalyticsParameter.ReviewTitle: review.title!])
         }
     }

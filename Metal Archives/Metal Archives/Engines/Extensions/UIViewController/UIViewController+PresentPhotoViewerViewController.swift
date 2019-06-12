@@ -8,13 +8,24 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
 extension UIViewController {
-    func presentPhotoViewer(photoURLString: String, description: String, fromImageView imageView: UIImageView) {
+    func presentPhotoViewer(photoUrlString: String, description: String, fromImageView imageView: UIImageView) {
         let photoViewerViewController = UIStoryboard(name: "PhotoViewer", bundle: nil).instantiateViewController(withIdentifier: "PhotoViewerViewController" ) as! PhotoViewerViewController
-        photoViewerViewController.photoURLString = photoURLString
+        photoViewerViewController.photoURLString = photoUrlString
         photoViewerViewController.photoDescription = description
         
         photoViewerViewController.present(in: self, fromImageView: imageView)
+    }
+    
+    func presentPhotoViewerWithCacheChecking(photoUrlString: String?, description: String, fromImageView imageView: UIImageView) {
+        guard let photoUrlString = photoUrlString else { return }
+        
+        SDWebImageManager.shared().cachedImageExists(for: URL(string: photoUrlString)) { [weak self] (isInCache) in
+            if isInCache {
+                self?.presentPhotoViewer(photoUrlString: photoUrlString, description: description, fromImageView: imageView)
+            }
+        }
     }
 }

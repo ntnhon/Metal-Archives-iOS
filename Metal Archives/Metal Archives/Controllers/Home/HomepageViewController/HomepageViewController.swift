@@ -530,6 +530,10 @@ extension HomepageViewController {
             self.latestAdditionType = selectedType
         }
         
+        cell.didSelectImageView = { [unowned self] imageView, urlString, description in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: urlString, description: description, fromImageView: imageView)
+        }
+        
         return cell
     }
 }
