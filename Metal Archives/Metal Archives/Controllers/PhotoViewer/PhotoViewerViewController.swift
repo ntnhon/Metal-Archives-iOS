@@ -26,8 +26,10 @@ final class PhotoViewerViewController: BaseViewController {
     
     var photoURLString: String?
     var photoDescription: String?
+    
+    private weak var sourceImageView: UIImageView?
+    private var sourceRect: CGRect = .zero
     private var temporaryImageView: UIImageView = UIImageView(frame: .zero)
-    private var originalRect: CGRect = .zero
     private let smokedBackgroundView: UIView = {
         let view = UIView(frame: CGRect(origin: .zero, size: .init(width: screenWidth, height: screenHeight)))
         view.backgroundColor = Settings.currentTheme.backgroundColor
@@ -95,8 +97,14 @@ final class PhotoViewerViewController: BaseViewController {
         ToastCenter.default.cancelAll()
     }
     
-    func present(in viewController: UIViewController, fromRect rect: CGRect) {
-        originalRect = rect
+    func present(in viewController: UIViewController, fromImageView imageView: UIImageView) {
+        sourceImageView = imageView
+        let rect = imageView.positionIn(view: viewController.view)
+        sourceRect = rect
+        
+        sourceImageView?.isHidden = true
+        
+        // init temporaryImageView
         temporaryImageView.contentMode = .scaleAspectFit
         temporaryImageView.frame = rect
         if let photoURLString = photoURLString {
@@ -131,10 +139,10 @@ final class PhotoViewerViewController: BaseViewController {
         view.isHidden = true
         
         UIView.animate(withDuration: Settings.animationDuration, animations: { [unowned self] in
-            self.temporaryImageView.frame = self.originalRect
-            self.temporaryImageView.alpha = 0
+            self.temporaryImageView.frame = self.sourceRect
             self.smokedBackgroundView.alpha = 0
         }) { [unowned self] _ in
+            self.sourceImageView?.isHidden = false
             self.willMove(toParent: nil)
             self.smokedBackgroundView.removeFromSuperview()
             self.temporaryImageView.removeFromSuperview()
@@ -281,13 +289,18 @@ final class PhotoViewerViewController: BaseViewController {
         
         let translation = gesture.translation(in: view)
         let alpha = abs(translation.y) / (screenHeight / 2)
+        let scaleRatio = abs(1 - (translation.y / screenHeight))
         
         switch gesture.state {
         case .began, .changed:
             smokedBackgroundView.alpha = alpha
             view.isHidden = true
             temporaryImageView.isHidden = false
-            temporaryImageView.transform = CGAffineTransform(translationX: translation.x, y: translation.y)
+            
+            var transform = CGAffineTransform.identity
+            transform = transform.translatedBy(x: translation.x, y: translation.y)
+            transform = transform.scaledBy(x: scaleRatio, y: scaleRatio)
+            temporaryImageView.transform = transform
             
         case .ended, .cancelled:
             if abs(translation.y) < 100 {
