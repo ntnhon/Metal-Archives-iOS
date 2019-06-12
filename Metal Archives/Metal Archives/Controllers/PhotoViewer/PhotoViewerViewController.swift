@@ -246,15 +246,13 @@ final class PhotoViewerViewController: BaseViewController {
         let longPressPhotoGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didTapOptionButton))
         self.photoImageView.addGestureRecognizer(longPressPhotoGestureRecognizer)
         
-        let swipePhotoGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeDown(gesture:)))
-        swipePhotoGestureRecognizer.direction = .down
-        self.photoImageView.addGestureRecognizer(swipePhotoGestureRecognizer)
+        let panPhotoGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPanPhoto(gesture:)))
+        self.photoImageView.addGestureRecognizer(panPhotoGestureRecognizer)
         
-        let swipeScrollViewGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeDown(gesture:)))
-        swipePhotoGestureRecognizer.direction = .down
-        self.scrollView.addGestureRecognizer(swipeScrollViewGestureRecognizer)
+        let panScrollViewGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPanPhoto(gesture:)))
+        self.scrollView.addGestureRecognizer(panScrollViewGestureRecognizer)
         
-        //When user double taps => ignore single tap
+        // When user double taps => ignore single tap
         tapPhotoGestureRecognizer.require(toFail: doubleTapPhotoGestureRecognizer)
     }
     
@@ -277,10 +275,36 @@ final class PhotoViewerViewController: BaseViewController {
         }
     }
     
-    @objc private func didSwipeDown(gesture: UISwipeGestureRecognizer) {
-        if self.scrollView.zoomScale == 1 && gesture.state == .ended {
-            self.dismiss()
+    @objc private func didPanPhoto(gesture: UIPanGestureRecognizer) {
+        guard scrollView.zoomScale == 1.0 else { return }
+        
+        let translation = gesture.translation(in: view)
+        let alpha = abs(translation.y) / (screenHeight / 2)
+        
+        switch gesture.state {
+        case .began, .changed:
+            smokedBackgroundView.alpha = alpha
+            view.isHidden = true
+            temporaryImageView.isHidden = false
+            temporaryImageView.transform = CGAffineTransform(translationX: translation.x, y: translation.y)
+            
+        case .ended, .cancelled:
+            if abs(translation.y) < 100 {
+                UIView.animate(withDuration: Settings.animationDuration, animations: { [unowned self] in
+                    self.temporaryImageView.transform = .identity
+                    self.smokedBackgroundView.alpha = 1
+                }) { _ in
+                    self.temporaryImageView.isHidden = true
+                    self.view.isHidden = false
+                }
+            } else {
+                dismiss()
+            }
+            
+        default:
+            return
         }
+
     }
 }
 
