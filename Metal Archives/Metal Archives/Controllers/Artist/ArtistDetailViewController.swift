@@ -231,7 +231,7 @@ final class ArtistDetailViewController: BaseViewController {
     
     private func presentArtistInPhotoViewer() {
         guard let artist = artist, let photoURLString = artist.photoURLString else { return }
-        presentPhotoViewer(photoURLString: photoURLString, description: "\(artist.realFullName!) (\(artist.bandMemberName!))")
+        presentPhotoViewer(photoURLString: photoURLString, description: "\(artist.realFullName!) (\(artist.bandMemberName!))", fromRect: stretchyLogoSmokedImageView.imageView.frame)
     }
     
     private func initHorizontalMenuView() {

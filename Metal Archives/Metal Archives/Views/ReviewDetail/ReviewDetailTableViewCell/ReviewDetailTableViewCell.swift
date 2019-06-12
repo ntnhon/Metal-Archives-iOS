@@ -18,7 +18,7 @@ protocol ReviewDetailTableViewCellDelegate: class {
 }
 
 final class ReviewDetailTableViewCell: BaseTableViewCell, RegisterableCell {
-    @IBOutlet private weak var coverPhotoImageView: UIImageView!
+    @IBOutlet private(set) weak var coverPhotoImageView: UIImageView!
     @IBOutlet private weak var coverPhotoImageViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet private weak var reviewTitleLabel: UILabel!

@@ -180,7 +180,7 @@ final class LabelDetailViewController: BaseViewController {
     
     private func presentLabelLogoInPhotoViewer() {
         guard let label = label, let logoURLString = label.logoURLString else { return }
-        presentPhotoViewer(photoURLString: logoURLString, description: label.name)
+        presentPhotoViewer(photoURLString: logoURLString, description: label.name, fromRect: stretchyLogoSmokedImageView.imageView.frame)
     }
     
     private func initHorizontalMenuView() {

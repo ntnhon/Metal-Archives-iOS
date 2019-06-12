@@ -144,7 +144,7 @@ final class ReleaseDetailViewController: BaseViewController {
     
     private func presentReleaseCoverInPhotoViewer() {
         guard let release = release, let coverURLString = release.coverURLString else { return }
-        presentPhotoViewer(photoURLString: coverURLString, description: release.title)
+        presentPhotoViewer(photoURLString: coverURLString, description: release.title, fromRect: stretchyLogoSmokedImageView.imageView.frame)
     }
     
     private func initHorizontalMenuView() {

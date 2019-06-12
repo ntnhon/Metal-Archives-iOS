@@ -26,6 +26,14 @@ final class PhotoViewerViewController: BaseViewController {
     
     var photoURLString: String?
     var photoDescription: String?
+    private var temporaryImageView: UIImageView = UIImageView(frame: .zero)
+    private var originalRect: CGRect = .zero
+    private let smokedBackgroundView: UIView = {
+        let view = UIView(frame: CGRect(origin: .zero, size: .init(width: screenWidth, height: screenHeight)))
+        view.backgroundColor = Settings.currentTheme.backgroundColor
+        return view
+    }()
+    
     private var eyesOverlaid = false {
         didSet {
             let imageName = eyesOverlaid ? Ressources.Images.funny_eyes_selected : Ressources.Images.funny_eyes_unselected
@@ -42,6 +50,10 @@ final class PhotoViewerViewController: BaseViewController {
                 self.optionButton.isHidden = self.displayOnlyPhotoImageView
             }
         }
+    }
+    
+    deinit {
+        print("PhotoViewerViewController is deallocated")
     }
     
     override func viewDidLoad() {
@@ -83,6 +95,51 @@ final class PhotoViewerViewController: BaseViewController {
         ToastCenter.default.cancelAll()
     }
     
+    func present(in viewController: UIViewController, fromRect rect: CGRect) {
+        originalRect = rect
+        temporaryImageView.contentMode = .scaleAspectFit
+        temporaryImageView.frame = rect
+        if let photoURLString = photoURLString {
+            temporaryImageView.sd_setImage(with: URL(string: photoURLString))
+        }
+        
+        let containerController = viewController.navigationController ?? viewController
+        containerController.addChild(self)
+        containerController.view.addSubview(smokedBackgroundView)
+        containerController.view.addSubview(temporaryImageView)
+        containerController.view.addSubview(view)
+        self.didMove(toParent: containerController)
+        
+        smokedBackgroundView.alpha = 0
+        view.isHidden = true
+
+        UIView.animate(withDuration: Settings.animationDuration, animations: { [unowned self] in
+            self.smokedBackgroundView.alpha = 1
+            self.temporaryImageView.frame = CGRect(origin: .zero, size: .init(width: screenWidth, height: screenHeight))
+        }) { [unowned self] _ in
+            self.view.isHidden = false
+            self.temporaryImageView.isHidden = true
+        }
+    }
+    
+    private func dismiss() {
+        temporaryImageView.frame = photoImageView.frame
+        temporaryImageView.isHidden = false
+        view.isHidden = true
+        
+        UIView.animate(withDuration: Settings.animationDuration, animations: { [unowned self] in
+            self.temporaryImageView.frame = self.originalRect
+            self.temporaryImageView.alpha = 0
+            self.smokedBackgroundView.alpha = 0
+        }) { [unowned self] _ in
+            self.willMove(toParent: nil)
+            self.smokedBackgroundView.removeFromSuperview()
+            self.temporaryImageView.removeFromSuperview()
+            self.view.removeFromSuperview()
+            self.removeFromParent()
+        }
+    }
+    
     private func setPhoto() {
         if let photoURLString = photoURLString, let photoDescription = self.photoDescription {
             self.photoImageView.sd_setImage(with: URL(string: photoURLString), completed: nil)
@@ -91,7 +148,7 @@ final class PhotoViewerViewController: BaseViewController {
     }
     
     @IBAction func didTapCloseButton() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss()
     }
     
     @IBAction func didTapOptionButton() {
@@ -222,7 +279,7 @@ final class PhotoViewerViewController: BaseViewController {
     
     @objc private func didSwipeDown(gesture: UISwipeGestureRecognizer) {
         if self.scrollView.zoomScale == 1 && gesture.state == .ended {
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss()
         }
     }
 }

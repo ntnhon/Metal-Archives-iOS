@@ -10,10 +10,11 @@ import Foundation
 import UIKit
 
 extension UIViewController {
-    func presentPhotoViewer(photoURLString: String, description: String) {
+    func presentPhotoViewer(photoURLString: String, description: String, fromRect rect: CGRect) {
         let photoViewerViewController = UIStoryboard(name: "PhotoViewer", bundle: nil).instantiateViewController(withIdentifier: "PhotoViewerViewController" ) as! PhotoViewerViewController
         photoViewerViewController.photoURLString = photoURLString
         photoViewerViewController.photoDescription = description
-        self.present(photoViewerViewController, animated: true, completion: nil)
+        
+        photoViewerViewController.present(in: self, fromRect: rect)
     }
 }

@@ -10,7 +10,6 @@ import UIKit
 import Toaster
 import FirebaseAnalytics
 
-fileprivate let duration = 0.35
 fileprivate let MAX_Y_OFFSET: CGFloat = 100
 
 final class ReviewViewController: BaseViewController {
@@ -18,6 +17,7 @@ final class ReviewViewController: BaseViewController {
     
     var urlString: String!
     private var review: Review!
+    private var reviewDetailTableViewCell: ReviewDetailTableViewCell!
     
     private let smokedBackgroundView: UIView = {
         let view = UIView(frame: CGRect(origin: .zero, size: .init(width: screenWidth, height: screenHeight)))
@@ -62,22 +62,17 @@ final class ReviewViewController: BaseViewController {
     }
     
     func presentFromBottom(in viewController: UIViewController) {
-        if let navigationController = viewController.navigationController {
-            navigationController.addChild(self)
-            navigationController.view.addSubview(smokedBackgroundView)
-            navigationController.view.addSubview(view)
-            self.didMove(toParent: navigationController)
-        } else {
-            viewController.addChild(self)
-            viewController.view.addSubview(smokedBackgroundView)
-            viewController.view.addSubview(view)
-            self.didMove(toParent: viewController)
-        }
+        let containerController = viewController.navigationController ?? viewController
+        
+        containerController.addChild(self)
+        containerController.view.addSubview(smokedBackgroundView)
+        containerController.view.addSubview(view)
+        self.didMove(toParent: containerController)
         
         view.transform = CGAffineTransform(translationX: 0, y: view.bounds.height)
         smokedBackgroundView.transform = view.transform
         
-        UIView.animate(withDuration: duration) { [unowned self] in
+        UIView.animate(withDuration: Settings.animationDuration) { [unowned self] in
             self.view.transform = .identity
             self.smokedBackgroundView.transform = .identity
         }
@@ -86,7 +81,7 @@ final class ReviewViewController: BaseViewController {
     func dismissToBottom(completion: (() -> Void)? = nil) {
         isDismissing = true
         
-        UIView.animate(withDuration: duration, animations: { [unowned self] in
+        UIView.animate(withDuration: Settings.animationDuration, animations: { [unowned self] in
             self.view.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
             self.smokedBackgroundView.alpha = 0
         }) { [unowned self] (finished) in
@@ -114,6 +109,7 @@ extension ReviewViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ReviewDetailTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        reviewDetailTableViewCell = cell
         cell.fill(with: review)
         cell.delegate = self
         return cell
@@ -124,7 +120,9 @@ extension ReviewViewController: UITableViewDataSource {
 extension ReviewViewController: ReviewDetailTableViewCellDelegate {
     func didTapCoverImageView() {
         if let coverPhotoURLString = review.coverPhotoURLString {
-            presentPhotoViewer(photoURLString: coverPhotoURLString, description: "\(review.band.name) - \(review.release.name)")
+            
+            let rect = reviewDetailTableViewCell.coverPhotoImageView.positionIn(view: view)
+            presentPhotoViewer(photoURLString: coverPhotoURLString, description: "\(review.band.name) - \(review.release.name)", fromRect: rect)
             Analytics.logEvent(AnalyticsEvent.ViewReviewReleaseCover, parameters: [AnalyticsParameter.ReleaseTitle: review.release.name, AnalyticsParameter.ReviewTitle: review.title!])
         }
     }
@@ -174,7 +172,6 @@ extension ReviewViewController: UIScrollViewDelegate {
         
         view.transform = CGAffineTransform(translationX: view.frame.origin.x, y: -scrollView.contentOffset.y)
         smokedBackgroundView.alpha = 1 - (abs(scrollView.contentOffset.y) / MAX_Y_OFFSET)
-        print(smokedBackgroundView.alpha)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {

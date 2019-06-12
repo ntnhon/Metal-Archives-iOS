@@ -183,7 +183,8 @@ final class BandDetailViewController: BaseViewController {
     
     private func presentBandLogoInPhotoViewer() {
         guard let band = band, let bandLogoURLString = band.logoURLString else { return }
-        presentPhotoViewer(photoURLString: bandLogoURLString, description: band.name)
+        let rect = stretchyLogoSmokedImageView.imageView.positionIn(view: view)
+        presentPhotoViewer(photoURLString: bandLogoURLString, description: band.name, fromRect: rect)
     }
     
     private func presentOldBands() {
@@ -381,7 +382,8 @@ extension BandDetailViewController {
         cell.fill(with: band!)
         cell.tappedPhotoImageView = { [unowned self] in
             if let band = self.band, let bandPhotoURLString = band.photoURLString {
-                self.presentPhotoViewer(photoURLString: bandPhotoURLString, description: band.name)
+                let rect = cell.photoImageView.positionIn(view: self.view)
+                self.presentPhotoViewer(photoURLString: bandPhotoURLString, description: band.name, fromRect: rect)
             } else {
                 Toast.displayMessageShortly("No photo added")
             }

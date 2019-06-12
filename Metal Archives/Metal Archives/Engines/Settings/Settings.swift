@@ -11,9 +11,7 @@ import UIKit
 import UIColor_Hex_Swift
 
 struct Settings {
-    static let shortListDisplayCount = 5
     static let numberOfRetries = 5
-    static let segmentedHeaderHeight: CGFloat = 35
     static let thumbnailHeight: CGFloat = {
         let preferredHeight = screenWidth / 5
         let maxHeight: CGFloat = 72.0
@@ -42,6 +40,8 @@ struct Settings {
     static let bandPhotoImageViewHeight: CGFloat = screenHeight / 8
     
     static let spaceBetweenInfoAndDetailSection: CGFloat = 20
+    
+    static let animationDuration: TimeInterval = 0.35
 }
 
 enum FontSize: Int, CustomStringConvertible {

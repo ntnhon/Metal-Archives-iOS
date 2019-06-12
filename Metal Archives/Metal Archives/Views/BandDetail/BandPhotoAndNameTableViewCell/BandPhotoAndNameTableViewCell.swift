@@ -11,7 +11,7 @@ import UIKit
 final class BandPhotoAndNameTableViewCell: BaseTableViewCell, RegisterableCell {
     @IBOutlet private weak var photoImageViewBackgroundView: UIView!
     @IBOutlet private weak var photoImageViewBackgroundViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var photoImageView: UIImageView!
+    @IBOutlet private(set) weak var photoImageView: UIImageView!
     @IBOutlet private weak var photoImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private(set) weak var nameLabel: UILabel!
     
