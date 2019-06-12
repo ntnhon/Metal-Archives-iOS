@@ -40,6 +40,8 @@ struct Settings {
     
     static let strechyLogoImageViewHeight: CGFloat = screenHeight / 4
     static let bandPhotoImageViewHeight: CGFloat = screenHeight / 8
+    
+    static let spaceBetweenInfoAndDetailSection: CGFloat = 20
 }
 
 enum FontSize: Int, CustomStringConvertible {

@@ -44,8 +44,8 @@ final class BandDetailViewController: BaseViewController {
     }
     
     private lazy var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat = {
-        let totalHeights = bandPhotoAndNameTableViewCell.bounds.height + bandInfoTableViewCell.bounds.height + utileBarView.bounds.height
-        return totalHeights - tableView.frame.origin.y - tableView.contentInset.top - bandPhotoAndNameTableViewCell.frame.origin.y
+        let yOffset = bandPhotoAndNameTableViewCell.bounds.height + bandInfoTableViewCell.bounds.height - utileBarView.bounds.height
+        return yOffset
     }()
     
     private var anchorHorizontalMenuToBandMenuAnchorTableViewCell = true
@@ -302,7 +302,7 @@ extension BandDetailViewController: UITableViewDelegate {
         view.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         return view
     }
-    
+
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let emptyView = UIView()
         emptyView.backgroundColor = Settings.currentTheme.backgroundColor
@@ -314,7 +314,7 @@ extension BandDetailViewController: UITableViewDelegate {
             return 1
         }
         
-        return 20
+        return Settings.spaceBetweenInfoAndDetailSection
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -424,8 +424,6 @@ extension BandDetailViewController: HorizontalMenuViewDelegate {
         tableView.reloadSections([1], with: .none)
         tableView.scrollToRow(at: IndexPath(row: 2, section: 0), at: .top, animated: false)
         tableView.setContentOffset(.init(x: 0, y: yOffsetNeededToPinHorizontalViewToUtileBarView), animated: false)
-        
-        stretchyLogoSmokedImageView.setAlpha(1)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + CATransaction.animationDuration()) { [weak self] in
             guard let self = self else { return }
