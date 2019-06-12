@@ -405,7 +405,13 @@ extension LabelDetailViewController {
         }
         
         let cell = SubLabelTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        cell.fill(with: label.subLabels![indexPath.row])
+        let subLabel = label.subLabels![indexPath.row]
+        cell.fill(with: subLabel)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: subLabel.imageURLString, description: subLabel.name, fromImageView: cell.thumbnailImageView)
+        }
+        
         return cell
     }
     
@@ -460,6 +466,11 @@ extension LabelDetailViewController {
         let roster = label.currentRosterPagableManager.objects[indexPath.row]
         let cell = BandCurrentRosterTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: roster)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: roster.imageURLString, description: roster.name, fromImageView: cell.thumbnailImageView)
+        }
+        
         return cell
     }
     
@@ -489,6 +500,11 @@ extension LabelDetailViewController {
         let pastRoster = label.pastRosterPagableManager.objects[indexPath.row]
         let cell = BandPastRosterTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: pastRoster)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: pastRoster.imageURLString, description: pastRoster.name, fromImageView: cell.thumbnailImageView)
+        }
+        
         return cell
     }
     
@@ -551,6 +567,11 @@ extension LabelDetailViewController {
         let release = label.releasesPagableManager.objects[indexPath.row]
         let cell = ReleaseInLabelTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: release)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: release.imageURLString, description: release.release.title, fromImageView: cell.thumbnailImageView)
+        }
+        
         return cell
     }
     

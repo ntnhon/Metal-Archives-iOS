@@ -486,6 +486,11 @@ extension ReleaseDetailViewController {
         
         if let artist = artist {
             cell.fill(with: artist)
+            
+            cell.tappedThumbnailImageView = { [unowned self] in
+                self.presentPhotoViewerWithCacheChecking(photoUrlString: artist.imageURLString, description: artist.name, fromImageView: cell.thumbnailImageView)
+            }
+            
             return cell
         }
         

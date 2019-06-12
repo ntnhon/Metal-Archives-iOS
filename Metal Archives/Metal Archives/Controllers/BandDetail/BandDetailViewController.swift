@@ -482,9 +482,14 @@ extension BandDetailViewController {
             return discographyOptionsTableViewCell(atIndexPath: indexPath)
         }
         
-        let cell = ReleaseTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         if let release = release(forIndexPath: indexPath) {
+            let cell = ReleaseTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             cell.fill(with: release)
+            
+            cell.tappedThumbnailImageView = { [unowned self] in
+                self.presentPhotoViewerWithCacheChecking(photoUrlString: release.imageURLString, description: release.title, fromImageView: cell.thumbnailImageView)
+            }
+            
             return cell
         }
 
@@ -664,10 +669,14 @@ extension BandDetailViewController {
             return memberOptionTableViewCell(forRowAt: indexPath)
         }
         
-        let cell = MemberTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        
         if let artist = artist(forRowAt: indexPath) {
+            let cell = MemberTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             cell.fill(with: artist)
+            
+            cell.tappedThumbnailImageView = { [unowned self] in
+                self.presentPhotoViewerWithCacheChecking(photoUrlString: artist.imageURLString, description: artist.name, fromImageView: cell.thumbnailImageView)
+            }
+            
             return cell
         }
         
@@ -803,6 +812,11 @@ extension BandDetailViewController {
         let cell = ReviewTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         let review = band.reviewLitePagableManager.objects[indexPath.row]
         cell.fill(with: review)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: review.release?.imageURLString, description: review.release?.title ?? "", fromImageView: cell.thumbnailImageView)
+        }
+        
         return cell
     }
     
@@ -845,6 +859,11 @@ extension BandDetailViewController {
         let cell = SimilarBandTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         let similarArtist = similarArtists[indexPath.row]
         cell.fill(with: similarArtist)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: similarArtist.imageURLString, description: similarArtist.name, fromImageView: cell.thumbnailImageView)
+        }
+        
         return cell
     }
     

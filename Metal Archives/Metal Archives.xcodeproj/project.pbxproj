@@ -160,10 +160,6 @@
 		C053CF7622244F9000B056A8 /* BandPastRosterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C053CF7522244F9000B056A8 /* BandPastRosterTableViewCell.xib */; };
 		C053CF78222452AB00B056A8 /* ReleaseInLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053CF77222452AB00B056A8 /* ReleaseInLabelTableViewCell.swift */; };
 		C053CF7A222452BC00B056A8 /* ReleaseInLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C053CF79222452BC00B056A8 /* ReleaseInLabelTableViewCell.xib */; };
-		C053CF7C22245EA500B056A8 /* SublabelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053CF7B22245EA500B056A8 /* SublabelListViewController.swift */; };
-		C053CF7E2224647200B056A8 /* CurrentRosterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053CF7D2224647200B056A8 /* CurrentRosterListViewController.swift */; };
-		C053CF8022247F0700B056A8 /* PastRosterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053CF7F22247F0700B056A8 /* PastRosterListViewController.swift */; };
-		C053CF82222484AA00B056A8 /* ReleaseInLabelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053CF81222484AA00B056A8 /* ReleaseInLabelListViewController.swift */; };
 		C053CF8422248BB500B056A8 /* RelatedLink.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C053CF8322248BB500B056A8 /* RelatedLink.storyboard */; };
 		C053DD272226777C0028568B /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053DD262226777C0028568B /* StatisticsViewController.swift */; };
 		C053DD2A222679520028568B /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053DD29222679520028568B /* Statistic.swift */; };
@@ -671,10 +667,6 @@
 		C053CF7522244F9000B056A8 /* BandPastRosterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BandPastRosterTableViewCell.xib; sourceTree = "<group>"; };
 		C053CF77222452AB00B056A8 /* ReleaseInLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInLabelTableViewCell.swift; sourceTree = "<group>"; };
 		C053CF79222452BC00B056A8 /* ReleaseInLabelTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseInLabelTableViewCell.xib; sourceTree = "<group>"; };
-		C053CF7B22245EA500B056A8 /* SublabelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SublabelListViewController.swift; sourceTree = "<group>"; };
-		C053CF7D2224647200B056A8 /* CurrentRosterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentRosterListViewController.swift; sourceTree = "<group>"; };
-		C053CF7F22247F0700B056A8 /* PastRosterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastRosterListViewController.swift; sourceTree = "<group>"; };
-		C053CF81222484AA00B056A8 /* ReleaseInLabelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInLabelListViewController.swift; sourceTree = "<group>"; };
 		C053CF8322248BB500B056A8 /* RelatedLink.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RelatedLink.storyboard; sourceTree = "<group>"; };
 		C053DD262226777C0028568B /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		C053DD29222679520028568B /* Statistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
@@ -1410,10 +1402,6 @@
 			isa = PBXGroup;
 			children = (
 				C05309E222232ECB0027D11E /* LabelDetailViewController.swift */,
-				C053CF7B22245EA500B056A8 /* SublabelListViewController.swift */,
-				C053CF7D2224647200B056A8 /* CurrentRosterListViewController.swift */,
-				C053CF7F22247F0700B056A8 /* PastRosterListViewController.swift */,
-				C053CF81222484AA00B056A8 /* ReleaseInLabelListViewController.swift */,
 			);
 			path = Label;
 			sourceTree = "<group>";
@@ -3392,7 +3380,6 @@
 				C0A48CEE222181BD0047FC70 /* Toaster+DisplayMessageShortly.swift in Sources */,
 				C0795B8B2288234F00E5D94F /* BetterSnappingLayout.swift in Sources */,
 				C01D5870225CE28100DC7556 /* ThemeListTableViewController.swift in Sources */,
-				C053CF8022247F0700B056A8 /* PastRosterListViewController.swift in Sources */,
 				C00D3631223D98D700B29B43 /* DetailTableViewCell.swift in Sources */,
 				C0A1F94222416B82005C2C83 /* ArtistRIP.swift in Sources */,
 				C06F92962231CD310079E63E /* SimpleLabelTableViewCell.swift in Sources */,
@@ -3437,7 +3424,6 @@
 				C00D362A223D86F600B29B43 /* OpenSourceLibrariesViewController.swift in Sources */,
 				C06F929B2231D3100079E63E /* SimpleArtistTableViewCell.swift in Sources */,
 				C065BCA8222D3E460009808A /* BaseTextField.swift in Sources */,
-				C053CF7E2224647200B056A8 /* CurrentRosterListViewController.swift in Sources */,
 				C053DD692226E1250028568B /* BandTopTableViewCell.swift in Sources */,
 				C0BE339021E68CDD001ED000 /* AppDelegate.swift in Sources */,
 				C053DD5F2226D45B0028568B /* Top100Bands.swift in Sources */,
@@ -3532,7 +3518,6 @@
 				C0752970229F3E550067B5E1 /* FilledButton.swift in Sources */,
 				C0AA06C022395FF1001BE21D /* AdvancedSearchSongsResultsViewController.swift in Sources */,
 				C0356F1D22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift in Sources */,
-				C053CF7C22245EA500B056A8 /* SublabelListViewController.swift in Sources */,
 				C06B62402242313300A3FE6B /* LabelBrowseAlphabetically.swift in Sources */,
 				C053CF642223FB3C00B056A8 /* LabelInfoTableViewCell.swift in Sources */,
 				C0F0BE822243FA0B00B90605 /* WidgetSection.swift in Sources */,
@@ -3636,7 +3621,6 @@
 				C053DD34222681C80028568B /* MemberStatistic.swift in Sources */,
 				C0602BDF21EA9CE800046367 /* Statics.swift in Sources */,
 				C01839E12225401500FF88B7 /* BandUpdate.swift in Sources */,
-				C053CF82222484AA00B056A8 /* ReleaseInLabelListViewController.swift in Sources */,
 				C053CF78222452AB00B056A8 /* ReleaseInLabelTableViewCell.swift in Sources */,
 				C0332FEC2201D502008B34E0 /* ArtistLite.swift in Sources */,
 				C03280072209E2EA00FC9A44 /* Release.swift in Sources */,
