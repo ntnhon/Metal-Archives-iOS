@@ -17,7 +17,6 @@ final class ArtistDetailViewController: BaseViewController {
     @IBOutlet private weak var utileBarView: UtileBarView!
     
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
-    private unowned var artistNameTableViewCell: ArtistNameTableViewCell?
     
     var urlString: String!
     private var artist: Artist!
@@ -30,6 +29,23 @@ final class ArtistDetailViewController: BaseViewController {
     private var liveRoles: [Any]!
     private var guestSessionRoles: [Any]!
     private var miscStaffRoles: [Any]!
+    
+    private var artistNameTableViewCell: ArtistNameTableViewCell!
+    private var artistInfoTableViewCell: ArtistInfoTableViewCell!
+    
+    // Floating menu
+    private var horizontalMenuView: HorizontalMenuView!
+    private var horizontalMenuViewTopConstraint: NSLayoutConstraint!
+    private var horizontalMenuAnchorTableViewCell: HorizontalMenuAnchorTableViewCell! {
+        didSet {
+            anchorHorizontalMenuViewToAnchorTableViewCell()
+        }
+    }
+    private lazy var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat = {
+        let yOffset = artistNameTableViewCell.bounds.height + artistInfoTableViewCell.bounds.height - utileBarView.bounds.height
+        return yOffset
+    }()
+    private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
     
     deinit {
         print("ArtistDetailViewController is deallocated")
@@ -83,7 +99,13 @@ final class ArtistDetailViewController: BaseViewController {
                         
                         self.determineArtistInfoTypes()
                         self.determineArtistRoles()
+                        self.initHorizontalMenuView()
                         self.tableView.reloadData()
+                        
+                        // Delay this method to wait for info cells to be fully loaded
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                            self.setTableViewBottomInsetToFillBottomSpace()
+                        })
                         
                         Analytics.logEvent(AnalyticsEvent.ViewArtist, parameters: [AnalyticsParameter.ArtistName: artist.bandMemberName!, AnalyticsParameter.ArtistID: artist.id!])
                     }
@@ -181,10 +203,10 @@ final class ArtistDetailViewController: BaseViewController {
         SimpleTableViewCell.register(with: tableView)
         ArtistNameTableViewCell.register(with: tableView)
         ArtistInfoTableViewCell.register(with: tableView)
-        ArtistMenuTableViewCell.register(with: tableView)
         RolesInBandTableViewCell.register(with: tableView)
         RolesInReleaseTableViewCell.register(with: tableView)
         RelatedLinkTableViewCell.register(with: tableView)
+        HorizontalMenuAnchorTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -194,6 +216,7 @@ final class ArtistDetailViewController: BaseViewController {
         tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
             self?.calculateAndApplyAlphaForArtistNameAndUltileNavBar()
             self?.stretchyLogoSmokedImageView.calculateAndApplyAlpha(withTableView: tableView)
+            self?.anchorHorizontalMenuViewToAnchorTableViewCell()
         }
         
         // detect taps on band's logo, have to do this because band's logo is overlaid by tableView
@@ -209,6 +232,36 @@ final class ArtistDetailViewController: BaseViewController {
     private func presentArtistInPhotoViewer() {
         guard let artist = artist, let photoURLString = artist.photoURLString else { return }
         presentPhotoViewer(photoURLString: photoURLString, description: "\(artist.realFullName!) (\(artist.bandMemberName!))")
+    }
+    
+    private func initHorizontalMenuView() {
+        var options = [String]()
+        artistInfoTypes.forEach({
+            options.append($0.description)
+        })
+        horizontalMenuView = HorizontalMenuView(options: options, font: Settings.currentFontSize.secondaryTitleFont, normalColor: Settings.currentTheme.bodyTextColor, highlightColor: Settings.currentTheme.secondaryTitleColor)
+        horizontalMenuView.backgroundColor = Settings.currentTheme.backgroundColor
+        horizontalMenuView.isHidden = true
+        horizontalMenuView.delegate = self
+        view.addSubview(horizontalMenuView)
+        
+        horizontalMenuView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            horizontalMenuView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            horizontalMenuView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            horizontalMenuView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight)
+            ])
+        horizontalMenuViewTopConstraint = horizontalMenuView.topAnchor.constraint(equalTo: view.topAnchor)
+        horizontalMenuViewTopConstraint.isActive = true
+    }
+    
+    private func anchorHorizontalMenuViewToAnchorTableViewCell() {
+        guard let horizontalMenuAnchorTableViewCell = horizontalMenuAnchorTableViewCell, anchorHorizontalMenuToMenuAnchorTableViewCell else { return }
+        let horizontalMenuAnchorTableViewCellFrameInView = horizontalMenuAnchorTableViewCell.positionIn(view: view)
+        
+        horizontalMenuView.isHidden = false
+        horizontalMenuViewTopConstraint.constant = max(
+            horizontalMenuAnchorTableViewCellFrameInView.origin.y, utileBarView.frame.origin.y + utileBarView.frame.height)
     }
     
     private func handleUtileBarViewActions() {
@@ -319,7 +372,7 @@ extension ArtistDetailViewController: UITableViewDataSource {
         switch (indexPath.section, indexPath.row) {
         case (0, 0): return artistNameTableViewCell(forRowAt: indexPath)
         case (0, 1): return artistInfoTableViewCell(forRowAt: indexPath)
-        case (0, 2): return artistOptionTableViewCell(forRowAt: indexPath)
+        case (0, 2): return horizontalMenuAnchorTableViewCell(forRowAt: indexPath)
         default:
             switch currentArtistInfoType! {
             case .biography: return biographyCell(forRowAt: indexPath)
@@ -349,21 +402,15 @@ extension ArtistDetailViewController {
         }
         
         let cell = ArtistInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        artistInfoTableViewCell = cell
         cell.fill(with: artist)
         return cell
     }
     
-    private func artistOptionTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = ArtistMenuTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        
-        var options = [String]()
-        artistInfoTypes.forEach({
-            options.append($0.description)
-        })
-        cell.initMenu(with: options)
-        cell.horizontalMenuView.delegate = self
-        cell.horizontalMenuView.selectedIndex = artistInfoTypes.firstIndex(of: currentArtistInfoType) ?? 0
-        
+    private func horizontalMenuAnchorTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = HorizontalMenuAnchorTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        horizontalMenuAnchorTableViewCell = cell
+        horizontalMenuAnchorTableViewCell.contentView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight).isActive = true
         return cell
     }
 }
@@ -453,6 +500,24 @@ extension ArtistDetailViewController {
 extension ArtistDetailViewController: HorizontalMenuViewDelegate {
     func horizontalMenu(_ horizontalMenu: HorizontalMenuView, didSelectItemAt index: Int) {
         currentArtistInfoType = artistInfoTypes[index]
-        tableView.reloadSections([1], with: .automatic)
+        pinHorizontalMenuViewThenRefreshAndScrollTableView()
+    }
+    
+    private func pinHorizontalMenuViewThenRefreshAndScrollTableView() {
+        anchorHorizontalMenuToMenuAnchorTableViewCell = false
+        horizontalMenuViewTopConstraint.constant = utileBarView.frame.origin.y + utileBarView.frame.height
+        tableView.reloadSections([1], with: .none)
+        tableView.scrollToRow(at: IndexPath(row: 1, section: 0), at: .top, animated: false)
+        tableView.setContentOffset(.init(x: 0, y: yOffsetNeededToPinHorizontalViewToUtileBarView), animated: false)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + CATransaction.animationDuration()) { [weak self] in
+            guard let self = self else { return }
+            self.setTableViewBottomInsetToFillBottomSpace()
+            self.anchorHorizontalMenuToMenuAnchorTableViewCell = true
+        }
+    }
+    
+    private func setTableViewBottomInsetToFillBottomSpace() {
+        self.tableView.contentInset.bottom = max(0, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView)
     }
 }
