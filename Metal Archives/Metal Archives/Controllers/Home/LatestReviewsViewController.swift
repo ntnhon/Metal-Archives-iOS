@@ -171,6 +171,11 @@ extension LatestReviewsViewController: UITableViewDataSource {
         let cell = LatestReviewTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         let latestReview = self.latestReviewsPagableManager.objects[indexPath.row]
         cell.fill(with: latestReview)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: latestReview.release.imageURLString, description: latestReview.release.title, fromImageView: cell.thumbnailImageView)
+        }
+        
         return cell
     }
     

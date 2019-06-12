@@ -36,7 +36,7 @@ final class SimpleAlbumTitleTableViewCell: ThumbnailableTableViewCell, Registera
         
         self.bandsNameLabel.attributedText = generateAttributedStringFromStrings(bandNames, as: .title, withSeparator: " | ")
         
-        self.releaseTitleLabel.text = result.release.name
+        self.releaseTitleLabel.text = result.release.title
         self.typeLabel.text = result.type
         self.dateLabel.text = result.dateString
         

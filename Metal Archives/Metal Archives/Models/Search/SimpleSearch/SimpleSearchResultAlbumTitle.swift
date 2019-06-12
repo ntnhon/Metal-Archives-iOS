@@ -81,7 +81,7 @@ extension SimpleSearchResultAlbumTitle: Pagable {
                 }
                 
                 if let `releaseTitle` = releaseTitle, let `urlString` = urlString {
-                    release = ReleaseExtraLite(urlString: urlString, name: releaseTitle)
+                    release = ReleaseExtraLite(urlString: urlString, title: releaseTitle)
                 }
             }
             
@@ -117,7 +117,7 @@ extension SimpleSearchResultAlbumTitle: Actionable {
             elements.append(bandElement)
         }
         
-        let releaseElement = ActionableElement(name: self.release.name, urlString: self.release.urlString, type: .release)
+        let releaseElement = ActionableElement(name: self.release.title, urlString: self.release.urlString, type: .release)
         elements.append(releaseElement)
         
         return elements

@@ -39,7 +39,7 @@ final class ReleaseInLabelTableViewCell: ThumbnailableTableViewCell, Registerabl
         
         bandNamesLabel.attributedText = generateAttributedStringFromStrings(bandNames, as: .title, withSeparator: " / ")
         
-        releaseTitleLabel.text = release.release.name
+        releaseTitleLabel.text = release.release.title
         
         var yearString = ""
         if let year = release.year {

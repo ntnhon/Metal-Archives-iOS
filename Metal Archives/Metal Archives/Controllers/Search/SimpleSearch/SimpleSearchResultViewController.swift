@@ -470,7 +470,7 @@ extension SimpleSearchResultViewController {
             let result = self.albumTitleResultManager.objects[indexPath.row]
             self.takeActionFor(actionableObject: result)
             
-            Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Album title", AnalyticsParameter.BandName: result.release.name, AnalyticsParameter.BandID: result.release.id])
+            Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Album title", AnalyticsParameter.BandName: result.release.title, AnalyticsParameter.BandID: result.release.id])
         }
     }
     

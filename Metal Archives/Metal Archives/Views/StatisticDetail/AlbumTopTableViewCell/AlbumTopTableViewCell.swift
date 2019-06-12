@@ -32,7 +32,7 @@ final class AlbumTopTableViewCell: ThumbnailableTableViewCell, RegisterableCell 
     func fill(with album: AlbumTop, order: Int) {
         self.orderLabel.text = "#\(order)"
         self.bandNameLabel.text = album.band.name
-        self.releaseTitleLabel.text = album.release.name
+        self.releaseTitleLabel.text = album.release.title
         self.countLabel.text = "\(album.count)"
         self.setThumbnailImageView(with: album)
         self.setNeedsLayout()

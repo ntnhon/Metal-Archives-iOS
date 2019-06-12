@@ -71,7 +71,7 @@ final class Top100Albums {
                     }
                 } else if i == 2 {
                     if let a = tds[i].at_css("a"), let releaseTitle = a.text, let releaseURLString = a["href"] {
-                        release = ReleaseExtraLite(urlString: releaseURLString, name: releaseTitle)
+                        release = ReleaseExtraLite(urlString: releaseURLString, title: releaseTitle)
                     }
                 } else if i == 3 {
                     if let countString = tds[i].text {

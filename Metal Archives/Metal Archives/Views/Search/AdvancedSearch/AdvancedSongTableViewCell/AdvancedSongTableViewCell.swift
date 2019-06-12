@@ -27,7 +27,7 @@ final class AdvancedSongTableViewCell: ThumbnailableTableViewCell, RegisterableC
     
     func fill(with result: AdvancedSearchResultSong) {
         self.bandNameLabel.text = result.band.name
-        self.releaseLabel.text = result.release.name
+        self.releaseLabel.text = result.release.title
         
         var detailsString = ""
         result.otherDetails.forEach({

@@ -18,6 +18,7 @@ final class UpcomingAlbumsTableViewCell: BaseTableViewCell, RegisterableCell {
     
     var seeAll: (() -> Void)?
     var didSelectUpcomingAlbum: ((_ upcomingAlbum: UpcomingAlbum) -> Void)?
+    var didSelectImageView: ((_ imageView: UIImageView, _ urlString: String?, _ description: String) -> Void)?
     
     var upcomingAlbums = [UpcomingAlbum]() {
         didSet {
@@ -64,8 +65,14 @@ extension UpcomingAlbumsTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = UpcomingAlbumCollectionViewCell.dequeueFrom(collectionView, forIndexPath: indexPath)
-        cell.fill(with: upcomingAlbums[indexPath.item])
+        let upcomingAlbum = upcomingAlbums[indexPath.item]
+        cell.fill(with: upcomingAlbum)
         cell.showSeparator((indexPath.item + 1) % Settings.numberOfGeneralItemPerRow == 0)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.didSelectImageView?(cell.thumbnailImageView, upcomingAlbum.release.imageURLString, upcomingAlbum.release.title)
+        }
+        
         return cell
     }
 }

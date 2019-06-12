@@ -99,7 +99,7 @@ extension AdvancedSearchAlbumsResultsViewController: UITableViewDelegate {
             let result = manager.objects[indexPath.row]
             self.takeActionFor(actionableObject: result)
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnAdvancedSearchResult, parameters: [AnalyticsParameter.ReleaseTitle: result.release.name, AnalyticsParameter.ReleaseID: result.release.id])
+            Analytics.logEvent(AnalyticsEvent.SelectAnAdvancedSearchResult, parameters: [AnalyticsParameter.ReleaseTitle: result.release.title, AnalyticsParameter.ReleaseID: result.release.id])
         }
     }
     

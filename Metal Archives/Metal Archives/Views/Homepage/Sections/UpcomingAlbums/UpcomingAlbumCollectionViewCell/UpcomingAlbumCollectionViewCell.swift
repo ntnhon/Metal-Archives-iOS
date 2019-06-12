@@ -43,7 +43,7 @@ final class UpcomingAlbumCollectionViewCell: ThumbnailableCollectionViewCell, Re
         }
         bandsNameLabel.attributedText = generateAttributedStringFromStrings(bandNames, as: .title, withSeparator: " / ")
         
-        releaseTitleLabel.text = upcomingAlbum.release.name
+        releaseTitleLabel.text = upcomingAlbum.release.title
         releaseTypeLabel.text = upcomingAlbum.releaseType.description
         genreLabel.text = upcomingAlbum.genre
         dateLabel.text = upcomingAlbum.date

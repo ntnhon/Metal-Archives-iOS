@@ -9,21 +9,21 @@
 import Foundation
 
 final class ReleaseExtraLite: ThumbnailableObject {
-    let name: String
+    let title: String
     
-    init?(urlString: String, name: String) {
-        self.name = name
+    init?(urlString: String, title: String) {
+        self.title = title
         super.init(urlString: urlString, imageType: .release)
     }
     
     //Sample string: <a href="https://www.metal-archives.com/albums/Meshuggah/Destroy_Erase_Improve/53">Destroy Erase Improve</a>
     init?(from string: String) {
         guard let urlSubstring = string.subString(after: #"href=""#, before: #"">"#, options: .caseInsensitive),
-            let nameSubstring = string.subString(after: #"">"#, before: "</a>", options: .caseInsensitive) else {
+            let titleSubstring = string.subString(after: #"">"#, before: "</a>", options: .caseInsensitive) else {
                 return nil
         }
         
-        self.name = String(nameSubstring)
+        self.title = String(titleSubstring)
         super.init(urlString: String(urlSubstring), imageType: .release)
     }
 }

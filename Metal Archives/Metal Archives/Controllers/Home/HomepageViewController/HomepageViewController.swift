@@ -573,6 +573,10 @@ extension HomepageViewController {
             self.latestUpdateType = selectedType
         }
         
+        cell.didSelectImageView = { [unowned self] imageView, urlString, description in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: urlString, description: description, fromImageView: imageView)
+        }
+        
         return cell
     }
 }
@@ -594,6 +598,10 @@ extension HomepageViewController {
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "LatestReview"])
         }
         
+        cell.didSelectImageView = { [unowned self] imageView, urlString, description in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: urlString, description: description, fromImageView: imageView)
+        }
+        
         return cell
     }
 }
@@ -613,6 +621,10 @@ extension HomepageViewController {
         cell.didSelectUpcomingAlbum = { [unowned self] upcomingAlbum in
             self.takeActionFor(actionableObject: upcomingAlbum)
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "UpcomingAlbum"])
+        }
+        
+        cell.didSelectImageView = { [unowned self] imageView, urlString, description in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: urlString, description: description, fromImageView: imageView)
         }
         
         return cell

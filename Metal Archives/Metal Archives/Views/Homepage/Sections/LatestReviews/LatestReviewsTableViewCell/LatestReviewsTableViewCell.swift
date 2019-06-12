@@ -18,6 +18,7 @@ final class LatestReviewsTableViewCell: BaseTableViewCell, RegisterableCell {
     
     var seeAll: (() -> Void)?
     var didSelectLatestReview: ((_ latestReview: LatestReview) -> Void)?
+    var didSelectImageView: ((_ imageView: UIImageView, _ urlString: String?, _ description: String) -> Void)?
     
     var latestReviews = [LatestReview]() {
         didSet {
@@ -65,8 +66,14 @@ extension LatestReviewsTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = LatestReviewCollectionViewCell.dequeueFrom(collectionView, forIndexPath: indexPath)
-        cell.fill(with: latestReviews[indexPath.item])
+        let latestReview = latestReviews[indexPath.item]
+        cell.fill(with: latestReview)
         cell.showSeparator((indexPath.item + 1) % Settings.numberOfGeneralItemPerRow == 0)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.didSelectImageView?(cell.thumbnailImageView, latestReview.release.imageURLString, latestReview.release.title)
+        }
+        
         return cell
     }
 }

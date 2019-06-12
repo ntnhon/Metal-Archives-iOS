@@ -36,7 +36,7 @@ final class LatestReviewCollectionViewCell: ThumbnailableCollectionViewCell, Reg
     
     func fill(with latestReview: LatestReview) {
         bandNameLabel.text = latestReview.band.name
-        releaseTitleLabel.text = latestReview.release.name
+        releaseTitleLabel.text = latestReview.release.title
         dateLabel.text = latestReview.dateString
         authorAndRatingLabel.attributedText = latestReview.authorAndRatingAttributedString
         setThumbnailImageView(with: latestReview.release)

@@ -55,7 +55,7 @@ final class ReviewViewController: BaseViewController {
                         self.tableView.reloadData()
                     }
                     
-                    Analytics.logEvent(AnalyticsEvent.ViewReview, parameters: [AnalyticsParameter.ReleaseTitle: review.release.name, AnalyticsParameter.ReviewTitle: review.title!])
+                    Analytics.logEvent(AnalyticsEvent.ViewReview, parameters: [AnalyticsParameter.ReleaseTitle: review.release.title, AnalyticsParameter.ReviewTitle: review.title!])
                 }
             }
         }
@@ -120,8 +120,8 @@ extension ReviewViewController: UITableViewDataSource {
 extension ReviewViewController: ReviewDetailTableViewCellDelegate {
     func didTapCoverImageView() {
         if let coverPhotoURLString = review.coverPhotoURLString {
-            presentPhotoViewer(photoUrlString: coverPhotoURLString, description: "\(review.band.name) - \(review.release.name)", fromImageView: reviewDetailTableViewCell.coverPhotoImageView)
-            Analytics.logEvent(AnalyticsEvent.ViewReviewReleaseCover, parameters: [AnalyticsParameter.ReleaseTitle: review.release.name, AnalyticsParameter.ReviewTitle: review.title!])
+            presentPhotoViewer(photoUrlString: coverPhotoURLString, description: "\(review.band.name) - \(review.release.title)", fromImageView: reviewDetailTableViewCell.coverPhotoImageView)
+            Analytics.logEvent(AnalyticsEvent.ViewReviewReleaseCover, parameters: [AnalyticsParameter.ReleaseTitle: review.release.title, AnalyticsParameter.ReviewTitle: review.title!])
         }
     }
     
@@ -159,7 +159,7 @@ extension ReviewViewController: ReviewDetailTableViewCellDelegate {
     func didTapShareButton() {
         presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertTitle: "View this review in browser", alertMessage: "\(review.title!) - \(review.rating!)%", shareMessage: "Share this review URL")
         
-        Analytics.logEvent(AnalyticsEvent.ShareReview, parameters: [AnalyticsParameter.ReleaseTitle: review.release.name, AnalyticsParameter.ReviewTitle: review.title!])
+        Analytics.logEvent(AnalyticsEvent.ShareReview, parameters: [AnalyticsParameter.ReleaseTitle: review.release.title, AnalyticsParameter.ReviewTitle: review.title!])
     }
 }
 

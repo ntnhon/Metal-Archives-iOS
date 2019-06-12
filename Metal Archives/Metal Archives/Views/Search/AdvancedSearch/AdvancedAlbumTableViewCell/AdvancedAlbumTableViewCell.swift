@@ -31,7 +31,7 @@ final class AdvancedAlbumTableViewCell: ThumbnailableTableViewCell, Registerable
         }
         self.bandsNameLabel.attributedText = generateAttributedStringFromStrings(bandNames, as: .title, withSeparator: " | ")
         
-        self.releaseLabel.text = result.release.name
+        self.releaseLabel.text = result.release.title
         
         var detailsString = ""
         result.otherDetails.forEach({

@@ -104,7 +104,7 @@ final class ReviewDetailTableViewCell: BaseTableViewCell, RegisterableCell {
         
         reviewTitleLabel.text = review.title
         bandNameLabel.text = review.band.name
-        releaseTitleLabel.text = review.release.name
+        releaseTitleLabel.text = review.release.title
         ratingLabel.text = "\(review.rating!)%"
         ratingLabel.textColor = UIColor.colorByRating(review.rating)
         authorLabel.text = review.user.name

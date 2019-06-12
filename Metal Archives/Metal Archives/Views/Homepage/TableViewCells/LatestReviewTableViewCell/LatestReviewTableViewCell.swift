@@ -32,7 +32,7 @@ final class LatestReviewTableViewCell: ThumbnailableTableViewCell, RegisterableC
 
     func fill(with latestReview: LatestReview) {
         bandNameLabel.text = latestReview.band.name
-        albumNameLabel.text = latestReview.release.name
+        albumNameLabel.text = latestReview.release.title
         dateAndTimeLabel.text = "\(latestReview.dateString), \(latestReview.timeString)"
         authorAndRatingLabel.attributedText = latestReview.authorAndRatingAttributedString
         setThumbnailImageView(with: latestReview.release)

@@ -104,7 +104,7 @@ extension Top100AlbumsViewController: UITableViewDelegate {
         if let `album` = album {
             self.takeActionFor(actionableObject: album)
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInTop100Albums, parameters: [AnalyticsParameter.SectionName: self.currentAlbumTopType.description, AnalyticsParameter.ReleaseTitle: album.release.name, AnalyticsParameter.ReleaseID: album.release.id])
+            Analytics.logEvent(AnalyticsEvent.SelectAnItemInTop100Albums, parameters: [AnalyticsParameter.SectionName: self.currentAlbumTopType.description, AnalyticsParameter.ReleaseTitle: album.release.title, AnalyticsParameter.ReleaseID: album.release.id])
         }
     }
 }

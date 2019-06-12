@@ -32,7 +32,7 @@ final class SimpleSongTitleTableViewCell: ThumbnailableTableViewCell, Registerab
     
     func fill(with result: SimpleSearchResultSongTitle) {
         self.bandNameLabel.text = result.band.name
-        self.releaseTitleLabel.text = result.release.name
+        self.releaseTitleLabel.text = result.release.title
         self.typeLabel.text = result.type
         self.songTitleLabel.text = result.title
         

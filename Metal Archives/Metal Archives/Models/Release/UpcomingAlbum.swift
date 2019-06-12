@@ -84,7 +84,7 @@ extension UpcomingAlbum: Actionable {
             elements.append(bandElement)
         }
         
-        let releaseElement = ActionableElement(name: self.release.name, urlString: self.release.urlString, type: .release)
+        let releaseElement = ActionableElement(name: self.release.title, urlString: self.release.urlString, type: .release)
         elements.append(releaseElement)
         
         return elements

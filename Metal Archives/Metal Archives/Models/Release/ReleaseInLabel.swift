@@ -74,9 +74,9 @@ extension ReleaseInLabel: Pagable {
             a = a.replacingOccurrences(of: "href=\'", with: "href=\"")
             a = a.replacingOccurrences(of: "'>", with: "\">")
             
-            let releaseName = String(a.subString(after: "\">", before: "</a>", options: .caseInsensitive) ?? "")
+            let releaseTitle = String(a.subString(after: "\">", before: "</a>", options: .caseInsensitive) ?? "")
             let releaseURLString = String(a.subString(after: "href=\"", before: "\">", options: .caseInsensitive) ?? "")
-            let release = ReleaseExtraLite(urlString: releaseURLString, name: releaseName)
+            let release = ReleaseExtraLite(urlString: releaseURLString, title: releaseTitle)
             let type = eachReleaseDetail[2]
             let year = Int(eachReleaseDetail[3])
             let catalogID = eachReleaseDetail[4]
@@ -107,7 +107,7 @@ extension ReleaseInLabel: Actionable {
             elements.append(bandElement)
         }
         
-        let releaseElement = ActionableElement(name: self.release.name, urlString: self.release.urlString, type: .release)
+        let releaseElement = ActionableElement(name: self.release.title, urlString: self.release.urlString, type: .release)
         elements.append(releaseElement)
         
         return elements

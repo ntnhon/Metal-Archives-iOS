@@ -50,7 +50,7 @@ final class UpcomingAlbumTableViewCell: ThumbnailableTableViewCell, Registerable
         
         self.bandsNameLabel.text = bandsNames
         
-        self.releaseTitleLabel.text = upcomingAlbum.release.name
+        self.releaseTitleLabel.text = upcomingAlbum.release.title
         self.releaseTypeLabel.text = upcomingAlbum.releaseType.description
         self.genreLabel.text = upcomingAlbum.genre
         self.dateLabel.text = upcomingAlbum.date

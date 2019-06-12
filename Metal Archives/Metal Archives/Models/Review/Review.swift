@@ -27,11 +27,11 @@ final class Review {
     lazy var baseVersionAttributedString: NSAttributedString? = {
         guard let baseVersion = baseVersion else { return nil }
         
-        let baseVersionString = "Written based on this version: \(baseVersion.name)"
+        let baseVersionString = "Written based on this version: \(baseVersion.title)"
         let mutableAttributedString = NSMutableAttributedString(string: baseVersionString)
         mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(baseVersionString.startIndex..., in: baseVersionString))
         
-        if let baseVersionRange = baseVersionString.range(of: baseVersion.name) {
+        if let baseVersionRange = baseVersionString.range(of: baseVersion.title) {
             mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor], range: NSRange(baseVersionRange, in: baseVersionString))
         }
         
@@ -48,7 +48,7 @@ final class Review {
             if (div["id"] == "album_content") {
                 if let h1 = div.at_css("h1"), let a = h1.at_css("a") {
                     if let releaseURLString = a["href"], let releaseTitle = a.text {
-                        self.release = ReleaseExtraLite(urlString: releaseURLString, name: releaseTitle)
+                        self.release = ReleaseExtraLite(urlString: releaseURLString, title: releaseTitle)
                     }
                 }
                 
@@ -85,7 +85,7 @@ final class Review {
                 // 2nd a tag (optional) contains base version
                 if aTags.count == 2 {
                     if let baseVersionURLString = aTags[1]["href"], let baseVersionTitle = aTags[1].text {
-                        self.baseVersion = ReleaseExtraLite(urlString: baseVersionURLString, name: baseVersionTitle)
+                        self.baseVersion = ReleaseExtraLite(urlString: baseVersionURLString, title: baseVersionTitle)
                     }
                 }
                 

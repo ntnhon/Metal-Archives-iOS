@@ -86,7 +86,7 @@ extension UpcomingAlbumsViewController: UITableViewDelegate {
         let upcomingAlbum = self.upcomingAlbumsPagableManager.objects[indexPath.row]
         self.takeActionFor(actionableObject: upcomingAlbum)
         
-        Analytics.logEvent(AnalyticsEvent.SelectAnItemInUpcomingAlbums, parameters: [AnalyticsParameter.ReleaseTitle: upcomingAlbum.release.name, AnalyticsParameter.ReleaseID: upcomingAlbum.release.id])
+        Analytics.logEvent(AnalyticsEvent.SelectAnItemInUpcomingAlbums, parameters: [AnalyticsParameter.ReleaseTitle: upcomingAlbum.release.title, AnalyticsParameter.ReleaseID: upcomingAlbum.release.id])
     }
 }
 
@@ -118,6 +118,11 @@ extension UpcomingAlbumsViewController: UITableViewDataSource {
         let cell = UpcomingAlbumTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         let upcomingAlbum = self.upcomingAlbumsPagableManager.objects[indexPath.row]
         cell.fill(with: upcomingAlbum)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: upcomingAlbum.release.imageURLString, description: upcomingAlbum.release.title, fromImageView: cell.thumbnailImageView)
+        }
+        
         return cell
     }
     
