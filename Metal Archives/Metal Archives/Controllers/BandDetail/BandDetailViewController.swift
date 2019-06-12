@@ -37,12 +37,11 @@ final class BandDetailViewController: BaseViewController {
     // Floating menu
     private var horizontalMenuView: HorizontalMenuView!
     private var horizontalMenuViewTopConstraint: NSLayoutConstraint!
-    private var bandMenuAnchorTableViewCell: BandMenuAnchorTableViewCell! {
+    private var horizontalMenuAnchorTableViewCell: HorizontalMenuAnchorTableViewCell! {
         didSet {
             anchorHorizontalMenuViewToAnchorTableViewCell()
         }
     }
-    
     private lazy var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat = {
         let yOffset = bandPhotoAndNameTableViewCell.bounds.height + bandInfoTableViewCell.bounds.height - utileBarView.bounds.height
         return yOffset
@@ -139,7 +138,7 @@ final class BandDetailViewController: BaseViewController {
     }
     
     private func anchorHorizontalMenuViewToAnchorTableViewCell() {
-        guard let bandMenuAnchorTableViewCell = bandMenuAnchorTableViewCell, anchorHorizontalMenuToBandMenuAnchorTableViewCell else { return }
+        guard let bandMenuAnchorTableViewCell = horizontalMenuAnchorTableViewCell, anchorHorizontalMenuToBandMenuAnchorTableViewCell else { return }
         let bandMenuAnchorTableViewCellFrameInView = bandMenuAnchorTableViewCell.positionIn(view: view)
     
         horizontalMenuView.isHidden = false
@@ -219,7 +218,7 @@ extension BandDetailViewController {
         LoadingTableViewCell.register(with: tableView)
         BandPhotoAndNameTableViewCell.register(with: tableView)
         BandInfoTableViewCell.register(with: tableView)
-        BandMenuAnchorTableViewCell.register(with: tableView)
+        HorizontalMenuAnchorTableViewCell.register(with: tableView)
         DiscographyOptionsTableViewCell.register(with: tableView)
         ReleaseTableViewCell.register(with: tableView)
         MemberOptionTableViewCell.register(with: tableView)
@@ -283,7 +282,7 @@ extension BandDetailViewController: UITableViewDelegate {
                 return bandInfoTableViewCell.bounds.height
             }
         case (0, 2):
-            if let bandMenuAnchorTableViewCell = bandMenuAnchorTableViewCell {
+            if let bandMenuAnchorTableViewCell = horizontalMenuAnchorTableViewCell {
                 return bandMenuAnchorTableViewCell.bounds.height
             }
         default:
@@ -378,6 +377,8 @@ extension BandDetailViewController {
         cell.tappedPhotoImageView = { [unowned self] in
             if let band = self.band, let bandPhotoURLString = band.photoURLString {
                 self.presentPhotoViewer(photoURLString: bandPhotoURLString, description: band.name)
+            } else {
+                Toast.displayMessageShortly("No photo added")
             }
         }
         
@@ -404,9 +405,9 @@ extension BandDetailViewController {
     }
     
     private func bandMenuAnchorTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = BandMenuAnchorTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        bandMenuAnchorTableViewCell = cell
-        bandMenuAnchorTableViewCell.contentView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight).isActive = true
+        let cell = HorizontalMenuAnchorTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        horizontalMenuAnchorTableViewCell = cell
+        horizontalMenuAnchorTableViewCell.contentView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight).isActive = true
         return cell
     }
 }

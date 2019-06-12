@@ -1,5 +1,5 @@
 //
-//  BandMenuAnchorTableViewCell.swift
+//  HorizontalMenuAnchorTableViewCell.swift
 //  Metal Archives
 //
 //  Created by Thanh-Nhon Nguyen on 29/05/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class BandMenuAnchorTableViewCell: BaseTableViewCell, RegisterableCell {
+final class HorizontalMenuAnchorTableViewCell: BaseTableViewCell, RegisterableCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
