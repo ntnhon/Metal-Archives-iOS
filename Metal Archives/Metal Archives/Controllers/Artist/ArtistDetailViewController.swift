@@ -314,7 +314,7 @@ extension ArtistDetailViewController: UITableViewDelegate {
             return 1
         }
         
-        return 20
+        return Settings.spaceBetweenInfoAndDetailSection
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -322,7 +322,7 @@ extension ArtistDetailViewController: UITableViewDelegate {
             return nil
         }
         
-        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: screenWidth, height: 20)))
+        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: screenWidth, height: Settings.spaceBetweenInfoAndDetailSection)))
         view.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         return view
     }

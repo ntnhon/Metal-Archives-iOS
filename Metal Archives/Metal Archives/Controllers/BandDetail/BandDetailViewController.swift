@@ -302,7 +302,7 @@ extension BandDetailViewController: UITableViewDelegate {
             return nil
         }
         
-        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: screenWidth, height: 20)))
+        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: screenWidth, height: Settings.spaceBetweenInfoAndDetailSection)))
         view.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         return view
     }
@@ -359,7 +359,7 @@ extension BandDetailViewController: UITableViewDataSource {
         switch (indexPath.section, indexPath.row) {
         case (0, 0): return bandPhotoAndNameTableViewCell(forRowAt: indexPath)
         case (0, 1): return bandInfoTableViewCell(forRowAt: indexPath)
-        case (0, 2): return bandMenuAnchorTableViewCell(forRowAt: indexPath)
+        case (0, 2): return horizontalMenuAnchorTableViewCell(forRowAt: indexPath)
         default:
             switch currentMenuOption {
             case .discography: return discographyCell(forRowAt: indexPath)
@@ -409,7 +409,7 @@ extension BandDetailViewController {
         return cell
     }
     
-    private func bandMenuAnchorTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+    private func horizontalMenuAnchorTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = HorizontalMenuAnchorTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         horizontalMenuAnchorTableViewCell = cell
         horizontalMenuAnchorTableViewCell.contentView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight).isActive = true

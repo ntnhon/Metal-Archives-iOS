@@ -233,7 +233,7 @@ extension ReleaseDetailViewController: UITableViewDelegate {
             return 1
         }
         
-        return 20
+        return Settings.spaceBetweenInfoAndDetailSection
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -241,7 +241,7 @@ extension ReleaseDetailViewController: UITableViewDelegate {
             return nil
         }
         
-        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: screenWidth, height: 20)))
+        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: screenWidth, height: Settings.spaceBetweenInfoAndDetailSection)))
         view.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         return view
     }
@@ -279,7 +279,7 @@ extension ReleaseDetailViewController: UITableViewDataSource {
         switch (indexPath.section, indexPath.row) {
         case (0, 0): return releaseTitleTableViewCell(forRowAt: indexPath)
         case (0, 1): return releaseInfoTableViewCell(forRowAt: indexPath)
-        case (0, 2): return releaseMenuTableViewCell(forRowAt: indexPath)
+        case (0, 2): return horizontalMenuAnchorTableViewCell(forRowAt: indexPath)
         default:
             switch currentReleaseMenuOption {
             case .trackList: return releaseElementCell(forRowAt: indexPath)
@@ -329,7 +329,7 @@ extension ReleaseDetailViewController {
         return cell
     }
     
-    private func releaseMenuTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+    private func horizontalMenuAnchorTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = HorizontalMenuAnchorTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         horizontalMenuAnchorTableViewCell = cell
         horizontalMenuAnchorTableViewCell.contentView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight).isActive = true

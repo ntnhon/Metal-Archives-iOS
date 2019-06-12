@@ -473,9 +473,7 @@ extension HomepageViewController {
             self.navigationController?.pushViewController(newsArchiveViewController, animated: true)
         }
         cell.didSelectNews = { [unowned self] selectedNews in
-            let cellRectInView = self.view.convert(cell.frame, to: self.view)
             self.presentNewsDetailViewController(selectedNews)
-            
         }
         return cell
     }

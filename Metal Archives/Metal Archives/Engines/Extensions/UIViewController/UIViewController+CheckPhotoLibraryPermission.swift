@@ -26,6 +26,7 @@ extension UIViewController {
             }
             return nil
         case .authorized: return true
+        @unknown default: return true
         }
     }
 }

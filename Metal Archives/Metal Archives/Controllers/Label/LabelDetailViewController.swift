@@ -17,7 +17,6 @@ final class LabelDetailViewController: BaseViewController {
     @IBOutlet private weak var utileBarView: UtileBarView!
     
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
-    private var labelNameTableViewCell: LabelNameTableViewCell?
     
     private var labelMenuOptions: [LabelMenuOption]!
     private var currentLabelMenuOption: LabelMenuOption!
@@ -25,6 +24,23 @@ final class LabelDetailViewController: BaseViewController {
     var urlString: String!
     
     private var label: Label!
+    
+    private var labelNameTableViewCell: LabelNameTableViewCell!
+    private var labelInfoTableViewCell: LabelInfoTableViewCell!
+    
+    // Floating menu
+    private var horizontalMenuView: HorizontalMenuView!
+    private var horizontalMenuViewTopConstraint: NSLayoutConstraint!
+    private var horizontalMenuAnchorTableViewCell: HorizontalMenuAnchorTableViewCell! {
+        didSet {
+            anchorHorizontalMenuViewToAnchorTableViewCell()
+        }
+    }
+    private lazy var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat = {
+        let yOffset = labelNameTableViewCell.bounds.height + labelInfoTableViewCell.bounds.height - utileBarView.bounds.height
+        return yOffset
+    }()
+    private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
     
     deinit {
         print("LabelDetailViewController is deallocated")
@@ -70,6 +86,7 @@ final class LabelDetailViewController: BaseViewController {
                     self.title = label.name
                     self.utileBarView.titleLabel.text = label.name
                     self.determineLabelMenuOptions()
+                    self.initHorizontalMenuView()
                     
                     if let logoURLString = label.logoURLString, let logoURL = URL(string: logoURLString) {
                         self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
@@ -82,6 +99,11 @@ final class LabelDetailViewController: BaseViewController {
                     self.label.releasesPagableManager.delegate = self
                     
                     self.tableView.reloadData()
+                    
+                    // Delay this method to wait for info cells to be fully loaded
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                        self.setTableViewBottomInsetToFillBottomSpace()
+                    })
                 }
                 
                 Analytics.logEvent(AnalyticsEvent.ViewLabel, parameters: [AnalyticsParameter.LabelName: label.name!, AnalyticsParameter.LabelID: label.id!])
@@ -128,12 +150,12 @@ final class LabelDetailViewController: BaseViewController {
         LoadingTableViewCell.register(with: tableView)
         LabelNameTableViewCell.register(with: tableView)
         LabelInfoTableViewCell.register(with: tableView)
-        LabelMenuTableViewCell.register(with: tableView)
         SubLabelTableViewCell.register(with: tableView)
         BandCurrentRosterTableViewCell.register(with: tableView)
         BandPastRosterTableViewCell.register(with: tableView)
         ReleaseInLabelTableViewCell.register(with: tableView)
         RelatedLinkTableViewCell.register(with: tableView)
+        HorizontalMenuAnchorTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -143,6 +165,7 @@ final class LabelDetailViewController: BaseViewController {
         tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
             self?.calculateAndApplyAlphaForLabelNameAndUltileNavBar()
             self?.stretchyLogoSmokedImageView.calculateAndApplyAlpha(withTableView: tableView)
+            self?.anchorHorizontalMenuViewToAnchorTableViewCell()
         }
         
         // detect taps on band's logo, have to do this because band's logo is overlaid by tableView
@@ -158,6 +181,32 @@ final class LabelDetailViewController: BaseViewController {
     private func presentLabelLogoInPhotoViewer() {
         guard let label = label, let logoURLString = label.logoURLString else { return }
         presentPhotoViewer(photoURLString: logoURLString, description: label.name)
+    }
+    
+    private func initHorizontalMenuView() {
+        horizontalMenuView = HorizontalMenuView(options: labelMenuOptions.map({$0.description}), font: Settings.currentFontSize.secondaryTitleFont, normalColor: Settings.currentTheme.bodyTextColor, highlightColor: Settings.currentTheme.secondaryTitleColor)
+        horizontalMenuView.backgroundColor = Settings.currentTheme.backgroundColor
+        horizontalMenuView.isHidden = true
+        horizontalMenuView.delegate = self
+        view.addSubview(horizontalMenuView)
+        
+        horizontalMenuView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            horizontalMenuView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            horizontalMenuView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            horizontalMenuView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight)
+            ])
+        horizontalMenuViewTopConstraint = horizontalMenuView.topAnchor.constraint(equalTo: view.topAnchor)
+        horizontalMenuViewTopConstraint.isActive = true
+    }
+    
+    private func anchorHorizontalMenuViewToAnchorTableViewCell() {
+        guard let horizontalMenuAnchorTableViewCell = horizontalMenuAnchorTableViewCell, anchorHorizontalMenuToMenuAnchorTableViewCell else { return }
+        let horizontalMenuAnchorTableViewCellFrameInView = horizontalMenuAnchorTableViewCell.positionIn(view: view)
+        
+        horizontalMenuView.isHidden = false
+        horizontalMenuViewTopConstraint.constant = max(
+            horizontalMenuAnchorTableViewCellFrameInView.origin.y, utileBarView.frame.origin.y + utileBarView.frame.height)
     }
     
     private func handleUtileBarViewActions() {
@@ -212,7 +261,7 @@ extension LabelDetailViewController: UITableViewDelegate {
             return 1
         }
         
-        return 20
+        return Settings.spaceBetweenInfoAndDetailSection
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -220,7 +269,7 @@ extension LabelDetailViewController: UITableViewDelegate {
             return nil
         }
         
-        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: screenWidth, height: 20)))
+        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: screenWidth, height: Settings.spaceBetweenInfoAndDetailSection)))
         view.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         return view
     }
@@ -279,7 +328,7 @@ extension LabelDetailViewController: UITableViewDataSource {
         switch (indexPath.section, indexPath.row) {
         case (0, 0): return labelNameTableViewCell(forRowAt: indexPath)
         case (0, 1): return labelInfoTableViewCell(forRowAt: indexPath)
-        case (0, 2): return labelMenuTableViewCell(forRowAt: indexPath)
+        case (0, 2): return horizontalMenuAnchorTableViewCell(forRowAt: indexPath)
         default:
             switch currentLabelMenuOption! {
             case .subLabels: return subLabelTableViewCell(forRowAt: indexPath)
@@ -312,6 +361,7 @@ extension LabelDetailViewController {
         }
         
         let cell = LabelInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        labelInfoTableViewCell = cell
         cell.fill(with: label)
         
         cell.tappedLastModifiedOnLabel = { [unowned self] in
@@ -339,15 +389,10 @@ extension LabelDetailViewController {
         return cell
     }
     
-    private func labelMenuTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let _ = label else {
-            return UITableViewCell()
-        }
-        
-        let cell = LabelMenuTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        cell.initMenu(with: labelMenuOptions.map({$0.description}))
-        cell.horizontalMenuView.delegate = self
-        cell.horizontalMenuView.selectedIndex = labelMenuOptions.firstIndex(of: currentLabelMenuOption) ?? 0
+    private func horizontalMenuAnchorTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = HorizontalMenuAnchorTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        horizontalMenuAnchorTableViewCell = cell
+        horizontalMenuAnchorTableViewCell.contentView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight).isActive = true
         return cell
     }
 }
@@ -376,7 +421,25 @@ extension LabelDetailViewController {
 extension LabelDetailViewController: HorizontalMenuViewDelegate {
     func horizontalMenu(_ horizontalMenu: HorizontalMenuView, didSelectItemAt index: Int) {
         currentLabelMenuOption = labelMenuOptions[index]
-        tableView.reloadSections([1], with: .automatic)
+        pinHorizontalMenuViewThenRefreshAndScrollTableView()
+    }
+    
+    private func pinHorizontalMenuViewThenRefreshAndScrollTableView() {
+        anchorHorizontalMenuToMenuAnchorTableViewCell = false
+        horizontalMenuViewTopConstraint.constant = utileBarView.frame.origin.y + utileBarView.frame.height
+        tableView.reloadSections([1], with: .none)
+        tableView.scrollToRow(at: IndexPath(row: 1, section: 0), at: .top, animated: false)
+        tableView.setContentOffset(.init(x: 0, y: yOffsetNeededToPinHorizontalViewToUtileBarView), animated: false)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + CATransaction.animationDuration()) { [weak self] in
+            guard let self = self else { return }
+            self.setTableViewBottomInsetToFillBottomSpace()
+            self.anchorHorizontalMenuToMenuAnchorTableViewCell = true
+        }
+    }
+    
+    private func setTableViewBottomInsetToFillBottomSpace() {
+        self.tableView.contentInset.bottom = max(0, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView)
     }
 }
 
