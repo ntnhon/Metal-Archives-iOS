@@ -246,10 +246,8 @@ final class PhotoViewerViewController: BaseViewController {
         let longPressPhotoGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didTapOptionButton))
         self.photoImageView.addGestureRecognizer(longPressPhotoGestureRecognizer)
         
-        let panPhotoGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPanPhoto(gesture:)))
-        self.photoImageView.addGestureRecognizer(panPhotoGestureRecognizer)
-        
         let panScrollViewGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPanPhoto(gesture:)))
+        panScrollViewGestureRecognizer.delegate = self
         self.scrollView.addGestureRecognizer(panScrollViewGestureRecognizer)
         
         // When user double taps => ignore single tap
@@ -305,6 +303,13 @@ final class PhotoViewerViewController: BaseViewController {
             return
         }
 
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+extension PhotoViewerViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
 
