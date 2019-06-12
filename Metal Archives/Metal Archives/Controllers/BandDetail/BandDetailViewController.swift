@@ -114,6 +114,11 @@ final class BandDetailViewController: BaseViewController {
                 
                 self.tableView.reloadData()
                 
+                // Delay this method to wait for info cells to be fully loaded
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                    self.setTableViewBottomInsetToFillBottomSpace()
+                })
+                
                 Crashlytics.sharedInstance().setObjectValue(self.band, forKey: CrashlyticsKey.Band)
             }
         }
@@ -428,9 +433,13 @@ extension BandDetailViewController: HorizontalMenuViewDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + CATransaction.animationDuration()) { [weak self] in
             guard let self = self else { return }
-            self.tableView.contentInset.bottom = max(0, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView)
+            self.setTableViewBottomInsetToFillBottomSpace()
             self.anchorHorizontalMenuToMenuAnchorTableViewCell = true
         }
+    }
+    
+    private func setTableViewBottomInsetToFillBottomSpace() {
+        self.tableView.contentInset.bottom = max(0, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView)
     }
 }
 

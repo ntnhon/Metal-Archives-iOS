@@ -96,6 +96,11 @@ final class ReleaseDetailViewController: BaseViewController {
                 self.title = release.title
                 self.tableView.reloadData()
                 
+                // Delay this method to wait for info cells to be fully loaded
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                    self.setTableViewBottomInsetToFillBottomSpace()
+                })
+                
                 Analytics.logEvent(AnalyticsEvent.ViewRelease, parameters: [AnalyticsParameter.ReleaseTitle: release.title!, AnalyticsParameter.ReleaseID: release.id!])
                 
                 Crashlytics.sharedInstance().setObjectValue(release, forKey: CrashlyticsKey.Release)
@@ -108,7 +113,6 @@ final class ReleaseDetailViewController: BaseViewController {
         LoadingTableViewCell.register(with: tableView)
         ReleaseTitleAndTypeTableViewCell.register(with: tableView)
         ReleaseInfoTableViewCell.register(with: tableView)
-        ReleaseMenuTableViewCell.register(with: tableView)
         ReleaseElementTableViewCell.register(with: tableView)
         LineupOptionTableViewCell.register(with: tableView)
         ReleaseMemberTableViewCell.register(with: tableView)
@@ -349,9 +353,13 @@ extension ReleaseDetailViewController: HorizontalMenuViewDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + CATransaction.animationDuration()) { [weak self] in
             guard let self = self else { return }
-            self.tableView.contentInset.bottom = max(0, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView)
+            self.setTableViewBottomInsetToFillBottomSpace()
             self.anchorHorizontalMenuToMenuAnchorTableViewCell = true
         }
+    }
+    
+    private func setTableViewBottomInsetToFillBottomSpace() {
+        self.tableView.contentInset.bottom = max(0, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView)
     }
 }
 

@@ -210,7 +210,6 @@
 		C053DD80222727760028568B /* AdvancedSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053DD7F222727760028568B /* AdvancedSearchViewController.swift */; };
 		C05606ED22A2FDA5006F5BC1 /* BandMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05606EC22A2FDA5006F5BC1 /* BandMenuOption.swift */; };
 		C05606EF22A2FDBB006F5BC1 /* ReleaseMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05606EE22A2FDBB006F5BC1 /* ReleaseMenuOption.swift */; };
-		C05606F222A30215006F5BC1 /* ReleaseMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05606F122A30215006F5BC1 /* ReleaseMenuTableViewCell.swift */; };
 		C05606F622A30D2A006F5BC1 /* LineupOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05606F522A30D2A006F5BC1 /* LineupOptionTableViewCell.swift */; };
 		C05606F822A30D52006F5BC1 /* LineupOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05606F722A30D52006F5BC1 /* LineupOptionTableViewCell.xib */; };
 		C05606FB22A311AC006F5BC1 /* LineupOptionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05606FA22A311AC006F5BC1 /* LineupOptionListViewController.swift */; };
@@ -724,7 +723,6 @@
 		C053DD7F222727760028568B /* AdvancedSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchViewController.swift; sourceTree = "<group>"; };
 		C05606EC22A2FDA5006F5BC1 /* BandMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMenuOption.swift; sourceTree = "<group>"; };
 		C05606EE22A2FDBB006F5BC1 /* ReleaseMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseMenuOption.swift; sourceTree = "<group>"; };
-		C05606F122A30215006F5BC1 /* ReleaseMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseMenuTableViewCell.swift; sourceTree = "<group>"; };
 		C05606F522A30D2A006F5BC1 /* LineupOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupOptionTableViewCell.swift; sourceTree = "<group>"; };
 		C05606F722A30D52006F5BC1 /* LineupOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineupOptionTableViewCell.xib; sourceTree = "<group>"; };
 		C05606FA22A311AC006F5BC1 /* LineupOptionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupOptionListViewController.swift; sourceTree = "<group>"; };
@@ -1292,7 +1290,6 @@
 			children = (
 				C0D6320622A08A0C00CAE52F /* ReleaseTitleAndTypeTableViewCell */,
 				C085E6C422A27F67007FACFA /* ReleaseInfoTableViewCell */,
-				C05606F022A301E9006F5BC1 /* ReleaseMenuTableViewCell */,
 				C05606F322A30621006F5BC1 /* ReleaseElementTableViewCell */,
 				C05606F422A30CDA006F5BC1 /* LineupOptionTableViewCell */,
 				C05606F922A30FE3006F5BC1 /* ReleaseMemberTableViewCell */,
@@ -1525,14 +1522,6 @@
 				C0BAD49A222EBC8100C4D38D /* AdvancedSearch */,
 			);
 			path = Search;
-			sourceTree = "<group>";
-		};
-		C05606F022A301E9006F5BC1 /* ReleaseMenuTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C05606F122A30215006F5BC1 /* ReleaseMenuTableViewCell.swift */,
-			);
-			path = ReleaseMenuTableViewCell;
 			sourceTree = "<group>";
 		};
 		C05606F322A30621006F5BC1 /* ReleaseElementTableViewCell */ = {
@@ -3584,7 +3573,6 @@
 				C0795B892288131900E5D94F /* Utilities.swift in Sources */,
 				C0795BA322886DA500E5D94F /* ThumbnailableCollectionViewCell.swift in Sources */,
 				C05FC9B0222AC4DB00D4B0DF /* RegisterableCell.swift in Sources */,
-				C05606F222A30215006F5BC1 /* ReleaseMenuTableViewCell.swift in Sources */,
 				C00D3635223D9ABF00B29B43 /* LibraryCopyrightViewController.swift in Sources */,
 				C01839E522256AF100FF88B7 /* LabelAdditionOrUpdate.swift in Sources */,
 				C0AABDE1221D4A4D0044A2CF /* RelatedLinkListViewController.swift in Sources */,
