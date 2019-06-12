@@ -22,16 +22,11 @@ extension RequestHelper {
             RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
                 switch response.result {
                 case .success:
-                    if let data = response.data {
-                        if let band = Band.init(fromData: data) {
-                            onSuccess(band)
-                        } else {
-                            #warning("Handle error")
-                            assertionFailure("Error parsing band's detail")
-                        }
+                    if let data = response.data, let band = Band.init(fromData: data) {
+                        onSuccess(band)
                     } else {
-                        #warning("Handle error")
-                        assertionFailure("Error loading band's detail")
+                        let error = MAParsingError.badStructure(objectType: "Band")
+                        onError(error)
                     }
                     
                 case .failure(let error): onError(error)

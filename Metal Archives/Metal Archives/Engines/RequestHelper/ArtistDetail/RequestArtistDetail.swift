@@ -19,16 +19,11 @@ extension RequestHelper {
             RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
                 switch response.result {
                 case .success:
-                    if let data = response.data {
-                        if let artist = Artist.init(fromData: data, urlString: urlString) {
-                            onSuccess(artist)
-                        } else {
-                            #warning("Handle error")
-                            assertionFailure("Error parsing band's detail")
-                        }
+                    if let data = response.data, let artist = Artist.init(fromData: data, urlString: urlString)  {
+                        onSuccess(artist)
                     } else {
-                        #warning("Handle error")
-                        assertionFailure("Error loading band's detail")
+                        let error = MAParsingError.badStructure(objectType: "Artist")
+                        onError(error)
                     }
                     
                 case .failure(let error): onError(error)

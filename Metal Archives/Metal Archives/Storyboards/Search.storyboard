@@ -1710,40 +1710,6 @@
             </objects>
             <point key="canvasLocation" x="1617" y="-1014"/>
         </scene>
-        <!--Simple Search Type List View Controller-->
-        <scene sceneID="WdC-Wa-SJy">
-            <objects>
-                <viewController id="fn7-RE-Uj5" customClass="SimpleSearchTypeListViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="yRU-Ff-Q0n">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="FhV-TC-t2O">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="fn7-RE-Uj5" id="WQL-6s-UCN"/>
-                                    <outlet property="delegate" destination="fn7-RE-Uj5" id="0Dj-u4-HVU"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="rqU-xt-aR4" firstAttribute="trailing" secondItem="FhV-TC-t2O" secondAttribute="trailing" id="M43-Rw-JWW"/>
-                            <constraint firstItem="rqU-xt-aR4" firstAttribute="bottom" secondItem="FhV-TC-t2O" secondAttribute="bottom" id="c7K-Xr-bd1"/>
-                            <constraint firstItem="FhV-TC-t2O" firstAttribute="top" secondItem="rqU-xt-aR4" secondAttribute="top" id="eqc-Qo-XYj"/>
-                            <constraint firstItem="FhV-TC-t2O" firstAttribute="leading" secondItem="rqU-xt-aR4" secondAttribute="leading" id="fpC-AI-17v"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="rqU-xt-aR4"/>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="FhV-TC-t2O" id="Ah3-HH-XZ3"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="luy-dO-m1Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1618" y="-299"/>
-        </scene>
         <!--Advanced Search Bands Results View Controller-->
         <scene sceneID="Nv8-cH-8jr">
             <objects>

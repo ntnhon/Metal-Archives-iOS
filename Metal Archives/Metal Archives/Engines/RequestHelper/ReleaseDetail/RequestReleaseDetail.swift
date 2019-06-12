@@ -22,17 +22,10 @@ extension RequestHelper {
             RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
                 switch response.result {
                 case .success:
-                    if let data = response.data {
-                        if let release = Release(data: data) {
-                            onSuccess(release)
-                        } else {
-                            #warning("Handle error")
-                            let error = NSError(domain: "", code: 0, userInfo: nil)
-                            onError(error)
-                        }
+                    if let data = response.data, let release = Release(data: data) {
+                        onSuccess(release)
                     } else {
-                        #warning("Handle error")
-                        let error = NSError(domain: "", code: 0, userInfo: nil)
+                        let error = MAParsingError.badStructure(objectType: "Release")
                         onError(error)
                     }
                     

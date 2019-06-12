@@ -20,16 +20,11 @@ extension RequestHelper {
             RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
                 switch response.result {
                 case .success:
-                    if let data = response.data {
-                        if let statistic = Statistic.init(fromData: data) {
-                            onSuccess(statistic)
-                        } else {
-                            #warning("Handle error")
-                            assertionFailure("Error parsing statistic detail")
-                        }
+                    if let data = response.data, let statistic = Statistic.init(fromData: data)  {
+                        onSuccess(statistic)
                     } else {
-                        #warning("Handle error")
-                        assertionFailure("Error loading statistic detail")
+                        let error = MAParsingError.badStructure(objectType: "Statistic")
+                        onError(error)
                     }
                     
                 case .failure(let error): onError(error)

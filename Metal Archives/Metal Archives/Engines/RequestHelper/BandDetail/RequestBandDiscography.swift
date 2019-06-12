@@ -20,8 +20,15 @@ extension RequestHelper.BandDetail {
             switch response.result {
             case .success:
                 if let data = response.data {
-                    let discography = Discography.init(data: data)
-                    onSuccess(discography)
+                    do {
+                        let discography = try Discography.init(data: data)
+                        onSuccess(discography)
+                    } catch {
+                        onError(error)
+                    }
+                } else {
+                    let error = MAParsingError.badStructure(objectType: "Discography")
+                    onError(error)
                 }
                 
             case .failure(let error): onError(error)

@@ -19,16 +19,11 @@ extension RequestHelper.StatisticDetail {
         RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
             switch response.result {
             case .success:
-                if let data = response.data {
-                    if let top100Bands = Top100Bands.init(fromData: data) {
-                        onSuccess(top100Bands)
-                    } else {
-                        #warning("Handle error")
-                        assertionFailure("Error parsing top 100 bands")
-                    }
+                if let data = response.data, let top100Bands = Top100Bands.init(fromData: data) {
+                    onSuccess(top100Bands)
                 } else {
-                    #warning("Handle error")
-                    assertionFailure("Error loading top 100 bands")
+                    let error = MAParsingError.badStructure(objectType: "Top 100 Bands")
+                    onError(error)
                 }
                 
             case .failure(let error): onError(error)

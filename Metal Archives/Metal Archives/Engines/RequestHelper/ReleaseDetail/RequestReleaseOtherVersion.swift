@@ -24,8 +24,8 @@ extension RequestHelper.ReleaseDetail {
                     let otherVersions = RequestHelper.ReleaseDetail.parseOtherVersions(data: data)
                     onSuccess(otherVersions)
                 } else {
-                    #warning("Handle error")
-                    assertionFailure("Error loading release detail")
+                    let error = MAParsingError.badStructure(objectType: "Other version")
+                    onError(error)
                 }
                 
             case .failure(let error): onError(error)

@@ -99,10 +99,10 @@ final class Discography {
         return "Misc. (\(self.misc.count) releases)"
     }()
     
-    init?(data: Data) {
+    init?(data: Data) throws {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
             let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
-                return nil
+                throw MAParsingError.badStructure(objectType: "Discography")
         }
         
         self.releases = [ReleaseLite]()
@@ -180,7 +180,7 @@ final class Discography {
                     }
                     
                 } else {
-                    #warning("Handle error")
+                    throw MAParsingError.badStructure(objectType: "Discography")
                 }
 
             }

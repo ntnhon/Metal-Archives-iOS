@@ -13,6 +13,10 @@ enum MAParsingError: LocalizedError {
     case badSyntax(string: String, expectedSyntax: String)
     /// Error converting extracted informations to a strong type
     case badType(string: String, expectedType: String)
+    /// HTML syntax is not appropriate
+    case badStructure(objectType: String)
+    /// Unknown error
+    case unknown
 
     var localizedDescription: String {
         switch self {
@@ -24,6 +28,8 @@ enum MAParsingError: LocalizedError {
             [MA Parsing Error] Error converting - Bad type for string: \(string)
             Expected type: \(expectedType)
             """
+        case .badStructure(let objectType): return "[MAParsingError] Error parsing \(objectType) - Bad HTML structure"
+        case .unknown: return "[MAParsingError] Unknown error"
         }
     }
 }
