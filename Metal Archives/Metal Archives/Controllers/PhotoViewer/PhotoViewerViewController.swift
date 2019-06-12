@@ -122,8 +122,11 @@ final class PhotoViewerViewController: BaseViewController {
         }
     }
     
-    private func dismiss() {
-        temporaryImageView.frame = photoImageView.frame
+    private func dismiss(fromPhotoImageViewOriginalFrame: Bool = true) {
+        if fromPhotoImageViewOriginalFrame {
+            temporaryImageView.frame = photoImageView.frame
+        }
+
         temporaryImageView.isHidden = false
         view.isHidden = true
         
@@ -296,7 +299,7 @@ final class PhotoViewerViewController: BaseViewController {
                     self.view.isHidden = false
                 }
             } else {
-                dismiss()
+                dismiss(fromPhotoImageViewOriginalFrame: false)
             }
             
         default:
