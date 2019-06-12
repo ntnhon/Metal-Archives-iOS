@@ -47,7 +47,7 @@ final class BandDetailViewController: BaseViewController {
         return yOffset
     }()
     
-    private var anchorHorizontalMenuToBandMenuAnchorTableViewCell = true
+    private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,12 +138,12 @@ final class BandDetailViewController: BaseViewController {
     }
     
     private func anchorHorizontalMenuViewToAnchorTableViewCell() {
-        guard let bandMenuAnchorTableViewCell = horizontalMenuAnchorTableViewCell, anchorHorizontalMenuToBandMenuAnchorTableViewCell else { return }
-        let bandMenuAnchorTableViewCellFrameInView = bandMenuAnchorTableViewCell.positionIn(view: view)
+        guard let horizontalMenuAnchorTableViewCell = horizontalMenuAnchorTableViewCell, anchorHorizontalMenuToMenuAnchorTableViewCell else { return }
+        let horizontalMenuAnchorTableViewCellFrameInView = horizontalMenuAnchorTableViewCell.positionIn(view: view)
     
         horizontalMenuView.isHidden = false
         horizontalMenuViewTopConstraint.constant = max(
-            bandMenuAnchorTableViewCellFrameInView.origin.y, utileBarView.frame.origin.y + utileBarView.frame.height)
+            horizontalMenuAnchorTableViewCellFrameInView.origin.y, utileBarView.frame.origin.y + utileBarView.frame.height)
     }
     
     private func handleUtileBarViewActions() {
@@ -420,7 +420,7 @@ extension BandDetailViewController: HorizontalMenuViewDelegate {
     }
     
     private func pinHorizontalMenuViewThenRefreshAndScrollTableView() {
-        anchorHorizontalMenuToBandMenuAnchorTableViewCell = false
+        anchorHorizontalMenuToMenuAnchorTableViewCell = false
         horizontalMenuViewTopConstraint.constant = utileBarView.frame.origin.y + utileBarView.frame.height
         tableView.reloadSections([1], with: .none)
         tableView.scrollToRow(at: IndexPath(row: 2, section: 0), at: .top, animated: false)
@@ -429,7 +429,7 @@ extension BandDetailViewController: HorizontalMenuViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + CATransaction.animationDuration()) { [weak self] in
             guard let self = self else { return }
             self.tableView.contentInset.bottom = max(0, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView)
-            self.anchorHorizontalMenuToBandMenuAnchorTableViewCell = true
+            self.anchorHorizontalMenuToMenuAnchorTableViewCell = true
         }
     }
 }

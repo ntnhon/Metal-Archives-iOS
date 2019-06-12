@@ -25,12 +25,29 @@ final class ReleaseDetailViewController: BaseViewController {
     private var currentLineupType: LineUpType = .member
     private var isAscendingOrderReview = false
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
-    private unowned var releaseTitleAndTypeTableViewCell: ReleaseTitleAndTypeTableViewCell?
+    
+    private var releaseTitleAndTypeTableViewCell: ReleaseTitleAndTypeTableViewCell!
+    private var releaseInfoTableViewCell: ReleaseInfoTableViewCell!
+    
+    // Floating menu
+    private var horizontalMenuView: HorizontalMenuView!
+    private var horizontalMenuViewTopConstraint: NSLayoutConstraint!
+    private var horizontalMenuAnchorTableViewCell: HorizontalMenuAnchorTableViewCell! {
+        didSet {
+            anchorHorizontalMenuViewToAnchorTableViewCell()
+        }
+    }
+    private lazy var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat = {
+        let yOffset = releaseTitleAndTypeTableViewCell.bounds.height + releaseInfoTableViewCell.bounds.height - utileBarView.bounds.height
+        return yOffset
+    }()
+    private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
         stretchyLogoSmokedImageViewHeightConstraint.constant = screenWidth
         configureTableView()
+        initHorizontalMenuView()
         handleUtileBarViewActions()
         reloadRelease()
     }
@@ -98,6 +115,7 @@ final class ReleaseDetailViewController: BaseViewController {
         ReleaseReviewOptionTableViewCell.register(with: tableView)
         ReleaseReviewTableViewCell.register(with: tableView)
         ReleaseOtherVersionTableViewCell.register(with: tableView)
+        HorizontalMenuAnchorTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -107,6 +125,7 @@ final class ReleaseDetailViewController: BaseViewController {
         tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
             self?.calculateAndApplyAlphaForReleaseTitleTypeAndUltileNavBar()
             self?.stretchyLogoSmokedImageView.calculateAndApplyAlpha(withTableView: tableView)
+            self?.anchorHorizontalMenuViewToAnchorTableViewCell()
         }
         
         // detect taps on band's logo, have to do this because band's logo is overlaid by tableView
@@ -122,6 +141,33 @@ final class ReleaseDetailViewController: BaseViewController {
     private func presentReleaseCoverInPhotoViewer() {
         guard let release = release, let coverURLString = release.coverURLString else { return }
         presentPhotoViewer(photoURLString: coverURLString, description: release.title)
+    }
+    
+    private func initHorizontalMenuView() {
+        let releaseMenuOptionStrings = ReleaseMenuOption.allCases.map({return $0.description})
+        horizontalMenuView = HorizontalMenuView(options: releaseMenuOptionStrings, font: Settings.currentFontSize.secondaryTitleFont, normalColor: Settings.currentTheme.bodyTextColor, highlightColor: Settings.currentTheme.secondaryTitleColor)
+        horizontalMenuView.backgroundColor = Settings.currentTheme.backgroundColor
+        horizontalMenuView.isHidden = true
+        horizontalMenuView.delegate = self
+        view.addSubview(horizontalMenuView)
+        
+        horizontalMenuView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            horizontalMenuView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            horizontalMenuView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            horizontalMenuView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight)
+            ])
+        horizontalMenuViewTopConstraint = horizontalMenuView.topAnchor.constraint(equalTo: view.topAnchor)
+        horizontalMenuViewTopConstraint.isActive = true
+    }
+    
+    private func anchorHorizontalMenuViewToAnchorTableViewCell() {
+        guard let horizontalMenuAnchorTableViewCell = horizontalMenuAnchorTableViewCell, anchorHorizontalMenuToMenuAnchorTableViewCell else { return }
+        let horizontalMenuAnchorTableViewCellFrameInView = horizontalMenuAnchorTableViewCell.positionIn(view: view)
+        
+        horizontalMenuView.isHidden = false
+        horizontalMenuViewTopConstraint.constant = max(
+            horizontalMenuAnchorTableViewCellFrameInView.origin.y, utileBarView.frame.origin.y + utileBarView.frame.height)
     }
     
     private func handleUtileBarViewActions() {
@@ -250,6 +296,7 @@ extension ReleaseDetailViewController {
         }
         
         let cell = ReleaseTitleAndTypeTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        releaseTitleAndTypeTableViewCell = cell
         cell.backgroundColor = .clear
         releaseTitleAndTypeTableViewCell = cell
         cell.fill(with: release)
@@ -262,6 +309,7 @@ extension ReleaseDetailViewController {
         }
         
         let cell = ReleaseInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        releaseInfoTableViewCell = cell
         cell.fill(with: release)
         
 
@@ -278,13 +326,9 @@ extension ReleaseDetailViewController {
     }
     
     private func releaseMenuTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let _ = release else {
-            return UITableViewCell()
-        }
-        
-        let cell = ReleaseMenuTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        cell.horizontalMenuView.delegate = self
-        cell.horizontalMenuView.selectedIndex = currentReleaseMenuOption.rawValue
+        let cell = HorizontalMenuAnchorTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        horizontalMenuAnchorTableViewCell = cell
+        horizontalMenuAnchorTableViewCell.contentView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight).isActive = true
         return cell
     }
 }
@@ -293,7 +337,21 @@ extension ReleaseDetailViewController {
 extension ReleaseDetailViewController: HorizontalMenuViewDelegate {
     func horizontalMenu(_ horizontalMenu: HorizontalMenuView, didSelectItemAt index: Int) {
         currentReleaseMenuOption = ReleaseMenuOption(rawValue: index) ?? .trackList
-        tableView.reloadSections([1], with: .automatic)
+        pinHorizontalMenuViewThenRefreshAndScrollTableView()
+    }
+    
+    private func pinHorizontalMenuViewThenRefreshAndScrollTableView() {
+        anchorHorizontalMenuToMenuAnchorTableViewCell = false
+        horizontalMenuViewTopConstraint.constant = utileBarView.frame.origin.y + utileBarView.frame.height
+        tableView.reloadSections([1], with: .none)
+        tableView.scrollToRow(at: IndexPath(row: 1, section: 0), at: .top, animated: false)
+        tableView.setContentOffset(.init(x: 0, y: yOffsetNeededToPinHorizontalViewToUtileBarView), animated: false)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + CATransaction.animationDuration()) { [weak self] in
+            guard let self = self else { return }
+            self.tableView.contentInset.bottom = max(0, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView)
+            self.anchorHorizontalMenuToMenuAnchorTableViewCell = true
+        }
     }
 }
 
@@ -469,7 +527,7 @@ extension ReleaseDetailViewController {
         
         lineupOptionListViewController.selectedLineupType = { [unowned self] (lineupType) in
             self.currentLineupType = lineupType
-            self.tableView.reloadSections([1], with: .automatic)
+            self.pinHorizontalMenuViewThenRefreshAndScrollTableView()
         }
         
         present(lineupOptionListViewController, animated: true, completion: nil)
