@@ -10,35 +10,59 @@ import UIKit
 import Toaster
 
 final class StatisticsViewController: BaseViewController {
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var tableView: UITableView!
     
     private var numberOfTries = 0
     private var statistic: Statistic!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Loading..."
-        self.fetchStatistic()
+        fetchStatistic()
+        handleSimpleNavigationBarViewActions()
     }
     
     override func initAppearance() {
         super.initAppearance()
         
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.tableFooterView = UIView(frame: .zero)
+        let tableViewTopInset: CGFloat
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        tableViewTopInset = simpleNavigationBarView.bounds.height - UIApplication.shared.statusBarFrame.height
+        tableView.contentInset = UIEdgeInsets(top: tableViewTopInset, left: 0, bottom: 0, right: 0)
         
-        BandStatisticTableViewCell.register(with: self.tableView)
-        ReviewStatisticTableViewCell.register(with: self.tableView)
-        LabelStatisticTableViewCell.register(with: self.tableView)
-        ArtistStatisticTableViewCell.register(with: self.tableView)
-        MemberStatisticTableViewCell.register(with: self.tableView)
-        ReleaseStatisticTableViewCell.register(with: self.tableView)
-        SimpleTableViewCell.register(with: self.tableView)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
+        
+        BandStatisticTableViewCell.register(with: tableView)
+        ReviewStatisticTableViewCell.register(with: tableView)
+        LabelStatisticTableViewCell.register(with: tableView)
+        ArtistStatisticTableViewCell.register(with: tableView)
+        MemberStatisticTableViewCell.register(with: tableView)
+        ReleaseStatisticTableViewCell.register(with: tableView)
+        SimpleTableViewCell.register(with: tableView)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    private func handleSimpleNavigationBarViewActions() {
+        simpleNavigationBarView.setTitle("Loading...")
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        simpleNavigationBarView.setRightButtonIcon(nil)
+        
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     private func fetchStatistic() {
-        if self.numberOfTries == Settings.numberOfRetries {
+        if numberOfTries == Settings.numberOfRetries {
             Toast.displayMessageShortly("Error loading content. Please check your internet connection and retry.")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.navigationController?.popViewController(animated: true)
@@ -46,13 +70,13 @@ final class StatisticsViewController: BaseViewController {
             return
         }
         
-        self.numberOfTries += 1
+        numberOfTries += 1
         MetalArchivesAPI.fetchStatisticDetails { [weak self] (statistic, error) in
             if let _ = error {
                 self?.fetchStatistic()
             } else if let `statistic` = statistic {
                 self?.statistic = statistic
-                self?.title = statistic.dateAndTimeString
+                self?.simpleNavigationBarView.setTitle(statistic.dateAndTimeString)
                 self?.tableView.reloadData()
             }
         }
@@ -65,8 +89,8 @@ extension StatisticsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.section {
-        case 0: self.didSelectTop100Bands()
-        case 1: self.didSelectTop100Albums()
+        case 0: didSelectTop100Bands()
+        case 1: didSelectTop100Albums()
         default: return
         }
     }
@@ -99,7 +123,7 @@ extension StatisticsViewController: UITableViewDelegate {
 //MARK: - UITableViewDataSource
 extension StatisticsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let _ = self.statistic else {
+        guard let _ = statistic else {
             return 0
         }
         return 8
@@ -111,68 +135,75 @@ extension StatisticsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
-        case 0: return self.cellForTop100BandsSection(at: indexPath)
-        case 1: return self.cellForTop100AlbumSection(at: indexPath)
-        case 2: return self.cellForBandStatisticSection(at: indexPath)
-        case 3: return self.cellForReviewStatisticSection(at: indexPath)
-        case 4: return self.cellForLabelStatisticSection(at: indexPath)
-        case 5: return self.cellForArtistStatisticSection(at: indexPath)
-        case 6: return self.cellForMemberStatisticSection(at: indexPath)
-        case 7: return self.cellForReleaseStatisticSection(at: indexPath)
+        case 0: return cellForTop100BandsSection(at: indexPath)
+        case 1: return cellForTop100AlbumSection(at: indexPath)
+        case 2: return cellForBandStatisticSection(at: indexPath)
+        case 3: return cellForReviewStatisticSection(at: indexPath)
+        case 4: return cellForLabelStatisticSection(at: indexPath)
+        case 5: return cellForArtistStatisticSection(at: indexPath)
+        case 6: return cellForMemberStatisticSection(at: indexPath)
+        case 7: return cellForReleaseStatisticSection(at: indexPath)
         default: return UITableViewCell()
         }
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension StatisticsViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        simpleNavigationBarView.transformWith(scrollView)
     }
 }
 
 //MARK: - Cells
 extension StatisticsViewController {
     func cellForTop100BandsSection(at indexPath: IndexPath) -> UITableViewCell {
-        let cell = SimpleTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        let cell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: "View top 100 bands")
         cell.accessoryType = .disclosureIndicator
         return cell
     }
     
     func cellForTop100AlbumSection(at indexPath: IndexPath) -> UITableViewCell {
-        let cell = SimpleTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        let cell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: "View top 100 albums")
         cell.accessoryType = .disclosureIndicator
         return cell
     }
     
     func cellForBandStatisticSection(at indexPath: IndexPath) -> UITableViewCell {
-        let cell = BandStatisticTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        cell.drawChart(forBandStatistic: self.statistic.band)
+        let cell = BandStatisticTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.drawChart(forBandStatistic: statistic.band)
         return cell
     }
     
     func cellForReviewStatisticSection(at indexPath: IndexPath) -> UITableViewCell {
-        let cell = ReviewStatisticTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        cell.drawChart(forReviewStatistic: self.statistic.review)
+        let cell = ReviewStatisticTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.drawChart(forReviewStatistic: statistic.review)
         return cell
     }
     
     func cellForLabelStatisticSection(at indexPath: IndexPath) -> UITableViewCell {
-        let cell = LabelStatisticTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        cell.drawChart(forLabelStatistic: self.statistic.label)
+        let cell = LabelStatisticTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.drawChart(forLabelStatistic: statistic.label)
         return cell
     }
     
     func cellForArtistStatisticSection(at indexPath: IndexPath) -> UITableViewCell {
-        let cell = ArtistStatisticTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        cell.drawChart(forArtistStatistic: self.statistic.artist)
+        let cell = ArtistStatisticTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.drawChart(forArtistStatistic: statistic.artist)
         return cell
     }
     
     func cellForMemberStatisticSection(at indexPath: IndexPath) -> UITableViewCell {
-        let cell = MemberStatisticTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        cell.drawChart(forMemberStatistic: self.statistic.member)
+        let cell = MemberStatisticTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.drawChart(forMemberStatistic: statistic.member)
         return cell
     }
     
     func cellForReleaseStatisticSection(at indexPath: IndexPath) -> UITableViewCell {
-        let cell = ReleaseStatisticTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        cell.drawChart(forReleaseStatistic: self.statistic.release)
+        let cell = ReleaseStatisticTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.drawChart(forReleaseStatistic: statistic.release)
         return cell
     }
 }
@@ -180,10 +211,10 @@ extension StatisticsViewController {
 //MARK: - Section row
 extension StatisticsViewController {
     func didSelectTop100Bands() {
-        self.performSegue(withIdentifier: "ShowTop100Bands", sender: nil)
+        performSegue(withIdentifier: "ShowTop100Bands", sender: nil)
     }
     
     func didSelectTop100Albums() {
-        self.performSegue(withIdentifier: "ShowTop100Albums", sender: nil)
+        performSegue(withIdentifier: "ShowTop100Albums", sender: nil)
     }
 }

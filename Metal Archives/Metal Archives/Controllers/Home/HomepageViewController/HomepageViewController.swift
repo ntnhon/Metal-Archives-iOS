@@ -325,26 +325,6 @@ extension HomepageViewController: UIPopoverPresentationControllerDelegate {
     }
 }
 
-// MARK: - UIScrollViewDelegate
-extension HomepageViewController: UIScrollViewDelegate {
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        let transform: CGAffineTransform
-        if scrollView.panGestureRecognizer.translation(in: view).y < 0 && scrollView.contentOffset.y > 0 {
-            // scrolled up
-            transform = CGAffineTransform(translationX: 0, y: -simpleNavigationBarView.bounds.height)
-        } else {
-            // scrolled down
-            transform = .identity
-        }
-        
-        guard simpleNavigationBarView.transform != transform else { return }
-        
-        UIView.animate(withDuration: 0.35) { [unowned self] in
-            self.simpleNavigationBarView.transform = transform
-        }
-    }
-}
-
 // MARK: - UITableViewDelegate
 extension HomepageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -385,6 +365,13 @@ extension HomepageViewController: UITableViewDataSource {
         case 5: return cellForUpcomingAlbumsSection(at: indexPath)
         default: return UITableViewCell()
         }
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension HomepageViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        simpleNavigationBarView.transformWith(scrollView)
     }
 }
 

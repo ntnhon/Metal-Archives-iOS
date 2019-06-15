@@ -41,17 +41,28 @@
                                     <outlet property="delegate" destination="8Jc-3y-34y" id="Dtc-Ur-5qL"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXG-ZA-GZd" customClass="SimpleNavigationBarView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="x6I-KX-LLz"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="XEF-Yg-kyD" firstAttribute="trailing" secondItem="tBh-zT-xCi" secondAttribute="trailing" id="45V-7U-ZDh"/>
+                            <constraint firstItem="sXG-ZA-GZd" firstAttribute="leading" secondItem="cfq-BK-oNy" secondAttribute="leading" id="5kD-G7-lKy"/>
                             <constraint firstItem="XEF-Yg-kyD" firstAttribute="bottom" secondItem="tBh-zT-xCi" secondAttribute="bottom" id="9kx-a4-GO7"/>
-                            <constraint firstItem="tBh-zT-xCi" firstAttribute="top" secondItem="XEF-Yg-kyD" secondAttribute="top" id="S0q-Oa-gYI"/>
+                            <constraint firstItem="tBh-zT-xCi" firstAttribute="top" secondItem="XEF-Yg-kyD" secondAttribute="top" id="gB1-l3-Bsr"/>
                             <constraint firstItem="tBh-zT-xCi" firstAttribute="leading" secondItem="XEF-Yg-kyD" secondAttribute="leading" id="hgQ-Oj-dST"/>
+                            <constraint firstItem="sXG-ZA-GZd" firstAttribute="top" secondItem="cfq-BK-oNy" secondAttribute="top" id="nFn-eA-Fhy"/>
+                            <constraint firstAttribute="trailing" secondItem="sXG-ZA-GZd" secondAttribute="trailing" id="usR-AV-6il"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XEF-Yg-kyD"/>
                     </view>
                     <connections>
+                        <outlet property="simpleNavigationBarView" destination="sXG-ZA-GZd" id="hDZ-LA-ffK"/>
                         <outlet property="tableView" destination="tBh-zT-xCi" id="FPG-3y-yLS"/>
                         <segue destination="sKJ-9T-PLA" kind="show" identifier="ShowTop100Bands" id="Riu-AY-AEa"/>
                         <segue destination="LHq-5I-uWZ" kind="show" identifier="ShowTop100Albums" id="HcQ-WR-9tJ"/>
@@ -59,7 +70,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MBK-YZ-gB1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1281" y="-1354"/>
+            <point key="canvasLocation" x="1279.7101449275362" y="-1354.0178571428571"/>
         </scene>
         <!--Top100 Albums View Controller-->
         <scene sceneID="575-s4-stD">
