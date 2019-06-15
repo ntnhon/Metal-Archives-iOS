@@ -9,7 +9,7 @@
 import UIKit
 
 final class SearchViewController: UIViewController {
-    @IBOutlet private weak var segmentedControl: UISegmentedControl!
+    @IBOutlet private weak var searchModeNavigationBarView: SearchModeNavigationBarView!
     @IBOutlet private weak var simpleSearchView: UIView!
     @IBOutlet private weak var advancedSearchView: UIView!
     
@@ -18,45 +18,57 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = Settings.currentTheme.backgroundColor
-        self.view.bringSubviewToFront(self.simpleSearchView)
+        view.backgroundColor = Settings.currentTheme.backgroundColor
+        view.bringSubviewToFront(simpleSearchView)
+        handleSearchModeNavigationBarViewActions()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.updateSearchView()
+        updateSearchView()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return .lightContent
     }
     
-    @IBAction private func segmentedControlValueChanged() {
-        self.updateSearchView()
+    private func handleSearchModeNavigationBarViewActions() {
+        searchModeNavigationBarView.didTapBackButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        searchModeNavigationBarView.didTapTipsButton = { [unowned self] in
+            let searchTipsViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "SearchTipsViewController") as! SearchTipsViewController
+            self.simpleSearchViewController.isBeingSelected = false
+            searchTipsViewController.presentFromBottom(in: self)
+        }
+
+        searchModeNavigationBarView.didChangeSearchMode = { [unowned self] in
+            self.updateSearchView()
+        }
     }
     
     private func updateSearchView() {
-        if self.segmentedControl.selectedSegmentIndex == 0 {
-            self.simpleSearchView.isHidden = false
-            self.advancedSearchView.isHidden = true
-            self.view.bringSubviewToFront(self.simpleSearchView)
+        if searchModeNavigationBarView.selectedMode == .simple {
+            simpleSearchView.isHidden = false
+            advancedSearchView.isHidden = true
+            view.bringSubviewToFront(simpleSearchView)
         } else {
-            self.simpleSearchView.isHidden = true
-            self.advancedSearchView.isHidden = false
-            self.view.bringSubviewToFront(self.advancedSearchView)
+            simpleSearchView.isHidden = true
+            advancedSearchView.isHidden = false
+            view.bringSubviewToFront(advancedSearchView)
         }
-        self.simpleSearchViewController.isBeingSelected = !self.simpleSearchView.isHidden
-        self.advancedSearchViewController.isBeingSelected = !self.advancedSearchView.isHidden
-        
+        simpleSearchViewController.isBeingSelected = !simpleSearchView.isHidden
+        advancedSearchViewController.isBeingSelected = !advancedSearchView.isHidden
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.destination {
         case let simpleSearchVC as SimpleSearchViewController :
-            self.simpleSearchViewController = simpleSearchVC
+            simpleSearchViewController = simpleSearchVC
             
         case let advancedSearchVC as AdvancedSearchViewController:
-            self.advancedSearchViewController = advancedSearchVC
+            advancedSearchViewController = advancedSearchVC
             
         default:
             break

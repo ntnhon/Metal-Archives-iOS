@@ -10,21 +10,12 @@ import UIKit
 import Toaster
 import FirebaseAnalytics
 
-fileprivate let MAX_Y_OFFSET: CGFloat = 100
-
-final class ReviewViewController: BaseViewController {
+final class ReviewViewController: DismissableOnSwipeViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     var urlString: String!
     private var review: Review!
     private var reviewDetailTableViewCell: ReviewDetailTableViewCell!
-    
-    private let smokedBackgroundView: UIView = {
-        let view = UIView(frame: CGRect(origin: .zero, size: .init(width: screenWidth, height: screenHeight)))
-        view.backgroundColor = Settings.currentTheme.backgroundColor
-        return view
-    }()
-    private var isDismissing = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,37 +52,6 @@ final class ReviewViewController: BaseViewController {
         }
     }
     
-    func presentFromBottom(in viewController: UIViewController) {
-        let containerController = viewController.navigationController ?? viewController
-        
-        containerController.addChild(self)
-        containerController.view.addSubview(smokedBackgroundView)
-        containerController.view.addSubview(view)
-        self.didMove(toParent: containerController)
-        
-        view.transform = CGAffineTransform(translationX: 0, y: view.bounds.height)
-        smokedBackgroundView.transform = view.transform
-        
-        UIView.animate(withDuration: Settings.animationDuration) { [unowned self] in
-            self.view.transform = .identity
-            self.smokedBackgroundView.transform = .identity
-        }
-    }
-    
-    func dismissToBottom(completion: (() -> Void)? = nil) {
-        isDismissing = true
-        
-        UIView.animate(withDuration: Settings.animationDuration, animations: { [unowned self] in
-            self.view.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
-            self.smokedBackgroundView.alpha = 0
-        }) { [unowned self] (finished) in
-            completion?()
-            self.willMove(toParent: nil)
-            self.smokedBackgroundView.removeFromSuperview()
-            self.view.removeFromSuperview()
-            self.removeFromParent()
-        }
-    }
 }
 
 //MARK: - UITableViewDataSource
@@ -160,23 +120,5 @@ extension ReviewViewController: ReviewDetailTableViewCellDelegate {
         presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertTitle: "View this review in browser", alertMessage: "\(review.title!) - \(review.rating!)%", shareMessage: "Share this review URL")
         
         Analytics.logEvent(AnalyticsEvent.ShareReview, parameters: [AnalyticsParameter.ReleaseTitle: review.release.title, AnalyticsParameter.ReviewTitle: review.title!])
-    }
-}
-
-// MARK: - UIScrollViewDelegate
-extension ReviewViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.contentOffset.y < 0 && !isDismissing else {return}
-        
-        view.transform = CGAffineTransform(translationX: view.frame.origin.x, y: -scrollView.contentOffset.y)
-        smokedBackgroundView.alpha = 1 - (abs(scrollView.contentOffset.y) / MAX_Y_OFFSET)
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if scrollView.contentOffset.y < 0 && abs(scrollView.contentOffset.y) > MAX_Y_OFFSET {
-            dismissToBottom()
-        } else {
-            view.transform = .identity
-        }
     }
 }

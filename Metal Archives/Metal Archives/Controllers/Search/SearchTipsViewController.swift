@@ -10,24 +10,39 @@ import UIKit
 import AttributedLib
 import FirebaseAnalytics
 
-final class SearchTipsViewController: BaseViewController {
+final class SearchTipsViewController: DismissableOnSwipeViewController {
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var textView: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Search Tips 💡"
-        self.showTips()
-        
+        showTips()
+        handleSimpleNavigationBarViewActions()
         Analytics.logEvent(AnalyticsEvent.ViewSearchTips, parameters: nil)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.textView.contentOffset = .zero
+        textView.contentOffset = .zero
     }
     
     override func initAppearance() {
         super.initAppearance()
-        self.textView.backgroundColor = Settings.currentTheme.backgroundColor
+        textView.backgroundColor = Settings.currentTheme.backgroundColor
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    private func handleSimpleNavigationBarViewActions() {
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        simpleNavigationBarView.setTitle("Search Tips 💡")
+        simpleNavigationBarView.setLeftButtonIcon(#imageLiteral(resourceName: "X"))
+        simpleNavigationBarView.setRightButtonIcon(nil)
+        
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.dismissToBottom()
+        }
     }
     
     private func showTips() {
@@ -54,6 +69,6 @@ final class SearchTipsViewController: BaseViewController {
         tipsMutableAttrString.append("- You can also perform an advanced search on albums. You can specify date ranges (year and month); like for band years, you can leave blanks for looser ranges.\n".at.attributed(with: indentedBodyTextAttributes))
         tipsMutableAttrString.append("- You can perform an advanced search for songs, including in the lyrics.\n".at.attributed(with: indentedBodyTextAttributes))
         
-        self.textView.attributedText = tipsMutableAttrString
+        textView.attributedText = tipsMutableAttrString
     }
 }
