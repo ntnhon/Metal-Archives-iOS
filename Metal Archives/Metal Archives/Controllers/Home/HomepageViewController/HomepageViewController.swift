@@ -39,78 +39,42 @@ final class HomepageViewController: RefreshableViewController {
     
     private var latestReviewPagableManager = PagableManager<LatestReview>()
     private var upcomingAlbumPagableManager = PagableManager<UpcomingAlbum>()
-    
-    
-    /// English and Latin title, don't mind weird characters, they are needed for flipped effect (last character)
-    private let navBarTitle = (english: "Metal archiveÎ", latin: "Encyclopaedia metalluÈ")
-    private var isDisplayingEnglishTitle = true {
-        didSet {
-            self.title = self.isDisplayingEnglishTitle ? self.navBarTitle.english : self.navBarTitle.latin
-        }
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.addToggleMenuButton()
-        self.initSearchButton()
-        self.loadHomepage()
-        self.initObservers()
-        self.alertNewVersion()
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Homepage", style: .plain, target: nil, action: nil)
+        addToggleMenuButton()
+        initSearchButton()
+        loadHomepage()
+        initObservers()
+        alertNewVersion()
         //pushBandDetailViewController(urlString: "https://www.metal-archives.com/bands/When_Death_Replaces_Life/3540453629", animated: true)
         //pushBandDetailViewController(urlString: "https://www.metal-archives.com/bands/Lamb_of_God/59", animated: true)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = false
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.title = nil
-        self.stylizedNavBar(false)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.stylizedNavBar(true)
-        self.isDisplayingEnglishTitle = true
-    }
-    
-    private func stylizedNavBar(_ stylized: Bool) {
-        let attrs = stylized ?
-            [
-            NSAttributedString.Key.foregroundColor: Settings.currentTheme.tableViewBackgroundColor,
-            NSAttributedString.Key.font: UIFont(name: "PastorofMuppets", size: 34)!
-            ] : nil
-        self.navigationController?.navigationBar.titleTextAttributes = attrs
     }
     
     override func initAppearance() {
         super.initAppearance()
 
         //Hide 1st header
-        self.tableView.contentInset = UIEdgeInsets(top: -CGFloat.leastNormalMagnitude, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: -CGFloat.leastNormalMagnitude, left: 0, bottom: 0, right: 0)
         
-        LoadingTableViewCell.register(with: self.tableView)
-        NewsTableViewCell.register(with: self.tableView)
-        StatisticTableViewCell.register(with: self.tableView)
-        AdditionOrUpdateTableViewCell.register(with: self.tableView)
-        LatestReviewsTableViewCell.register(with: self.tableView)
-        UpcomingAlbumsTableViewCell.register(with: self.tableView)
-        ViewMoreTableViewCell.register(with: self.tableView)
+        LoadingTableViewCell.register(with: tableView)
+        NewsTableViewCell.register(with: tableView)
+        StatisticTableViewCell.register(with: tableView)
+        AdditionOrUpdateTableViewCell.register(with: tableView)
+        LatestReviewsTableViewCell.register(with: tableView)
+        UpcomingAlbumsTableViewCell.register(with: tableView)
+        ViewMoreTableViewCell.register(with: tableView)
     }
 
     private func initSearchButton() {
-        self.searchButton.backgroundColor = Settings.currentTheme.backgroundColor
-        self.searchButton.layer.shadowColor = Settings.currentTheme.bodyTextColor.cgColor
-        self.searchButton.layer.shadowRadius = 10
-        self.searchButton.layer.shadowOpacity = 0.5
-        self.searchButton.layer.shadowOffset = CGSize(width: 2, height: 5)
-        self.searchButton.layer.cornerRadius = self.searchButton.frame.height/2
-        self.searchButton.layer.borderWidth = 0.2
-        self.searchButton.layer.borderColor = Settings.currentTheme.bodyTextColor.withAlphaComponent(0.5).cgColor
+        searchButton.backgroundColor = Settings.currentTheme.backgroundColor
+        searchButton.layer.shadowColor = Settings.currentTheme.bodyTextColor.cgColor
+        searchButton.layer.shadowRadius = 10
+        searchButton.layer.shadowOpacity = 0.5
+        searchButton.layer.shadowOffset = CGSize(width: 2, height: 5)
+        searchButton.layer.cornerRadius = searchButton.frame.height/2
+        searchButton.layer.borderWidth = 0.2
+        searchButton.layer.borderColor = Settings.currentTheme.bodyTextColor.withAlphaComponent(0.5).cgColor
     }
     
     private func initObservers() {
@@ -147,17 +111,13 @@ final class HomepageViewController: RefreshableViewController {
         }
     }
     
-    override var prefersStatusBarHidden: Bool {
-        return self.navigationController?.isNavigationBarHidden ?? false
-    }
-    
     override func refresh() {
-        self.statisticAttrString = nil
-        self.newsPagableManager.reset()
-        self.bandAdditionPagableManager.reset()
-        self.bandUpdatePagableManager.reset()
-        self.latestReviewPagableManager.reset()
-        self.upcomingAlbumPagableManager.reset()
+        statisticAttrString = nil
+        newsPagableManager.reset()
+        bandAdditionPagableManager.reset()
+        bandUpdatePagableManager.reset()
+        latestReviewPagableManager.reset()
+        upcomingAlbumPagableManager.reset()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
             self.endRefreshing()
@@ -184,34 +144,34 @@ final class HomepageViewController: RefreshableViewController {
             }
         }
         
-        self.newsPagableManager.fetch { [weak self] (error) in
+        newsPagableManager.fetch { [weak self] (error) in
             self?.tableView.reloadData()
         }
         
         //Latest additions
-        self.bandAdditionPagableManager = PagableManager<BandAddition>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString])
-        self.bandAdditionPagableManager.fetch { [weak self] (error) in
+        bandAdditionPagableManager = PagableManager<BandAddition>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString])
+        bandAdditionPagableManager.fetch { [weak self] (error) in
             self?.respondToAdditionTypeChange()
         }
         
-        self.labelAdditionPagableManager = PagableManager<LabelAddition>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
-        self.artistAdditionPagableManager = PagableManager<ArtistAddition>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
+        labelAdditionPagableManager = PagableManager<LabelAddition>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
+        artistAdditionPagableManager = PagableManager<ArtistAddition>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
         
         //Latest updates
-        self.bandUpdatePagableManager = PagableManager<BandUpdate>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString])
-        self.bandUpdatePagableManager.fetch { [weak self] (error) in
+        bandUpdatePagableManager = PagableManager<BandUpdate>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString])
+        bandUpdatePagableManager.fetch { [weak self] (error) in
             self?.respondToUpdateTypeChange()
         }
-        self.labelUpdatePagableManager = PagableManager<LabelUpdate>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
-        self.artistUpdatePagableManager = PagableManager<ArtistUpdate>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
+        labelUpdatePagableManager = PagableManager<LabelUpdate>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
+        artistUpdatePagableManager = PagableManager<ArtistUpdate>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
         
         
-        self.latestReviewPagableManager =  PagableManager<LatestReview>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString])
-        self.latestReviewPagableManager.fetch { [weak self] (error) in
+        latestReviewPagableManager =  PagableManager<LatestReview>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString])
+        latestReviewPagableManager.fetch { [weak self] (error) in
             self?.tableView.reloadData()
         }
         
-        self.upcomingAlbumPagableManager.fetch { [weak self] (error) in
+        upcomingAlbumPagableManager.fetch { [weak self] (error) in
             self?.tableView.reloadData()
         }
     }
@@ -221,7 +181,7 @@ final class HomepageViewController: RefreshableViewController {
             return
         }
         
-        self.navigationController?.pushViewController(searchViewController, animated: true)
+        navigationController?.pushViewController(searchViewController, animated: true)
     }
     
     private func gentlyAskForReview() {
@@ -238,14 +198,14 @@ final class HomepageViewController: RefreshableViewController {
         }
         alert.addAction(cancelAction)
         
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     private func respondToAdditionTypeChange() {
         switch latestAdditionType {
         case .bands:
             if let _ = bandAdditionPagableManager.totalRecords {
-                self.latestAdditionsDelegate?.didFinishFetchingBandAdditionOrUpdate(bandAdditionPagableManager.objects)
+                latestAdditionsDelegate?.didFinishFetchingBandAdditionOrUpdate(bandAdditionPagableManager.objects)
                 return
             }
             
@@ -259,7 +219,7 @@ final class HomepageViewController: RefreshableViewController {
             }
         case .labels:
             if let _ = labelAdditionPagableManager.totalRecords {
-                self.latestAdditionsDelegate?.didFinishFetchingLabelAdditionOrUpdate(labelAdditionPagableManager.objects)
+                latestAdditionsDelegate?.didFinishFetchingLabelAdditionOrUpdate(labelAdditionPagableManager.objects)
                 return
             }
             
@@ -273,7 +233,7 @@ final class HomepageViewController: RefreshableViewController {
             }
         case .artists:
             if let _ = artistAdditionPagableManager.totalRecords {
-                self.latestAdditionsDelegate?.didFinishFetchingArtistAdditionOrUpdate(artistAdditionPagableManager.objects)
+                latestAdditionsDelegate?.didFinishFetchingArtistAdditionOrUpdate(artistAdditionPagableManager.objects)
                 return
             }
             
@@ -292,7 +252,7 @@ final class HomepageViewController: RefreshableViewController {
         switch latestUpdateType {
         case .bands:
             if let _ = bandUpdatePagableManager.totalRecords {
-                self.latestUpdatesDelegate?.didFinishFetchingBandAdditionOrUpdate(bandUpdatePagableManager.objects)
+                latestUpdatesDelegate?.didFinishFetchingBandAdditionOrUpdate(bandUpdatePagableManager.objects)
                 return
             }
             
@@ -306,7 +266,7 @@ final class HomepageViewController: RefreshableViewController {
             }
         case .labels:
             if let _ = labelUpdatePagableManager.totalRecords {
-                self.latestUpdatesDelegate?.didFinishFetchingLabelAdditionOrUpdate(labelUpdatePagableManager.objects)
+                latestUpdatesDelegate?.didFinishFetchingLabelAdditionOrUpdate(labelUpdatePagableManager.objects)
                 return
             }
             
@@ -320,7 +280,7 @@ final class HomepageViewController: RefreshableViewController {
             }
         case .artists:
             if let _ = artistUpdatePagableManager.totalRecords {
-                self.latestUpdatesDelegate?.didFinishFetchingArtistAdditionOrUpdate(artistUpdatePagableManager.objects)
+                latestUpdatesDelegate?.didFinishFetchingArtistAdditionOrUpdate(artistUpdatePagableManager.objects)
                 return
             }
             
@@ -336,7 +296,7 @@ final class HomepageViewController: RefreshableViewController {
     }
 }
 
-//MARK: - Segues
+// MARK: - Segues
 extension HomepageViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowLatestAdditions"{
@@ -349,28 +309,28 @@ extension HomepageViewController {
     }
 }
 
-//MARK: - UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 extension HomepageViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.isDisplayingEnglishTitle = scrollView.contentOffset.y <= 0
+
     }
 }
 
-//MARK: - UIPopoverPresentationControllerDelegate
+// MARK: - UIPopoverPresentationControllerDelegate
 extension HomepageViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension HomepageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
         
         switch indexPath.section {
         //Section: Stats
-        case 0: self.didSelectRowInStatisticsSection(at: indexPath)
+        case 0: didSelectRowInStatisticsSection(at: indexPath)
         default: return
         }
     }
@@ -396,7 +356,7 @@ extension HomepageViewController: UITableViewDelegate {
     }
 }
 
-//MARK: UITableViewDatasource
+// MARK: - UITableViewDatasource
 extension HomepageViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         //6 sections: Stats, News, Latest additions, Latest updates, Latest reviews, Upcoming albums
@@ -410,64 +370,58 @@ extension HomepageViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         //Section: Stats
-        case 0: return self.cellForStatsSection(at: indexPath)
+        case 0: return cellForStatsSection(at: indexPath)
         //Section: News
-        case 1: return self.cellForNewsSection(at: indexPath)
+        case 1: return cellForNewsSection(at: indexPath)
         //Section: Latets additions
-        case 2: return self.cellForLatestAdditionsSection(at: indexPath)
+        case 2: return cellForLatestAdditionsSection(at: indexPath)
         //Section: Latest updates
-        case 3: return self.cellForLatestUpdatesSection(at: indexPath)
+        case 3: return cellForLatestUpdatesSection(at: indexPath)
         //Section: Latest review
-        case 4: return self.cellForLatestReviewsSection(at: indexPath)
+        case 4: return cellForLatestReviewsSection(at: indexPath)
         //Section: Upcoming albums
-        case 5: return self.cellForUpcomingAlbumsSection(at: indexPath)
+        case 5: return cellForUpcomingAlbumsSection(at: indexPath)
         default: return UITableViewCell()
         }
     }
 }
 
-//MARK: - View more cell
+// MARK: - Loading cell
 extension HomepageViewController {
-    private func viewMoreCell(message: String, atIndex indexPath: IndexPath) -> ViewMoreTableViewCell {
-        let cell = ViewMoreTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        cell.fill(message: message)
-        return cell
-    }
-    
     private func loadingCell(atIndexPath indexPath: IndexPath) -> UITableViewCell {
-        let cell = LoadingTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        let cell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.displayIsLoading()
         return cell
     }
 }
 
-//MARK: - Section STATISTICS
+// MARK: - Section STATISTICS
 extension HomepageViewController {
     private func cellForStatsSection(at indexPath: IndexPath) -> UITableViewCell {
-        guard let `statisticAttrString` = self.statisticAttrString else {
-            return self.loadingCell(atIndexPath: indexPath)
+        guard let `statisticAttrString` = statisticAttrString else {
+            return loadingCell(atIndexPath: indexPath)
         }
         
-        let cell = StatisticTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        let cell = StatisticTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: statisticAttrString)
         return cell
     }
     
     private func didSelectRowInStatisticsSection(at indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "ShowStatistics", sender: nil)
+        performSegue(withIdentifier: "ShowStatistics", sender: nil)
     }
 }
 
-//MARK: - Section NEWS
+// MARK: - Section NEWS
 extension HomepageViewController {
     private func cellForNewsSection(at indexPath: IndexPath) -> UITableViewCell {
         //Don't check totalRecords is nil or not because News doesn't have such parameter
-        guard self.newsPagableManager.objects.count > 0 else {
-            return self.loadingCell(atIndexPath: indexPath)
+        guard newsPagableManager.objects.count > 0 else {
+            return loadingCell(atIndexPath: indexPath)
         }
         
-        let cell = NewsTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        cell.newsArray = self.newsPagableManager.objects
+        let cell = NewsTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.newsArray = newsPagableManager.objects
         cell.seeAll = {[unowned self] in
             let newsArchiveViewController = UIStoryboard(name: "NewsArchive", bundle: nil).instantiateViewController(withIdentifier: "NewsArchiveViewController" ) as! NewsArchiveViewController
             self.navigationController?.pushViewController(newsArchiveViewController, animated: true)
@@ -495,7 +449,7 @@ extension HomepageViewController {
     }
 }
 
-//MARK: - Section LATEST ADDITIONS
+// MARK: - Section LATEST ADDITIONS
 extension HomepageViewController {
     private func cellForLatestAdditionsSection(at indexPath: IndexPath) -> UITableViewCell {
         let cell = AdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
@@ -538,7 +492,7 @@ extension HomepageViewController {
     }
 }
 
-//MARK: - Section LATEST UPDATES
+// MARK: - Section LATEST UPDATES
 extension HomepageViewController {
     private func cellForLatestUpdatesSection(at indexPath: IndexPath) -> UITableViewCell {
         let cell = AdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
@@ -581,7 +535,7 @@ extension HomepageViewController {
     }
 }
 
-//MARK: - Section LATEST REVIEWS
+// MARK: - Section LATEST REVIEWS
 extension HomepageViewController {
     private func cellForLatestReviewsSection(at indexPath: IndexPath) -> UITableViewCell {
         let cell = LatestReviewsTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
@@ -606,7 +560,7 @@ extension HomepageViewController {
     }
 }
 
-//MARK: - Section UPCOMING ALBUMS
+// MARK: - Section UPCOMING ALBUMS
 extension HomepageViewController {
     private func cellForUpcomingAlbumsSection(at indexPath: IndexPath) -> UITableViewCell {
         let cell = UpcomingAlbumsTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
@@ -631,7 +585,7 @@ extension HomepageViewController {
     }
 }
 
-//MARK: - Alert new version
+// MARK: - Alert new version
 extension HomepageViewController {
     private func alertNewVersion() {
         guard UserDefaults.shouldAlertNewVersion() else {

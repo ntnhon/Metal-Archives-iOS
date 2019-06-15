@@ -47,10 +47,6 @@
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow to save photos to your device (band&apos;s photo, logo, release&apos;s artwork...)</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>PASTOROF.TTF</string>
-	</array>
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>

@@ -288,7 +288,6 @@
 		C06C6C6221FFCF5300D37519 /* UIImage+RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06C6C6121FFCF5300D37519 /* UIImage+RoundedCorner.swift */; };
 		C06C6C6521FFD5C100D37519 /* ExpandedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06C6C6421FFD5C100D37519 /* ExpandedButton.swift */; };
 		C06DC34D22705A1E005D513E /* RegexHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06DC34C22705A1E005D513E /* RegexHelpers.swift */; };
-		C06DC34F2270985F005D513E /* PASTOROF.TTF in Resources */ = {isa = PBXBuildFile; fileRef = C06DC34E2270985F005D513E /* PASTOROF.TTF */; };
 		C06E92D122538FB9006EE887 /* VersionHistory.plist in Resources */ = {isa = PBXBuildFile; fileRef = C06E92D022538FB9006EE887 /* VersionHistory.plist */; };
 		C06E92D3225391A0006EE887 /* VersionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E92D2225391A0006EE887 /* VersionHistoryViewController.swift */; };
 		C06E92D522539248006EE887 /* VersionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E92D422539248006EE887 /* VersionHistory.swift */; };
@@ -776,7 +775,6 @@
 		C06C6C6121FFCF5300D37519 /* UIImage+RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+RoundedCorner.swift"; sourceTree = "<group>"; };
 		C06C6C6421FFD5C100D37519 /* ExpandedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedButton.swift; sourceTree = "<group>"; };
 		C06DC34C22705A1E005D513E /* RegexHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexHelpers.swift; sourceTree = "<group>"; };
-		C06DC34E2270985F005D513E /* PASTOROF.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = PASTOROF.TTF; sourceTree = "<group>"; };
 		C06E92D022538FB9006EE887 /* VersionHistory.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = VersionHistory.plist; sourceTree = "<group>"; };
 		C06E92D2225391A0006EE887 /* VersionHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryViewController.swift; sourceTree = "<group>"; };
 		C06E92D422539248006EE887 /* VersionHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistory.swift; sourceTree = "<group>"; };
@@ -1935,7 +1933,6 @@
 		C06C6C5521FFA5E500D37519 /* Ressources */ = {
 			isa = PBXGroup;
 			children = (
-				C06DC34E2270985F005D513E /* PASTOROF.TTF */,
 				C06C6C5621FFA68C00D37519 /* Countries.plist */,
 				C0858F042236C26B00595B48 /* MA_Countries.plist */,
 				C00D3627223D848000B29B43 /* OpenSourceLibraries.plist */,
@@ -3103,7 +3100,6 @@
 				C05309E522232FA50027D11E /* LabelDetail.storyboard in Resources */,
 				C03F440B22307128005D7AA8 /* SimpleLyricalThemesTableViewCell.xib in Resources */,
 				C0A1F95322419947005C2C83 /* BrowseLabels.storyboard in Resources */,
-				C06DC34F2270985F005D513E /* PASTOROF.TTF in Resources */,
 				C0CAC19F229887130044363E /* BandPhotoAndNameTableViewCell.xib in Resources */,
 				C053DD42222698DE0028568B /* ReviewStatisticTableViewCell.xib in Resources */,
 				C066138E22899BA000F99006 /* UpcomingAlbumsTableViewCell.xib in Resources */,
