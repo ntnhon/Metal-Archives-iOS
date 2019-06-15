@@ -13,7 +13,6 @@ import NotificationBannerSwift
 
 final class HomepageViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
-    
     private var statisticAttrString: NSAttributedString?
     private var newsPagableManager = PagableManager<News>()
     //Latest additions
@@ -48,14 +47,21 @@ final class HomepageViewController: RefreshableViewController {
         alertNewVersion()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func initAppearance() {
         super.initAppearance()
+        
+        let tableViewTopInset: CGFloat
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never
         } else {
             automaticallyAdjustsScrollViewInsets = false
         }
-        tableView.contentInset = UIEdgeInsets(top: simpleNavigationBarView.bounds.height, left: 0, bottom: 0, right: 0)
+        tableViewTopInset = simpleNavigationBarView.bounds.height - UIApplication.shared.statusBarFrame.height
+        tableView.contentInset = UIEdgeInsets(top: tableViewTopInset, left: 0, bottom: 0, right: 0)
         
         LoadingTableViewCell.register(with: tableView)
         NewsTableViewCell.register(with: tableView)
@@ -312,17 +318,28 @@ extension HomepageViewController {
     }
 }
 
-// MARK: - UIScrollViewDelegate
-extension HomepageViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-    }
-}
-
 // MARK: - UIPopoverPresentationControllerDelegate
 extension HomepageViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension HomepageViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let transform: CGAffineTransform
+        if scrollView.panGestureRecognizer.translation(in: view).y < 0 {
+            // scrolled up
+            transform = CGAffineTransform(translationX: 0, y: -simpleNavigationBarView.bounds.height)
+        } else {
+            // scrolled down
+            transform = .identity
+        }
+        
+        UIView.animate(withDuration: 0.35) { [unowned self] in
+            self.simpleNavigationBarView.transform = transform
+        }
     }
 }
 

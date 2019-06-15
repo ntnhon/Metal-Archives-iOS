@@ -11,13 +11,8 @@ import UIKit
 
 let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
 
-let screenWidth: CGFloat = {
-    return UIScreen.main.bounds.width
-}()
-
-let screenHeight: CGFloat = {
-    return UIScreen.main.bounds.height
-}()
+let screenWidth: CGFloat = UIScreen.main.bounds.width
+let screenHeight: CGFloat = UIScreen.main.bounds.height
 
 let countryDictionary: NSDictionary = {
     let path = Bundle.main.path(forResource: "MA_Countries", ofType: "plist")!
