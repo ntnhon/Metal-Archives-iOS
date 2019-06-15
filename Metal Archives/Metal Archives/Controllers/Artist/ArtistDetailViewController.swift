@@ -14,7 +14,7 @@ final class ArtistDetailViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var stretchyLogoSmokedImageView: SmokedImageView!
     @IBOutlet private weak var stretchyLogoSmokedImageViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var utileBarView: UtileBarView!
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     
@@ -42,7 +42,7 @@ final class ArtistDetailViewController: BaseViewController {
         }
     }
     private lazy var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat = {
-        let yOffset = artistNameTableViewCell.bounds.height + artistInfoTableViewCell.bounds.height - utileBarView.bounds.height
+        let yOffset = artistNameTableViewCell.bounds.height + artistInfoTableViewCell.bounds.height - simpleNavigationBarView.bounds.height
         return yOffset
     }()
     private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
@@ -55,7 +55,7 @@ final class ArtistDetailViewController: BaseViewController {
         super.viewDidLoad()
         stretchyLogoSmokedImageViewHeightConstraint.constant = screenWidth
         configureTableView()
-        handleUtileBarViewActions()
+        handleSimpleNavigationBarViewActions()
         reloadArtist()
     }
     
@@ -89,12 +89,12 @@ final class ArtistDetailViewController: BaseViewController {
                 if let `artist` = artist {
                     DispatchQueue.main.async {
                         self.artist = artist
-                        self.utileBarView.titleLabel.text = artist.bandMemberName
+                        self.simpleNavigationBarView.setTitle(artist.bandMemberName)
                         
                         if let photoUrlString = artist.photoURLString, let photoURL = URL(string: photoUrlString) {
                             self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: photoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
                         } else {
-                            self.tableView.contentInset = .init(top: self.utileBarView.frame.origin.y + self.utileBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
+                            self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
                         }
                         
                         self.determineArtistInfoTypes()
@@ -261,15 +261,15 @@ final class ArtistDetailViewController: BaseViewController {
         
         horizontalMenuView.isHidden = false
         horizontalMenuViewTopConstraint.constant = max(
-            horizontalMenuAnchorTableViewCellFrameInView.origin.y, utileBarView.frame.origin.y + utileBarView.frame.height)
+            horizontalMenuAnchorTableViewCellFrameInView.origin.y, simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.height)
     }
     
-    private func handleUtileBarViewActions() {
-        utileBarView.didTapBackButton = { [unowned self] in
+    private func handleSimpleNavigationBarViewActions() {
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
             self.navigationController?.popViewController(animated: true)
         }
         
-        utileBarView.didTapShareButton = { [unowned self] in
+        simpleNavigationBarView.didTapRightButton = { [unowned self] in
             guard let artist = self.artist, let url = URL(string: artist.urlString) else { return }
             
             self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(artist.bandMemberName!) in browser", alertMessage: artist.urlString, shareMessage: "Share this release URL")
@@ -287,11 +287,11 @@ final class ArtistDetailViewController: BaseViewController {
         }
         
         let artistNameLabellFrameInThisView = artistNameTableViewCell.convert(artistNameLabel.frame, to: view)
-        let distanceFromArtistNameLabelToUtileBarView = artistNameLabellFrameInThisView.origin.y - (utileBarView.frame.origin.y + utileBarView.frame.size.height)
+        let distanceFromArtistNameLabelToUtileBarView = artistNameLabellFrameInThisView.origin.y - (simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.size.height)
         
         // alpha = distance / label's height (dim base on label's frame)
         artistNameTableViewCell.alpha = (distanceFromArtistNameLabelToUtileBarView + artistNameLabel.frame.height) / artistNameLabel.frame.height
-        utileBarView.setAlphaForBackgroundAndTitleLabel(1 - artistNameTableViewCell.alpha)
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1 - artistNameTableViewCell.alpha)
     }
 }
 
@@ -505,7 +505,7 @@ extension ArtistDetailViewController: HorizontalMenuViewDelegate {
     
     private func pinHorizontalMenuViewThenRefreshAndScrollTableView() {
         anchorHorizontalMenuToMenuAnchorTableViewCell = false
-        horizontalMenuViewTopConstraint.constant = utileBarView.frame.origin.y + utileBarView.frame.height
+        horizontalMenuViewTopConstraint.constant = simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.height
         tableView.reloadSections([1], with: .none)
         tableView.scrollToRow(at: IndexPath(row: 1, section: 0), at: .top, animated: false)
         tableView.setContentOffset(.init(x: 0, y: yOffsetNeededToPinHorizontalViewToUtileBarView), animated: false)

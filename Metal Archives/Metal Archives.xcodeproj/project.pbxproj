@@ -473,7 +473,7 @@
 		C0FF16CB220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */; };
 		C0FFE1F522958C6900909765 /* SmokedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFE1F422958C6900909765 /* SmokedImageView.swift */; };
 		C0FFE1F922958F4200909765 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFE1F822958F4200909765 /* UIView+Layout.swift */; };
-		C0FFE1FC2295941F00909765 /* UtileBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFE1FB2295941F00909765 /* UtileBarView.swift */; };
+		C0FFE1FC2295941F00909765 /* SimpleNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFE1FB2295941F00909765 /* SimpleNavigationBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -961,7 +961,7 @@
 		C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PushAViewController.swift"; sourceTree = "<group>"; };
 		C0FFE1F422958C6900909765 /* SmokedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokedImageView.swift; sourceTree = "<group>"; };
 		C0FFE1F822958F4200909765 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
-		C0FFE1FB2295941F00909765 /* UtileBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtileBarView.swift; sourceTree = "<group>"; };
+		C0FFE1FB2295941F00909765 /* SimpleNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleNavigationBarView.swift; sourceTree = "<group>"; };
 		D8BA00F138939FF255125F82 /* Pods_Metal_Archives_Widget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Metal_Archives_Widget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EED03F29AC7BB9EE0B7F9D25 /* Pods_Metal_ArchivesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Metal_ArchivesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -2036,7 +2036,7 @@
 				C02D980522AB083D003C33E5 /* SpaciousLabel */,
 				C08CAAF922AA319900E78520 /* HorizontalOptionsView */,
 				C0752956229E83650067B5E1 /* HorizontalMenuView */,
-				C0FFE1FA229593C800909765 /* UtileBarView */,
+				C0FFE1FA229593C800909765 /* SimpleNavigationBarView */,
 				C0FFE1F322958C4D00909765 /* SmokedImageView */,
 				C06B6241224235E900A3FE6B /* BrowseLabels */,
 				C00D35F5223D018200B29B43 /* BrowseBands */,
@@ -2853,12 +2853,12 @@
 			path = SmokedImageView;
 			sourceTree = "<group>";
 		};
-		C0FFE1FA229593C800909765 /* UtileBarView */ = {
+		C0FFE1FA229593C800909765 /* SimpleNavigationBarView */ = {
 			isa = PBXGroup;
 			children = (
-				C0FFE1FB2295941F00909765 /* UtileBarView.swift */,
+				C0FFE1FB2295941F00909765 /* SimpleNavigationBarView.swift */,
 			);
-			path = UtileBarView;
+			path = SimpleNavigationBarView;
 			sourceTree = "<group>";
 		};
 		C3CC4573347414ECAC2FC58D /* Frameworks */ = {
@@ -3415,7 +3415,7 @@
 				C04872BA21EE368700ECFDC2 /* StringProtocol.swift in Sources */,
 				C053DD2A222679520028568B /* Statistic.swift in Sources */,
 				C0ECE6F7221B19CC00489A8E /* ArtistDetailViewController.swift in Sources */,
-				C0FFE1FC2295941F00909765 /* UtileBarView.swift in Sources */,
+				C0FFE1FC2295941F00909765 /* SimpleNavigationBarView.swift in Sources */,
 				C0A1F95622419BC5005C2C83 /* BrowseLabelsAlphabeticallyResultViewController.swift in Sources */,
 				C00D362A223D86F600B29B43 /* OpenSourceLibrariesViewController.swift in Sources */,
 				C06F929B2231D3100079E63E /* SimpleArtistTableViewCell.swift in Sources */,

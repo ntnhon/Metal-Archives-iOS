@@ -16,7 +16,7 @@ final class ReleaseDetailViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var stretchyLogoSmokedImageView: SmokedImageView!
     @IBOutlet private weak var stretchyLogoSmokedImageViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var utileBarView: UtileBarView!
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     
     var urlString: String!
     
@@ -38,7 +38,7 @@ final class ReleaseDetailViewController: BaseViewController {
         }
     }
     private lazy var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat = {
-        let yOffset = releaseTitleAndTypeTableViewCell.bounds.height + releaseInfoTableViewCell.bounds.height - utileBarView.bounds.height
+        let yOffset = releaseTitleAndTypeTableViewCell.bounds.height + releaseInfoTableViewCell.bounds.height - simpleNavigationBarView.bounds.height
         return yOffset
     }()
     private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
@@ -89,10 +89,10 @@ final class ReleaseDetailViewController: BaseViewController {
                 if let coverURLString = release.coverURLString, let coverURL = URL(string: coverURLString) {
                     self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: coverURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
                 } else {
-                    self.tableView.contentInset = .init(top: self.utileBarView.frame.origin.y + self.utileBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
+                    self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
                 }
                 
-                self.utileBarView.titleLabel.text = release.title
+                self.simpleNavigationBarView.setTitle(release.title)
                 self.title = release.title
                 self.tableView.reloadData()
                 
@@ -171,15 +171,15 @@ final class ReleaseDetailViewController: BaseViewController {
         
         horizontalMenuView.isHidden = false
         horizontalMenuViewTopConstraint.constant = max(
-            horizontalMenuAnchorTableViewCellFrameInView.origin.y, utileBarView.frame.origin.y + utileBarView.frame.height)
+            horizontalMenuAnchorTableViewCellFrameInView.origin.y, simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.height)
     }
     
     private func handleUtileBarViewActions() {
-        utileBarView.didTapBackButton = { [unowned self] in
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
             self.navigationController?.popViewController(animated: true)
         }
         
-        utileBarView.didTapShareButton = { [unowned self] in
+        simpleNavigationBarView.didTapRightButton = { [unowned self] in
             guard let release = self.release, let url = URL(string: release.urlString) else { return }
             
             self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(release.title!) in browser", alertMessage: release.urlString, shareMessage: "Share this release URL")
@@ -197,11 +197,11 @@ final class ReleaseDetailViewController: BaseViewController {
         }
         
         let releaseTitleLabelFrameInThisView = releaseTitleAndTypeTableViewCell.convert(releaseTitleLabel.frame, to: view)
-        let distanceFromReleaseTitleLableToUtileBarView = releaseTitleLabelFrameInThisView.origin.y - (utileBarView.frame.origin.y + utileBarView.frame.size.height)
+        let distanceFromReleaseTitleLableToUtileBarView = releaseTitleLabelFrameInThisView.origin.y - (simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.size.height)
         
         // alpha = distance / label's height (dim base on label's frame)
         releaseTitleAndTypeTableViewCell.alpha = (distanceFromReleaseTitleLableToUtileBarView + releaseTitleLabel.frame.height) / releaseTitleLabel.frame.height
-        utileBarView.setAlphaForBackgroundAndTitleLabel(1 - releaseTitleAndTypeTableViewCell.alpha)
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1 - releaseTitleAndTypeTableViewCell.alpha)
     }
 }
 
@@ -346,7 +346,7 @@ extension ReleaseDetailViewController: HorizontalMenuViewDelegate {
     
     private func pinHorizontalMenuViewThenRefreshAndScrollTableView() {
         anchorHorizontalMenuToMenuAnchorTableViewCell = false
-        horizontalMenuViewTopConstraint.constant = utileBarView.frame.origin.y + utileBarView.frame.height
+        horizontalMenuViewTopConstraint.constant = simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.height
         tableView.reloadSections([1], with: .none)
         tableView.scrollToRow(at: IndexPath(row: 1, section: 0), at: .top, animated: false)
         tableView.setContentOffset(.init(x: 0, y: yOffsetNeededToPinHorizontalViewToUtileBarView), animated: false)

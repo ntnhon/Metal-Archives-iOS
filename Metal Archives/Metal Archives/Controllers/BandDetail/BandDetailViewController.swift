@@ -16,7 +16,7 @@ final class BandDetailViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var stretchyLogoSmokedImageView: SmokedImageView!
     @IBOutlet private weak var stretchyLogoSmokedImageViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var utileBarView: UtileBarView!
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     
     var bandURLString: String!
     private var bandPhotoAndNameTableViewCell: BandPhotoAndNameTableViewCell!
@@ -43,7 +43,7 @@ final class BandDetailViewController: BaseViewController {
         }
     }
     private lazy var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat = {
-        let yOffset = bandPhotoAndNameTableViewCell.bounds.height + bandInfoTableViewCell.bounds.height - utileBarView.bounds.height
+        let yOffset = bandPhotoAndNameTableViewCell.bounds.height + bandInfoTableViewCell.bounds.height - simpleNavigationBarView.bounds.height
         return yOffset
     }()
     
@@ -54,7 +54,7 @@ final class BandDetailViewController: BaseViewController {
         stretchyLogoSmokedImageViewHeightConstraint.constant = Settings.strechyLogoImageViewHeight
         configureTableView()
         initHorizontalMenuView()
-        handleUtileBarViewActions()
+        handleSimpleNavigationBarViewActions()
         reloadBand()
         navigationController?.interactivePopGestureRecognizer?.delegate = navigationController as! HomepageNavigationController
     }
@@ -105,10 +105,10 @@ final class BandDetailViewController: BaseViewController {
                 if let logoURLString = band.logoURLString, let logoURL = URL(string: logoURLString) {
                     self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
                 } else {
-                    self.tableView.contentInset = .init(top: self.utileBarView.frame.origin.y + self.utileBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
+                    self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
                 }
                 
-                self.utileBarView.titleLabel.text = band.name
+                self.simpleNavigationBarView.setTitle(band.name)
                 self.title = band.name
                 self.currentMemberType = band.isLastKnown ? .lastKnown : .current
                 
@@ -148,15 +148,15 @@ final class BandDetailViewController: BaseViewController {
     
         horizontalMenuView.isHidden = false
         horizontalMenuViewTopConstraint.constant = max(
-            horizontalMenuAnchorTableViewCellFrameInView.origin.y, utileBarView.frame.origin.y + utileBarView.frame.height)
+            horizontalMenuAnchorTableViewCellFrameInView.origin.y, simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.height)
     }
     
-    private func handleUtileBarViewActions() {
-        utileBarView.didTapBackButton = { [unowned self] in
+    private func handleSimpleNavigationBarViewActions() {
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
             self.navigationController?.popViewController(animated: true)
         }
         
-        utileBarView.didTapShareButton = { [unowned self] in
+        simpleNavigationBarView.didTapRightButton = { [unowned self] in
             guard let `band` = self.band, let url = URL(string: band.urlString) else { return }
             
             self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(band.name!) in browser", alertMessage: band.urlString, shareMessage: "Share this band URL")
@@ -174,11 +174,11 @@ final class BandDetailViewController: BaseViewController {
         }
         
         let bandNameLabelFrameInThisView = bandPhotoAndNameTableViewCell.convert(bandNameLabel.frame, to: view)
-        let distanceFromBandNameLableToUtileBarView = bandNameLabelFrameInThisView.origin.y - (utileBarView.frame.origin.y + utileBarView.frame.size.height)
+        let distanceFromBandNameLableToUtileBarView = bandNameLabelFrameInThisView.origin.y - (simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.size.height)
         
         // alpha = distance / label's height (dim base on label's frame)
         bandPhotoAndNameTableViewCell.alpha = (distanceFromBandNameLableToUtileBarView + bandNameLabel.frame.height) / bandNameLabel.frame.height
-        utileBarView.setAlphaForBackgroundAndTitleLabel(1 - bandPhotoAndNameTableViewCell.alpha)
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1 - bandPhotoAndNameTableViewCell.alpha)
     }
     
     private func presentBandLogoInPhotoViewer() {
@@ -426,7 +426,7 @@ extension BandDetailViewController: HorizontalMenuViewDelegate {
     
     private func pinHorizontalMenuViewThenRefreshAndScrollTableView() {
         anchorHorizontalMenuToMenuAnchorTableViewCell = false
-        horizontalMenuViewTopConstraint.constant = utileBarView.frame.origin.y + utileBarView.frame.height
+        horizontalMenuViewTopConstraint.constant = simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.height
         tableView.reloadSections([1], with: .none)
         tableView.scrollToRow(at: IndexPath(row: 2, section: 0), at: .top, animated: false)
         tableView.setContentOffset(.init(x: 0, y: yOffsetNeededToPinHorizontalViewToUtileBarView), animated: false)

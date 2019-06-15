@@ -14,7 +14,7 @@ final class LabelDetailViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var stretchyLogoSmokedImageView: SmokedImageView!
     @IBOutlet private weak var stretchyLogoSmokedImageViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var utileBarView: UtileBarView!
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     
@@ -37,7 +37,7 @@ final class LabelDetailViewController: BaseViewController {
         }
     }
     private lazy var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat = {
-        let yOffset = labelNameTableViewCell.bounds.height + labelInfoTableViewCell.bounds.height - utileBarView.bounds.height
+        let yOffset = labelNameTableViewCell.bounds.height + labelInfoTableViewCell.bounds.height - simpleNavigationBarView.bounds.height
         return yOffset
     }()
     private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
@@ -50,7 +50,7 @@ final class LabelDetailViewController: BaseViewController {
         super.viewDidLoad()
         stretchyLogoSmokedImageViewHeightConstraint.constant = Settings.strechyLogoImageViewHeight
         configureTableView()
-        handleUtileBarViewActions()
+        handleSimpleNavigationBarViewActions()
         fetchLabel()
     }
     
@@ -84,14 +84,14 @@ final class LabelDetailViewController: BaseViewController {
                 DispatchQueue.main.async {
                     self.label = label
                     self.title = label.name
-                    self.utileBarView.titleLabel.text = label.name
+                    self.simpleNavigationBarView.setTitle(label.name)
                     self.determineLabelMenuOptions()
                     self.initHorizontalMenuView()
                     
                     if let logoURLString = label.logoURLString, let logoURL = URL(string: logoURLString) {
                         self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
                     } else {
-                        self.tableView.contentInset = .init(top: self.utileBarView.frame.origin.y + self.utileBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
+                        self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
                     }
                     
                     self.label.currentRosterPagableManager.delegate = self
@@ -206,15 +206,15 @@ final class LabelDetailViewController: BaseViewController {
         
         horizontalMenuView.isHidden = false
         horizontalMenuViewTopConstraint.constant = max(
-            horizontalMenuAnchorTableViewCellFrameInView.origin.y, utileBarView.frame.origin.y + utileBarView.frame.height)
+            horizontalMenuAnchorTableViewCellFrameInView.origin.y, simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.height)
     }
     
-    private func handleUtileBarViewActions() {
-        utileBarView.didTapBackButton = { [unowned self] in
+    private func handleSimpleNavigationBarViewActions() {
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
             self.navigationController?.popViewController(animated: true)
         }
         
-        utileBarView.didTapShareButton = { [unowned self] in
+        simpleNavigationBarView.didTapRightButton = { [unowned self] in
             guard let label = self.label, let url = URL(string: label.urlString) else { return }
             
             self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(label.name!) in browser", alertMessage: label.urlString, shareMessage: "Share this label URL")
@@ -232,11 +232,11 @@ final class LabelDetailViewController: BaseViewController {
         }
         
         let labelNameLabellFrameInThisView = labelNameTableViewCell.convert(labelNameLabel.frame, to: view)
-        let distanceFromLabelNameLabelToUtileBarView = labelNameLabellFrameInThisView.origin.y - (utileBarView.frame.origin.y + utileBarView.frame.size.height)
+        let distanceFromLabelNameLabelToUtileBarView = labelNameLabellFrameInThisView.origin.y - (simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.size.height)
         
         // alpha = distance / label's height (dim base on label's frame)
         labelNameTableViewCell.alpha = (distanceFromLabelNameLabelToUtileBarView + labelNameLabel.frame.height) / labelNameLabel.frame.height
-        utileBarView.setAlphaForBackgroundAndTitleLabel(1 - labelNameTableViewCell.alpha)
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1 - labelNameTableViewCell.alpha)
     }
 }
 
@@ -432,7 +432,7 @@ extension LabelDetailViewController: HorizontalMenuViewDelegate {
     
     private func pinHorizontalMenuViewThenRefreshAndScrollTableView() {
         anchorHorizontalMenuToMenuAnchorTableViewCell = false
-        horizontalMenuViewTopConstraint.constant = utileBarView.frame.origin.y + utileBarView.frame.height
+        horizontalMenuViewTopConstraint.constant = simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.height
         tableView.reloadSections([1], with: .none)
         tableView.scrollToRow(at: IndexPath(row: 1, section: 0), at: .top, animated: false)
         tableView.setContentOffset(.init(x: 0, y: yOffsetNeededToPinHorizontalViewToUtileBarView), animated: false)
