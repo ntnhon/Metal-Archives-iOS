@@ -85,6 +85,14 @@ final class SimpleNavigationBarView: UIView {
         titleLabel.text = title
     }
     
+    func setLeftButtonIcon(_ image: UIImage) {
+        leftButton.setImage(image, for: .normal)
+    }
+    
+    func setRightButtonIcon(_ image: UIImage) {
+        rightButton.setImage(image, for: .normal)
+    }
+    
     @objc private func backButtonTapped() {
         didTapLeftButton?()
     }
