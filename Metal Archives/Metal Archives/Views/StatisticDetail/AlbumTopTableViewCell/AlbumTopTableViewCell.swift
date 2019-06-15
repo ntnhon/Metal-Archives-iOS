@@ -16,26 +16,26 @@ final class AlbumTopTableViewCell: ThumbnailableTableViewCell, RegisterableCell 
     
     override func initAppearance() {
         super.initAppearance()
-        self.orderLabel.textColor = Settings.currentTheme.titleColor
-        self.orderLabel.font = Settings.currentFontSize.titleFont
+        orderLabel.textColor = Settings.currentTheme.secondaryTitleColor
+        orderLabel.font = Settings.currentFontSize.titleFont
         
-        self.bandNameLabel.textColor = Settings.currentTheme.titleColor
-        self.bandNameLabel.font = Settings.currentFontSize.titleFont
+        bandNameLabel.textColor = Settings.currentTheme.titleColor
+        bandNameLabel.font = Settings.currentFontSize.titleFont
         
-        self.releaseTitleLabel.textColor = Settings.currentTheme.secondaryTitleColor
-        self.releaseTitleLabel.font = Settings.currentFontSize.secondaryTitleFont
+        releaseTitleLabel.textColor = Settings.currentTheme.secondaryTitleColor
+        releaseTitleLabel.font = Settings.currentFontSize.secondaryTitleFont
         
-        self.countLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.countLabel.font = Settings.currentFontSize.bodyTextFont
+        countLabel.textColor = Settings.currentTheme.bodyTextColor
+        countLabel.font = Settings.currentFontSize.bodyTextFont
     }
     
     func fill(with album: AlbumTop, order: Int) {
-        self.orderLabel.text = "#\(order)"
-        self.bandNameLabel.text = album.band.name
-        self.releaseTitleLabel.text = album.release.title
-        self.countLabel.text = "\(album.count)"
-        self.setThumbnailImageView(with: album)
-        self.setNeedsLayout()
-        self.layoutIfNeeded()
+        orderLabel.text = "#\(order)"
+        bandNameLabel.text = album.band.name
+        releaseTitleLabel.text = album.release.title
+        countLabel.text = "\(album.count)"
+        setThumbnailImageView(with: album)
+        setNeedsLayout()
+        layoutIfNeeded()
     }
 }

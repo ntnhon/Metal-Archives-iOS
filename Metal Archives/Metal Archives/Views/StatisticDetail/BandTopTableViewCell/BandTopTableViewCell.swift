@@ -15,20 +15,20 @@ final class BandTopTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
 
     override func initAppearance() {
         super.initAppearance()
-        self.orderLabel.textColor = Settings.currentTheme.titleColor
-        self.orderLabel.font = Settings.currentFontSize.titleFont
+        orderLabel.textColor = Settings.currentTheme.secondaryTitleColor
+        orderLabel.font = Settings.currentFontSize.titleFont
         
-        self.nameLabel.textColor = Settings.currentTheme.titleColor
-        self.nameLabel.font = Settings.currentFontSize.titleFont
+        nameLabel.textColor = Settings.currentTheme.titleColor
+        nameLabel.font = Settings.currentFontSize.titleFont
         
-        self.countLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.countLabel.font = Settings.currentFontSize.bodyTextFont
+        countLabel.textColor = Settings.currentTheme.bodyTextColor
+        countLabel.font = Settings.currentFontSize.bodyTextFont
     }
     
     func fill(with band: BandTop, order: Int) {
-        self.orderLabel.text = "#\(order)"
-        self.nameLabel.text = band.name
-        self.countLabel.text = "\(band.count)"
-        self.setThumbnailImageView(with: band)
+        orderLabel.text = "#\(order)"
+        nameLabel.text = band.name
+        countLabel.text = "\(band.count)"
+        setThumbnailImageView(with: band)
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SimpleNavigationBarView: UIView {
+final class SimpleNavigationBarView: UIView, TransformableWithScrollView {
     private var backgroundView: UIView!
     private var titleLabel: UILabel!
     private var leftButton: UIButton!
@@ -92,24 +92,7 @@ final class SimpleNavigationBarView: UIView {
     func setRightButtonIcon(_ image: UIImage?) {
         rightButton.setImage(image, for: .normal)
     }
-    
-    func transformWith(_ scrollView: UIScrollView) {
-        let transform: CGAffineTransform
-        if scrollView.panGestureRecognizer.translation(in: scrollView.superview).y < 0 && scrollView.contentOffset.y > 0 {
-            // scrolled up
-            transform = CGAffineTransform(translationX: 0, y: -bounds.height)
-        } else {
-            // scrolled down
-            transform = .identity
-        }
-        
-        guard self.transform != transform else { return }
-        
-        UIView.animate(withDuration: 0.35) { [unowned self] in
-            self.transform = transform
-        }
-    }
-    
+
     @objc private func leftButtonTapped() {
         didTapLeftButton?()
     }

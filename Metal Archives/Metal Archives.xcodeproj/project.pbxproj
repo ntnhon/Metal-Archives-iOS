@@ -82,6 +82,8 @@
 		C01D5872225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */; };
 		C027A27F22B55D330011EA73 /* SearchModeNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27E22B55D330011EA73 /* SearchModeNavigationBarView.swift */; };
 		C027A28122B57D5D0011EA73 /* DismissableOnSwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A28022B57D5D0011EA73 /* DismissableOnSwipeViewController.swift */; };
+		C027A28422B593FE0011EA73 /* Top100NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A28322B593FE0011EA73 /* Top100NavigationBarView.swift */; };
+		C027A28622B59A570011EA73 /* TransformableWithScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A28522B59A570011EA73 /* TransformableWithScrollView.swift */; };
 		C028CBE222A666A4005929F1 /* LabelNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028CBE122A666A4005929F1 /* LabelNameTableViewCell.swift */; };
 		C028CBE422A67509005929F1 /* LabelMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028CBE322A67509005929F1 /* LabelMenuOption.swift */; };
 		C02BB8F22284C27900EB72EC /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02BB8F12284C27900EB72EC /* ParseHelper.swift */; };
@@ -589,6 +591,8 @@
 		C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DisplayRestartAlert.swift"; sourceTree = "<group>"; };
 		C027A27E22B55D330011EA73 /* SearchModeNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModeNavigationBarView.swift; sourceTree = "<group>"; };
 		C027A28022B57D5D0011EA73 /* DismissableOnSwipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableOnSwipeViewController.swift; sourceTree = "<group>"; };
+		C027A28322B593FE0011EA73 /* Top100NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top100NavigationBarView.swift; sourceTree = "<group>"; };
+		C027A28522B59A570011EA73 /* TransformableWithScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformableWithScrollView.swift; sourceTree = "<group>"; };
 		C028CBE122A666A4005929F1 /* LabelNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNameTableViewCell.swift; sourceTree = "<group>"; };
 		C028CBE322A67509005929F1 /* LabelMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMenuOption.swift; sourceTree = "<group>"; };
 		C02BB8F12284C27900EB72EC /* ParseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseHelper.swift; sourceTree = "<group>"; };
@@ -1236,6 +1240,7 @@
 		C027A27C22B55CF00011EA73 /* CustomNavigationBar */ = {
 			isa = PBXGroup;
 			children = (
+				C027A28222B593DD0011EA73 /* Top100NavigationBarView */,
 				C027A27D22B55D0D0011EA73 /* SearchModeNavigationBarView */,
 				C0FFE1FA229593C800909765 /* SimpleNavigationBarView */,
 			);
@@ -1248,6 +1253,14 @@
 				C027A27E22B55D330011EA73 /* SearchModeNavigationBarView.swift */,
 			);
 			path = SearchModeNavigationBarView;
+			sourceTree = "<group>";
+		};
+		C027A28222B593DD0011EA73 /* Top100NavigationBarView */ = {
+			isa = PBXGroup;
+			children = (
+				C027A28322B593FE0011EA73 /* Top100NavigationBarView.swift */,
+			);
+			path = Top100NavigationBarView;
 			sourceTree = "<group>";
 		};
 		C028CBE022A66653005929F1 /* LabelNameTableViewCell */ = {
@@ -2581,6 +2594,7 @@
 				C00D361D223D608D00B29B43 /* Pagable */,
 				C05FC9AF222AC4DB00D4B0DF /* RegisterableCell.swift */,
 				C0850C13223C4F49009E45A8 /* Actionable.swift */,
+				C027A28522B59A570011EA73 /* TransformableWithScrollView.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -3396,6 +3410,7 @@
 				C0A48CEE222181BD0047FC70 /* Toaster+DisplayMessageShortly.swift in Sources */,
 				C0795B8B2288234F00E5D94F /* BetterSnappingLayout.swift in Sources */,
 				C01D5870225CE28100DC7556 /* ThemeListTableViewController.swift in Sources */,
+				C027A28422B593FE0011EA73 /* Top100NavigationBarView.swift in Sources */,
 				C00D3631223D98D700B29B43 /* DetailTableViewCell.swift in Sources */,
 				C0A1F94222416B82005C2C83 /* ArtistRIP.swift in Sources */,
 				C06F92962231CD310079E63E /* SimpleLabelTableViewCell.swift in Sources */,
@@ -3593,6 +3608,7 @@
 				C0AA06B922395D86001BE21D /* AdvancedSearchResultSong.swift in Sources */,
 				C053CF6C222440FD00B056A8 /* SubLabelTableViewCell.swift in Sources */,
 				C053DD32222681260028568B /* ArtistStatistic.swift in Sources */,
+				C027A28622B59A570011EA73 /* TransformableWithScrollView.swift in Sources */,
 				C053DD5B2226CA5F0028568B /* Formatter+withSeparator.swift in Sources */,
 				C0752965229ECC2B0067B5E1 /* ReleaseTableViewCell.swift in Sources */,
 				C006FB192249119000CA6CCD /* Analytics.swift in Sources */,

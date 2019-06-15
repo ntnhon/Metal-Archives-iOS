@@ -88,11 +88,21 @@
                                     <outlet property="delegate" destination="LHq-5I-uWZ" id="arJ-Nm-Mvi"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y75-iN-cLD" customClass="Top100NavigationBarView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="ydX-vT-MRv"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="PJV-iE-909" firstAttribute="bottom" secondItem="EfZ-nG-z9U" secondAttribute="bottom" id="39o-w3-OgY"/>
+                            <constraint firstItem="y75-iN-cLD" firstAttribute="top" secondItem="Ey7-10-ZB7" secondAttribute="top" id="B06-on-fbh"/>
                             <constraint firstItem="EfZ-nG-z9U" firstAttribute="top" secondItem="PJV-iE-909" secondAttribute="top" id="Nlf-oP-5b3"/>
+                            <constraint firstAttribute="trailing" secondItem="y75-iN-cLD" secondAttribute="trailing" id="NzY-0t-CFW"/>
+                            <constraint firstItem="y75-iN-cLD" firstAttribute="leading" secondItem="Ey7-10-ZB7" secondAttribute="leading" id="jlk-CT-kDP"/>
                             <constraint firstItem="PJV-iE-909" firstAttribute="trailing" secondItem="EfZ-nG-z9U" secondAttribute="trailing" id="usO-Mv-oda"/>
                             <constraint firstItem="EfZ-nG-z9U" firstAttribute="leading" secondItem="PJV-iE-909" secondAttribute="leading" id="xhx-hE-SkK"/>
                         </constraints>
@@ -100,6 +110,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="EfZ-nG-z9U" id="Dgm-D6-WIg"/>
+                        <outlet property="top100NavigationBarView" destination="y75-iN-cLD" id="yGe-PU-6et"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VhC-qw-nEC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -122,18 +133,29 @@
                                     <outlet property="delegate" destination="sKJ-9T-PLA" id="O0a-0u-9Dg"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="neW-XF-jIg" customClass="Top100NavigationBarView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="Ifb-b4-q9y"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="QWC-fb-dGd" firstAttribute="top" secondItem="pGn-V7-W4S" secondAttribute="top" id="OUI-32-15f"/>
+                            <constraint firstAttribute="trailing" secondItem="neW-XF-jIg" secondAttribute="trailing" id="Sp8-hs-5MV"/>
+                            <constraint firstItem="neW-XF-jIg" firstAttribute="leading" secondItem="8QI-ZB-5g9" secondAttribute="leading" id="Wrr-Ur-hRn"/>
                             <constraint firstItem="pGn-V7-W4S" firstAttribute="bottom" secondItem="QWC-fb-dGd" secondAttribute="bottom" id="grL-gT-Zsd"/>
                             <constraint firstItem="pGn-V7-W4S" firstAttribute="trailing" secondItem="QWC-fb-dGd" secondAttribute="trailing" id="hAS-NC-MKU"/>
                             <constraint firstItem="QWC-fb-dGd" firstAttribute="leading" secondItem="pGn-V7-W4S" secondAttribute="leading" id="lXw-Os-kS3"/>
+                            <constraint firstItem="neW-XF-jIg" firstAttribute="top" secondItem="8QI-ZB-5g9" secondAttribute="top" id="sVc-Ol-9Tz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pGn-V7-W4S"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="QWC-fb-dGd" id="FHr-H3-aLF"/>
+                        <outlet property="top100NavigationBarView" destination="neW-XF-jIg" id="Qho-Nt-syu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gaH-XF-Q0c" userLabel="First Responder" sceneMemberID="firstResponder"/>
