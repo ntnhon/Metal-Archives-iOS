@@ -223,7 +223,6 @@
 		C0602BCA21E9E56B00046367 /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0602BC921E9E56B00046367 /* HomepageViewController.swift */; };
 		C0602BCE21EA862900046367 /* LeftMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0602BCD21EA862900046367 /* LeftMenu.storyboard */; };
 		C0602BD121EA866700046367 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0602BD021EA866700046367 /* LeftMenuViewController.swift */; };
-		C0602BD721EA877400046367 /* UIViewController+AddToggleMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0602BD621EA877400046367 /* UIViewController+AddToggleMenuButton.swift */; };
 		C0602BD921EA89C000046367 /* Ressources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0602BD821EA89C000046367 /* Ressources.swift */; };
 		C0602BDB21EA8FA900046367 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0602BDA21EA8FA900046367 /* Home.storyboard */; };
 		C0602BDF21EA9CE800046367 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0602BDE21EA9CE800046367 /* Statics.swift */; };
@@ -729,7 +728,6 @@
 		C0602BC921E9E56B00046367 /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
 		C0602BCD21EA862900046367 /* LeftMenu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LeftMenu.storyboard; sourceTree = "<group>"; };
 		C0602BD021EA866700046367 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
-		C0602BD621EA877400046367 /* UIViewController+AddToggleMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+AddToggleMenuButton.swift"; sourceTree = "<group>"; };
 		C0602BD821EA89C000046367 /* Ressources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ressources.swift; sourceTree = "<group>"; };
 		C0602BDA21EA8FA900046367 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		C0602BDE21EA9CE800046367 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
@@ -2366,7 +2364,6 @@
 		C07CFC27220E2A14009142A0 /* UIViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C0602BD621EA877400046367 /* UIViewController+AddToggleMenuButton.swift */,
 				C0A2BF7721F67293002CCFEC /* UIViewController+OpenURLInBrowsers.swift */,
 				C09A18AB21FF50AC00152908 /* UIViewController+PresentPhotoViewerViewController.swift */,
 				C008388122008D1900B35996 /* UIViewController+CheckPhotoLibraryPermission.swift */,
@@ -3642,7 +3639,6 @@
 				C0BAD4AB222ED4AB00C4D38D /* SimpleSearchResultLyricalThemes.swift in Sources */,
 				C0A48CEC222161560047FC70 /* PagableManager.swift in Sources */,
 				C070BF6F222B3BD60082C20A /* UIImageView+AddShadow.swift in Sources */,
-				C0602BD721EA877400046367 /* UIViewController+AddToggleMenuButton.swift in Sources */,
 				C06F1E0121F7694600B49D39 /* Artist.swift in Sources */,
 				C085E6C622A27F78007FACFA /* ReleaseInfoTableViewCell.swift in Sources */,
 				C01839EC2225749A00FF88B7 /* LabelAdditionOrUpdateTableViewCell.swift in Sources */,

@@ -12,7 +12,7 @@ import FirebaseAnalytics
 import NotificationBannerSwift
 
 final class HomepageViewController: RefreshableViewController {
-    @IBOutlet private weak var searchButton: UIButton!
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     
     private var statisticAttrString: NSAttributedString?
     private var newsPagableManager = PagableManager<News>()
@@ -42,20 +42,20 @@ final class HomepageViewController: RefreshableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addToggleMenuButton()
-        initSearchButton()
+        initSimpleNavigationBarView()
         loadHomepage()
         initObservers()
         alertNewVersion()
-        //pushBandDetailViewController(urlString: "https://www.metal-archives.com/bands/When_Death_Replaces_Life/3540453629", animated: true)
-        //pushBandDetailViewController(urlString: "https://www.metal-archives.com/bands/Lamb_of_God/59", animated: true)
     }
     
     override func initAppearance() {
         super.initAppearance()
-
-        //Hide 1st header
-        tableView.contentInset = UIEdgeInsets(top: -CGFloat.leastNormalMagnitude, left: 0, bottom: 0, right: 0)
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        tableView.contentInset = UIEdgeInsets(top: simpleNavigationBarView.bounds.height, left: 0, bottom: 0, right: 0)
         
         LoadingTableViewCell.register(with: tableView)
         NewsTableViewCell.register(with: tableView)
@@ -65,21 +65,10 @@ final class HomepageViewController: RefreshableViewController {
         UpcomingAlbumsTableViewCell.register(with: tableView)
         ViewMoreTableViewCell.register(with: tableView)
     }
-
-    private func initSearchButton() {
-        searchButton.backgroundColor = Settings.currentTheme.backgroundColor
-        searchButton.layer.shadowColor = Settings.currentTheme.bodyTextColor.cgColor
-        searchButton.layer.shadowRadius = 10
-        searchButton.layer.shadowOpacity = 0.5
-        searchButton.layer.shadowOffset = CGSize(width: 2, height: 5)
-        searchButton.layer.cornerRadius = searchButton.frame.height/2
-        searchButton.layer.borderWidth = 0.2
-        searchButton.layer.borderColor = Settings.currentTheme.bodyTextColor.withAlphaComponent(0.5).cgColor
-    }
     
     private func initObservers() {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.OpenSearchModule, object: nil, queue: nil) { (notification) in
-            self.didTapSearchButton()
+            self.pushSearchViewController()
         }
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name.ShowBandDetail, object: nil, queue: nil) { (notification) in
@@ -176,14 +165,28 @@ final class HomepageViewController: RefreshableViewController {
         }
     }
     
-    @IBAction private func didTapSearchButton() {
-        guard let searchViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as? SearchViewController else {
-            return
+    private func initSimpleNavigationBarView() {
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        simpleNavigationBarView.setTitle("Metal Archives")
+        simpleNavigationBarView.setLeftButtonIcon(#imageLiteral(resourceName: "Menu"))
+        simpleNavigationBarView.setRightButtonIcon(#imageLiteral(resourceName: "horns_search"))
+        
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.toggleLeft()
+        }
+        
+        simpleNavigationBarView.didTapRightButton = { [unowned self] in
+            self.pushSearchViewController()
+        }
+    }
+    
+    private func pushSearchViewController() {guard let searchViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as? SearchViewController else {
+        return
         }
         
         navigationController?.pushViewController(searchViewController, animated: true)
     }
-    
+
     private func gentlyAskForReview() {
         let alert = UIAlertController(title: "Hey", message: "It seems that you are enjoying the application, it's great! Please take 1 minute to leave a review on App Store.", preferredStyle: .alert)
         
@@ -332,26 +335,6 @@ extension HomepageViewController: UITableViewDelegate {
         //Section: Stats
         case 0: didSelectRowInStatisticsSection(at: indexPath)
         default: return
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        //Hide 1st section header
-        if section == 0 {
-            return CGFloat.leastNormalMagnitude
-        }
-        return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        if let headerView = view as? UITableViewHeaderFooterView {
-            headerView.textLabel?.textColor = Settings.currentTheme.titleColor
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        if let footerView = view as? UITableViewHeaderFooterView {
-            footerView.textLabel?.textColor = Settings.currentTheme.titleColor
         }
     }
 }
