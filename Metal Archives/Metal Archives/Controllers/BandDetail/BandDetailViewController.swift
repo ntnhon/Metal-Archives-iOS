@@ -81,10 +81,6 @@ final class BandDetailViewController: BaseViewController {
         super.viewDidDisappear(animated)
         navigationController?.isNavigationBarHidden = false
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
 
     private func reloadBand() {
         

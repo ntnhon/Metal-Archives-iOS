@@ -10,42 +10,61 @@ import UIKit
 import FirebaseAnalytics
 
 final class BrowseLabelsByCountryViewController: BaseViewController {
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var tableView: UITableView!
     
     private var countrySectionsDictionary: [Character: [Country?]]!
     private var countrySectionsDictionarySortedKeys: [Character]!
     override func viewDidLoad() {
-        self.initCountrySectionsDictionary()
+        initCountrySectionsDictionary()
         super.viewDidLoad()
-        self.title = "Browse Labels - By Country"
     }
-
+    
     override func initAppearance() {
         super.initAppearance()
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.tableFooterView = UIView(frame: .zero)
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        let tableViewTopInset = simpleNavigationBarView.bounds.height - UIApplication.shared.statusBarFrame.height
+        tableView.contentInset = UIEdgeInsets(top: tableViewTopInset, left: 0, bottom: 0, right: 0)
         
-        ViewMoreTableViewCell.register(with: self.tableView)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
+        
+        ViewMoreTableViewCell.register(with: tableView)
+        initSimpleNavigationBarView()
+    }
+    
+    private func initSimpleNavigationBarView() {
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        simpleNavigationBarView.setTitle("Browse Labels - By Country")
+        simpleNavigationBarView.setRightButtonIcon(nil)
+        
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     private func initCountrySectionsDictionary() {
-        self.countrySectionsDictionary = [:]
+        countrySectionsDictionary = [:]
         sortedCountryList.forEach({
             let firstChar = $0.name[0]
-            if self.countrySectionsDictionary[firstChar] == nil {
-                self.countrySectionsDictionary[firstChar] = []
+            if countrySectionsDictionary[firstChar] == nil {
+                countrySectionsDictionary[firstChar] = []
             }
             
-            self.countrySectionsDictionary[firstChar]?.append($0)
+            countrySectionsDictionary[firstChar]?.append($0)
         })
         
-        self.countrySectionsDictionarySortedKeys = self.countrySectionsDictionary.keys.sorted()
+        countrySectionsDictionarySortedKeys = countrySectionsDictionary.keys.sorted()
         
         //Add "No country"
-        self.countrySectionsDictionarySortedKeys.insert("#", at: 0)
-        self.countrySectionsDictionary["#"]?.append(nil)
+        countrySectionsDictionarySortedKeys.insert("#", at: 0)
+        countrySectionsDictionary["#"]?.append(nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -57,11 +76,11 @@ final class BrowseLabelsByCountryViewController: BaseViewController {
             browseLabelsByCountryResultViewController.country = country
             
             if let `country` = country {
-                self.navigationItem.backBarButtonItem = UIBarButtonItem(title: country.nameAndEmoji, style: .plain, target: nil, action: nil)
+                navigationItem.backBarButtonItem = UIBarButtonItem(title: country.nameAndEmoji, style: .plain, target: nil, action: nil)
                 
                 Analytics.logEvent(AnalyticsEvent.PerformBrowseLabels, parameters: ["Module": "By country", AnalyticsParameter.Country: country.iso])
             } else {
-                self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "(No country)", style: .plain, target: nil, action: nil)
+                navigationItem.backBarButtonItem = UIBarButtonItem(title: "(No country)", style: .plain, target: nil, action: nil)
                 
                 Analytics.logEvent(AnalyticsEvent.PerformBrowseLabels, parameters: ["Module": "By country", AnalyticsParameter.Country: "No country"])
             }
@@ -77,23 +96,23 @@ extension BrowseLabelsByCountryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let char = self.countrySectionsDictionarySortedKeys[indexPath.section]
+        let char = countrySectionsDictionarySortedKeys[indexPath.section]
         
         var selectedCountry: Country? = nil
-        if let countries = self.countrySectionsDictionary[char], let country = countries[indexPath.row] {
+        if let countries = countrySectionsDictionary[char], let country = countries[indexPath.row] {
             selectedCountry = country
         }
         
-        self.performSegue(withIdentifier: "ShowResults", sender: selectedCountry)
+        performSegue(withIdentifier: "ShowResults", sender: selectedCountry)
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let char = self.countrySectionsDictionarySortedKeys[section]
+        let char = countrySectionsDictionarySortedKeys[section]
         return "\(char)"
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return self.countrySectionsDictionarySortedKeys.map({return "\($0)"})
+        return countrySectionsDictionarySortedKeys.map({return "\($0)"})
     }
     
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
@@ -104,12 +123,12 @@ extension BrowseLabelsByCountryViewController: UITableViewDelegate {
 //MARK: - UITableViewDataSource
 extension BrowseLabelsByCountryViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.countrySectionsDictionarySortedKeys.count
+        return countrySectionsDictionarySortedKeys.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let char = self.countrySectionsDictionarySortedKeys[section]
-        if let countries = self.countrySectionsDictionary[char] {
+        let char = countrySectionsDictionarySortedKeys[section]
+        if let countries = countrySectionsDictionary[char] {
             return countries.count
         }
         
@@ -121,8 +140,8 @@ extension BrowseLabelsByCountryViewController: UITableViewDataSource {
         let cell = ViewMoreTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.displayAsSecondaryTitle()
         
-        let char = self.countrySectionsDictionarySortedKeys[indexPath.section]
-        if let countries = self.countrySectionsDictionary[char], let country = countries[indexPath.row] {
+        let char = countrySectionsDictionarySortedKeys[indexPath.section]
+        if let countries = countrySectionsDictionary[char], let country = countries[indexPath.row] {
             cell.fill(message: country.nameAndEmoji)
         } else {
             cell.fill(message: "(No country)")

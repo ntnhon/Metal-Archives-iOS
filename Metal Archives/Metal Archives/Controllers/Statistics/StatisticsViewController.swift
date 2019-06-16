@@ -45,11 +45,7 @@ final class StatisticsViewController: BaseViewController {
         ReleaseStatisticTableViewCell.register(with: tableView)
         SimpleTableViewCell.register(with: tableView)
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
+
     private func handleSimpleNavigationBarViewActions() {
         simpleNavigationBarView.setTitle("Loading...")
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)

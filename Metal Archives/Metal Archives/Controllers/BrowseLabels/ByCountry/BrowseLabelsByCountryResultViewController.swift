@@ -11,44 +11,62 @@ import Toaster
 import FirebaseAnalytics
 
 final class BrowseLabelsByCountryResultViewController: RefreshableViewController {
+     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     var country: Country?
     
     private var browseLabelsByCountryPagableManager: PagableManager<LabelBrowseByCountry>!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Browse Labels - By Country"
-        self.initPagableManager()
-        self.browseLabelsByCountryPagableManager.fetch()
+        initPagableManager()
+        initSimpleNavigationBarView()
+        browseLabelsByCountryPagableManager.fetch()
     }
-    
+
     override func initAppearance() {
         super.initAppearance()
-        LoadingTableViewCell.register(with: self.tableView)
-        BrowseLabelsByCountryResultTableViewCell.register(with: self.tableView)
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        let tableViewTopInset = simpleNavigationBarView.bounds.height - UIApplication.shared.statusBarFrame.height
+        tableView.contentInset = UIEdgeInsets(top: tableViewTopInset, left: 0, bottom: 0, right: 0)
+
+        LoadingTableViewCell.register(with: tableView)
+        BrowseLabelsByCountryResultTableViewCell.register(with: tableView)
+    }
+    
+    private func initSimpleNavigationBarView() {
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        simpleNavigationBarView.setRightButtonIcon(nil)
+        
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     private func initPagableManager() {
-        if let country = self.country {
-            self.browseLabelsByCountryPagableManager = PagableManager<LabelBrowseByCountry>(options: ["<COUNTRY>": country.iso])
+        if let country = country {
+            browseLabelsByCountryPagableManager = PagableManager<LabelBrowseByCountry>(options: ["<COUNTRY>": country.iso])
         } else {
-            self.browseLabelsByCountryPagableManager = PagableManager<LabelBrowseByCountry>(options: ["<COUNTRY>": "0"])
+            browseLabelsByCountryPagableManager = PagableManager<LabelBrowseByCountry>(options: ["<COUNTRY>": "0"])
         }
         
-        self.browseLabelsByCountryPagableManager.delegate = self
+        browseLabelsByCountryPagableManager.delegate = self
     }
     
     private func updateTitle() {
-        guard let totalRecords = self.browseLabelsByCountryPagableManager.totalRecords else {
-            self.title = "No result found"
+        guard let totalRecords = browseLabelsByCountryPagableManager.totalRecords else {
+            simpleNavigationBarView.setTitle("No result found")
             return
         }
         
-        self.title = "Loaded \(self.browseLabelsByCountryPagableManager.objects.count) of \(totalRecords)"
+        simpleNavigationBarView.setTitle("Loaded \(browseLabelsByCountryPagableManager.objects.count) of \(totalRecords)")
     }
     
     override func refresh() {
-        self.browseLabelsByCountryPagableManager.reset()
-        self.tableView.reloadData()
+        browseLabelsByCountryPagableManager.reset()
+        tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
             self.browseLabelsByCountryPagableManager.fetch()
         }
@@ -60,7 +78,7 @@ final class BrowseLabelsByCountryResultViewController: RefreshableViewController
 //MARK: - PagableManagerDelegate
 extension BrowseLabelsByCountryResultViewController: PagableManagerDelegate {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.title = "Loading..."
+        simpleNavigationBarView.setTitle("Loading...")
     }
     
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -68,9 +86,9 @@ extension BrowseLabelsByCountryResultViewController: PagableManagerDelegate {
     }
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.endRefreshing()
-        self.updateTitle()
-        self.tableView.reloadData()
+        endRefreshing()
+        updateTitle()
+        tableView.reloadData()
         
         Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
@@ -85,27 +103,27 @@ extension BrowseLabelsByCountryResultViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard self.browseLabelsByCountryPagableManager.objects.indices.contains(indexPath.row) else {
+        guard browseLabelsByCountryPagableManager.objects.indices.contains(indexPath.row) else {
             return
             
         }
         
-        let label = self.browseLabelsByCountryPagableManager.objects[indexPath.row]
+        let label = browseLabelsByCountryPagableManager.objects[indexPath.row]
         
         if let _ = label.websiteURLString {
-            self.takeActionFor(actionableObject: label)
+            takeActionFor(actionableObject: label)
         } else {
-            self.pushLabelDetailViewController(urlString: label.urlString, animated: true)
+            pushLabelDetailViewController(urlString: label.urlString, animated: true)
         }
         
         Analytics.logEvent(AnalyticsEvent.SelectABrowseLabelsResult, parameters: [AnalyticsParameter.LabelName: label.name, AnalyticsParameter.LabelID: label.id])
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if self.browseLabelsByCountryPagableManager.moreToLoad && indexPath.row == self.browseLabelsByCountryPagableManager.objects.count {
-            self.browseLabelsByCountryPagableManager.fetch()
+        if browseLabelsByCountryPagableManager.moreToLoad && indexPath.row == browseLabelsByCountryPagableManager.objects.count {
+            browseLabelsByCountryPagableManager.fetch()
             
-        } else if !self.browseLabelsByCountryPagableManager.moreToLoad && indexPath.row == self.browseLabelsByCountryPagableManager.objects.count - 1 {
+        } else if !browseLabelsByCountryPagableManager.moreToLoad && indexPath.row == browseLabelsByCountryPagableManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
     }
@@ -118,11 +136,11 @@ extension BrowseLabelsByCountryResultViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let manager = self.browseLabelsByCountryPagableManager else {
+        guard let manager = browseLabelsByCountryPagableManager else {
             return 0
         }
         
-        if self.refreshControl.isRefreshing {
+        if refreshControl.isRefreshing {
             return 0
         }
         
@@ -134,15 +152,18 @@ extension BrowseLabelsByCountryResultViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.browseLabelsByCountryPagableManager.moreToLoad && indexPath.row == self.browseLabelsByCountryPagableManager.objects.count {
+        if browseLabelsByCountryPagableManager.moreToLoad && indexPath.row == browseLabelsByCountryPagableManager.objects.count {
             let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
         let cell = BrowseLabelsByCountryResultTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let label = self.browseLabelsByCountryPagableManager.objects[indexPath.row]
+        let label = browseLabelsByCountryPagableManager.objects[indexPath.row]
         cell.fill(with: label)
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: label.imageURLString, description: label.name, fromImageView: cell.thumbnailImageView)
+        }
         return cell
     }
 }

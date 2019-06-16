@@ -28,10 +28,6 @@ final class SearchViewController: UIViewController {
         updateSearchView()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     private func handleSearchModeNavigationBarViewActions() {
         searchModeNavigationBarView.didTapBackButton = { [unowned self] in
             self.navigationController?.popViewController(animated: true)

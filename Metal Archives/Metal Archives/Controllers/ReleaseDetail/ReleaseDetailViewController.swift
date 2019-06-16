@@ -71,10 +71,6 @@ final class ReleaseDetailViewController: BaseViewController {
         stretchyLogoSmokedImageView.transform = .identity
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     private func reloadRelease() {
         MetalArchivesAPI.reloadRelease(urlString: urlString) { [weak self] (release, error) in
             guard let self = self else { return }

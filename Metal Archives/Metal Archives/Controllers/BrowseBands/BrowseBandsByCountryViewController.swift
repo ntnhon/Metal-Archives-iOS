@@ -21,11 +21,7 @@ final class BrowseBandsByCountryViewController: BaseViewController {
         initCountrySectionsDictionary()//I don't why this should be put before viewDidLoad, cause put it after makes tableView datasource being called and crash the app.
         super.viewDidLoad()
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
+
     override func initAppearance() {
         super.initAppearance()
         if #available(iOS 11.0, *) {

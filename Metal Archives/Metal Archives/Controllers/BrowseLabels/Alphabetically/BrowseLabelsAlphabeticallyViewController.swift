@@ -10,27 +10,43 @@ import UIKit
 import FirebaseAnalytics
 
 final class BrowseLabelsAlphabeticallyViewController: BaseViewController {
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var tableView: UITableView!
     
     private var letters = Letter.allCases
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Browse Labels - Alphabetically"
-        
         //Remove "~"
-        self.letters.removeAll { (letter) -> Bool in
-            letter == Letter.tilde
-        }
+        letters.removeAll { $0 == Letter.tilde }
     }
-    
+
     override func initAppearance() {
         super.initAppearance()
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.tableFooterView = UIView(frame: .zero)
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        let tableViewTopInset = simpleNavigationBarView.bounds.height - UIApplication.shared.statusBarFrame.height
+        tableView.contentInset = UIEdgeInsets(top: tableViewTopInset, left: 0, bottom: 0, right: 0)
         
-        ViewMoreTableViewCell.register(with: self.tableView)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
+        
+        ViewMoreTableViewCell.register(with: tableView)
+        initSimpleNavigationBarView()
+    }
+    
+    private func initSimpleNavigationBarView() {
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        simpleNavigationBarView.setTitle("Browse Labels - Alphabetically")
+        simpleNavigationBarView.setRightButtonIcon(nil)
+        
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -52,8 +68,8 @@ final class BrowseLabelsAlphabeticallyViewController: BaseViewController {
 extension BrowseLabelsAlphabeticallyViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let letter = self.letters[indexPath.row]
-        self.performSegue(withIdentifier: "ShowResults", sender: letter)
+        let letter = letters[indexPath.row]
+        performSegue(withIdentifier: "ShowResults", sender: letter)
     }
 }
 
@@ -64,14 +80,14 @@ extension BrowseLabelsAlphabeticallyViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.letters.count
+        return letters.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ViewMoreTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.displayAsSecondaryTitle()
         
-        let letter = self.letters[indexPath.row]
+        let letter = letters[indexPath.row]
         cell.fill(message: letter.description)
         
         return cell

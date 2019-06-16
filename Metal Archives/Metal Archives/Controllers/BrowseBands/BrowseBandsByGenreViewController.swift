@@ -13,10 +13,6 @@ final class BrowseBandsByGenreViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var tableView: UITableView!
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     override func initAppearance() {
         super.initAppearance()
         if #available(iOS 11.0, *) {

@@ -11,38 +11,57 @@ import Toaster
 import FirebaseAnalytics
 
 final class BrowseLabelsAlphabeticallyResultViewController: RefreshableViewController {
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     var letter: Letter!
     
     private var browseLabelsAlphabeticallyPagableManager: PagableManager<LabelBrowseAlphabetically>!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initPagableManager()
-        self.browseLabelsAlphabeticallyPagableManager.fetch()
+        initPagableManager()
+        initSimpleNavigationBarView()
+        browseLabelsAlphabeticallyPagableManager.fetch()
     }
     
     override func initAppearance() {
         super.initAppearance()
-        LoadingTableViewCell.register(with: self.tableView)
-        BrowseLabelsAlphabeticallyResultTableViewCell.register(with: self.tableView)
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        let tableViewTopInset = simpleNavigationBarView.bounds.height - UIApplication.shared.statusBarFrame.height
+        tableView.contentInset = UIEdgeInsets(top: tableViewTopInset, left: 0, bottom: 0, right: 0)
+        
+        LoadingTableViewCell.register(with: tableView)
+        BrowseLabelsAlphabeticallyResultTableViewCell.register(with: tableView)
+    }
+    
+    private func initSimpleNavigationBarView() {
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        simpleNavigationBarView.setTitle("")
+        simpleNavigationBarView.setRightButtonIcon(nil)
+        
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     private func initPagableManager() {
-        self.browseLabelsAlphabeticallyPagableManager = PagableManager<LabelBrowseAlphabetically>(options: ["<LETTER>": self.letter.parameterString])
-        self.browseLabelsAlphabeticallyPagableManager.delegate = self
+        browseLabelsAlphabeticallyPagableManager = PagableManager<LabelBrowseAlphabetically>(options: ["<LETTER>": letter.parameterString])
+        browseLabelsAlphabeticallyPagableManager.delegate = self
     }
     
     private func updateTitle() {
-        guard let totalRecords = self.browseLabelsAlphabeticallyPagableManager.totalRecords else {
-            self.title = "No result found"
+        guard let totalRecords = browseLabelsAlphabeticallyPagableManager.totalRecords else {
+            simpleNavigationBarView.setTitle("No result found")
             return
         }
-        
-        self.title = "Loaded \(self.browseLabelsAlphabeticallyPagableManager.objects.count) of \(totalRecords)"
+        simpleNavigationBarView.setTitle("Loaded \(browseLabelsAlphabeticallyPagableManager.objects.count) of \(totalRecords)")
     }
     
     override func refresh() {
-        self.browseLabelsAlphabeticallyPagableManager.reset()
-        self.tableView.reloadData()
+        browseLabelsAlphabeticallyPagableManager.reset()
+        tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
             self.browseLabelsAlphabeticallyPagableManager.fetch()
         }
@@ -54,7 +73,7 @@ final class BrowseLabelsAlphabeticallyResultViewController: RefreshableViewContr
 //MARK: - PagableManagerDelegate
 extension BrowseLabelsAlphabeticallyResultViewController: PagableManagerDelegate {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.title = "Loading..."
+        simpleNavigationBarView.setTitle("Loading...")
     }
     
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -62,9 +81,9 @@ extension BrowseLabelsAlphabeticallyResultViewController: PagableManagerDelegate
     }
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.endRefreshing()
-        self.updateTitle()
-        self.tableView.reloadData()
+        endRefreshing()
+        updateTitle()
+        tableView.reloadData()
         
         Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
@@ -79,27 +98,27 @@ extension BrowseLabelsAlphabeticallyResultViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard self.browseLabelsAlphabeticallyPagableManager.objects.indices.contains(indexPath.row) else {
+        guard browseLabelsAlphabeticallyPagableManager.objects.indices.contains(indexPath.row) else {
             return
             
         }
         
-        let label = self.browseLabelsAlphabeticallyPagableManager.objects[indexPath.row]
+        let label = browseLabelsAlphabeticallyPagableManager.objects[indexPath.row]
         
         if let _ = label.websiteURLString {
-            self.takeActionFor(actionableObject: label)
+            takeActionFor(actionableObject: label)
         } else {
-            self.pushLabelDetailViewController(urlString: label.urlString, animated: true)
+            pushLabelDetailViewController(urlString: label.urlString, animated: true)
         }
         
         Analytics.logEvent(AnalyticsEvent.SelectABrowseLabelsResult, parameters: [AnalyticsParameter.LabelName: label.name, AnalyticsParameter.LabelID: label.id])
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if self.browseLabelsAlphabeticallyPagableManager.moreToLoad && indexPath.row == self.browseLabelsAlphabeticallyPagableManager.objects.count {
-            self.browseLabelsAlphabeticallyPagableManager.fetch()
+        if browseLabelsAlphabeticallyPagableManager.moreToLoad && indexPath.row == browseLabelsAlphabeticallyPagableManager.objects.count {
+            browseLabelsAlphabeticallyPagableManager.fetch()
             
-        } else if !self.browseLabelsAlphabeticallyPagableManager.moreToLoad && indexPath.row == self.browseLabelsAlphabeticallyPagableManager.objects.count - 1 {
+        } else if !browseLabelsAlphabeticallyPagableManager.moreToLoad && indexPath.row == browseLabelsAlphabeticallyPagableManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
     }
@@ -112,11 +131,11 @@ extension BrowseLabelsAlphabeticallyResultViewController: UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let manager = self.browseLabelsAlphabeticallyPagableManager else {
+        guard let manager = browseLabelsAlphabeticallyPagableManager else {
             return 0
         }
         
-        if self.refreshControl.isRefreshing {
+        if refreshControl.isRefreshing {
             return 0
         }
         
@@ -128,15 +147,18 @@ extension BrowseLabelsAlphabeticallyResultViewController: UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.browseLabelsAlphabeticallyPagableManager.moreToLoad && indexPath.row == self.browseLabelsAlphabeticallyPagableManager.objects.count {
+        if browseLabelsAlphabeticallyPagableManager.moreToLoad && indexPath.row == browseLabelsAlphabeticallyPagableManager.objects.count {
             let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
         let cell = BrowseLabelsAlphabeticallyResultTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let label = self.browseLabelsAlphabeticallyPagableManager.objects[indexPath.row]
+        let label = browseLabelsAlphabeticallyPagableManager.objects[indexPath.row]
         cell.fill(with: label)
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: label.imageURLString, description: label.name, fromImageView: cell.thumbnailImageView)
+        }
         return cell
     }
 }

@@ -23,11 +23,7 @@ final class Top100BandsViewController: BaseViewController {
         initTop100NavigationBarView()
         fetchData()
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
+
     override func initAppearance() {
         super.initAppearance()
 

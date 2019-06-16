@@ -30,10 +30,6 @@ final class SearchTipsViewController: DismissableOnSwipeViewController {
         textView.backgroundColor = Settings.currentTheme.backgroundColor
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     private func handleSimpleNavigationBarViewActions() {
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
         simpleNavigationBarView.setTitle("Search Tips 💡")

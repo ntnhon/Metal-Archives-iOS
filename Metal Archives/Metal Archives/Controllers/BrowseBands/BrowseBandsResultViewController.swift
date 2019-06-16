@@ -23,11 +23,7 @@ final class BrowseBandsResultViewController: RefreshableViewController {
         bandBrowsePagableManager.delegate = self
         bandBrowsePagableManager.fetch()
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
+
     override func initAppearance() {
         super.initAppearance()
         
@@ -76,7 +72,7 @@ final class BrowseBandsResultViewController: RefreshableViewController {
 //MARK: - PagableManagerDelegate
 extension BrowseBandsResultViewController: PagableManagerDelegate {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        title = "Loading..."
+        simpleNavigationBarView.setTitle("Loading...")
     }
     
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {

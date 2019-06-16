@@ -73,11 +73,7 @@ final class ArtistDetailViewController: BaseViewController {
         navigationController?.isNavigationBarHidden = false
         stretchyLogoSmokedImageView.transform = .identity
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
+
     private func reloadArtist() {
         MetalArchivesAPI.reloadArtist(urlString: urlString) { [weak self] (artist, error) in
             guard let self = self else { return }

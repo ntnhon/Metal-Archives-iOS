@@ -47,10 +47,6 @@ final class HomepageViewController: RefreshableViewController {
         alertNewVersion()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     override func initAppearance() {
         super.initAppearance()
         

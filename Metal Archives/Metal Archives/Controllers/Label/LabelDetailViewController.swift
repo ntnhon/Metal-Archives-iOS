@@ -68,10 +68,6 @@ final class LabelDetailViewController: BaseViewController {
         navigationController?.isNavigationBarHidden = false
         stretchyLogoSmokedImageView.transform = .identity
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
 
     private func fetchLabel() {
         MetalArchivesAPI.reloadLabel(urlString: self.urlString) { [weak self] (label, error) in
