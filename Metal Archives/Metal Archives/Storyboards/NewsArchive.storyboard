@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="i9P-kc-nPh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="i9P-kc-nPh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,17 +26,28 @@
                                     <outlet property="delegate" destination="i9P-kc-nPh" id="ElV-ZE-K3a"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdN-Yz-f1G" customClass="SimpleNavigationBarView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="gu9-ij-bof"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="tdN-Yz-f1G" secondAttribute="trailing" id="6Db-WM-Tke"/>
                             <constraint firstItem="05o-Dg-qlE" firstAttribute="bottom" secondItem="SDm-LO-JwB" secondAttribute="bottom" id="D5E-KL-JQa"/>
                             <constraint firstItem="05o-Dg-qlE" firstAttribute="trailing" secondItem="SDm-LO-JwB" secondAttribute="trailing" id="eNg-s1-XKP"/>
+                            <constraint firstItem="tdN-Yz-f1G" firstAttribute="leading" secondItem="DWx-Ku-mol" secondAttribute="leading" id="fYr-Z0-CII"/>
+                            <constraint firstItem="tdN-Yz-f1G" firstAttribute="top" secondItem="DWx-Ku-mol" secondAttribute="top" id="iMs-Q0-T5X"/>
                             <constraint firstItem="SDm-LO-JwB" firstAttribute="leading" secondItem="05o-Dg-qlE" secondAttribute="leading" id="j5f-gj-QHv"/>
                             <constraint firstItem="SDm-LO-JwB" firstAttribute="top" secondItem="05o-Dg-qlE" secondAttribute="top" id="z3V-zR-udI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="05o-Dg-qlE"/>
                     </view>
                     <connections>
+                        <outlet property="simpleNavigationBarView" destination="tdN-Yz-f1G" id="Z0X-e8-fUk"/>
                         <outlet property="tableView" destination="SDm-LO-JwB" id="fui-Ws-iSa"/>
                     </connections>
                 </viewController>

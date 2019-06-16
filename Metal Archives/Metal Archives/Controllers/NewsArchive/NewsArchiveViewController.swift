@@ -11,6 +11,7 @@ import Toaster
 import FirebaseAnalytics
 
 final class NewsArchiveViewController: RefreshableViewController {
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     private var errorFetchingMoreNews = false
     private var isFetching = false
     
@@ -18,13 +19,17 @@ final class NewsArchiveViewController: RefreshableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.newsArchivesPagableManager.delegate = self
-        self.newsArchivesPagableManager.fetch()
+        newsArchivesPagableManager.delegate = self
+        newsArchivesPagableManager.fetch()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func refresh() {
-        self.newsArchivesPagableManager.reset()
-        self.tableView.reloadData()
+        newsArchivesPagableManager.reset()
+        tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
             self.newsArchivesPagableManager.fetch()
         }
@@ -32,23 +37,42 @@ final class NewsArchiveViewController: RefreshableViewController {
 
     override func initAppearance() {
         super.initAppearance()
-        LoadingTableViewCell.register(with: self.tableView)
-        NewsDetailTableViewCell.register(with: self.tableView)
         
-        self.title = "News Archive"
+        let tableViewTopInset: CGFloat
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        tableViewTopInset = simpleNavigationBarView.bounds.height - UIApplication.shared.statusBarFrame.height
+        tableView.contentInset = UIEdgeInsets(top: tableViewTopInset, left: 0, bottom: 0, right: 0)
+        
+        LoadingTableViewCell.register(with: tableView)
+        NewsDetailTableViewCell.register(with: tableView)
+        initSimpleNavigationBarView()
+    }
+    
+    private func initSimpleNavigationBarView() {
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        simpleNavigationBarView.setTitle("News Archives")
+        simpleNavigationBarView.setRightButtonIcon(nil)
+        
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 }
 
-//MARK: - PagableManagerProtocol
+// MARK: - PagableManagerProtocol
 extension NewsArchiveViewController: PagableManagerDelegate {
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.endRefreshing()
+        endRefreshing()
         Toast.displayMessageShortly(errorLoadingMessage)
     }
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.refreshSuccessfully()
-        self.tableView.reloadData()
+        refreshSuccessfully()
+        tableView.reloadData()
     }
     
     func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -56,47 +80,47 @@ extension NewsArchiveViewController: PagableManagerDelegate {
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension NewsArchiveViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if self.newsArchivesPagableManager.moreToLoad && indexPath.row == self.newsArchivesPagableManager.objects.count {
+        if newsArchivesPagableManager.moreToLoad && indexPath.row == newsArchivesPagableManager.objects.count {
             //Loading cell
             return
         }
         
-        let news = self.newsArchivesPagableManager.objects[indexPath.row]
+        let news = newsArchivesPagableManager.objects[indexPath.row]
         guard let url = URL(string: news.urlString) else { return }
-        self.presentAlertOpenURLInBrowsers(url, alertTitle: "View this article in browser", alertMessage: news.title, shareMessage: "Share this article URL")
+        presentAlertOpenURLInBrowsers(url, alertTitle: "View this article in browser", alertMessage: news.title, shareMessage: "Share this article URL")
         
         Analytics.logEvent(AnalyticsEvent.SelectAnItemInNews, parameters: nil)
     }
 }
 
-//MARK: - UITableViewDatasource
+// MARK: - UITableViewDatasource
 extension NewsArchiveViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.refreshControl.isRefreshing {
+        if refreshControl.isRefreshing {
             return 0
         }
         
-        if self.newsArchivesPagableManager.moreToLoad {
-            return self.newsArchivesPagableManager.objects.count + 1
+        if newsArchivesPagableManager.moreToLoad {
+            return newsArchivesPagableManager.objects.count + 1
         } else {
-            return self.newsArchivesPagableManager.objects.count
+            return newsArchivesPagableManager.objects.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.newsArchivesPagableManager.moreToLoad && indexPath.row == self.newsArchivesPagableManager.objects.count {
+        if newsArchivesPagableManager.moreToLoad && indexPath.row == newsArchivesPagableManager.objects.count {
             let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
 
             //Fetch is on the way
-            if !self.errorFetchingMoreNews {
+            if !errorFetchingMoreNews {
                 loadingCell.displayIsLoading()
                 return loadingCell
             }
@@ -107,7 +131,7 @@ extension NewsArchiveViewController: UITableViewDataSource {
         }
         
         let newsDetailCell = NewsDetailTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let news = self.newsArchivesPagableManager.objects[indexPath.row]
+        let news = newsArchivesPagableManager.objects[indexPath.row]
         newsDetailCell.fill(with: news)
         return newsDetailCell
     }
@@ -115,12 +139,19 @@ extension NewsArchiveViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        if self.newsArchivesPagableManager.moreToLoad && indexPath.row == self.newsArchivesPagableManager.objects.count {
+        if newsArchivesPagableManager.moreToLoad && indexPath.row == newsArchivesPagableManager.objects.count {
             
-            self.newsArchivesPagableManager.fetch()
+            newsArchivesPagableManager.fetch()
             
-        } else if !self.newsArchivesPagableManager.moreToLoad && indexPath.row == self.newsArchivesPagableManager.objects.count - 1 {
+        } else if !newsArchivesPagableManager.moreToLoad && indexPath.row == newsArchivesPagableManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension NewsArchiveViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        simpleNavigationBarView.transformWith(scrollView)
     }
 }
