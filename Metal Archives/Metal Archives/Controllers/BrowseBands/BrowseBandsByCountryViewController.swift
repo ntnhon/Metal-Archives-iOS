@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAnalytics
 
 final class BrowseBandsByCountryViewController: BaseViewController {
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var tableView: UITableView!
     
     private var countrySectionsDictionary: [Character: [Country]]!
@@ -17,34 +18,55 @@ final class BrowseBandsByCountryViewController: BaseViewController {
     
     override func viewDidLoad() {
         
-        self.initCountrySectionsDictionary()//I don't why this should be put before viewDidLoad, cause put it after makes tableView datasource being called and crash the app.
+        initCountrySectionsDictionary()//I don't why this should be put before viewDidLoad, cause put it after makes tableView datasource being called and crash the app.
         super.viewDidLoad()
-        self.title = "Browse Bands - By Country"
-        
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func initAppearance() {
         super.initAppearance()
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.tableFooterView = UIView(frame: .zero)
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        let tableViewTopInset = simpleNavigationBarView.bounds.height - UIApplication.shared.statusBarFrame.height
+        tableView.contentInset = UIEdgeInsets(top: tableViewTopInset - 1, left: 0, bottom: 0, right: 0)
         
-        ViewMoreTableViewCell.register(with: self.tableView)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
+        
+        ViewMoreTableViewCell.register(with: tableView)
+        initSimpleNavigationBarView()
+    }
+    
+    private func initSimpleNavigationBarView() {
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        simpleNavigationBarView.setTitle("Browse Bands - By Country")
+        simpleNavigationBarView.setRightButtonIcon(nil)
+        
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     private func initCountrySectionsDictionary() {
-        self.countrySectionsDictionary = [:]
+        countrySectionsDictionary = [:]
         sortedCountryList.forEach({
             let firstChar = $0.name[0]
-            if self.countrySectionsDictionary[firstChar] == nil {
-                self.countrySectionsDictionary[firstChar] = []
+            if countrySectionsDictionary[firstChar] == nil {
+                countrySectionsDictionary[firstChar] = []
             }
             
-            self.countrySectionsDictionary[firstChar]?.append($0)
+            countrySectionsDictionary[firstChar]?.append($0)
         })
         
-        self.countrySectionsDictionarySortedKeys = self.countrySectionsDictionary.keys.sorted()
+        countrySectionsDictionarySortedKeys = countrySectionsDictionary.keys.sorted()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -67,10 +89,10 @@ extension BrowseBandsByCountryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let char = self.countrySectionsDictionarySortedKeys[indexPath.section]
-        let selectedCountry = self.countrySectionsDictionary[char]![indexPath.row]
+        let char = countrySectionsDictionarySortedKeys[indexPath.section]
+        let selectedCountry = countrySectionsDictionary[char]![indexPath.row]
         
-        self.performSegue(withIdentifier: "ShowResults", sender: selectedCountry)
+        performSegue(withIdentifier: "ShowResults", sender: selectedCountry)
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -86,12 +108,12 @@ extension BrowseBandsByCountryViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let char = self.countrySectionsDictionarySortedKeys[section]
+        let char = countrySectionsDictionarySortedKeys[section]
         return "\(char)"
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return self.countrySectionsDictionarySortedKeys.map({return "\($0)"})
+        return countrySectionsDictionarySortedKeys.map({return "\($0)"})
     }
     
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
@@ -102,20 +124,20 @@ extension BrowseBandsByCountryViewController: UITableViewDelegate {
 //MARK: - UITableViewDataSource
 extension BrowseBandsByCountryViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.countrySectionsDictionarySortedKeys.count
+        return countrySectionsDictionarySortedKeys.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let char = self.countrySectionsDictionarySortedKeys[section]
-        return self.countrySectionsDictionary[char]!.count
+        let char = countrySectionsDictionarySortedKeys[section]
+        return countrySectionsDictionary[char]!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ViewMoreTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.displayAsSecondaryTitle()
         
-        let char = self.countrySectionsDictionarySortedKeys[indexPath.section]
-        let country = self.countrySectionsDictionary[char]![indexPath.row]
+        let char = countrySectionsDictionarySortedKeys[indexPath.section]
+        let country = countrySectionsDictionary[char]![indexPath.row]
         
         cell.fill(message: country.nameAndEmoji)
         return cell

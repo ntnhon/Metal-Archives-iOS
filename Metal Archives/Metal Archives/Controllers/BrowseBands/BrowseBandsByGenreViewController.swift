@@ -10,21 +10,40 @@ import UIKit
 import FirebaseAnalytics
 
 final class BrowseBandsByGenreViewController: BaseViewController {
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var tableView: UITableView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.title = "Browse Bands - By Genre"
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func initAppearance() {
         super.initAppearance()
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.tableFooterView = UIView(frame: .zero)
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        let tableViewTopInset = simpleNavigationBarView.bounds.height - UIApplication.shared.statusBarFrame.height
+        tableView.contentInset = UIEdgeInsets(top: tableViewTopInset - 1, left: 0, bottom: 0, right: 0)
         
-        ViewMoreTableViewCell.register(with: self.tableView)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
+        
+        ViewMoreTableViewCell.register(with: tableView)
+        initSimpleNavigationBarView()
+    }
+    
+    private func initSimpleNavigationBarView() {
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        simpleNavigationBarView.setTitle("Browse Bands - By Genre")
+        simpleNavigationBarView.setRightButtonIcon(nil)
+        
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -44,12 +63,16 @@ final class BrowseBandsByGenreViewController: BaseViewController {
 
 //MARK: - UITableViewDelegate
 extension BrowseBandsByGenreViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let genre = Genre.allCases[indexPath.row]
         
-        self.performSegue(withIdentifier: "ShowResults", sender: genre)
+        performSegue(withIdentifier: "ShowResults", sender: genre)
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {

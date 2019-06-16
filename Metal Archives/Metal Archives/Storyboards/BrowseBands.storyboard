@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,17 +26,28 @@
                                     <outlet property="delegate" destination="b4I-vW-34c" id="UEP-49-z2g"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x0L-Lm-VrU" customClass="SimpleNavigationBarView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="VXS-ki-8cb"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="x0L-Lm-VrU" secondAttribute="trailing" id="5Cr-xj-lCL"/>
                             <constraint firstItem="JeN-AO-zyg" firstAttribute="leading" secondItem="FxK-as-0X9" secondAttribute="leading" id="VZL-z2-cLJ"/>
                             <constraint firstItem="JeN-AO-zyg" firstAttribute="top" secondItem="FxK-as-0X9" secondAttribute="top" id="c9v-hS-zsE"/>
                             <constraint firstItem="FxK-as-0X9" firstAttribute="trailing" secondItem="JeN-AO-zyg" secondAttribute="trailing" id="crg-NA-2ch"/>
                             <constraint firstItem="FxK-as-0X9" firstAttribute="bottom" secondItem="JeN-AO-zyg" secondAttribute="bottom" id="dgA-5r-kJn"/>
+                            <constraint firstItem="x0L-Lm-VrU" firstAttribute="leading" secondItem="FxK-as-0X9" secondAttribute="leading" id="pC2-fX-DLd"/>
+                            <constraint firstItem="x0L-Lm-VrU" firstAttribute="top" secondItem="rgP-lA-ey6" secondAttribute="top" id="wSw-cj-98T"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FxK-as-0X9"/>
                     </view>
                     <connections>
+                        <outlet property="simpleNavigationBarView" destination="x0L-Lm-VrU" id="QII-Tx-8UQ"/>
                         <outlet property="tableView" destination="JeN-AO-zyg" id="6dx-rl-T81"/>
                         <segue destination="cSw-PA-ySJ" kind="show" identifier="ShowResults" id="4Ui-gV-9jB"/>
                     </connections>
@@ -61,17 +72,28 @@
                                     <outlet property="delegate" destination="gWm-Wl-Ox0" id="BEj-11-MS5"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wd8-Al-HWu" customClass="SimpleNavigationBarView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="hIa-bZ-1MD"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ECx-T4-4G9" firstAttribute="bottom" secondItem="BMM-8u-HGh" secondAttribute="bottom" id="F2J-Qz-est"/>
                             <constraint firstItem="BMM-8u-HGh" firstAttribute="leading" secondItem="ECx-T4-4G9" secondAttribute="leading" id="Ifa-ey-4kR"/>
+                            <constraint firstItem="wd8-Al-HWu" firstAttribute="leading" secondItem="gfk-HJ-Tfo" secondAttribute="leading" id="OaE-Jr-07g"/>
                             <constraint firstItem="ECx-T4-4G9" firstAttribute="trailing" secondItem="BMM-8u-HGh" secondAttribute="trailing" id="PUR-dk-Shj"/>
+                            <constraint firstItem="wd8-Al-HWu" firstAttribute="top" secondItem="gfk-HJ-Tfo" secondAttribute="top" id="Qwa-cg-dbl"/>
                             <constraint firstItem="BMM-8u-HGh" firstAttribute="top" secondItem="ECx-T4-4G9" secondAttribute="top" id="kk5-XA-zfd"/>
+                            <constraint firstAttribute="trailing" secondItem="wd8-Al-HWu" secondAttribute="trailing" id="yTf-M9-3e1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ECx-T4-4G9"/>
                     </view>
                     <connections>
+                        <outlet property="simpleNavigationBarView" destination="wd8-Al-HWu" id="GRo-gS-Ztr"/>
                         <outlet property="tableView" destination="BMM-8u-HGh" id="aMl-RP-TIA"/>
                         <segue destination="cSw-PA-ySJ" kind="show" identifier="ShowResults" id="ztN-dQ-RuG"/>
                     </connections>
@@ -96,17 +118,28 @@
                                     <outlet property="delegate" destination="cSw-PA-ySJ" id="ArI-2j-FNy"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yhz-PE-kRy" customClass="SimpleNavigationBarView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="bK1-hG-lwy"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="yhz-PE-kRy" secondAttribute="trailing" id="0xV-Tk-2PR"/>
                             <constraint firstItem="FxH-ZN-rQT" firstAttribute="trailing" secondItem="Jkz-YD-Nb6" secondAttribute="trailing" id="269-ph-1qd"/>
                             <constraint firstItem="FxH-ZN-rQT" firstAttribute="bottom" secondItem="Jkz-YD-Nb6" secondAttribute="bottom" id="8iw-Ch-XTN"/>
                             <constraint firstItem="Jkz-YD-Nb6" firstAttribute="leading" secondItem="FxH-ZN-rQT" secondAttribute="leading" id="BqQ-Fa-TfH"/>
+                            <constraint firstItem="yhz-PE-kRy" firstAttribute="leading" secondItem="q2i-0H-GBu" secondAttribute="leading" id="MK3-zl-1qJ"/>
                             <constraint firstItem="Jkz-YD-Nb6" firstAttribute="top" secondItem="FxH-ZN-rQT" secondAttribute="top" id="gkF-lI-1K1"/>
+                            <constraint firstItem="yhz-PE-kRy" firstAttribute="top" secondItem="q2i-0H-GBu" secondAttribute="top" id="rQK-oD-emH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FxH-ZN-rQT"/>
                     </view>
                     <connections>
+                        <outlet property="simpleNavigationBarView" destination="yhz-PE-kRy" id="YvE-mv-HIo"/>
                         <outlet property="tableView" destination="Jkz-YD-Nb6" id="LHe-74-lMD"/>
                     </connections>
                 </viewController>
@@ -130,17 +163,28 @@
                                     <outlet property="delegate" destination="zLk-io-nIE" id="sPE-OR-MN1"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G6V-vb-YQs" customClass="SimpleNavigationBarView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="8F6-Uy-z60"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="G6V-vb-YQs" firstAttribute="top" secondItem="mjK-IZ-5al" secondAttribute="top" id="2GX-Kb-5To"/>
                             <constraint firstItem="TJe-3u-jHC" firstAttribute="top" secondItem="tPZ-nO-cMs" secondAttribute="top" id="60C-z1-OYs"/>
+                            <constraint firstItem="G6V-vb-YQs" firstAttribute="leading" secondItem="mjK-IZ-5al" secondAttribute="leading" id="Dm1-Im-rW0"/>
                             <constraint firstItem="TJe-3u-jHC" firstAttribute="leading" secondItem="tPZ-nO-cMs" secondAttribute="leading" id="FEN-Y9-UB4"/>
                             <constraint firstItem="tPZ-nO-cMs" firstAttribute="trailing" secondItem="TJe-3u-jHC" secondAttribute="trailing" id="JWX-Yc-fN0"/>
+                            <constraint firstAttribute="trailing" secondItem="G6V-vb-YQs" secondAttribute="trailing" id="YDD-UU-aG8"/>
                             <constraint firstItem="tPZ-nO-cMs" firstAttribute="bottom" secondItem="TJe-3u-jHC" secondAttribute="bottom" id="wtj-o5-Ia1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tPZ-nO-cMs"/>
                     </view>
                     <connections>
+                        <outlet property="simpleNavigationBarView" destination="G6V-vb-YQs" id="IdZ-Ft-8Ox"/>
                         <outlet property="tableView" destination="TJe-3u-jHC" id="HpD-el-OI5"/>
                         <segue destination="cSw-PA-ySJ" kind="show" identifier="ShowResults" id="8pf-nM-iXc"/>
                     </connections>

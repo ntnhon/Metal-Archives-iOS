@@ -11,35 +11,60 @@ import Toaster
 import FirebaseAnalytics
 
 final class BrowseBandsResultViewController: RefreshableViewController {
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     var parameter: String!
     var context: String!
     
     private var bandBrowsePagableManager: PagableManager<BandBrowse>!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.bandBrowsePagableManager = PagableManager<BandBrowse>(options: ["<PARAMETER>": parameter])
-        self.bandBrowsePagableManager.delegate = self
-        self.bandBrowsePagableManager.fetch()
+        initSimpleNavigationBarView()
+        bandBrowsePagableManager = PagableManager<BandBrowse>(options: ["<PARAMETER>": parameter])
+        bandBrowsePagableManager.delegate = self
+        bandBrowsePagableManager.fetch()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func initAppearance() {
         super.initAppearance()
-        LoadingTableViewCell.register(with: self.tableView)
-        BrowseBandsResultTableViewCell.register(with: self.tableView)
+        
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        let tableViewTopInset = simpleNavigationBarView.bounds.height - UIApplication.shared.statusBarFrame.height
+        tableView.contentInset = UIEdgeInsets(top: tableViewTopInset, left: 0, bottom: 0, right: 0)
+        
+        LoadingTableViewCell.register(with: tableView)
+        BrowseBandsResultTableViewCell.register(with: tableView)
+    }
+    
+    private func initSimpleNavigationBarView() {
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        simpleNavigationBarView.setTitle("Loading...")
+        simpleNavigationBarView.setRightButtonIcon(nil)
+        
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     private func updateTitle() {
-        guard let totalRecords = self.bandBrowsePagableManager.totalRecords else {
-            self.title = ""
+        guard let totalRecords = bandBrowsePagableManager.totalRecords else {
+            simpleNavigationBarView.setTitle("")
             return
         }
         
-        self.title = context + " (\(self.bandBrowsePagableManager.objects.count)/\(totalRecords))"
+        simpleNavigationBarView.setTitle(context + " (\(bandBrowsePagableManager.objects.count)/\(totalRecords))")
     }
     
     override func refresh() {
-        self.bandBrowsePagableManager.reset()
-        self.tableView.reloadData()
+        bandBrowsePagableManager.reset()
+        tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: {
             self.bandBrowsePagableManager.fetch()
         })
@@ -51,7 +76,7 @@ final class BrowseBandsResultViewController: RefreshableViewController {
 //MARK: - PagableManagerDelegate
 extension BrowseBandsResultViewController: PagableManagerDelegate {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.title = "Loading..."
+        title = "Loading..."
     }
     
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -59,9 +84,9 @@ extension BrowseBandsResultViewController: PagableManagerDelegate {
     }
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.endRefreshing()
-        self.updateTitle()
-        self.tableView.reloadData()
+        endRefreshing()
+        updateTitle()
+        tableView.reloadData()
         
         Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
@@ -76,19 +101,19 @@ extension BrowseBandsResultViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if self.bandBrowsePagableManager.objects.indices.contains(indexPath.row) {
-            let band = self.bandBrowsePagableManager.objects[indexPath.row]
-            self.pushBandDetailViewController(urlString: band.urlString, animated: true)
+        if bandBrowsePagableManager.objects.indices.contains(indexPath.row) {
+            let band = bandBrowsePagableManager.objects[indexPath.row]
+            pushBandDetailViewController(urlString: band.urlString, animated: true)
             
             Analytics.logEvent(AnalyticsEvent.SelectABrowseBandsResult, parameters: [AnalyticsParameter.BandName: band.name, AnalyticsParameter.BandID: band.id])
         }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if self.bandBrowsePagableManager.moreToLoad && indexPath.row == self.bandBrowsePagableManager.objects.count {
-            self.bandBrowsePagableManager.fetch()
+        if bandBrowsePagableManager.moreToLoad && indexPath.row == bandBrowsePagableManager.objects.count {
+            bandBrowsePagableManager.fetch()
             
-        } else if !self.bandBrowsePagableManager.moreToLoad && indexPath.row == self.bandBrowsePagableManager.objects.count - 1 {
+        } else if !bandBrowsePagableManager.moreToLoad && indexPath.row == bandBrowsePagableManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
     }
@@ -101,11 +126,11 @@ extension BrowseBandsResultViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let manager = self.bandBrowsePagableManager else {
+        guard let manager = bandBrowsePagableManager else {
             return 0
         }
         
-        if self.refreshControl.isRefreshing {
+        if refreshControl.isRefreshing {
             return 0
         }
         
@@ -117,16 +142,18 @@ extension BrowseBandsResultViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.bandBrowsePagableManager.moreToLoad && indexPath.row == self.bandBrowsePagableManager.objects.count {
+        if bandBrowsePagableManager.moreToLoad && indexPath.row == bandBrowsePagableManager.objects.count {
             let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
         let cell = BrowseBandsResultTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let band = self.bandBrowsePagableManager.objects[indexPath.row]
+        let band = bandBrowsePagableManager.objects[indexPath.row]
         cell.fill(with: band)
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: band.imageURLString, description: band.name, fromImageView: cell.thumbnailImageView)
+        }
         return cell
     }
 }
-
