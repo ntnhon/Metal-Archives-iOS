@@ -42,6 +42,7 @@ final class PhotoViewerViewController: BaseViewController {
             self.funnyEyesButton.setImage(UIImage(named: imageName), for: .normal)
         }
     }
+    
     private var displayOnlyPhotoImageView = false {
         didSet {
             UIView.animate(withDuration: 0.35) { [weak self] in
@@ -57,7 +58,7 @@ final class PhotoViewerViewController: BaseViewController {
     deinit {
         print("PhotoViewerViewController is deallocated")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addGestures()
@@ -117,13 +118,14 @@ final class PhotoViewerViewController: BaseViewController {
         containerController.view.addSubview(temporaryImageView)
         containerController.view.addSubview(view)
         self.didMove(toParent: containerController)
-        
+
         smokedBackgroundView.alpha = 0
         view.isHidden = true
 
         UIView.animate(withDuration: Settings.animationDuration, animations: { [unowned self] in
             self.smokedBackgroundView.alpha = 1
             self.temporaryImageView.frame = CGRect(origin: .zero, size: .init(width: screenWidth, height: screenHeight))
+            self.hideStatusBar()
         }) { [unowned self] _ in
             self.view.isHidden = false
             self.temporaryImageView.isHidden = true
@@ -141,6 +143,7 @@ final class PhotoViewerViewController: BaseViewController {
         UIView.animate(withDuration: Settings.animationDuration, animations: { [unowned self] in
             self.temporaryImageView.frame = self.sourceRect
             self.smokedBackgroundView.alpha = 0
+            self.showStatusBar()
         }) { [unowned self] _ in
             self.sourceImageView?.isHidden = false
             self.willMove(toParent: nil)

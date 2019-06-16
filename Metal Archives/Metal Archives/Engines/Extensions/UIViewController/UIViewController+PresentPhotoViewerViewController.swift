@@ -20,7 +20,9 @@ extension UIViewController {
     }
     
     func presentPhotoViewerWithCacheChecking(photoUrlString: String?, description: String, fromImageView imageView: UIImageView) {
-        guard let photoUrlString = photoUrlString else { return }
+        guard let photoUrlString = photoUrlString else {
+            return
+        }
         
         SDWebImageManager.shared().cachedImageExists(for: URL(string: photoUrlString)) { [weak self] (isInCache) in
             if isInCache {

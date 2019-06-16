@@ -25,4 +25,20 @@ class BaseViewController: UIViewController {
         self.view.backgroundColor = Settings.currentTheme.backgroundColor
         self.view.tintColor = Settings.currentTheme.iconTintColor
     }
+    
+    func hideStatusBar() {
+        DispatchQueue.main.async(execute: {
+            if let window = UIApplication.shared.keyWindow {
+                window.windowLevel = UIWindow.Level.statusBar + 1
+            }
+        })
+    }
+    
+    func showStatusBar() {
+        DispatchQueue.main.async(execute: {
+            if let window = UIApplication.shared.keyWindow {
+                window.windowLevel = UIWindow.Level.normal
+            }
+        })
+    }
 }

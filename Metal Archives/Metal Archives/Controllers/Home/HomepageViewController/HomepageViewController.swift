@@ -38,7 +38,7 @@ final class HomepageViewController: RefreshableViewController {
     
     private var latestReviewPagableManager = PagableManager<LatestReview>()
     private var upcomingAlbumPagableManager = PagableManager<UpcomingAlbum>()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initSimpleNavigationBarView()

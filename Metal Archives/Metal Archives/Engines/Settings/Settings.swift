@@ -165,6 +165,13 @@ enum Theme: Int, CustomStringConvertible {
         }
     }
     
+    var statusBarStyle: UIStatusBarStyle {
+        switch self {
+        case .default, .unicorn: return .lightContent
+        case .light, .vintage: return .default
+        }
+    }
+    
     var titleColor: UIColor {
         switch self {
         case .default: return UIColor("#8C5E58")

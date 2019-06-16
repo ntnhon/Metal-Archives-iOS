@@ -9,8 +9,9 @@
 import UIKit
 
 final class HomepageNavigationController: UINavigationController, UIGestureRecognizerDelegate {
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return Settings.currentTheme.statusBarStyle
     }
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
