@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SimpleNavigationBarView: UIView, TransformableWithScrollView {
+final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScrollView {
     private var backgroundView: UIView!
     private var titleLabel: UILabel!
     private var leftButton: UIButton!

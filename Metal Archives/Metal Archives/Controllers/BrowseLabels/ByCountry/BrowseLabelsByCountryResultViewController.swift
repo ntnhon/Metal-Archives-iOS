@@ -24,13 +24,8 @@ final class BrowseLabelsByCountryResultViewController: RefreshableViewController
 
     override func initAppearance() {
         super.initAppearance()
-        if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
-        } else {
-            automaticallyAdjustsScrollViewInsets = false
-        }
-        let tableViewTopInset = simpleNavigationBarView.bounds.height - UIApplication.shared.statusBarFrame.height
-        tableView.contentInset = UIEdgeInsets(top: tableViewTopInset, left: 0, bottom: 0, right: 0)
+        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
 
         LoadingTableViewCell.register(with: tableView)
         BrowseLabelsByCountryResultTableViewCell.register(with: tableView)

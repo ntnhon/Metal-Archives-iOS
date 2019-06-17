@@ -15,13 +15,8 @@ final class BrowseBandsAlphabeticallyViewController: BaseViewController {
     
     override func initAppearance() {
         super.initAppearance()
-        if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
-        } else {
-            automaticallyAdjustsScrollViewInsets = false
-        }
-        let tableViewTopInset = simpleNavigationBarView.bounds.height - UIApplication.shared.statusBarFrame.height
-        tableView.contentInset = UIEdgeInsets(top: tableViewTopInset - 1, left: 0, bottom: 0, right: 0)
+        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: 0, right: 0)
         
         tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor

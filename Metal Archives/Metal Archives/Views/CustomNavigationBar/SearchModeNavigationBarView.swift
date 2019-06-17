@@ -1,5 +1,5 @@
 //
-//  Top100NavigationBarView.swift
+//  SearchModeNavigationBarView.swift
 //  Metal Archives
 //
 //  Created by Thanh-Nhon Nguyen on 15/06/2019.
@@ -8,22 +8,29 @@
 
 import UIKit
 
-final class Top100NavigationBarView: UIView, TransformableWithScrollView {
+enum SearchMode: Int, CustomStringConvertible {
+    case simple = 0, advanced
+    
+    var description: String {
+        switch self {
+        case .simple: return "Simple"
+        case .advanced: return "Advanced"
+        }
+    }
+}
+
+final class SearchModeNavigationBarView: BaseNavigationBarView {
     private var segmentedControl: UISegmentedControl!
     private var backButton: UIButton!
+    private var tipsButton: UIButton!
     
     var didTapBackButton: (() -> Void)?
-    var didChangeBandTopType: (() -> Void)?
-    var didChangeAlbumTopType: (() -> Void)?
+    var didTapTipsButton: (() -> Void)?
+    var didChangeSearchMode: (() -> Void)?
     
-    var selectedBandTopType: BandTopType {
-        let selectedBandTopType = BandTopType(rawValue: segmentedControl.selectedSegmentIndex) ?? .release
-        return selectedBandTopType
-    }
-    
-    var selectedAlbumTopType: AlbumTopType {
-        let selectedAlbumTopType = AlbumTopType(rawValue: segmentedControl.selectedSegmentIndex) ?? .review
-        return selectedAlbumTopType
+    var selectedMode: SearchMode {
+        let selectedSearchMode = SearchMode(rawValue: segmentedControl.selectedSegmentIndex) ?? .simple
+        return selectedSearchMode
     }
     
     override init(frame: CGRect) {
@@ -54,40 +61,40 @@ final class Top100NavigationBarView: UIView, TransformableWithScrollView {
         // Init segmentedControl
         segmentedControl = UISegmentedControl(frame: .zero)
         segmentedControl.tintColor = Settings.currentTheme.secondaryTitleColor
+        segmentedControl.insertSegment(withTitle: SearchMode.simple.description, at: 0, animated: false)
+        segmentedControl.insertSegment(withTitle: SearchMode.advanced.description, at: 1, animated: false)
+        segmentedControl.selectedSegmentIndex = 0
         addSubview(segmentedControl)
         segmentedControl.anchor(top: nil, leading: backButton.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: 15, right: 10))
         segmentedControl.setContentHuggingPriority(.defaultLow, for: .horizontal)
         segmentedControl.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        
+        // Init rightButton
+        tipsButton = UIButton(type: .system)
+        tipsButton.contentEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: 10)
+        tipsButton.setTitle("💡 Tips", for: .normal)
+        tipsButton.tintColor = Settings.currentTheme.secondaryTitleColor
+        addSubview(tipsButton)
+        tipsButton.anchor(top: nil, leading: segmentedControl.trailingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 15, right: 0))
+        tipsButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     }
     
     private func initActions() {
         segmentedControl.addTarget(self, action: #selector(segementedControlValueChanged), for: .valueChanged)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        tipsButton.addTarget(self, action: #selector(tipsButtonTapped), for: .touchUpInside)
     }
-    
+
     @objc private func backButtonTapped() {
         didTapBackButton?()
     }
     
+    @objc private func tipsButtonTapped() {
+        didTapTipsButton?()
+    }
+    
     @objc private func segementedControlValueChanged() {
-        didChangeBandTopType?()
-        didChangeAlbumTopType?()
-    }
-    
-    func addBandTopTypeSegments() {
-        segmentedControl.removeAllSegments()
-        segmentedControl.insertSegment(withTitle: BandTopType.release.description, at: 0, animated: false)
-        segmentedControl.insertSegment(withTitle: BandTopType.fullLength.description, at: 1, animated: false)
-        segmentedControl.insertSegment(withTitle: BandTopType.review.description, at: 2, animated: false)
-        segmentedControl.selectedSegmentIndex = 0
-    }
-    
-    func addAlbumTopTypeSegments() {
-        segmentedControl.removeAllSegments()
-        segmentedControl.insertSegment(withTitle: AlbumTopType.review.description, at: 0, animated: false)
-        segmentedControl.insertSegment(withTitle: AlbumTopType.mostOwned.description, at: 1, animated: false)
-        segmentedControl.insertSegment(withTitle: AlbumTopType.mostWanted.description, at: 2, animated: false)
-        segmentedControl.selectedSegmentIndex = 0
+        didChangeSearchMode?()
     }
 }
 

@@ -334,6 +334,7 @@
 		C075296C229F0CE50067B5E1 /* MemberOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C075296B229F0CE50067B5E1 /* MemberOptionTableViewCell.xib */; };
 		C075296E229F32AB0067B5E1 /* MemberTypeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C075296D229F32AA0067B5E1 /* MemberTypeListViewController.swift */; };
 		C0752970229F3E550067B5E1 /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C075296F229F3E550067B5E1 /* FilledButton.swift */; };
+		C07677D022B6D84100BB8F36 /* BaseNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07677CF22B6D84100BB8F36 /* BaseNavigationBarView.swift */; };
 		C0795B892288131900E5D94F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0795B882288131900E5D94F /* Utilities.swift */; };
 		C0795B8B2288234F00E5D94F /* BetterSnappingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0795B8A2288234F00E5D94F /* BetterSnappingLayout.swift */; };
 		C0795B942288528A00E5D94F /* NewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0795B932288528A00E5D94F /* NewsCollectionViewCell.xib */; };
@@ -824,6 +825,7 @@
 		C075296B229F0CE50067B5E1 /* MemberOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberOptionTableViewCell.xib; sourceTree = "<group>"; };
 		C075296D229F32AA0067B5E1 /* MemberTypeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTypeListViewController.swift; sourceTree = "<group>"; };
 		C075296F229F3E550067B5E1 /* FilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButton.swift; sourceTree = "<group>"; };
+		C07677CF22B6D84100BB8F36 /* BaseNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationBarView.swift; sourceTree = "<group>"; };
 		C0795B882288131900E5D94F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		C0795B8A2288234F00E5D94F /* BetterSnappingLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetterSnappingLayout.swift; sourceTree = "<group>"; };
 		C0795B932288528A00E5D94F /* NewsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1240,27 +1242,12 @@
 		C027A27C22B55CF00011EA73 /* CustomNavigationBar */ = {
 			isa = PBXGroup;
 			children = (
-				C027A28222B593DD0011EA73 /* Top100NavigationBarView */,
-				C027A27D22B55D0D0011EA73 /* SearchModeNavigationBarView */,
-				C0FFE1FA229593C800909765 /* SimpleNavigationBarView */,
+				C027A28322B593FE0011EA73 /* Top100NavigationBarView.swift */,
+				C027A27E22B55D330011EA73 /* SearchModeNavigationBarView.swift */,
+				C0FFE1FB2295941F00909765 /* SimpleNavigationBarView.swift */,
+				C07677CF22B6D84100BB8F36 /* BaseNavigationBarView.swift */,
 			);
 			path = CustomNavigationBar;
-			sourceTree = "<group>";
-		};
-		C027A27D22B55D0D0011EA73 /* SearchModeNavigationBarView */ = {
-			isa = PBXGroup;
-			children = (
-				C027A27E22B55D330011EA73 /* SearchModeNavigationBarView.swift */,
-			);
-			path = SearchModeNavigationBarView;
-			sourceTree = "<group>";
-		};
-		C027A28222B593DD0011EA73 /* Top100NavigationBarView */ = {
-			isa = PBXGroup;
-			children = (
-				C027A28322B593FE0011EA73 /* Top100NavigationBarView.swift */,
-			);
-			path = Top100NavigationBarView;
 			sourceTree = "<group>";
 		};
 		C028CBE022A66653005929F1 /* LabelNameTableViewCell */ = {
@@ -2886,14 +2873,6 @@
 			path = SmokedImageView;
 			sourceTree = "<group>";
 		};
-		C0FFE1FA229593C800909765 /* SimpleNavigationBarView */ = {
-			isa = PBXGroup;
-			children = (
-				C0FFE1FB2295941F00909765 /* SimpleNavigationBarView.swift */,
-			);
-			path = SimpleNavigationBarView;
-			sourceTree = "<group>";
-		};
 		C3CC4573347414ECAC2FC58D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3669,6 +3648,7 @@
 				C03280152209FA8000FC9A44 /* RequestBandReadMore.swift in Sources */,
 				C0AABDE6221D89780044A2CF /* MonthListViewController.swift in Sources */,
 				C094BCAF229D27B70005BF3E /* HomepageNavigationController.swift in Sources */,
+				C07677D022B6D84100BB8F36 /* BaseNavigationBarView.swift in Sources */,
 				C0602BCA21E9E56B00046367 /* HomepageViewController.swift in Sources */,
 				C028CBE222A666A4005929F1 /* LabelNameTableViewCell.swift in Sources */,
 				C05309F6222360320027D11E /* RequestLabelLinks.swift in Sources */,
@@ -3768,7 +3748,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Metal Archives Widget/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3790,7 +3770,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Metal Archives Widget/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3931,7 +3911,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Metal Archives/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3954,7 +3934,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Metal Archives/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
