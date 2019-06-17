@@ -14,6 +14,9 @@ final class SettingsTableViewController: UITableViewController {
     @IBOutlet private var detailLabels: [UILabel]!
     @IBOutlet private var switches: [UISwitch]!
     
+    // SimpleNavigationBarView
+    private var simpleNavigationBarView: SimpleNavigationBarView!
+    
     //Theme
     @IBOutlet private weak var themeLabel: UILabel!
     //Font Size
@@ -27,60 +30,96 @@ final class SettingsTableViewController: UITableViewController {
     @IBOutlet private weak var choosenWidgetSectionsLabel: UILabel!
     private var choosenWidgetSections: [WidgetSection]! {
         didSet {
-            self.updateChoosenWidgetSectionsLabel()
+            updateChoosenWidgetSectionsLabel()
         }
+    }
+    
+    deinit {
+        print("SettingsTableViewController is deallocated")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initAppearance()
-        self.initThumbnailSwitch()
-        self.updateThemeTitle()
-        self.updateFontSizeLabel()
-        self.updateDiscographyTypeLabel()
-        self.choosenWidgetSections = UserDefaults.choosenWidgetSections()
-        self.title = "Settings"
+        initAppearance()
+        initSimpleNavigationBarView()
+        initThumbnailSwitch()
+        updateThemeTitle()
+        updateFontSizeLabel()
+        updateDiscographyTypeLabel()
+        choosenWidgetSections = UserDefaults.choosenWidgetSections()
+        title = "Settings"
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParent {
+            // Manually remove here because simpleNavigationBarView is added to navigationController.view
+            simpleNavigationBarView.removeFromSuperview()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        simpleNavigationBarView?.setTitle("Settings")
     }
     
     private func initAppearance() {
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
         
-        self.titleLabels.forEach({
+        titleLabels.forEach({
             $0.textColor = Settings.currentTheme.bodyTextColor
             $0.font = Settings.currentFontSize.bodyTextFont
         })
         
-        self.detailLabels.forEach({
+        detailLabels.forEach({
             $0.textColor = Settings.currentTheme.bodyTextColor.withAlphaComponent(0.7)
             $0.font = Settings.currentFontSize.bodyTextFont
         })
         
-        self.switches.forEach({
+        switches.forEach({
             $0.tintColor = Settings.currentTheme.secondaryTitleColor
             $0.onTintColor = Settings.currentTheme.titleColor
         })
     }
+    
+    private func initSimpleNavigationBarView() {
+        guard let navigationController = navigationController else { return }
+        simpleNavigationBarView = SimpleNavigationBarView(frame: .zero)
+        navigationController.view.addSubview(simpleNavigationBarView)
+        simpleNavigationBarView.anchor(top: navigationController.view.topAnchor, leading: navigationController.view.leadingAnchor, bottom: nil, trailing: navigationController.view.trailingAnchor)
+        
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        simpleNavigationBarView.setRightButtonIcon(nil)
+        simpleNavigationBarView.setTitle("Settings")
+        
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+    }
 
     private func initThumbnailSwitch() {
         let enabled = UserDefaults.thumbnailEnabled()
-        self.thumbnailSwitch.isOn = enabled
-        self.thumbnailSwitch.addTarget(self, action: #selector(thumbnailSwitchChangedValue), for: .valueChanged)
+        thumbnailSwitch.isOn = enabled
+        thumbnailSwitch.addTarget(self, action: #selector(thumbnailSwitchChangedValue), for: .valueChanged)
     }
     
     @objc private func thumbnailSwitchChangedValue() {
-        UserDefaults.setThumbnailEnabled(self.thumbnailSwitch.isOn)
-        self.displayRestartAlert()
+        UserDefaults.setThumbnailEnabled(thumbnailSwitch.isOn)
+        displayRestartAlert()
         
-        Analytics.logEvent(AnalyticsEvent.ChangeThumbnailEnabled, parameters: ["thumbnail_enabled": self.thumbnailSwitch.isOn])
+        Analytics.logEvent(AnalyticsEvent.ChangeThumbnailEnabled, parameters: ["thumbnail_enabled": thumbnailSwitch.isOn])
     }
     
     private func updateChoosenWidgetSectionsLabel() {
-        if self.choosenWidgetSections.count == 1 {
-            self.choosenWidgetSectionsLabel.text = "\(self.choosenWidgetSections[0].description)"
-        } else if self.choosenWidgetSections.count == 2 {
-            self.choosenWidgetSectionsLabel.text = "\(self.choosenWidgetSections[0].description), \(self.choosenWidgetSections[1].description)"
+        if choosenWidgetSections.count == 1 {
+            choosenWidgetSectionsLabel.text = "\(choosenWidgetSections[0].description)"
+        } else if choosenWidgetSections.count == 2 {
+            choosenWidgetSectionsLabel.text = "\(choosenWidgetSections[0].description), \(choosenWidgetSections[1].description)"
         }
     }
     
@@ -92,19 +131,24 @@ final class SettingsTableViewController: UITableViewController {
                 
             } else if segue.identifier == "ShowWidgetExplication" {
                 settingExplicationTableViewController.explainWidget = true
-                
             }
+            settingExplicationTableViewController.simpleNavigationBarView = simpleNavigationBarView
+            
         case let chooseWidgetSectionsViewController as ChooseWidgetSectionsViewController:
             chooseWidgetSectionsViewController.delegate = self
+            chooseWidgetSectionsViewController.simpleNavigationBarView = simpleNavigationBarView
             
         case let themeListTableViewController as ThemeListTableViewController:
             themeListTableViewController.delegate = self
+            themeListTableViewController.simpleNavigationBarView = simpleNavigationBarView
             
         case let fontSizeListTableViewController as FontSizeListTableViewController:
             fontSizeListTableViewController.delegate = self
+            fontSizeListTableViewController.simpleNavigationBarView = simpleNavigationBarView
             
         case let discographyTypeListTableViewController as DiscographyTypeListTableViewController:
             discographyTypeListTableViewController.delegate = self
+            discographyTypeListTableViewController.simpleNavigationBarView = simpleNavigationBarView
             
         default:
             break
@@ -115,40 +159,40 @@ final class SettingsTableViewController: UITableViewController {
 //MARK: - ThemeListTableViewControllerDelegate
 extension SettingsTableViewController: ThemeListTableViewControllerDelegate {
     func didChangeTheme() {
-        self.updateThemeTitle()
+        updateThemeTitle()
     }
     
     private func updateThemeTitle() {
-        self.themeLabel.text = UserDefaults.selectedTheme().description
+        themeLabel.text = UserDefaults.selectedTheme().description
     }
 }
 
 //MARK: - FontSizeListTableViewControllerDelegate
 extension SettingsTableViewController: FontSizeListTableViewControllerDelegate {
     func didChangeFontSize() {
-        self.updateFontSizeLabel()
+        updateFontSizeLabel()
     }
     
     private func updateFontSizeLabel() {
-        self.fontSizeLabel.text = UserDefaults.selectedFontSize().description
+        fontSizeLabel.text = UserDefaults.selectedFontSize().description
     }
 }
 
 //MARK: - DiscographyTypeListTableViewControllerDelegate
 extension SettingsTableViewController: DiscographyTypeListTableViewControllerDelegate {
     func didChangeDiscographyType() {
-        self.updateDiscographyTypeLabel()
+        updateDiscographyTypeLabel()
     }
     
     private func updateDiscographyTypeLabel() {
-        self.discographyTypeLabel.text = UserDefaults.selectedDiscographyType().description
+        discographyTypeLabel.text = UserDefaults.selectedDiscographyType().description
     }
 }
 
 //MARK: - ChooseWidgetSectionsViewControllerDelegate
 extension SettingsTableViewController: ChooseWidgetSectionsViewControllerDelegate {
     func didChooseWidgetSections(_ widgetSections: [WidgetSection]) {
-        self.choosenWidgetSections = widgetSections
+        choosenWidgetSections = widgetSections
         Analytics.logEvent(AnalyticsEvent.ChangeWidgetSections, parameters: nil)
     }
 }

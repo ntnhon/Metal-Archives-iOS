@@ -17,34 +17,43 @@ final class ChooseWidgetSectionsViewController: BaseViewController {
     
     private var choosenWidgetSections: [WidgetSection]! {
         didSet {
-            self.updateTitle()
-            self.delegate?.didChooseWidgetSections(self.choosenWidgetSections)
-            UserDefaults.setWidgetSections(self.choosenWidgetSections)
+            updateTitle()
+            delegate?.didChooseWidgetSections(choosenWidgetSections)
+            UserDefaults.setWidgetSections(choosenWidgetSections)
         }
     }
     
+    // SimpleNavigationBarView
+    weak var simpleNavigationBarView: SimpleNavigationBarView?
+    
     var delegate: ChooseWidgetSectionsViewControllerDelegate?
+    
+    deinit {
+        print("ChooseWidgetSectionsViewController is deallocated")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.choosenWidgetSections = UserDefaults.choosenWidgetSections()
+        choosenWidgetSections = UserDefaults.choosenWidgetSections()
     }
     
     override func initAppearance() {
         super.initAppearance()
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.tableFooterView = UIView(frame: .zero)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
         
-        SimpleTableViewCell.register(with: self.tableView)
+        SimpleTableViewCell.register(with: tableView)
+        
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: 0, right: 0)
     }
     
     private func updateTitle() {
-        if self.choosenWidgetSections.count == 1 {
-            self.title = "\(self.choosenWidgetSections[0].description)"
-        } else if self.choosenWidgetSections.count == 2 {
-            self.title = "\(self.choosenWidgetSections[0].description), \(self.choosenWidgetSections[1].description)"
+        if choosenWidgetSections.count == 1 {
+            simpleNavigationBarView?.setTitle("\(choosenWidgetSections[0].description)")
+        } else if choosenWidgetSections.count == 2 {
+            simpleNavigationBarView?.setTitle("\(choosenWidgetSections[0].description), \(choosenWidgetSections[1].description)")
         }
     }
     
@@ -52,7 +61,7 @@ final class ChooseWidgetSectionsViewController: BaseViewController {
         let alert = UIAlertController(title: "Oops!!!", message: "You can only choose up to 2 sections at a time.", preferredStyle: .alert)
         let okayAction = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
         alert.addAction(okayAction)
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -63,16 +72,16 @@ extension ChooseWidgetSectionsViewController: UITableViewDelegate {
         
         let selectedWidgetSection = WidgetSection.allCases[indexPath.row]
         
-        if self.choosenWidgetSections.contains(selectedWidgetSection) && self.choosenWidgetSections.count == 2 {
-            self.choosenWidgetSections.removeAll { (widgetSection) -> Bool in
+        if choosenWidgetSections.contains(selectedWidgetSection) && choosenWidgetSections.count == 2 {
+            choosenWidgetSections.removeAll { (widgetSection) -> Bool in
                 widgetSection == selectedWidgetSection
             }
             tableView.reloadData()
-        } else if !self.choosenWidgetSections.contains(selectedWidgetSection) && self.choosenWidgetSections.count == 1 {
-            self.choosenWidgetSections.append(selectedWidgetSection)
+        } else if !choosenWidgetSections.contains(selectedWidgetSection) && choosenWidgetSections.count == 1 {
+            choosenWidgetSections.append(selectedWidgetSection)
             tableView.reloadData()
-        } else if !self.choosenWidgetSections.contains(selectedWidgetSection) && self.choosenWidgetSections.count == 2 {
-            self.alertMaximumError()
+        } else if !choosenWidgetSections.contains(selectedWidgetSection) && choosenWidgetSections.count == 2 {
+            alertMaximumError()
         }
     }
     
@@ -101,7 +110,7 @@ extension ChooseWidgetSectionsViewController: UITableViewDataSource {
         let widgetSection = WidgetSection.allCases[indexPath.row]
         cell.fill(with: widgetSection.description)
         
-        if self.choosenWidgetSections.contains(widgetSection) {
+        if choosenWidgetSections.contains(widgetSection) {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none

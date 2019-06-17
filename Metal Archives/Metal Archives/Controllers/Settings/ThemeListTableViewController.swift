@@ -21,54 +21,61 @@ final class ThemeListTableViewController: UITableViewController {
     @IBOutlet private var themeTableViewCells: [BaseTableViewCell]!
     @IBOutlet private var titleLabels: [UILabel]!
     
+    // SimpleNavigationBarView
+    weak var simpleNavigationBarView: SimpleNavigationBarView?
+    
     var delegate: ThemeListTableViewControllerDelegate?
+    
+    deinit {
+        print("ThemeListTableViewController is deallocated")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initAppearance()
+        initAppearance()
     }
     
     private func initAppearance() {
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
         
-        self.titleLabels.forEach({
+        titleLabels.forEach({
             $0.textColor = Settings.currentTheme.bodyTextColor
             $0.font = Settings.currentFontSize.bodyTextFont
         })
-        
-        self.title = "Theme"
+
+        simpleNavigationBarView?.setTitle("Theme")
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: 0, right: 0)
     }
 
-    
     private func didTapDefaultThemeTableViewCell() {
-        self.setCurrentTheme(.default)
+        setCurrentTheme(.default)
     }
     
     private func didTapLightThemeTableViewCell() {
-        self.setCurrentTheme(.light)
+        setCurrentTheme(.light)
     }
     
     private func didTapVintageThemeTableViewCell() {
-        self.setCurrentTheme(.vintage)
+        setCurrentTheme(.vintage)
     }
     
     private func didTapUnicornThemeTableViewCell() {
-        self.setCurrentTheme(.unicorn)
+        setCurrentTheme(.unicorn)
     }
     
     private func setCurrentTheme(_ selectedTheme: Theme) {
         var selectedThemeTableViewCell: BaseTableViewCell?
         
         switch selectedTheme {
-        case .default: selectedThemeTableViewCell = self.defaultThemeTableViewCell
-        case .light: selectedThemeTableViewCell = self.lightThemeTableViewCell
-        case .vintage: selectedThemeTableViewCell = self.vintageThemeTableViewCell
-        case .unicorn: selectedThemeTableViewCell = self.unicornThemeTableViewCell
+        case .default: selectedThemeTableViewCell = defaultThemeTableViewCell
+        case .light: selectedThemeTableViewCell = lightThemeTableViewCell
+        case .vintage: selectedThemeTableViewCell = vintageThemeTableViewCell
+        case .unicorn: selectedThemeTableViewCell = unicornThemeTableViewCell
         }
         
-        self.themeTableViewCells.forEach { (eachThemeTableViewCell) in
+        themeTableViewCells.forEach { (eachThemeTableViewCell) in
             if eachThemeTableViewCell == selectedThemeTableViewCell {
                 eachThemeTableViewCell.accessoryType = .checkmark
             } else {
@@ -77,9 +84,9 @@ final class ThemeListTableViewController: UITableViewController {
         }
         
         UserDefaults.setTheme(selectedTheme)
-        self.delegate?.didChangeTheme()
+        delegate?.didChangeTheme()
         
-        self.displayRestartAlert()
+        displayRestartAlert()
         
         Analytics.logEvent(AnalyticsEvent.ChangeTheme, parameters: nil)
     }
@@ -87,18 +94,22 @@ final class ThemeListTableViewController: UITableViewController {
 
 //MARK: - UITableViewDelegate
 extension ThemeListTableViewController {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let selectedCell = tableView.cellForRow(at: indexPath)
-        if selectedCell == self.defaultThemeTableViewCell {
-            self.didTapDefaultThemeTableViewCell()
-        } else if selectedCell == self.lightThemeTableViewCell {
-            self.didTapLightThemeTableViewCell()
-        } else if selectedCell == self.vintageThemeTableViewCell {
-            self.didTapVintageThemeTableViewCell()
-        } else if selectedCell == self.unicornThemeTableViewCell {
-            self.didTapUnicornThemeTableViewCell()
+        if selectedCell == defaultThemeTableViewCell {
+            didTapDefaultThemeTableViewCell()
+        } else if selectedCell == lightThemeTableViewCell {
+            didTapLightThemeTableViewCell()
+        } else if selectedCell == vintageThemeTableViewCell {
+            didTapVintageThemeTableViewCell()
+        } else if selectedCell == unicornThemeTableViewCell {
+            didTapUnicornThemeTableViewCell()
         }
     }
 }
@@ -109,19 +120,19 @@ extension ThemeListTableViewController {
         
         switch UserDefaults.selectedTheme() {
         case .default:
-            if cell == self.defaultThemeTableViewCell {
+            if cell == defaultThemeTableViewCell {
                 cell.accessoryType = .checkmark
             }
         case .light:
-            if cell == self.lightThemeTableViewCell {
+            if cell == lightThemeTableViewCell {
                 cell.accessoryType = .checkmark
             }
         case .vintage:
-            if cell == self.vintageThemeTableViewCell {
+            if cell == vintageThemeTableViewCell {
                 cell.accessoryType = .checkmark
             }
         case .unicorn:
-            if cell == self.unicornThemeTableViewCell {
+            if cell == unicornThemeTableViewCell {
                 cell.accessoryType = .checkmark
             }
         }

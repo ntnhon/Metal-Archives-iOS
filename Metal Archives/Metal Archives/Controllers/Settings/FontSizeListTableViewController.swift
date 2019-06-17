@@ -22,50 +22,58 @@ final class FontSizeListTableViewController: UITableViewController {
     @IBOutlet private weak var largeFontSizeLabel: UILabel!
     @IBOutlet private var fontSizeTableViewCells: [BaseTableViewCell]!
     
+    // SimpleNavigationBarView
+    weak var simpleNavigationBarView: SimpleNavigationBarView?
+    
     var delegate: FontSizeListTableViewControllerDelegate?
+    
+    deinit {
+        print("FontSizeListTableViewController is deallocated")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initAppearance()
+        initAppearance()
     }
     
     private func initAppearance() {
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
         
-        self.defaultFontSizeLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.defaultFontSizeLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        self.mediumFontSizeLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.mediumFontSizeLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        self.largeFontSizeLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.largeFontSizeLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        defaultFontSizeLabel.textColor = Settings.currentTheme.bodyTextColor
+        defaultFontSizeLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        mediumFontSizeLabel.textColor = Settings.currentTheme.bodyTextColor
+        mediumFontSizeLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        largeFontSizeLabel.textColor = Settings.currentTheme.bodyTextColor
+        largeFontSizeLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         
-        self.title = "Font Size"
+        simpleNavigationBarView?.setTitle("Font Size")
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: 0, right: 0)
     }
     
     private func didTapDefaultFontSizeTableViewCell() {
-        self.setCurrentFontSize(.default)
+        setCurrentFontSize(.default)
     }
     
     private func didTapMediumFontSizeTableViewCell() {
-        self.setCurrentFontSize(.medium)
+        setCurrentFontSize(.medium)
     }
     
     private func didTapLargeFontSizeTableViewCell() {
-        self.setCurrentFontSize(.large)
+        setCurrentFontSize(.large)
     }
     
     private func setCurrentFontSize(_ selectedFontSize: FontSize) {
         var selectedFontSizeTableViewCell: BaseTableViewCell?
         
         switch selectedFontSize {
-        case .default: selectedFontSizeTableViewCell = self.defaultFontSizeTableViewCell
-        case .medium: selectedFontSizeTableViewCell = self.mediumFontSizeTableViewCell
-        case .large: selectedFontSizeTableViewCell = self.largeFontSizeTableViewCell
+        case .default: selectedFontSizeTableViewCell = defaultFontSizeTableViewCell
+        case .medium: selectedFontSizeTableViewCell = mediumFontSizeTableViewCell
+        case .large: selectedFontSizeTableViewCell = largeFontSizeTableViewCell
         }
         
-        self.fontSizeTableViewCells.forEach { (eachThemeTableViewCell) in
+        fontSizeTableViewCells.forEach { (eachThemeTableViewCell) in
             if eachThemeTableViewCell == selectedFontSizeTableViewCell {
                 eachThemeTableViewCell.accessoryType = .checkmark
             } else {
@@ -74,9 +82,9 @@ final class FontSizeListTableViewController: UITableViewController {
         }
         
         UserDefaults.setFontSize(selectedFontSize)
-        self.delegate?.didChangeFontSize()
+        delegate?.didChangeFontSize()
         
-        self.displayRestartAlert()
+        displayRestartAlert()
         
         Analytics.logEvent(AnalyticsEvent.ChangeTheme, parameters: nil)
     }
@@ -84,16 +92,20 @@ final class FontSizeListTableViewController: UITableViewController {
 
 //MARK: - UITableViewDelegate
 extension FontSizeListTableViewController {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let selectedCell = tableView.cellForRow(at: indexPath)
-        if selectedCell == self.defaultFontSizeTableViewCell {
-            self.didTapDefaultFontSizeTableViewCell()
-        } else if selectedCell == self.mediumFontSizeTableViewCell {
-            self.didTapMediumFontSizeTableViewCell()
-        } else if selectedCell == self.largeFontSizeTableViewCell {
-            self.didTapLargeFontSizeTableViewCell()
+        if selectedCell == defaultFontSizeTableViewCell {
+            didTapDefaultFontSizeTableViewCell()
+        } else if selectedCell == mediumFontSizeTableViewCell {
+            didTapMediumFontSizeTableViewCell()
+        } else if selectedCell == largeFontSizeTableViewCell {
+            didTapLargeFontSizeTableViewCell()
         }
     }
 }
@@ -104,15 +116,15 @@ extension FontSizeListTableViewController {
         
         switch UserDefaults.selectedFontSize() {
         case .default:
-            if cell == self.defaultFontSizeTableViewCell {
+            if cell == defaultFontSizeTableViewCell {
                 cell.accessoryType = .checkmark
             }
         case .medium:
-            if cell == self.mediumFontSizeTableViewCell {
+            if cell == mediumFontSizeTableViewCell {
                 cell.accessoryType = .checkmark
             }
         case .large:
-            if cell == self.largeFontSizeTableViewCell {
+            if cell == largeFontSizeTableViewCell {
                 cell.accessoryType = .checkmark
             }
         }

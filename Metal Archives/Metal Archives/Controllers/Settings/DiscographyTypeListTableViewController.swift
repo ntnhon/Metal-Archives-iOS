@@ -23,58 +23,66 @@ final class DiscographyTypeListTableViewController: UITableViewController {
     @IBOutlet private var discographyTypeTableViewCells: [BaseTableViewCell]!
     @IBOutlet private var titleLabels: [UILabel]!
     
+    // SimpleNavigationBarView
+    weak var simpleNavigationBarView: SimpleNavigationBarView?
+    
     var delegate: DiscographyTypeListTableViewControllerDelegate?
+    
+    deinit {
+        print("DiscographyTypeListTableViewController is deallocated")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initAppearance()
+        initAppearance()
     }
     
     private func initAppearance() {
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
         
-        self.titleLabels.forEach({
+        titleLabels.forEach({
             $0.textColor = Settings.currentTheme.bodyTextColor
             $0.font = Settings.currentFontSize.bodyTextFont
         })
         
-        self.title = "Default Discography Mode"
+        simpleNavigationBarView?.setTitle("Default Discography Mode")
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: 0, right: 0)
     }
     
     private func didTapCompleteTableViewCell() {
-        self.setCurrentDiscographyType(.complete)
+        setCurrentDiscographyType(.complete)
     }
     
     private func didTapMainTableViewCell() {
-        self.setCurrentDiscographyType(.main)
+        setCurrentDiscographyType(.main)
     }
     
     private func didTapLivesTableViewCell() {
-        self.setCurrentDiscographyType(.lives)
+        setCurrentDiscographyType(.lives)
     }
     
     private func didTapDemosTableViewCell() {
-        self.setCurrentDiscographyType(.demos)
+        setCurrentDiscographyType(.demos)
     }
     
     private func didTapMiscTableViewCell() {
-        self.setCurrentDiscographyType(.misc)
+        setCurrentDiscographyType(.misc)
     }
     
     private func setCurrentDiscographyType(_ selectedDiscographyType: DiscographyType) {
         var selectedDiscographyTypeTableViewCell: BaseTableViewCell?
         
         switch selectedDiscographyType {
-        case .complete: selectedDiscographyTypeTableViewCell = self.completeTableViewCell
-        case .main: selectedDiscographyTypeTableViewCell = self.mainTableViewCell
-        case .lives: selectedDiscographyTypeTableViewCell = self.livesTableViewCell
-        case .demos: selectedDiscographyTypeTableViewCell = self.demosTableViewCell
-        case .misc: selectedDiscographyTypeTableViewCell = self.miscTableViewCell
+        case .complete: selectedDiscographyTypeTableViewCell = completeTableViewCell
+        case .main: selectedDiscographyTypeTableViewCell = mainTableViewCell
+        case .lives: selectedDiscographyTypeTableViewCell = livesTableViewCell
+        case .demos: selectedDiscographyTypeTableViewCell = demosTableViewCell
+        case .misc: selectedDiscographyTypeTableViewCell = miscTableViewCell
         }
         
-        self.discographyTypeTableViewCells.forEach { (eachDiscographyTypeTableViewCells) in
+        discographyTypeTableViewCells.forEach { (eachDiscographyTypeTableViewCells) in
             if eachDiscographyTypeTableViewCells == selectedDiscographyTypeTableViewCell {
                 eachDiscographyTypeTableViewCells.accessoryType = .checkmark
             } else {
@@ -83,7 +91,7 @@ final class DiscographyTypeListTableViewController: UITableViewController {
         }
         
         UserDefaults.setDiscographyType(selectedDiscographyType)
-        self.delegate?.didChangeDiscographyType()
+        delegate?.didChangeDiscographyType()
         
         Analytics.logEvent(AnalyticsEvent.ChangeDefaultDiscographyType, parameters: nil)
     }
@@ -91,20 +99,24 @@ final class DiscographyTypeListTableViewController: UITableViewController {
 
 //MARK: - UITableViewDelegate
 extension DiscographyTypeListTableViewController {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let selectedCell = tableView.cellForRow(at: indexPath)
-        if selectedCell == self.completeTableViewCell {
-            self.didTapCompleteTableViewCell()
-        } else if selectedCell == self.mainTableViewCell {
-            self.didTapMainTableViewCell()
-        } else if selectedCell == self.livesTableViewCell {
-            self.didTapLivesTableViewCell()
-        } else if selectedCell == self.demosTableViewCell {
-            self.didTapDemosTableViewCell()
-        } else if selectedCell == self.miscTableViewCell {
-            self.didTapMiscTableViewCell()
+        if selectedCell == completeTableViewCell {
+            didTapCompleteTableViewCell()
+        } else if selectedCell == mainTableViewCell {
+            didTapMainTableViewCell()
+        } else if selectedCell == livesTableViewCell {
+            didTapLivesTableViewCell()
+        } else if selectedCell == demosTableViewCell {
+            didTapDemosTableViewCell()
+        } else if selectedCell == miscTableViewCell {
+            didTapMiscTableViewCell()
         }
     }
 }
@@ -115,23 +127,23 @@ extension DiscographyTypeListTableViewController {
         
         switch UserDefaults.selectedDiscographyType() {
         case .complete:
-            if cell == self.completeTableViewCell {
+            if cell == completeTableViewCell {
                 cell.accessoryType = .checkmark
             }
         case .main:
-            if cell == self.mainTableViewCell {
+            if cell == mainTableViewCell {
                 cell.accessoryType = .checkmark
             }
         case .lives:
-            if cell == self.livesTableViewCell {
+            if cell == livesTableViewCell {
                 cell.accessoryType = .checkmark
             }
         case .demos:
-            if cell == self.demosTableViewCell {
+            if cell == demosTableViewCell {
                 cell.accessoryType = .checkmark
             }
         case .misc:
-            if cell == self.miscTableViewCell {
+            if cell == miscTableViewCell {
                 cell.accessoryType = .checkmark
             }
         }
