@@ -61,7 +61,6 @@ final class SettingExplicationTableViewController: UITableViewController {
         } else if explainWidget {
             explicationTextView.text = "Widget is an extension of the application which can be added to your Notification Center along side with other famous default widgets like Weather and Calendar.\n\nMetal Archives widget helps you stay updated without opening the application."
         }
-        
     }
 }
 

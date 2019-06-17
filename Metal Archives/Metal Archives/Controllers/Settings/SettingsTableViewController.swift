@@ -98,7 +98,6 @@ final class SettingsTableViewController: UITableViewController {
             self.navigationController?.popViewController(animated: true)
         }
         
-        tableView.contentInsetAdjustmentBehavior = .never
         tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
     }
 
