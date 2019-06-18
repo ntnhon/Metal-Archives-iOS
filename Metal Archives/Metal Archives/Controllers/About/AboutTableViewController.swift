@@ -10,7 +10,7 @@ import UIKit
 import MessageUI
 import FirebaseAnalytics
 
-final class AboutTableViewController: UITableViewController {
+final class AboutTableViewController: BaseTableViewController {
     @IBOutlet private var textViews: [UITextView]!
     @IBOutlet private var titleLabels: [UILabel]!
     @IBOutlet private var detailLabels: [UILabel]!
@@ -23,34 +23,55 @@ final class AboutTableViewController: UITableViewController {
     @IBOutlet private weak var allOpenSourceLibrariesTableViewCell: BaseTableViewCell!
     @IBOutlet private weak var takeMeToAppStoreTableViewCell: BaseTableViewCell!
     
+    deinit {
+        print("AboutTableViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initAppearance()
-        self.title = "About"
+        initAppearance()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        simpleNavigationBarView?.setTitle("About")
     }
 
     private func initAppearance() {
-        self.view.backgroundColor = Settings.currentTheme.backgroundColor
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.tableFooterView = UIView(frame: .zero)
+        view.backgroundColor = Settings.currentTheme.backgroundColor
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
        
-        self.textViews.forEach({
+        textViews.forEach({
             $0.textColor = Settings.currentTheme.bodyTextColor
             $0.font = Settings.currentFontSize.bodyTextFont
             $0.backgroundColor = Settings.currentTheme.backgroundColor
         })
         
-        self.titleLabels.forEach({
+        titleLabels.forEach({
             $0.textColor = Settings.currentTheme.secondaryTitleColor
             $0.font = Settings.currentFontSize.secondaryTitleFont
         })
         
-        self.detailLabels.forEach({
+        detailLabels.forEach({
             $0.textColor = Settings.currentTheme.bodyTextColor
             $0.font = Settings.currentFontSize.bodyTextFont
         })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.destination {
+        case let openSourceLibrariesViewController as OpenSourceLibrariesViewController:
+            openSourceLibrariesViewController.simpleNavigationBarView = simpleNavigationBarView
+            
+        case let versionHistoryViewController as VersionHistoryViewController:
+            versionHistoryViewController.simpleNavigationBarView = simpleNavigationBarView
+            
+        default:
+            break
+        }
     }
 }
 
@@ -58,7 +79,7 @@ final class AboutTableViewController: UITableViewController {
 extension AboutTableViewController {
     private func didTapGithub() {
         let urlString = "https://github.com/ntnhon/Metal-Archives-iOS"
-        self.presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertMessage: urlString)
+        presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertMessage: urlString)
         
         Analytics.logEvent(AnalyticsEvent.SelectAnAboutOption, parameters: [AnalyticsParameter.Option: "Github"])
     }
@@ -75,34 +96,34 @@ extension AboutTableViewController {
         mailComposerVC.setSubject("[Metal Archives iOS] Contact author")
         mailComposerVC.setToRecipients(["contact@nguyenthanhnhon.info", "ntnhon.cs@gmail.com"])
         
-        self.present(mailComposerVC, animated: true, completion: nil)
+        present(mailComposerVC, animated: true, completion: nil)
         
         Analytics.logEvent(AnalyticsEvent.SelectAnAboutOption, parameters: [AnalyticsParameter.Option: "Contact author"])
     }
     
     private func didTapOfficialSite() {
         let urlString = "https://www.metal-archives.com/"
-        self.presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertMessage: urlString)
+        presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertMessage: urlString)
         
         Analytics.logEvent(AnalyticsEvent.SelectAnAboutOption, parameters: [AnalyticsParameter.Option: "Official site"])
     }
     
     private func didTapOfficialFacebook() {
         let urlString = "https://www.facebook.com/metal.archives/"
-        self.presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertMessage: urlString)
+        presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertMessage: urlString)
         
         Analytics.logEvent(AnalyticsEvent.SelectAnAboutOption, parameters: [AnalyticsParameter.Option: "Official facebook"])
     }
     
     private func didTapUnofficialFacebook() {
         let urlString = "https://www.facebook.com/MetalArchivesIOSApp/"
-        self.presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertMessage: urlString)
+        presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertMessage: urlString)
         
         Analytics.logEvent(AnalyticsEvent.SelectAnAboutOption, parameters: [AnalyticsParameter.Option: "Unofficial facebook"])
     }
     
     private func didTapShowAllOpenSourceLibraries() {
-        self.performSegue(withIdentifier: "ShowLibraries", sender: nil)
+        performSegue(withIdentifier: "ShowLibraries", sender: nil)
         
         Analytics.logEvent(AnalyticsEvent.SelectAnAboutOption, parameters: [AnalyticsParameter.Option: "Show libraries"])
     }
@@ -121,20 +142,20 @@ extension AboutTableViewController {
         
         let selectedCell = tableView.cellForRow(at: indexPath)
         
-        if selectedCell == self.gitHubTableViewCell {
-            self.didTapGithub()
-        } else if selectedCell == self.contactAuthorTableViewCell {
-            self.didTapContactAuthor()
-        } else if selectedCell == self.officialSiteTableViewCell {
-            self.didTapOfficialSite()
-        } else if selectedCell == self.officialFacebookTableViewCell {
-            self.didTapOfficialFacebook()
-        } else if selectedCell == self.unofficialFacebookTableViewCell {
-            self.didTapUnofficialFacebook()
-        } else if selectedCell == self.allOpenSourceLibrariesTableViewCell {
-            self.didTapShowAllOpenSourceLibraries()
-        } else if selectedCell == self.takeMeToAppStoreTableViewCell {
-            self.didTapTakeMeToAppStore()
+        if selectedCell == gitHubTableViewCell {
+            didTapGithub()
+        } else if selectedCell == contactAuthorTableViewCell {
+            didTapContactAuthor()
+        } else if selectedCell == officialSiteTableViewCell {
+            didTapOfficialSite()
+        } else if selectedCell == officialFacebookTableViewCell {
+            didTapOfficialFacebook()
+        } else if selectedCell == unofficialFacebookTableViewCell {
+            didTapUnofficialFacebook()
+        } else if selectedCell == allOpenSourceLibrariesTableViewCell {
+            didTapShowAllOpenSourceLibraries()
+        } else if selectedCell == takeMeToAppStoreTableViewCell {
+            didTapTakeMeToAppStore()
         }
     }
     

@@ -9,13 +9,10 @@
 import UIKit
 import FirebaseAnalytics
 
-final class SettingsTableViewController: UITableViewController {
+final class SettingsTableViewController: BaseTableViewController {
     @IBOutlet private var titleLabels: [UILabel]!
     @IBOutlet private var detailLabels: [UILabel]!
     @IBOutlet private var switches: [UISwitch]!
-    
-    // SimpleNavigationBarView
-    private var simpleNavigationBarView: SimpleNavigationBarView!
     
     //Theme
     @IBOutlet private weak var themeLabel: UILabel!
@@ -41,21 +38,11 @@ final class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initAppearance()
-        initSimpleNavigationBarView()
         initThumbnailSwitch()
         updateThemeTitle()
         updateFontSizeLabel()
         updateDiscographyTypeLabel()
         choosenWidgetSections = UserDefaults.choosenWidgetSections()
-        title = "Settings"
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if isMovingFromParent {
-            // Manually remove here because simpleNavigationBarView is added to navigationController.view
-            simpleNavigationBarView.removeFromSuperview()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,23 +69,6 @@ final class SettingsTableViewController: UITableViewController {
             $0.tintColor = Settings.currentTheme.secondaryTitleColor
             $0.onTintColor = Settings.currentTheme.titleColor
         })
-    }
-    
-    private func initSimpleNavigationBarView() {
-        guard let navigationController = navigationController else { return }
-        simpleNavigationBarView = SimpleNavigationBarView(frame: .zero)
-        navigationController.view.addSubview(simpleNavigationBarView)
-        simpleNavigationBarView.anchor(top: navigationController.view.topAnchor, leading: navigationController.view.leadingAnchor, bottom: nil, trailing: navigationController.view.trailingAnchor)
-        
-        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
-        simpleNavigationBarView.setRightButtonIcon(nil)
-        simpleNavigationBarView.setTitle("Settings")
-        
-        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
-            self.navigationController?.popViewController(animated: true)
-        }
-        
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
     }
 
     private func initThumbnailSwitch() {

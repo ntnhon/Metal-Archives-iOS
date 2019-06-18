@@ -11,20 +11,37 @@ import UIKit
 final class LibraryCopyrightViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
+    // SimpleNavigationBarView
+    weak var simpleNavigationBarView: SimpleNavigationBarView?
+    
     var library: Library!
+    
+    deinit {
+        print("LibraryCopyrightViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = self.library.name
     }
     
     override func initAppearance() {
         super.initAppearance()
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.tableFooterView = UIView(frame: .zero)
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: 0, right: 0)
         
-        SimpleTableViewCell.register(with: self.tableView)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
+        
+        simpleNavigationBarView?.setTitle(library.name)
+        SimpleTableViewCell.register(with: tableView)
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension LibraryCopyrightViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
     }
 }
 
@@ -42,7 +59,7 @@ extension LibraryCopyrightViewController: UITableViewDataSource {
         let cell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.selectionStyle = .none
         
-        cell.fill(with: self.library.copyright + "\n\n" + self.library.copyrightDetail)
+        cell.fill(with: library.copyright + "\n\n" + library.copyrightDetail)
         return cell
     }
 }

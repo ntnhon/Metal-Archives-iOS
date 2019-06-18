@@ -235,22 +235,15 @@ extension LeftMenuViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch section {
-        //Section: Homepage
-        case 0: return ""
-        //Section: Bands
-        case 1: return ""
-        //Section: Labels
-        case 2: return ""
-        //Section: Others
-        case 3: return ""
         //Sections: Settings
         case 4:
             if let `appVersion` = appVersion {
-                return "Metal Archives iOS v\(appVersion)\nBy metalhead for metalheads."
+                return "Metal Archives iOS v\(appVersion)\nMade with 🤘 by metalhead for metalheads."
             }
-            return ""
-        default: return ""
+        default: return nil
         }
+        
+        return nil
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

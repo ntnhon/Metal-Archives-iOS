@@ -11,22 +11,30 @@ import UIKit
 final class OpenSourceLibrariesViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
+    // SimpleNavigationBarView
+    weak var simpleNavigationBarView: SimpleNavigationBarView?
+    
     private var libraries: [Library]!
     
+    deinit {
+        print("OpenSourceLibrariesViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
-        self.initLibraries()
+        initLibraries()
         super.viewDidLoad()
-        self.title = "Open source libraries"
     }
 
     override func initAppearance() {
         super.initAppearance()
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.tableFooterView = UIView(frame: .zero)
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
         
-        DetailTableViewCell.register(with: self.tableView)
+        simpleNavigationBarView?.setTitle("Open source libraries")
+        DetailTableViewCell.register(with: tableView)
     }
     
     private func initLibraries() {
@@ -40,11 +48,11 @@ final class OpenSourceLibrariesViewController: BaseViewController {
             return
         }
         
-        self.libraries = Array()
+        libraries = Array()
         
         array.forEach({
             let library = Library(name: $0[0], copyright: $0[1], copyrightDetail: $0[2])
-            self.libraries.append(library)
+            libraries.append(library)
         })
     }
     
@@ -65,8 +73,8 @@ extension OpenSourceLibrariesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let selectedLibrary = self.libraries[indexPath.row]
-        self.performSegue(withIdentifier: "ShowLibraryCopyright", sender: selectedLibrary)
+        let selectedLibrary = libraries[indexPath.row]
+        performSegue(withIdentifier: "ShowLibraryCopyright", sender: selectedLibrary)
     }
 }
 
@@ -77,17 +85,17 @@ extension OpenSourceLibrariesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let _ = self.libraries else {
+        guard let _ = libraries else {
             assertionFailure("Error loading libraries")
             return 0
         }
-        return self.libraries.count
+        return libraries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = DetailTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.accessoryType = .disclosureIndicator
-        let library = self.libraries[indexPath.row]
+        let library = libraries[indexPath.row]
         cell.fill(withTitle: library.name, detail: library.copyright)
         return cell
     }

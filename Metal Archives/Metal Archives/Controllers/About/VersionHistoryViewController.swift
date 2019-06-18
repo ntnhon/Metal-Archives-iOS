@@ -12,23 +12,32 @@ import FirebaseAnalytics
 final class VersionHistoryViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
+    // SimpleNavigationBarView
+    weak var simpleNavigationBarView: SimpleNavigationBarView?
+    
     private var versionHistoryList: [VersionHistory]!
+    
+    deinit {
+        print("VersionHistoryViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
-        self.loadHistories()
+        loadHistories()
         super.viewDidLoad()
-        self.title = "Version History"
-        
         Analytics.logEvent(AnalyticsEvent.ViewVersionHistory, parameters: nil)
     }
     
     override func initAppearance() {
         super.initAppearance()
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.tableFooterView = UIView(frame: .zero)
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: 0, right: 0)
         
-        DetailTableViewCell.register(with: self.tableView)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
+        
+        simpleNavigationBarView?.setTitle("Version History")
+        DetailTableViewCell.register(with: tableView)
     }
     
     private func loadHistories() {
@@ -42,12 +51,12 @@ final class VersionHistoryViewController: BaseViewController {
             return
         }
         
-        self.versionHistoryList = Array()
+        versionHistoryList = Array()
         
         array.forEach({
             if let number = $0["number"], let date = $0["date"], let features = $0["features"] {
                 let versionHistory = VersionHistory(number: number, date: date, features: features)
-                self.versionHistoryList.append(versionHistory)
+                versionHistoryList.append(versionHistory)
             }
         })
     }
@@ -55,6 +64,10 @@ final class VersionHistoryViewController: BaseViewController {
 
 //MARK: - UITableViewDelegate
 extension VersionHistoryViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -67,12 +80,12 @@ extension VersionHistoryViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.versionHistoryList.count
+        return versionHistoryList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = DetailTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let versionHistory = self.versionHistoryList[indexPath.row]
+        let versionHistory = versionHistoryList[indexPath.row]
         cell.fill(withTitle: versionHistory.number, detail: "\(versionHistory.date)\n\n\(versionHistory.features)")
         return cell
     }
