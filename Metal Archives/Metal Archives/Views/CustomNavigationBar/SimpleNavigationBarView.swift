@@ -88,6 +88,7 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
     
     func setLeftButtonIcon(_ image: UIImage?) {
         if let image = image {
+            leftButton.alpha = 1
             leftButton.setImage(image, for: .normal)
         } else {
             leftButton.alpha = 0
@@ -96,6 +97,7 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
     
     func setRightButtonIcon(_ image: UIImage?) {
         if let image = image {
+            rightButton.alpha = 1
             rightButton.setImage(image, for: .normal)
         } else {
             rightButton.alpha = 0

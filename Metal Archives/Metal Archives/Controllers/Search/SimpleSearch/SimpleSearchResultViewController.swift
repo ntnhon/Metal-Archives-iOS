@@ -11,6 +11,7 @@ import Toaster
 import FirebaseAnalytics
 
 final class SimpleSearchResultViewController: BaseViewController {
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var tableView: UITableView!
     
     var simpleSearchType: SimpleSearchType!
@@ -39,76 +40,80 @@ final class SimpleSearchResultViewController: BaseViewController {
     //Artist
     private var artistResultManager: PagableManager<SimpleSearchResultArtist>!
     
-    private var rightBarButtonItem: UIBarButtonItem!
+    deinit {
+        print("SimpleSearchResultViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let `searchTerm` = self.searchTerm {
-            self.title = "Results for \"\(searchTerm)\""
-        }
+        initManager()
+        handleSimpleNavigationBarViewActions()
+        fetchData()
+    }
     
-        self.initManager()
-        self.initRightBarButtonItem()
-        self.fetchData()
+    private func handleSimpleNavigationBarViewActions() {
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        simpleNavigationBarView.setRightButtonIcon(nil)
+        
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func initAppearance() {
         super.initAppearance()
-        self.tableView.backgroundColor = Settings.currentTheme.backgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.tableFooterView = UIView(frame: .zero)
+        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = Settings.currentTheme.backgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
         
-        LoadingTableViewCell.register(with: self.tableView)
-        SimpleBandNameOrMusicGenreTableViewCell.register(with: self.tableView)
-        SimpleLyricalThemesTableViewCell.register(with: self.tableView)
-        SimpleAlbumTitleTableViewCell.register(with: self.tableView)
-        SimpleSongTitleTableViewCell.register(with: self.tableView)
-        SimpleLabelTableViewCell.register(with: self.tableView)
-        SimpleArtistTableViewCell.register(with: self.tableView)
+        LoadingTableViewCell.register(with: tableView)
+        SimpleBandNameOrMusicGenreTableViewCell.register(with: tableView)
+        SimpleLyricalThemesTableViewCell.register(with: tableView)
+        SimpleAlbumTitleTableViewCell.register(with: tableView)
+        SimpleSongTitleTableViewCell.register(with: tableView)
+        SimpleLabelTableViewCell.register(with: tableView)
+        SimpleArtistTableViewCell.register(with: tableView)
     }
     
     private func initManager() {
 
-        switch self.simpleSearchType! {
+        switch simpleSearchType! {
         case .bandName:
-            self.bandNameResultManager = PagableManager<SimpleSearchResultBandName>(options: ["<QUERY>": self.searchTerm])
-            self.bandNameResultManager.delegate = self
+            bandNameResultManager = PagableManager<SimpleSearchResultBandName>(options: ["<QUERY>": searchTerm])
+            bandNameResultManager.delegate = self
         case .musicGenre:
-            self.musicGenreResultManager = PagableManager<SimpleSearchResultMusicGenre>(options: ["<QUERY>": self.searchTerm])
-            self.musicGenreResultManager.delegate = self
+            musicGenreResultManager = PagableManager<SimpleSearchResultMusicGenre>(options: ["<QUERY>": searchTerm])
+            musicGenreResultManager.delegate = self
         case .lyricalThemes:
-            self.lyricalThemesResultManager = PagableManager<SimpleSearchResultLyricalThemes>(options: ["<QUERY>": self.searchTerm])
-            self.lyricalThemesResultManager.delegate = self
+            lyricalThemesResultManager = PagableManager<SimpleSearchResultLyricalThemes>(options: ["<QUERY>": searchTerm])
+            lyricalThemesResultManager.delegate = self
         case .albumTitle:
-            self.albumTitleResultManager = PagableManager<SimpleSearchResultAlbumTitle>(options: ["<QUERY>": self.searchTerm])
-            self.albumTitleResultManager.delegate = self
+            albumTitleResultManager = PagableManager<SimpleSearchResultAlbumTitle>(options: ["<QUERY>": searchTerm])
+            albumTitleResultManager.delegate = self
         case .songTitle:
-            self.songTitleResultManager = PagableManager<SimpleSearchResultSongTitle>(options: ["<QUERY>": self.searchTerm])
-            self.songTitleResultManager.delegate = self
+            songTitleResultManager = PagableManager<SimpleSearchResultSongTitle>(options: ["<QUERY>": searchTerm])
+            songTitleResultManager.delegate = self
         case .label:
-            self.labelNameResultManager = PagableManager<SimpleSearchResultLabelName>(options: ["<QUERY>": self.searchTerm])
-            self.labelNameResultManager.delegate = self
+            labelNameResultManager = PagableManager<SimpleSearchResultLabelName>(options: ["<QUERY>": searchTerm])
+            labelNameResultManager.delegate = self
         case .artist:
-            self.artistResultManager = PagableManager<SimpleSearchResultArtist>(options: ["<QUERY>": self.searchTerm])
-            self.artistResultManager.delegate = self
+            artistResultManager = PagableManager<SimpleSearchResultArtist>(options: ["<QUERY>": searchTerm])
+            artistResultManager.delegate = self
         }
     }
     
-    private func initRightBarButtonItem() {
-        self.rightBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
-        self.navigationItem.rightBarButtonItem = self.rightBarButtonItem
-    }
-    
     private func fetchData() {
-        switch self.simpleSearchType! {
-        case .bandName: self.bandNameResultManager.fetch()
-        case .musicGenre: self.musicGenreResultManager.fetch()
-        case .lyricalThemes: self.lyricalThemesResultManager.fetch()
-        case .albumTitle: self.albumTitleResultManager.fetch()
-        case .songTitle: self.songTitleResultManager.fetch()
-        case .label: self.labelNameResultManager.fetch()
-        case .artist: self.artistResultManager.fetch()
+        switch simpleSearchType! {
+        case .bandName: bandNameResultManager.fetch()
+        case .musicGenre: musicGenreResultManager.fetch()
+        case .lyricalThemes: lyricalThemesResultManager.fetch()
+        case .albumTitle: albumTitleResultManager.fetch()
+        case .songTitle: songTitleResultManager.fetch()
+        case .label: labelNameResultManager.fetch()
+        case .artist: artistResultManager.fetch()
         }
     }
     
@@ -116,88 +121,88 @@ final class SimpleSearchResultViewController: BaseViewController {
         var loaded: Int?
         var total: Int?
         
-        switch self.simpleSearchType! {
+        switch simpleSearchType! {
         case .bandName:
-            loaded = self.bandNameResultManager.objects.count
-            total = self.bandNameResultManager.totalRecords
+            loaded = bandNameResultManager.objects.count
+            total = bandNameResultManager.totalRecords
         case .musicGenre:
-            loaded = self.musicGenreResultManager.objects.count
-            total = self.musicGenreResultManager.totalRecords
+            loaded = musicGenreResultManager.objects.count
+            total = musicGenreResultManager.totalRecords
         case .lyricalThemes:
-            loaded = self.lyricalThemesResultManager.objects.count
-            total = self.lyricalThemesResultManager.totalRecords
+            loaded = lyricalThemesResultManager.objects.count
+            total = lyricalThemesResultManager.totalRecords
         case .albumTitle:
-            loaded = self.albumTitleResultManager.objects.count
-            total = self.albumTitleResultManager.totalRecords
+            loaded = albumTitleResultManager.objects.count
+            total = albumTitleResultManager.totalRecords
         case .songTitle:
-            loaded = self.songTitleResultManager.objects.count
-            total = self.songTitleResultManager.totalRecords
+            loaded = songTitleResultManager.objects.count
+            total = songTitleResultManager.totalRecords
         case .label:
-            loaded = self.labelNameResultManager.objects.count
-            total = self.labelNameResultManager.totalRecords
+            loaded = labelNameResultManager.objects.count
+            total = labelNameResultManager.totalRecords
         case .artist:
-            loaded = self.artistResultManager.objects.count
-            total = self.artistResultManager.totalRecords
+            loaded = artistResultManager.objects.count
+            total = artistResultManager.totalRecords
         }
         
-        if let `loaded` = loaded, let `total` = total {
-            self.rightBarButtonItem.title = "Loaded \(loaded) of \(total)"
+        if let loaded = loaded, let total = total, let searchTerm = searchTerm {
+            simpleNavigationBarView.setTitle("\"\(searchTerm)\" (\(loaded) of \(total))")
         }
     }
     
     private func checkLuck() {
-        switch self.simpleSearchType! {
+        switch simpleSearchType! {
         case .bandName:
-            if self.bandNameResultManager.objects.count == 1 ||
-                (self.isFeelingLucky && !self.wasLucky && self.bandNameResultManager.objects.count > 1) {
-                let result = self.bandNameResultManager.objects[0]
-                self.pushBandDetailViewController(urlString: result.band.urlString, animated: true)
+            if bandNameResultManager.objects.count == 1 ||
+                (isFeelingLucky && !wasLucky && bandNameResultManager.objects.count > 1) {
+                let result = bandNameResultManager.objects[0]
+                pushBandDetailViewController(urlString: result.band.urlString, animated: true)
             }
             
         case .musicGenre:
-            if self.musicGenreResultManager.objects.count == 1 ||
-                (self.isFeelingLucky && !self.wasLucky && self.musicGenreResultManager.objects.count > 1) {
-                let result = self.musicGenreResultManager.objects[0]
-                self.pushBandDetailViewController(urlString: result.band.urlString, animated: true)
+            if musicGenreResultManager.objects.count == 1 ||
+                (isFeelingLucky && !wasLucky && musicGenreResultManager.objects.count > 1) {
+                let result = musicGenreResultManager.objects[0]
+                pushBandDetailViewController(urlString: result.band.urlString, animated: true)
             }
             
         case .lyricalThemes:
-            if self.lyricalThemesResultManager.objects.count == 1 ||
-                (self.isFeelingLucky && !self.wasLucky && self.lyricalThemesResultManager.objects.count > 1) {
-                let result = self.lyricalThemesResultManager.objects[0]
-                self.pushBandDetailViewController(urlString: result.band.urlString, animated: true)
+            if lyricalThemesResultManager.objects.count == 1 ||
+                (isFeelingLucky && !wasLucky && lyricalThemesResultManager.objects.count > 1) {
+                let result = lyricalThemesResultManager.objects[0]
+                pushBandDetailViewController(urlString: result.band.urlString, animated: true)
             }
             
         case .albumTitle:
-            if self.albumTitleResultManager.objects.count == 1 ||
-                (self.isFeelingLucky && !self.wasLucky && self.albumTitleResultManager.objects.count > 1) {
-                let result = self.albumTitleResultManager.objects[0]
-                self.pushReleaseDetailViewController(urlString: result.release.urlString, animated: true)
+            if albumTitleResultManager.objects.count == 1 ||
+                (isFeelingLucky && !wasLucky && albumTitleResultManager.objects.count > 1) {
+                let result = albumTitleResultManager.objects[0]
+                pushReleaseDetailViewController(urlString: result.release.urlString, animated: true)
             }
             
         case .songTitle:
-            if self.songTitleResultManager.objects.count == 1 ||
-                (self.isFeelingLucky && !self.wasLucky && self.songTitleResultManager.objects.count > 1) {
-                let result = self.songTitleResultManager.objects[0]
-                self.pushReleaseDetailViewController(urlString: result.release.urlString, animated: true)
+            if songTitleResultManager.objects.count == 1 ||
+                (isFeelingLucky && !wasLucky && songTitleResultManager.objects.count > 1) {
+                let result = songTitleResultManager.objects[0]
+                pushReleaseDetailViewController(urlString: result.release.urlString, animated: true)
             }
             
         case .label:
-            if self.labelNameResultManager.objects.count == 1 ||
-                (self.isFeelingLucky && !self.wasLucky && self.labelNameResultManager.objects.count > 1) {
-                let result = self.labelNameResultManager.objects[0]
-                self.pushLabelDetailViewController(urlString: result.label.urlString, animated: true)
+            if labelNameResultManager.objects.count == 1 ||
+                (isFeelingLucky && !wasLucky && labelNameResultManager.objects.count > 1) {
+                let result = labelNameResultManager.objects[0]
+                pushLabelDetailViewController(urlString: result.label.urlString, animated: true)
             }
             
         case .artist:
-            if self.artistResultManager.objects.count == 1 ||
-                (self.isFeelingLucky && !self.wasLucky && self.artistResultManager.objects.count > 1) {
-                let result = self.artistResultManager.objects[0]
-                self.pushArtistDetailViewController(urlString: result.artist.urlString, animated: true)
+            if artistResultManager.objects.count == 1 ||
+                (isFeelingLucky && !wasLucky && artistResultManager.objects.count > 1) {
+                let result = artistResultManager.objects[0]
+                pushArtistDetailViewController(urlString: result.artist.urlString, animated: true)
             }
         }
         
-        self.wasLucky = true
+        wasLucky = true
     }
 }
 
@@ -212,9 +217,9 @@ extension SimpleSearchResultViewController: PagableManagerDelegate {
             return
         }
         
-        self.updateStatusMessage()
-        self.checkLuck()
-        self.tableView.reloadData()
+        updateStatusMessage()
+        checkLuck()
+        tableView.reloadData()
         
         Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
@@ -232,26 +237,26 @@ extension SimpleSearchResultViewController: PagableManagerDelegate {
 extension SimpleSearchResultViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        switch self.simpleSearchType! {
-        case .bandName: self.didSelectBandNameResult(at: indexPath)
-        case .musicGenre: self.didSelectMusicGenreResult(at: indexPath)
-        case .lyricalThemes: self.didSelectLyricalThemesResult(at: indexPath)
-        case .albumTitle: self.didSelectAlbumTitleResult(at: indexPath)
-        case .songTitle: self.didSelectSongTitleResult(at: indexPath)
-        case .label: self.didSelectLabelResult(at: indexPath)
-        case .artist: self.didSelectArtistResult(at: indexPath)
+        switch simpleSearchType! {
+        case .bandName: didSelectBandNameResult(at: indexPath)
+        case .musicGenre: didSelectMusicGenreResult(at: indexPath)
+        case .lyricalThemes: didSelectLyricalThemesResult(at: indexPath)
+        case .albumTitle: didSelectAlbumTitleResult(at: indexPath)
+        case .songTitle: didSelectSongTitleResult(at: indexPath)
+        case .label: didSelectLabelResult(at: indexPath)
+        case .artist: didSelectArtistResult(at: indexPath)
         }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        switch self.simpleSearchType! {
-        case .bandName: self.willDisplayBandNameResultCell(at: indexPath)
-        case .musicGenre: self.willDisplayMusicGenreResultCell(at: indexPath)
-        case .lyricalThemes: self.willDisplayLyricalThemesResultCell(at: indexPath)
-        case .albumTitle: self.willDisplayAlbumTitleResultCell(at: indexPath)
-        case .songTitle: self.willDisplaySongTitleResultCell(at: indexPath)
-        case .label: self.willDisplayLabelResultCell(at: indexPath)
-        case .artist: self.willDisplayArtistResultCell(at: indexPath)
+        switch simpleSearchType! {
+        case .bandName: willDisplayBandNameResultCell(at: indexPath)
+        case .musicGenre: willDisplayMusicGenreResultCell(at: indexPath)
+        case .lyricalThemes: willDisplayLyricalThemesResultCell(at: indexPath)
+        case .albumTitle: willDisplayAlbumTitleResultCell(at: indexPath)
+        case .songTitle: willDisplaySongTitleResultCell(at: indexPath)
+        case .label: willDisplayLabelResultCell(at: indexPath)
+        case .artist: willDisplayArtistResultCell(at: indexPath)
         }
     }
 }
@@ -263,34 +268,41 @@ extension SimpleSearchResultViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch self.simpleSearchType! {
-        case .bandName: return self.numberOfRowsForBandNameResults()
-        case .musicGenre: return self.numberOfRowsForMusicGenreResults()
-        case .lyricalThemes: return self.numberOfRowsForLyricalThemesResults()
-        case .albumTitle: return self.numberOfRowsForAlbumTitleResults()
-        case .songTitle: return self.numberOfRowsForSongTitleResults()
-        case .label: return self.numberOfRowsForLabelResults()
-        case .artist: return self.numberOfRowsForArtistResults()
+        switch simpleSearchType! {
+        case .bandName: return numberOfRowsForBandNameResults()
+        case .musicGenre: return numberOfRowsForMusicGenreResults()
+        case .lyricalThemes: return numberOfRowsForLyricalThemesResults()
+        case .albumTitle: return numberOfRowsForAlbumTitleResults()
+        case .songTitle: return numberOfRowsForSongTitleResults()
+        case .label: return numberOfRowsForLabelResults()
+        case .artist: return numberOfRowsForArtistResults()
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch self.simpleSearchType! {
-        case .bandName: return self.cellForBandNameResult(at: indexPath)
-        case .musicGenre: return self.cellForMusicGenreResult(at: indexPath)
-        case .lyricalThemes: return self.cellForLyricalThemesResult(at: indexPath)
-        case .albumTitle: return self.cellForAlbumTitleResult(at: indexPath)
-        case .songTitle: return self.cellForSongTitleResult(at: indexPath)
-        case .label: return self.cellForLabelResult(at: indexPath)
-        case .artist: return self.cellForArtistResult(at: indexPath)
+        switch simpleSearchType! {
+        case .bandName: return cellForBandNameResult(at: indexPath)
+        case .musicGenre: return cellForMusicGenreResult(at: indexPath)
+        case .lyricalThemes: return cellForLyricalThemesResult(at: indexPath)
+        case .albumTitle: return cellForAlbumTitleResult(at: indexPath)
+        case .songTitle: return cellForSongTitleResult(at: indexPath)
+        case .label: return cellForLabelResult(at: indexPath)
+        case .artist: return cellForArtistResult(at: indexPath)
         }
+    }
+}
+
+// MARK: - SimpleSearchResultViewController
+extension SimpleSearchResultViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        simpleNavigationBarView.transformWith(scrollView)
     }
 }
 
 //MARK: - Band name
 extension SimpleSearchResultViewController {
     private func numberOfRowsForBandNameResults() -> Int {
-        guard let manager = self.bandNameResultManager else {
+        guard let manager = bandNameResultManager else {
             return 0
         }
         
@@ -302,36 +314,38 @@ extension SimpleSearchResultViewController {
     }
     
     private func cellForBandNameResult(at indexPath: IndexPath) -> UITableViewCell {
-        if self.bandNameResultManager.moreToLoad && indexPath.row == self.bandNameResultManager.objects.count {
-            let loadingCell = LoadingTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        if bandNameResultManager.moreToLoad && indexPath.row == bandNameResultManager.objects.count {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
-        let result = self.bandNameResultManager.objects[indexPath.row]
-        let cell = SimpleBandNameOrMusicGenreTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        let result = bandNameResultManager.objects[indexPath.row]
+        let cell = SimpleBandNameOrMusicGenreTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: result)
-        
+        cell.tappedThumbnailImageView = { [unowned self]  in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: result.band.imageURLString, description: result.band.name, fromImageView: cell.thumbnailImageView)
+        }
         return cell
     }
     
     private func didSelectBandNameResult(at indexPath: IndexPath) {
-        if self.bandNameResultManager.objects.indices.contains(indexPath.row) {
-            let result = self.bandNameResultManager.objects[indexPath.row]
-            self.pushBandDetailViewController(urlString: result.band.urlString, animated: true)
+        if bandNameResultManager.objects.indices.contains(indexPath.row) {
+            let result = bandNameResultManager.objects[indexPath.row]
+            pushBandDetailViewController(urlString: result.band.urlString, animated: true)
             
             Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Band name", AnalyticsParameter.BandName: result.band.name, AnalyticsParameter.BandID: result.band.id])
         }
     }
     
     private func willDisplayBandNameResultCell(at indexPath: IndexPath) {
-        guard let _ = self.bandNameResultManager.totalRecords else {
+        guard let _ = bandNameResultManager.totalRecords else {
             return
         }
         
-        if self.bandNameResultManager.moreToLoad && indexPath.row == self.bandNameResultManager.objects.count {
-            self.bandNameResultManager.fetch()
-        } else if !self.bandNameResultManager.moreToLoad && indexPath.row == self.bandNameResultManager.objects.count - 1 {
+        if bandNameResultManager.moreToLoad && indexPath.row == bandNameResultManager.objects.count {
+            bandNameResultManager.fetch()
+        } else if !bandNameResultManager.moreToLoad && indexPath.row == bandNameResultManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
     }
@@ -340,7 +354,7 @@ extension SimpleSearchResultViewController {
 //MARK: - Music genre
 extension SimpleSearchResultViewController {
     private func numberOfRowsForMusicGenreResults() -> Int {
-        guard let manager = self.musicGenreResultManager else {
+        guard let manager = musicGenreResultManager else {
             return 0
         }
         
@@ -352,36 +366,38 @@ extension SimpleSearchResultViewController {
     }
     
     private func cellForMusicGenreResult(at indexPath: IndexPath) -> UITableViewCell {
-        if self.musicGenreResultManager.moreToLoad && indexPath.row == self.musicGenreResultManager.objects.count {
-            let loadingCell = LoadingTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        if musicGenreResultManager.moreToLoad && indexPath.row == musicGenreResultManager.objects.count {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
-        let result = self.musicGenreResultManager.objects[indexPath.row]
-        let cell = SimpleBandNameOrMusicGenreTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        let result = musicGenreResultManager.objects[indexPath.row]
+        let cell = SimpleBandNameOrMusicGenreTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: result)
-        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: result.band.imageURLString, description: result.band.name, fromImageView: cell.thumbnailImageView)
+        }
         return cell
     }
     
     private func didSelectMusicGenreResult(at indexPath: IndexPath) {
-        if self.musicGenreResultManager.objects.indices.contains(indexPath.row) {
-            let result = self.musicGenreResultManager.objects[indexPath.row]
-            self.pushBandDetailViewController(urlString: result.band.urlString, animated: true)
+        if musicGenreResultManager.objects.indices.contains(indexPath.row) {
+            let result = musicGenreResultManager.objects[indexPath.row]
+            pushBandDetailViewController(urlString: result.band.urlString, animated: true)
             
             Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Music genre", AnalyticsParameter.BandName: result.band.name, AnalyticsParameter.BandID: result.band.id])
         }
     }
     
     private func willDisplayMusicGenreResultCell(at indexPath: IndexPath) {
-        guard let _ = self.musicGenreResultManager.totalRecords else {
+        guard let _ = musicGenreResultManager.totalRecords else {
             return
         }
         
-        if self.musicGenreResultManager.moreToLoad && indexPath.row == self.musicGenreResultManager.objects.count {
-            self.musicGenreResultManager.fetch()
-        } else if !self.musicGenreResultManager.moreToLoad && indexPath.row == self.musicGenreResultManager.objects.count - 1 {
+        if musicGenreResultManager.moreToLoad && indexPath.row == musicGenreResultManager.objects.count {
+            musicGenreResultManager.fetch()
+        } else if !musicGenreResultManager.moreToLoad && indexPath.row == musicGenreResultManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
     }
@@ -390,7 +406,7 @@ extension SimpleSearchResultViewController {
 //MARK: - Lyrical themes
 extension SimpleSearchResultViewController {
     private func numberOfRowsForLyricalThemesResults() -> Int {
-        guard let manager = self.lyricalThemesResultManager else {
+        guard let manager = lyricalThemesResultManager else {
             return 0
         }
         
@@ -402,36 +418,38 @@ extension SimpleSearchResultViewController {
     }
     
     private func cellForLyricalThemesResult(at indexPath: IndexPath) -> UITableViewCell {
-        if self.lyricalThemesResultManager.moreToLoad && indexPath.row == self.lyricalThemesResultManager.objects.count {
-            let loadingCell = LoadingTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        if lyricalThemesResultManager.moreToLoad && indexPath.row == lyricalThemesResultManager.objects.count {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
-        let result = self.lyricalThemesResultManager.objects[indexPath.row]
+        let result = lyricalThemesResultManager.objects[indexPath.row]
         let cell = SimpleLyricalThemesTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: result)
-        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: result.band.imageURLString, description: result.band.name, fromImageView: cell.thumbnailImageView)
+        }
         return cell
     }
     
     private func didSelectLyricalThemesResult(at indexPath: IndexPath) {
-        if self.lyricalThemesResultManager.objects.indices.contains(indexPath.row) {
-            let result = self.lyricalThemesResultManager.objects[indexPath.row]
-            self.pushBandDetailViewController(urlString: result.band.urlString, animated: true)
+        if lyricalThemesResultManager.objects.indices.contains(indexPath.row) {
+            let result = lyricalThemesResultManager.objects[indexPath.row]
+            pushBandDetailViewController(urlString: result.band.urlString, animated: true)
             
             Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Lyrical theme", AnalyticsParameter.BandName: result.band.name, AnalyticsParameter.BandID: result.band.id])
         }
     }
     
     private func willDisplayLyricalThemesResultCell(at indexPath: IndexPath) {
-        guard let _ = self.lyricalThemesResultManager.totalRecords else {
+        guard let _ = lyricalThemesResultManager.totalRecords else {
             return
         }
         
-        if self.lyricalThemesResultManager.moreToLoad && indexPath.row == self.lyricalThemesResultManager.objects.count {
-            self.lyricalThemesResultManager.fetch()
-        } else if !self.lyricalThemesResultManager.moreToLoad && indexPath.row == self.lyricalThemesResultManager.objects.count - 1 {
+        if lyricalThemesResultManager.moreToLoad && indexPath.row == lyricalThemesResultManager.objects.count {
+            lyricalThemesResultManager.fetch()
+        } else if !lyricalThemesResultManager.moreToLoad && indexPath.row == lyricalThemesResultManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
     }
@@ -440,7 +458,7 @@ extension SimpleSearchResultViewController {
 //MARK: - Album title
 extension SimpleSearchResultViewController {
     private func numberOfRowsForAlbumTitleResults() -> Int {
-        guard let manager = self.albumTitleResultManager else {
+        guard let manager = albumTitleResultManager else {
             return 0
         }
         
@@ -452,36 +470,38 @@ extension SimpleSearchResultViewController {
     }
     
     private func cellForAlbumTitleResult(at indexPath: IndexPath) -> UITableViewCell {
-        if self.albumTitleResultManager.moreToLoad && indexPath.row == self.albumTitleResultManager.objects.count {
-            let loadingCell = LoadingTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        if albumTitleResultManager.moreToLoad && indexPath.row == albumTitleResultManager.objects.count {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
-        let result = self.albumTitleResultManager.objects[indexPath.row]
+        let result = albumTitleResultManager.objects[indexPath.row]
         let cell = SimpleAlbumTitleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: result)
-        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: result.release.imageURLString, description: result.release.title, fromImageView: cell.thumbnailImageView)
+        }
         return cell
     }
     
     private func didSelectAlbumTitleResult(at indexPath: IndexPath) {
-        if self.albumTitleResultManager.objects.indices.contains(indexPath.row) {
-            let result = self.albumTitleResultManager.objects[indexPath.row]
-            self.takeActionFor(actionableObject: result)
+        if albumTitleResultManager.objects.indices.contains(indexPath.row) {
+            let result = albumTitleResultManager.objects[indexPath.row]
+            takeActionFor(actionableObject: result)
             
             Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Album title", AnalyticsParameter.BandName: result.release.title, AnalyticsParameter.BandID: result.release.id])
         }
     }
     
     private func willDisplayAlbumTitleResultCell(at indexPath: IndexPath) {
-        guard let _ = self.albumTitleResultManager.totalRecords else {
+        guard let _ = albumTitleResultManager.totalRecords else {
             return
         }
         
-        if self.albumTitleResultManager.moreToLoad && indexPath.row == self.albumTitleResultManager.objects.count {
-            self.albumTitleResultManager.fetch()
-        } else if !self.albumTitleResultManager.moreToLoad && indexPath.row == self.albumTitleResultManager.objects.count - 1 {
+        if albumTitleResultManager.moreToLoad && indexPath.row == albumTitleResultManager.objects.count {
+            albumTitleResultManager.fetch()
+        } else if !albumTitleResultManager.moreToLoad && indexPath.row == albumTitleResultManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
     }
@@ -490,7 +510,7 @@ extension SimpleSearchResultViewController {
 //MARK: - Song title
 extension SimpleSearchResultViewController {
     private func numberOfRowsForSongTitleResults() -> Int {
-        guard let manager = self.songTitleResultManager else {
+        guard let manager = songTitleResultManager else {
             return 0
         }
         
@@ -502,36 +522,38 @@ extension SimpleSearchResultViewController {
     }
     
     private func cellForSongTitleResult(at indexPath: IndexPath) -> UITableViewCell {
-        if self.songTitleResultManager.moreToLoad && indexPath.row == self.songTitleResultManager.objects.count {
-            let loadingCell = LoadingTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        if songTitleResultManager.moreToLoad && indexPath.row == songTitleResultManager.objects.count {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
-        let result = self.songTitleResultManager.objects[indexPath.row]
+        let result = songTitleResultManager.objects[indexPath.row]
         let cell = SimpleSongTitleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: result)
-        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: result.release.imageURLString, description: result.release.title, fromImageView: cell.thumbnailImageView)
+        }
         return cell
     }
     
     private func didSelectSongTitleResult(at indexPath: IndexPath) {
-        if self.songTitleResultManager.objects.indices.contains(indexPath.row) {
-            let result = self.songTitleResultManager.objects[indexPath.row]
-            self.takeActionFor(actionableObject: result)
+        if songTitleResultManager.objects.indices.contains(indexPath.row) {
+            let result = songTitleResultManager.objects[indexPath.row]
+            takeActionFor(actionableObject: result)
             
             Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Song title", AnalyticsParameter.BandName: result.band.name])
         }
     }
     
     private func willDisplaySongTitleResultCell(at indexPath: IndexPath) {
-        guard let _ = self.songTitleResultManager.totalRecords else {
+        guard let _ = songTitleResultManager.totalRecords else {
             return
         }
         
-        if self.songTitleResultManager.moreToLoad && indexPath.row == self.songTitleResultManager.objects.count {
-            self.songTitleResultManager.fetch()
-        } else if !self.songTitleResultManager.moreToLoad && indexPath.row == self.songTitleResultManager.objects.count - 1 {
+        if songTitleResultManager.moreToLoad && indexPath.row == songTitleResultManager.objects.count {
+            songTitleResultManager.fetch()
+        } else if !songTitleResultManager.moreToLoad && indexPath.row == songTitleResultManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
     }
@@ -540,7 +562,7 @@ extension SimpleSearchResultViewController {
 //MARK: - Label
 extension SimpleSearchResultViewController {
     private func numberOfRowsForLabelResults() -> Int {
-        guard let manager = self.labelNameResultManager else {
+        guard let manager = labelNameResultManager else {
             return 0
         }
         
@@ -552,36 +574,38 @@ extension SimpleSearchResultViewController {
     }
     
     private func cellForLabelResult(at indexPath: IndexPath) -> UITableViewCell {
-        if self.labelNameResultManager.moreToLoad && indexPath.row == self.labelNameResultManager.objects.count {
-            let loadingCell = LoadingTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        if labelNameResultManager.moreToLoad && indexPath.row == labelNameResultManager.objects.count {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
-        let result = self.labelNameResultManager.objects[indexPath.row]
+        let result = labelNameResultManager.objects[indexPath.row]
         let cell = SimpleLabelTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: result)
-        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: result.label.imageURLString, description: result.label.name, fromImageView: cell.thumbnailImageView)
+        }
         return cell
     }
     
     private func didSelectLabelResult(at indexPath: IndexPath) {
-        if self.labelNameResultManager.objects.indices.contains(indexPath.row) {
-            let result = self.labelNameResultManager.objects[indexPath.row]
-            self.pushLabelDetailViewController(urlString: result.label.urlString, animated: true)
+        if labelNameResultManager.objects.indices.contains(indexPath.row) {
+            let result = labelNameResultManager.objects[indexPath.row]
+            pushLabelDetailViewController(urlString: result.label.urlString, animated: true)
             
             Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Label", AnalyticsParameter.LabelName: result.label.name, AnalyticsParameter.LabelID: result.label.id])
         }
     }
     
     private func willDisplayLabelResultCell(at indexPath: IndexPath) {
-        guard let _ = self.labelNameResultManager.totalRecords else {
+        guard let _ = labelNameResultManager.totalRecords else {
             return
         }
         
-        if self.labelNameResultManager.moreToLoad && indexPath.row == self.labelNameResultManager.objects.count {
-            self.labelNameResultManager.fetch()
-        } else if !self.labelNameResultManager.moreToLoad && indexPath.row == self.labelNameResultManager.objects.count - 1 {
+        if labelNameResultManager.moreToLoad && indexPath.row == labelNameResultManager.objects.count {
+            labelNameResultManager.fetch()
+        } else if !labelNameResultManager.moreToLoad && indexPath.row == labelNameResultManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
     }
@@ -590,7 +614,7 @@ extension SimpleSearchResultViewController {
 //MARK: - Artist
 extension SimpleSearchResultViewController {
     private func numberOfRowsForArtistResults() -> Int {
-        guard let manager = self.artistResultManager else {
+        guard let manager = artistResultManager else {
             return 0
         }
         
@@ -602,36 +626,38 @@ extension SimpleSearchResultViewController {
     }
     
     private func cellForArtistResult(at indexPath: IndexPath) -> UITableViewCell {
-        if self.artistResultManager.moreToLoad && indexPath.row == self.artistResultManager.objects.count {
-            let loadingCell = LoadingTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        if artistResultManager.moreToLoad && indexPath.row == artistResultManager.objects.count {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
-        let result = self.artistResultManager.objects[indexPath.row]
+        let result = artistResultManager.objects[indexPath.row]
         let cell = SimpleArtistTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: result)
-        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: result.artist.imageURLString, description: result.artist.name, fromImageView: cell.thumbnailImageView)
+        }
         return cell
     }
     
     private func didSelectArtistResult(at indexPath: IndexPath) {
-        if self.artistResultManager.objects.indices.contains(indexPath.row) {
-            let result = self.artistResultManager.objects[indexPath.row]
-            self.takeActionFor(actionableObject: result)
+        if artistResultManager.objects.indices.contains(indexPath.row) {
+            let result = artistResultManager.objects[indexPath.row]
+            takeActionFor(actionableObject: result)
             
             Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Artist", AnalyticsParameter.ArtistName: result.artist.name, AnalyticsParameter.ArtistID: result.artist.id])
         }
     }
     
     private func willDisplayArtistResultCell(at indexPath: IndexPath) {
-        guard let _ = self.artistResultManager.totalRecords else {
+        guard let _ = artistResultManager.totalRecords else {
             return
         }
         
-        if self.artistResultManager.moreToLoad && indexPath.row == self.artistResultManager.objects.count {
-            self.artistResultManager.fetch()
-        } else if !self.artistResultManager.moreToLoad && indexPath.row == self.artistResultManager.objects.count - 1 {
+        if artistResultManager.moreToLoad && indexPath.row == artistResultManager.objects.count {
+            artistResultManager.fetch()
+        } else if !artistResultManager.moreToLoad && indexPath.row == artistResultManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
     }

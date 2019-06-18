@@ -8,51 +8,36 @@
 
 import UIKit
 
-class BaseAdvancedSearchTableViewController: UITableViewController {
+class BaseAdvancedSearchTableViewController: BaseTableViewController {
     @IBOutlet private var titleLabels: [UILabel]!
     @IBOutlet private var detailLabels: [UILabel]!
     @IBOutlet private var switches: [UISwitch]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initAppearance()
+        initAppearance()
     }
     
     func initAppearance() {
-        self.view.backgroundColor = Settings.currentTheme.backgroundColor
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.tableFooterView = UIView(frame: .zero)
-        
-        self.initPerformSearchBarButtonItem()
-        
-        self.titleLabels.forEach({
+        view.backgroundColor = Settings.currentTheme.backgroundColor
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
+
+        titleLabels.forEach({
             $0.textColor = Settings.currentTheme.secondaryTitleColor
             $0.font = Settings.currentFontSize.secondaryTitleFont
         })
         
-        self.detailLabels.forEach({
+        detailLabels.forEach({
             $0.textColor = Settings.currentTheme.bodyTextColor
             $0.font = Settings.currentFontSize.bodyTextFont
         })
         
-        self.switches.forEach({
+        switches.forEach({
             $0.tintColor = Settings.currentTheme.secondaryTitleColor
             $0.onTintColor = Settings.currentTheme.titleColor
         })
-    }
-    
-    private func initPerformSearchBarButtonItem() {
-        let button = UIBarButtonItem(image: UIImage(named: "search"), landscapeImagePhone: nil, style: .done, target: self, action: #selector(didTapPerformSearchBarButtonItem))
-        self.navigationItem.rightBarButtonItem = button
-    }
-    
-    @objc private func didTapPerformSearchBarButtonItem() {
-        self.performSearch()
-    }
-    
-    func performSearch() {
-        
     }
 }

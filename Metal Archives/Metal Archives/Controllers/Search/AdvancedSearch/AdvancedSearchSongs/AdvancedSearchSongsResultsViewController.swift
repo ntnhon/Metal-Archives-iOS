@@ -13,22 +13,33 @@ import FirebaseAnalytics
 final class AdvancedSearchSongsResultsViewController: RefreshableViewController {
     var optionsList: String!
     private var songAdvancedSearchResultPagableManager: PagableManager<AdvancedSearchResultSong>!
+    weak var simpleNavigationBarView: SimpleNavigationBarView?
+    deinit {
+        print("AdvancedSearchSongsResultsViewController is deallocated")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initSongAdvancedSearchResultPagableManager()
-        self.songAdvancedSearchResultPagableManager.fetch()
+        initSongAdvancedSearchResultPagableManager()
+        songAdvancedSearchResultPagableManager.fetch()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        simpleNavigationBarView?.setRightButtonIcon(nil)
+    }
+    
     
     override func initAppearance() {
         super.initAppearance()
-        AdvancedSongTableViewCell.register(with: self.tableView)
-        LoadingTableViewCell.register(with: self.tableView)
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        AdvancedSongTableViewCell.register(with: tableView)
+        LoadingTableViewCell.register(with: tableView)
     }
     
     override func refresh() {
-        self.songAdvancedSearchResultPagableManager.reset()
-        self.tableView.reloadData()
+        songAdvancedSearchResultPagableManager.reset()
+        tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
             self.songAdvancedSearchResultPagableManager.fetch()
         }
@@ -37,27 +48,27 @@ final class AdvancedSearchSongsResultsViewController: RefreshableViewController 
     }
     
     func initSongAdvancedSearchResultPagableManager() {
-        guard let formattedOptionsList = self.optionsList.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else {
+        guard let formattedOptionsList = optionsList.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else {
             assertionFailure("Error adding percent encoding to option list.")
             return
         }
         
-        self.songAdvancedSearchResultPagableManager = PagableManager<AdvancedSearchResultSong>(options: ["<OPTIONS_LIST>": formattedOptionsList])
-        self.songAdvancedSearchResultPagableManager.delegate = self
+        songAdvancedSearchResultPagableManager = PagableManager<AdvancedSearchResultSong>(options: ["<OPTIONS_LIST>": formattedOptionsList])
+        songAdvancedSearchResultPagableManager.delegate = self
     }
     
     private func updateTitle() {
-        guard let totalRecords = self.songAdvancedSearchResultPagableManager.totalRecords else {
-            self.title = "No result found"
+        guard let totalRecords = songAdvancedSearchResultPagableManager.totalRecords else {
+            simpleNavigationBarView?.setTitle("No result found")
             return
         }
         
         if totalRecords == 0 {
-            self.title = "No result found"
+            simpleNavigationBarView?.setTitle("No result found")
         } else if totalRecords == 1 {
-            self.title = "Loaded \(self.songAdvancedSearchResultPagableManager.objects.count) of \(totalRecords) result"
+            simpleNavigationBarView?.setTitle("Loaded \(songAdvancedSearchResultPagableManager.objects.count) of \(totalRecords) result")
         } else {
-            self.title = "Loaded \(self.songAdvancedSearchResultPagableManager.objects.count) of \(totalRecords) results"
+            simpleNavigationBarView?.setTitle("Loaded \(songAdvancedSearchResultPagableManager.objects.count) of \(totalRecords) results")
         }
     }
 }
@@ -65,18 +76,18 @@ final class AdvancedSearchSongsResultsViewController: RefreshableViewController 
 //MARK: - PagableManagerDelegate
 extension AdvancedSearchSongsResultsViewController: PagableManagerDelegate {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.title = "Loading..."
+        simpleNavigationBarView?.setTitle("Loading...")
     }
     
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.endRefreshing()
+        endRefreshing()
         Toast.displayMessageShortly(errorLoadingMessage)
     }
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.endRefreshing()
-        self.updateTitle()
-        self.tableView.reloadData()
+        endRefreshing()
+        updateTitle()
+        tableView.reloadData()
         
         Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
@@ -91,26 +102,26 @@ extension AdvancedSearchSongsResultsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let manager = self.songAdvancedSearchResultPagableManager else {
+        guard let manager = songAdvancedSearchResultPagableManager else {
             return
         }
         
         if manager.objects.indices.contains(indexPath.row) {
             let result = manager.objects[indexPath.row]
-            self.takeActionFor(actionableObject: result)
+            takeActionFor(actionableObject: result)
             
             Analytics.logEvent(AnalyticsEvent.SelectAnAdvancedSearchResult, parameters: nil)
         }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let _ = self.songAdvancedSearchResultPagableManager.totalRecords else {
+        guard let _ = songAdvancedSearchResultPagableManager.totalRecords else {
             return
         }
         
-        if self.songAdvancedSearchResultPagableManager.moreToLoad && indexPath.row == self.songAdvancedSearchResultPagableManager.objects.count {
-            self.songAdvancedSearchResultPagableManager.fetch()
-        } else if !self.songAdvancedSearchResultPagableManager.moreToLoad && indexPath.row == self.songAdvancedSearchResultPagableManager.objects.count - 1 {
+        if songAdvancedSearchResultPagableManager.moreToLoad && indexPath.row == songAdvancedSearchResultPagableManager.objects.count {
+            songAdvancedSearchResultPagableManager.fetch()
+        } else if !songAdvancedSearchResultPagableManager.moreToLoad && indexPath.row == songAdvancedSearchResultPagableManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
     }
@@ -123,11 +134,11 @@ extension AdvancedSearchSongsResultsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let manager = self.songAdvancedSearchResultPagableManager else {
+        guard let manager = songAdvancedSearchResultPagableManager else {
             return 0
         }
         
-        if self.refreshControl.isRefreshing {
+        if refreshControl.isRefreshing {
             return 0
         }
         
@@ -139,16 +150,25 @@ extension AdvancedSearchSongsResultsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.songAdvancedSearchResultPagableManager.moreToLoad && indexPath.row == self.songAdvancedSearchResultPagableManager.objects.count {
-            let loadingCell = LoadingTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        if songAdvancedSearchResultPagableManager.moreToLoad && indexPath.row == songAdvancedSearchResultPagableManager.objects.count {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
         let cell = AdvancedSongTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let result = self.songAdvancedSearchResultPagableManager.objects[indexPath.row]
+        let result = songAdvancedSearchResultPagableManager.objects[indexPath.row]
         cell.fill(with: result)
+        cell.tappedThumbnailImageView = { [unowned self]  in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: result.release.imageURLString, description: result.release.title, fromImageView: cell.thumbnailImageView)
+        }
         return cell
     }
 }
 
+// MARK: - UIScrollViewDelegate
+extension AdvancedSearchSongsResultsViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        simpleNavigationBarView?.transformWith(scrollView)
+    }
+}

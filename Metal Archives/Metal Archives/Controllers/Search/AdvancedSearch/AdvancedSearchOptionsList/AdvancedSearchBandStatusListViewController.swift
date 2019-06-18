@@ -17,27 +17,45 @@ final class AdvancedSearchBandStatusListViewController: BaseViewController {
     
     var selectedStatus: [BandStatus]! {
         didSet {
-            self.delegate?.didUpdateSelectedStatus(self.selectedStatus)
+            delegate?.didUpdateSelectedStatus(selectedStatus)
         }
     }
     var delegate: AdvancedSearchBandStatusListViewControllerDelegate?
+    
+    weak var simpleNavigationBarView: SimpleNavigationBarView?
+    
+    deinit {
+        print("AdvancedSearchBandStatusListViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initAppearance()
+        initAppearance()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        simpleNavigationBarView?.setRightButtonIcon(nil)
     }
     
     override func initAppearance() {
         super.initAppearance()
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
         
-        SimpleTableViewCell.register(with: self.tableView)
+        simpleNavigationBarView?.setTitle("Band Status")
+        SimpleTableViewCell.register(with: tableView)
     }
 }
 
 //MARK: - UITableViewDelegate
 extension AdvancedSearchBandStatusListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -51,10 +69,6 @@ extension AdvancedSearchBandStatusListViewController: UITableViewDelegate {
             self.selectedStatus.append(selectedStatus)
             selectedCell?.accessoryType = .checkmark
         }
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Band Status"
     }
 }
 
@@ -73,7 +87,7 @@ extension AdvancedSearchBandStatusListViewController: UITableViewDataSource {
         let cell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: status.description)
         
-        if self.selectedStatus.contains(status) {
+        if selectedStatus.contains(status) {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none

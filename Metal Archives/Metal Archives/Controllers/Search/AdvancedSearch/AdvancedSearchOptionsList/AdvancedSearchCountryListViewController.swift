@@ -22,70 +22,82 @@ final class AdvancedSearchCountryListViewController: BaseViewController {
     
     var selectedCountries: [Country] = [] {
         didSet {
-            self.updateDeselectAllBarButtonVisibility()
-            self.delegate?.didUpdateSelectedCountries(self.selectedCountries)
+            updateDeselectAllBarButtonVisibility()
+            delegate?.didUpdateSelectedCountries(selectedCountries)
         }
     }
     
     var delegate: AdvancedSearchCountryListViewControllerDelegate?
     
+    weak var simpleNavigationBarView: SimpleNavigationBarView?
+    
+    deinit {
+        print("AdvancedSearchCountryListViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.updateTitle()
-        self.initCountrySectionsDictionary()
-        self.initDeselectAllBarButtonItem()
-        self.updateDeselectAllBarButtonVisibility()
+        updateTitle()
+        initCountrySectionsDictionary()
+        initDeselectAllBarButtonItem()
+        updateDeselectAllBarButtonVisibility()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        simpleNavigationBarView?.setRightButtonIcon(nil)
     }
     
     private func initCountrySectionsDictionary() {
-        self.countrySectionsDictionary = [:]
+        countrySectionsDictionary = [:]
         sortedCountryList.forEach({
             let firstChar = $0.name[0]
-            if self.countrySectionsDictionary[firstChar] == nil {
-                self.countrySectionsDictionary[firstChar] = []
+            if countrySectionsDictionary[firstChar] == nil {
+                countrySectionsDictionary[firstChar] = []
             }
             
-            self.countrySectionsDictionary[firstChar]?.append($0)
+            countrySectionsDictionary[firstChar]?.append($0)
         })
         
-        self.countrySectionsDictionarySortedKeys = self.countrySectionsDictionary.keys.sorted()
+        countrySectionsDictionarySortedKeys = countrySectionsDictionary.keys.sorted()
     }
     
     override func initAppearance() {
         super.initAppearance()
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
         
-        SimpleTableViewCell.register(with: self.tableView)
+        SimpleTableViewCell.register(with: tableView)
     }
     
     private func updateTitle() {
-        if self.selectedCountries.count == 0 {
-            self.title = "Any country"
-        } else if self.selectedCountries.count == 1 {
-            self.title = "1 country selected"
+        if selectedCountries.count == 0 {
+            simpleNavigationBarView?.setTitle("Any country")
+        } else if selectedCountries.count == 1 {
+            simpleNavigationBarView?.setTitle("1 country selected")
         } else {
-            self.title = "\(self.selectedCountries.count) countries selected"
+            simpleNavigationBarView?.setTitle("\(selectedCountries.count) countries selected")
         }
     }
     
     private func updateDeselectAllBarButtonVisibility() {
-        if self.selectedCountries.count > 0 {
-            self.navigationItem.rightBarButtonItem = self.deselectAllBarButtonItem
+        if selectedCountries.count > 0 {
+            navigationItem.rightBarButtonItem = deselectAllBarButtonItem
         } else {
-            self.navigationItem.rightBarButtonItem = nil
+            navigationItem.rightBarButtonItem = nil
         }
     }
     
     private func initDeselectAllBarButtonItem() {
-        self.deselectAllBarButtonItem = UIBarButtonItem(title: "Deselect All", style: .plain, target: self, action: #selector(didTapDeselectAllBarButtonItem))
+        deselectAllBarButtonItem = UIBarButtonItem(title: "Deselect All", style: .plain, target: self, action: #selector(didTapDeselectAllBarButtonItem))
     }
     
     @objc private func didTapDeselectAllBarButtonItem() {
-        self.selectedCountries.removeAll()
-        self.tableView.reloadData()
-        self.updateTitle()
+        selectedCountries.removeAll()
+        tableView.reloadData()
+        updateTitle()
     }
 }
 
@@ -93,29 +105,29 @@ final class AdvancedSearchCountryListViewController: BaseViewController {
 extension AdvancedSearchCountryListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let char = self.countrySectionsDictionarySortedKeys[indexPath.section]
-        let selectedCountry = self.countrySectionsDictionary[char]![indexPath.row]
+        let char = countrySectionsDictionarySortedKeys[indexPath.section]
+        let selectedCountry = countrySectionsDictionary[char]![indexPath.row]
         
-        let selectedCell = self.tableView.cellForRow(at: indexPath)
+        let selectedCell = tableView.cellForRow(at: indexPath)
         
-        if self.selectedCountries.contains(selectedCountry) {
-            self.selectedCountries.removeAll(where: {$0 == selectedCountry})
+        if selectedCountries.contains(selectedCountry) {
+            selectedCountries.removeAll(where: {$0 == selectedCountry})
             selectedCell?.accessoryType = .none
         } else {
-            self.selectedCountries.append(selectedCountry)
+            selectedCountries.append(selectedCountry)
             selectedCell?.accessoryType = .checkmark
         }
         
-        self.updateTitle()
+        updateTitle()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let char = self.countrySectionsDictionarySortedKeys[section]
+        let char = countrySectionsDictionarySortedKeys[section]
         return "\(char)"
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return self.countrySectionsDictionarySortedKeys.map({return "\($0)"})
+        return countrySectionsDictionarySortedKeys.map({return "\($0)"})
     }
     
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
@@ -126,22 +138,22 @@ extension AdvancedSearchCountryListViewController: UITableViewDelegate {
 //MARK: - UITableViewDataSource
 extension AdvancedSearchCountryListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.countrySectionsDictionarySortedKeys.count
+        return countrySectionsDictionarySortedKeys.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let char = self.countrySectionsDictionarySortedKeys[section]
-        return self.countrySectionsDictionary[char]!.count
+        let char = countrySectionsDictionarySortedKeys[section]
+        return countrySectionsDictionary[char]!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.displayAsSecondaryTitle()
         
-        let char = self.countrySectionsDictionarySortedKeys[indexPath.section]
-        let country = self.countrySectionsDictionary[char]![indexPath.row]
+        let char = countrySectionsDictionarySortedKeys[indexPath.section]
+        let country = countrySectionsDictionary[char]![indexPath.row]
         
-        if self.selectedCountries.contains(country) {
+        if selectedCountries.contains(country) {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none

@@ -33,27 +33,43 @@ final class AdvancedSearchBandsViewController: BaseAdvancedSearchTableViewContro
     private var selectedToYear: Int?
     private var yearsList: [Int]!
     
+    deinit {
+        print("AdvancedSearchBandsViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Advanced Search Bands"
-        self.updateCountryListLabel()
-        self.updateStatusListLabel()
-        self.initYearOfFormationPickers()
-        self.initYearsList()
+        updateCountryListLabel()
+        updateStatusListLabel()
+        initYearOfFormationPickers()
+        initYearsList()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        simpleNavigationBarView?.setTitle("Advanced Search Bands")
+        simpleNavigationBarView.setRightButtonIcon(#imageLiteral(resourceName: "search"))
+        simpleNavigationBarView.didTapRightButton = { [unowned self] in
+            self.performSearch()
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.destination {
         case let advancedSearchCountryListViewController as AdvancedSearchCountryListViewController:
-            advancedSearchCountryListViewController.selectedCountries = self.selectedCountries
+            advancedSearchCountryListViewController.selectedCountries = selectedCountries
             advancedSearchCountryListViewController.delegate = self
+            advancedSearchCountryListViewController.simpleNavigationBarView = simpleNavigationBarView
         
         case let advancedSearchBandStatusListViewController as AdvancedSearchBandStatusListViewController:
-            advancedSearchBandStatusListViewController.selectedStatus = self.selectedBandStatus
+            advancedSearchBandStatusListViewController.selectedStatus = selectedBandStatus
             advancedSearchBandStatusListViewController.delegate = self
+            advancedSearchBandStatusListViewController.simpleNavigationBarView = simpleNavigationBarView
+            
         case let advancedSearchBandsResultsViewController as AdvancedSearchBandsResultsViewController:
             if let optionsList = sender as? String {
                 advancedSearchBandsResultsViewController.optionsList = optionsList
+                advancedSearchBandsResultsViewController.simpleNavigationBarView = simpleNavigationBarView
             }
         default:
             break
@@ -61,103 +77,103 @@ final class AdvancedSearchBandsViewController: BaseAdvancedSearchTableViewContro
     }
     
     private func updateCountryListLabel() {
-        self.countryListLabel.text = self.generateSelectedCoutriesString()
+        countryListLabel.text = generateSelectedCoutriesString()
     }
     
     private func updateStatusListLabel() {
-        self.statusListLabel.text = self.generateSelectedBandStatusString()
+        statusListLabel.text = generateSelectedBandStatusString()
     }
     
-    override func performSearch() {
+    func performSearch() {
         var optionsList = ""
         
         //Band name
         optionsList += "bandName="
-        if let bandName = self.bandNameTextField.text {
+        if let bandName = bandNameTextField.text {
             optionsList += bandName
         }
         optionsList += "&"
         
         //Exact band match
-        let exactBandMatch = self.exactMatchBandNameSwitch.isOn ? 1 : 0
+        let exactBandMatch = exactMatchBandNameSwitch.isOn ? 1 : 0
         optionsList += "exactBandMatch=\(exactBandMatch)&"
         
         //Genre
         optionsList += "genre="
-        if let genre = self.genreTextField.text {
+        if let genre = genreTextField.text {
             optionsList += genre
         }
         optionsList += "&"
         
         //Country
-        if self.selectedCountries.count == 0 {
+        if selectedCountries.count == 0 {
             optionsList += "country=&"
-        } else if self.selectedCountries.count == 1 {
-            optionsList += "country=\(self.selectedCountries[0].iso)&"
+        } else if selectedCountries.count == 1 {
+            optionsList += "country=\(selectedCountries[0].iso)&"
         } else {
-            self.selectedCountries.forEach({
+            selectedCountries.forEach({
                 optionsList += "country[]=\($0.iso)&"
             })
         }
         
         //From year
         optionsList += "yearCreationFrom="
-        if let fromYear = self.fromYearTextField.text {
+        if let fromYear = fromYearTextField.text {
             optionsList += fromYear
         }
         optionsList += "&"
         
         //To Year
         optionsList += "yearCreationTo="
-        if let toYear = self.toYearTextField.text {
+        if let toYear = toYearTextField.text {
             optionsList += toYear
         }
         optionsList += "&"
         
         //Additional notes
         optionsList += "bandNotes="
-        if let additionalNotes = self.additionalNotesTextField.text {
+        if let additionalNotes = additionalNotesTextField.text {
             optionsList += additionalNotes
         }
         optionsList += "&"
         
         //Status
-        if self.selectedBandStatus.count == 0 {
+        if selectedBandStatus.count == 0 {
             optionsList += "status=&"
-        } else if self.selectedBandStatus.count == 1 {
-            optionsList += "status=\(self.selectedBandStatus[0].rawValue)&"
+        } else if selectedBandStatus.count == 1 {
+            optionsList += "status=\(selectedBandStatus[0].rawValue)&"
         } else {
-            self.selectedBandStatus.forEach({
+            selectedBandStatus.forEach({
                 optionsList += "status[]=\($0.rawValue)&"
             })
         }
         
         //Lyrical themes
         optionsList += "themes="
-        if let themes = self.lyricalThemesTextField.text {
+        if let themes = lyricalThemesTextField.text {
             optionsList += themes
         }
         optionsList += "&"
         
         //City, state, province
         optionsList += "location="
-        if let cityStateProvince = self.cityStateProvinceTextField.text {
+        if let cityStateProvince = cityStateProvinceTextField.text {
             optionsList += cityStateProvince
         }
         optionsList += "&"
         
         //Label
         optionsList += "bandLabelName="
-        if let labelName = self.labelNameTextField.text {
+        if let labelName = labelNameTextField.text {
             optionsList += labelName
         }
         optionsList += "&"
         
         //Indie label
-        let indieLabel = self.indieLabelSwitch.isOn ? 1 : 0
+        let indieLabel = indieLabelSwitch.isOn ? 1 : 0
         optionsList += "indieLabel=\(indieLabel)&"
         
-        self.performSegue(withIdentifier: "ShowResult", sender: optionsList)
+        performSegue(withIdentifier: "ShowResult", sender: optionsList)
         
         Analytics.logEvent(AnalyticsEvent.PerformAdvancedSearch, parameters: [AnalyticsParameter.SearchType: "Advanced Search Bands"])
     }
@@ -190,29 +206,29 @@ extension AdvancedSearchBandsViewController {
             return toolbar
         }
         
-        self.fromYearPickerView = pickerView()
-        self.toYearPickerView = pickerView()
+        fromYearPickerView = pickerView()
+        toYearPickerView = pickerView()
         
-        self.fromYearTextField.inputView = self.fromYearPickerView
-        self.fromYearTextField.inputAccessoryView = toolbarWithDoneButton()
-        self.fromYearTextField.delegate = self
+        fromYearTextField.inputView = fromYearPickerView
+        fromYearTextField.inputAccessoryView = toolbarWithDoneButton()
+        fromYearTextField.delegate = self
         
-        self.toYearTextField.inputView = self.toYearPickerView
-        self.toYearTextField.inputAccessoryView = toolbarWithDoneButton()
-        self.toYearTextField.delegate = self
+        toYearTextField.inputView = toYearPickerView
+        toYearTextField.inputAccessoryView = toolbarWithDoneButton()
+        toYearTextField.delegate = self
     }
     
     @objc private func tappedToolBarDoneButton() {
-        self.view.endEditing(true)
+        view.endEditing(true)
     }
     
     private func initYearsList() {
         let minimumYearOfFormation = 1960
         let thisYear = Calendar.current.component(.year, from: Date())
         
-        self.yearsList = []
+        yearsList = []
         for i in 0...thisYear-minimumYearOfFormation {
-            self.yearsList.append(thisYear - i)
+            yearsList.append(thisYear - i)
         }
     }
 }
@@ -228,20 +244,20 @@ extension AdvancedSearchBandsViewController {
 extension AdvancedSearchBandsViewController: AdvancedSearchCountryListViewControllerDelegate {
     func didUpdateSelectedCountries(_ selectedCountries: [Country]) {
         self.selectedCountries = selectedCountries
-        self.updateCountryListLabel()
-        self.tableView.reloadData()
+        updateCountryListLabel()
+        tableView.reloadData()
         
         Analytics.logEvent(AnalyticsEvent.ChangeAdvancedSearchOption, parameters: [AnalyticsParameter.AdvancedSearchOption: "Countries list"])
     }
     
     private func generateSelectedCoutriesString() -> String {
-        if self.selectedCountries.count == 0 {
+        if selectedCountries.count == 0 {
             return "Any country"
         } else {
             var countriesName: String = ""
-            for i in 0..<self.selectedCountries.count {
-                let eachCountry = self.selectedCountries[i]
-                if i == self.selectedCountries.count - 1 {
+            for i in 0..<selectedCountries.count {
+                let eachCountry = selectedCountries[i]
+                if i == selectedCountries.count - 1 {
                     countriesName.append("\(eachCountry.name)")
                 } else {
                     countriesName.append("\(eachCountry.name), ")
@@ -256,14 +272,14 @@ extension AdvancedSearchBandsViewController: AdvancedSearchCountryListViewContro
 //MARK: - UIPickerViewDelegate
 extension AdvancedSearchBandsViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let selectedYear = self.yearsList[row]
+        let selectedYear = yearsList[row]
         switch pickerView {
-        case self.fromYearPickerView:
-            self.fromYearTextField.text = "\(selectedYear)"
-            self.selectedFromYear = selectedYear
-        case self.toYearPickerView:
-            self.toYearTextField.text = "\(selectedYear)"
-            self.selectedToYear = selectedYear
+        case fromYearPickerView:
+            fromYearTextField.text = "\(selectedYear)"
+            selectedFromYear = selectedYear
+        case toYearPickerView:
+            toYearTextField.text = "\(selectedYear)"
+            selectedToYear = selectedYear
         default: break
         }
         
@@ -278,11 +294,11 @@ extension AdvancedSearchBandsViewController: UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.yearsList.count
+        return yearsList.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let year = self.yearsList[row]
+        let year = yearsList[row]
         return "\(year)"
     }
 }
@@ -291,14 +307,14 @@ extension AdvancedSearchBandsViewController: UIPickerViewDataSource {
 extension AdvancedSearchBandsViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
-        case self.fromYearTextField:
-            if self.fromYearTextField.text == nil {
-                self.selectedFromYear = nil
+        case fromYearTextField:
+            if fromYearTextField.text == nil {
+                selectedFromYear = nil
             }
             
-        case self.toYearTextField:
-            if self.toYearTextField.text == nil {
-                self.selectedToYear = nil
+        case toYearTextField:
+            if toYearTextField.text == nil {
+                selectedToYear = nil
             }
             
         default: break
@@ -309,21 +325,21 @@ extension AdvancedSearchBandsViewController: UITextFieldDelegate {
 //MARK: - AdvancedSearchBandStatusListViewControllerDelegate
 extension AdvancedSearchBandsViewController: AdvancedSearchBandStatusListViewControllerDelegate {
     func didUpdateSelectedStatus(_ selectedStatus: [BandStatus]) {
-        self.selectedBandStatus = selectedStatus
-        self.updateStatusListLabel()
-        self.tableView.reloadData()
+        selectedBandStatus = selectedStatus
+        updateStatusListLabel()
+        tableView.reloadData()
         
         Analytics.logEvent(AnalyticsEvent.ChangeAdvancedSearchOption, parameters: [AnalyticsParameter.AdvancedSearchOption: "Band status"])
     }
     
     private func generateSelectedBandStatusString() -> String {
-        if self.selectedBandStatus.count == 0 || self.selectedBandStatus.count == BandStatus.allCases.count {
+        if selectedBandStatus.count == 0 || selectedBandStatus.count == BandStatus.allCases.count {
             return "Any"
         } else {
             var bandStatus: String = ""
-            for i in 0..<self.selectedBandStatus.count {
-                let eachStatus = self.selectedBandStatus[i]
-                if i == self.selectedBandStatus.count - 1 {
+            for i in 0..<selectedBandStatus.count {
+                let eachStatus = selectedBandStatus[i]
+                if i == selectedBandStatus.count - 1 {
                     bandStatus.append("\(eachStatus.description)")
                 } else {
                     bandStatus.append("\(eachStatus.description), ")

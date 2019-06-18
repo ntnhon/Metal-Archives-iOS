@@ -33,7 +33,6 @@ class BaseTableViewController: UITableViewController {
         
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
         simpleNavigationBarView.setRightButtonIcon(nil)
-        simpleNavigationBarView.setTitle("Settings")
         
         simpleNavigationBarView.didTapLeftButton = { [unowned self] in
             self.navigationController?.popViewController(animated: true)

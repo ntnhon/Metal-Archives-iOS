@@ -17,43 +17,55 @@ final class AdvancedSearchReleaseTypeListViewController: BaseViewController {
     
     var selectedReleaseTypes: [ReleaseType]! {
         didSet {
-            self.delegate?.didUpdateSelectedReleaseTypes(self.selectedReleaseTypes)
+            delegate?.didUpdateSelectedReleaseTypes(selectedReleaseTypes)
         }
     }
     var delegate: AdvancedSearchReleaseTypeListViewControllerDelegate?
+    weak var simpleNavigationBarView: SimpleNavigationBarView?
+    deinit {
+        print("AdvancedSearchReleaseTypeListViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        simpleNavigationBarView?.setTitle("Release Type")
+        simpleNavigationBarView?.setRightButtonIcon(nil)
     }
 
     override func initAppearance() {
         super.initAppearance()
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
         
-        SimpleTableViewCell.register(with: self.tableView)
+        SimpleTableViewCell.register(with: tableView)
     }
 }
 
 //MARK: - UITableViewDelegate
 extension AdvancedSearchReleaseTypeListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let releaseType = ReleaseType.allCases[indexPath.row]
         let cell = tableView.cellForRow(at: indexPath)
         
-        if self.selectedReleaseTypes.contains(releaseType) {
-            self.selectedReleaseTypes.removeAll(where: {$0 == releaseType})
+        if selectedReleaseTypes.contains(releaseType) {
+            selectedReleaseTypes.removeAll(where: {$0 == releaseType})
             cell?.accessoryType = .none
         } else {
-            self.selectedReleaseTypes.append(releaseType)
+            selectedReleaseTypes.append(releaseType)
             cell?.accessoryType = .checkmark
         }
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Release Type"
     }
 }
 
@@ -73,7 +85,7 @@ extension AdvancedSearchReleaseTypeListViewController: UITableViewDataSource {
         cell.displayAsSecondaryTitle()
         cell.fill(with: releaseType.description)
         
-        if self.selectedReleaseTypes.contains(releaseType) {
+        if selectedReleaseTypes.contains(releaseType) {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none

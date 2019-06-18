@@ -17,43 +17,55 @@ final class AdvancedSearchReleaseFormatListViewController: BaseViewController {
     
     var selectedReleaseFormats: [ReleaseFormat]! {
         didSet {
-            self.delegate?.didUpdateSelectedReleaseFormats(self.selectedReleaseFormats)
+            delegate?.didUpdateSelectedReleaseFormats(selectedReleaseFormats)
         }
     }
     var delegate: AdvancedSearchReleaseFormatListViewControllerDelegate?
+    weak var simpleNavigationBarView: SimpleNavigationBarView?
+    deinit {
+        print("AdvancedSearchReleaseFormatListViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        simpleNavigationBarView?.setTitle("Release Format")
+        simpleNavigationBarView?.setRightButtonIcon(nil)
+    }
+    
     override func initAppearance() {
         super.initAppearance()
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
         
-        SimpleTableViewCell.register(with: self.tableView)
+        SimpleTableViewCell.register(with: tableView)
     }
 }
 
 //MARK: - UITableViewDelegate
 extension AdvancedSearchReleaseFormatListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let releaseFormat = ReleaseFormat.allCases[indexPath.row]
         let cell = tableView.cellForRow(at: indexPath)
         
-        if self.selectedReleaseFormats.contains(releaseFormat) {
-            self.selectedReleaseFormats.removeAll(where: {$0 == releaseFormat})
+        if selectedReleaseFormats.contains(releaseFormat) {
+            selectedReleaseFormats.removeAll(where: {$0 == releaseFormat})
             cell?.accessoryType = .none
         } else {
-            self.selectedReleaseFormats.append(releaseFormat)
+            selectedReleaseFormats.append(releaseFormat)
             cell?.accessoryType = .checkmark
         }
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Release Format"
     }
 }
 
@@ -73,7 +85,7 @@ extension AdvancedSearchReleaseFormatListViewController: UITableViewDataSource {
         cell.displayAsSecondaryTitle()
         cell.fill(with: releaseFormat.description)
         
-        if self.selectedReleaseFormats.contains(releaseFormat) {
+        if selectedReleaseFormats.contains(releaseFormat) {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none

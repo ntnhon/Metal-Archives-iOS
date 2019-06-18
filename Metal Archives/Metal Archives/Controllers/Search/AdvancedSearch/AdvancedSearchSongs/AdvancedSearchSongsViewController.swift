@@ -22,20 +22,34 @@ final class AdvancedSearchSongsViewController: BaseAdvancedSearchTableViewContro
     
     private var selectedReleaseTypes: [ReleaseType] = []
     
+    deinit {
+        print("AdvancedSearchSongsViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Advanced Search Songs"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        simpleNavigationBarView.setTitle("Advanced Search Songs")
+        simpleNavigationBarView.setRightButtonIcon(#imageLiteral(resourceName: "search"))
+        simpleNavigationBarView.didTapRightButton = { [unowned self] in
+            self.performSearch()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.destination {
         case let advancedSearchReleaseTypeListViewController as AdvancedSearchReleaseTypeListViewController:
             advancedSearchReleaseTypeListViewController.selectedReleaseTypes = self.selectedReleaseTypes
+            advancedSearchReleaseTypeListViewController.simpleNavigationBarView = simpleNavigationBarView
             advancedSearchReleaseTypeListViewController.delegate = self
             
         case let advancedSearchSongsResultsViewController as AdvancedSearchSongsResultsViewController:
             if let optionsList = sender as? String {
                 advancedSearchSongsResultsViewController.optionsList = optionsList
+                advancedSearchSongsResultsViewController.simpleNavigationBarView = simpleNavigationBarView
             }
             
         default:
@@ -47,7 +61,7 @@ final class AdvancedSearchSongsViewController: BaseAdvancedSearchTableViewContro
         self.releaseTypeListLabel.text = self.generateSelectedReleaseTypeString()
     }
     
-    override func performSearch() {
+    func performSearch() {
         var optionsList = ""
         
         //Song title
