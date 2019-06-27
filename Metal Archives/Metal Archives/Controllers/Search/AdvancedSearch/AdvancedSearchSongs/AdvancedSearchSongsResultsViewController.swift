@@ -29,7 +29,6 @@ final class AdvancedSearchSongsResultsViewController: RefreshableViewController 
         simpleNavigationBarView?.setRightButtonIcon(nil)
     }
     
-    
     override func initAppearance() {
         super.initAppearance()
         tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)

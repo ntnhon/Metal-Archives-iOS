@@ -47,8 +47,8 @@ class ThumbnailableObject: NSObject {
         self.generateImageURLString()
     }
     
-    //Work around to for image to be load at every cell display
-    //case server keeps refusing to give image even the URL is right
+    // Work around for image to be loaded at every cell display
+    // cause server keeps refusing to give image even the URL is right
     func resetStates() {
         self.generateImageURLString()
         self.triedPNG = false

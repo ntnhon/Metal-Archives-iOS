@@ -60,7 +60,7 @@ final class PagableManager<T: Pagable>: NSCopying {
         if self.isFetching || !self.moreToLoad {
             return
         }
-        
+
         if self.numberOfTries == Settings.numberOfRetries {
             //Retried several times but still failed
             self.numberOfTries = 0

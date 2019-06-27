@@ -26,6 +26,10 @@
                             <constraint firstAttribute="height" constant="150" id="XBT-HR-Sp2"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiX-yF-PVH">
+                        <rect key="frame" x="168" y="20" width="128" height="128"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O6m-hi-GMN">
                         <rect key="frame" x="168" y="20" width="128" height="128"/>
                         <constraints>
@@ -42,18 +46,23 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="Dy6-h9-6SA" firstAttribute="centerY" secondItem="O6m-hi-GMN" secondAttribute="centerY" id="9gO-Go-606"/>
+                    <constraint firstItem="wiX-yF-PVH" firstAttribute="width" secondItem="O6m-hi-GMN" secondAttribute="width" id="QFa-4y-vHe"/>
                     <constraint firstItem="Dy6-h9-6SA" firstAttribute="centerX" secondItem="F4C-l7-ywr" secondAttribute="centerX" id="QUt-f2-CVB"/>
+                    <constraint firstItem="wiX-yF-PVH" firstAttribute="height" secondItem="O6m-hi-GMN" secondAttribute="height" id="VgF-Ft-LOp"/>
                     <constraint firstItem="moi-qi-ckv" firstAttribute="top" secondItem="O6m-hi-GMN" secondAttribute="bottom" constant="8" symbolic="YES" id="cO8-nH-e8H"/>
+                    <constraint firstItem="wiX-yF-PVH" firstAttribute="centerX" secondItem="O6m-hi-GMN" secondAttribute="centerX" id="cxz-PT-EsJ"/>
                     <constraint firstItem="moi-qi-ckv" firstAttribute="centerX" secondItem="F4C-l7-ywr" secondAttribute="centerX" id="efu-7z-f5B"/>
                     <constraint firstItem="O6m-hi-GMN" firstAttribute="top" secondItem="F4C-l7-ywr" secondAttribute="top" constant="20" symbolic="YES" id="iKj-KG-427"/>
                     <constraint firstAttribute="bottom" secondItem="moi-qi-ckv" secondAttribute="bottom" constant="20" symbolic="YES" id="nai-VY-YXC"/>
                     <constraint firstItem="O6m-hi-GMN" firstAttribute="centerX" secondItem="F4C-l7-ywr" secondAttribute="centerX" id="rP4-fD-ZSx"/>
+                    <constraint firstItem="wiX-yF-PVH" firstAttribute="centerY" secondItem="O6m-hi-GMN" secondAttribute="centerY" id="yG3-bp-Yld"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="nameLabel" destination="moi-qi-ckv" id="Zc2-5J-X12"/>
+                <outlet property="photoBackgroundView" destination="wiX-yF-PVH" id="vWK-7a-b5A"/>
+                <outlet property="photoBorderView" destination="Dy6-h9-6SA" id="g6D-ka-ndE"/>
                 <outlet property="photoImageView" destination="O6m-hi-GMN" id="Aie-it-utb"/>
-                <outlet property="photoImageViewBackgroundView" destination="Dy6-h9-6SA" id="g6D-ka-ndE"/>
                 <outlet property="photoImageViewBackgroundViewHeightConstraint" destination="XBT-HR-Sp2" id="HiD-de-qLh"/>
                 <outlet property="photoImageViewHeightConstraint" destination="5ID-rG-JO8" id="nJ8-12-KS7"/>
             </connections>

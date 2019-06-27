@@ -268,7 +268,7 @@ final class ArtistDetailViewController: BaseViewController {
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
             guard let artist = self.artist, let url = URL(string: artist.urlString) else { return }
             
-            self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(artist.bandMemberName!) in browser", alertMessage: artist.urlString, shareMessage: "Share this release URL")
+            self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(artist.bandMemberName!) in browser", alertMessage: artist.urlString, shareMessage: "Share this artist URL")
             
             Analytics.logEvent(AnalyticsEvent.ShareRelease, parameters: nil)
         }

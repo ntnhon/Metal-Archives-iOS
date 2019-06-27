@@ -33,7 +33,7 @@ final class SearchTipsViewController: DismissableOnSwipeViewController {
     private func handleSimpleNavigationBarViewActions() {
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
         simpleNavigationBarView.setTitle("Search Tips 💡")
-        simpleNavigationBarView.setLeftButtonIcon(#imageLiteral(resourceName: "X"))
+        simpleNavigationBarView.setLeftButtonIcon(#imageLiteral(resourceName: "down"))
         simpleNavigationBarView.setRightButtonIcon(nil)
         
         simpleNavigationBarView.didTapLeftButton = { [unowned self] in

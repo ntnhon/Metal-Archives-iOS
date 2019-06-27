@@ -9,7 +9,8 @@
 import UIKit
 
 final class BandPhotoAndNameTableViewCell: BaseTableViewCell, RegisterableCell {
-    @IBOutlet private weak var photoImageViewBackgroundView: UIView!
+    @IBOutlet private weak var photoBorderView: UIView!
+    @IBOutlet private weak var photoBackgroundView: UIView!
     @IBOutlet private weak var photoImageViewBackgroundViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private(set) weak var photoImageView: UIImageView!
     @IBOutlet private weak var photoImageViewHeightConstraint: NSLayoutConstraint!
@@ -28,14 +29,17 @@ final class BandPhotoAndNameTableViewCell: BaseTableViewCell, RegisterableCell {
         
         nameLabel.font = Settings.currentFontSize.largeTitleFont
         nameLabel.textColor = Settings.currentTheme.bodyTextColor
-        
-        // background view to make outer border effect
-        photoImageViewBackgroundView.backgroundColor = Settings.currentTheme.bodyTextColor
+    
+        // borderView
+        photoBorderView.backgroundColor = Settings.currentTheme.bodyTextColor
         photoImageViewBackgroundViewHeightConstraint.constant = Settings.bandPhotoImageViewHeight + 5
+        
+        // backgroundView
+        photoBackgroundView.backgroundColor = Settings.currentTheme.backgroundColor
         
         photoImageViewHeightConstraint.constant = Settings.bandPhotoImageViewHeight
         
-        photoImageView.sd_showActivityIndicatorView()
+        photoImageView.sd_setShowActivityIndicatorView(true)
         photoImageView.isUserInteractionEnabled = true
         let photoImageViewTapGestureRegconizer = UITapGestureRecognizer(target: self, action: #selector(photoImageViewTapped))
         photoImageView.addGestureRecognizer(photoImageViewTapGestureRegconizer)

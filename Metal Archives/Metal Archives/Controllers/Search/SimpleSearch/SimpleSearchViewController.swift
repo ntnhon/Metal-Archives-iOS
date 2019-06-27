@@ -67,7 +67,7 @@ final class SimpleSearchViewController: UITableViewController {
         case let simpleSearchResultVC as SimpleSearchResultViewController:
             simpleSearchResultVC.searchTerm = searchTermTextField.text
             simpleSearchResultVC.simpleSearchType = currentSimpleSearchType
-            
+
             if let _ = sender as? ImFeelingLuckyView {
                 simpleSearchResultVC.isFeelingLucky = true
                 
