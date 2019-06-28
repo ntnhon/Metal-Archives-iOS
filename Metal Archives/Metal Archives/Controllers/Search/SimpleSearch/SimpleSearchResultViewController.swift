@@ -324,7 +324,7 @@ extension SimpleSearchResultViewController {
         let cell = SimpleBandNameOrMusicGenreTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: result)
         cell.tappedThumbnailImageView = { [unowned self]  in
-            self.presentPhotoViewerWithCacheChecking(photoUrlString: result.band.imageURLString, description: result.band.name, fromImageView: cell.thumbnailImageView)
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: result.imageURLString, description: result.band.name, fromImageView: cell.thumbnailImageView)
         }
         return cell
     }
@@ -376,7 +376,7 @@ extension SimpleSearchResultViewController {
         let cell = SimpleBandNameOrMusicGenreTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: result)
         cell.tappedThumbnailImageView = { [unowned self] in
-            self.presentPhotoViewerWithCacheChecking(photoUrlString: result.band.imageURLString, description: result.band.name, fromImageView: cell.thumbnailImageView)
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: result.imageURLString, description: result.band.name, fromImageView: cell.thumbnailImageView)
         }
         return cell
     }
