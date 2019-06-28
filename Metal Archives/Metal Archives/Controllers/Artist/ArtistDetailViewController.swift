@@ -12,8 +12,8 @@ import FirebaseAnalytics
 
 final class ArtistDetailViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var stretchyLogoSmokedImageView: SmokedImageView!
-    @IBOutlet private weak var stretchyLogoSmokedImageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var stretchyPhotoSmokedImageView: SmokedImageView!
+    @IBOutlet private weak var stretchyPhotoSmokedImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
@@ -53,15 +53,10 @@ final class ArtistDetailViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        stretchyLogoSmokedImageViewHeightConstraint.constant = screenWidth
+        stretchyPhotoSmokedImageViewHeightConstraint.constant = screenWidth
         configureTableView()
         handleSimpleNavigationBarViewActions()
         reloadArtist()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -70,8 +65,7 @@ final class ArtistDetailViewController: BaseViewController {
             tableViewContentOffsetObserver?.invalidate()
             tableViewContentOffsetObserver = nil
         }
-        navigationController?.isNavigationBarHidden = false
-        stretchyLogoSmokedImageView.transform = .identity
+        stretchyPhotoSmokedImageView.transform = .identity
     }
 
     private func reloadArtist() {
@@ -88,7 +82,7 @@ final class ArtistDetailViewController: BaseViewController {
                         self.simpleNavigationBarView.setTitle(artist.bandMemberName)
                         
                         if let photoUrlString = artist.photoURLString, let photoURL = URL(string: photoUrlString) {
-                            self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: photoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
+                            self.stretchyPhotoSmokedImageView.imageView.sd_setImage(with: photoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
                         } else {
                             self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
                         }
@@ -206,12 +200,12 @@ final class ArtistDetailViewController: BaseViewController {
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.contentInset = .init(top: stretchyLogoSmokedImageViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = .init(top: stretchyPhotoSmokedImageViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
         
         // observe when tableView is scrolled to animate alphas because scrollViewDidScroll doesn't capture enough event.
         tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
-            self?.calculateAndApplyAlphaForArtistNameAndUltileNavBar()
-            self?.stretchyLogoSmokedImageView.calculateAndApplyAlpha(withTableView: tableView)
+            self?.calculateAndApplyAlphaForArtistNameAndSimpleNavBar()
+            self?.stretchyPhotoSmokedImageView.calculateAndApplyAlpha(withTableView: tableView)
             self?.anchorHorizontalMenuViewToAnchorTableViewCell()
         }
         
@@ -227,7 +221,7 @@ final class ArtistDetailViewController: BaseViewController {
     
     private func presentArtistInPhotoViewer() {
         guard let artist = artist, let photoURLString = artist.photoURLString else { return }
-        presentPhotoViewer(photoUrlString: photoURLString, description: "\(artist.realFullName!) (\(artist.bandMemberName!))", fromImageView: stretchyLogoSmokedImageView.imageView)
+        presentPhotoViewer(photoUrlString: photoURLString, description: "\(artist.realFullName!) (\(artist.bandMemberName!))", fromImageView: stretchyPhotoSmokedImageView.imageView)
     }
     
     private func initHorizontalMenuView() {
@@ -274,8 +268,8 @@ final class ArtistDetailViewController: BaseViewController {
         }
     }
     
-    private func calculateAndApplyAlphaForArtistNameAndUltileNavBar() {
-        // Calculate alpha base of distant between utileBarView and the cell
+    private func calculateAndApplyAlphaForArtistNameAndSimpleNavBar() {
+        // Calculate alpha base of distant between simpleNavBarView and the cell
         // the cell should only be dimmed only when the cell frame overlaps the utileBarView
         
         guard let artistNameTableViewCell = artistNameTableViewCell, let artistNameLabel = artistNameTableViewCell.nameLabel else {

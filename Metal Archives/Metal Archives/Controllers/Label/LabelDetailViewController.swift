@@ -53,19 +53,13 @@ final class LabelDetailViewController: BaseViewController {
         handleSimpleNavigationBarViewActions()
         fetchLabel()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isMovingToParent {
             tableViewContentOffsetObserver?.invalidate()
             tableViewContentOffsetObserver = nil
         }
-        navigationController?.isNavigationBarHidden = false
         stretchyLogoSmokedImageView.transform = .identity
     }
 
@@ -159,7 +153,7 @@ final class LabelDetailViewController: BaseViewController {
         
         // observe when tableView is scrolled to animate alphas because scrollViewDidScroll doesn't capture enough event.
         tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
-            self?.calculateAndApplyAlphaForLabelNameAndUltileNavBar()
+            self?.calculateAndApplyAlphaForLabelNameAndSimpleNavBar()
             self?.stretchyLogoSmokedImageView.calculateAndApplyAlpha(withTableView: tableView)
             self?.anchorHorizontalMenuViewToAnchorTableViewCell()
         }
@@ -219,8 +213,8 @@ final class LabelDetailViewController: BaseViewController {
         }
     }
     
-    private func calculateAndApplyAlphaForLabelNameAndUltileNavBar() {
-        // Calculate alpha base of distant between utileBarView and the cell
+    private func calculateAndApplyAlphaForLabelNameAndSimpleNavBar() {
+        // Calculate alpha base of distant between simpleNavBarView and the cell
         // the cell should only be dimmed only when the cell frame overlaps the utileBarView
         
         guard let labelNameTableViewCell = labelNameTableViewCell, let labelNameLabel = labelNameTableViewCell.nameLabel else {

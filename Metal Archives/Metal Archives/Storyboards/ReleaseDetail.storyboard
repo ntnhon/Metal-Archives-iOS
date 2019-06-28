@@ -54,8 +54,8 @@
                     </view>
                     <connections>
                         <outlet property="simpleNavigationBarView" destination="6pt-DP-s2U" id="3Jq-pw-pIB"/>
-                        <outlet property="stretchyLogoSmokedImageView" destination="PbG-FH-lM0" id="4th-lq-UKG"/>
-                        <outlet property="stretchyLogoSmokedImageViewHeightConstraint" destination="Hna-yJ-fau" id="ORu-Il-rAg"/>
+                        <outlet property="stretchyCoverSmokedImageView" destination="PbG-FH-lM0" id="4th-lq-UKG"/>
+                        <outlet property="stretchyCoverSmokedImageViewHeightConstraint" destination="Hna-yJ-fau" id="ORu-Il-rAg"/>
                         <outlet property="tableView" destination="YHp-Pm-XVM" id="baJ-4Q-CFe"/>
                     </connections>
                 </viewController>

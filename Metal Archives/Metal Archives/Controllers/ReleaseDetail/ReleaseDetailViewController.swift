@@ -14,8 +14,8 @@ import Crashlytics
 //MARK: - Properties
 final class ReleaseDetailViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var stretchyLogoSmokedImageView: SmokedImageView!
-    @IBOutlet private weak var stretchyLogoSmokedImageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var stretchyCoverSmokedImageView: SmokedImageView!
+    @IBOutlet private weak var stretchyCoverSmokedImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     
     var urlString: String!
@@ -45,7 +45,7 @@ final class ReleaseDetailViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        stretchyLogoSmokedImageViewHeightConstraint.constant = screenWidth
+        stretchyCoverSmokedImageViewHeightConstraint.constant = screenWidth
         configureTableView()
         initHorizontalMenuView()
         handleUtileBarViewActions()
@@ -56,19 +56,13 @@ final class ReleaseDetailViewController: BaseViewController {
         print("ReleaseDetailViewController is deallocated")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isMovingToParent {
             tableViewContentOffsetObserver?.invalidate()
             tableViewContentOffsetObserver = nil
         }
-        navigationController?.isNavigationBarHidden = false
-        stretchyLogoSmokedImageView.transform = .identity
+        stretchyCoverSmokedImageView.transform = .identity
     }
     
     private func reloadRelease() {
@@ -83,7 +77,7 @@ final class ReleaseDetailViewController: BaseViewController {
                 self.release = release
                 
                 if let coverURLString = release.coverURLString, let coverURL = URL(string: coverURLString) {
-                    self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: coverURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
+                    self.stretchyCoverSmokedImageView.imageView.sd_setImage(with: coverURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
                 } else {
                     self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
                 }
@@ -119,12 +113,12 @@ final class ReleaseDetailViewController: BaseViewController {
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.contentInset = .init(top: stretchyLogoSmokedImageViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = .init(top: stretchyCoverSmokedImageViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
         
         // observe when tableView is scrolled to animate alphas because scrollViewDidScroll doesn't capture enough event.
         tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
-            self?.calculateAndApplyAlphaForReleaseTitleTypeAndUltileNavBar()
-            self?.stretchyLogoSmokedImageView.calculateAndApplyAlpha(withTableView: tableView)
+            self?.calculateAndApplyAlphaForReleaseTitleTypeAndSimpleNavBar()
+            self?.stretchyCoverSmokedImageView.calculateAndApplyAlpha(withTableView: tableView)
             self?.anchorHorizontalMenuViewToAnchorTableViewCell()
         }
         
@@ -140,7 +134,7 @@ final class ReleaseDetailViewController: BaseViewController {
     
     private func presentReleaseCoverInPhotoViewer() {
         guard let release = release, let coverURLString = release.coverURLString else { return }
-        presentPhotoViewer(photoUrlString: coverURLString, description: release.title, fromImageView: stretchyLogoSmokedImageView.imageView)
+        presentPhotoViewer(photoUrlString: coverURLString, description: release.title, fromImageView: stretchyCoverSmokedImageView.imageView)
     }
     
     private func initHorizontalMenuView() {
@@ -184,8 +178,8 @@ final class ReleaseDetailViewController: BaseViewController {
         }
     }
 
-    private func calculateAndApplyAlphaForReleaseTitleTypeAndUltileNavBar() {
-        // Calculate alpha base of distant between utileBarView and the cell
+    private func calculateAndApplyAlphaForReleaseTitleTypeAndSimpleNavBar() {
+        // Calculate alpha base of distant between simpleNavBarView and the cell
         // the cell should only be dimmed only when the cell frame overlaps the utileBarView
         
         guard let releaseTitleAndTypeTableViewCell = releaseTitleAndTypeTableViewCell, let releaseTitleLabel = releaseTitleAndTypeTableViewCell.titleLabel else {

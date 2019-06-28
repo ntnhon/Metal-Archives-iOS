@@ -63,11 +63,6 @@ final class BandDetailViewController: BaseViewController {
         print("BandDetailViewController is deallocated")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isMovingToParent {
@@ -75,11 +70,6 @@ final class BandDetailViewController: BaseViewController {
             tableViewContentOffsetObserver = nil
         }
         stretchyLogoSmokedImageView.transform = .identity
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        navigationController?.isNavigationBarHidden = false
     }
 
     private func reloadBand() {
@@ -161,8 +151,8 @@ final class BandDetailViewController: BaseViewController {
         }
     }
 
-    private func calculateAndApplyAlphaForBandPhotoAndNameCellAndUltileNavBar() {
-        // Calculate alpha base of distant between utileBarView and the cell
+    private func calculateAndApplyAlphaForBandPhotoAndNameCellAndSimpleNavBar() {
+        // Calculate alpha base of distant between simpleNavBarView and the cell
         // the cell should only be dimmed only when the cell frame overlaps the utileBarView
         
         guard let bandPhotoAndNameTableViewCell = bandPhotoAndNameTableViewCell, let bandNameLabel = bandPhotoAndNameTableViewCell.nameLabel else {
@@ -234,7 +224,7 @@ extension BandDetailViewController {
         
         // observe when tableView is scrolled to animate alphas because scrollViewDidScroll doesn't capture enough event.
         tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
-            self?.calculateAndApplyAlphaForBandPhotoAndNameCellAndUltileNavBar()
+            self?.calculateAndApplyAlphaForBandPhotoAndNameCellAndSimpleNavBar()
             self?.stretchyLogoSmokedImageView.calculateAndApplyAlpha(withTableView: tableView)
             self?.anchorHorizontalMenuViewToAnchorTableViewCell()
         }
