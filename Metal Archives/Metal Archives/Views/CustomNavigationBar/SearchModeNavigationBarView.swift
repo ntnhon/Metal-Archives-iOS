@@ -76,6 +76,9 @@ final class SearchModeNavigationBarView: BaseNavigationBarView {
         addSubview(tipsButton)
         tipsButton.anchor(top: nil, leading: segmentedControl.trailingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 15, right: 0))
         tipsButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
+        backButton.centerYAnchor.constraint(equalTo: segmentedControl.centerYAnchor).isActive = true
+        tipsButton.centerYAnchor.constraint(equalTo: segmentedControl.centerYAnchor).isActive = true
     }
     
     private func initActions() {
