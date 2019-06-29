@@ -11,21 +11,17 @@ import Toaster
 import FirebaseAnalytics
 
 final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
-    
     enum Mode {
         case additions, updates
     }
-
-    private var segmentedControl: UISegmentedControl!
-    private var messageLabel: UILabel!
-    private var currentLatestAdditionType: AdditionOrUpdateType = .bands
-    private var rightBarButtonItem: UIBarButtonItem!
     
+    @IBOutlet private weak var latestAdditionsOrUpdatesNavigationBarView: LatestAdditionsOrUpdatesNavigationBarView!
+    var currentAdditionOrUpdateType: AdditionOrUpdateType!
     private var parameterOptions: [String: String]! = ["<YEAR_MONTH>": monthList[0].requestParameterString]
     private var selectedMonth: MonthInYear = monthList[0] {
         didSet {
-            self.rightBarButtonItem.title = selectedMonth.shortDisplayString
-            self.parameterOptions = ["<YEAR_MONTH>": selectedMonth.requestParameterString]
+            latestAdditionsOrUpdatesNavigationBarView.setMonthButtonTitle(selectedMonth.shortDisplayString)
+            parameterOptions = ["<YEAR_MONTH>": selectedMonth.requestParameterString]
         }
     }
     
@@ -40,82 +36,78 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
     private var artistAdditionPagableManager: PagableManager<ArtistAddition>!
     private var artistUpdatePagableManager: PagableManager<ArtistUpdate>!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.initNavigationBarElements()
-        self.initRightBarButtonItem()
-        self.initNavBarAttributes()
-        self.initPagableManagers()
-        self.fetchData()
+    deinit {
+        print("LatestAdditionsOrUpdatesViewController is deallocated")
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.prefersLargeTitles = false
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initPagableManagers()
+        handleLatestAdditionsOrUpdatesNavigationBarViewActions()
+        fetchData()
     }
     
     override func initAppearance() {
         super.initAppearance()
+        tableView.contentInset = UIEdgeInsets(top: segmentedNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
         
-        LoadingTableViewCell.register(with: self.tableView)
-        BandAdditionOrUpdateTableViewCell.register(with: self.tableView)
-        LabelAdditionOrUpdateTableViewCell.register(with: self.tableView)
-        ArtistAdditionOrUpdateTableViewCell.register(with: self.tableView)
+        LoadingTableViewCell.register(with: tableView)
+        BandAdditionOrUpdateTableViewCell.register(with: tableView)
+        LabelAdditionOrUpdateTableViewCell.register(with: tableView)
+        ArtistAdditionOrUpdateTableViewCell.register(with: tableView)
     }
     
     override func refresh() {
-        switch self.currentLatestAdditionType {
+        switch currentAdditionOrUpdateType! {
         case .bands:
-            if self.mode! == .additions {
-                self.initBandAdditionPagableManager()
-                self.tableView.reloadData()
+            if mode! == .additions {
+                initBandAdditionPagableManager()
+                tableView.reloadData()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                     self.bandAdditionPagableManager.fetch()
                 }
             } else {
-                self.initBandUpdatePagableManager()
-                self.tableView.reloadData()
+                initBandUpdatePagableManager()
+                tableView.reloadData()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                     self.bandUpdatePagableManager.fetch()
                 }
             }
         case .labels:
-            if self.mode! == .additions {
-                self.initLabelAdditionPagableManager()
-                self.tableView.reloadData()
+            if mode! == .additions {
+                initLabelAdditionPagableManager()
+                tableView.reloadData()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                     self.labelAdditionPagableManager.fetch()
                 }
             } else {
-                self.initLabelUpdatePagableManager()
-                self.tableView.reloadData()
+                initLabelUpdatePagableManager()
+                tableView.reloadData()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                     self.labelUpdatePagableManager.fetch()
                 }
             }
         case .artists:
-            if self.mode! == .additions {
-                self.initArtistAdditionPagableManager()
-                self.tableView.reloadData()
+            if mode! == .additions {
+                initArtistAdditionPagableManager()
+                tableView.reloadData()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                     self.artistAdditionPagableManager.fetch()
                 }
             } else {
-                self.initArtistUpdatePagableManager()
-                self.tableView.reloadData()
+                initArtistUpdatePagableManager()
+                tableView.reloadData()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                     self.artistUpdatePagableManager.fetch()
                 }
             }
         }
         
-        switch self.mode! {
+        switch mode! {
         case .additions:
-            Analytics.logEvent(AnalyticsEvent.RefreshLatestAdditions, parameters: [AnalyticsParameter.SectionName: self.currentLatestAdditionType.description])
+            Analytics.logEvent(AnalyticsEvent.RefreshLatestAdditions, parameters: [AnalyticsParameter.SectionName: currentAdditionOrUpdateType.description])
         case .updates:
-            Analytics.logEvent(AnalyticsEvent.RefreshLatestUpdates, parameters: [AnalyticsParameter.SectionName: self.currentLatestAdditionType.description])
+            Analytics.logEvent(AnalyticsEvent.RefreshLatestUpdates, parameters: [AnalyticsParameter.SectionName: currentAdditionOrUpdateType.description])
         }
         
     }
@@ -123,171 +115,144 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
     private func updateMessageLabel() {
         var count: Int?
         var total: Int?
-        switch self.currentLatestAdditionType {
+        switch currentAdditionOrUpdateType! {
         case .bands:
-            if self.mode! == .additions {
-                count = self.bandAdditionPagableManager.objects.count
-                total = self.bandAdditionPagableManager.totalRecords
+            if mode! == .additions {
+                count = bandAdditionPagableManager.objects.count
+                total = bandAdditionPagableManager.totalRecords
             } else {
-                count = self.bandUpdatePagableManager.objects.count
-                total = self.bandUpdatePagableManager.totalRecords
+                count = bandUpdatePagableManager.objects.count
+                total = bandUpdatePagableManager.totalRecords
             }
         case .labels:
-            if self.mode! == .additions {
-                count = self.labelAdditionPagableManager.objects.count
-                total = self.labelAdditionPagableManager.totalRecords
+            if mode! == .additions {
+                count = labelAdditionPagableManager.objects.count
+                total = labelAdditionPagableManager.totalRecords
             } else {
-                count = self.labelUpdatePagableManager.objects.count
-                total = self.labelUpdatePagableManager.totalRecords
+                count = labelUpdatePagableManager.objects.count
+                total = labelUpdatePagableManager.totalRecords
             }
         case .artists:
-            if self.mode! == .additions {
-                count = self.artistAdditionPagableManager.objects.count
-                total = self.artistAdditionPagableManager.totalRecords
+            if mode! == .additions {
+                count = artistAdditionPagableManager.objects.count
+                total = artistAdditionPagableManager.totalRecords
             } else {
-                count = self.artistUpdatePagableManager.objects.count
-                total = self.artistUpdatePagableManager.totalRecords
+                count = artistUpdatePagableManager.objects.count
+                total = artistUpdatePagableManager.totalRecords
             }
         }
         
         if let `count` = count, let `total` = total {
-            self.messageLabel.text = "Loaded \(count) of \(total)"
+            latestAdditionsOrUpdatesNavigationBarView.setMessage("Loaded \(count) of \(total)")
         } else {
-            self.messageLabel.text = "No result found"
+            latestAdditionsOrUpdatesNavigationBarView.setMessage("No result found")
+        }
+    }
+    
+    private func handleLatestAdditionsOrUpdatesNavigationBarViewActions() {
+        let thisMonthString = monthList[0].shortDisplayString
+        latestAdditionsOrUpdatesNavigationBarView.setMonthButtonTitle(thisMonthString)
+        
+        latestAdditionsOrUpdatesNavigationBarView.setAdditionOrUpdateType(currentAdditionOrUpdateType)
+        
+        latestAdditionsOrUpdatesNavigationBarView.didTapBackButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        latestAdditionsOrUpdatesNavigationBarView.didTapMonthButton = { [unowned self] in
+            let monthListViewController = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "MonthListViewController") as! MonthListViewController
+            
+            monthListViewController.modalPresentationStyle = .popover
+            monthListViewController.popoverPresentationController?.permittedArrowDirections = .any
+            monthListViewController.preferredContentSize = CGSize(width: 220, height: screenHeight*2/3)
+            
+            monthListViewController.popoverPresentationController?.delegate = self
+            monthListViewController.popoverPresentationController?.sourceView = self.latestAdditionsOrUpdatesNavigationBarView.monthButton
+            
+            monthListViewController.delegate = self
+            monthListViewController.selectedMonth = self.selectedMonth
+            self.present(monthListViewController, animated: true, completion: nil)
+        }
+        
+        latestAdditionsOrUpdatesNavigationBarView.didChangeAdditionOrUpdateType = { [unowned self] in
+            self.currentAdditionOrUpdateType = self.latestAdditionsOrUpdatesNavigationBarView.selectedAdditionOrUpdateType
+            self.updateMessageLabel()
+            self.tableView.scrollRectToVisible(CGRect.zero, animated: false)
+            self.tableView.reloadData()
+            
+            switch self.mode! {
+            case .additions:
+                Analytics.logEvent(AnalyticsEvent.ChangeSectionInLatestAdditions, parameters: [AnalyticsParameter.SectionName: self.currentAdditionOrUpdateType.description])
+            case .updates:
+                Analytics.logEvent(AnalyticsEvent.ChangeSectionInLatestUpdates, parameters: [AnalyticsParameter.SectionName: self.currentAdditionOrUpdateType.description])
+            }
         }
     }
     
     private func fetchData() {
-        switch self.currentLatestAdditionType {
+        switch currentAdditionOrUpdateType! {
         case .bands:
-            if self.mode! == .additions {
-                self.bandAdditionPagableManager.fetch()
+            if mode! == .additions {
+                bandAdditionPagableManager.fetch()
             } else {
-                self.bandUpdatePagableManager.fetch()
+                bandUpdatePagableManager.fetch()
             }
         case .labels:
-            if self.mode! == .additions {
-                self.labelAdditionPagableManager.fetch()
+            if mode! == .additions {
+                labelAdditionPagableManager.fetch()
             } else {
-                self.labelUpdatePagableManager.fetch()
+                labelUpdatePagableManager.fetch()
             }
         case .artists:
-            if self.mode! == .additions {
-                self.artistAdditionPagableManager.fetch()
+            if mode! == .additions {
+                artistAdditionPagableManager.fetch()
             } else {
-                self.artistUpdatePagableManager.fetch()
+                artistUpdatePagableManager.fetch()
             }
         }
-    }
-    
-    private func initNavBarAttributes() {
-        
-        switch self.mode! {
-        case .additions: self.title = "Latest Additions"
-        case .updates: self.title = "Latest Updates"
-        }
-        
-        if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.prefersLargeTitles = true
-        }
-    }
-
-    private func initNavigationBarElements() {
-        var segmentTitles: [String] = []
-        segmentTitles = AdditionOrUpdateType.allCases.map({$0.description})
-        self.segmentedControl = UISegmentedControl(items: segmentTitles)
-        self.segmentedControl.selectedSegmentIndex = self.currentLatestAdditionType.rawValue
-        self.segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
-        
-        
-        self.messageLabel = UILabel()
-        self.messageLabel.font = UIFont.systemFont(ofSize: 13)
-        self.messageLabel.textAlignment = .center
-        
-        let stackView = UIStackView(arrangedSubviews: [self.segmentedControl!, self.messageLabel!])
-        stackView.axis = .vertical
-        
-        self.navigationItem.titleView = stackView
-    }
-
-    private func initRightBarButtonItem() {
-        let thisMonthString = monthList[0].shortDisplayString
-        self.rightBarButtonItem = UIBarButtonItem(title: thisMonthString, style: .done, target: self, action: #selector(didTapRightBarButtonItem))
-        self.navigationItem.rightBarButtonItem = self.rightBarButtonItem
     }
     
     private func initPagableManagers() {
-        switch self.mode! {
+        switch mode! {
         case .additions:
-            self.initBandAdditionPagableManager()
-            self.initLabelAdditionPagableManager()
-            self.initArtistAdditionPagableManager()
+            initBandAdditionPagableManager()
+            initLabelAdditionPagableManager()
+            initArtistAdditionPagableManager()
         case .updates:
-            self.initBandUpdatePagableManager()
-            self.initLabelUpdatePagableManager()
-            self.initArtistUpdatePagableManager()
+            initBandUpdatePagableManager()
+            initLabelUpdatePagableManager()
+            initArtistUpdatePagableManager()
         }
     }
     
     private func initBandAdditionPagableManager() {
-        self.bandAdditionPagableManager = PagableManager<BandAddition>(options: self.parameterOptions)
-        self.bandAdditionPagableManager.delegate = self
+        bandAdditionPagableManager = PagableManager<BandAddition>(options: parameterOptions)
+        bandAdditionPagableManager.delegate = self
     }
     
     private func initBandUpdatePagableManager() {
-        self.bandUpdatePagableManager = PagableManager<BandUpdate>(options: self.parameterOptions)
-        self.bandUpdatePagableManager.delegate = self
+        bandUpdatePagableManager = PagableManager<BandUpdate>(options: parameterOptions)
+        bandUpdatePagableManager.delegate = self
     }
     
     private func initLabelAdditionPagableManager() {
-        self.labelAdditionPagableManager = PagableManager<LabelAddition>(options: self.parameterOptions)
-        self.labelAdditionPagableManager.delegate = self
+        labelAdditionPagableManager = PagableManager<LabelAddition>(options: parameterOptions)
+        labelAdditionPagableManager.delegate = self
     }
     
     private func initLabelUpdatePagableManager() {
-        self.labelUpdatePagableManager = PagableManager<LabelUpdate>(options: self.parameterOptions)
-        self.labelUpdatePagableManager.delegate = self
+        labelUpdatePagableManager = PagableManager<LabelUpdate>(options: parameterOptions)
+        labelUpdatePagableManager.delegate = self
     }
     
     private func initArtistAdditionPagableManager() {
-        self.artistAdditionPagableManager = PagableManager<ArtistAddition>(options: self.parameterOptions)
-        self.artistAdditionPagableManager.delegate = self
+        artistAdditionPagableManager = PagableManager<ArtistAddition>(options: parameterOptions)
+        artistAdditionPagableManager.delegate = self
     }
     
     private func initArtistUpdatePagableManager() {
-        self.artistUpdatePagableManager = PagableManager<ArtistUpdate>(options: self.parameterOptions)
-        self.artistUpdatePagableManager.delegate = self
-    }
-
-
-    @objc private func segmentedControlValueChanged() {
-        self.currentLatestAdditionType = AdditionOrUpdateType(rawValue: self.segmentedControl.selectedSegmentIndex) ?? .bands
-        self.updateMessageLabel()
-        self.tableView.scrollRectToVisible(CGRect.zero, animated: false)
-        self.tableView.reloadData()
-        
-        
-        switch self.mode! {
-        case .additions:
-            Analytics.logEvent(AnalyticsEvent.ChangeSectionInLatestAdditions, parameters: [AnalyticsParameter.SectionName: self.currentLatestAdditionType.description])
-        case .updates:
-            Analytics.logEvent(AnalyticsEvent.ChangeSectionInLatestUpdates, parameters: [AnalyticsParameter.SectionName: self.currentLatestAdditionType.description])
-        }
-    }
-    
-    @objc private func didTapRightBarButtonItem() {
-        let monthListViewController = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "MonthListViewController") as! MonthListViewController
-        
-        monthListViewController.modalPresentationStyle = .popover
-        monthListViewController.popoverPresentationController?.permittedArrowDirections = .any
-        monthListViewController.preferredContentSize = CGSize(width: 220, height: screenHeight*2/3)
-        
-        monthListViewController.popoverPresentationController?.delegate = self
-        monthListViewController.popoverPresentationController?.barButtonItem = self.rightBarButtonItem
-
-        monthListViewController.delegate = self
-        monthListViewController.selectedMonth = self.selectedMonth
-        self.present(monthListViewController, animated: true, completion: nil)
+        artistUpdatePagableManager = PagableManager<ArtistUpdate>(options: parameterOptions)
+        artistUpdatePagableManager.delegate = self
     }
 }
 
@@ -301,25 +266,25 @@ extension LatestAdditionsOrUpdatesViewController: UIPopoverPresentationControlle
 //MARK: - PagableManagerProtocol
 extension LatestAdditionsOrUpdatesViewController: PagableManagerDelegate {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.messageLabel.text = "Loading..."
+        latestAdditionsOrUpdatesNavigationBarView.setMessage("Loading...")
     }
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.updateMessageLabel()
-        self.refreshSuccessfully()
-        self.tableView.reloadData()
+        updateMessageLabel()
+        refreshSuccessfully()
+        tableView.reloadData()
         
-        switch self.mode! {
+        switch mode! {
         case .additions:
-            Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: ["Module": "Latest additions", AnalyticsParameter.SectionName: self.currentLatestAdditionType.description])
+            Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: ["Module": "Latest additions", AnalyticsParameter.SectionName: currentAdditionOrUpdateType.description])
         case .updates:
-            Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: ["Module": "Latest updates", AnalyticsParameter.SectionName: self.currentLatestAdditionType.description])
+            Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: ["Module": "Latest updates", AnalyticsParameter.SectionName: currentAdditionOrUpdateType.description])
         }
     }
     
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.endRefreshing()
-        self.updateMessageLabel()
+        endRefreshing()
+        updateMessageLabel()
         Toast.displayMessageShortly(errorLoadingMessage)
     }
     
@@ -328,22 +293,29 @@ extension LatestAdditionsOrUpdatesViewController: PagableManagerDelegate {
     }
 }
 
+// MARK: - UIScrollViewDelegate
+extension LatestAdditionsOrUpdatesViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        latestAdditionsOrUpdatesNavigationBarView.transformWith(scrollView)
+    }
+}
+
 //MARK: - UITableViewDelegate
 extension LatestAdditionsOrUpdatesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        switch self.currentLatestAdditionType {
-        case .bands: self.didSelectRowInBandCase(at: indexPath)
-        case .labels: self.didSelectRowInLabelCase(at: indexPath)
-        case .artists: self.didSelectRowInArtistCase(at: indexPath)
+        switch currentAdditionOrUpdateType! {
+        case .bands: didSelectRowInBandCase(at: indexPath)
+        case .labels: didSelectRowInLabelCase(at: indexPath)
+        case .artists: didSelectRowInArtistCase(at: indexPath)
         }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        switch self.currentLatestAdditionType {
-        case .bands: self.willDisplayCellInBandCase(at: indexPath)
-        case .labels: self.willDisplayCellInLabelCase(at: indexPath)
-        case .artists: self.willDisplayCellInArtistCase(at: indexPath)
+        switch currentAdditionOrUpdateType! {
+        case .bands: willDisplayCellInBandCase(at: indexPath)
+        case .labels: willDisplayCellInLabelCase(at: indexPath)
+        case .artists: willDisplayCellInArtistCase(at: indexPath)
         }
     }
 }
@@ -355,22 +327,22 @@ extension LatestAdditionsOrUpdatesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.refreshControl.isRefreshing {
+        if refreshControl.isRefreshing {
             return 0
         }
         
-        switch self.currentLatestAdditionType {
-        case .bands: return self.numberOfRowsInBandCase()
-        case .labels: return self.numberOfRowsInLabelCase()
-        case .artists: return self.numberOfRowsInArtistCase()
+        switch currentAdditionOrUpdateType! {
+        case .bands: return numberOfRowsInBandCase()
+        case .labels: return numberOfRowsInLabelCase()
+        case .artists: return numberOfRowsInArtistCase()
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch self.currentLatestAdditionType {
-        case .bands: return self.cellForRowsInBandCase(at: indexPath)
-        case .labels: return self.cellForRowsInLabelCase(at: indexPath)
-        case .artists: return self.cellForRowsInArtistCase(at: indexPath)
+        switch currentAdditionOrUpdateType! {
+        case .bands: return cellForRowsInBandCase(at: indexPath)
+        case .labels: return cellForRowsInLabelCase(at: indexPath)
+        case .artists: return cellForRowsInArtistCase(at: indexPath)
         }
     }
 }
@@ -378,15 +350,15 @@ extension LatestAdditionsOrUpdatesViewController: UITableViewDataSource {
 //MARK: - MonthListViewControllerDelegate
 extension LatestAdditionsOrUpdatesViewController: MonthListViewControllerDelegate {
     func didSelectAMonth(_ month: MonthInYear) {
-        self.selectedMonth = month
-        self.initPagableManagers()
-        self.refresh()
+        selectedMonth = month
+        initPagableManagers()
+        refresh()
         
-        switch self.mode! {
+        switch mode! {
         case .additions:
-            Analytics.logEvent(AnalyticsEvent.ChangeMonthInLatestAdditions, parameters: [AnalyticsParameter.Month: self.selectedMonth.shortDisplayString])
+            Analytics.logEvent(AnalyticsEvent.ChangeMonthInLatestAdditions, parameters: [AnalyticsParameter.Month: selectedMonth.shortDisplayString])
         case .updates:
-            Analytics.logEvent(AnalyticsEvent.ChangeMonthInLatestUpdates, parameters: [AnalyticsParameter.Month: self.selectedMonth.shortDisplayString])
+            Analytics.logEvent(AnalyticsEvent.ChangeMonthInLatestUpdates, parameters: [AnalyticsParameter.Month: selectedMonth.shortDisplayString])
         }
     }
 }
@@ -394,44 +366,44 @@ extension LatestAdditionsOrUpdatesViewController: MonthListViewControllerDelegat
 //MARK: - BandAdditionOrUpdate
 extension LatestAdditionsOrUpdatesViewController {
     private func numberOfRowsInBandCase() -> Int {
-        switch self.mode! {
+        switch mode! {
         case .additions:
-            guard let _ = self.bandAdditionPagableManager else {
+            guard let _ = bandAdditionPagableManager else {
                 return 0
             }
             
-            if self.bandAdditionPagableManager.moreToLoad {
-                return self.bandAdditionPagableManager.objects.count + 1
+            if bandAdditionPagableManager.moreToLoad {
+                return bandAdditionPagableManager.objects.count + 1
             }
-            return self.bandAdditionPagableManager.objects.count
+            return bandAdditionPagableManager.objects.count
         case .updates:
-            guard let _ = self.bandUpdatePagableManager else {
+            guard let _ = bandUpdatePagableManager else {
                 return 0
             }
             
-            if self.bandUpdatePagableManager.moreToLoad {
-                return self.bandUpdatePagableManager.objects.count + 1
+            if bandUpdatePagableManager.moreToLoad {
+                return bandUpdatePagableManager.objects.count + 1
             }
-            return self.bandUpdatePagableManager.objects.count
+            return bandUpdatePagableManager.objects.count
         }
     }
     
     private func cellForRowsInBandCase(at indexPath: IndexPath) -> UITableViewCell {
-        switch self.mode! {
-        case .additions: return self.cellForRowsInBandAdditionCase(at: indexPath)
-        case .updates: return self.cellForRowsInBandUpdateCase(at: indexPath)
+        switch mode! {
+        case .additions: return cellForRowsInBandAdditionCase(at: indexPath)
+        case .updates: return cellForRowsInBandUpdateCase(at: indexPath)
         }
     }
     
     private func cellForRowsInBandAdditionCase(at indexPath: IndexPath) -> UITableViewCell {
-        if self.bandAdditionPagableManager.moreToLoad && indexPath.row == self.bandAdditionPagableManager.objects.count {
+        if bandAdditionPagableManager.moreToLoad && indexPath.row == bandAdditionPagableManager.objects.count {
             let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
         let cell = BandAdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let band = self.bandAdditionPagableManager.objects[indexPath.row]
+        let band = bandAdditionPagableManager.objects[indexPath.row]
         cell.fill(with: band)
         
         cell.tappedThumbnailImageView = { [unowned self] in
@@ -442,14 +414,14 @@ extension LatestAdditionsOrUpdatesViewController {
     }
     
     private func cellForRowsInBandUpdateCase(at indexPath: IndexPath) -> UITableViewCell {
-        if self.bandUpdatePagableManager.moreToLoad && indexPath.row == self.bandUpdatePagableManager.objects.count {
+        if bandUpdatePagableManager.moreToLoad && indexPath.row == bandUpdatePagableManager.objects.count {
             let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
         let cell = BandAdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let band = self.bandUpdatePagableManager.objects[indexPath.row]
+        let band = bandUpdatePagableManager.objects[indexPath.row]
         cell.fill(with: band)
         
         cell.tappedThumbnailImageView = { [unowned self] in
@@ -461,37 +433,37 @@ extension LatestAdditionsOrUpdatesViewController {
     
     private func didSelectRowInBandCase(at indexPath: IndexPath) {
         var bandURLString: String?
-        switch self.mode! {
+        switch mode! {
         case .additions:
-            let band = self.bandAdditionPagableManager.objects[indexPath.row]
+            let band = bandAdditionPagableManager.objects[indexPath.row]
             bandURLString = band.urlString
             
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInLatestAdditions, parameters: [AnalyticsParameter.ItemType: "Band", AnalyticsParameter.BandName: band.name, AnalyticsParameter.BandID: band.id])
             
         case .updates:
-            let band = self.bandUpdatePagableManager.objects[indexPath.row]
+            let band = bandUpdatePagableManager.objects[indexPath.row]
             bandURLString = band.urlString
             
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInLatestUpdates, parameters: [AnalyticsParameter.ItemType: "Band", AnalyticsParameter.BandName: band.name, AnalyticsParameter.BandID: band.id])
         }
         
         if let `bandURLString` = bandURLString {
-            self.pushBandDetailViewController(urlString: bandURLString, animated: true)
+            pushBandDetailViewController(urlString: bandURLString, animated: true)
         }
     }
     
     private func willDisplayCellInBandCase(at indexPath: IndexPath) {
-        switch self.mode! {
+        switch mode! {
         case .additions:
-            if self.bandAdditionPagableManager.moreToLoad && indexPath.row == self.bandAdditionPagableManager.objects.count {
-                self.bandAdditionPagableManager.fetch()
-            } else if !self.bandAdditionPagableManager.moreToLoad && indexPath.row == self.bandAdditionPagableManager.objects.count - 1 {
+            if bandAdditionPagableManager.moreToLoad && indexPath.row == bandAdditionPagableManager.objects.count {
+                bandAdditionPagableManager.fetch()
+            } else if !bandAdditionPagableManager.moreToLoad && indexPath.row == bandAdditionPagableManager.objects.count - 1 {
                 Toast.displayMessageShortly(endOfListMessage)
             }
         case .updates:
-            if self.bandUpdatePagableManager.moreToLoad && indexPath.row == self.bandUpdatePagableManager.objects.count {
-                self.bandUpdatePagableManager.fetch()
-            } else if !self.bandUpdatePagableManager.moreToLoad && indexPath.row == self.bandUpdatePagableManager.objects.count - 1 {
+            if bandUpdatePagableManager.moreToLoad && indexPath.row == bandUpdatePagableManager.objects.count {
+                bandUpdatePagableManager.fetch()
+            } else if !bandUpdatePagableManager.moreToLoad && indexPath.row == bandUpdatePagableManager.objects.count - 1 {
                 Toast.displayMessageShortly(endOfListMessage)
             }
         }
@@ -501,45 +473,45 @@ extension LatestAdditionsOrUpdatesViewController {
 //MARK: - LabelAdditionOrUpdate
 extension LatestAdditionsOrUpdatesViewController {
     private func numberOfRowsInLabelCase() -> Int {
-        switch self.mode! {
+        switch mode! {
         case .additions:
-            guard let _ = self.labelAdditionPagableManager else {
+            guard let _ = labelAdditionPagableManager else {
                 return 0
             }
             
-            if self.labelAdditionPagableManager.moreToLoad {
-                return self.labelAdditionPagableManager.objects.count + 1
+            if labelAdditionPagableManager.moreToLoad {
+                return labelAdditionPagableManager.objects.count + 1
             }
-            return self.labelAdditionPagableManager.objects.count
+            return labelAdditionPagableManager.objects.count
             
         case .updates:
-            guard let _ = self.labelUpdatePagableManager else {
+            guard let _ = labelUpdatePagableManager else {
                 return 0
             }
             
-            if self.labelUpdatePagableManager.moreToLoad {
-                return self.labelUpdatePagableManager.objects.count + 1
+            if labelUpdatePagableManager.moreToLoad {
+                return labelUpdatePagableManager.objects.count + 1
             }
-            return self.labelUpdatePagableManager.objects.count
+            return labelUpdatePagableManager.objects.count
         }
     }
     
     private func cellForRowsInLabelCase(at indexPath: IndexPath) -> UITableViewCell {
-        switch self.mode! {
-        case .additions: return self.cellForRowsInLabelAdditionCase(at: indexPath)
-        case .updates: return self.cellForRowsInLabelUpdateCase(at: indexPath)
+        switch mode! {
+        case .additions: return cellForRowsInLabelAdditionCase(at: indexPath)
+        case .updates: return cellForRowsInLabelUpdateCase(at: indexPath)
         }
     }
     
     private func cellForRowsInLabelAdditionCase(at indexPath: IndexPath) -> UITableViewCell {
-        if self.labelAdditionPagableManager.moreToLoad && indexPath.row == self.labelAdditionPagableManager.objects.count {
+        if labelAdditionPagableManager.moreToLoad && indexPath.row == labelAdditionPagableManager.objects.count {
             let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
         let cell = LabelAdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let label = self.labelAdditionPagableManager.objects[indexPath.row]
+        let label = labelAdditionPagableManager.objects[indexPath.row]
         cell.fill(with: label)
         
         cell.tappedThumbnailImageView = { [unowned self] in
@@ -550,14 +522,14 @@ extension LatestAdditionsOrUpdatesViewController {
     }
     
     private func cellForRowsInLabelUpdateCase(at indexPath: IndexPath) -> UITableViewCell {
-        if self.labelUpdatePagableManager.moreToLoad && indexPath.row == self.labelUpdatePagableManager.objects.count {
+        if labelUpdatePagableManager.moreToLoad && indexPath.row == labelUpdatePagableManager.objects.count {
             let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
         let cell = LabelAdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let label = self.labelUpdatePagableManager.objects[indexPath.row]
+        let label = labelUpdatePagableManager.objects[indexPath.row]
         cell.fill(with: label)
         
         cell.tappedThumbnailImageView = { [unowned self] in
@@ -569,39 +541,39 @@ extension LatestAdditionsOrUpdatesViewController {
     
     private func didSelectRowInLabelCase(at indexPath: IndexPath) {
         var labelURLString: String?
-        switch self.mode! {
+        switch mode! {
         case .additions:
-            let label = self.labelAdditionPagableManager.objects[indexPath.row]
+            let label = labelAdditionPagableManager.objects[indexPath.row]
             labelURLString = label.urlString
             
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInLatestAdditions, parameters: [AnalyticsParameter.ItemType: "Label", AnalyticsParameter.LabelName: label.name, AnalyticsParameter.LabelID: label.id])
             
         case .updates:
-            let label = self.labelUpdatePagableManager.objects[indexPath.row]
+            let label = labelUpdatePagableManager.objects[indexPath.row]
             labelURLString = label.urlString
             
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInLatestUpdates, parameters: [AnalyticsParameter.ItemType: "Label", AnalyticsParameter.LabelName: label.name, AnalyticsParameter.LabelID: label.id])
         }
         
         if let labelURLString = labelURLString {
-            self.pushLabelDetailViewController(urlString: labelURLString, animated: true)
+            pushLabelDetailViewController(urlString: labelURLString, animated: true)
         }
     }
     
     private func willDisplayCellInLabelCase(at indexPath: IndexPath) {
-        switch self.mode! {
+        switch mode! {
         case .additions:
-            if self.labelAdditionPagableManager.moreToLoad && indexPath.row == self.labelAdditionPagableManager.objects.count {
-                self.labelAdditionPagableManager.fetch()
+            if labelAdditionPagableManager.moreToLoad && indexPath.row == labelAdditionPagableManager.objects.count {
+                labelAdditionPagableManager.fetch()
                 
-            } else if !self.labelAdditionPagableManager.moreToLoad && indexPath.row == self.labelAdditionPagableManager.objects.count - 1 {
+            } else if !labelAdditionPagableManager.moreToLoad && indexPath.row == labelAdditionPagableManager.objects.count - 1 {
                 Toast.displayMessageShortly(endOfListMessage)
             }
         case .updates:
-            if self.labelUpdatePagableManager.moreToLoad && indexPath.row == self.labelUpdatePagableManager.objects.count {
-                self.labelUpdatePagableManager.fetch()
+            if labelUpdatePagableManager.moreToLoad && indexPath.row == labelUpdatePagableManager.objects.count {
+                labelUpdatePagableManager.fetch()
                 
-            } else if !self.labelUpdatePagableManager.moreToLoad && indexPath.row == self.labelUpdatePagableManager.objects.count - 1 {
+            } else if !labelUpdatePagableManager.moreToLoad && indexPath.row == labelUpdatePagableManager.objects.count - 1 {
                 Toast.displayMessageShortly(endOfListMessage)
             }
         }
@@ -611,44 +583,44 @@ extension LatestAdditionsOrUpdatesViewController {
 //MARK: - ArtistAdditionOrUpdate
 extension LatestAdditionsOrUpdatesViewController {
     private func numberOfRowsInArtistCase() -> Int {
-        switch self.mode! {
+        switch mode! {
         case .additions:
-            guard let _ = self.artistAdditionPagableManager else {
+            guard let _ = artistAdditionPagableManager else {
                 return 0
             }
             
-            if self.artistAdditionPagableManager.moreToLoad {
-                return self.artistAdditionPagableManager.objects.count + 1
+            if artistAdditionPagableManager.moreToLoad {
+                return artistAdditionPagableManager.objects.count + 1
             }
-            return self.artistAdditionPagableManager.objects.count
+            return artistAdditionPagableManager.objects.count
         case .updates:
-            guard let _ = self.artistUpdatePagableManager else {
+            guard let _ = artistUpdatePagableManager else {
                 return 0
             }
             
-            if self.artistUpdatePagableManager.moreToLoad {
-                return self.artistUpdatePagableManager.objects.count + 1
+            if artistUpdatePagableManager.moreToLoad {
+                return artistUpdatePagableManager.objects.count + 1
             }
-            return self.artistUpdatePagableManager.objects.count
+            return artistUpdatePagableManager.objects.count
         }
     }
     
     private func cellForRowsInArtistCase(at indexPath: IndexPath) -> UITableViewCell {
-        switch self.mode! {
-        case .additions: return self.cellForRowsInArtistAdditionCase(at: indexPath)
-        case .updates: return self.cellForRowsInArtistUpdateCase(at: indexPath)
+        switch mode! {
+        case .additions: return cellForRowsInArtistAdditionCase(at: indexPath)
+        case .updates: return cellForRowsInArtistUpdateCase(at: indexPath)
         }
     }
     
     private func cellForRowsInArtistAdditionCase(at indexPath: IndexPath) -> UITableViewCell {
-        if self.artistAdditionPagableManager.moreToLoad && indexPath.row == self.artistAdditionPagableManager.objects.count {
+        if artistAdditionPagableManager.moreToLoad && indexPath.row == artistAdditionPagableManager.objects.count {
             let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
-        let cell = ArtistAdditionOrUpdateTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        let artist = self.artistAdditionPagableManager.objects[indexPath.row]
+        let cell = ArtistAdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        let artist = artistAdditionPagableManager.objects[indexPath.row]
         cell.fill(with: artist)
         
         cell.tappedThumbnailImageView = { [unowned self] in
@@ -659,14 +631,14 @@ extension LatestAdditionsOrUpdatesViewController {
     }
     
     private func cellForRowsInArtistUpdateCase(at indexPath: IndexPath) -> UITableViewCell {
-        if self.artistUpdatePagableManager.moreToLoad && indexPath.row == self.artistUpdatePagableManager.objects.count {
-            let loadingCell = LoadingTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
+        if artistUpdatePagableManager.moreToLoad && indexPath.row == artistUpdatePagableManager.objects.count {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
         }
         
-        let cell = ArtistAdditionOrUpdateTableViewCell.dequeueFrom(self.tableView, forIndexPath: indexPath)
-        let artist = self.artistUpdatePagableManager.objects[indexPath.row]
+        let cell = ArtistAdditionOrUpdateTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        let artist = artistUpdatePagableManager.objects[indexPath.row]
         cell.fill(with: artist)
         
         cell.tappedThumbnailImageView = { [unowned self] in
@@ -678,37 +650,37 @@ extension LatestAdditionsOrUpdatesViewController {
     
     private func didSelectRowInArtistCase(at indexPath: IndexPath) {
         var artist: ArtistAdditionOrUpdate?
-        switch self.mode! {
+        switch mode! {
         case .additions:
-            artist = self.artistAdditionPagableManager.objects[indexPath.row]
+            artist = artistAdditionPagableManager.objects[indexPath.row]
             
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInLatestAdditions, parameters: [AnalyticsParameter.ItemType: "Artist", AnalyticsParameter.ArtistName: artist!.nameInBand, AnalyticsParameter.ArtistID: artist!.id])
             
         case .updates:
-            artist = self.artistUpdatePagableManager.objects[indexPath.row]
+            artist = artistUpdatePagableManager.objects[indexPath.row]
             
             Analytics.logEvent(AnalyticsEvent.SelectAnItemInLatestUpdates, parameters: [AnalyticsParameter.ItemType: "Artist", AnalyticsParameter.ArtistName: artist!.nameInBand, AnalyticsParameter.ArtistID: artist!.id])
         }
         
         if let `artist` = artist {
-            self.takeActionFor(actionableObject: artist)
+            takeActionFor(actionableObject: artist)
         }
     }
     
     private func willDisplayCellInArtistCase(at indexPath: IndexPath) {
-        switch self.mode! {
+        switch mode! {
         case .additions:
-            if self.artistAdditionPagableManager.moreToLoad && indexPath.row == self.artistAdditionPagableManager.objects.count {
-                self.artistAdditionPagableManager.fetch()
+            if artistAdditionPagableManager.moreToLoad && indexPath.row == artistAdditionPagableManager.objects.count {
+                artistAdditionPagableManager.fetch()
                 
-            } else if !self.artistAdditionPagableManager.moreToLoad && indexPath.row == self.artistAdditionPagableManager.objects.count - 1 {
+            } else if !artistAdditionPagableManager.moreToLoad && indexPath.row == artistAdditionPagableManager.objects.count - 1 {
                 Toast.displayMessageShortly(endOfListMessage)
             }
         case .updates:
-            if self.artistUpdatePagableManager.moreToLoad && indexPath.row == self.artistUpdatePagableManager.objects.count {
-                self.artistUpdatePagableManager.fetch()
+            if artistUpdatePagableManager.moreToLoad && indexPath.row == artistUpdatePagableManager.objects.count {
+                artistUpdatePagableManager.fetch()
                 
-            } else if !self.artistUpdatePagableManager.moreToLoad && indexPath.row == self.artistUpdatePagableManager.objects.count - 1 {
+            } else if !artistUpdatePagableManager.moreToLoad && indexPath.row == artistUpdatePagableManager.objects.count - 1 {
                 Toast.displayMessageShortly(endOfListMessage)
             }
         }

@@ -300,9 +300,11 @@ extension HomepageViewController {
         if segue.identifier == "ShowLatestAdditions"{
             guard let latestAdditionsViewController = segue.destination as? LatestAdditionsOrUpdatesViewController else { return }
             latestAdditionsViewController.mode = .additions
+            latestAdditionsViewController.currentAdditionOrUpdateType = latestAdditionType
         } else if segue.identifier == "ShowLatestUpdates" {
             guard let latestAdditionsViewController = segue.destination as? LatestAdditionsOrUpdatesViewController else { return }
             latestAdditionsViewController.mode = .updates
+            latestAdditionsViewController.currentAdditionOrUpdateType = latestUpdateType
         }
     }
 }

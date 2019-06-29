@@ -14,6 +14,7 @@ let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? S
 let screenWidth: CGFloat = UIScreen.main.bounds.width
 let screenHeight: CGFloat = UIScreen.main.bounds.height
 let baseNavigationBarViewHeightWithoutTopInset: CGFloat = 50
+let segmentedNavigationBarViewHeightWithoutTopInset: CGFloat = 70
 
 let countryDictionary: NSDictionary = {
     let path = Bundle.main.path(forResource: "MA_Countries", ofType: "plist")!

@@ -39,6 +39,7 @@ final class ArtistAdditionOrUpdateCollectionViewCell: ThumbnailableCollectionVie
         
         countryLabel.font = Settings.currentFontSize.secondaryTitleFont
         countryLabel.textColor = Settings.currentTheme.bodyTextColor
+        countryLabel.lineBreakMode = .byTruncatingMiddle
         
         dateLabel.font = Settings.currentFontSize.bodyTextFont
         dateLabel.textColor = Settings.currentTheme.bodyTextColor
@@ -68,9 +69,7 @@ final class ArtistAdditionOrUpdateCollectionViewCell: ThumbnailableCollectionVie
         bandsNameLabel.attributedText = generateAttributedStringFromStrings(bandNames, as: .secondaryTitle, withSeparator: ", ")
         
         let (value, unit) = artist.updatedDate.distanceFromNow()
-        let agoString = "(\(value) \(unit) ago)"
-        
-        dateLabel.text = "\(defaultDateFormatter.string(from: artist.updatedDate))" + " " + agoString
+        dateLabel.text = "\(value) \(unit) ago"
         
         setThumbnailImageView(with: artist)
     }

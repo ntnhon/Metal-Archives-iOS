@@ -19,7 +19,7 @@ class BaseNavigationBarView: UIView {
         adjustHeightBaseOnDevice()
     }
     
-    private func adjustHeightBaseOnDevice() {
+    func adjustHeightBaseOnDevice() {
         constrainHeight(constant: UIApplication.shared.keyWindow!.safeAreaInsets.top + baseNavigationBarViewHeightWithoutTopInset)
     }
 }

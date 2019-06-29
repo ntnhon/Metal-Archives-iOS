@@ -17,8 +17,7 @@ final class Top100NavigationBarView: BaseNavigationBarView, TransformableWithScr
     var didChangeAlbumTopType: (() -> Void)?
     
     var selectedBandTopType: BandTopType {
-        let selectedBandTopType = BandTopType(rawValue: segmentedControl.selectedSegmentIndex) ?? .release
-        return selectedBandTopType
+        return BandTopType(rawValue: segmentedControl.selectedSegmentIndex) ?? .release
     }
     
     var selectedAlbumTopType: AlbumTopType {

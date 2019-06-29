@@ -29,8 +29,7 @@ final class SearchModeNavigationBarView: BaseNavigationBarView {
     var didChangeSearchMode: (() -> Void)?
     
     var selectedMode: SearchMode {
-        let selectedSearchMode = SearchMode(rawValue: segmentedControl.selectedSegmentIndex) ?? .simple
-        return selectedSearchMode
+        return SearchMode(rawValue: segmentedControl.selectedSegmentIndex) ?? .simple
     }
     
     override init(frame: CGRect) {
