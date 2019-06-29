@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,17 +26,28 @@
                                     <outlet property="delegate" destination="If3-ex-7fl" id="pFR-b5-5gR"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1bp-HR-DAa" customClass="LatestReviewsNavigationBarView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="hr6-rP-aji"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="wpb-tH-VG3" firstAttribute="trailing" secondItem="CCi-83-Rmn" secondAttribute="trailing" id="22G-Mi-x84"/>
+                            <constraint firstItem="1bp-HR-DAa" firstAttribute="top" secondItem="OkQ-rD-VcW" secondAttribute="top" id="2Sy-5E-mqM"/>
                             <constraint firstItem="CCi-83-Rmn" firstAttribute="leading" secondItem="wpb-tH-VG3" secondAttribute="leading" id="7ca-5n-Y6p"/>
+                            <constraint firstItem="1bp-HR-DAa" firstAttribute="leading" secondItem="OkQ-rD-VcW" secondAttribute="leading" id="7cx-Ty-oNW"/>
                             <constraint firstItem="wpb-tH-VG3" firstAttribute="bottom" secondItem="CCi-83-Rmn" secondAttribute="bottom" id="c8i-lh-csn"/>
                             <constraint firstItem="CCi-83-Rmn" firstAttribute="top" secondItem="wpb-tH-VG3" secondAttribute="top" id="iLw-il-Q6t"/>
+                            <constraint firstAttribute="trailing" secondItem="1bp-HR-DAa" secondAttribute="trailing" id="xUo-SL-1OY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wpb-tH-VG3"/>
                     </view>
                     <connections>
+                        <outlet property="artistRipNavigationBarView" destination="1bp-HR-DAa" id="1WI-x5-XJZ"/>
                         <outlet property="tableView" destination="CCi-83-Rmn" id="gFX-o5-IDv"/>
                     </connections>
                 </viewController>

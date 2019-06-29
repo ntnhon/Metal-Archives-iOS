@@ -10,43 +10,44 @@ import UIKit
 import Toaster
 import FirebaseAnalytics
 
-class ArtistRIPViewController: RefreshableViewController {
+final class ArtistRIPViewController: RefreshableViewController {
     var year: String! = "Any" {
         didSet {
-            if let `year` = year {
-                self.yearBarButtonItem.title = year
-            }
+            artistRipNavigationBarView.setMonthButtonTitle(year)
         }
     }
     
+    @IBOutlet private weak var artistRipNavigationBarView: LatestReviewsNavigationBarView!
     private var artistRIPPagableManager: PagableManager<ArtistRIP>!
-    private var yearBarButtonItem: UIBarButtonItem!
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initManager()
-        self.artistRIPPagableManager.fetch()
-        self.initYearBarButtonItem()
+        initManager()
+        initAndHandleArtistRipNavigationBarViewActions()
+        artistRIPPagableManager.fetch()
     }
 
     override func initAppearance() {
         super.initAppearance()
-        LoadingTableViewCell.register(with: self.tableView)
-        ArtistRIPTableViewCell.register(with: self.tableView)
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        
+        LoadingTableViewCell.register(with: tableView)
+        ArtistRIPTableViewCell.register(with: tableView)
     }
     
     private func initManager() {
         if let `year` = year, let yearInt = Int(year) {
-            self.artistRIPPagableManager = PagableManager<ArtistRIP>(options: ["<YEAR>": "\(yearInt)"])
+            artistRIPPagableManager = PagableManager<ArtistRIP>(options: ["<YEAR>": "\(yearInt)"])
         } else {
-            self.artistRIPPagableManager = PagableManager<ArtistRIP>(options: ["<YEAR>": ""])
+            artistRIPPagableManager = PagableManager<ArtistRIP>(options: ["<YEAR>": ""])
         }
         
-        self.artistRIPPagableManager.delegate = self
+        artistRIPPagableManager.delegate = self
     }
     
     override func refresh() {
-        self.artistRIPPagableManager.reset()
-        self.tableView.reloadData()
+        artistRIPPagableManager.reset()
+        tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
             self.artistRIPPagableManager.fetch()
         }
@@ -55,32 +56,35 @@ class ArtistRIPViewController: RefreshableViewController {
     }
     
     private func updateTitle() {
-        guard let totalRecords = self.artistRIPPagableManager.totalRecords else {
-            self.title = "No result found"
+        guard let totalRecords = artistRIPPagableManager.totalRecords else {
+            artistRipNavigationBarView.setTitle("No result found")
             return
         }
         
-        self.title = "Loaded \(self.artistRIPPagableManager.objects.count) of \(totalRecords)"
+        artistRipNavigationBarView.setTitle("Loaded \(artistRIPPagableManager.objects.count) of \(totalRecords)")
     }
     
-    private func initYearBarButtonItem() {
-        self.yearBarButtonItem = UIBarButtonItem(title: "Any", style: .done, target: self, action: #selector(didTapYearBarButtonItem))
-        self.navigationItem.rightBarButtonItem = self.yearBarButtonItem
-    }
-    
-    @objc private func didTapYearBarButtonItem() {
-        let yearListViewController = UIStoryboard(name: "ArtistRIP", bundle: nil).instantiateViewController(withIdentifier: "YearListViewController") as! YearListViewController
+    private func initAndHandleArtistRipNavigationBarViewActions() {
+        artistRipNavigationBarView.setMonthButtonTitle("Any")
         
-        yearListViewController.modalPresentationStyle = .popover
-        yearListViewController.popoverPresentationController?.permittedArrowDirections = .any
-        yearListViewController.preferredContentSize = CGSize(width: 120, height: screenHeight*2/3)
+        artistRipNavigationBarView.didTapBackButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
         
-        yearListViewController.popoverPresentationController?.delegate = self
-        yearListViewController.popoverPresentationController?.barButtonItem = self.yearBarButtonItem
-        
-        yearListViewController.delegate = self
-        yearListViewController.selectedYear = self.year
-        self.present(yearListViewController, animated: true, completion: nil)
+        artistRipNavigationBarView.didTapMonthButton = { [unowned self] in
+            let yearListViewController = UIStoryboard(name: "ArtistRIP", bundle: nil).instantiateViewController(withIdentifier: "YearListViewController") as! YearListViewController
+            
+            yearListViewController.modalPresentationStyle = .popover
+            yearListViewController.popoverPresentationController?.permittedArrowDirections = .any
+            yearListViewController.preferredContentSize = CGSize(width: 120, height: screenHeight*2/3)
+            
+            yearListViewController.popoverPresentationController?.delegate = self
+            yearListViewController.popoverPresentationController?.sourceView = self.artistRipNavigationBarView.monthButton
+            
+            yearListViewController.delegate = self
+            yearListViewController.selectedYear = self.year
+            self.present(yearListViewController, animated: true, completion: nil)
+        }
     }
 }
 
@@ -88,10 +92,11 @@ class ArtistRIPViewController: RefreshableViewController {
 extension ArtistRIPViewController: YearListViewControllerDelegate {
     func didChangeYear(_ year: String) {
         self.year = year
-        self.initManager()
-        self.artistRIPPagableManager.fetch()
+        initManager()
+        tableView.reloadData()
+        artistRIPPagableManager.fetch()
         
-        Analytics.logEvent(AnalyticsEvent.ChangeArtistRIPYear, parameters: [AnalyticsParameter.Year: self.year!])
+        Analytics.logEvent(AnalyticsEvent.ChangeArtistRIPYear, parameters: [AnalyticsParameter.Year: year])
     }
 }
 
@@ -105,7 +110,7 @@ extension ArtistRIPViewController: UIPopoverPresentationControllerDelegate {
 //MARK: - PagableManager
 extension ArtistRIPViewController: PagableManagerDelegate {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.title = "Loading..."
+        artistRipNavigationBarView.setTitle("Loading...")
     }
     
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -113,9 +118,9 @@ extension ArtistRIPViewController: PagableManagerDelegate {
     }
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.endRefreshing()
-        self.updateTitle()
-        self.tableView.reloadData()
+        endRefreshing()
+        updateTitle()
+        tableView.reloadData()
         
         Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
@@ -125,24 +130,31 @@ extension ArtistRIPViewController: PagableManagerDelegate {
     }
 }
 
+// MARK: - UIScrollViewDelegate
+extension ArtistRIPViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        artistRipNavigationBarView.transformWith(scrollView)
+    }
+}
+
 //MARK: - UITableViewDelegate
 extension ArtistRIPViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if self.artistRIPPagableManager.objects.indices.contains(indexPath.row) {
-            let artist = self.artistRIPPagableManager.objects[indexPath.row]
-            self.takeActionFor(actionableObject: artist)
+        if artistRIPPagableManager.objects.indices.contains(indexPath.row) {
+            let artist = artistRIPPagableManager.objects[indexPath.row]
+            takeActionFor(actionableObject: artist)
             
             Analytics.logEvent(AnalyticsEvent.SelectAnArtistRIP, parameters: [AnalyticsParameter.ArtistName: artist.name, AnalyticsParameter.ArtistID: artist.id])
         }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if self.artistRIPPagableManager.moreToLoad && indexPath.row == self.artistRIPPagableManager.objects.count {
-            self.artistRIPPagableManager.fetch()
+        if artistRIPPagableManager.moreToLoad && indexPath.row == artistRIPPagableManager.objects.count {
+            artistRIPPagableManager.fetch()
             
-        } else if !self.artistRIPPagableManager.moreToLoad  && indexPath.row == self.artistRIPPagableManager.objects.count - 1 {
+        } else if !artistRIPPagableManager.moreToLoad  && indexPath.row == artistRIPPagableManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
     }
@@ -155,11 +167,11 @@ extension ArtistRIPViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let manager = self.artistRIPPagableManager else {
+        guard let manager = artistRIPPagableManager else {
             return 0
         }
         
-        if self.refreshControl.isRefreshing {
+        if refreshControl.isRefreshing {
             return 0
         }
         
@@ -171,7 +183,7 @@ extension ArtistRIPViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.artistRIPPagableManager.moreToLoad && indexPath.row == self.artistRIPPagableManager.objects.count {
+        if artistRIPPagableManager.moreToLoad && indexPath.row == artistRIPPagableManager.objects.count {
             let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             loadingCell.displayIsLoading()
             return loadingCell
@@ -179,8 +191,11 @@ extension ArtistRIPViewController: UITableViewDataSource {
         
         let cell = ArtistRIPTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         
-        let artist = self.artistRIPPagableManager.objects[indexPath.row]
+        let artist = artistRIPPagableManager.objects[indexPath.row]
         cell.fill(with: artist)
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: artist.imageURLString, description: artist.name, fromImageView: cell.thumbnailImageView)
+        }
         return cell
     }
 }
