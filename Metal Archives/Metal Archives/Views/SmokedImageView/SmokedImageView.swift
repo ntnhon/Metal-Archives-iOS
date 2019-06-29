@@ -42,7 +42,7 @@ final class SmokedImageView: UIView {
         smokedView.alpha = 0
     }
     
-    func calculateAndApplyAlpha(withTableView tableView: UITableView) {
+    func calculateAndApplyAlpha(withTableView tableView: UITableView, scaling: Bool = true) {
         guard tableView.contentOffset.y < 0 else {
             smokedView.alpha = 1
             return
@@ -59,7 +59,7 @@ final class SmokedImageView: UIView {
         imageView.transform = CGAffineTransform(translationX: 0, y: translationY)
         
         smokedView.alpha = 1 - scaleRatio
-        if scaleRatio >= 1.0 {
+        if scaleRatio >= 1.0 && scaling {
             // Zoom stretchyLogoSmokedImageView
             imageView.transform = CGAffineTransform(scaleX: scaleRatio, y: scaleRatio)
         }

@@ -54,14 +54,14 @@ class DismissableOnSwipeViewController: BaseViewController {
 // MARK: - UIScrollViewDelegate
 extension DismissableOnSwipeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.contentOffset.y < 0 && !isDismissing else {return}
+        guard (scrollView.contentOffset.y + scrollView.contentInset.top) < 0 && !isDismissing else {return}
         
-        view.transform = CGAffineTransform(translationX: view.frame.origin.x, y: -scrollView.contentOffset.y)
-        smokedBackgroundView.alpha = 1 - (abs(scrollView.contentOffset.y) / MAX_Y_OFFSET)
+        view.transform = CGAffineTransform(translationX: view.frame.origin.x, y: -(scrollView.contentOffset.y + scrollView.contentInset.top))
+        smokedBackgroundView.alpha = 1 - (abs(scrollView.contentOffset.y + scrollView.contentInset.top) / MAX_Y_OFFSET)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if scrollView.contentOffset.y < 0 && abs(scrollView.contentOffset.y) > MAX_Y_OFFSET {
+        if (scrollView.contentOffset.y + scrollView.contentInset.top) < 0 && abs(scrollView.contentOffset.y + scrollView.contentInset.top) > MAX_Y_OFFSET {
             dismissToBottom()
         } else {
             view.transform = .identity

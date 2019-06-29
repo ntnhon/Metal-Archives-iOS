@@ -80,6 +80,7 @@
 		C018B78E2243C06F00CDFFB8 /* BandAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01839DE22253E6100FF88B7 /* BandAddition.swift */; };
 		C01D5870225CE28100DC7556 /* ThemeListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */; };
 		C01D5872225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */; };
+		C023739522C7917D00818E23 /* ReviewTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C023739422C7917D00818E23 /* ReviewTitleTableViewCell.swift */; };
 		C024A85322B9437500C6BAFE /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C024A85222B9437500C6BAFE /* BaseTableViewController.swift */; };
 		C027A27F22B55D330011EA73 /* SearchModeNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27E22B55D330011EA73 /* SearchModeNavigationBarView.swift */; };
 		C027A28122B57D5D0011EA73 /* DismissableOnSwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A28022B57D5D0011EA73 /* DismissableOnSwipeViewController.swift */; };
@@ -591,6 +592,7 @@
 		C018B7872243BBC800CDFFB8 /* UpcomingAlbumTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingAlbumTableViewCell.xib; sourceTree = "<group>"; };
 		C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeListTableViewController.swift; sourceTree = "<group>"; };
 		C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DisplayRestartAlert.swift"; sourceTree = "<group>"; };
+		C023739422C7917D00818E23 /* ReviewTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTitleTableViewCell.swift; sourceTree = "<group>"; };
 		C024A85222B9437500C6BAFE /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		C027A27E22B55D330011EA73 /* SearchModeNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModeNavigationBarView.swift; sourceTree = "<group>"; };
 		C027A28022B57D5D0011EA73 /* DismissableOnSwipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableOnSwipeViewController.swift; sourceTree = "<group>"; };
@@ -1241,6 +1243,14 @@
 			path = UpcomingAlbumTableViewCell;
 			sourceTree = "<group>";
 		};
+		C023739322C7915B00818E23 /* ReviewTitleTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C023739422C7917D00818E23 /* ReviewTitleTableViewCell.swift */,
+			);
+			path = ReviewTitleTableViewCell;
+			sourceTree = "<group>";
+		};
 		C027A27C22B55CF00011EA73 /* CustomNavigationBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1412,6 +1422,7 @@
 		C051B6AB2219F04B0030E5EE /* ReviewDetail */ = {
 			isa = PBXGroup;
 			children = (
+				C023739322C7915B00818E23 /* ReviewTitleTableViewCell */,
 				C0756058222C6E7E00DA7119 /* ReviewDetailTableViewCell */,
 			);
 			path = ReviewDetail;
@@ -3604,6 +3615,7 @@
 				C0F5DB45228B608100888FED /* String+RemoveHTMLTags.swift in Sources */,
 				C053DD672226DE2E0028568B /* RequestTop100Bands.swift in Sources */,
 				C008388422009ECE00B35996 /* Date+Distance.swift in Sources */,
+				C023739522C7917D00818E23 /* ReviewTitleTableViewCell.swift in Sources */,
 				C071306B21ECD24800082BC6 /* StatisticTableViewCell.swift in Sources */,
 				C0332FEA2201D4CB008B34E0 /* BandLite.swift in Sources */,
 				C071307D21ECF4DD00082BC6 /* LeftMenuOptionTableViewCell.swift in Sources */,

@@ -209,7 +209,7 @@ final class ArtistDetailViewController: BaseViewController {
             self?.anchorHorizontalMenuViewToAnchorTableViewCell()
         }
         
-        // detect taps on band's logo, have to do this because band's logo is overlaid by tableView
+        // detect taps on artist's photo, have to do this because artist's photo is overlaid by tableView
         tableView.backgroundView = UIView()
         let backgroundViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tableViewBackgroundViewTapped))
         tableView.backgroundView?.addGestureRecognizer(backgroundViewTapGestureRecognizer)

@@ -18,6 +18,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ace-Hd-aHg" customClass="SmokedImageView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="oLF-h8-vKz"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LrF-Eu-P51">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -26,17 +33,33 @@
                                     <outlet property="delegate" destination="OLk-U9-1Sf" id="zpK-gY-d7l"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9aB-fD-szp" customClass="SimpleNavigationBarView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="xPW-et-cBG"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="LrF-Eu-P51" firstAttribute="bottom" secondItem="htc-Q3-mJs" secondAttribute="bottom" id="2DY-N4-lsc"/>
+                            <constraint firstItem="ace-Hd-aHg" firstAttribute="top" secondItem="ocd-bc-bfo" secondAttribute="top" id="3lD-B1-vQc"/>
+                            <constraint firstItem="ace-Hd-aHg" firstAttribute="leading" secondItem="ocd-bc-bfo" secondAttribute="leading" id="DWN-e8-l9f"/>
+                            <constraint firstItem="9aB-fD-szp" firstAttribute="leading" secondItem="ocd-bc-bfo" secondAttribute="leading" id="c3Q-05-xAr"/>
+                            <constraint firstItem="9aB-fD-szp" firstAttribute="top" secondItem="ocd-bc-bfo" secondAttribute="top" id="iwT-fc-fC5"/>
+                            <constraint firstAttribute="trailing" secondItem="ace-Hd-aHg" secondAttribute="trailing" id="tSM-2H-UZI"/>
                             <constraint firstItem="LrF-Eu-P51" firstAttribute="leading" secondItem="htc-Q3-mJs" secondAttribute="leading" id="uDK-Zt-MsL"/>
                             <constraint firstItem="LrF-Eu-P51" firstAttribute="top" secondItem="ocd-bc-bfo" secondAttribute="top" id="vTi-yJ-JIl"/>
                             <constraint firstItem="LrF-Eu-P51" firstAttribute="trailing" secondItem="htc-Q3-mJs" secondAttribute="trailing" id="wSE-0W-e20"/>
+                            <constraint firstAttribute="trailing" secondItem="9aB-fD-szp" secondAttribute="trailing" id="xxi-22-BX5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="htc-Q3-mJs"/>
                     </view>
                     <connections>
+                        <outlet property="simpleNavigationBarView" destination="9aB-fD-szp" id="pWX-0c-eJ5"/>
+                        <outlet property="stretchyCoverSmokedImageView" destination="ace-Hd-aHg" id="iwX-0d-eh7"/>
+                        <outlet property="stretchyCoverSmokedImageViewHeightConstraint" destination="oLF-h8-vKz" id="abN-In-Zez"/>
                         <outlet property="tableView" destination="LrF-Eu-P51" id="JAr-Mi-d0c"/>
                     </connections>
                 </viewController>

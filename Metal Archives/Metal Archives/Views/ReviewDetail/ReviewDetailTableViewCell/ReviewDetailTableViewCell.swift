@@ -9,19 +9,12 @@
 import UIKit
 
 protocol ReviewDetailTableViewCellDelegate: class {
-    func didTapCoverImageView()
     func didTapBandNameLabel()
     func didTapReleaseTitleLabel()
     func didTapBaseVersionLabel()
-    func didTapCloseButton()
-    func didTapShareButton()
 }
 
 final class ReviewDetailTableViewCell: BaseTableViewCell, RegisterableCell {
-    @IBOutlet private(set) weak var coverPhotoImageView: UIImageView!
-    @IBOutlet private weak var coverPhotoImageViewHeightConstraint: NSLayoutConstraint!
-    
-    @IBOutlet private weak var reviewTitleLabel: UILabel!
     @IBOutlet private weak var bandNameLabel: UILabel!
     @IBOutlet private weak var releaseTitleLabel: UILabel!
     @IBOutlet private weak var ratingLabel: UILabel!
@@ -31,25 +24,11 @@ final class ReviewDetailTableViewCell: BaseTableViewCell, RegisterableCell {
     @IBOutlet private weak var reviewContentLabel: UILabel!
     @IBOutlet private var iconImageViews: [UIImageView]!
     
-    @IBOutlet private weak var closeButton: UIButton!
-    @IBOutlet private weak var shareButton: UIButton!
-    
     weak var delegate: ReviewDetailTableViewCellDelegate?
     
     override func initAppearance() {
         super.initAppearance()
         selectionStyle = .none
-        
-        // Cover photo image view
-        coverPhotoImageViewHeightConstraint.constant = screenWidth
-        coverPhotoImageView.sd_setShowActivityIndicatorView(true)
-        coverPhotoImageView.isUserInteractionEnabled = true
-        let coverPhotoImageViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapCoverImageView))
-        coverPhotoImageView.addGestureRecognizer(coverPhotoImageViewTapGesture)
-        
-        // Review title
-        reviewTitleLabel.textColor = Settings.currentTheme.reviewTitleColor
-        reviewTitleLabel.font = Settings.currentFontSize.reviewTitleFont
         
         // Band name
         bandNameLabel.textColor = Settings.currentTheme.secondaryTitleColor
@@ -90,19 +69,9 @@ final class ReviewDetailTableViewCell: BaseTableViewCell, RegisterableCell {
         iconImageViews.forEach({
             $0.tintColor = Settings.currentTheme.iconTintColor
         })
-        
-        closeButton.tintColor = Settings.currentTheme.bodyTextColor
-        shareButton.tintColor = Settings.currentTheme.bodyTextColor
     }
 
     func fill(with review: Review) {
-        if let coverPhotoURLString = review.coverPhotoURLString {
-            coverPhotoImageView.sd_setImage(with: URL(string: coverPhotoURLString), placeholderImage: nil, options: [.retryFailed])
-        } else {
-            coverPhotoImageViewHeightConstraint.constant = 20
-        }
-        
-        reviewTitleLabel.text = review.title
         bandNameLabel.text = review.band.name
         releaseTitleLabel.text = review.release.title
         ratingLabel.text = "\(review.rating!)%"
@@ -111,10 +80,6 @@ final class ReviewDetailTableViewCell: BaseTableViewCell, RegisterableCell {
         dateLabel.text = review.dateString
         baseVersionLabel.attributedText = review.baseVersionAttributedString
         reviewContentLabel.text = review.htmlContentString.htmlToString
-    }
-    
-    @objc private func tapCoverImageView() {
-        delegate?.didTapCoverImageView()
     }
     
     @objc private func tapBandNameLabel() {
@@ -127,13 +92,5 @@ final class ReviewDetailTableViewCell: BaseTableViewCell, RegisterableCell {
     
     @objc private func tapBaseVersionLabel() {
         delegate?.didTapBaseVersionLabel()
-    }
-    
-    @IBAction private func tapCloseButton() {
-        delegate?.didTapCloseButton()
-    }
-    
-    @IBAction private func tapShareButton() {
-        delegate?.didTapShareButton()
     }
 }
