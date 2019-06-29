@@ -79,6 +79,7 @@
 		C018B78D2243C05C00CDFFB8 /* BandUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01839E02225401500FF88B7 /* BandUpdate.swift */; };
 		C018B78E2243C06F00CDFFB8 /* BandAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01839DE22253E6100FF88B7 /* BandAddition.swift */; };
 		C01BA1B222C7D587003DD40E /* LatestAdditionsOrUpdatesNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01BA1B122C7D587003DD40E /* LatestAdditionsOrUpdatesNavigationBarView.swift */; };
+		C01BA1B422C7FD63003DD40E /* LatestReviewsNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01BA1B322C7FD63003DD40E /* LatestReviewsNavigationBarView.swift */; };
 		C01D5870225CE28100DC7556 /* ThemeListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */; };
 		C01D5872225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */; };
 		C023739522C7917D00818E23 /* ReviewTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C023739422C7917D00818E23 /* ReviewTitleTableViewCell.swift */; };
@@ -592,6 +593,7 @@
 		C018B7852243B9FC00CDFFB8 /* UpcomingAlbumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbumTableViewCell.swift; sourceTree = "<group>"; };
 		C018B7872243BBC800CDFFB8 /* UpcomingAlbumTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingAlbumTableViewCell.xib; sourceTree = "<group>"; };
 		C01BA1B122C7D587003DD40E /* LatestAdditionsOrUpdatesNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestAdditionsOrUpdatesNavigationBarView.swift; sourceTree = "<group>"; };
+		C01BA1B322C7FD63003DD40E /* LatestReviewsNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestReviewsNavigationBarView.swift; sourceTree = "<group>"; };
 		C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeListTableViewController.swift; sourceTree = "<group>"; };
 		C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DisplayRestartAlert.swift"; sourceTree = "<group>"; };
 		C023739422C7917D00818E23 /* ReviewTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTitleTableViewCell.swift; sourceTree = "<group>"; };
@@ -1261,6 +1263,7 @@
 				C0FFE1FB2295941F00909765 /* SimpleNavigationBarView.swift */,
 				C07677CF22B6D84100BB8F36 /* BaseNavigationBarView.swift */,
 				C01BA1B122C7D587003DD40E /* LatestAdditionsOrUpdatesNavigationBarView.swift */,
+				C01BA1B322C7FD63003DD40E /* LatestReviewsNavigationBarView.swift */,
 			);
 			path = CustomNavigationBar;
 			sourceTree = "<group>";
@@ -3593,6 +3596,7 @@
 				C00D3614223D5F1400B29B43 /* AdditionOrUpdateType.swift in Sources */,
 				C03F440922306FEC005D7AA8 /* SimpleLyricalThemesTableViewCell.swift in Sources */,
 				C0ECE702221B580F00489A8E /* RequestArtistBiography.swift in Sources */,
+				C01BA1B422C7FD63003DD40E /* LatestReviewsNavigationBarView.swift in Sources */,
 				C0ECE706221B5C1D00489A8E /* RequestArtistLinks.swift in Sources */,
 				C098587721FD09100069C348 /* UIStackView+SetBackgroundColor.swift in Sources */,
 				C053DD4822269A000028568B /* ArtistStatisticTableViewCell.swift in Sources */,

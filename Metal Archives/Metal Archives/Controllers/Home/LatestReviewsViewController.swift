@@ -14,13 +14,13 @@ final class LatestReviewsViewController: RefreshableViewController {
     private var errorFetchingMoreUpcomingAlbums = false
     private var isFetching = false
     
-    private var rightBarButtonItem: UIBarButtonItem!
-    
+    @IBOutlet private weak var latestReviewsNavigationBarView: LatestReviewsNavigationBarView!
+
     private var selectedMonth: MonthInYear = monthList[0] {
         didSet {
-            self.rightBarButtonItem.title = selectedMonth.shortDisplayString
-            self.updateLatestReviewsPagableManager()
-            self.refresh()
+            latestReviewsNavigationBarView.setMonthButtonTitle(selectedMonth.shortDisplayString)
+            updateLatestReviewsPagableManager()
+            refresh()
         }
     }
     
@@ -28,19 +28,21 @@ final class LatestReviewsViewController: RefreshableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initRightBarButtonItem()
-        self.updateLatestReviewsPagableManager()
+        handleLatestReviewsNavigationBarViewActions()
+        updateLatestReviewsPagableManager()
     }
     
     override func initAppearance() {
         super.initAppearance()
-        LoadingTableViewCell.register(with: self.tableView)
-        LatestReviewTableViewCell.register(with: self.tableView)
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        
+        LoadingTableViewCell.register(with: tableView)
+        LatestReviewTableViewCell.register(with: tableView)
     }
     
     override func refresh() {
-        self.latestReviewsPagableManager.reset()
-        self.tableView.reloadData()
+        latestReviewsPagableManager.reset()
+        tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
             self.latestReviewsPagableManager.fetch()
         }
@@ -49,51 +51,58 @@ final class LatestReviewsViewController: RefreshableViewController {
     }
     
     private func updateLatestReviewsPagableManager() {
-        self.latestReviewsPagableManager = PagableManager<LatestReview>(options: ["<YEAR_MONTH>": self.selectedMonth.requestParameterString])
-        self.latestReviewsPagableManager.delegate = self
+        latestReviewsPagableManager = PagableManager<LatestReview>(options: ["<YEAR_MONTH>": selectedMonth.requestParameterString])
+        latestReviewsPagableManager.delegate = self
     }
     
-    private func initRightBarButtonItem() {
+    private func handleLatestReviewsNavigationBarViewActions() {
         let thisMonthString = monthList[0].shortDisplayString
-        self.rightBarButtonItem = UIBarButtonItem(title: thisMonthString, style: .done, target: self, action: #selector(didTapRightBarButtonItem))
-        self.navigationItem.rightBarButtonItem = self.rightBarButtonItem
-    }
-    
-    @objc private func didTapRightBarButtonItem() {
-        let monthListViewController = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "MonthListViewController") as! MonthListViewController
+        latestReviewsNavigationBarView.setMonthButtonTitle(thisMonthString)
         
-        monthListViewController.modalPresentationStyle = .popover
-        monthListViewController.popoverPresentationController?.permittedArrowDirections = .any
-        monthListViewController.preferredContentSize = CGSize(width: 220, height: screenHeight*2/3)
+        latestReviewsNavigationBarView.didTapBackButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
         
-        monthListViewController.popoverPresentationController?.delegate = self
-        monthListViewController.popoverPresentationController?.barButtonItem = self.rightBarButtonItem
-        
-        monthListViewController.delegate = self
-        monthListViewController.selectedMonth = self.selectedMonth
-        self.present(monthListViewController, animated: true, completion: nil)
+        latestReviewsNavigationBarView.didTapMonthButton = { [unowned self] in
+            let monthListViewController = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "MonthListViewController") as! MonthListViewController
+            
+            monthListViewController.modalPresentationStyle = .popover
+            monthListViewController.popoverPresentationController?.permittedArrowDirections = .any
+            monthListViewController.preferredContentSize = CGSize(width: 220, height: screenHeight*2/3)
+            
+            monthListViewController.popoverPresentationController?.delegate = self
+            monthListViewController.popoverPresentationController?.sourceView = self.latestReviewsNavigationBarView.monthButton
+            
+            monthListViewController.delegate = self
+            monthListViewController.selectedMonth = self.selectedMonth
+            self.present(monthListViewController, animated: true, completion: nil)
+        }
     }
     
     private func updateTitle() {
-        guard let totalRecords = self.latestReviewsPagableManager.totalRecords else {
+        guard let totalRecords = latestReviewsPagableManager.totalRecords else {
             return
         }
         
-        self.title = "Loaded \(self.latestReviewsPagableManager.objects.count) of \(totalRecords)"
+        latestReviewsNavigationBarView.setTitle("Loaded \(latestReviewsPagableManager.objects.count) of \(totalRecords)")
     }
 }
 
 //MARK: - PagableManagerProtocol
 extension LatestReviewsViewController: PagableManagerDelegate {
+    func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        latestReviewsNavigationBarView.setTitle("Loading...")
+    }
+    
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.endRefreshing()
+        endRefreshing()
         Toast.displayMessageShortly(errorLoadingMessage)
     }
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        self.refreshSuccessfully()
-        self.updateTitle()
-        self.tableView.reloadData()
+        refreshSuccessfully()
+        updateTitle()
+        tableView.reloadData()
         
         Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
@@ -113,9 +122,16 @@ extension LatestReviewsViewController: UIPopoverPresentationControllerDelegate {
 //MARK: - MonthListViewControllerDelegate
 extension LatestReviewsViewController: MonthListViewControllerDelegate {
     func didSelectAMonth(_ month: MonthInYear) {
-        self.selectedMonth = month
+        selectedMonth = month
         
-        Analytics.logEvent(AnalyticsEvent.ChangeMonthInLatestReviews, parameters: [AnalyticsParameter.Month: self.selectedMonth.shortDisplayString])
+        Analytics.logEvent(AnalyticsEvent.ChangeMonthInLatestReviews, parameters: [AnalyticsParameter.Month: selectedMonth.shortDisplayString])
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension LatestReviewsViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        latestReviewsNavigationBarView.transformWith(scrollView)
     }
 }
 
@@ -123,13 +139,13 @@ extension LatestReviewsViewController: MonthListViewControllerDelegate {
 extension LatestReviewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if self.latestReviewsPagableManager.moreToLoad && indexPath.row == self.latestReviewsPagableManager.objects.count {
+        if latestReviewsPagableManager.moreToLoad && indexPath.row == latestReviewsPagableManager.objects.count {
             //Loading cell
             return
         }
         
-        let latestReview = self.latestReviewsPagableManager.objects[indexPath.row]
-        self.takeActionFor(actionableObject: latestReview)
+        let latestReview = latestReviewsPagableManager.objects[indexPath.row]
+        takeActionFor(actionableObject: latestReview)
         
         Analytics.logEvent(AnalyticsEvent.SelectAnItemInLatestReviews, parameters: nil)
     }
@@ -142,23 +158,23 @@ extension LatestReviewsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.refreshControl.isRefreshing {
+        if refreshControl.isRefreshing {
             return 0
         }
         
-        if self.latestReviewsPagableManager.moreToLoad {
-            return self.latestReviewsPagableManager.objects.count + 1
+        if latestReviewsPagableManager.moreToLoad {
+            return latestReviewsPagableManager.objects.count + 1
         } else {
-            return self.latestReviewsPagableManager.objects.count
+            return latestReviewsPagableManager.objects.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.latestReviewsPagableManager.moreToLoad && indexPath.row == self.latestReviewsPagableManager.objects.count {
+        if latestReviewsPagableManager.moreToLoad && indexPath.row == latestReviewsPagableManager.objects.count {
             let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
 
             //Fetch is on the way
-            if !self.errorFetchingMoreUpcomingAlbums {
+            if !errorFetchingMoreUpcomingAlbums {
                 loadingCell.displayIsLoading()
                 return loadingCell
             }
@@ -169,7 +185,7 @@ extension LatestReviewsViewController: UITableViewDataSource {
         }
         
         let cell = LatestReviewTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let latestReview = self.latestReviewsPagableManager.objects[indexPath.row]
+        let latestReview = latestReviewsPagableManager.objects[indexPath.row]
         cell.fill(with: latestReview)
         
         cell.tappedThumbnailImageView = { [unowned self] in
@@ -181,10 +197,10 @@ extension LatestReviewsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        if self.latestReviewsPagableManager.moreToLoad && indexPath.row == self.latestReviewsPagableManager.objects.count {
+        if latestReviewsPagableManager.moreToLoad && indexPath.row == latestReviewsPagableManager.objects.count {
             
-            self.latestReviewsPagableManager.fetch()
-        } else if !self.latestReviewsPagableManager.moreToLoad && indexPath.row == self.latestReviewsPagableManager.objects.count - 1 {
+            latestReviewsPagableManager.fetch()
+        } else if !latestReviewsPagableManager.moreToLoad && indexPath.row == latestReviewsPagableManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
     }
