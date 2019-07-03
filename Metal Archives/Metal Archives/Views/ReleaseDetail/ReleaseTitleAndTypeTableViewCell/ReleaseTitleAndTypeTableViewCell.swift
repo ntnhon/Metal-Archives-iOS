@@ -46,7 +46,7 @@ final class ReleaseTitleAndTypeTableViewCell: BaseTableViewCell, RegisterableCel
         // Init gradientLayer here because this is where the cell's height is defined
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = bounds
-        gradientLayer.colors = [UIColor.clear.cgColor, Settings.currentTheme.backgroundColor.cgColor]
+        gradientLayer.colors = [Settings.currentTheme.backgroundColor.withAlphaComponent(0.1).cgColor, Settings.currentTheme.backgroundColor.cgColor]
         gradientLayer.locations = [0.0, 1.0]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)

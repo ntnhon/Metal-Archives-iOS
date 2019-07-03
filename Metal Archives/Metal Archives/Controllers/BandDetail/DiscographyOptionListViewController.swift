@@ -20,6 +20,7 @@ final class DiscographyOptionListViewController: BaseViewController {
         super.viewDidLoad()
         SimpleTableViewCell.register(with: tableView)
         tableView.tableFooterView = UIView(frame: .zero)
+        tableView.backgroundColor = Settings.currentTheme.bodyTextColor
     }
 
     override func viewDidLayoutSubviews() {

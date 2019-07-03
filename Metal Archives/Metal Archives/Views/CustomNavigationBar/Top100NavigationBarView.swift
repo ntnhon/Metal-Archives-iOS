@@ -47,16 +47,17 @@ final class Top100NavigationBarView: BaseNavigationBarView, TransformableWithScr
         backButton.setImage(#imageLiteral(resourceName: "back"), for: .normal)
         backButton.tintColor = Settings.currentTheme.secondaryTitleColor
         addSubview(backButton)
-        backButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 15, right: 0))
-        backButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         
         // Init segmentedControl
         segmentedControl = UISegmentedControl(frame: .zero)
         segmentedControl.tintColor = Settings.currentTheme.secondaryTitleColor
         addSubview(segmentedControl)
-        segmentedControl.anchor(top: nil, leading: backButton.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: 15, right: 10))
-        segmentedControl.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        segmentedControl.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        segmentedControl.centerXInSuperview()
+        segmentedControl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+
+        backButton.centerYAnchor.constraint(equalTo: segmentedControl.centerYAnchor).isActive = true
     }
     
     private func initActions() {

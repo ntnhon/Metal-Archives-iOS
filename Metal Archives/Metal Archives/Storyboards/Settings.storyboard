@@ -125,7 +125,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection id="GMw-8E-bmy">
+                            <tableViewSection footerTitle="When there is no release for selected mode, &quot;complete&quot; mode is applied automatically." id="GMw-8E-bmy">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Zh4-fU-tO0" customClass="BaseTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>

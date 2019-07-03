@@ -41,6 +41,11 @@ extension UIViewController {
     }
     
     func takeActionFor(actionableObject: Actionable) {
+        if actionableObject.actionableElements.count == 1 && actionableObject.actionableElements[0].type == .artist {
+            self.pushArtistDetailViewController(urlString: actionableObject.actionableElements[0].urlString, animated: true)
+            return
+        }
+        
         var alert: UIAlertController!
         
         if UIDevice.current.userInterfaceIdiom == .pad {
