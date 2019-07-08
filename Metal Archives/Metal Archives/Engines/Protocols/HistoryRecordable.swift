@@ -9,5 +9,5 @@
 import Foundation
 
 protocol HistoryRecordable {
-    func loaded(withNameOrTitle nameOrTitle: String, thumbnailUrlString: String?, objectType: SearchResultObjectType)
+    func loaded(urlString: String, nameOrTitle: String, thumbnailUrlString: String?, objectType: SearchResultObjectType)
 }

@@ -11,4 +11,8 @@ import UIKit
 final class SimpleSearchTermTableViewCell: BaseTableViewCell, RegisterableCell {
     @IBOutlet weak var searchTermTextField: BaseTextField!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        selectionStyle = .none
+    }
 }

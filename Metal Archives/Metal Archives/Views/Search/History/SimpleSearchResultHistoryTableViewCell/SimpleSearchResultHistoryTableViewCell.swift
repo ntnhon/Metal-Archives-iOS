@@ -10,17 +10,27 @@ import UIKit
 import SDWebImage
 
 final class SimpleSearchResultHistoryTableViewCell: BaseTableViewCell, RegisterableCell {
-    @IBOutlet private weak var thumbnailImageView: UIImageView!
+    @IBOutlet private(set) weak var thumbnailImageView: UIImageView!
     @IBOutlet private weak var thumbnailImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var nameOrTitleLabel: UILabel!
+    
+    var didTapThumbnailImageView: (() -> Void)?
     
     override func initAppearance() {
         super.initAppearance()
         thumbnailImageView.sd_showActivityIndicatorView()
         thumbnailImageViewHeightConstraint.constant = Settings.thumbnailHeight
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapThumbnailImageView))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        thumbnailImageView.isUserInteractionEnabled = true
+        thumbnailImageView.addGestureRecognizer(tapGestureRecognizer)
         
         nameOrTitleLabel.textColor = Settings.currentTheme.bodyTextColor
         nameOrTitleLabel.font = Settings.currentFontSize.bodyTextFont
+    }
+    
+    @objc private func tapThumbnailImageView() {
+        didTapThumbnailImageView?()
     }
     
     func fill(with searchHistory: SearchHistory) {

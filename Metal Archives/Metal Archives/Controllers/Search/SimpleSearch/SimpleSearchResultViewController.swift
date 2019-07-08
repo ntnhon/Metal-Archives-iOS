@@ -252,12 +252,13 @@ extension SimpleSearchResultViewController: PagableManagerDelegate {
 
 // MARK: - HistoryRecordable
 extension SimpleSearchResultViewController: HistoryRecordable {
-    func loaded(withNameOrTitle nameOrTitle: String, thumbnailUrlString: String?, objectType: SearchResultObjectType) {
+    func loaded(urlString: String, nameOrTitle: String, thumbnailUrlString: String?, objectType: SearchResultObjectType) {
         let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: managedContext)!
         let searchHistory = SearchHistory(entity: entity, insertInto: managedContext)
         searchHistory.nameOrTitle = nameOrTitle
         searchHistory.thumbnailUrlString = thumbnailUrlString
         searchHistory.objectType = Int16(objectType.rawValue)
+        searchHistory.urlString = urlString
         do {
             try managedContext.save()
         } catch {

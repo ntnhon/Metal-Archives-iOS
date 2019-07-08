@@ -15,11 +15,13 @@ final class SimpleSearchTermHistoryTableViewCell: BaseTableViewCell, Registerabl
     
     override func initAppearance() {
         super.initAppearance()
+        iconImageView.tintColor = Settings.currentTheme.bodyTextColor
+        
         searchTermLabel.textColor = Settings.currentTheme.bodyTextColor
         searchTermLabel.font = Settings.currentFontSize.bodyTextFont
         
-        searchTypeLabel.textColor = Settings.currentTheme.bodyTextColor.withAlphaComponent(0.7)
-        searchTypeLabel.font = Settings.currentFontSize.tertiaryFont
+        searchTypeLabel.textColor = Settings.currentTheme.bodyTextColor
+        searchTypeLabel.font = Settings.currentFontSize.italicBodyTextFont
     }
     
     func fill(with searchHistory: SearchHistory) {

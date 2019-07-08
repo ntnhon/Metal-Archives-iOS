@@ -97,7 +97,7 @@ final class LabelDetailViewController: BaseViewController {
                         self.setTableViewBottomInsetToFillBottomSpace()
                     })
                     
-                    self.historyRecordableDelegate?.loaded(withNameOrTitle: label.name, thumbnailUrlString: label.logoURLString, objectType: .label)
+                    self.historyRecordableDelegate?.loaded(urlString: label.urlString, nameOrTitle: label.name, thumbnailUrlString: label.logoURLString, objectType: .label)
                 }
                 
                 Analytics.logEvent(AnalyticsEvent.ViewLabel, parameters: [AnalyticsParameter.LabelName: label.name!, AnalyticsParameter.LabelID: label.id!])

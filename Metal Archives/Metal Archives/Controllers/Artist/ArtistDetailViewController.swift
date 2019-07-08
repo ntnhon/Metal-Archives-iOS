@@ -99,7 +99,7 @@ final class ArtistDetailViewController: BaseViewController {
                             self.setTableViewBottomInsetToFillBottomSpace()
                         })
                         
-                        self.historyRecordableDelegate?.loaded(withNameOrTitle: artist.bandMemberName, thumbnailUrlString: artist.photoURLString, objectType: .artist)
+                        self.historyRecordableDelegate?.loaded(urlString: artist.urlString, nameOrTitle: artist.bandMemberName, thumbnailUrlString: artist.photoURLString, objectType: .artist)
                         
                         Analytics.logEvent(AnalyticsEvent.ViewArtist, parameters: [AnalyticsParameter.ArtistName: artist.bandMemberName!, AnalyticsParameter.ArtistID: artist.id!])
                     }

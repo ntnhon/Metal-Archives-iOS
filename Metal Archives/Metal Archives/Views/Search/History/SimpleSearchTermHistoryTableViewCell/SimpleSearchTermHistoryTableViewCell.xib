@@ -11,24 +11,24 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ww5-RZ-VjB" customClass="SimpleSearchTermHistoryTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="59" id="ww5-RZ-VjB" customClass="SimpleSearchTermHistoryTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="411" height="59"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ww5-RZ-VjB" id="HGR-V6-pQT">
-                <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="411" height="58.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="p3I-X5-t5z">
-                        <rect key="frame" x="51.5" y="5" width="342.5" height="33.5"/>
+                        <rect key="frame" x="44" y="10" width="347" height="38.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="death" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5c-4r-bvI">
-                                <rect key="frame" x="0.0" y="0.0" width="44" height="33.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="44" height="38.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Band name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gY3-tX-15Y">
-                                <rect key="frame" x="54" y="0.0" width="288.5" height="33.5"/>
+                                <rect key="frame" x="54" y="0.0" width="293" height="38.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -36,20 +36,21 @@
                         </subviews>
                     </stackView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="j8Q-63-qM2">
-                        <rect key="frame" x="20" y="10" width="23.5" height="23.5"/>
+                        <rect key="frame" x="20" y="21.5" width="16" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="j8Q-63-qM2" secondAttribute="height" multiplier="1:1" id="0Dp-0v-H1e"/>
+                            <constraint firstAttribute="height" constant="16" id="IgN-fd-DVh"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="p3I-X5-t5z" secondAttribute="trailing" constant="20" symbolic="YES" id="41t-6c-Feh"/>
                     <constraint firstItem="p3I-X5-t5z" firstAttribute="leading" secondItem="j8Q-63-qM2" secondAttribute="trailing" constant="8" symbolic="YES" id="DRj-KC-g7P"/>
-                    <constraint firstAttribute="bottom" secondItem="j8Q-63-qM2" secondAttribute="bottom" constant="10" id="XMv-bG-h7J"/>
-                    <constraint firstItem="j8Q-63-qM2" firstAttribute="top" secondItem="HGR-V6-pQT" secondAttribute="top" constant="10" id="lB7-tR-DtL"/>
-                    <constraint firstAttribute="bottom" secondItem="p3I-X5-t5z" secondAttribute="bottom" constant="5" id="pbI-Rf-gS3"/>
+                    <constraint firstItem="j8Q-63-qM2" firstAttribute="centerY" secondItem="HGR-V6-pQT" secondAttribute="centerY" id="Iu8-uu-MMU"/>
+                    <constraint firstItem="p3I-X5-t5z" firstAttribute="centerY" secondItem="HGR-V6-pQT" secondAttribute="centerY" id="Wls-uQ-Tdb"/>
+                    <constraint firstAttribute="bottom" secondItem="p3I-X5-t5z" secondAttribute="bottom" constant="10" id="pbI-Rf-gS3"/>
                     <constraint firstItem="j8Q-63-qM2" firstAttribute="leading" secondItem="HGR-V6-pQT" secondAttribute="leading" constant="20" symbolic="YES" id="sFd-88-s6a"/>
-                    <constraint firstItem="p3I-X5-t5z" firstAttribute="top" secondItem="HGR-V6-pQT" secondAttribute="top" constant="5" id="w6g-3h-nGQ"/>
+                    <constraint firstItem="p3I-X5-t5z" firstAttribute="top" secondItem="HGR-V6-pQT" secondAttribute="top" constant="10" id="w6g-3h-nGQ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -57,7 +58,7 @@
                 <outlet property="searchTermLabel" destination="e5c-4r-bvI" id="d6J-W2-ax4"/>
                 <outlet property="searchTypeLabel" destination="gY3-tX-15Y" id="n3E-Pp-85B"/>
             </connections>
-            <point key="canvasLocation" x="161" y="125"/>
+            <point key="canvasLocation" x="158.69565217391306" y="129.57589285714286"/>
         </tableViewCell>
     </objects>
     <resources>

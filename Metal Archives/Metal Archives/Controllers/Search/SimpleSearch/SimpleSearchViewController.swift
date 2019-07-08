@@ -12,8 +12,8 @@ import FirebaseAnalytics
 import CoreData
 
 final class SimpleSearchViewController: UITableViewController {
-    private var searchTermTextField: BaseTextField!
-    private var horizontalOptionsView: HorizontalOptionsView!
+    private weak var searchTermTextField: BaseTextField!
+    private weak var horizontalOptionsView: HorizontalOptionsView!
     var isBeingSelected: Bool = true {
         didSet {
             if isBeingSelected {
@@ -27,15 +27,14 @@ final class SimpleSearchViewController: UITableViewController {
     private let imFeelingLuckyView: ImFeelingLuckyView = .initFromNib()
     private var currentSimpleSearchType: SimpleSearchType = .bandName {
         didSet {
-            searchTermTextField?.placeholder = currentSimpleSearchType.description
-            searchTermTextField?.title = "Search by \(currentSimpleSearchType.description)"
+            updateSearchArea()
         }
     }
     
     // Core Data
     private let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var searchHistories: [SearchHistory] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         imFeelingLuckyView.delegate = self
@@ -45,6 +44,18 @@ final class SimpleSearchViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadSearchHistories()
+        tableView.reloadData()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateSearchArea()
+    }
+    
+    private func updateSearchArea() {
+        searchTermTextField?.placeholder = currentSimpleSearchType.description
+        searchTermTextField?.title = "Search by \(currentSimpleSearchType.description)"
+        horizontalOptionsView?.selectedIndex = currentSimpleSearchType.rawValue
     }
     
     private func initAppearance() {
@@ -65,6 +76,7 @@ final class SimpleSearchViewController: UITableViewController {
         
         do {
             searchHistories = try managedContext.fetch(fetchRequest)
+            searchHistories.reverse()
         } catch {
             let nserror = error as NSError
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
@@ -153,6 +165,27 @@ extension SimpleSearchViewController {
         return nil
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard indexPath.section == 1 else { return }
+        
+        let searchHistory = searchHistories[indexPath.row]
+        if let term = searchHistory.term {
+            searchTermTextField.text = term
+            currentSimpleSearchType = SimpleSearchType(rawValue: Int(searchHistory.searchType)) ?? .bandName
+            performSegue(withIdentifier: "ShowSearchResult", sender: searchTermTextField)
+        } else {
+            let objectType = SearchResultObjectType(rawValue: Int(searchHistory.objectType)) ?? .band
+            let urlString = searchHistory.urlString ?? ""
+            switch objectType {
+            case .band: pushBandDetailViewController(urlString: urlString, animated: true)
+            case .release: pushReleaseDetailViewController(urlString: urlString, animated: true)
+            case .artist: pushArtistDetailViewController(urlString: urlString, animated: true)
+            case .label: pushLabelDetailViewController(urlString: urlString, animated: true)
+            }
+        }
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -179,12 +212,12 @@ extension SimpleSearchViewController {
         searchTermTextField.delegate = self
         searchTermTextField.returnKeyType = .search
         searchTermTextField.inputAccessoryView = imFeelingLuckyView
-        currentSimpleSearchType = .bandName //trigger didSet
         return cell
     }
     
     private func searchTypeTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = SimpleSearchTypeTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        horizontalOptionsView = cell.horizontalOptionsView
         cell.horizontalOptionsView.delegate = self
         return cell
     }
@@ -199,6 +232,12 @@ extension SimpleSearchViewController {
         } else {
             let cell = SimpleSearchResultHistoryTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             cell.fill(with: searchHistory)
+            cell.didTapThumbnailImageView = { [unowned self] in
+                if let thumgnailUrlString = searchHistory.thumbnailUrlString {
+                    self.searchTermTextField?.resignFirstResponder()
+                    self.presentPhotoViewerWithCacheChecking(photoUrlString: thumgnailUrlString, description: searchHistory.nameOrTitle!, fromImageView: cell.thumbnailImageView)
+                }
+            }
             return cell
         }
     }

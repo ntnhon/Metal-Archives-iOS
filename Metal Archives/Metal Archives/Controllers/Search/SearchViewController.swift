@@ -16,6 +16,10 @@ final class SearchViewController: UIViewController {
     private var simpleSearchViewController: SimpleSearchViewController!
     private var advancedSearchViewController: AdvancedSearchViewController!
     
+    deinit {
+        print("SearchViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Settings.currentTheme.backgroundColor
