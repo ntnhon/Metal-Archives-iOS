@@ -212,7 +212,7 @@ final class SimpleSearchResultViewController: BaseViewController {
     private func saveSearchTermToHistory() {
         let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: managedContext)!
         let searchHistory = SearchHistory(entity: entity, insertInto: managedContext)
-        searchHistory.type = Int16(simpleSearchType.rawValue)
+        searchHistory.searchType = Int16(simpleSearchType.rawValue)
         searchHistory.term = searchTerm
         do {
             try managedContext.save()
@@ -252,11 +252,12 @@ extension SimpleSearchResultViewController: PagableManagerDelegate {
 
 // MARK: - HistoryRecordable
 extension SimpleSearchResultViewController: HistoryRecordable {
-    func loaded(withNameOrTitle nameOrTitle: String, thumbnailUrlString: String?) {
+    func loaded(withNameOrTitle nameOrTitle: String, thumbnailUrlString: String?, objectType: SearchResultObjectType) {
         let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: managedContext)!
         let searchHistory = SearchHistory(entity: entity, insertInto: managedContext)
         searchHistory.nameOrTitle = nameOrTitle
         searchHistory.thumbnailUrlString = thumbnailUrlString
+        searchHistory.objectType = Int16(objectType.rawValue)
         do {
             try managedContext.save()
         } catch {

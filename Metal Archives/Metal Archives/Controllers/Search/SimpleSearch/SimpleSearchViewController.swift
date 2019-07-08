@@ -56,6 +56,8 @@ final class SimpleSearchViewController: UITableViewController {
         
         SimpleSearchTermTableViewCell.register(with: tableView)
         SimpleSearchTypeTableViewCell.register(with: tableView)
+        SimpleSearchTermHistoryTableViewCell.register(with: tableView)
+        SimpleSearchResultHistoryTableViewCell.register(with: tableView)
     }
     
     private func loadSearchHistories() {
@@ -159,7 +161,7 @@ extension SimpleSearchViewController {
         if section == 0 {
             return 2
         } else {
-            return 0
+            return searchHistories.count
         }
     }
     
@@ -167,7 +169,7 @@ extension SimpleSearchViewController {
         switch (indexPath.section, indexPath.row) {
         case (0, 0): return searchTermTableViewCell(forRowAt: indexPath)
         case (0, 1): return searchTypeTableViewCell(forRowAt: indexPath)
-        default: return UITableViewCell()
+        default: return searchHistoryCell(forRowAt: indexPath)
         }
     }
     
@@ -185,5 +187,19 @@ extension SimpleSearchViewController {
         let cell = SimpleSearchTypeTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.horizontalOptionsView.delegate = self
         return cell
+    }
+    
+    private func searchHistoryCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        let searchHistory = searchHistories[indexPath.row]
+        
+        if let _ = searchHistory.term {
+            let cell = SimpleSearchTermHistoryTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            cell.fill(with: searchHistory)
+            return cell
+        } else {
+            let cell = SimpleSearchResultHistoryTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            cell.fill(with: searchHistory)
+            return cell
+        }
     }
 }

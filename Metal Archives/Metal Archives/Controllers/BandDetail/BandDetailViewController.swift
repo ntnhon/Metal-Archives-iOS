@@ -107,7 +107,7 @@ final class BandDetailViewController: BaseViewController {
                     self.setTableViewBottomInsetToFillBottomSpace()
                 })
                 
-                self.historyRecordableDelegate?.loaded(withNameOrTitle: band.name, thumbnailUrlString: band.logoURLString)
+                self.historyRecordableDelegate?.loaded(withNameOrTitle: band.name, thumbnailUrlString: band.logoURLString, objectType: .band)
                 
                 Crashlytics.sharedInstance().setObjectValue(self.band, forKey: CrashlyticsKey.Band)
             }

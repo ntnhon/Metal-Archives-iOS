@@ -130,6 +130,11 @@
 		C033C4ED22D38EA9001294BA /* SimpleSearchTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C033C4EC22D38EA9001294BA /* SimpleSearchTypeTableViewCell.swift */; };
 		C033C4F022D39001001294BA /* SimpleSearchTermTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C033C4EF22D39001001294BA /* SimpleSearchTermTableViewCell.swift */; };
 		C033C4F222D3905B001294BA /* SimpleSearchTermTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C033C4F122D3905B001294BA /* SimpleSearchTermTableViewCell.xib */; };
+		C033C4F622D39C58001294BA /* SimpleSearchTermHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C033C4F522D39C58001294BA /* SimpleSearchTermHistoryTableViewCell.swift */; };
+		C033C4F922D39C9C001294BA /* SimpleSearchTermHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C033C4F822D39C9C001294BA /* SimpleSearchTermHistoryTableViewCell.xib */; };
+		C033C4FC22D39ECE001294BA /* SimpleSearchResultHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C033C4FB22D39ECE001294BA /* SimpleSearchResultHistoryTableViewCell.swift */; };
+		C033C4FE22D3A0BD001294BA /* SearchResultObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C033C4FD22D3A0BC001294BA /* SearchResultObjectType.swift */; };
+		C033C50022D3A35C001294BA /* SimpleSearchResultHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C033C4FF22D3A35C001294BA /* SimpleSearchResultHistoryTableViewCell.xib */; };
 		C0356F1B22ABA40700B4927E /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0356F1A22ABA40700B4927E /* NewsDetailViewController.swift */; };
 		C0356F1D22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0356F1C22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift */; };
 		C03C5E72221BFEFE0054E55A /* ArtistInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */; };
@@ -649,6 +654,11 @@
 		C033C4EC22D38EA9001294BA /* SimpleSearchTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchTypeTableViewCell.swift; sourceTree = "<group>"; };
 		C033C4EF22D39001001294BA /* SimpleSearchTermTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchTermTableViewCell.swift; sourceTree = "<group>"; };
 		C033C4F122D3905B001294BA /* SimpleSearchTermTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleSearchTermTableViewCell.xib; sourceTree = "<group>"; };
+		C033C4F522D39C58001294BA /* SimpleSearchTermHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchTermHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		C033C4F822D39C9C001294BA /* SimpleSearchTermHistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleSearchTermHistoryTableViewCell.xib; sourceTree = "<group>"; };
+		C033C4FB22D39ECE001294BA /* SimpleSearchResultHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchResultHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		C033C4FD22D3A0BC001294BA /* SearchResultObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultObjectType.swift; sourceTree = "<group>"; };
+		C033C4FF22D3A35C001294BA /* SimpleSearchResultHistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleSearchResultHistoryTableViewCell.xib; sourceTree = "<group>"; };
 		C0356F1A22ABA40700B4927E /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		C0356F1C22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentReviewViewController.swift"; sourceTree = "<group>"; };
 		C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -1398,6 +1408,33 @@
 			path = SimpleSearchTermTableViewCell;
 			sourceTree = "<group>";
 		};
+		C033C4F322D39C02001294BA /* History */ = {
+			isa = PBXGroup;
+			children = (
+				C033C4F422D39C37001294BA /* SimpleSearchTermHistoryTableViewCell */,
+				C033C4FA22D39EB5001294BA /* SimpleSearchResultHistoryTableViewCell */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		C033C4F422D39C37001294BA /* SimpleSearchTermHistoryTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C033C4F522D39C58001294BA /* SimpleSearchTermHistoryTableViewCell.swift */,
+				C033C4F822D39C9C001294BA /* SimpleSearchTermHistoryTableViewCell.xib */,
+			);
+			path = SimpleSearchTermHistoryTableViewCell;
+			sourceTree = "<group>";
+		};
+		C033C4FA22D39EB5001294BA /* SimpleSearchResultHistoryTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C033C4FB22D39ECE001294BA /* SimpleSearchResultHistoryTableViewCell.swift */,
+				C033C4FF22D3A35C001294BA /* SimpleSearchResultHistoryTableViewCell.xib */,
+			);
+			path = SimpleSearchResultHistoryTableViewCell;
+			sourceTree = "<group>";
+		};
 		C03E4032228C717D004429E9 /* ParseBandMembersTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1602,6 +1639,7 @@
 		C05937D8222F24D000F7C2A9 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				C033C4F322D39C02001294BA /* History */,
 				C05937D9222F24DD00F7C2A9 /* SimpleSearch */,
 				C013364522384E4300963940 /* AdvancedSearch */,
 				C0107025222DC9390092D3A5 /* ImFeelingLuckyView */,
@@ -1810,6 +1848,7 @@
 				C05606EC22A2FDA5006F5BC1 /* BandMenuOption.swift */,
 				C05606EE22A2FDBB006F5BC1 /* ReleaseMenuOption.swift */,
 				C028CBE322A67509005929F1 /* LabelMenuOption.swift */,
+				C033C4FD22D3A0BC001294BA /* SearchResultObjectType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -3107,6 +3146,7 @@
 				C01839F32225BFAC00FF88B7 /* ArtistAdditionOrUpdateTableViewCell.xib in Resources */,
 				C0B990D32207A14D000DBD86 /* ViewMoreTableViewCell.xib in Resources */,
 				C06F929D2231D3D90079E63E /* SimpleArtistTableViewCell.xib in Resources */,
+				C033C4F922D39C9C001294BA /* SimpleSearchTermHistoryTableViewCell.xib in Resources */,
 				C03270D3220B1ABD009FA337 /* ReleaseElementTableViewCell.xib in Resources */,
 				C0ECE6F9221B19DD00489A8E /* Artist.storyboard in Resources */,
 				C0752967229ECC320067B5E1 /* ReleaseTableViewCell.xib in Resources */,
@@ -3163,6 +3203,7 @@
 				C0332FF2220252E4008B34E0 /* SimpleTableViewCell.xib in Resources */,
 				C05309E522232FA50027D11E /* LabelDetail.storyboard in Resources */,
 				C03F440B22307128005D7AA8 /* SimpleLyricalThemesTableViewCell.xib in Resources */,
+				C033C50022D3A35C001294BA /* SimpleSearchResultHistoryTableViewCell.xib in Resources */,
 				C0A1F95322419947005C2C83 /* BrowseLabels.storyboard in Resources */,
 				C0CAC19F229887130044363E /* BandPhotoAndNameTableViewCell.xib in Resources */,
 				C053DD42222698DE0028568B /* ReviewStatisticTableViewCell.xib in Resources */,
@@ -3459,6 +3500,7 @@
 				C01336442238272B00963940 /* AdvancedSearchBandsResultsViewController.swift in Sources */,
 				C013363F223811CD00963940 /* BaseAdvancedSearchTableViewController.swift in Sources */,
 				C00D35F9223D033D00B29B43 /* BrowseBandsResultTableViewCell.swift in Sources */,
+				C033C4FE22D3A0BD001294BA /* SearchResultObjectType.swift in Sources */,
 				C03270DB220B476C009FA337 /* ReleaseReviewTableViewCell.swift in Sources */,
 				C0BAD4B3222EE98F00C4D38D /* SimpleSearchResultLabelName.swift in Sources */,
 				C05937DB222F252E00F7C2A9 /* SimpleBandNameOrMusicGenreTableViewCell.swift in Sources */,
@@ -3547,6 +3589,7 @@
 				C06613862289953700F99006 /* LatestReviewCollectionViewCell.swift in Sources */,
 				C0F0BE802243F79F00B90605 /* ChooseWidgetSectionsViewController.swift in Sources */,
 				C05F3EBA22065E7A00FC0F35 /* ThumbnailableObject.swift in Sources */,
+				C033C4F622D39C58001294BA /* SimpleSearchTermHistoryTableViewCell.swift in Sources */,
 				C0AABDEF221DEEBC0044A2CF /* UpcomingAlbumTableViewCell.swift in Sources */,
 				C053DD592226C4770028568B /* BarLineChartViewBase+Setup.swift in Sources */,
 				C074FEDE2205C45B0086909E /* MemberTableViewCell.swift in Sources */,
@@ -3583,6 +3626,7 @@
 				C0752970229F3E550067B5E1 /* FilledButton.swift in Sources */,
 				C0AA06C022395FF1001BE21D /* AdvancedSearchSongsResultsViewController.swift in Sources */,
 				C0356F1D22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift in Sources */,
+				C033C4FC22D39ECE001294BA /* SimpleSearchResultHistoryTableViewCell.swift in Sources */,
 				C06B62402242313300A3FE6B /* LabelBrowseAlphabetically.swift in Sources */,
 				C053CF642223FB3C00B056A8 /* LabelInfoTableViewCell.swift in Sources */,
 				C0F0BE822243FA0B00B90605 /* WidgetSection.swift in Sources */,

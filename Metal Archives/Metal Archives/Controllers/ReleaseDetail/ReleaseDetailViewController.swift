@@ -93,7 +93,7 @@ final class ReleaseDetailViewController: BaseViewController {
                     self.setTableViewBottomInsetToFillBottomSpace()
                 })
                 
-                self.historyRecordableDelegate?.loaded(withNameOrTitle: release.title, thumbnailUrlString: release.coverURLString)
+                self.historyRecordableDelegate?.loaded(withNameOrTitle: release.title, thumbnailUrlString: release.coverURLString, objectType: .release)
                 
                 Analytics.logEvent(AnalyticsEvent.ViewRelease, parameters: [AnalyticsParameter.ReleaseTitle: release.title!, AnalyticsParameter.ReleaseID: release.id!])
                 
