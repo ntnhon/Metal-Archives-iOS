@@ -24,6 +24,7 @@ final class HorizontalOptionsView: UIView {
     private var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: .zero)
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
         return scrollView
     }()
     private var isAnimating = false

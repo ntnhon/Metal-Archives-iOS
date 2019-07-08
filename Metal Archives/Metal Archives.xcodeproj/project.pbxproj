@@ -127,6 +127,9 @@
 		C0332FF2220252E4008B34E0 /* SimpleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0332FF1220252E4008B34E0 /* SimpleTableViewCell.xib */; };
 		C033C4B022D333C4001294BA /* SearchHistory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C033C4AE22D333C4001294BA /* SearchHistory.xcdatamodeld */; };
 		C033C4EA22D37FA1001294BA /* HistoryRecordable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C033C4E922D37FA1001294BA /* HistoryRecordable.swift */; };
+		C033C4ED22D38EA9001294BA /* SimpleSearchTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C033C4EC22D38EA9001294BA /* SimpleSearchTypeTableViewCell.swift */; };
+		C033C4F022D39001001294BA /* SimpleSearchTermTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C033C4EF22D39001001294BA /* SimpleSearchTermTableViewCell.swift */; };
+		C033C4F222D3905B001294BA /* SimpleSearchTermTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C033C4F122D3905B001294BA /* SimpleSearchTermTableViewCell.xib */; };
 		C0356F1B22ABA40700B4927E /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0356F1A22ABA40700B4927E /* NewsDetailViewController.swift */; };
 		C0356F1D22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0356F1C22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift */; };
 		C03C5E72221BFEFE0054E55A /* ArtistInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */; };
@@ -643,6 +646,9 @@
 		C0332FF1220252E4008B34E0 /* SimpleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleTableViewCell.xib; sourceTree = "<group>"; };
 		C033C4AF22D333C4001294BA /* SearchHistory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SearchHistory.xcdatamodel; sourceTree = "<group>"; };
 		C033C4E922D37FA1001294BA /* HistoryRecordable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRecordable.swift; sourceTree = "<group>"; };
+		C033C4EC22D38EA9001294BA /* SimpleSearchTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchTypeTableViewCell.swift; sourceTree = "<group>"; };
+		C033C4EF22D39001001294BA /* SimpleSearchTermTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchTermTableViewCell.swift; sourceTree = "<group>"; };
+		C033C4F122D3905B001294BA /* SimpleSearchTermTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleSearchTermTableViewCell.xib; sourceTree = "<group>"; };
 		C0356F1A22ABA40700B4927E /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		C0356F1C22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentReviewViewController.swift"; sourceTree = "<group>"; };
 		C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -1375,6 +1381,23 @@
 			path = ReleaseDetail;
 			sourceTree = "<group>";
 		};
+		C033C4EB22D38E90001294BA /* SimpleSearchTypeTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C033C4EC22D38EA9001294BA /* SimpleSearchTypeTableViewCell.swift */,
+			);
+			path = SimpleSearchTypeTableViewCell;
+			sourceTree = "<group>";
+		};
+		C033C4EE22D38FF3001294BA /* SimpleSearchTermTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C033C4EF22D39001001294BA /* SimpleSearchTermTableViewCell.swift */,
+				C033C4F122D3905B001294BA /* SimpleSearchTermTableViewCell.xib */,
+			);
+			path = SimpleSearchTermTableViewCell;
+			sourceTree = "<group>";
+		};
 		C03E4032228C717D004429E9 /* ParseBandMembersTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1589,6 +1612,8 @@
 		C05937D9222F24DD00F7C2A9 /* SimpleSearch */ = {
 			isa = PBXGroup;
 			children = (
+				C033C4EE22D38FF3001294BA /* SimpleSearchTermTableViewCell */,
+				C033C4EB22D38E90001294BA /* SimpleSearchTypeTableViewCell */,
 				C03F440622306FB7005D7AA8 /* SimpleBandNameOrMusicGenreTableViewCell */,
 				C03F440722306FC6005D7AA8 /* SimpleLyricalThemesTableViewCell */,
 				C03F440C22307538005D7AA8 /* SimpleAlbumTitleTableViewCell */,
@@ -3118,6 +3143,7 @@
 				C066137B22896D1100F99006 /* ArtistAdditionOrUpdateCollectionViewCell.xib in Resources */,
 				C06F92982231D07E0079E63E /* SimpleLabelTableViewCell.xib in Resources */,
 				C0FE9633221C448C003C4B59 /* RolesInReleaseTableViewCell.xib in Resources */,
+				C033C4F222D3905B001294BA /* SimpleSearchTermTableViewCell.xib in Resources */,
 				C053DD3E222697A60028568B /* BandStatisticTableViewCell.xib in Resources */,
 				C0A1F94C22418B10005C2C83 /* ArtistRIP.storyboard in Resources */,
 				C06B62502242496B00A3FE6B /* BrowseLabelsByCountryResultTableViewCell.xib in Resources */,
@@ -3596,6 +3622,7 @@
 				C053DD3C222697920028568B /* BandStatisticTableViewCell.swift in Sources */,
 				C027A27F22B55D330011EA73 /* SearchModeNavigationBarView.swift in Sources */,
 				C04C5009228C2DBE00DAFBF1 /* AuditTrail.swift in Sources */,
+				C033C4F022D39001001294BA /* SimpleSearchTermTableViewCell.swift in Sources */,
 				C05F3EB62206468700FC0F35 /* String+IDSringToImageURLString.swift in Sources */,
 				C066138C22899B7700F99006 /* UpcomingAlbumsTableViewCell.swift in Sources */,
 				C053DD2C222679640028568B /* BandStatistic.swift in Sources */,
@@ -3621,6 +3648,7 @@
 				C027A28622B59A570011EA73 /* TransformableWithScrollView.swift in Sources */,
 				C053DD5B2226CA5F0028568B /* Formatter+withSeparator.swift in Sources */,
 				C0752965229ECC2B0067B5E1 /* ReleaseTableViewCell.swift in Sources */,
+				C033C4ED22D38EA9001294BA /* SimpleSearchTypeTableViewCell.swift in Sources */,
 				C006FB192249119000CA6CCD /* Analytics.swift in Sources */,
 				C0A48CEA222157520047FC70 /* Pagable.swift in Sources */,
 				C0ECE6FD221B20B100489A8E /* RolesInRelease.swift in Sources */,

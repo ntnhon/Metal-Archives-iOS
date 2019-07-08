@@ -208,6 +208,19 @@ final class SimpleSearchResultViewController: BaseViewController {
         
         wasLucky = true
     }
+    
+    private func saveSearchTermToHistory() {
+        let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: managedContext)!
+        let searchHistory = SearchHistory(entity: entity, insertInto: managedContext)
+        searchHistory.type = Int16(simpleSearchType.rawValue)
+        searchHistory.term = searchTerm
+        do {
+            try managedContext.save()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+    }
 }
 
 //MARK: - PagableManagerProtocol
@@ -224,7 +237,7 @@ extension SimpleSearchResultViewController: PagableManagerDelegate {
         updateStatusMessage()
         checkLuck()
         tableView.reloadData()
-        
+        saveSearchTermToHistory()
         Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
     

@@ -12,15 +12,14 @@ import FirebaseAnalytics
 import CoreData
 
 final class SimpleSearchViewController: UITableViewController {
-    @IBOutlet private weak var searchTermTextField: BaseTextField!
-    @IBOutlet private weak var searchTypeTableViewCell: BaseTableViewCell!
+    private var searchTermTextField: BaseTextField!
     private var horizontalOptionsView: HorizontalOptionsView!
     var isBeingSelected: Bool = true {
         didSet {
             if isBeingSelected {
-                searchTermTextField.becomeFirstResponder()
+                searchTermTextField?.becomeFirstResponder()
             } else {
-                searchTermTextField.resignFirstResponder()
+                searchTermTextField?.resignFirstResponder()
             }
         }
     }
@@ -28,8 +27,8 @@ final class SimpleSearchViewController: UITableViewController {
     private let imFeelingLuckyView: ImFeelingLuckyView = .initFromNib()
     private var currentSimpleSearchType: SimpleSearchType = .bandName {
         didSet {
-            searchTermTextField.placeholder = currentSimpleSearchType.description
-            searchTermTextField.title = "Search by \(currentSimpleSearchType.description)"
+            searchTermTextField?.placeholder = currentSimpleSearchType.description
+            searchTermTextField?.title = "Search by \(currentSimpleSearchType.description)"
         }
     }
     
@@ -40,11 +39,11 @@ final class SimpleSearchViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imFeelingLuckyView.delegate = self
-        searchTermTextField.delegate = self
-        tableView.rowHeight = UITableView.automaticDimension
-        currentSimpleSearchType = .bandName //trigger didSet
-        initHorizontalOptionsView()
         initAppearance()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         loadSearchHistories()
     }
     
@@ -53,19 +52,10 @@ final class SimpleSearchViewController: UITableViewController {
         tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.contentInset = .init(top: -CGFloat.leastNormalMagnitude, left: 0, bottom: 0, right: 0)
         
-        searchTermTextField.returnKeyType = .search
-        searchTermTextField.inputAccessoryView = imFeelingLuckyView
-    }
-    
-    private func initHorizontalOptionsView() {
-        let options = SimpleSearchType.allCases.map({$0.description})
-        horizontalOptionsView = HorizontalOptionsView(options: options, font: Settings.currentFontSize.bodyTextFont, textColor: Settings.currentTheme.bodyTextColor, normalColor: Settings.currentTheme.backgroundColor, highlightColor: Settings.currentTheme.secondaryTitleColor)
-        horizontalOptionsView.delegate = self
-        horizontalOptionsView.selectedIndex = currentSimpleSearchType.rawValue
-        
-        searchTypeTableViewCell.contentView.addSubview(horizontalOptionsView)
-        horizontalOptionsView.fillSuperview(padding: .init(top: -10, left: 10, bottom: -10, right: 10))
+        SimpleSearchTermTableViewCell.register(with: tableView)
+        SimpleSearchTypeTableViewCell.register(with: tableView)
     }
     
     private func loadSearchHistories() {
@@ -73,20 +63,6 @@ final class SimpleSearchViewController: UITableViewController {
         
         do {
             searchHistories = try managedContext.fetch(fetchRequest)
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
-    }
-    
-    private func saveToHistory() {
-        let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: managedContext)!
-        let searchHistory = SearchHistory(entity: entity, insertInto: managedContext)
-        searchHistory.type = Int16(currentSimpleSearchType.rawValue)
-        searchHistory.term = searchTermTextField.text
-        do {
-            try managedContext.save()
-            searchHistories.append(searchHistory)
         } catch {
             let nserror = error as NSError
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
@@ -106,9 +82,7 @@ final class SimpleSearchViewController: UITableViewController {
             } else {
                 simpleSearchResultVC.isFeelingLucky = false
             }
-            
-            saveToHistory()
-            
+
             Analytics.logEvent(AnalyticsEvent.PerformSimpleSearch, parameters: [AnalyticsParameter.SearchType: currentSimpleSearchType.description, AnalyticsParameter.SearchTerm: searchTermTextField.text!])
             
         default:
@@ -156,5 +130,60 @@ extension SimpleSearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         performSegue(withIdentifier: "ShowSearchResult", sender: searchTermTextField)
         return true
+    }
+}
+
+// MARK: - UITableViewDelegate && Datasource
+extension SimpleSearchViewController {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return CGFloat.leastNormalMagnitude
+        } else {
+            return 20
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 1 {
+            return "Search History"
+        }
+        
+        return nil
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 2
+        } else {
+            return 0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch (indexPath.section, indexPath.row) {
+        case (0, 0): return searchTermTableViewCell(forRowAt: indexPath)
+        case (0, 1): return searchTypeTableViewCell(forRowAt: indexPath)
+        default: return UITableViewCell()
+        }
+    }
+    
+    private func searchTermTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = SimpleSearchTermTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        searchTermTextField = cell.searchTermTextField
+        searchTermTextField.delegate = self
+        searchTermTextField.returnKeyType = .search
+        searchTermTextField.inputAccessoryView = imFeelingLuckyView
+        currentSimpleSearchType = .bandName //trigger didSet
+        return cell
+    }
+    
+    private func searchTypeTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = SimpleSearchTypeTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.horizontalOptionsView.delegate = self
+        return cell
     }
 }
