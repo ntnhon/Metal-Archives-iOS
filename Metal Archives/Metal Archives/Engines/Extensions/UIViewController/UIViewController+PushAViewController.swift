@@ -14,24 +14,40 @@ extension UIViewController {
         let bandDetailViewController = UIStoryboard(name: "BandDetail", bundle: nil).instantiateViewController(withIdentifier: "BandDetailViewController") as! BandDetailViewController
         bandDetailViewController.bandURLString = urlString
         navigationController?.pushViewController(bandDetailViewController, animated: animated)
+    
+        if let _ = self as? HistoryRecordable {
+            bandDetailViewController.historyRecordableDelegate = (self as! HistoryRecordable)
+        }
     }
     
     func pushReleaseDetailViewController(urlString: String, animated: Bool) {
         let releaseDetailViewController = UIStoryboard(name: "ReleaseDetail", bundle: nil).instantiateViewController(withIdentifier: "ReleaseDetailViewController") as! ReleaseDetailViewController
         releaseDetailViewController.urlString = urlString
         navigationController?.pushViewController(releaseDetailViewController, animated: animated)
+        
+        if let _ = self as? HistoryRecordable {
+            releaseDetailViewController.historyRecordableDelegate = (self as! HistoryRecordable)
+        }
     }
     
     func pushArtistDetailViewController(urlString: String, animated: Bool) {
         let artistDetailViewController = UIStoryboard(name: "Artist", bundle: nil).instantiateViewController(withIdentifier: "ArtistDetailViewController") as! ArtistDetailViewController
         artistDetailViewController.urlString = urlString
         navigationController?.pushViewController(artistDetailViewController, animated: animated)
+        
+        if let _ = self as? HistoryRecordable {
+            artistDetailViewController.historyRecordableDelegate = (self as! HistoryRecordable)
+        }
     }
     
     func pushLabelDetailViewController(urlString: String, animated: Bool) {
         let labelDetailViewController = UIStoryboard(name: "LabelDetail", bundle: nil).instantiateViewController(withIdentifier: "LabelDetailViewController") as! LabelDetailViewController
         labelDetailViewController.urlString = urlString
         navigationController?.pushViewController(labelDetailViewController, animated: animated)
+        
+        if let _ = self as? HistoryRecordable {
+            labelDetailViewController.historyRecordableDelegate = (self as! HistoryRecordable)
+        }
     }
     
     func pushRelatedLinkListViewController(_ relatedLinks: [RelatedLink], animated: Bool) {

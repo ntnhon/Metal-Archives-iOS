@@ -47,6 +47,8 @@ final class ArtistDetailViewController: BaseViewController {
     }()
     private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
     
+    var historyRecordableDelegate: HistoryRecordable?
+    
     deinit {
         print("ArtistDetailViewController is deallocated")
     }
@@ -56,7 +58,7 @@ final class ArtistDetailViewController: BaseViewController {
         stretchyPhotoSmokedImageViewHeightConstraint.constant = screenWidth
         configureTableView()
         handleSimpleNavigationBarViewActions()
-        reloadArtist()
+        fetchArtist()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -68,12 +70,12 @@ final class ArtistDetailViewController: BaseViewController {
         stretchyPhotoSmokedImageView.transform = .identity
     }
 
-    private func reloadArtist() {
+    private func fetchArtist() {
         MetalArchivesAPI.reloadArtist(urlString: urlString) { [weak self] (artist, error) in
             guard let self = self else { return }
             if let _ = error {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-                    self.reloadArtist()
+                    self.fetchArtist()
                 })
             } else {
                 if let `artist` = artist {
@@ -96,6 +98,8 @@ final class ArtistDetailViewController: BaseViewController {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
                             self.setTableViewBottomInsetToFillBottomSpace()
                         })
+                        
+                        self.historyRecordableDelegate?.loaded(withNameOrTitle: artist.bandMemberName, thumbnailUrlString: artist.photoURLString)
                         
                         Analytics.logEvent(AnalyticsEvent.ViewArtist, parameters: [AnalyticsParameter.ArtistName: artist.bandMemberName!, AnalyticsParameter.ArtistID: artist.id!])
                     }

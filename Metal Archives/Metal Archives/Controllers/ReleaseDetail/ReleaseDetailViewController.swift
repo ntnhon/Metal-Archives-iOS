@@ -42,6 +42,8 @@ final class ReleaseDetailViewController: BaseViewController {
         return yOffset
     }()
     private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
+    
+    var historyRecordableDelegate: HistoryRecordable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +51,7 @@ final class ReleaseDetailViewController: BaseViewController {
         configureTableView()
         initHorizontalMenuView()
         handleUtileBarViewActions()
-        reloadRelease()
+        fetchRelease()
     }
     
     deinit {
@@ -65,12 +67,12 @@ final class ReleaseDetailViewController: BaseViewController {
         stretchyCoverSmokedImageView.transform = .identity
     }
     
-    private func reloadRelease() {
+    private func fetchRelease() {
         MetalArchivesAPI.reloadRelease(urlString: urlString) { [weak self] (release, error) in
             guard let self = self else { return }
             if let _ = error as NSError? {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-                    self.reloadRelease()
+                    self.fetchRelease()
                 })
             }
             else if let `release` = release {
@@ -90,6 +92,8 @@ final class ReleaseDetailViewController: BaseViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
                     self.setTableViewBottomInsetToFillBottomSpace()
                 })
+                
+                self.historyRecordableDelegate?.loaded(withNameOrTitle: release.title, thumbnailUrlString: release.coverURLString)
                 
                 Analytics.logEvent(AnalyticsEvent.ViewRelease, parameters: [AnalyticsParameter.ReleaseTitle: release.title!, AnalyticsParameter.ReleaseID: release.id!])
                 

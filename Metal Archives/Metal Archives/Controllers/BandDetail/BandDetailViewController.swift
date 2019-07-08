@@ -49,13 +49,15 @@ final class BandDetailViewController: BaseViewController {
     
     private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
     
+    var historyRecordableDelegate: HistoryRecordable?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         stretchyLogoSmokedImageViewHeightConstraint.constant = Settings.strechyLogoImageViewHeight
         configureTableView()
         initHorizontalMenuView()
         handleSimpleNavigationBarViewActions()
-        reloadBand()
+        fetchBand()
         navigationController?.interactivePopGestureRecognizer?.delegate = navigationController as! HomepageNavigationController
     }
     
@@ -72,14 +74,14 @@ final class BandDetailViewController: BaseViewController {
         stretchyLogoSmokedImageView.transform = .identity
     }
 
-    private func reloadBand() {
+    private func fetchBand() {
         
         MetalArchivesAPI.reloadBand(bandURLString: bandURLString) { [weak self] (band, error) in
             guard let self = self else { return }
             
             if let _ = error {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-                    self.reloadBand()
+                    self.fetchBand()
                 })
             } else if let `band` = band {
                 self.band = band
@@ -104,6 +106,8 @@ final class BandDetailViewController: BaseViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
                     self.setTableViewBottomInsetToFillBottomSpace()
                 })
+                
+                self.historyRecordableDelegate?.loaded(withNameOrTitle: band.name, thumbnailUrlString: band.logoURLString)
                 
                 Crashlytics.sharedInstance().setObjectValue(self.band, forKey: CrashlyticsKey.Band)
             }

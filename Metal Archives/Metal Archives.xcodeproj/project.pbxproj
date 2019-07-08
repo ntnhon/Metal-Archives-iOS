@@ -125,6 +125,8 @@
 		C0332FEC2201D502008B34E0 /* ArtistLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0332FEB2201D502008B34E0 /* ArtistLite.swift */; };
 		C0332FF022024B7C008B34E0 /* SimpleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0332FEF22024B7C008B34E0 /* SimpleTableViewCell.swift */; };
 		C0332FF2220252E4008B34E0 /* SimpleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0332FF1220252E4008B34E0 /* SimpleTableViewCell.xib */; };
+		C033C4B022D333C4001294BA /* SearchHistory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C033C4AE22D333C4001294BA /* SearchHistory.xcdatamodeld */; };
+		C033C4EA22D37FA1001294BA /* HistoryRecordable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C033C4E922D37FA1001294BA /* HistoryRecordable.swift */; };
 		C0356F1B22ABA40700B4927E /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0356F1A22ABA40700B4927E /* NewsDetailViewController.swift */; };
 		C0356F1D22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0356F1C22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift */; };
 		C03C5E72221BFEFE0054E55A /* ArtistInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */; };
@@ -639,6 +641,8 @@
 		C0332FEB2201D502008B34E0 /* ArtistLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistLite.swift; sourceTree = "<group>"; };
 		C0332FEF22024B7C008B34E0 /* SimpleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableViewCell.swift; sourceTree = "<group>"; };
 		C0332FF1220252E4008B34E0 /* SimpleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleTableViewCell.xib; sourceTree = "<group>"; };
+		C033C4AF22D333C4001294BA /* SearchHistory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SearchHistory.xcdatamodel; sourceTree = "<group>"; };
+		C033C4E922D37FA1001294BA /* HistoryRecordable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRecordable.swift; sourceTree = "<group>"; };
 		C0356F1A22ABA40700B4927E /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		C0356F1C22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentReviewViewController.swift"; sourceTree = "<group>"; };
 		C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -2601,6 +2605,7 @@
 				C05FC9AF222AC4DB00D4B0DF /* RegisterableCell.swift */,
 				C0850C13223C4F49009E45A8 /* Actionable.swift */,
 				C027A28522B59A570011EA73 /* TransformableWithScrollView.swift */,
+				C033C4E922D37FA1001294BA /* HistoryRecordable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2770,6 +2775,7 @@
 				C0BE338F21E68CDC001ED000 /* AppDelegate.swift */,
 				C0BE339621E68CDF001ED000 /* Assets.xcassets */,
 				C0BE339B21E68CDF001ED000 /* Info.plist */,
+				C033C4AE22D333C4001294BA /* SearchHistory.xcdatamodeld */,
 			);
 			path = "Metal Archives";
 			sourceTree = "<group>";
@@ -3492,6 +3498,7 @@
 				C06B62432242362800A3FE6B /* BrowseLabelsAlphabeticallyResultTableViewCell.swift in Sources */,
 				C0332FE4220196BF008B34E0 /* Discography.swift in Sources */,
 				C071307821ECE0CC00082BC6 /* LatestReviewTableViewCell.swift in Sources */,
+				C033C4EA22D37FA1001294BA /* HistoryRecordable.swift in Sources */,
 				C03270E4220B83AC009FA337 /* ReleaseOtherVersionTableViewCell.swift in Sources */,
 				C0BAD4B1222EE15900C4D38D /* SimpleSearchResultSongTitle.swift in Sources */,
 				C0858F022236B3B500595B48 /* AdvancedSearchSongsViewController.swift in Sources */,
@@ -3572,6 +3579,7 @@
 				C0F1537F21EF5DE500355616 /* MetalArchivesAPI.swift in Sources */,
 				C053DD7A22271E920028568B /* SearchViewController.swift in Sources */,
 				C0BAD4A5222EC70200C4D38D /* SimpleSearchResultBandName.swift in Sources */,
+				C033C4B022D333C4001294BA /* SearchHistory.xcdatamodeld in Sources */,
 				C0661374228969B300F99006 /* LabelAdditionOrUpdateCollectionViewCell.swift in Sources */,
 				C03F440E22307568005D7AA8 /* SimpleAlbumTitleTableViewCell.swift in Sources */,
 				C0133641223814F800963940 /* AdvancedSearchResultBand.swift in Sources */,
@@ -4116,6 +4124,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C033C4AE22D333C4001294BA /* SearchHistory.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C033C4AF22D333C4001294BA /* SearchHistory.xcdatamodel */,
+			);
+			currentVersion = C033C4AF22D333C4001294BA /* SearchHistory.xcdatamodel */;
+			path = SearchHistory.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C0BE338421E68CDC001ED000 /* Project object */;
 }

@@ -9,6 +9,7 @@
 import UIKit
 import SkyFloatingLabelTextField
 import FirebaseAnalytics
+import CoreData
 
 final class SimpleSearchViewController: UITableViewController {
     @IBOutlet private weak var searchTermTextField: BaseTextField!
@@ -32,6 +33,10 @@ final class SimpleSearchViewController: UITableViewController {
         }
     }
     
+    // Core Data
+    private let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private var searchHistories: [SearchHistory] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         imFeelingLuckyView.delegate = self
@@ -40,6 +45,7 @@ final class SimpleSearchViewController: UITableViewController {
         currentSimpleSearchType = .bandName //trigger didSet
         initHorizontalOptionsView()
         initAppearance()
+        loadSearchHistories()
     }
     
     private func initAppearance() {
@@ -59,7 +65,32 @@ final class SimpleSearchViewController: UITableViewController {
         horizontalOptionsView.selectedIndex = currentSimpleSearchType.rawValue
         
         searchTypeTableViewCell.contentView.addSubview(horizontalOptionsView)
-        horizontalOptionsView.fillSuperview(padding: .init(top: -10, left: 10, bottom: -10, right:    10))
+        horizontalOptionsView.fillSuperview(padding: .init(top: -10, left: 10, bottom: -10, right: 10))
+    }
+    
+    private func loadSearchHistories() {
+        let fetchRequest = NSFetchRequest<SearchHistory>(entityName: "SearchHistory")
+        
+        do {
+            searchHistories = try managedContext.fetch(fetchRequest)
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+    }
+    
+    private func saveToHistory() {
+        let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: managedContext)!
+        let searchHistory = SearchHistory(entity: entity, insertInto: managedContext)
+        searchHistory.type = Int16(currentSimpleSearchType.rawValue)
+        searchHistory.term = searchTermTextField.text
+        do {
+            try managedContext.save()
+            searchHistories.append(searchHistory)
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -75,6 +106,8 @@ final class SimpleSearchViewController: UITableViewController {
             } else {
                 simpleSearchResultVC.isFeelingLucky = false
             }
+            
+            saveToHistory()
             
             Analytics.logEvent(AnalyticsEvent.PerformSimpleSearch, parameters: [AnalyticsParameter.SearchType: currentSimpleSearchType.description, AnalyticsParameter.SearchTerm: searchTermTextField.text!])
             

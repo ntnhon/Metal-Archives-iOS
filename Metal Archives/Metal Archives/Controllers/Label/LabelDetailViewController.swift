@@ -42,6 +42,8 @@ final class LabelDetailViewController: BaseViewController {
     }()
     private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
     
+    var historyRecordableDelegate: HistoryRecordable?
+    
     deinit {
         print("LabelDetailViewController is deallocated")
     }
@@ -94,6 +96,8 @@ final class LabelDetailViewController: BaseViewController {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
                         self.setTableViewBottomInsetToFillBottomSpace()
                     })
+                    
+                    self.historyRecordableDelegate?.loaded(withNameOrTitle: label.name, thumbnailUrlString: label.logoURLString)
                 }
                 
                 Analytics.logEvent(AnalyticsEvent.ViewLabel, parameters: [AnalyticsParameter.LabelName: label.name!, AnalyticsParameter.LabelID: label.id!])

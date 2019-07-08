@@ -9,6 +9,7 @@
 import UIKit
 import Toaster
 import FirebaseAnalytics
+import CoreData
 
 final class SimpleSearchResultViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
@@ -39,6 +40,9 @@ final class SimpleSearchResultViewController: BaseViewController {
     
     //Artist
     private var artistResultManager: PagableManager<SimpleSearchResultArtist>!
+    
+    // Core Data
+    private let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     deinit {
         print("SimpleSearchResultViewController is deallocated")
@@ -230,6 +234,22 @@ extension SimpleSearchResultViewController: PagableManagerDelegate {
     
     func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
         Toast.displayBlockedMessageWithDelay()
+    }
+}
+
+// MARK: - HistoryRecordable
+extension SimpleSearchResultViewController: HistoryRecordable {
+    func loaded(withNameOrTitle nameOrTitle: String, thumbnailUrlString: String?) {
+        let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: managedContext)!
+        let searchHistory = SearchHistory(entity: entity, insertInto: managedContext)
+        searchHistory.nameOrTitle = nameOrTitle
+        searchHistory.thumbnailUrlString = thumbnailUrlString
+        do {
+            try managedContext.save()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
     }
 }
 
@@ -437,7 +457,6 @@ extension SimpleSearchResultViewController {
         if lyricalThemesResultManager.objects.indices.contains(indexPath.row) {
             let result = lyricalThemesResultManager.objects[indexPath.row]
             pushBandDetailViewController(urlString: result.band.urlString, animated: true)
-            
             Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Lyrical theme", AnalyticsParameter.BandName: result.band.name, AnalyticsParameter.BandID: result.band.id])
         }
     }

@@ -37,8 +37,8 @@
                             <constraint firstAttribute="width" secondItem="O6m-hi-GMN" secondAttribute="height" multiplier="1:1" id="kJw-AM-AlY"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lamb of God" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moi-qi-ckv">
-                        <rect key="frame" x="182.5" y="156" width="99" height="20.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lamb of God" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moi-qi-ckv">
+                        <rect key="frame" x="20" y="156" width="424" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -51,9 +51,11 @@
                     <constraint firstItem="wiX-yF-PVH" firstAttribute="height" secondItem="O6m-hi-GMN" secondAttribute="height" id="VgF-Ft-LOp"/>
                     <constraint firstItem="moi-qi-ckv" firstAttribute="top" secondItem="O6m-hi-GMN" secondAttribute="bottom" constant="8" symbolic="YES" id="cO8-nH-e8H"/>
                     <constraint firstItem="wiX-yF-PVH" firstAttribute="centerX" secondItem="O6m-hi-GMN" secondAttribute="centerX" id="cxz-PT-EsJ"/>
+                    <constraint firstItem="moi-qi-ckv" firstAttribute="leading" secondItem="F4C-l7-ywr" secondAttribute="leading" constant="20" symbolic="YES" id="eEj-ny-GKA"/>
                     <constraint firstItem="moi-qi-ckv" firstAttribute="centerX" secondItem="F4C-l7-ywr" secondAttribute="centerX" id="efu-7z-f5B"/>
                     <constraint firstItem="O6m-hi-GMN" firstAttribute="top" secondItem="F4C-l7-ywr" secondAttribute="top" constant="20" symbolic="YES" id="iKj-KG-427"/>
                     <constraint firstAttribute="bottom" secondItem="moi-qi-ckv" secondAttribute="bottom" constant="20" symbolic="YES" id="nai-VY-YXC"/>
+                    <constraint firstAttribute="trailing" secondItem="moi-qi-ckv" secondAttribute="trailing" constant="20" symbolic="YES" id="nbi-fd-c6m"/>
                     <constraint firstItem="O6m-hi-GMN" firstAttribute="centerX" secondItem="F4C-l7-ywr" secondAttribute="centerX" id="rP4-fD-ZSx"/>
                     <constraint firstItem="wiX-yF-PVH" firstAttribute="centerY" secondItem="O6m-hi-GMN" secondAttribute="centerY" id="yG3-bp-Yld"/>
                 </constraints>
