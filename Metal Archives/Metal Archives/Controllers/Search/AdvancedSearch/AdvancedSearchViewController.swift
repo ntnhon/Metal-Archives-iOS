@@ -19,14 +19,15 @@ final class AdvancedSearchViewController: UITableViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initAppearance()
+        initAppearance()
     }
     
     private func initAppearance() {
-        self.view.backgroundColor = Settings.currentTheme.backgroundColor
-        self.tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        self.tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        self.tableView.rowHeight = UITableView.automaticDimension
+        view.backgroundColor = Settings.currentTheme.backgroundColor
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.contentInset = .init(top: -2, left: 0, bottom: 0, right: 0)
         
         advancedSearchTypeLabels.forEach({
             $0.textColor = Settings.currentTheme.bodyTextColor
@@ -36,16 +37,22 @@ final class AdvancedSearchViewController: UITableViewController {
 }
 
 extension AdvancedSearchViewController {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Advanced Search"
-    }
-    
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "Tip #1: to search for part of a word, use * as wildcards (e.g. searching \"hel*\" will return results containing \"hell\" or \"helm\").\n\nTip #2: to exclude terms, use the - symbol (e.g. searching \"death -melodic\" will return results that do not contain the word \"melodic\")\n\nClick \"💡 Tips\" for more tips on searching possibilities."
+        return """
+        Tip #1: to search for part of a word, use * as wildcards (e.g. searching "hel*" will return results containing "hell" or "helm").
+        
+        Tip #2: to exclude terms, use the - symbol (e.g. searching "death -melodic" will return results that do not contain the word "melodic").
+        
+        Click "💡 Tips" for more tips on searching possibilities.
+        """
     }
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {

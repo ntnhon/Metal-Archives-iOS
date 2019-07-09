@@ -70,4 +70,18 @@ public class SearchHistory: NSManagedObject {
         
         return entities.count > 0
     }
+    
+    class func clearAll(withManagedContext managedContext: NSManagedObjectContext) {
+        let fetchRequest = NSFetchRequest<SearchHistory>(entityName: "SearchHistory")
+        var entities: [SearchHistory] = []
+        
+        do {
+            entities = try managedContext.fetch(fetchRequest)
+            entities.forEach({managedContext.delete($0)})
+            try managedContext.save()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+    }
 }

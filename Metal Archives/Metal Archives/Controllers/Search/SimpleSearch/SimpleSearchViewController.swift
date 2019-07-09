@@ -178,15 +178,21 @@ extension SimpleSearchViewController {
         }
         
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "Header") as! SearchHistoryTableHeaderView
+        
         headerView.didTapClearAll = { [unowned self] in
-            print("Clear all")
+            SearchHistory.clearAll(withManagedContext: self.managedContext)
+            self.searchHistories.removeAll()
+            self.tableView.reloadData()
         }
+        
+        headerView.isClearAllLabelHidden = searchHistories.count == 0
+        
         return headerView
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard indexPath.section == 1 else { return }
+        guard indexPath.section == 1, searchHistories.count > 0 else { return }
         
         let searchHistory = searchHistories[indexPath.row]
         
@@ -219,7 +225,7 @@ extension SimpleSearchViewController {
         if section == 0 {
             return 2
         } else {
-            return searchHistories.count
+            return max(1, searchHistories.count)
         }
     }
     
@@ -251,6 +257,7 @@ extension SimpleSearchViewController {
         guard searchHistories.count > 0 else {
             let cell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             cell.displayAsItalicBodyText()
+            cell.fill(with: "History is empty")
             return cell
         }
         

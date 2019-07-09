@@ -9,8 +9,17 @@
 import UIKit
 
 final class SearchHistoryTableHeaderView: UITableViewHeaderFooterView {
-    
+    private var clearAllLabel: UILabel!
     var didTapClearAll: (() -> Void)?
+    
+    var isClearAllLabelHidden: Bool {
+        get {
+            return clearAllLabel.isHidden
+        }
+        set {
+            clearAllLabel.isHidden = newValue
+        }
+    }
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -35,7 +44,7 @@ final class SearchHistoryTableHeaderView: UITableViewHeaderFooterView {
         titleLabel.text = "SEARCH HISTORY"
         stackView.addArrangedSubview(titleLabel)
         
-        let clearAllLabel = UILabel(frame: .zero)
+        clearAllLabel = UILabel(frame: .zero)
         clearAllLabel.font = Settings.currentFontSize.bodyTextFont
         clearAllLabel.textColor = Settings.currentTheme.titleColor
         clearAllLabel.textAlignment = .right
