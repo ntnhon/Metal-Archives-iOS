@@ -28,6 +28,12 @@ final class AdvancedSearchBandsResultsViewController: RefreshableViewController 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         simpleNavigationBarView?.setRightButtonIcon(nil)
+        simpleNavigationBarView?.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        simpleNavigationBarView?.isHidden = !isMovingToParent
     }
 
     override func initAppearance() {

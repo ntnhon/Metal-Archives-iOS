@@ -52,6 +52,7 @@ final class AdvancedSearchBandsViewController: BaseAdvancedSearchTableViewContro
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
             self.performSearch()
         }
+        simpleNavigationBarView.isHidden = false
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

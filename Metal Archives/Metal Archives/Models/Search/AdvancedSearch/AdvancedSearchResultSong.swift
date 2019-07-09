@@ -48,7 +48,7 @@ extension AdvancedSearchResultSong: Pagable {
                     bandName = String(subString)
                 }
                 
-                if let subString = eachSearchResult[0].subString(after: "href=\"", before: "\">", options: .caseInsensitive) {
+                if let subString = eachSearchResult[0].subString(after: "href=\"", before: "\" title", options: .caseInsensitive) {
                     urlString = String(subString)
                 }
                 

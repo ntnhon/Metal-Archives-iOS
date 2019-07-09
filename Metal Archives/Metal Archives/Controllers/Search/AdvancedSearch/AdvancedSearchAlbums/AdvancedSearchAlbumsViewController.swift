@@ -61,6 +61,7 @@ final class AdvancedSearchAlbumsViewController: BaseAdvancedSearchTableViewContr
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
             self.performSearch()
         }
+        simpleNavigationBarView.isHidden = false
     }
     
     private func updateCountryListLabel() {

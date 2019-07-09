@@ -65,7 +65,11 @@ extension AdvancedSearchResultBand: Pagable {
             
             var otherDetails: [String] = []
             for i in 1..<eachSearchResult.count {
-                otherDetails.append(eachSearchResult[i])
+                if let country = Country(name: eachSearchResult[i]) {
+                    otherDetails.append(country.nameAndEmoji)
+                } else {
+                    otherDetails.append(eachSearchResult[i])
+                }
             }
             
             if let `band` = band {
