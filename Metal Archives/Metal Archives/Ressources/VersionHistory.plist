@@ -4,6 +4,17 @@
 <array>
 	<dict>
 		<key>number</key>
+		<string>3.0</string>
+		<key>date</key>
+		<string>July 2019</string>
+		<key>features</key>
+		<string>Second important update with many UI/UX improvements.   - Band/Artist/Release/Label detail page with new design.
+- Homepage with new layout.
+- Thumbnails can be tapped.
+- Search history tracking.</string>
+	</dict>
+	<dict>
+		<key>number</key>
 		<string>2.2</string>
 		<key>date</key>
 		<string>April 2019</string>
