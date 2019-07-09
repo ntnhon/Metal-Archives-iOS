@@ -66,7 +66,7 @@ final class BrowseLabelsByCountryResultViewController: RefreshableViewController
             self.browseLabelsByCountryPagableManager.fetch()
         }
         
-        Analytics.logEvent(AnalyticsEvent.RefreshBrowseLabelsByCountryResults, parameters: nil)
+        Analytics.logEvent("refresh_browse_labels_by_country_results", parameters: nil)
     }
 }
 
@@ -84,8 +84,6 @@ extension BrowseLabelsByCountryResultViewController: PagableManagerDelegate {
         endRefreshing()
         updateTitle()
         tableView.reloadData()
-        
-        Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
     
     func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -111,7 +109,7 @@ extension BrowseLabelsByCountryResultViewController: UITableViewDelegate {
             pushLabelDetailViewController(urlString: label.urlString, animated: true)
         }
         
-        Analytics.logEvent(AnalyticsEvent.SelectABrowseLabelsResult, parameters: [AnalyticsParameter.LabelName: label.name, AnalyticsParameter.LabelID: label.id])
+        Analytics.logEvent("select_a_browse_labels_result", parameters: ["label_name": label.name, "label_id": label.id])
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

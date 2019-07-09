@@ -239,7 +239,7 @@ final class AdvancedSearchAlbumsViewController: BaseAdvancedSearchTableViewContr
         
         performSegue(withIdentifier: "ShowResult", sender: optionsList)
         
-        Analytics.logEvent(AnalyticsEvent.PerformAdvancedSearch, parameters: [AnalyticsParameter.SearchType: "Advanced Search Albums"])
+        Analytics.logEvent("perform_advanced_search_albums", parameters: nil)
     }
 }
 
@@ -369,7 +369,7 @@ extension AdvancedSearchAlbumsViewController: UIPickerViewDelegate {
         default: return
         }
         
-        Analytics.logEvent(AnalyticsEvent.ChangeAdvancedSearchOption, parameters: [AnalyticsParameter.AdvancedSearchOption: "Year/month"])
+        Analytics.logEvent("change_advanced_search_option", parameters: ["option": "Year/month"])
     }
 }
 
@@ -407,7 +407,7 @@ extension AdvancedSearchAlbumsViewController: AdvancedSearchCountryListViewContr
         updateCountryListLabel()
         tableView.reloadData()
         
-        Analytics.logEvent(AnalyticsEvent.ChangeAdvancedSearchOption, parameters: [AnalyticsParameter.AdvancedSearchOption: "Countries list"])
+        Analytics.logEvent("change_advanced_search_option", parameters: ["option": "Countries list"])
     }
     
     private func generateSelectedCoutriesString() -> String {
@@ -436,7 +436,7 @@ extension AdvancedSearchAlbumsViewController: AdvancedSearchReleaseTypeListViewC
         updateReleaseTypeLabel()
         tableView.reloadData()
         
-        Analytics.logEvent(AnalyticsEvent.ChangeAdvancedSearchOption, parameters: [AnalyticsParameter.AdvancedSearchOption: "Release types"])
+        Analytics.logEvent("change_advanced_search_option", parameters: ["option": "Release types"])
     }
     
     private func generateSelectedReleaseTypeString() -> String {
@@ -465,7 +465,7 @@ extension AdvancedSearchAlbumsViewController: AdvancedSearchReleaseFormatListVie
         updateReleaseFormatLabel()
         tableView.reloadData()
         
-        Analytics.logEvent(AnalyticsEvent.ChangeAdvancedSearchOption, parameters: [AnalyticsParameter.AdvancedSearchOption: "Release formats"])
+        Analytics.logEvent("change_advanced_search_option", parameters: ["option": "Release formats"])
     }
     
     private func generateSelectedReleaseFormatString() -> String {

@@ -175,9 +175,8 @@ final class AdvancedSearchBandsViewController: BaseAdvancedSearchTableViewContro
         
         performSegue(withIdentifier: "ShowResult", sender: optionsList)
         
-        Analytics.logEvent(AnalyticsEvent.PerformAdvancedSearch, parameters: [AnalyticsParameter.SearchType: "Advanced Search Bands"])
+        Analytics.logEvent("perform_advanced_search_bands", parameters: ["search_type": "Advanced Search Bands"])
     }
-    
 }
 
 //MARK: - UIPickerView as keyboard for yearOfFormationTextField
@@ -247,7 +246,7 @@ extension AdvancedSearchBandsViewController: AdvancedSearchCountryListViewContro
         updateCountryListLabel()
         tableView.reloadData()
         
-        Analytics.logEvent(AnalyticsEvent.ChangeAdvancedSearchOption, parameters: [AnalyticsParameter.AdvancedSearchOption: "Countries list"])
+        Analytics.logEvent("change_advanced_search_option", parameters: ["option": "Countries list"])
     }
     
     private func generateSelectedCoutriesString() -> String {
@@ -283,7 +282,7 @@ extension AdvancedSearchBandsViewController: UIPickerViewDelegate {
         default: break
         }
         
-        Analytics.logEvent(AnalyticsEvent.ChangeAdvancedSearchOption, parameters: [AnalyticsParameter.AdvancedSearchOption: "Year"])
+        Analytics.logEvent("change_advanced_search_option", parameters: ["option": "Year"])
     }
 }
 
@@ -329,7 +328,7 @@ extension AdvancedSearchBandsViewController: AdvancedSearchBandStatusListViewCon
         updateStatusListLabel()
         tableView.reloadData()
         
-        Analytics.logEvent(AnalyticsEvent.ChangeAdvancedSearchOption, parameters: [AnalyticsParameter.AdvancedSearchOption: "Band status"])
+        Analytics.logEvent("change_advanced_search_option", parameters: ["option": "Band status"])
     }
     
     private func generateSelectedBandStatusString() -> String {

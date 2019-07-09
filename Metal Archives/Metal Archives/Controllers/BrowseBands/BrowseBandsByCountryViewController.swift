@@ -67,7 +67,7 @@ final class BrowseBandsByCountryViewController: BaseViewController {
                 bandAphabeticallyResultViewController.parameter = "ajax-country/c/" + country.iso
                 bandAphabeticallyResultViewController.context = "Bands from \(country.nameAndEmoji)"
                 
-                Analytics.logEvent(AnalyticsEvent.PerformBrowseBands, parameters: [AnalyticsParameter.Country: country.iso])
+                Analytics.logEvent("perform_browse_bands_by_country", parameters: ["country": country.iso])
             }
         default:
             break

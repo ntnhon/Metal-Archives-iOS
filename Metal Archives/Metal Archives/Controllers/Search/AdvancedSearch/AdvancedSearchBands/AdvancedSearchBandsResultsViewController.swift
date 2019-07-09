@@ -44,7 +44,7 @@ final class AdvancedSearchBandsResultsViewController: RefreshableViewController 
             self.bandAdvancedSearchResultPagableManager.fetch()
         }
         
-        Analytics.logEvent(AnalyticsEvent.RefreshAdvancedSearchBandResults, parameters: nil)
+        Analytics.logEvent("refresh_advanced_search_band_results", parameters: nil)
     }
     
     func initBandAdvancedSearchResultPagableManager() {
@@ -89,8 +89,6 @@ extension AdvancedSearchBandsResultsViewController: PagableManagerDelegate {
         endRefreshing()
         updateTitle()
         tableView.reloadData()
-        
-        Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
     
     func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -110,7 +108,7 @@ extension AdvancedSearchBandsResultsViewController: UITableViewDelegate {
             let result = manager.objects[indexPath.row]
             pushBandDetailViewController(urlString: result.band.urlString, animated: true)
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnAdvancedSearchResult, parameters: [AnalyticsParameter.BandName: result.band.name, AnalyticsParameter.BandID: result.band.id])
+            Analytics.logEvent("select_an_advanced_search_result", parameters: nil)
         }
     }
     

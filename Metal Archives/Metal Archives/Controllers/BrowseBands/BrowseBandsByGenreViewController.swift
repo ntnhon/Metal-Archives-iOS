@@ -44,7 +44,7 @@ final class BrowseBandsByGenreViewController: BaseViewController {
                 bandAphabeticallyResultViewController.parameter = "ajax-genre/g/" + genre.parameterString
                 bandAphabeticallyResultViewController.context = "Bands play \(genre.description)"
                 
-                Analytics.logEvent(AnalyticsEvent.PerformBrowseBands, parameters: [AnalyticsParameter.Genre: genre.description])
+                Analytics.logEvent("perform_browse_bands_by_genre", parameters: ["genre": genre.description])
             }
         default:
             break

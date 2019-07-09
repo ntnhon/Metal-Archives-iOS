@@ -176,7 +176,7 @@ extension LeftMenuViewController: UITableViewDelegate {
         self.closeLeft()
         self.homePageViewController.pushBandDetailViewController(urlString: "https://www.metal-archives.com/band/random", animated: true)
         
-        Analytics.logEvent(AnalyticsEvent.RandomBand, parameters: nil)
+        Analytics.logEvent("random_band", parameters: nil)
     }
     
     private func didSelectSettings() {

@@ -229,8 +229,6 @@ extension SimpleSearchResultViewController: PagableManagerDelegate {
         if !doNotRecordHistory {
             SearchHistory.checkAndInsert(withManagedContext: managedContext, term: searchTerm, searchType: simpleSearchType)
         }
-        
-        Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
     
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -350,7 +348,7 @@ extension SimpleSearchResultViewController {
             let result = bandNameResultManager.objects[indexPath.row]
             pushBandDetailViewController(urlString: result.band.urlString, animated: true)
             
-            Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Band name", AnalyticsParameter.BandName: result.band.name, AnalyticsParameter.BandID: result.band.id])
+            Analytics.logEvent("select_a_simple_search_result", parameters: nil)
         }
     }
     
@@ -402,7 +400,7 @@ extension SimpleSearchResultViewController {
             let result = musicGenreResultManager.objects[indexPath.row]
             pushBandDetailViewController(urlString: result.band.urlString, animated: true)
             
-            Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Music genre", AnalyticsParameter.BandName: result.band.name, AnalyticsParameter.BandID: result.band.id])
+            Analytics.logEvent("select_a_simple_search_result", parameters: nil)
         }
     }
     
@@ -453,7 +451,7 @@ extension SimpleSearchResultViewController {
         if lyricalThemesResultManager.objects.indices.contains(indexPath.row) {
             let result = lyricalThemesResultManager.objects[indexPath.row]
             pushBandDetailViewController(urlString: result.band.urlString, animated: true)
-            Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Lyrical theme", AnalyticsParameter.BandName: result.band.name, AnalyticsParameter.BandID: result.band.id])
+            Analytics.logEvent("select_a_simple_search_result", parameters: nil)
         }
     }
     
@@ -505,7 +503,7 @@ extension SimpleSearchResultViewController {
             let result = albumTitleResultManager.objects[indexPath.row]
             takeActionFor(actionableObject: result)
             
-            Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Album title", AnalyticsParameter.BandName: result.release.title, AnalyticsParameter.BandID: result.release.id])
+            Analytics.logEvent("select_a_simple_search_result", parameters: nil)
         }
     }
     
@@ -557,7 +555,7 @@ extension SimpleSearchResultViewController {
             let result = songTitleResultManager.objects[indexPath.row]
             takeActionFor(actionableObject: result)
             
-            Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Song title", AnalyticsParameter.BandName: result.band.name])
+            Analytics.logEvent("select_a_simple_search_result", parameters: nil)
         }
     }
     
@@ -609,7 +607,7 @@ extension SimpleSearchResultViewController {
             let result = labelNameResultManager.objects[indexPath.row]
             pushLabelDetailViewController(urlString: result.label.urlString, animated: true)
             
-            Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Label", AnalyticsParameter.LabelName: result.label.name, AnalyticsParameter.LabelID: result.label.id])
+            Analytics.logEvent("select_a_simple_search_result", parameters: nil)
         }
     }
     
@@ -661,7 +659,7 @@ extension SimpleSearchResultViewController {
             let result = artistResultManager.objects[indexPath.row]
             takeActionFor(actionableObject: result)
             
-            Analytics.logEvent(AnalyticsEvent.SelectASimpleSearchResult, parameters: [AnalyticsParameter.SearchType: "Artist", AnalyticsParameter.ArtistName: result.artist.name, AnalyticsParameter.ArtistID: result.artist.id])
+            Analytics.logEvent("select_a_simple_search_result", parameters: nil)
         }
     }
     

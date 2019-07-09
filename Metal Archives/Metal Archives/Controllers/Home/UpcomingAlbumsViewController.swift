@@ -38,7 +38,7 @@ final class UpcomingAlbumsViewController: RefreshableViewController {
             self.upcomingAlbumsPagableManager.fetch()
         }
         
-        Analytics.logEvent(AnalyticsEvent.RefreshUpcomingAlbums, parameters: nil)
+        Analytics.logEvent("refresh_upcoming_albums", parameters: nil)
     }
     
     private func updateTitle() {
@@ -71,8 +71,6 @@ extension UpcomingAlbumsViewController: PagableManagerDelegate {
         refreshSuccessfully()
         updateTitle()
         tableView.reloadData()
-        
-        Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
     
     func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -100,7 +98,7 @@ extension UpcomingAlbumsViewController: UITableViewDelegate {
         let upcomingAlbum = upcomingAlbumsPagableManager.objects[indexPath.row]
         takeActionFor(actionableObject: upcomingAlbum)
         
-        Analytics.logEvent(AnalyticsEvent.SelectAnItemInUpcomingAlbums, parameters: [AnalyticsParameter.ReleaseTitle: upcomingAlbum.release.title, AnalyticsParameter.ReleaseID: upcomingAlbum.release.id])
+        Analytics.logEvent("select_an_item_in_upcoming_albums", parameters: nil)
     }
 }
 

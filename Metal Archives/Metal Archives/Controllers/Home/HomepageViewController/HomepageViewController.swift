@@ -108,7 +108,7 @@ final class HomepageViewController: RefreshableViewController {
             self.loadHomepage()
         }
         
-        Analytics.logEvent(AnalyticsEvent.RefreshHomepage, parameters: nil)
+        Analytics.logEvent("refresh_homepage", parameters: nil)
     }
     
     private func loadHomepage() {
@@ -192,7 +192,7 @@ final class HomepageViewController: RefreshableViewController {
         alert.addAction(okayAction)
         
         let cancelAction = UIAlertAction(title: "Remind me later", style: .cancel) { (action) in
-            Analytics.logEvent(AnalyticsEvent.ReviewLatter, parameters: nil)
+            Analytics.logEvent("review_later", parameters: nil)
         }
         alert.addAction(cancelAction)
         
@@ -441,31 +441,35 @@ extension HomepageViewController {
         cell.seeAll = {[unowned self] in
             self.performSegue(withIdentifier: "ShowLatestAdditions", sender: nil)
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more latest additions"])
+            Analytics.logEvent("homepage_show_latest_additions", parameters: nil)
         }
         
         cell.didSelectBand = { [unowned self] band in
             self.pushBandDetailViewController(urlString: band.urlString, animated: true)
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "BandAddition"])
+            Analytics.logEvent("homepage_select_band_addition", parameters: nil)
         }
         
         cell.didSelectLabel = { [unowned self] label in
             self.pushLabelDetailViewController(urlString: label.urlString, animated: true)
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "LabelAddition"])
+            Analytics.logEvent("homepage_select_label_addition", parameters: nil)
         }
         
         cell.didSelectArtist = { [unowned self] artist in
             self.takeActionFor(actionableObject: artist)
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "ArtistAddition"])
+            Analytics.logEvent("homepage_select_artist_addition", parameters: nil)
         }
         
         cell.changeType = { [unowned self] selectedType in
             self.latestAdditionType = selectedType
+            
+            Analytics.logEvent("homepage_change_addition_type", parameters: nil)
         }
         
         cell.didSelectImageView = { [unowned self] imageView, urlString, description in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: urlString, description: description, fromImageView: imageView)
+            
+            Analytics.logEvent("homepage_select_latest_addition_thumbnail", parameters: nil)
         }
         
         return cell
@@ -484,31 +488,37 @@ extension HomepageViewController {
         cell.seeAll = {[unowned self] in
             self.performSegue(withIdentifier: "ShowLatestUpdates", sender: nil)
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more latest updates"])
+            Analytics.logEvent("homepage_show_latest_updates", parameters: nil)
         }
         
         cell.didSelectBand = { [unowned self] band in
             self.pushBandDetailViewController(urlString: band.urlString, animated: true)
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "BandUpdate"])
+            Analytics.logEvent("homepage_select_band_update", parameters: nil)
         }
         
         cell.didSelectLabel = { [unowned self] label in
             self.pushLabelDetailViewController(urlString: label.urlString, animated: true)
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "LabelUpdate"])
+            
+            Analytics.logEvent("homepage_select_label_update", parameters: nil)
         }
         
         cell.didSelectArtist = { [unowned self] artist in
             self.takeActionFor(actionableObject: artist)
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "ArtistUpdate"])
+            
+            Analytics.logEvent("homepage_select_artist_update", parameters: nil)
         }
         
         cell.changeType = { [unowned self] selectedType in
             self.latestUpdateType = selectedType
+            
+            Analytics.logEvent("homepage_change_update_type", parameters: nil)
         }
         
         cell.didSelectImageView = { [unowned self] imageView, urlString, description in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: urlString, description: description, fromImageView: imageView)
+            
+            Analytics.logEvent("homepage_select_latest_update_thumbnail", parameters: nil)
         }
         
         return cell
@@ -524,16 +534,20 @@ extension HomepageViewController {
         
         cell.seeAll = { [unowned self] in
             self.performSegue(withIdentifier: "ShowLatestReviews", sender: nil)
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more latest reviews"])
+            
+            Analytics.logEvent("homepage_show_latest_reviews", parameters: nil)
         }
         
         cell.didSelectLatestReview = { [unowned self] latestReview in
             self.takeActionFor(actionableObject: latestReview)
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "LatestReview"])
+            
+            Analytics.logEvent("homepage_select_latest_review", parameters: nil)
         }
         
         cell.didSelectImageView = { [unowned self] imageView, urlString, description in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: urlString, description: description, fromImageView: imageView)
+            
+            Analytics.logEvent("homepage_select_latest_review_thumbnail", parameters: nil)
         }
         
         return cell
@@ -549,16 +563,20 @@ extension HomepageViewController {
         
         cell.seeAll = { [unowned self] in
             self.performSegue(withIdentifier: "ShowUpcomingAlbums", sender: nil)
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "Show more upcoming albums"])
+            
+            Analytics.logEvent("homepage_show_upcoming_albums", parameters: nil)
         }
         
         cell.didSelectUpcomingAlbum = { [unowned self] upcomingAlbum in
             self.takeActionFor(actionableObject: upcomingAlbum)
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInHomepage, parameters: [AnalyticsParameter.ItemType: "UpcomingAlbum"])
+            
+            Analytics.logEvent("homepage_select_upcoming_album", parameters: nil)
         }
         
         cell.didSelectImageView = { [unowned self] imageView, urlString, description in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: urlString, description: description, fromImageView: imageView)
+            
+            Analytics.logEvent("homepage_select_upcoming_album_thumbnail", parameters: nil)
         }
         
         return cell

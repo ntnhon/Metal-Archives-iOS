@@ -13,6 +13,10 @@ final class BrowseBandsAlphabeticallyViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var tableView: UITableView!
     
+    deinit {
+        print("BrowseBandsAlphabeticallyViewController is deallocated")
+    }
+    
     override func initAppearance() {
         super.initAppearance()
         tableView.contentInsetAdjustmentBehavior = .never
@@ -44,7 +48,7 @@ final class BrowseBandsAlphabeticallyViewController: BaseViewController {
                 bandAphabeticallyResultViewController.parameter = "ajax-letter/l/" + letter.parameterString
                 bandAphabeticallyResultViewController.context = "Bands by \"\(letter.description)\""
                 
-                Analytics.logEvent(AnalyticsEvent.PerformBrowseBands, parameters: [AnalyticsParameter.Letter: letter.description])
+                Analytics.logEvent("perform_browse_band_alphabetically", parameters: ["letter": letter.description])
             }
         default:
             break

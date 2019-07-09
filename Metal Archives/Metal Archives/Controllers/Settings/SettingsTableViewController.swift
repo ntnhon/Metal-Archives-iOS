@@ -81,7 +81,7 @@ final class SettingsTableViewController: BaseTableViewController {
         UserDefaults.setThumbnailEnabled(thumbnailSwitch.isOn)
         displayRestartAlert()
         
-        Analytics.logEvent(AnalyticsEvent.ChangeThumbnailEnabled, parameters: ["thumbnail_enabled": thumbnailSwitch.isOn])
+        Analytics.logEvent("change_thumbnail_option", parameters: ["thumbnail_enabled": thumbnailSwitch.isOn])
     }
     
     private func updateChoosenWidgetSectionsLabel() {
@@ -162,7 +162,7 @@ extension SettingsTableViewController: DiscographyTypeListTableViewControllerDel
 extension SettingsTableViewController: ChooseWidgetSectionsViewControllerDelegate {
     func didChooseWidgetSections(_ widgetSections: [WidgetSection]) {
         choosenWidgetSections = widgetSections
-        Analytics.logEvent(AnalyticsEvent.ChangeWidgetSections, parameters: nil)
+        Analytics.logEvent("change_widget_sections", parameters: nil)
     }
 }
 

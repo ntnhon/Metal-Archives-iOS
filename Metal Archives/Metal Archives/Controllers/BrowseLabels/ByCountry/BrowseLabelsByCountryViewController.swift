@@ -73,11 +73,11 @@ final class BrowseLabelsByCountryViewController: BaseViewController {
             if let `country` = country {
                 navigationItem.backBarButtonItem = UIBarButtonItem(title: country.nameAndEmoji, style: .plain, target: nil, action: nil)
                 
-                Analytics.logEvent(AnalyticsEvent.PerformBrowseLabels, parameters: ["Module": "By country", AnalyticsParameter.Country: country.iso])
+                Analytics.logEvent("perform_browse_labels_by_country", parameters: ["Module": "By country", "country": country.iso])
             } else {
                 navigationItem.backBarButtonItem = UIBarButtonItem(title: "(No country)", style: .plain, target: nil, action: nil)
                 
-                Analytics.logEvent(AnalyticsEvent.PerformBrowseLabels, parameters: ["Module": "By country", AnalyticsParameter.Country: "No country"])
+                Analytics.logEvent("perform_browse_labels_by_country", parameters: ["Module": "By country", "country": "No country"])
             }
             
         default:

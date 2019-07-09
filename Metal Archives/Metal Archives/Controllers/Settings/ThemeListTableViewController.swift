@@ -88,7 +88,7 @@ final class ThemeListTableViewController: UITableViewController {
         
         displayRestartAlert()
         
-        Analytics.logEvent(AnalyticsEvent.ChangeTheme, parameters: nil)
+        Analytics.logEvent("change_theme", parameters: nil)
     }
 }
 

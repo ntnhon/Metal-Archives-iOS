@@ -87,7 +87,7 @@ extension UIViewController {
             itemType = "Label"
         }
         
-        Analytics.logEvent(AnalyticsEvent.OpenURLInBrowser, parameters: ["browser": "Chrome", AnalyticsParameter.ItemType: itemType])
+        Analytics.logEvent("open_url_in_browser", parameters: ["browser": "Chrome", "item_type": itemType])
     }
     
     fileprivate func openInSafari(_ url: URL) {
@@ -109,7 +109,7 @@ extension UIViewController {
             itemType = "Label"
         }
         
-        Analytics.logEvent(AnalyticsEvent.OpenURLInBrowser, parameters: ["browser": "Safari", AnalyticsParameter.ItemType: itemType])
+        Analytics.logEvent("open_url_in_browser", parameters: ["browser": "Safari", "item_type": itemType])
     }
     
     fileprivate func share(_ url: URL) {
@@ -131,6 +131,6 @@ extension UIViewController {
             itemType = "Label"
         }
         
-        Analytics.logEvent(AnalyticsEvent.ShareURL, parameters: [ AnalyticsParameter.ItemType: itemType])
+        Analytics.logEvent("share_url", parameters: ["item_type": itemType])
     }
 }

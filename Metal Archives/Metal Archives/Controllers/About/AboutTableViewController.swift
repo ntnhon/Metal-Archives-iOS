@@ -81,7 +81,7 @@ extension AboutTableViewController {
         let urlString = "https://github.com/ntnhon/Metal-Archives-iOS"
         presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertMessage: urlString)
         
-        Analytics.logEvent(AnalyticsEvent.SelectAnAboutOption, parameters: [AnalyticsParameter.Option: "Github"])
+        Analytics.logEvent("select_an_about_option", parameters: ["option": "Github"])
     }
     
     private func didTapContactAuthor() {
@@ -98,40 +98,40 @@ extension AboutTableViewController {
         
         present(mailComposerVC, animated: true, completion: nil)
         
-        Analytics.logEvent(AnalyticsEvent.SelectAnAboutOption, parameters: [AnalyticsParameter.Option: "Contact author"])
+        Analytics.logEvent("select_an_about_option", parameters: ["option": "Contact author"])
     }
     
     private func didTapOfficialSite() {
         let urlString = "https://www.metal-archives.com/"
         presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertMessage: urlString)
         
-        Analytics.logEvent(AnalyticsEvent.SelectAnAboutOption, parameters: [AnalyticsParameter.Option: "Official site"])
+        Analytics.logEvent("select_an_about_option", parameters: ["option": "Official site"])
     }
     
     private func didTapOfficialFacebook() {
         let urlString = "https://www.facebook.com/metal.archives/"
         presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertMessage: urlString)
         
-        Analytics.logEvent(AnalyticsEvent.SelectAnAboutOption, parameters: [AnalyticsParameter.Option: "Official facebook"])
+        Analytics.logEvent("select_an_about_option", parameters: ["option": "Official facebook"])
     }
     
     private func didTapUnofficialFacebook() {
         let urlString = "https://www.facebook.com/MetalArchivesIOSApp/"
         presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertMessage: urlString)
         
-        Analytics.logEvent(AnalyticsEvent.SelectAnAboutOption, parameters: [AnalyticsParameter.Option: "Unofficial facebook"])
+        Analytics.logEvent("select_an_about_option", parameters: ["option": "Unofficial facebook"])
     }
     
     private func didTapShowAllOpenSourceLibraries() {
         performSegue(withIdentifier: "ShowLibraries", sender: nil)
         
-        Analytics.logEvent(AnalyticsEvent.SelectAnAboutOption, parameters: [AnalyticsParameter.Option: "Show libraries"])
+        Analytics.logEvent("select_an_about_option", parameters: ["option": "Show libraries"])
     }
     
     private func didTapTakeMeToAppStore() {
         openReviewOnAppStore()
         
-        Analytics.logEvent(AnalyticsEvent.SelectAnAboutOption, parameters: [AnalyticsParameter.Option: "Open review on App Store"])
+        Analytics.logEvent("select_an_about_option", parameters: ["option": "Open review on App Store"])
     }
 }
 

@@ -81,7 +81,7 @@ extension NewsArchiveViewController: UITableViewDelegate {
         guard let url = URL(string: news.urlString) else { return }
         presentAlertOpenURLInBrowsers(url, alertTitle: "View this article in browser", alertMessage: news.title, shareMessage: "Share this article URL")
         
-        Analytics.logEvent(AnalyticsEvent.SelectAnItemInNews, parameters: nil)
+        Analytics.logEvent("select_an_item_in_news", parameters: nil)
     }
 }
 

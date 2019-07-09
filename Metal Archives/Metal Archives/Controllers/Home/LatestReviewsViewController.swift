@@ -47,7 +47,7 @@ final class LatestReviewsViewController: RefreshableViewController {
             self.latestReviewsPagableManager.fetch()
         }
         
-        Analytics.logEvent(AnalyticsEvent.RefreshLatestReviews, parameters: nil)
+        Analytics.logEvent("refresh_latest_reviews", parameters: nil)
     }
     
     private func updateLatestReviewsPagableManager() {
@@ -103,8 +103,6 @@ extension LatestReviewsViewController: PagableManagerDelegate {
         refreshSuccessfully()
         updateTitle()
         tableView.reloadData()
-        
-        Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
     
     func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -124,7 +122,7 @@ extension LatestReviewsViewController: MonthListViewControllerDelegate {
     func didSelectAMonth(_ month: MonthInYear) {
         selectedMonth = month
         
-        Analytics.logEvent(AnalyticsEvent.ChangeMonthInLatestReviews, parameters: [AnalyticsParameter.Month: selectedMonth.shortDisplayString])
+        Analytics.logEvent("change_month_in_latest_reviews", parameters: nil)
     }
 }
 
@@ -147,7 +145,7 @@ extension LatestReviewsViewController: UITableViewDelegate {
         let latestReview = latestReviewsPagableManager.objects[indexPath.row]
         takeActionFor(actionableObject: latestReview)
         
-        Analytics.logEvent(AnalyticsEvent.SelectAnItemInLatestReviews, parameters: nil)
+        Analytics.logEvent("select_an_item_in_latest_reviews", parameters: nil)
     }
 }
 

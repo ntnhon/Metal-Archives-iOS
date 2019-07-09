@@ -59,7 +59,7 @@ final class BrowseBandsResultViewController: RefreshableViewController {
             self.bandBrowsePagableManager.fetch()
         })
         
-        Analytics.logEvent(AnalyticsEvent.RefreshBrowseBandsResults, parameters: nil)
+        Analytics.logEvent("refresh_browse_bands_results", parameters: nil)
     }
 }
 
@@ -77,8 +77,6 @@ extension BrowseBandsResultViewController: PagableManagerDelegate {
         endRefreshing()
         updateTitle()
         tableView.reloadData()
-        
-        Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
     
     func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -95,7 +93,7 @@ extension BrowseBandsResultViewController: UITableViewDelegate {
             let band = bandBrowsePagableManager.objects[indexPath.row]
             pushBandDetailViewController(urlString: band.urlString, animated: true)
             
-            Analytics.logEvent(AnalyticsEvent.SelectABrowseBandsResult, parameters: [AnalyticsParameter.BandName: band.name, AnalyticsParameter.BandID: band.id])
+            Analytics.logEvent("select_a_browse_bands_result", parameters: ["band_name": band.name, "band_id": band.id])
         }
     }
     

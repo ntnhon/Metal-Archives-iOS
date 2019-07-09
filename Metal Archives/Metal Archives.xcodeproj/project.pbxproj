@@ -11,7 +11,6 @@
 		955E9CC6FE7F6F6E9D18A6D5 /* Pods_Metal_Archives_Widget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8BA00F138939FF255125F82 /* Pods_Metal_Archives_Widget.framework */; };
 		9B4B74CB68626BDBF23C6C58 /* Pods_Metal_Archives.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69197B05E0690D7395A5F473 /* Pods_Metal_Archives.framework */; };
 		C006FB16224900A000CA6CCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C006FB15224900A000CA6CCD /* GoogleService-Info.plist */; };
-		C006FB192249119000CA6CCD /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C006FB182249119000CA6CCD /* Analytics.swift */; };
 		C008388222008D1900B35996 /* UIViewController+CheckPhotoLibraryPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008388122008D1900B35996 /* UIViewController+CheckPhotoLibraryPermission.swift */; };
 		C008388422009ECE00B35996 /* Date+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008388322009ECE00B35996 /* Date+Distance.swift */; };
 		C00838872200F21200B35996 /* ReadMoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00838862200F21200B35996 /* ReadMoreViewController.swift */; };
@@ -543,7 +542,6 @@
 		B7BBA88E1D5C432A82827A4B /* Pods-Metal Archives Widget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Metal Archives Widget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Metal Archives Widget/Pods-Metal Archives Widget.debug.xcconfig"; sourceTree = "<group>"; };
 		B7C790FE63B41E66E0C050E7 /* Pods-Metal Archives Widget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Metal Archives Widget.release.xcconfig"; path = "Pods/Target Support Files/Pods-Metal Archives Widget/Pods-Metal Archives Widget.release.xcconfig"; sourceTree = "<group>"; };
 		C006FB15224900A000CA6CCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C006FB182249119000CA6CCD /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		C008388122008D1900B35996 /* UIViewController+CheckPhotoLibraryPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+CheckPhotoLibraryPermission.swift"; sourceTree = "<group>"; };
 		C008388322009ECE00B35996 /* Date+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Distance.swift"; sourceTree = "<group>"; };
 		C00838862200F21200B35996 /* ReadMoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreViewController.swift; sourceTree = "<group>"; };
@@ -1060,7 +1058,6 @@
 		C006FB172249117700CA6CCD /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
-				C006FB182249119000CA6CCD /* Analytics.swift */,
 				C0310A002266175000880B75 /* Crashlytics.swift */,
 			);
 			path = Analytics;
@@ -3709,7 +3706,6 @@
 				C053DD5B2226CA5F0028568B /* Formatter+withSeparator.swift in Sources */,
 				C0752965229ECC2B0067B5E1 /* ReleaseTableViewCell.swift in Sources */,
 				C033C4ED22D38EA9001294BA /* SimpleSearchTypeTableViewCell.swift in Sources */,
-				C006FB192249119000CA6CCD /* Analytics.swift in Sources */,
 				C0A48CEA222157520047FC70 /* Pagable.swift in Sources */,
 				C0ECE6FD221B20B100489A8E /* RolesInRelease.swift in Sources */,
 				C03270E0220B79BE009FA337 /* ReleaseOtherVersion.swift in Sources */,

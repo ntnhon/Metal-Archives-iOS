@@ -61,7 +61,7 @@ final class BrowseLabelsAlphabeticallyResultViewController: RefreshableViewContr
             self.browseLabelsAlphabeticallyPagableManager.fetch()
         }
         
-        Analytics.logEvent(AnalyticsEvent.RefreshBrowseLabelsAlphabeticallyResults, parameters: nil)
+        Analytics.logEvent("refresh_browse_labels_alphabetically_results", parameters: nil)
     }
 }
 
@@ -79,8 +79,6 @@ extension BrowseLabelsAlphabeticallyResultViewController: PagableManagerDelegate
         endRefreshing()
         updateTitle()
         tableView.reloadData()
-        
-        Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
     
     func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -106,7 +104,7 @@ extension BrowseLabelsAlphabeticallyResultViewController: UITableViewDelegate {
             pushLabelDetailViewController(urlString: label.urlString, animated: true)
         }
         
-        Analytics.logEvent(AnalyticsEvent.SelectABrowseLabelsResult, parameters: [AnalyticsParameter.LabelName: label.name, AnalyticsParameter.LabelID: label.id])
+        Analytics.logEvent("select_a_browse_labels_result", parameters: ["label_name": label.name, "label_id": label.id])
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

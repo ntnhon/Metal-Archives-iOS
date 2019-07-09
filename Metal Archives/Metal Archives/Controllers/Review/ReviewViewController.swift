@@ -70,7 +70,8 @@ final class ReviewViewController: DismissableOnSwipeViewController {
     @objc private func tableViewBackgroundViewTapped() {
         if let coverPhotoURLString = review.coverPhotoURLString {
             presentPhotoViewer(photoUrlString: coverPhotoURLString, description: "\(review.band.name) - \(review.release.title)", fromImageView: stretchyCoverSmokedImageView.imageView)
-            Analytics.logEvent(AnalyticsEvent.ViewReviewReleaseCover, parameters: [AnalyticsParameter.ReleaseTitle: review.release.title, AnalyticsParameter.ReviewTitle: review.title!])
+            
+            Analytics.logEvent("view_review_release_cover", parameters: ["release_title": review.release.title, "review_title": review.title!])
         }
     }
     
@@ -111,7 +112,7 @@ final class ReviewViewController: DismissableOnSwipeViewController {
                         self.tableView.reloadData()
                     }
                     
-                    Analytics.logEvent(AnalyticsEvent.ViewReview, parameters: [AnalyticsParameter.ReleaseTitle: review.release.title, AnalyticsParameter.ReviewTitle: review.title!])
+                    Analytics.logEvent("view_review", parameters: ["release_title": review.release.title, "review_title": review.title!])
                 }
             }
         }
@@ -126,7 +127,7 @@ final class ReviewViewController: DismissableOnSwipeViewController {
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
             self.presentAlertOpenURLInBrowsers(URL(string: self.urlString)!, alertTitle: "View this review in browser", alertMessage: "\(self.review.title!) - \(self.review.rating!)%", shareMessage: "Share this review URL")
             
-            Analytics.logEvent(AnalyticsEvent.ShareReview, parameters: [AnalyticsParameter.ReleaseTitle: self.review.release.title, AnalyticsParameter.ReviewTitle: self.review.title!])
+            Analytics.logEvent("share_review", parameters: ["release_title": self.review.release.title, "review_title": self.review.title!])
         }
     }
 }
@@ -167,6 +168,8 @@ extension ReviewViewController: ReviewDetailTableViewCellDelegate {
                 (parentViewController as! UINavigationController).viewControllers.first?.pushBandDetailViewController(urlString: self.review.band.urlString, animated: true)
             }
         }
+        
+        Analytics.logEvent("view_review_band", parameters: ["release_title": self.review.release.title, "review_title": self.review.title!])
     }
     
     func didTapReleaseTitleLabel() {
@@ -175,6 +178,8 @@ extension ReviewViewController: ReviewDetailTableViewCellDelegate {
                 (parentViewController as! UINavigationController).viewControllers.first?.pushReleaseDetailViewController(urlString: self.review.release.urlString, animated: true)
             }
         }
+        
+        Analytics.logEvent("view_review_release", parameters: ["release_title": self.review.release.title, "review_title": self.review.title!])
     }
     
     func didTapBaseVersionLabel() {
@@ -186,5 +191,7 @@ extension ReviewViewController: ReviewDetailTableViewCellDelegate {
                 (parentViewController as! UINavigationController).viewControllers.first?.pushReleaseDetailViewController(urlString: baseVersionUrlString, animated: true)
             }
         }
+        
+        Analytics.logEvent("view_review_base_version", parameters: ["release_title": self.review.release.title, "review_title": self.review.title!])
     }
 }

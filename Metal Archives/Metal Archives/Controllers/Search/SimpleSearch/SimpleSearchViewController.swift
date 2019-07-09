@@ -96,12 +96,12 @@ final class SimpleSearchViewController: UITableViewController {
             if let _ = sender as? ImFeelingLuckyView {
                 simpleSearchResultVC.isFeelingLucky = true
                 
-                Analytics.logEvent(AnalyticsEvent.FeelingLucky, parameters: nil)
+                Analytics.logEvent("feeling_lucky", parameters: nil)
             } else {
                 simpleSearchResultVC.isFeelingLucky = false
             }
 
-            Analytics.logEvent(AnalyticsEvent.PerformSimpleSearch, parameters: [AnalyticsParameter.SearchType: currentSimpleSearchType.description, AnalyticsParameter.SearchTerm: searchTermTextField.text!])
+            Analytics.logEvent("perform_simple_search", parameters: ["search_type": currentSimpleSearchType.description, "search_term": searchTermTextField.text!])
             
         default:
             break
@@ -149,7 +149,7 @@ extension SimpleSearchViewController: HorizontalOptionsViewDelegate {
     func horizontalOptionsView(_ horizontalOptionsView: HorizontalOptionsView, didSelectItemAt index: Int) {
         currentSimpleSearchType = SimpleSearchType(rawValue: index) ?? .bandName
         
-        Analytics.logEvent(AnalyticsEvent.ChangeSimpleSearchType, parameters: [AnalyticsParameter.SearchType: currentSimpleSearchType.description])
+        Analytics.logEvent("change_simple_search_type", parameters: ["search_type": currentSimpleSearchType.description])
     }
 }
 
@@ -183,6 +183,8 @@ extension SimpleSearchViewController {
             SearchHistory.clearAll(withManagedContext: self.managedContext)
             self.searchHistories.removeAll()
             self.tableView.reloadData()
+            
+            Analytics.logEvent("clear_search_history", parameters: nil)
         }
         
         headerView.isClearAllLabelHidden = searchHistories.count == 0

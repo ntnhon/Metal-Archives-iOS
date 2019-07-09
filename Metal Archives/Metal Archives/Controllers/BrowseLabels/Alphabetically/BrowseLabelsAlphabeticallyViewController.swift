@@ -14,6 +14,11 @@ final class BrowseLabelsAlphabeticallyViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     private var letters = Letter.allCases
+    
+    deinit {
+        print("BrowseLabelsAlphabeticallyViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //Remove "~"
@@ -50,7 +55,7 @@ final class BrowseLabelsAlphabeticallyViewController: BaseViewController {
             if let letter = sender as? Letter {
                 browseLabelsAlphabeticallyResultViewController.letter = letter
                 
-                Analytics.logEvent(AnalyticsEvent.PerformBrowseLabels, parameters: ["Module": "Alphabetically", AnalyticsParameter.Letter: letter.description])
+                Analytics.logEvent("perform_browse_label_alphabetically", parameters: ["letter": letter.description])
             }
             
         default:

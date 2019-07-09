@@ -180,9 +180,9 @@ final class PhotoViewerViewController: BaseViewController {
                 self.present(activityController, animated: true, completion: nil)
                 
                 if self.eyesOverlaid {
-                    Analytics.logEvent(AnalyticsEvent.ShareFunnyEyesPhoto, parameters: nil)
+                    Analytics.logEvent("share_funny_eyes_photo", parameters: nil)
                 } else {
-                    Analytics.logEvent(AnalyticsEvent.SharePhoto, parameters: nil)
+                    Analytics.logEvent("share_photo", parameters: nil)
                 }
             }
         }
@@ -207,9 +207,9 @@ final class PhotoViewerViewController: BaseViewController {
             Toast(text: "Photo successfully saved to your library!", duration: Delay.short).show()
             
             if self.eyesOverlaid {
-                Analytics.logEvent(AnalyticsEvent.SaveFunnyEyesPhoto, parameters: nil)
+                Analytics.logEvent("save_funny_eyes_photo", parameters: nil)
             } else {
-                Analytics.logEvent(AnalyticsEvent.SavePhoto, parameters: nil)
+                Analytics.logEvent("save_photo", parameters: nil)
             }
         }
     }
@@ -236,7 +236,7 @@ final class PhotoViewerViewController: BaseViewController {
                 })
             }
             
-            Analytics.logEvent(AnalyticsEvent.MakeFunnyEyes, parameters: nil)
+            Analytics.logEvent("make_funny_eyes", parameters: nil)
         } else {
             ToastCenter.default.cancelAll()
             Toast(text: "No 👀 detected", duration: Delay.short).show()

@@ -12,7 +12,7 @@ import FirebaseAnalytics
 func openReviewOnAppStore() {
     let appStoreURLString = "https://itunes.apple.com/app/id1074038930?action=write-review"
     UIApplication.shared.open(URL(string: appStoreURLString)!, options: [:]) { (finished) in
-        Analytics.logEvent(AnalyticsEvent.MadeAReview, parameters: nil)
+        Analytics.logEvent("made_a_review", parameters: nil)
     }
 }
 

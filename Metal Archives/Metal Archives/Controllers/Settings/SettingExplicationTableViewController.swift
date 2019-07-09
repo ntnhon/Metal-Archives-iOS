@@ -30,9 +30,9 @@ final class SettingExplicationTableViewController: UITableViewController {
         setText()
         
         if explainThumbnail {
-            Analytics.logEvent(AnalyticsEvent.ViewSettingsExplication, parameters: ["Module": "Explain thumbnail"])
+            Analytics.logEvent("view_settings_explication", parameters: ["Module": "Explain thumbnail"])
         } else if explainWidget {
-            Analytics.logEvent(AnalyticsEvent.ViewSettingsExplication, parameters: ["Module": "Explain widget"])
+            Analytics.logEvent("view_settings_explication", parameters: ["Module": "Explain widget"])
         }
     }
 

@@ -47,7 +47,7 @@ final class Top100BandsViewController: BaseViewController {
         top100NavigationBarView.didChangeBandTopType = { [unowned self] in
             self.tableView.reloadData()
             
-            Analytics.logEvent(AnalyticsEvent.ChangeSectionInTop100Bands, parameters: [AnalyticsParameter.SectionName: self.top100NavigationBarView.selectedBandTopType.description])
+            Analytics.logEvent("ChangeSectionInTop100Bands", parameters: ["section": self.top100NavigationBarView.selectedBandTopType.description])
         }
     }
 
@@ -88,7 +88,7 @@ extension Top100BandsViewController: UITableViewDelegate {
         if let `bandTop` = bandTop {
             pushBandDetailViewController(urlString: bandTop.urlString, animated: true)
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInTop100Bands, parameters: [AnalyticsParameter.SectionName: top100NavigationBarView.selectedBandTopType.description, AnalyticsParameter.BandName: bandTop.name, AnalyticsParameter.BandID: bandTop.id])
+            Analytics.logEvent("select_an_item_in_top_bands", parameters: ["section": top100NavigationBarView.selectedBandTopType.description, "band_name": bandTop.name, "band_id": bandTop.id])
         }
     }
 }

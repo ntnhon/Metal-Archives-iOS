@@ -52,7 +52,7 @@ final class ArtistRIPViewController: RefreshableViewController {
             self.artistRIPPagableManager.fetch()
         }
         
-        Analytics.logEvent(AnalyticsEvent.RefreshArtistRIP, parameters: nil)
+        Analytics.logEvent("refresh_artist_rip", parameters: nil)
     }
     
     private func updateTitle() {
@@ -96,7 +96,7 @@ extension ArtistRIPViewController: YearListViewControllerDelegate {
         tableView.reloadData()
         artistRIPPagableManager.fetch()
         
-        Analytics.logEvent(AnalyticsEvent.ChangeArtistRIPYear, parameters: [AnalyticsParameter.Year: year])
+        Analytics.logEvent("change_artist_rip_year", parameters: ["year": year])
     }
 }
 
@@ -121,8 +121,6 @@ extension ArtistRIPViewController: PagableManagerDelegate {
         endRefreshing()
         updateTitle()
         tableView.reloadData()
-        
-        Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
     
     func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -146,7 +144,7 @@ extension ArtistRIPViewController: UITableViewDelegate {
             let artist = artistRIPPagableManager.objects[indexPath.row]
             takeActionFor(actionableObject: artist)
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnArtistRIP, parameters: [AnalyticsParameter.ArtistName: artist.name, AnalyticsParameter.ArtistID: artist.id])
+            Analytics.logEvent("select_an_artist_rip", parameters: ["artist_name": artist.name, "artist_id": artist.id])
         }
     }
     

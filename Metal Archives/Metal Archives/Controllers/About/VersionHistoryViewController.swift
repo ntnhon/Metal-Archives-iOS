@@ -24,7 +24,7 @@ final class VersionHistoryViewController: BaseViewController {
     override func viewDidLoad() {
         loadHistories()
         super.viewDidLoad()
-        Analytics.logEvent(AnalyticsEvent.ViewVersionHistory, parameters: nil)
+        Analytics.logEvent("view_version_history", parameters: nil)
     }
     
     override func initAppearance() {

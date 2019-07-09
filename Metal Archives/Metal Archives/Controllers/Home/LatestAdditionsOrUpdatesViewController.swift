@@ -105,9 +105,9 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
         
         switch mode! {
         case .additions:
-            Analytics.logEvent(AnalyticsEvent.RefreshLatestAdditions, parameters: [AnalyticsParameter.SectionName: currentAdditionOrUpdateType.description])
+            Analytics.logEvent("refresh_latest_additions", parameters: ["section": currentAdditionOrUpdateType.description])
         case .updates:
-            Analytics.logEvent(AnalyticsEvent.RefreshLatestUpdates, parameters: [AnalyticsParameter.SectionName: currentAdditionOrUpdateType.description])
+            Analytics.logEvent("refresh_latest_updates", parameters: ["section": currentAdditionOrUpdateType.description])
         }
         
     }
@@ -182,9 +182,9 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
             
             switch self.mode! {
             case .additions:
-                Analytics.logEvent(AnalyticsEvent.ChangeSectionInLatestAdditions, parameters: [AnalyticsParameter.SectionName: self.currentAdditionOrUpdateType.description])
+                Analytics.logEvent("change_section_in_latest_additions", parameters: ["section": self.currentAdditionOrUpdateType.description])
             case .updates:
-                Analytics.logEvent(AnalyticsEvent.ChangeSectionInLatestUpdates, parameters: [AnalyticsParameter.SectionName: self.currentAdditionOrUpdateType.description])
+                Analytics.logEvent("change_section_in_latest_updates", parameters: ["section": self.currentAdditionOrUpdateType.description])
             }
         }
     }
@@ -273,13 +273,6 @@ extension LatestAdditionsOrUpdatesViewController: PagableManagerDelegate {
         updateMessageLabel()
         refreshSuccessfully()
         tableView.reloadData()
-        
-        switch mode! {
-        case .additions:
-            Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: ["Module": "Latest additions", AnalyticsParameter.SectionName: currentAdditionOrUpdateType.description])
-        case .updates:
-            Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: ["Module": "Latest updates", AnalyticsParameter.SectionName: currentAdditionOrUpdateType.description])
-        }
     }
     
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -356,9 +349,9 @@ extension LatestAdditionsOrUpdatesViewController: MonthListViewControllerDelegat
         
         switch mode! {
         case .additions:
-            Analytics.logEvent(AnalyticsEvent.ChangeMonthInLatestAdditions, parameters: [AnalyticsParameter.Month: selectedMonth.shortDisplayString])
+            Analytics.logEvent("change_month_in_latest_additions", parameters: ["month": selectedMonth.shortDisplayString])
         case .updates:
-            Analytics.logEvent(AnalyticsEvent.ChangeMonthInLatestUpdates, parameters: [AnalyticsParameter.Month: selectedMonth.shortDisplayString])
+            Analytics.logEvent("change_month_in_latest_updates", parameters: ["month": selectedMonth.shortDisplayString])
         }
     }
 }
@@ -438,13 +431,13 @@ extension LatestAdditionsOrUpdatesViewController {
             let band = bandAdditionPagableManager.objects[indexPath.row]
             bandURLString = band.urlString
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInLatestAdditions, parameters: [AnalyticsParameter.ItemType: "Band", AnalyticsParameter.BandName: band.name, AnalyticsParameter.BandID: band.id])
+            Analytics.logEvent("select_an_item_in_latest_additions", parameters: ["band": "Band", "band_name": band.name, "band_id": band.id])
             
         case .updates:
             let band = bandUpdatePagableManager.objects[indexPath.row]
             bandURLString = band.urlString
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInLatestUpdates, parameters: [AnalyticsParameter.ItemType: "Band", AnalyticsParameter.BandName: band.name, AnalyticsParameter.BandID: band.id])
+            Analytics.logEvent("select_an_item_in_latest_updates", parameters: ["item_type": "Band", "band_name": band.name, "band_id": band.id])
         }
         
         if let `bandURLString` = bandURLString {
@@ -546,13 +539,13 @@ extension LatestAdditionsOrUpdatesViewController {
             let label = labelAdditionPagableManager.objects[indexPath.row]
             labelURLString = label.urlString
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInLatestAdditions, parameters: [AnalyticsParameter.ItemType: "Label", AnalyticsParameter.LabelName: label.name, AnalyticsParameter.LabelID: label.id])
+            Analytics.logEvent("select_an_item_in_latest_additions", parameters: ["item_type": "Label", "label_name": label.name, "label_id": label.id])
             
         case .updates:
             let label = labelUpdatePagableManager.objects[indexPath.row]
             labelURLString = label.urlString
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInLatestUpdates, parameters: [AnalyticsParameter.ItemType: "Label", AnalyticsParameter.LabelName: label.name, AnalyticsParameter.LabelID: label.id])
+            Analytics.logEvent("select_an_item_in_latest_updates", parameters: ["item_type": "Label", "label_name": label.name, "label_id": label.id])
         }
         
         if let labelURLString = labelURLString {
@@ -654,12 +647,12 @@ extension LatestAdditionsOrUpdatesViewController {
         case .additions:
             artist = artistAdditionPagableManager.objects[indexPath.row]
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInLatestAdditions, parameters: [AnalyticsParameter.ItemType: "Artist", AnalyticsParameter.ArtistName: artist!.nameInBand, AnalyticsParameter.ArtistID: artist!.id])
+            Analytics.logEvent("select_an_item_in_latest_additions", parameters: ["item_type": "Artist", "artist_name": artist!.nameInBand, "artist_id": artist!.id])
             
         case .updates:
             artist = artistUpdatePagableManager.objects[indexPath.row]
             
-            Analytics.logEvent(AnalyticsEvent.SelectAnItemInLatestUpdates, parameters: [AnalyticsParameter.ItemType: "Artist", AnalyticsParameter.ArtistName: artist!.nameInBand, AnalyticsParameter.ArtistID: artist!.id])
+            Analytics.logEvent("select_an_item_in_latest_updates", parameters: ["item_type": "Artist", "artist_name": artist!.nameInBand, "artist_id": artist!.id])
         }
         
         if let `artist` = artist {

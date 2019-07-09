@@ -72,13 +72,13 @@ extension AppDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 NotificationCenter.default.post(name: NSNotification.Name.OpenSearchModule, object: nil)
             }
-            Analytics.logEvent(AnalyticsEvent.OpenFromShortcut, parameters: [AnalyticsParameter.Shortcut: "Search"])
+            Analytics.logEvent("open_from_shortcut", parameters: ["shortcut": "Search"])
             
         case "random":
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 NotificationCenter.default.post(name: NSNotification.Name.ShowRandomBand, object: nil)
             }
-            Analytics.logEvent(AnalyticsEvent.OpenFromShortcut, parameters: [AnalyticsParameter.Shortcut: "Random"])
+            Analytics.logEvent("open_from_shortcut", parameters: ["shortcut": "Random"])
             
         default:
             break
@@ -96,21 +96,21 @@ extension AppDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 NotificationCenter.default.post(name: NSNotification.Name.ShowBandDetail, object: bandURLString)
             }
-            Analytics.logEvent(AnalyticsEvent.OpenFromWidget, parameters: [AnalyticsParameter.WidgetItem: "Band"])
+            Analytics.logEvent("open_from_widget", parameters: ["widget_item": "Band"])
             
         case "review":
             let reviewURLString = url.absoluteString.replacingOccurrences(of: "ma://review/", with: "")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 NotificationCenter.default.post(name: NSNotification.Name.ShowReviewDetail, object: reviewURLString)
             }
-            Analytics.logEvent(AnalyticsEvent.OpenFromWidget, parameters: [AnalyticsParameter.WidgetItem: "Review"])
+            Analytics.logEvent("open_from_widget", parameters: ["widget_item": "Review"])
             
         case "release":
             let releaseURLString = url.absoluteString.replacingOccurrences(of: "ma://release/", with: "")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 NotificationCenter.default.post(name: NSNotification.Name.ShowReleaseDetail, object: releaseURLString)
             }
-            Analytics.logEvent(AnalyticsEvent.OpenFromWidget, parameters: [AnalyticsParameter.WidgetItem: "Release"])
+            Analytics.logEvent("open_from_widget", parameters: ["widget_item": "Release"])
             
         default:
             break
@@ -151,43 +151,39 @@ extension AppDelegate {
         //Register for Push Notification
         UNUserNotificationCenter.current().delegate = self
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (allow, error) in
-            if allow {
-                Analytics.logEvent(AnalyticsEvent.AllowPushNotification, parameters: nil)
-            } else {
-                Analytics.logEvent(AnalyticsEvent.NotAllowPushNotification, parameters: nil)
-            }
-        }
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_,_ in
+            
+        })
         Messaging.messaging().delegate = self
         
         //Log app settings
         switch Settings.currentTheme! {
-        case .default: Analytics.logEvent(AnalyticsEvent.UseThemeDefault, parameters: nil)
-        case .light: Analytics.logEvent(AnalyticsEvent.UseThemeLight, parameters: nil)
-        case .vintage: Analytics.logEvent(AnalyticsEvent.UseThemeVintage, parameters: nil)
-        case .unicorn: Analytics.logEvent(AnalyticsEvent.UseThemeUnicorn, parameters: nil)
+        case .default: Analytics.logEvent("use_theme_default", parameters: nil)
+        case .light: Analytics.logEvent("use_theme_light", parameters: nil)
+        case .vintage: Analytics.logEvent("use_theme_vintage", parameters: nil)
+        case .unicorn: Analytics.logEvent("use_theme_unicorn", parameters: nil)
         }
         
         if UserDefaults.thumbnailEnabled() {
-            Analytics.logEvent(AnalyticsEvent.EnabledThumbnail, parameters: nil)
+            Analytics.logEvent("enabled_thumbnail", parameters: nil)
         } else {
-            Analytics.logEvent(AnalyticsEvent.DisabledThumbnail, parameters: nil)
+            Analytics.logEvent("disabled_thumbnail", parameters: nil)
         }
         
         switch Settings.currentFontSize! {
-        case .default: Analytics.logEvent(AnalyticsEvent.UseFontSizeDefault, parameters: nil)
-        case .medium: Analytics.logEvent(AnalyticsEvent.UseFontSizeMedium, parameters: nil)
-        case .large: Analytics.logEvent(AnalyticsEvent.UseFontSizeLarge, parameters: nil)
+        case .default: Analytics.logEvent("use_font_size_default", parameters: nil)
+        case .medium: Analytics.logEvent("use_font_size_medium", parameters: nil)
+        case .large: Analytics.logEvent("use_font_size_large", parameters: nil)
         }
         
         if UserDefaults.choosenWidgetSections().count == 1 {
-            Analytics.logEvent(AnalyticsEvent.TodayWidget1Section, parameters: ["widget_name": UserDefaults.choosenWidgetSections()[0].description])
+            Analytics.logEvent("today_widget_1_section", parameters: ["widget_name": UserDefaults.choosenWidgetSections()[0].description])
         } else if UserDefaults.choosenWidgetSections().count == 2 {
             let widgetNames = UserDefaults.choosenWidgetSections().map({$0.description}).joined(separator: ", ")
-            Analytics.logEvent(AnalyticsEvent.TodayWidget2Sections, parameters: ["widget_name": widgetNames])
+            Analytics.logEvent("today_widget_2_sections", parameters: ["widget_name": widgetNames])
         }
         
-        Analytics.logEvent(AnalyticsEvent.NumberOfSessions, parameters: ["count": UserDefaults.numberOfSessions()])
+        Analytics.logEvent("num_of_sessions", parameters: ["count": UserDefaults.numberOfSessions()])
     }
     
     private func initAppearance() {
@@ -248,16 +244,16 @@ extension AppDelegate {
             case .success(let updateResults):
                 switch updateResults.alertAction {
                 case .appStore:
-                    Analytics.logEvent(AnalyticsEvent.OpenAppStoreToUpdate, parameters: nil)
+                    Analytics.logEvent("open_app_store_to_update", parameters: nil)
                 case .nextTime:
-                    Analytics.logEvent(AnalyticsEvent.UpdateNextTime, parameters: nil)
+                    Analytics.logEvent("update_next_time", parameters: nil)
                 case .skip:
-                    Analytics.logEvent(AnalyticsEvent.SkipUpdate, parameters: nil)
+                    Analytics.logEvent("skip_update", parameters: nil)
                 case .unknown:
                     return
                 }
             case .failure(let error):
-                Analytics.logEvent(AnalyticsEvent.ErrorCheckingUpdate, parameters: ["error": error.localizedDescription])
+                Analytics.logEvent("error_checking_update", parameters: ["error": error.localizedDescription])
             }
         }
     }

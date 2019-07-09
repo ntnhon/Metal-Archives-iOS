@@ -17,7 +17,7 @@ final class SearchTipsViewController: DismissableOnSwipeViewController {
         super.viewDidLoad()
         showTips()
         handleSimpleNavigationBarViewActions()
-        Analytics.logEvent(AnalyticsEvent.ViewSearchTips, parameters: nil)
+        Analytics.logEvent("view_search_tips", parameters: nil)
     }
     
     override func viewDidLayoutSubviews() {

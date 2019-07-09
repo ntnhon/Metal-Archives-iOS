@@ -46,7 +46,7 @@ final class Top100AlbumsViewController: BaseViewController {
         top100NavigationBarView.didChangeAlbumTopType = { [unowned self] in
             self.tableView.reloadData()
             
-            Analytics.logEvent(AnalyticsEvent.ChangeSectionInTop100Albums, parameters: [AnalyticsParameter.SectionName: self.top100NavigationBarView.selectedAlbumTopType.description])
+            Analytics.logEvent("change_section_in_top_albums", parameters: ["section": self.top100NavigationBarView.selectedAlbumTopType.description])
         }
     }
     
@@ -86,7 +86,7 @@ extension Top100AlbumsViewController: UITableViewDelegate {
         }
         takeActionFor(actionableObject: album)
         
-        Analytics.logEvent(AnalyticsEvent.SelectAnItemInTop100Albums, parameters: [AnalyticsParameter.SectionName: top100NavigationBarView.selectedAlbumTopType.description, AnalyticsParameter.ReleaseTitle: album.release.title, AnalyticsParameter.ReleaseID: album.release.id])
+        Analytics.logEvent("select_an_item_in_top_albums", parameters: nil)
     }
 }
 

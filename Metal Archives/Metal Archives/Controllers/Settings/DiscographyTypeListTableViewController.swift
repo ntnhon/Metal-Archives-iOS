@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAnalytics
 
 protocol DiscographyTypeListTableViewControllerDelegate {
     func didChangeDiscographyType()
@@ -92,8 +91,6 @@ final class DiscographyTypeListTableViewController: UITableViewController {
         
         UserDefaults.setDiscographyType(selectedDiscographyType)
         delegate?.didChangeDiscographyType()
-        
-        Analytics.logEvent(AnalyticsEvent.ChangeDefaultDiscographyType, parameters: nil)
     }
 }
 

@@ -118,7 +118,7 @@ final class AdvancedSearchSongsViewController: BaseAdvancedSearchTableViewContro
         
         self.performSegue(withIdentifier: "ShowResult", sender: optionsList)
         
-        Analytics.logEvent(AnalyticsEvent.PerformAdvancedSearch, parameters: [AnalyticsParameter.SearchType: "Advanced Search Songs"])
+        Analytics.logEvent("perform_advanced_search_songs", parameters: nil)
     }
 }
 
@@ -136,7 +136,7 @@ extension AdvancedSearchSongsViewController: AdvancedSearchReleaseTypeListViewCo
         self.updateReleaseTypeLabel()
         self.tableView.reloadData()
         
-        Analytics.logEvent(AnalyticsEvent.ChangeAdvancedSearchOption, parameters: [AnalyticsParameter.AdvancedSearchOption: "Release types"])
+        Analytics.logEvent("change_advanced_search_option", parameters: ["option": "Release types"])
     }
     
     private func generateSelectedReleaseTypeString() -> String {

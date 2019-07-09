@@ -101,7 +101,7 @@ final class ArtistDetailViewController: BaseViewController {
                         
                         self.historyRecordableDelegate?.loaded(urlString: artist.urlString, nameOrTitle: artist.bandMemberName, thumbnailUrlString: artist.photoURLString, objectType: .artist)
                         
-                        Analytics.logEvent(AnalyticsEvent.ViewArtist, parameters: [AnalyticsParameter.ArtistName: artist.bandMemberName!, AnalyticsParameter.ArtistID: artist.id!])
+                        Analytics.logEvent("view_artist", parameters: ["artist_name": artist.bandMemberName!, "artist_id": artist.id!])
                     }
                 }
             }
@@ -221,6 +221,8 @@ final class ArtistDetailViewController: BaseViewController {
     
     @objc private func tableViewBackgroundViewTapped() {
         presentArtistInPhotoViewer()
+        
+        Analytics.logEvent("view_artist_photo", parameters: nil)
     }
     
     private func presentArtistInPhotoViewer() {
@@ -268,7 +270,7 @@ final class ArtistDetailViewController: BaseViewController {
             
             self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(artist.bandMemberName!) in browser", alertMessage: artist.urlString, shareMessage: "Share this artist URL")
             
-            Analytics.logEvent(AnalyticsEvent.ShareRelease, parameters: nil)
+            Analytics.logEvent("share_artist", parameters: nil)
         }
     }
     
@@ -452,8 +454,12 @@ extension ArtistDetailViewController {
         
         if let rolesInBand = roles as? RolesInBand, let bandURLString = rolesInBand.bandURLString {
             pushBandDetailViewController(urlString: bandURLString, animated: true)
+            
+            Analytics.logEvent("select_artist_roles_in_band", parameters: nil)
         } else if let rolesInRelease = roles as? RolesInRelease {
             pushReleaseDetailViewController(urlString: rolesInRelease.releaseURLString, animated: true)
+            
+            Analytics.logEvent("select_artist_roles_in_release", parameters: nil)
         }
     }
 }
@@ -487,6 +493,8 @@ extension ArtistDetailViewController {
         
         let link = links[indexPath.row]
         presentAlertOpenURLInBrowsers(URL(string: link.urlString)!, alertTitle: "Open this link in browser", alertMessage: link.urlString, shareMessage: "Share this link")
+        
+        Analytics.logEvent("select_artist_link", parameters: nil)
     }
 }
 
@@ -495,6 +503,16 @@ extension ArtistDetailViewController: HorizontalMenuViewDelegate {
     func horizontalMenu(_ horizontalMenu: HorizontalMenuView, didSelectItemAt index: Int) {
         currentArtistInfoType = artistInfoTypes[index]
         pinHorizontalMenuViewThenRefreshAndScrollTableView()
+        
+        switch currentArtistInfoType! {
+        case .pastBands: Analytics.logEvent("view_artist_past_bands", parameters: nil)
+        case .activeBands: Analytics.logEvent("view_artist_active_bands", parameters: nil)
+        case .guestSession: Analytics.logEvent("view_artist_guest_session", parameters: nil)
+        case .miscStaff: Analytics.logEvent("view_artist_misc_staff", parameters: nil)
+        case .live: Analytics.logEvent("view_artist_live", parameters: nil)
+        case .biography: Analytics.logEvent("view_artist_biography", parameters: nil)
+        case .links: Analytics.logEvent("view_artist_past_links", parameters: nil)
+        }
     }
     
     private func pinHorizontalMenuViewThenRefreshAndScrollTableView() {

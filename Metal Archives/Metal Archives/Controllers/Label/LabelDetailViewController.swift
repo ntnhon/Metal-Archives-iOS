@@ -100,7 +100,7 @@ final class LabelDetailViewController: BaseViewController {
                     self.historyRecordableDelegate?.loaded(urlString: label.urlString, nameOrTitle: label.name, thumbnailUrlString: label.logoURLString, objectType: .label)
                 }
                 
-                Analytics.logEvent(AnalyticsEvent.ViewLabel, parameters: [AnalyticsParameter.LabelName: label.name!, AnalyticsParameter.LabelID: label.id!])
+                Analytics.logEvent("view_label", parameters: nil)
             }
         }
     }
@@ -213,7 +213,7 @@ final class LabelDetailViewController: BaseViewController {
             
             self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(label.name!) in browser", alertMessage: label.urlString, shareMessage: "Share this label URL")
             
-            Analytics.logEvent(AnalyticsEvent.ShareLabel, parameters: nil)
+            Analytics.logEvent("share_label", parameters: nil)
         }
     }
     
@@ -361,6 +361,8 @@ extension LabelDetailViewController {
         cell.tappedLastModifiedOnLabel = { [unowned self] in
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
+            
+            Analytics.logEvent("view_label_last_modified_date", parameters: nil)
         }
         
         cell.tappedWebsite = { [unowned self] in
@@ -370,14 +372,14 @@ extension LabelDetailViewController {
             
             self.presentAlertOpenURLInBrowsers(url, alertTitle: "Open this link in browser", alertMessage: website.urlString, shareMessage: "Share this link")
             
-            Analytics.logEvent(AnalyticsEvent.ViewLabelWebsite, parameters: [AnalyticsParameter.LabelName: label.name!, AnalyticsParameter.LabelID: label.id!])
+            Analytics.logEvent("view_label_website", parameters: nil)
         }
         
         cell.tappedParentLabel = { [unowned self] in
             guard let parentLabel = self.label.parentLabel else { return }
             self.pushLabelDetailViewController(urlString: parentLabel.urlString, animated: true)
             
-            Analytics.logEvent(AnalyticsEvent.ViewLabelParentLabel, parameters: [AnalyticsParameter.LabelName: label.name!, AnalyticsParameter.LabelID: label.id!])
+            Analytics.logEvent("view_label_parent_label", parameters: nil)
         }
         
         return cell
@@ -414,6 +416,8 @@ extension LabelDetailViewController {
         
         let subLabel = label.subLabels![indexPath.row]
         pushLabelDetailViewController(urlString: subLabel.urlString, animated: true)
+        
+        Analytics.logEvent("select_label_sublabel", parameters: nil)
     }
 }
 
@@ -422,6 +426,16 @@ extension LabelDetailViewController: HorizontalMenuViewDelegate {
     func horizontalMenu(_ horizontalMenu: HorizontalMenuView, didSelectItemAt index: Int) {
         currentLabelMenuOption = labelMenuOptions[index]
         pinHorizontalMenuViewThenRefreshAndScrollTableView()
+        
+        switch currentLabelMenuOption! {
+        case .subLabels: Analytics.logEvent("view_label_sub_labels", parameters: nil)
+        case .currentRoster: Analytics.logEvent("view_label_current_roster", parameters: nil)
+        case .pastRoster: Analytics.logEvent("view_label_past_roster", parameters: nil)
+        case .lastKnownRoster: Analytics.logEvent("view_label_lastknown_roster", parameters: nil)
+        case .releases: Analytics.logEvent("view_label_releases", parameters: nil)
+        case .additionalNotes: Analytics.logEvent("view_label_additional_notes", parameters: nil)
+        case .links: Analytics.logEvent("view_label_links", parameters: nil)
+        }
     }
     
     private func pinHorizontalMenuViewThenRefreshAndScrollTableView() {
@@ -477,6 +491,8 @@ extension LabelDetailViewController {
         
         let roster = label.currentRosterPagableManager.objects[indexPath.row]
         pushBandDetailViewController(urlString: roster.urlString, animated: true)
+        
+        Analytics.logEvent("select_label_current_lastknown_roster", parameters: nil)
     }
     
     private func pastRosterTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -511,6 +527,8 @@ extension LabelDetailViewController {
         
         let pastRoster = label.pastRosterPagableManager.objects[indexPath.row]
         pushBandDetailViewController(urlString: pastRoster.urlString, animated: true)
+        
+        Analytics.logEvent("select_label_past_roster", parameters: nil)
     }
 }
 
@@ -541,6 +559,8 @@ extension LabelDetailViewController {
         
         let link = links[indexPath.row]
         presentAlertOpenURLInBrowsers(URL(string: link.urlString)!, alertTitle: "Open this link in browser", alertMessage: link.urlString, shareMessage: "Share this link")
+        
+        Analytics.logEvent("select_label_link", parameters: nil)
     }
 }
 
@@ -578,6 +598,8 @@ extension LabelDetailViewController {
         
         let release = label.releasesPagableManager.objects[indexPath.row]
         takeActionFor(actionableObject: release)
+        
+        Analytics.logEvent("select_label_release", parameters: nil)
     }
 }
 
@@ -589,8 +611,6 @@ extension LabelDetailViewController: PagableManagerDelegate {
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
         self.tableView.reloadSections([1], with: .automatic)
-        
-        Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
     
     func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
