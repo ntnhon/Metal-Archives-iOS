@@ -36,6 +36,8 @@ public class SearchHistory: NSManagedObject {
             return
         }
         
+        removeOldestEntryIfNecessary(withManagedContext: managedContext)
+        
         let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: managedContext)!
         let searchHistory = SearchHistory(entity: entity, insertInto: managedContext)
         searchHistory.term = term
@@ -74,6 +76,8 @@ public class SearchHistory: NSManagedObject {
         guard !moveToTopIfExist(withManagedContext: managedContext, urlString: urlString) else {
             return
         }
+        
+        removeOldestEntryIfNecessary(withManagedContext: managedContext)
         
         let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: managedContext)!
         let searchHistory = SearchHistory(entity: entity, insertInto: managedContext)
@@ -118,6 +122,24 @@ public class SearchHistory: NSManagedObject {
         do {
             entities = try managedContext.fetch(fetchRequest)
             entities.forEach({managedContext.delete($0)})
+            try managedContext.save()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+    }
+    
+    private class func removeOldestEntryIfNecessary(withManagedContext managedContext: NSManagedObjectContext) {
+        let fetchRequest = NSFetchRequest<SearchHistory>(entityName: "SearchHistory")
+        var entities: [SearchHistory] = []
+        
+        do {
+            entities = try managedContext.fetch(fetchRequest)
+            
+            if entities.count > Settings.historyMaxCapacity - 1 {
+                managedContext.delete(entities[0])
+            }
+            
             try managedContext.save()
         } catch {
             let nserror = error as NSError

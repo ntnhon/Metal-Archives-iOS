@@ -42,6 +42,8 @@ struct Settings {
     static let spaceBetweenInfoAndDetailSection: CGFloat = 20
     
     static let animationDuration: TimeInterval = 0.35
+    
+    static let historyMaxCapacity = 100
 }
 
 enum FontSize: Int, CustomStringConvertible {
