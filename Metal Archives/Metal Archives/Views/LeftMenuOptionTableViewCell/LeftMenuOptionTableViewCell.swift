@@ -14,25 +14,19 @@ final class LeftMenuOptionTableViewCell: UITableViewCell, RegisterableCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.initAppearance()
+        initAppearance()
     }
     
     private func initAppearance() {
-        self.backgroundColor = Settings.currentTheme.leftMenuOptionBackgroundColor
-        self.optionLabel.textColor = Settings.currentTheme.menuTitleColor
-        self.optionLabel.font = Settings.currentFontSize.bodyTextFont
+        backgroundColor = Settings.currentTheme.leftMenuOptionBackgroundColor
+        optionLabel.textColor = Settings.currentTheme.menuTitleColor
+        optionLabel.font = Settings.currentFontSize.metalBodyTextFont
         
-        self.optionIconImageView.tintColor = Settings.currentTheme.menuTitleColor
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        optionIconImageView.tintColor = Settings.currentTheme.menuTitleColor
     }
     
     func initOption(iconName: String, optionName: String) {
-        self.optionIconImageView.image = UIImage(named: iconName)
-        self.optionLabel.text = optionName
+        optionIconImageView.image = UIImage(named: iconName)
+        optionLabel.text = optionName
     }
 }

@@ -312,6 +312,13 @@ extension ReleaseDetailViewController {
         releaseInfoTableViewCell = cell
         cell.fill(with: release)
         
+        cell.tappedBandNameLabel = { [unowned self] in
+            guard let bandUrlString = release.band?.urlString else { return }
+            self.pushBandDetailViewController(urlString: bandUrlString, animated: true)
+            
+            Analytics.logEvent("view_release_band", parameters: nil)
+        }
+        
         cell.tappedLastModifiedOnLabel = { [unowned self] in
             self.tableView.beginUpdates()
             self.tableView.endUpdates()

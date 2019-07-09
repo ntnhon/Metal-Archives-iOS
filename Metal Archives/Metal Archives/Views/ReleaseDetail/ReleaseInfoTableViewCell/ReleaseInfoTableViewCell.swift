@@ -23,6 +23,7 @@ final class ReleaseInfoTableViewCell: BaseTableViewCell, RegisterableCell {
     private unowned var release: Release!
     private var fullyDisplayLastModifiedOnDate = false
     
+    var tappedBandNameLabel: (() -> Void)?
     var tappedLastModifiedOnLabel: (() -> Void)?
     var tappedLabelLabel: (() -> Void)?
     
@@ -39,6 +40,12 @@ final class ReleaseInfoTableViewCell: BaseTableViewCell, RegisterableCell {
             $0.textColor = Settings.currentTheme.bodyTextColor
             $0.font = Settings.currentFontSize.bodyTextFont
         })
+        
+        let bandNameLabelTap = UITapGestureRecognizer(target: self, action: #selector(didTapBandNameLabel))
+        bandNameLabel.isUserInteractionEnabled = true
+        bandNameLabel.addGestureRecognizer(bandNameLabelTap)
+        bandNameLabel.textColor = Settings.currentTheme.secondaryTitleColor
+        bandNameLabel.font = Settings.currentFontSize.secondaryTitleFont
         
         let lastLabelLabelTap = UITapGestureRecognizer(target: self, action: #selector(didTapLabelLabel))
         labelLabel.isUserInteractionEnabled = true
@@ -104,6 +111,10 @@ final class ReleaseInfoTableViewCell: BaseTableViewCell, RegisterableCell {
             let (value, unit) = lastModifiedOnDate.distanceFromNow()
             lastModifiedOnLabel.text = "Updated \(value) \(unit) ago"
         }
+    }
+    
+    @objc private func didTapBandNameLabel() {
+        tappedBandNameLabel?()
     }
     
     @objc private func didTapLabelLabel() {

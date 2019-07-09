@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.askForReview()
         self.checkNewVersion()
         application.registerForRemoteNotifications()
+        
         return true
     }
 }

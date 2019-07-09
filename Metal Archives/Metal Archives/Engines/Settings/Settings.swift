@@ -68,6 +68,17 @@ enum FontSize: Int, CustomStringConvertible {
         }
     }
     
+    var largeMetalTitleFont: UIFont {
+        switch self {
+        case .default:
+            return UIFont(name: "NewRocker-Regular", size: 25) ?? largeTitleFont
+        case .medium:
+            return UIFont(name: "NewRocker-Regular", size: 27) ?? largeTitleFont
+        case .large:
+            return UIFont(name: "NewRocker-Regular", size: 29) ?? largeTitleFont
+        }
+    }
+    
     var titleFont: UIFont {
         switch self {
         case .default:
@@ -109,6 +120,17 @@ enum FontSize: Int, CustomStringConvertible {
             return UIFont.systemFont(ofSize: 16, weight: .bold)
         case .large:
             return UIFont.systemFont(ofSize: 18, weight: .bold)
+        }
+    }
+    
+    var metalBodyTextFont: UIFont {
+        switch self {
+        case .default:
+            return UIFont(name: "NewRocker-Regular", size: 14) ?? bodyTextFont
+        case .medium:
+            return UIFont(name: "NewRocker-Regular", size: 16) ?? bodyTextFont
+        case .large:
+            return UIFont(name: "NewRocker-Regular", size: 18) ?? bodyTextFont
         }
     }
     

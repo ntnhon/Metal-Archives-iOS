@@ -36,7 +36,7 @@ final class NewsTableViewCell: BaseTableViewCell, RegisterableCell {
         super.initAppearance()
         
         titleLabel.textColor = Settings.currentTheme.bodyTextColor
-        titleLabel.font = Settings.currentFontSize.largeTitleFont
+        titleLabel.font = Settings.currentFontSize.largeMetalTitleFont
         
         seeAllButton.setTitleColor(Settings.currentTheme.titleColor, for: .normal)
         seeAllButton.titleLabel?.font = Settings.currentFontSize.secondaryTitleFont

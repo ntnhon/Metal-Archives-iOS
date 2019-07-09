@@ -430,6 +430,7 @@
 		C0AABDF1221DEEE10044A2CF /* UpcomingAlbumTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0AABDF0221DEEE10044A2CF /* UpcomingAlbumTableViewCell.xib */; };
 		C0AF0A9122D47E05004B085F /* SearchHistory+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AF0A9022D47E05004B085F /* SearchHistory+CoreDataClass.swift */; };
 		C0AF0A9422D48B6B004B085F /* SearchHistoryTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AF0A9322D48B6B004B085F /* SearchHistoryTableHeaderView.swift */; };
+		C0AF0A9622D4FC6F004B085F /* NewRocker-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0AF0A9522D4FC6E004B085F /* NewRocker-Regular.ttf */; };
 		C0B990CD22079222000DBD86 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B990CC22079222000DBD86 /* ReviewTableViewCell.swift */; };
 		C0B990CF22079240000DBD86 /* ReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B990CE22079240000DBD86 /* ReviewTableViewCell.xib */; };
 		C0B990D122079904000DBD86 /* UIColor+colorByRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B990D022079904000DBD86 /* UIColor+colorByRating.swift */; };
@@ -932,6 +933,7 @@
 		C0AABDF0221DEEE10044A2CF /* UpcomingAlbumTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingAlbumTableViewCell.xib; sourceTree = "<group>"; };
 		C0AF0A9022D47E05004B085F /* SearchHistory+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SearchHistory+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C0AF0A9322D48B6B004B085F /* SearchHistoryTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableHeaderView.swift; sourceTree = "<group>"; };
+		C0AF0A9522D4FC6E004B085F /* NewRocker-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NewRocker-Regular.ttf"; sourceTree = "<group>"; };
 		C0B990CC22079222000DBD86 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		C0B990CE22079240000DBD86 /* ReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewTableViewCell.xib; sourceTree = "<group>"; };
 		C0B990D022079904000DBD86 /* UIColor+colorByRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+colorByRating.swift"; sourceTree = "<group>"; };
@@ -2046,6 +2048,7 @@
 				C00D3627223D848000B29B43 /* OpenSourceLibraries.plist */,
 				C006FB15224900A000CA6CCD /* GoogleService-Info.plist */,
 				C06E92D022538FB9006EE887 /* VersionHistory.plist */,
+				C0AF0A9522D4FC6E004B085F /* NewRocker-Regular.ttf */,
 			);
 			path = Ressources;
 			sourceTree = "<group>";
@@ -3227,6 +3230,7 @@
 				C06E92D122538FB9006EE887 /* VersionHistory.plist in Resources */,
 				C03270DE220B47A4009FA337 /* ReleaseReviewTableViewCell.xib in Resources */,
 				C0BE339721E68CDF001ED000 /* Assets.xcassets in Resources */,
+				C0AF0A9622D4FC6F004B085F /* NewRocker-Regular.ttf in Resources */,
 				C051B6B72219FDEB0030E5EE /* ReviewDetailTableViewCell.xib in Resources */,
 				C053DD772226EE580028568B /* AlbumTopTableViewCell.xib in Resources */,
 				C0B990CF22079240000DBD86 /* ReviewTableViewCell.xib in Resources */,

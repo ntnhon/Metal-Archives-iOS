@@ -46,7 +46,7 @@
 		<true/>
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow to save photos to your device (band's photo, logo, release's artwork...)</string>
+	<string>Allow to save photos to your device (band&apos;s photo, logo, release&apos;s artwork...)</string>
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>
@@ -93,5 +93,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>NewRocker-Regular.ttf</string>
+	</array>
 </dict>
 </plist>

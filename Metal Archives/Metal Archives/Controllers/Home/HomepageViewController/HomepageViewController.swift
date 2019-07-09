@@ -162,7 +162,12 @@ final class HomepageViewController: RefreshableViewController {
     
     private func initSimpleNavigationBarView() {
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        
         simpleNavigationBarView.setTitle("Metal Archives")
+        if let font = UIFont(name: "NewRocker-Regular", size: 21) {
+            simpleNavigationBarView.setTitleFont(font)
+        }
+        
         simpleNavigationBarView.setLeftButtonIcon(#imageLiteral(resourceName: "Menu"))
         simpleNavigationBarView.setRightButtonIcon(#imageLiteral(resourceName: "horns_search"))
         

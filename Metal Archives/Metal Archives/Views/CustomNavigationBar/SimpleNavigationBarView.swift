@@ -86,6 +86,10 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
         titleLabel.text = title
     }
     
+    func setTitleFont(_ font: UIFont) {
+        titleLabel.font = font
+    }
+    
     func setLeftButtonIcon(_ image: UIImage?) {
         if let image = image {
             leftButton.alpha = 1
