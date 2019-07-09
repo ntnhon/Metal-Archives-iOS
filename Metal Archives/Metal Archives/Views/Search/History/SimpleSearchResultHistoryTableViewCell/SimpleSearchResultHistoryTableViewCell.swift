@@ -25,8 +25,8 @@ final class SimpleSearchResultHistoryTableViewCell: BaseTableViewCell, Registera
         thumbnailImageView.isUserInteractionEnabled = true
         thumbnailImageView.addGestureRecognizer(tapGestureRecognizer)
         
-        nameOrTitleLabel.textColor = Settings.currentTheme.bodyTextColor
-        nameOrTitleLabel.font = Settings.currentFontSize.bodyTextFont
+        nameOrTitleLabel.textColor = Settings.currentTheme.titleColor
+        nameOrTitleLabel.font = Settings.currentFontSize.titleFont
     }
     
     @objc private func tapThumbnailImageView() {

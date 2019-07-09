@@ -34,6 +34,7 @@ final class SimpleSearchViewController: UITableViewController {
     // Core Data
     private let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var searchHistories: [SearchHistory] = []
+    private var doNotRecordHistory = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +89,7 @@ final class SimpleSearchViewController: UITableViewController {
         case let simpleSearchResultVC as SimpleSearchResultViewController:
             simpleSearchResultVC.searchTerm = searchTermTextField.text
             simpleSearchResultVC.simpleSearchType = currentSimpleSearchType
+            simpleSearchResultVC.doNotRecordHistory = doNotRecordHistory
 
             if let _ = sender as? ImFeelingLuckyView {
                 simpleSearchResultVC.isFeelingLucky = true
@@ -123,9 +125,19 @@ extension SimpleSearchViewController {
     }
 }
 
+// MARK: - UIScrollViewDelegate
+extension SimpleSearchViewController {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < 44 {
+            searchTermTextField?.resignFirstResponder()
+        }
+    }
+}
+
 //MARK: - ImFeelingLuckyViewDelegate
 extension SimpleSearchViewController: ImFeelingLuckyViewDelegate {
     func didTapImFeelingLuckyButton() {
+        doNotRecordHistory = false
         performSegue(withIdentifier: "ShowSearchResult", sender: imFeelingLuckyView)
     }
 }
@@ -142,6 +154,7 @@ extension SimpleSearchViewController: HorizontalOptionsViewDelegate {
 // MARK: - UITextFieldDelegate
 extension SimpleSearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        doNotRecordHistory = false
         performSegue(withIdentifier: "ShowSearchResult", sender: searchTermTextField)
         return true
     }
@@ -170,9 +183,15 @@ extension SimpleSearchViewController {
         guard indexPath.section == 1 else { return }
         
         let searchHistory = searchHistories[indexPath.row]
+        
+        defer {
+            searchHistory.moveToTop(withManagedContext: managedContext)
+        }
+        
         if let term = searchHistory.term {
             searchTermTextField.text = term
             currentSimpleSearchType = SimpleSearchType(rawValue: Int(searchHistory.searchType)) ?? .bandName
+            doNotRecordHistory = true
             performSegue(withIdentifier: "ShowSearchResult", sender: searchTermTextField)
         } else {
             let objectType = SearchResultObjectType(rawValue: Int(searchHistory.objectType)) ?? .band

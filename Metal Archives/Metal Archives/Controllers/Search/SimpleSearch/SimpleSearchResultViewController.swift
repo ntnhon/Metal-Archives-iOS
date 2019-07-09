@@ -43,6 +43,7 @@ final class SimpleSearchResultViewController: BaseViewController {
     
     // Core Data
     private let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var doNotRecordHistory = false
     
     deinit {
         print("SimpleSearchResultViewController is deallocated")
@@ -237,7 +238,11 @@ extension SimpleSearchResultViewController: PagableManagerDelegate {
         updateStatusMessage()
         checkLuck()
         tableView.reloadData()
-        saveSearchTermToHistory()
+        
+        if !doNotRecordHistory {
+            saveSearchTermToHistory()
+        }
+        
         Analytics.logEvent(AnalyticsEvent.FetchMore, parameters: nil)
     }
     
@@ -253,18 +258,7 @@ extension SimpleSearchResultViewController: PagableManagerDelegate {
 // MARK: - HistoryRecordable
 extension SimpleSearchResultViewController: HistoryRecordable {
     func loaded(urlString: String, nameOrTitle: String, thumbnailUrlString: String?, objectType: SearchResultObjectType) {
-        let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: managedContext)!
-        let searchHistory = SearchHistory(entity: entity, insertInto: managedContext)
-        searchHistory.nameOrTitle = nameOrTitle
-        searchHistory.thumbnailUrlString = thumbnailUrlString
-        searchHistory.objectType = Int16(objectType.rawValue)
-        searchHistory.urlString = urlString
-        do {
-            try managedContext.save()
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
+        SearchHistory.checkAndInsert(withManagedContext: managedContext, urlString: urlString, nameOrTitle: nameOrTitle, thumbnailUrlString: thumbnailUrlString, objectType: objectType)
     }
 }
 
