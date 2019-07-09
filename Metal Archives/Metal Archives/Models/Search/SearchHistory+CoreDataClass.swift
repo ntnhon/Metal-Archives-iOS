@@ -31,6 +31,45 @@ public class SearchHistory: NSManagedObject {
         }
     }
     
+    class func checkAndInsert(withManagedContext managedContext: NSManagedObjectContext, term: String, searchType: SimpleSearchType) {
+        guard !moveToTopIfExist(withManagedContext: managedContext, term: term, searchType: searchType) else {
+            return
+        }
+        
+        let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: managedContext)!
+        let searchHistory = SearchHistory(entity: entity, insertInto: managedContext)
+        searchHistory.term = term
+        searchHistory.searchType = Int16(searchType.rawValue)
+        
+        do {
+            try managedContext.save()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+    }
+    
+    private class func moveToTopIfExist(withManagedContext managedContext: NSManagedObjectContext, term: String, searchType: SimpleSearchType) -> Bool {
+        let fetchRequest = NSFetchRequest<SearchHistory>(entityName: "SearchHistory")
+        fetchRequest.predicate = NSPredicate(format: "(term = %@) AND (searchType = \(searchType.rawValue))", term)
+        
+        var entities: [SearchHistory] = []
+        
+        do {
+            entities = try managedContext.fetch(fetchRequest)
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+        
+        if entities.count == 1 {
+            let searchHistory = entities[0]
+            searchHistory.moveToTop(withManagedContext: managedContext)
+        }
+        
+        return entities.count > 0
+    }
+    
     class func checkAndInsert(withManagedContext managedContext: NSManagedObjectContext, urlString: String, nameOrTitle: String, thumbnailUrlString: String?, objectType: SearchResultObjectType) {
         guard !moveToTopIfExist(withManagedContext: managedContext, urlString: urlString) else {
             return
@@ -42,6 +81,7 @@ public class SearchHistory: NSManagedObject {
         searchHistory.thumbnailUrlString = thumbnailUrlString
         searchHistory.objectType = Int16(objectType.rawValue)
         searchHistory.urlString = urlString
+        
         do {
             try managedContext.save()
         } catch {
@@ -52,7 +92,7 @@ public class SearchHistory: NSManagedObject {
     
     private class func moveToTopIfExist(withManagedContext managedContext: NSManagedObjectContext, urlString: String) -> Bool {
         let fetchRequest = NSFetchRequest<SearchHistory>(entityName: "SearchHistory")
-        fetchRequest.predicate = NSPredicate(format: "urlString == %@", urlString)
+        fetchRequest.predicate = NSPredicate(format: "urlString = %@", urlString)
         
         var entities: [SearchHistory] = []
         

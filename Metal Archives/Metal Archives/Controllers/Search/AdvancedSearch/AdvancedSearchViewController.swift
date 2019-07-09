@@ -16,7 +16,8 @@ final class AdvancedSearchViewController: UITableViewController {
                 //print("Advanced Search")
             }
         }
-    }
+    }    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initAppearance()
