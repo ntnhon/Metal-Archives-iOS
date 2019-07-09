@@ -60,7 +60,7 @@ final class HorizontalOptionsView: UIView {
     private func initilize() {
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(scrollView)
-        scrollView.contentInset = .init(top: 10, left: 10, bottom: 10, right: 10)
+        scrollView.contentInset = .init(top: 0, left: 10, bottom: 0, right: 10)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
@@ -142,5 +142,11 @@ final class HorizontalOptionsView: UIView {
     private func defocus(_ label: UILabel) {
         label.layer.backgroundColor = normalColor.cgColor
         label.layer.borderColor = textColor.cgColor
+    }
+}
+
+extension HorizontalOptionsView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.contentOffset.x = 0
     }
 }

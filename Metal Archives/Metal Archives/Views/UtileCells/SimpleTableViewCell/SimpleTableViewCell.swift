@@ -37,6 +37,11 @@ final class SimpleTableViewCell: BaseTableViewCell, RegisterableCell {
         titleLabel.font = Settings.currentFontSize.bodyTextFont
     }
     
+    func displayAsItalicBodyText() {
+        titleLabel.textColor = Settings.currentTheme.bodyTextColor
+        titleLabel.font = Settings.currentFontSize.italicBodyTextFont
+    }
+    
     func fill(with string: String) {
         titleLabel.text = string
     }

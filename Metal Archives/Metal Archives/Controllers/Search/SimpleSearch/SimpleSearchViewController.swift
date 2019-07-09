@@ -64,12 +64,14 @@ final class SimpleSearchViewController: UITableViewController {
         tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.contentInset = .init(top: -CGFloat.leastNormalMagnitude, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = .init(top: -2, left: 0, bottom: 0, right: 0)
         
+        tableView.register(SearchHistoryTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "Header")
         SimpleSearchTermTableViewCell.register(with: tableView)
         SimpleSearchTypeTableViewCell.register(with: tableView)
         SimpleSearchTermHistoryTableViewCell.register(with: tableView)
         SimpleSearchResultHistoryTableViewCell.register(with: tableView)
+        SimpleTableViewCell.register(with: tableView)
     }
     
     private func loadSearchHistories() {
@@ -164,18 +166,22 @@ extension SimpleSearchViewController: UITextFieldDelegate {
 extension SimpleSearchViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return CGFloat.leastNormalMagnitude
+            return 1
         } else {
-            return 20
+            return 32
         }
     }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 {
-            return "Search History"
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return nil
         }
         
-        return nil
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "Header") as! SearchHistoryTableHeaderView
+        headerView.didTapClearAll = { [unowned self] in
+            print("Clear all")
+        }
+        return headerView
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -242,6 +248,12 @@ extension SimpleSearchViewController {
     }
     
     private func searchHistoryCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard searchHistories.count > 0 else {
+            let cell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            cell.displayAsItalicBodyText()
+            return cell
+        }
+        
         let searchHistory = searchHistories[indexPath.row]
         
         if let _ = searchHistory.term {

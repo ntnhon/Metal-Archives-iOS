@@ -430,6 +430,7 @@
 		C0AABDEF221DEEBC0044A2CF /* UpcomingAlbumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AABDEE221DEEBC0044A2CF /* UpcomingAlbumTableViewCell.swift */; };
 		C0AABDF1221DEEE10044A2CF /* UpcomingAlbumTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0AABDF0221DEEE10044A2CF /* UpcomingAlbumTableViewCell.xib */; };
 		C0AF0A9122D47E05004B085F /* SearchHistory+CoreDataClass copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AF0A9022D47E05004B085F /* SearchHistory+CoreDataClass copy.swift */; };
+		C0AF0A9422D48B6B004B085F /* SearchHistoryTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AF0A9322D48B6B004B085F /* SearchHistoryTableHeaderView.swift */; };
 		C0B990CD22079222000DBD86 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B990CC22079222000DBD86 /* ReviewTableViewCell.swift */; };
 		C0B990CF22079240000DBD86 /* ReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B990CE22079240000DBD86 /* ReviewTableViewCell.xib */; };
 		C0B990D122079904000DBD86 /* UIColor+colorByRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B990D022079904000DBD86 /* UIColor+colorByRating.swift */; };
@@ -932,6 +933,7 @@
 		C0AABDEE221DEEBC0044A2CF /* UpcomingAlbumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbumTableViewCell.swift; sourceTree = "<group>"; };
 		C0AABDF0221DEEE10044A2CF /* UpcomingAlbumTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingAlbumTableViewCell.xib; sourceTree = "<group>"; };
 		C0AF0A9022D47E05004B085F /* SearchHistory+CoreDataClass copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SearchHistory+CoreDataClass copy.swift"; sourceTree = "<group>"; };
+		C0AF0A9322D48B6B004B085F /* SearchHistoryTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableHeaderView.swift; sourceTree = "<group>"; };
 		C0B990CC22079222000DBD86 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		C0B990CE22079240000DBD86 /* ReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewTableViewCell.xib; sourceTree = "<group>"; };
 		C0B990D022079904000DBD86 /* UIColor+colorByRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+colorByRating.swift"; sourceTree = "<group>"; };
@@ -1652,6 +1654,7 @@
 		C05937D9222F24DD00F7C2A9 /* SimpleSearch */ = {
 			isa = PBXGroup;
 			children = (
+				C0AF0A9222D48B30004B085F /* SearchHistoryTableHeaderView */,
 				C033C4EE22D38FF3001294BA /* SimpleSearchTermTableViewCell */,
 				C033C4EB22D38E90001294BA /* SimpleSearchTypeTableViewCell */,
 				C03F440622306FB7005D7AA8 /* SimpleBandNameOrMusicGenreTableViewCell */,
@@ -2729,6 +2732,14 @@
 			path = UpcomingAlbumTableViewCell;
 			sourceTree = "<group>";
 		};
+		C0AF0A9222D48B30004B085F /* SearchHistoryTableHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				C0AF0A9322D48B6B004B085F /* SearchHistoryTableHeaderView.swift */,
+			);
+			path = SearchHistoryTableHeaderView;
+			sourceTree = "<group>";
+		};
 		C0BAD499222EBC6A00C4D38D /* SimpleSearch */ = {
 			isa = PBXGroup;
 			children = (
@@ -3472,6 +3483,7 @@
 				C0AF0A9122D47E05004B085F /* SearchHistory+CoreDataClass copy.swift in Sources */,
 				C053DD80222727760028568B /* AdvancedSearchViewController.swift in Sources */,
 				C05606FF22A3206F006F5BC1 /* ReleaseReviewOptionTableViewCell.swift in Sources */,
+				C0AF0A9422D48B6B004B085F /* SearchHistoryTableHeaderView.swift in Sources */,
 				C0AA06B222394934001BE21D /* AdvancedSearchResultAlbum.swift in Sources */,
 				C03280132209FA5D00FC9A44 /* RequestBandDetail.swift in Sources */,
 				C066137122895C3700F99006 /* HomepageViewControllerProtocols.swift in Sources */,
