@@ -36,13 +36,15 @@ final class LabelDetailViewController: BaseViewController {
             anchorHorizontalMenuViewToAnchorTableViewCell()
         }
     }
-    private lazy var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat = {
+    private var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat {
         let yOffset = labelNameTableViewCell.bounds.height + labelInfoTableViewCell.bounds.height - simpleNavigationBarView.bounds.height
         return yOffset
-    }()
+    }
     private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
     
     var historyRecordableDelegate: HistoryRecordable?
+    
+    private var adjustedTableViewContentOffset = false
     
     deinit {
         print("LabelDetailViewController is deallocated")
@@ -54,6 +56,14 @@ final class LabelDetailViewController: BaseViewController {
         configureTableView()
         handleSimpleNavigationBarViewActions()
         fetchLabel()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if UIDevice.current.userInterfaceIdiom == .pad && !adjustedTableViewContentOffset {
+            tableView.setContentOffset(.init(x: 0, y: screenHeight / 3), animated: false)
+            adjustedTableViewContentOffset = true
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {

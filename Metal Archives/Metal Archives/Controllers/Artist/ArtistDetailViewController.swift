@@ -30,8 +30,8 @@ final class ArtistDetailViewController: BaseViewController {
     private var guestSessionRoles: [Any]!
     private var miscStaffRoles: [Any]!
     
-    private var artistNameTableViewCell: ArtistNameTableViewCell!
-    private var artistInfoTableViewCell: ArtistInfoTableViewCell!
+    private var artistNameTableViewCell = ArtistNameTableViewCell()
+    private var artistInfoTableViewCell = ArtistInfoTableViewCell()
     
     // Floating menu
     private var horizontalMenuView: HorizontalMenuView!
@@ -41,13 +41,15 @@ final class ArtistDetailViewController: BaseViewController {
             anchorHorizontalMenuViewToAnchorTableViewCell()
         }
     }
-    private lazy var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat = {
+    private var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat {
         let yOffset = artistNameTableViewCell.bounds.height + artistInfoTableViewCell.bounds.height - simpleNavigationBarView.bounds.height
         return yOffset
-    }()
+    }
     private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
     
     var historyRecordableDelegate: HistoryRecordable?
+    
+    private var adjustedTableViewContentOffset = false
     
     deinit {
         print("ArtistDetailViewController is deallocated")
@@ -59,6 +61,14 @@ final class ArtistDetailViewController: BaseViewController {
         configureTableView()
         handleSimpleNavigationBarViewActions()
         fetchArtist()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if UIDevice.current.userInterfaceIdiom == .pad && !adjustedTableViewContentOffset {
+            tableView.setContentOffset(.init(x: 0, y: screenHeight / 3), animated: false)
+            adjustedTableViewContentOffset = true
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -278,7 +288,7 @@ final class ArtistDetailViewController: BaseViewController {
         // Calculate alpha base of distant between simpleNavBarView and the cell
         // the cell should only be dimmed only when the cell frame overlaps the utileBarView
         
-        guard let artistNameTableViewCell = artistNameTableViewCell, let artistNameLabel = artistNameTableViewCell.nameLabel else {
+        guard let artistNameLabel = artistNameTableViewCell.nameLabel else {
             return
         }
         

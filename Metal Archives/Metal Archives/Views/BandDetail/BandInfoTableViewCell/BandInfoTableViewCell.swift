@@ -66,6 +66,7 @@ final class BandInfoTableViewCell: BaseTableViewCell, RegisterableCell {
         statusLabel.textColor = band.status.color
         formedInLabel.text = band.formedIn
         genreLabel.text = band.genre
+        lyricalThemesLabel.text = band.lyricalTheme
         yearsActiveLabel.attributedText = band.yearsActiveAttributedString
         
         setLastLabelLabel()

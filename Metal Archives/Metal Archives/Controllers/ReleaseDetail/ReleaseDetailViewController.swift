@@ -26,8 +26,8 @@ final class ReleaseDetailViewController: BaseViewController {
     private var isAscendingOrderReview = false
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     
-    private var releaseTitleAndTypeTableViewCell: ReleaseTitleAndTypeTableViewCell!
-    private var releaseInfoTableViewCell: ReleaseInfoTableViewCell!
+    private var releaseTitleAndTypeTableViewCell = ReleaseTitleAndTypeTableViewCell()
+    private var releaseInfoTableViewCell = ReleaseInfoTableViewCell()
     
     // Floating menu
     private var horizontalMenuView: HorizontalMenuView!
@@ -37,14 +37,20 @@ final class ReleaseDetailViewController: BaseViewController {
             anchorHorizontalMenuViewToAnchorTableViewCell()
         }
     }
-    private lazy var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat = {
+    private var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat {
         let yOffset = releaseTitleAndTypeTableViewCell.bounds.height + releaseInfoTableViewCell.bounds.height - simpleNavigationBarView.bounds.height
         return yOffset
-    }()
+    }
     private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
     
     var historyRecordableDelegate: HistoryRecordable?
+    
+    private var adjustedTableViewContentOffset = false
 
+    deinit {
+        print("ReleaseDetailViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         stretchyCoverSmokedImageViewHeightConstraint.constant = screenWidth
@@ -54,10 +60,14 @@ final class ReleaseDetailViewController: BaseViewController {
         fetchRelease()
     }
     
-    deinit {
-        print("ReleaseDetailViewController is deallocated")
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if UIDevice.current.userInterfaceIdiom == .pad && !adjustedTableViewContentOffset {
+            tableView.setContentOffset(.init(x: 0, y: screenHeight / 3), animated: false)
+            adjustedTableViewContentOffset = true
+        }
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isMovingToParent {
@@ -188,7 +198,7 @@ final class ReleaseDetailViewController: BaseViewController {
         // Calculate alpha base of distant between simpleNavBarView and the cell
         // the cell should only be dimmed only when the cell frame overlaps the utileBarView
         
-        guard let releaseTitleAndTypeTableViewCell = releaseTitleAndTypeTableViewCell, let releaseTitleLabel = releaseTitleAndTypeTableViewCell.titleLabel else {
+        guard let releaseTitleLabel = releaseTitleAndTypeTableViewCell.titleLabel else {
             return
         }
         

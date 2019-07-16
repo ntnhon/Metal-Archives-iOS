@@ -107,7 +107,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="X" width="170.5" height="170.5"/>
+        <image name="X" width="31.5" height="31.5"/>
         <image name="funny_eyes_unselected" width="125.5" height="125.5"/>
         <image name="more" width="24" height="24"/>
     </resources>

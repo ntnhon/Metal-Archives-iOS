@@ -19,7 +19,7 @@ final class BandDetailViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     
     var bandURLString: String!
-    private var bandPhotoAndNameTableViewCell: BandPhotoAndNameTableViewCell!
+    private var bandPhotoAndNameTableViewCell = BandPhotoAndNameTableViewCell()
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     
     private var band: Band?
@@ -32,7 +32,7 @@ final class BandDetailViewController: BaseViewController {
     // Members
     private var currentMemberType: MembersType = .complete
     
-    private var bandInfoTableViewCell: BandInfoTableViewCell!
+    private var bandInfoTableViewCell = BandInfoTableViewCell()
     
     // Floating menu
     private var horizontalMenuView: HorizontalMenuView!
@@ -42,14 +42,20 @@ final class BandDetailViewController: BaseViewController {
             anchorHorizontalMenuViewToAnchorTableViewCell()
         }
     }
-    private lazy var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat = {
+    private var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat {
         let yOffset = bandPhotoAndNameTableViewCell.bounds.height + bandInfoTableViewCell.bounds.height - simpleNavigationBarView.bounds.height
         return yOffset
-    }()
+    }
     
     private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
     
     var historyRecordableDelegate: HistoryRecordable?
+    
+    private var adjustedTableViewContentOffset = false
+    
+    deinit {
+        print("BandDetailViewController is deallocated")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,8 +67,12 @@ final class BandDetailViewController: BaseViewController {
         navigationController?.interactivePopGestureRecognizer?.delegate = navigationController as! HomepageNavigationController
     }
     
-    deinit {
-        print("BandDetailViewController is deallocated")
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if UIDevice.current.userInterfaceIdiom == .pad && !adjustedTableViewContentOffset {
+            tableView.setContentOffset(.init(x: 0, y: screenHeight / 3), animated: false)
+            adjustedTableViewContentOffset = true
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -159,7 +169,7 @@ final class BandDetailViewController: BaseViewController {
         // Calculate alpha base of distant between simpleNavBarView and the cell
         // the cell should only be dimmed only when the cell frame overlaps the utileBarView
         
-        guard let bandPhotoAndNameTableViewCell = bandPhotoAndNameTableViewCell, let bandNameLabel = bandPhotoAndNameTableViewCell.nameLabel else {
+        guard let bandNameLabel = bandPhotoAndNameTableViewCell.nameLabel else {
             return
         }
         
@@ -271,14 +281,8 @@ extension BandDetailViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row) {
-        case (0, 0):
-            if let bandPhotoAndNameTableViewCell = bandPhotoAndNameTableViewCell {
-                return bandPhotoAndNameTableViewCell.bounds.height
-            }
-        case (0, 1):
-            if let bandInfoTableViewCell = bandInfoTableViewCell {
-                return bandInfoTableViewCell.bounds.height
-            }
+        case (0, 0): return bandPhotoAndNameTableViewCell.bounds.height
+        case (0, 1): return bandInfoTableViewCell.bounds.height
         case (0, 2):
             if let bandMenuAnchorTableViewCell = horizontalMenuAnchorTableViewCell {
                 return bandMenuAnchorTableViewCell.bounds.height

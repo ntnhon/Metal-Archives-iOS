@@ -4,6 +4,15 @@
 <array>
 	<dict>
 		<key>number</key>
+		<string>3.1</string>
+		<key>date</key>
+		<string>July 2019</string>
+		<key>features</key>
+		<string>- Fix band lyrical themes not being updated.
+- Fix crashes on iPad.</string>
+	</dict>
+	<dict>
+		<key>number</key>
 		<string>3.0</string>
 		<key>date</key>
 		<string>July 2019</string>

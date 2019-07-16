@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0</string>
+	<string>3.1</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -46,7 +46,11 @@
 		<true/>
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow to save photos to your device (band&apos;s photo, logo, release&apos;s artwork...)</string>
+	<string>Allow to save photos to your device (band's photo, logo, release's artwork...)</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>NewRocker-Regular.ttf</string>
+	</array>
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>
@@ -93,9 +97,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>NewRocker-Regular.ttf</string>
-	</array>
 </dict>
 </plist>
