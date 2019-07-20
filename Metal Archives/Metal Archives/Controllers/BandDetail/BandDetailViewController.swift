@@ -12,7 +12,7 @@ import Toaster
 import FirebaseAnalytics
 import Crashlytics
 
-final class BandDetailViewController: BaseViewController {
+final class BandDetailViewController: DeezerableViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var stretchyLogoSmokedImageView: SmokedImageView!
     @IBOutlet private weak var stretchyLogoSmokedImageViewHeightConstraint: NSLayoutConstraint!
@@ -85,6 +85,7 @@ final class BandDetailViewController: BaseViewController {
     }
 
     private func fetchBand() {
+        deezerButton.isHidden = true
         
         MetalArchivesAPI.reloadBand(bandURLString: bandURLString) { [weak self] (band, error) in
             guard let self = self else { return }
@@ -94,6 +95,8 @@ final class BandDetailViewController: BaseViewController {
                     self.fetchBand()
                 })
             } else if let `band` = band {
+                self.deezerButton.isHidden = false
+
                 self.band = band
                 
                 if band.discography?.main.count == 0 {
@@ -215,6 +218,20 @@ final class BandDetailViewController: BaseViewController {
             alertController.addAction(cancelAction)
             present(alertController, animated: true, completion: nil)
         }
+    }
+}
+
+// MARK: - Deezerable
+extension BandDetailViewController: Deezerable {
+    var deezerableType: DeezerableType {
+        return .artist
+    }
+    
+    var deezerSearchTerm: String {
+        guard let band = band else {
+            return ""
+        }
+        return band.name
     }
 }
 
