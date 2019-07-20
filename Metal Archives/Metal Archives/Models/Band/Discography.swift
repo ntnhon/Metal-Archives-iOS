@@ -115,7 +115,7 @@ final class Discography {
                 var type: ReleaseType?
                 var year: Int?
                 var numberOfReviews: Int?
-                var averagePoint: Int?
+                var rating: Int?
                 var reviewsURLString: String?
                 var i = 0
                 
@@ -155,8 +155,8 @@ final class Discography {
                                 numberOfReviews = Int(numberOfReviewsString)
                             }
                             
-                            if let averagePointString = reviewString.subString(after: "(", before: "%)", options: .caseInsensitive) {
-                                averagePoint = Int(averagePointString)
+                            if let ratingString = reviewString.subString(after: "(", before: "%)", options: .caseInsensitive) {
+                                rating = Int(ratingString)
                             }
                             
                             for a in td.css("a") {
@@ -175,7 +175,7 @@ final class Discography {
                 }
                 
                 if let `title` = title, let `urlString` = urlString, let `type` = type, let `year` = year {
-                    if let release = ReleaseLite(urlString: urlString, type: type, title: title, year: year, numberOfReviews: numberOfReviews, averagePoint: averagePoint, reviewsURLString: reviewsURLString) {
+                    if let release = ReleaseLite(urlString: urlString, type: type, title: title, year: year, numberOfReviews: numberOfReviews, rating: rating, reviewsURLString: reviewsURLString) {
                         self.releases?.append(release)
                     }
                     

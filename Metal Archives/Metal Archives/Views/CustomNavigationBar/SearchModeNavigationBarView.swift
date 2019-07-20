@@ -48,14 +48,19 @@ final class SearchModeNavigationBarView: BaseNavigationBarView {
         clipsToBounds = false
         backgroundColor = Settings.currentTheme.backgroundColor
         
+        let stackView = UIStackView(frame: .zero)
+        stackView.axis = .horizontal
+        stackView.distribution = .equalCentering
+        stackView.spacing = 10
+        addSubview(stackView)
+        stackView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 15, right: 0))
+        
         // Init leftButton
         backButton = UIButton(type: .system)
         backButton.contentEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 20)
         backButton.setImage(#imageLiteral(resourceName: "back"), for: .normal)
         backButton.tintColor = Settings.currentTheme.secondaryTitleColor
-        addSubview(backButton)
-        backButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 15, right: 0))
-        backButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        stackView.addArrangedSubview(backButton)
         
         // Init segmentedControl
         segmentedControl = UISegmentedControl(frame: .zero)
@@ -63,22 +68,14 @@ final class SearchModeNavigationBarView: BaseNavigationBarView {
         segmentedControl.insertSegment(withTitle: SearchMode.simple.description, at: 0, animated: false)
         segmentedControl.insertSegment(withTitle: SearchMode.advanced.description, at: 1, animated: false)
         segmentedControl.selectedSegmentIndex = 0
-        addSubview(segmentedControl)
-        segmentedControl.anchor(top: nil, leading: backButton.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: 15, right: 10))
-        segmentedControl.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        segmentedControl.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        stackView.addArrangedSubview(segmentedControl)
         
         // Init rightButton
         tipsButton = UIButton(type: .system)
         tipsButton.contentEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: 10)
         tipsButton.setTitle("💡 Tips", for: .normal)
         tipsButton.tintColor = Settings.currentTheme.secondaryTitleColor
-        addSubview(tipsButton)
-        tipsButton.anchor(top: nil, leading: segmentedControl.trailingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 15, right: 0))
-        tipsButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        
-        backButton.centerYAnchor.constraint(equalTo: segmentedControl.centerYAnchor).isActive = true
-        tipsButton.centerYAnchor.constraint(equalTo: segmentedControl.centerYAnchor).isActive = true
+        stackView.addArrangedSubview(tipsButton)
     }
     
     private func initActions() {

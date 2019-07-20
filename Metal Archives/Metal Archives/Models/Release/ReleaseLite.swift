@@ -13,7 +13,7 @@ final class ReleaseLite: ThumbnailableObject {
     let type: ReleaseType
     let year: Int
     let numberOfReviews: Int?
-    let averagePoint: Int?
+    let rating: Int?
     let reviewsURLString: String?
     
     override var description: String {
@@ -31,7 +31,7 @@ final class ReleaseLite: ThumbnailableObject {
 
         yearAndTitleAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(yearAndTitleString.startIndex..., in: yearAndTitleString))
         
-        guard let numberOfReviews = self.numberOfReviews , let rating = self.averagePoint else {
+        guard let numberOfReviews = self.numberOfReviews , let rating = self.rating else {
             return yearAndTitleAttributedString
         }
         
@@ -45,12 +45,12 @@ final class ReleaseLite: ThumbnailableObject {
         return yearAndTitleAttributedString
     }()
     
-    init?(urlString: String, type: ReleaseType, title: String, year: Int, numberOfReviews: Int?, averagePoint: Int?, reviewsURLString: String?) {
+    init?(urlString: String, type: ReleaseType, title: String, year: Int, numberOfReviews: Int?, rating: Int?, reviewsURLString: String?) {
         self.title = title
         self.year = year
         self.type = type
         self.numberOfReviews = numberOfReviews
-        self.averagePoint = averagePoint
+        self.rating = rating
         self.reviewsURLString = reviewsURLString
         super.init(urlString: urlString, imageType: .release)
     }
