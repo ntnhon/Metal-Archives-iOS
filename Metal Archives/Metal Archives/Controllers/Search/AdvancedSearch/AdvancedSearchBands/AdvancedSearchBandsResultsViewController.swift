@@ -54,10 +54,13 @@ final class AdvancedSearchBandsResultsViewController: RefreshableViewController 
     }
     
     func initBandAdvancedSearchResultPagableManager() {
-        guard let formattedOptionsList = optionsList.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else {
+        guard var formattedOptionsList = optionsList.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else {
             assertionFailure("Error adding percent encoding to option list.")
             return
         }
+        
+        // encode space by + instead of %20
+        formattedOptionsList = formattedOptionsList.replacingOccurrences(of: "%20", with: "+")
         
         bandAdvancedSearchResultPagableManager = PagableManager<AdvancedSearchResultBand>(options: ["<OPTIONS_LIST>": formattedOptionsList])
         bandAdvancedSearchResultPagableManager.delegate = self
