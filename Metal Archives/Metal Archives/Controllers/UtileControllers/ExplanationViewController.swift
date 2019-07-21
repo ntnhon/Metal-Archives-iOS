@@ -1,5 +1,5 @@
 //
-//  SearchTipsViewController.swift
+//  ExplanationViewController.swift
 //  Metal Archives
 //
 //  Created by Thanh-Nhon Nguyen on 10/03/2019.
@@ -10,14 +10,24 @@ import UIKit
 import AttributedLib
 import FirebaseAnalytics
 
-final class SearchTipsViewController: DismissableOnSwipeViewController {
+final class ExplanationViewController: DismissableOnSwipeViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var textView: UITextView!
+    
+    enum `Type` {
+        case searchTips, deezer
+    }
+    
+    var type: Type!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        showTips()
         handleSimpleNavigationBarViewActions()
-        Analytics.logEvent("view_search_tips", parameters: nil)
+        
+        switch type! {
+        case .searchTips: showTips()
+        case .deezer: showDeezer()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -32,7 +42,17 @@ final class SearchTipsViewController: DismissableOnSwipeViewController {
     
     private func handleSimpleNavigationBarViewActions() {
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
-        simpleNavigationBarView.setTitle("Search Tips 💡")
+        
+        switch type! {
+        case .searchTips:
+            simpleNavigationBarView.setTitle("Search Tips 💡")
+            Analytics.logEvent("view_search_tips", parameters: nil)
+            
+        case .deezer:
+            simpleNavigationBarView.setTitle("Deezer Search & Preview")
+            Analytics.logEvent("view_deezer_explanation", parameters: nil)
+        }
+        
         simpleNavigationBarView.setLeftButtonIcon(#imageLiteral(resourceName: "down"))
         simpleNavigationBarView.setRightButtonIcon(nil)
         
@@ -66,5 +86,17 @@ final class SearchTipsViewController: DismissableOnSwipeViewController {
         tipsMutableAttrString.append("- You can perform an advanced search for songs, including in the lyrics.\n".at.attributed(with: indentedBodyTextAttributes))
         
         textView.attributedText = tipsMutableAttrString
+    }
+    
+    private func showDeezer() {
+        let deezerMutableAttrString = NSMutableAttributedString()
+        
+        deezerMutableAttrString.append("What is Deezer?\n".at.attributed(with: titleAttributes))
+        deezerMutableAttrString.append("Deezer is a French online music streaming service.\n\n".at.attributed(with: bodyTextAttributes))
+        
+        deezerMutableAttrString.append("Why Deezer Search & Preview in this app?\n".at.attributed(with: titleAttributes))
+        deezerMutableAttrString.append("Because Deezer allows a third party to easily and freely search and play preview of songs that are available on it's platform.\n\n".at.attributed(with: bodyTextAttributes))
+        
+        textView.attributedText = deezerMutableAttrString
     }
 }

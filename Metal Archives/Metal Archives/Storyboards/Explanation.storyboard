@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cyq-W3-jU7">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Explanation View Controller-->
+        <scene sceneID="cip-nf-rhU">
+            <objects>
+                <viewController storyboardIdentifier="ExplanationViewController" id="cyq-W3-jU7" customClass="ExplanationViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NOx-gs-Exy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahH-Kd-0Mn">
+                                <rect key="frame" x="0.0" y="84" width="414" height="778"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="cyq-W3-jU7" id="qWN-Qx-hnm"/>
+                                </connections>
+                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dwL-Ai-CtI" customClass="SimpleNavigationBarView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="Oo6-bN-ZTM"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ahH-Kd-0Mn" firstAttribute="top" secondItem="dwL-Ai-CtI" secondAttribute="bottom" id="8W6-tm-15p"/>
+                            <constraint firstItem="naZ-3o-sja" firstAttribute="trailing" secondItem="ahH-Kd-0Mn" secondAttribute="trailing" id="FXv-VD-GGW"/>
+                            <constraint firstItem="dwL-Ai-CtI" firstAttribute="leading" secondItem="NOx-gs-Exy" secondAttribute="leading" id="HGG-3A-Hkh"/>
+                            <constraint firstItem="dwL-Ai-CtI" firstAttribute="top" secondItem="NOx-gs-Exy" secondAttribute="top" id="KWn-5A-h1h"/>
+                            <constraint firstItem="naZ-3o-sja" firstAttribute="bottom" secondItem="ahH-Kd-0Mn" secondAttribute="bottom" id="OKU-Tj-6zr"/>
+                            <constraint firstItem="ahH-Kd-0Mn" firstAttribute="leading" secondItem="naZ-3o-sja" secondAttribute="leading" id="oY1-1m-CFq"/>
+                            <constraint firstAttribute="trailing" secondItem="dwL-Ai-CtI" secondAttribute="trailing" id="z69-Se-Fa4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="naZ-3o-sja"/>
+                    </view>
+                    <connections>
+                        <outlet property="simpleNavigationBarView" destination="dwL-Ai-CtI" id="jet-vg-zE8"/>
+                        <outlet property="textView" destination="ahH-Kd-0Mn" id="ahH-mS-GDD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mdc-Td-Oof" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-233.33333333333334" y="-640.17857142857144"/>
+        </scene>
+    </scenes>
+</document>

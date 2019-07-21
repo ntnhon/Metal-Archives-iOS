@@ -1578,52 +1578,6 @@
             </objects>
             <point key="canvasLocation" x="2481" y="953"/>
         </scene>
-        <!--Search Tips View Controller-->
-        <scene sceneID="SgI-1U-RFg">
-            <objects>
-                <viewController storyboardIdentifier="SearchTipsViewController" id="mkd-Vo-R1X" customClass="SearchTipsViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="R8g-xS-DHE">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FkI-GI-geb">
-                                <rect key="frame" x="0.0" y="84" width="414" height="778"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <connections>
-                                    <outlet property="delegate" destination="mkd-Vo-R1X" id="yyk-Kp-0Ec"/>
-                                </connections>
-                            </textView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vYS-Pm-XuA" customClass="SimpleNavigationBarView" customModule="Metal_Archives" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="3Oe-11-d8K"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="vYS-Pm-XuA" firstAttribute="leading" secondItem="R8g-xS-DHE" secondAttribute="leading" id="A8X-eG-u6b"/>
-                            <constraint firstItem="FkI-GI-geb" firstAttribute="top" secondItem="vYS-Pm-XuA" secondAttribute="bottom" id="GHm-2a-eVM"/>
-                            <constraint firstAttribute="trailing" secondItem="vYS-Pm-XuA" secondAttribute="trailing" id="IKu-zw-N85"/>
-                            <constraint firstItem="FkI-GI-geb" firstAttribute="leading" secondItem="I8s-Vc-wO4" secondAttribute="leading" id="YGg-c2-91y"/>
-                            <constraint firstItem="I8s-Vc-wO4" firstAttribute="trailing" secondItem="FkI-GI-geb" secondAttribute="trailing" id="cce-F0-jsM"/>
-                            <constraint firstItem="vYS-Pm-XuA" firstAttribute="top" secondItem="R8g-xS-DHE" secondAttribute="top" id="qqD-x0-PvT"/>
-                            <constraint firstItem="I8s-Vc-wO4" firstAttribute="bottom" secondItem="FkI-GI-geb" secondAttribute="bottom" id="wrH-Cy-7zv"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="I8s-Vc-wO4"/>
-                    </view>
-                    <connections>
-                        <outlet property="simpleNavigationBarView" destination="vYS-Pm-XuA" id="gUa-Of-tTq"/>
-                        <outlet property="textView" destination="FkI-GI-geb" id="V8e-b0-VWh"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="feu-2j-oQi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-233.33333333333334" y="-640.17857142857144"/>
-        </scene>
         <!--Simple Search View Controller-->
         <scene sceneID="JDO-hA-1Pw">
             <objects>

@@ -38,9 +38,10 @@ final class SearchViewController: UIViewController {
         }
         
         searchModeNavigationBarView.didTapTipsButton = { [unowned self] in
-            let searchTipsViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "SearchTipsViewController") as! SearchTipsViewController
+            let searchExplanationViewController = UIStoryboard(name: "Explanation", bundle: nil).instantiateViewController(withIdentifier: "ExplanationViewController") as! ExplanationViewController
             self.simpleSearchViewController.isBeingSelected = false
-            searchTipsViewController.presentFromBottom(in: self)
+            searchExplanationViewController.type = .searchTips
+            searchExplanationViewController.presentFromBottom(in: self)
         }
 
         searchModeNavigationBarView.didChangeSearchMode = { [unowned self] in
