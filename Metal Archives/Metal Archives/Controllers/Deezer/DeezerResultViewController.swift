@@ -74,15 +74,12 @@ final class DeezerResultViewController: BaseViewController {
                     DispatchQueue.main.async {
                         self?.tableView.reloadData()
                     }
-                    
                 }
             }
             
         default:
             break
         }
-        
-        
     }
 }
 
@@ -90,6 +87,29 @@ final class DeezerResultViewController: BaseViewController {
 extension DeezerResultViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        var toptrack = false
+        var albumTitleOrArtistName: String?
+        var tracklistUrlString: String?
+        switch deezerableType! {
+        case .artist:
+            guard let deezerArtistData = deezerArtistData else { return }
+            let deezerArtist = deezerArtistData.data[indexPath.row]
+            tracklistUrlString = deezerArtist.tracklist
+            albumTitleOrArtistName = deezerArtist.name
+            toptrack = true
+            
+        case .album: break
+        }
+        
+        if let albumTitleOrArtistName = albumTitleOrArtistName, let tracklistUrlString = tracklistUrlString {
+            let deezerTracklistViewController = UIStoryboard(name: "Deezer", bundle: nil).instantiateViewController(withIdentifier: "DeezerTracklistViewController") as! DeezerTracklistViewController
+            deezerTracklistViewController.albumTitleOrArtistName = albumTitleOrArtistName
+            deezerTracklistViewController.topTrack = toptrack
+            deezerTracklistViewController.tracklistUrlString = tracklistUrlString
+            
+            navigationController?.pushViewController(deezerTracklistViewController, animated: true)
+        }
     }
 }
 
@@ -108,7 +128,6 @@ extension DeezerResultViewController: UITableViewDataSource {
             return deezerArtistData.data.count
             
         case .album: return 0
-        case .track: return 0
         }
     }
     
@@ -116,7 +135,6 @@ extension DeezerResultViewController: UITableViewDataSource {
         switch deezerableType! {
         case .artist: return artistCell(forRowAt: indexPath)
         case .album: return albumCell(forRowAt: indexPath)
-        case .track: return trackCell(forRowAt: indexPath)
         }
     }
     
@@ -136,10 +154,6 @@ extension DeezerResultViewController: UITableViewDataSource {
     }
     
     private func albumCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
-    }
-    
-    private func trackCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
 }

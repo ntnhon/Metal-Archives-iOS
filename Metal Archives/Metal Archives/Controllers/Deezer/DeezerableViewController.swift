@@ -9,13 +9,12 @@
 import UIKit
 
 enum DeezerableType {
-    case album, artist, track
+    case album, artist
     
     var requestParameterName: String {
         switch self {
         case .album: return "album"
         case .artist: return "artist"
-        case .track: return "track"
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  DeezerArtist.swift
+//  DeezerAlbum.swift
 //  Metal Archives
 //
 //  Created by Thanh-Nhon Nguyen on 21/07/2019.
@@ -8,11 +8,9 @@
 
 import Foundation
 
-struct DeezerArtist: Decodable {
-    let name: String
-    let picture_medium: String
-    let picture_xl: String
-    let nb_album: Int
-    let nb_fan: Int
+struct DeezerAlbum: Decodable {
+    let title: String
+    let cover_medium: String
+    let cover_xl: String
     let tracklist: String
 }

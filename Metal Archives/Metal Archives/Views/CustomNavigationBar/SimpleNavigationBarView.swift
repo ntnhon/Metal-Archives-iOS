@@ -55,6 +55,7 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
         titleLabel.font = Settings.currentFontSize.titleFont
         titleLabel.textAlignment = .center
         titleLabel.lineBreakMode = .byTruncatingMiddle
+        titleLabel.numberOfLines = 2
         titleLabel.alpha = 0
         addSubview(titleLabel)
         titleLabel.anchor(top: nil, leading: leftButton.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: 15, right: 10))
