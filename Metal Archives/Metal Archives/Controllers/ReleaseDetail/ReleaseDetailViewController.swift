@@ -12,7 +12,7 @@ import FirebaseAnalytics
 import Crashlytics
 
 //MARK: - Properties
-final class ReleaseDetailViewController: BaseViewController {
+final class ReleaseDetailViewController: DeezerableViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var stretchyCoverSmokedImageView: SmokedImageView!
     @IBOutlet private weak var stretchyCoverSmokedImageViewHeightConstraint: NSLayoutConstraint!
@@ -78,6 +78,8 @@ final class ReleaseDetailViewController: BaseViewController {
     }
     
     private func fetchRelease() {
+        deezerButton.isHidden = true
+        
         MetalArchivesAPI.reloadRelease(urlString: urlString) { [weak self] (release, error) in
             guard let self = self else { return }
             if let _ = error as NSError? {
@@ -86,6 +88,7 @@ final class ReleaseDetailViewController: BaseViewController {
                 })
             }
             else if let `release` = release {
+                self.deezerButton.isHidden = true
                 self.release = release
                 
                 if let coverURLString = release.coverURLString, let coverURL = URL(string: coverURLString) {
@@ -208,6 +211,20 @@ final class ReleaseDetailViewController: BaseViewController {
         // alpha = distance / label's height (dim base on label's frame)
         releaseTitleAndTypeTableViewCell.alpha = (distanceFromReleaseTitleLableToUtileBarView + releaseTitleLabel.frame.height) / releaseTitleLabel.frame.height
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1 - releaseTitleAndTypeTableViewCell.alpha)
+    }
+}
+
+// MARK: - Deezerable
+extension ReleaseDetailViewController: Deezerable {
+    var deezerableType: DeezerableType {
+        return .album
+    }
+    
+    var deezerSearchTerm: String {
+        guard let release = release else {
+            return ""
+        }
+        return release.title
     }
 }
 

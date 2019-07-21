@@ -29,6 +29,7 @@ final class DeezerTracklistViewController: BaseViewController {
         initSimpleNavigationBarView()
         configureTableView()
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: nil)
+        try? AVAudioSession.sharedInstance().setCategory(.playback)
     }
     
     private func initSimpleNavigationBarView() {

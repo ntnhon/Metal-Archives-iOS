@@ -52,3 +52,21 @@ class DeezerableViewController: BaseViewController {
         navigationController?.pushViewController(deezerResultViewController, animated: true)
     }
 }
+
+extension DeezerableViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView.superview).y < 0 {
+            // scroll down
+            UIView.animate(withDuration: 0.35) { [unowned self] in
+                self.deezerButton.transform = CGAffineTransform(translationX: 0, y: 300)
+            }
+            
+        } else {
+            // scroll up
+            UIView.animate(withDuration: 0.35) { [unowned self] in
+                self.deezerButton.transform = .identity
+            }
+            
+        }
+    }
+}

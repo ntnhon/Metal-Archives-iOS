@@ -78,7 +78,7 @@ final class DeezerResultViewController: BaseViewController {
                 }
             }
             
-        default:
+        case .album:
             break
         }
     }
