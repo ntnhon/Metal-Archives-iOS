@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import Toaster
 
 final class DeezerTracklistViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
@@ -16,9 +15,8 @@ final class DeezerTracklistViewController: BaseViewController {
     
     var topTrack = false
     var albumTitleOrArtistName: String!
-    var tracklistUrlString: String!
+    var deezerTrackData: DeezerData<DeezerTrack>!
     
-    private var deezerTrackData: DeezerData<DeezerTrack>?
     private var player: AVPlayer?
     private var isPlayingIndex: Int = -1
     deinit {
@@ -30,7 +28,6 @@ final class DeezerTracklistViewController: BaseViewController {
         super.viewDidLoad()
         initSimpleNavigationBarView()
         configureTableView()
-        fetch()
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: nil)
     }
     
@@ -39,9 +36,9 @@ final class DeezerTracklistViewController: BaseViewController {
         simpleNavigationBarView.setRightButtonIcon(nil)
         
         if topTrack {
-            simpleNavigationBarView.setTitle("Top track for \"\(albumTitleOrArtistName!)\"")
+            simpleNavigationBarView.setTitle("Top track for artist \"\(albumTitleOrArtistName!)\"")
         } else {
-            simpleNavigationBarView.setTitle("Tracklist for \"\(albumTitleOrArtistName!)\"")
+            simpleNavigationBarView.setTitle("Tracklist for album \"\(albumTitleOrArtistName!)\"")
         }
         
         simpleNavigationBarView.didTapLeftButton = { [unowned self] in
@@ -55,26 +52,9 @@ final class DeezerTracklistViewController: BaseViewController {
         tableView.tableFooterView = UIView(frame: .zero)
         
         DeezerTrackTableViewCell.register(with: tableView)
+        SimpleTableViewCell.register(with: tableView)
     }
-    
-    private func fetch() {
-        guard let formattedRequestUrlString = tracklistUrlString.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
-        
-        Service.shared.fetchDeezerTrack(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
-            
-            if let _ = error {
-                Toast.displayMessageShortly(errorLoadingMessage)
-                self?.navigationController?.popViewController(animated: true)
-            } else if let deezerData = deezerData {
-                self?.deezerTrackData = deezerData
-                
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-            }
-        }
-    }
-    
+
     @objc private func playerDidFinishPlaying() {
         if let playingCell = tableView.cellForRow(at: IndexPath(row: isPlayingIndex, section: 0)) as? DeezerTrackTableViewCell {
             playingCell.setPlaying(false)
@@ -88,10 +68,7 @@ final class DeezerTracklistViewController: BaseViewController {
 extension DeezerTracklistViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        guard let deezerTrackData = deezerTrackData else {
-            return
-        }
+        guard deezerTrackData.data.count > 0 else { return }
         
         if indexPath.row == isPlayingIndex {
             if let playingCell = tableView.cellForRow(at: indexPath) as? DeezerTrackTableViewCell {
@@ -135,12 +112,15 @@ extension DeezerTracklistViewController: UITableViewDataSource {
             return 0
         }
         
-        return deezerTrackData.data.count
+        return max(deezerTrackData.data.count, 1)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let deezerTrackData = deezerTrackData else {
-            return UITableViewCell()
+        guard deezerTrackData.data.count > 0 else {
+            let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            simpleCell.displayAsItalicBodyText()
+            simpleCell.fill(with: "No result found.")
+            return simpleCell
         }
         
         let cell = DeezerTrackTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)

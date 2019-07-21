@@ -11,6 +11,10 @@ import Foundation
 final class Service {
     static let shared = Service()
     
+    func fetchDeezerAlbum(urlString: String, completion: @escaping (DeezerData<DeezerAlbum>?, Error?) -> Void) {
+        fetchGenericJsonData(urlString: urlString, completetion: completion)
+    }
+    
     func fetchDeezerTrack(urlString: String, completion: @escaping (DeezerData<DeezerTrack>?, Error?) -> Void) {
         fetchGenericJsonData(urlString: urlString, completetion: completion)
     }

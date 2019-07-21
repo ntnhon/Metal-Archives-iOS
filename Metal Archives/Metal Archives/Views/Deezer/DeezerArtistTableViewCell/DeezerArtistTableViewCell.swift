@@ -23,7 +23,7 @@ final class DeezerArtistTableViewCell: ThumbnailableTableViewCell, RegisterableC
     }
     
     func fill(with artist: DeezerArtist) {
-        thumbnailImageView.sd_setImage(with: URL(string: artist.picture_medium))
+        thumbnailImageView.sd_setImage(with: URL(string: artist.picture_xl))
         nameLabel.text = artist.name
         
         let numOfReleaseString = "\(artist.nb_album) " + (artist.nb_album > 1 ? "releases" : "release")

@@ -56,6 +56,7 @@ final class DeezerResultViewController: BaseViewController {
         tableView.tableFooterView = UIView(frame: .zero)
         
         DeezerArtistTableViewCell.register(with: tableView)
+        SimpleTableViewCell.register(with: tableView)
     }
     
     private func fetch() {
@@ -88,28 +89,67 @@ extension DeezerResultViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        var toptrack = false
-        var albumTitleOrArtistName: String?
-        var tracklistUrlString: String?
         switch deezerableType! {
         case .artist:
             guard let deezerArtistData = deezerArtistData else { return }
             let deezerArtist = deezerArtistData.data[indexPath.row]
-            tracklistUrlString = deezerArtist.tracklist
-            albumTitleOrArtistName = deezerArtist.name
-            toptrack = true
+            fetchAndPushArtistTopTracks(deezerArtist)
             
         case .album: break
         }
+    }
+    
+    private func fetchAndPushArtistTopTracks(_ artist: DeezerArtist) {
+        guard let formattedRequestUrlString = artist.tracklist.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
         
-        if let albumTitleOrArtistName = albumTitleOrArtistName, let tracklistUrlString = tracklistUrlString {
-            let deezerTracklistViewController = UIStoryboard(name: "Deezer", bundle: nil).instantiateViewController(withIdentifier: "DeezerTracklistViewController") as! DeezerTracklistViewController
-            deezerTracklistViewController.albumTitleOrArtistName = albumTitleOrArtistName
-            deezerTracklistViewController.topTrack = toptrack
-            deezerTracklistViewController.tracklistUrlString = tracklistUrlString
+        Service.shared.fetchDeezerTrack(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
             
-            navigationController?.pushViewController(deezerTracklistViewController, animated: true)
+            if let _ = error {
+                Toast.displayMessageShortly(errorLoadingMessage)
+            } else if let deezerData = deezerData {
+                if deezerData.data.count > 0 {
+                    DispatchQueue.main.async {
+                        self?.pushDeezerTracklist(with: artist, deezerTrackData: deezerData)
+                    }
+                } else {
+                    self?.fetchAndPushArtistAlbums(artist)
+                }
+            }
         }
+    }
+    
+    private func fetchAndPushArtistAlbums(_ artist: DeezerArtist) {
+        let requestUrlString = "https://api.deezer.com/artist/\(artist.id)/albums"
+        
+        guard let formattedRequestUrlString = requestUrlString.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
+        
+        Service.shared.fetchDeezerAlbum(urlString: formattedRequestUrlString) {[weak self] (deezerData, error) in
+            
+            if let _ = error {
+                Toast.displayMessageShortly(errorLoadingMessage)
+            } else if let deezerData = deezerData {
+                DispatchQueue.main.async {
+                    self?.pushDeezerAlbums(with: artist, deezerAlbumData: deezerData)
+                }
+            }
+        }
+    }
+    
+    private func pushDeezerTracklist(with artist: DeezerArtist, deezerTrackData: DeezerData<DeezerTrack>) {
+        let deezerTracklistViewController = UIStoryboard(name: "Deezer", bundle: nil).instantiateViewController(withIdentifier: "DeezerTracklistViewController") as! DeezerTracklistViewController
+        deezerTracklistViewController.albumTitleOrArtistName = artist.name
+        deezerTracklistViewController.topTrack = true
+        deezerTracklistViewController.deezerTrackData = deezerTrackData
+        
+        navigationController?.pushViewController(deezerTracklistViewController, animated: true)
+    }
+    
+    private func pushDeezerAlbums(with artist: DeezerArtist, deezerAlbumData: DeezerData<DeezerAlbum>) {
+        let deezerAlbumViewController = UIStoryboard(name: "Deezer", bundle: nil).instantiateViewController(withIdentifier: "DeezerAlbumViewController") as! DeezerAlbumViewController
+        deezerAlbumViewController.artistName = artist.name
+        deezerAlbumViewController.deezerAlbumData = deezerAlbumData
+        
+        navigationController?.pushViewController(deezerAlbumViewController, animated: true)
     }
 }
 
@@ -125,7 +165,7 @@ extension DeezerResultViewController: UITableViewDataSource {
             guard let deezerArtistData = deezerArtistData else {
                 return 0
             }
-            return deezerArtistData.data.count
+            return max(deezerArtistData.data.count, 1)
             
         case .album: return 0
         }
@@ -141,6 +181,13 @@ extension DeezerResultViewController: UITableViewDataSource {
     private func artistCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let deezerArtistData = deezerArtistData else {
             return UITableViewCell()
+        }
+        
+        if deezerArtistData.data.count == 0 {
+            let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            simpleCell.displayAsItalicBodyText()
+            simpleCell.fill(with: "No result found.")
+            return simpleCell
         }
         
         let cell = DeezerArtistTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)

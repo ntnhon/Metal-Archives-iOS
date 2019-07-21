@@ -9,8 +9,8 @@
 import Foundation
 
 struct DeezerArtist: Decodable {
+    let id: Int
     let name: String
-    let picture_medium: String
     let picture_xl: String
     let nb_album: Int
     let nb_fan: Int

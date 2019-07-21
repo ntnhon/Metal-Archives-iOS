@@ -1,0 +1,116 @@
+//
+//  DeezerAlbumViewController.swift
+//  Metal Archives
+//
+//  Created by Thanh-Nhon Nguyen on 21/07/2019.
+//  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
+//
+
+import UIKit
+import Toaster
+
+final class DeezerAlbumViewController: BaseViewController {
+    @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
+    @IBOutlet private weak var tableView: UITableView!
+    
+    var artistName: String!
+    var deezerAlbumData: DeezerData<DeezerAlbum>!
+
+    deinit {
+        print("DeezerAlbumViewController is deallocated")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initSimpleNavigationBarView()
+        configureTableView()
+    }
+    
+    private func initSimpleNavigationBarView() {
+        simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
+        simpleNavigationBarView.setRightButtonIcon(nil)
+        simpleNavigationBarView.setTitle("Albums for \"\(artistName!)\"")
+        
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    private func configureTableView() {
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.backgroundColor = .clear
+        tableView.tableFooterView = UIView(frame: .zero)
+        
+        DeezerAlbumTableViewCell.register(with: tableView)
+        SimpleTableViewCell.register(with: tableView)
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension DeezerAlbumViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard deezerAlbumData.data.count > 0 else { return }
+        let album = deezerAlbumData.data[indexPath.row]
+        fetchAndPushDeezerTracklist(with: album)
+    }
+    
+    private func fetchAndPushDeezerTracklist(with album: DeezerAlbum) {
+        guard let formattedRequestUrlString = album.tracklist.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
+        
+        Service.shared.fetchDeezerTrack(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
+            
+            if let _ = error {
+                Toast.displayMessageShortly(errorLoadingMessage)
+            } else if let deezerData = deezerData {
+                DispatchQueue.main.async {
+                    self?.pushDeezerTracklist(withAlbumTitle: album.title, deezerTrackData: deezerData)
+                }
+            }
+        }
+    }
+    
+    private func pushDeezerTracklist(withAlbumTitle albumTitle: String, deezerTrackData: DeezerData<DeezerTrack>) {
+        let deezerTracklistViewController = UIStoryboard(name: "Deezer", bundle: nil).instantiateViewController(withIdentifier: "DeezerTracklistViewController") as! DeezerTracklistViewController
+        deezerTracklistViewController.albumTitleOrArtistName = albumTitle
+        deezerTracklistViewController.topTrack = false
+        deezerTracklistViewController.deezerTrackData = deezerTrackData
+        
+        navigationController?.pushViewController(deezerTracklistViewController, animated: true)
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension DeezerAlbumViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let deezerAlbumData = deezerAlbumData else {
+            return 0
+        }
+        
+        return max(deezerAlbumData.data.count, 1)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard deezerAlbumData.data.count > 0 else {
+            let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            simpleCell.displayAsItalicBodyText()
+            simpleCell.fill(with: "No result found.")
+            return simpleCell
+        }
+        
+        let cell = DeezerAlbumTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        let album = deezerAlbumData.data[indexPath.row]
+        cell.fill(with: album)
+        
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewer(photoUrlString: album.cover_xl, description: album.title, fromImageView: cell.thumbnailImageView)
+        }
+        
+        return cell
+    }
+}
+

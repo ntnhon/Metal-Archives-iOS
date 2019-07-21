@@ -29,7 +29,7 @@ final class DeezerTrackTableViewCell: ThumbnailableTableViewCell, RegisterableCe
     
     func fill(with track: DeezerTrack) {
         if let album = track.album {
-            thumbnailImageView.sd_setImage(with: URL(string: album.cover_medium))
+            thumbnailImageView.sd_setImage(with: URL(string: album.cover_xl))
         } else {
             thumbnailImageView.image = #imageLiteral(resourceName: "song")
         }

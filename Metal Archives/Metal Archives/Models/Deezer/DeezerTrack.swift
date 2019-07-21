@@ -12,5 +12,5 @@ struct DeezerTrack: Decodable {
     let title: String
     let preview: String
     let artist: DeezerArtistLite
-    let album: DeezerAlbum?
+    let album: DeezerAlbumLite?
 }
