@@ -38,7 +38,7 @@ final class DeezerResultViewController: BaseViewController {
     
     private func initSimpleNavigationBarView() {
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
-        simpleNavigationBarView.setRightButtonIcon(#imageLiteral(resourceName: "about"))
+        simpleNavigationBarView.setRightButtonIcon(#imageLiteral(resourceName: "info"))
         simpleNavigationBarView.setTitle("Deezer for \"\(deezerableSearchTerm!)\"")
         
         simpleNavigationBarView.didTapLeftButton = { [unowned self] in

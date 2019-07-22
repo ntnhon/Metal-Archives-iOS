@@ -46,7 +46,7 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
         leftButton.setImage(#imageLiteral(resourceName: "back"), for: .normal)
         leftButton.tintColor = Settings.currentTheme.secondaryTitleColor
         addSubview(leftButton)
-        leftButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 15, right: 0))
+        leftButton.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil)
         leftButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         // Init titleLabel
@@ -69,8 +69,11 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
         rightButton.setImage(#imageLiteral(resourceName: "share"), for: .normal)
         rightButton.tintColor = Settings.currentTheme.secondaryTitleColor
         addSubview(rightButton)
-        rightButton.anchor(top: nil, leading: titleLabel.trailingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 15, right: 0))
+        rightButton.anchor(top: nil, leading: titleLabel.trailingAnchor, bottom: nil, trailing: trailingAnchor)
         rightButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
+        leftButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
+        rightButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
     }
     
     private func initActions() {

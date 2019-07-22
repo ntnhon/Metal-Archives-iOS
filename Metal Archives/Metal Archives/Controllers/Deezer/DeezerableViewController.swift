@@ -34,11 +34,13 @@ class DeezerableViewController: BaseViewController {
     }
     
     private func initDeezerButton() {
+        deezerButton.layer.cornerRadius = deezerButton.bounds.width/2
+        deezerButton.backgroundColor = Settings.currentTheme.iconTintColor
         deezerButton.layer.masksToBounds = false
         deezerButton.layer.shouldRasterize = true
         deezerButton.layer.rasterizationScale = UIScreen.main.scale
-        deezerButton.layer.shadowRadius = 5
-        deezerButton.layer.shadowOpacity = 0.7
+        deezerButton.layer.shadowRadius = 10
+        deezerButton.layer.shadowOpacity = 0.9
         deezerButton.layer.shadowOffset = .zero
         deezerButton.layer.shadowColor = Settings.currentTheme.bodyTextColor.cgColor
     }
