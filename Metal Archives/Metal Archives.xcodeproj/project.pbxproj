@@ -92,7 +92,6 @@
 		C027A28622B59A570011EA73 /* TransformableWithScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A28522B59A570011EA73 /* TransformableWithScrollView.swift */; };
 		C028CBE222A666A4005929F1 /* LabelNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028CBE122A666A4005929F1 /* LabelNameTableViewCell.swift */; };
 		C028CBE422A67509005929F1 /* LabelMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028CBE322A67509005929F1 /* LabelMenuOption.swift */; };
-		C02BB8F22284C27900EB72EC /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02BB8F12284C27900EB72EC /* ParseHelper.swift */; };
 		C02D980722AB0850003C33E5 /* SpaciousLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D980622AB0850003C33E5 /* SpaciousLabel.swift */; };
 		C03270D1220B1AAD009FA337 /* ReleaseElementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */; };
 		C03270D3220B1ABD009FA337 /* ReleaseElementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03270D2220B1ABD009FA337 /* ReleaseElementTableViewCell.xib */; };
@@ -179,7 +178,6 @@
 		C053CF7622244F9000B056A8 /* BandPastRosterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C053CF7522244F9000B056A8 /* BandPastRosterTableViewCell.xib */; };
 		C053CF78222452AB00B056A8 /* ReleaseInLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053CF77222452AB00B056A8 /* ReleaseInLabelTableViewCell.swift */; };
 		C053CF7A222452BC00B056A8 /* ReleaseInLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C053CF79222452BC00B056A8 /* ReleaseInLabelTableViewCell.xib */; };
-		C053CF8422248BB500B056A8 /* RelatedLink.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C053CF8322248BB500B056A8 /* RelatedLink.storyboard */; };
 		C053DD272226777C0028568B /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053DD262226777C0028568B /* StatisticsViewController.swift */; };
 		C053DD2A222679520028568B /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053DD29222679520028568B /* Statistic.swift */; };
 		C053DD2C222679640028568B /* BandStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053DD2B222679640028568B /* BandStatistic.swift */; };
@@ -440,7 +438,6 @@
 		C0AA06CB2239AC52001BE21D /* BrowseBandsAlphabeticallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AA06CA2239AC52001BE21D /* BrowseBandsAlphabeticallyViewController.swift */; };
 		C0AA06CD2239B24E001BE21D /* BrowseBandsResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AA06CC2239B24E001BE21D /* BrowseBandsResultViewController.swift */; };
 		C0AABDDF221D48930044A2CF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AABDDE221D48930044A2CF /* BaseViewController.swift */; };
-		C0AABDE1221D4A4D0044A2CF /* RelatedLinkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AABDE0221D4A4D0044A2CF /* RelatedLinkListViewController.swift */; };
 		C0AABDE4221D7EDC0044A2CF /* LatestAdditionsOrUpdatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AABDE3221D7EDC0044A2CF /* LatestAdditionsOrUpdatesViewController.swift */; };
 		C0AABDE6221D89780044A2CF /* MonthListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AABDE5221D89780044A2CF /* MonthListViewController.swift */; };
 		C0AABDE8221D8AB00044A2CF /* MonthInYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AABDE7221D8AB00044A2CF /* MonthInYear.swift */; };
@@ -639,7 +636,6 @@
 		C027A28522B59A570011EA73 /* TransformableWithScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformableWithScrollView.swift; sourceTree = "<group>"; };
 		C028CBE122A666A4005929F1 /* LabelNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNameTableViewCell.swift; sourceTree = "<group>"; };
 		C028CBE322A67509005929F1 /* LabelMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMenuOption.swift; sourceTree = "<group>"; };
-		C02BB8F12284C27900EB72EC /* ParseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseHelper.swift; sourceTree = "<group>"; };
 		C02D980622AB0850003C33E5 /* SpaciousLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaciousLabel.swift; sourceTree = "<group>"; };
 		C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseElementTableViewCell.swift; sourceTree = "<group>"; };
 		C03270D2220B1ABD009FA337 /* ReleaseElementTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseElementTableViewCell.xib; sourceTree = "<group>"; };
@@ -726,7 +722,6 @@
 		C053CF7522244F9000B056A8 /* BandPastRosterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BandPastRosterTableViewCell.xib; sourceTree = "<group>"; };
 		C053CF77222452AB00B056A8 /* ReleaseInLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInLabelTableViewCell.swift; sourceTree = "<group>"; };
 		C053CF79222452BC00B056A8 /* ReleaseInLabelTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseInLabelTableViewCell.xib; sourceTree = "<group>"; };
-		C053CF8322248BB500B056A8 /* RelatedLink.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RelatedLink.storyboard; sourceTree = "<group>"; };
 		C053DD262226777C0028568B /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		C053DD29222679520028568B /* Statistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
 		C053DD2B222679640028568B /* BandStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandStatistic.swift; sourceTree = "<group>"; };
@@ -964,7 +959,6 @@
 		C0AA06CA2239AC52001BE21D /* BrowseBandsAlphabeticallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseBandsAlphabeticallyViewController.swift; sourceTree = "<group>"; };
 		C0AA06CC2239B24E001BE21D /* BrowseBandsResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseBandsResultViewController.swift; sourceTree = "<group>"; };
 		C0AABDDE221D48930044A2CF /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		C0AABDE0221D4A4D0044A2CF /* RelatedLinkListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedLinkListViewController.swift; sourceTree = "<group>"; };
 		C0AABDE3221D7EDC0044A2CF /* LatestAdditionsOrUpdatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestAdditionsOrUpdatesViewController.swift; sourceTree = "<group>"; };
 		C0AABDE5221D89780044A2CF /* MonthListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthListViewController.swift; sourceTree = "<group>"; };
 		C0AABDE7221D8AB00044A2CF /* MonthInYear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthInYear.swift; sourceTree = "<group>"; };
@@ -1343,14 +1337,6 @@
 			path = LabelNameTableViewCell;
 			sourceTree = "<group>";
 		};
-		C02BB8F02284C26800EB72EC /* ParseHelper */ = {
-			isa = PBXGroup;
-			children = (
-				C02BB8F12284C27900EB72EC /* ParseHelper.swift */,
-			);
-			path = ParseHelper;
-			sourceTree = "<group>";
-		};
 		C02D980522AB083D003C33E5 /* SpaciousLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1721,6 +1707,7 @@
 				C06F1DEC21F70FEA00B49D39 /* LoadingTableViewCell */,
 				C061021921EFE14D0025F8C1 /* ViewMoreTableViewCell */,
 				C00D362F223D98BE00B29B43 /* DetailTableViewCell */,
+				C0756055222C6E4600DA7119 /* RelatedLinkTableViewCell */,
 			);
 			path = UtileCells;
 			sourceTree = "<group>";
@@ -1760,7 +1747,6 @@
 				C00D3622223D6DD500B29B43 /* About */,
 				C0AA06C32239A4C2001BE21D /* BrowseBands */,
 				C0BAD49E222EBEA000C4D38D /* UtileControllers */,
-				C0BAD49D222EBE8E00C4D38D /* RelatedLinks */,
 				C053DD7822271E630028568B /* Search */,
 				C053DD252226774C0028568B /* Statistics */,
 				C05309E122232EBA0027D11E /* Label */,
@@ -1807,7 +1793,6 @@
 				C0ECE6F1221AB32B00489A8E /* Lyric.storyboard */,
 				C0ECE6F8221B19DD00489A8E /* Artist.storyboard */,
 				C05309E422232FA50027D11E /* LabelDetail.storyboard */,
-				C053CF8322248BB500B056A8 /* RelatedLink.storyboard */,
 				C053DD7B22271E9C0028568B /* Search.storyboard */,
 				C0AA06C12239A32E001BE21D /* BrowseBands.storyboard */,
 				C00D3625223D6E5200B29B43 /* About.storyboard */,
@@ -1833,7 +1818,6 @@
 			children = (
 				C082CD9322E47937002202F6 /* Service */,
 				C0795B8C2288239000E5D94F /* BetterSnappingLayout */,
-				C02BB8F02284C26800EB72EC /* ParseHelper */,
 				C06DC34B22705A08005D513E /* RegexHelpers */,
 				C00D3601223D5E1700B29B43 /* Statics + Utilities */,
 				C00D3600223D5E0A00B29B43 /* Ressources */,
@@ -2157,7 +2141,6 @@
 				C0756052222C6E0600DA7119 /* MemberTableViewCell */,
 				C0756053222C6E2600DA7119 /* ReviewTableViewCell */,
 				C0756054222C6E3400DA7119 /* SimilarBandTableViewCell */,
-				C0756055222C6E4600DA7119 /* RelatedLinkTableViewCell */,
 			);
 			path = BandDetail;
 			sourceTree = "<group>";
@@ -2870,14 +2853,6 @@
 			path = AdvancedSearch;
 			sourceTree = "<group>";
 		};
-		C0BAD49D222EBE8E00C4D38D /* RelatedLinks */ = {
-			isa = PBXGroup;
-			children = (
-				C0AABDE0221D4A4D0044A2CF /* RelatedLinkListViewController.swift */,
-			);
-			path = RelatedLinks;
-			sourceTree = "<group>";
-		};
 		C0BAD49E222EBEA000C4D38D /* UtileControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3288,7 +3263,6 @@
 				C071307F21ECF4E500082BC6 /* LeftMenuOptionTableViewCell.xib in Resources */,
 				C05606F822A30D52006F5BC1 /* LineupOptionTableViewCell.xib in Resources */,
 				C082CDAF22E4A924002202F6 /* DeezerTrackTableViewCell.xib in Resources */,
-				C053CF8422248BB500B056A8 /* RelatedLink.storyboard in Resources */,
 				C0858F052236C26B00595B48 /* MA_Countries.plist in Resources */,
 				C0795BA122886D2600E5D94F /* BandAdditionOrUpdateCollectionViewCell.xib in Resources */,
 				C053CF662223FB5000B056A8 /* LabelInfoTableViewCell.xib in Resources */,
@@ -3732,7 +3706,6 @@
 				C053DD592226C4770028568B /* BarLineChartViewBase+Setup.swift in Sources */,
 				C074FEDE2205C45B0086909E /* MemberTableViewCell.swift in Sources */,
 				C03C5E72221BFEFE0054E55A /* ArtistInfoTableViewCell.swift in Sources */,
-				C02BB8F22284C27900EB72EC /* ParseHelper.swift in Sources */,
 				C06B6295224281A500A3FE6B /* RequestRelatedLinks.swift in Sources */,
 				C0BAD4B5222EED6300C4D38D /* SimpleSearchResultArtist.swift in Sources */,
 				C0AA06BC22395F09001BE21D /* AdvancedSongTableViewCell.swift in Sources */,
@@ -3784,7 +3757,6 @@
 				C05FC9B0222AC4DB00D4B0DF /* RegisterableCell.swift in Sources */,
 				C00D3635223D9ABF00B29B43 /* LibraryCopyrightViewController.swift in Sources */,
 				C01839E522256AF100FF88B7 /* LabelAdditionOrUpdate.swift in Sources */,
-				C0AABDE1221D4A4D0044A2CF /* RelatedLinkListViewController.swift in Sources */,
 				C0F1537F21EF5DE500355616 /* MetalArchivesAPI.swift in Sources */,
 				C082CDA622E4A246002202F6 /* DeezerAlbumLite.swift in Sources */,
 				C082CD9222E4757E002202F6 /* DeezerArtist.swift in Sources */,

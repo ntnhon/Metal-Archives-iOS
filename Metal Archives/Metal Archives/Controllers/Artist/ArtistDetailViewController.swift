@@ -112,7 +112,7 @@ final class ArtistDetailViewController: BaseViewController {
                         
                         self.historyRecordableDelegate?.loaded(urlString: artist.urlString, nameOrTitle: artist.bandMemberName, thumbnailUrlString: artist.photoURLString, objectType: .artist)
                         
-                        Analytics.logEvent("view_artist", parameters: ["artist_name": artist.bandMemberName!, "artist_id": artist.id!])
+                        Analytics.logEvent("view_artist", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? ""])
                         
                     Crashlytics.sharedInstance().setObjectValue(artist.generalDescription, forKey: "artist")
                     }
@@ -283,7 +283,7 @@ final class ArtistDetailViewController: BaseViewController {
             
             self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(artist.bandMemberName!) in browser", alertMessage: artist.urlString, shareMessage: "Share this artist URL")
             
-            Analytics.logEvent("share_artist", parameters: nil)
+            Analytics.logEvent("share_artist", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? ""])
         }
     }
     
@@ -468,11 +468,11 @@ extension ArtistDetailViewController {
         if let rolesInBand = roles as? RolesInBand, let bandURLString = rolesInBand.bandURLString {
             pushBandDetailViewController(urlString: bandURLString, animated: true)
             
-            Analytics.logEvent("select_artist_roles_in_band", parameters: nil)
+            Analytics.logEvent("select_artist_roles_in_band", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? "", "role": rolesInBand.bandName ?? ""])
         } else if let rolesInRelease = roles as? RolesInRelease {
             pushReleaseDetailViewController(urlString: rolesInRelease.releaseURLString, animated: true)
             
-            Analytics.logEvent("select_artist_roles_in_release", parameters: nil)
+            Analytics.logEvent("select_artist_roles_in_release", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? "", "role": rolesInRelease.releaseTitle ?? ""])
         }
     }
 }
@@ -507,7 +507,7 @@ extension ArtistDetailViewController {
         let link = links[indexPath.row]
         presentAlertOpenURLInBrowsers(URL(string: link.urlString)!, alertTitle: "Open this link in browser", alertMessage: link.urlString, shareMessage: "Share this link")
         
-        Analytics.logEvent("select_artist_link", parameters: nil)
+        Analytics.logEvent("select_artist_link", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? "", "link": link.title, "link_url": link.urlString])
     }
 }
 
@@ -518,13 +518,13 @@ extension ArtistDetailViewController: HorizontalMenuViewDelegate {
         pinHorizontalMenuViewThenRefreshAndScrollTableView()
         
         switch currentArtistInfoType! {
-        case .pastBands: Analytics.logEvent("view_artist_past_bands", parameters: nil)
-        case .activeBands: Analytics.logEvent("view_artist_active_bands", parameters: nil)
-        case .guestSession: Analytics.logEvent("view_artist_guest_session", parameters: nil)
-        case .miscStaff: Analytics.logEvent("view_artist_misc_staff", parameters: nil)
-        case .live: Analytics.logEvent("view_artist_live", parameters: nil)
-        case .biography: Analytics.logEvent("view_artist_biography", parameters: nil)
-        case .links: Analytics.logEvent("view_artist_past_links", parameters: nil)
+        case .pastBands: Analytics.logEvent("view_artist_past_bands", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? ""])
+        case .activeBands: Analytics.logEvent("view_artist_active_bands", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? ""])
+        case .guestSession: Analytics.logEvent("view_artist_guest_session", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? ""])
+        case .miscStaff: Analytics.logEvent("view_artist_misc_staff", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? ""])
+        case .live: Analytics.logEvent("view_artist_live", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? ""])
+        case .biography: Analytics.logEvent("view_artist_biography", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? ""])
+        case .links: Analytics.logEvent("view_artist_past_links", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? ""])
         }
     }
     

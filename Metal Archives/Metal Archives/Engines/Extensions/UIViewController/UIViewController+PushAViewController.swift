@@ -50,12 +50,6 @@ extension UIViewController {
         }
     }
     
-    func pushRelatedLinkListViewController(_ relatedLinks: [RelatedLink], animated: Bool) {
-        let relatedLinkListViewController = UIStoryboard(name: "RelatedLink", bundle: nil).instantiateViewController(withIdentifier: "RelatedLinkListViewController") as! RelatedLinkListViewController
-        relatedLinkListViewController.relatedLinks = relatedLinks
-        navigationController?.pushViewController(relatedLinkListViewController, animated: true)
-    }
-    
     func takeActionFor(actionableObject: Actionable) {
         if actionableObject.actionableElements.count == 1 && actionableObject.actionableElements[0].type == .artist {
             self.pushArtistDetailViewController(urlString: actionableObject.actionableElements[0].urlString, animated: true)
