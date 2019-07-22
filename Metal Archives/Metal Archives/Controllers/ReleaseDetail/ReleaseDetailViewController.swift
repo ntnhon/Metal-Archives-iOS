@@ -110,7 +110,7 @@ final class ReleaseDetailViewController: DeezerableViewController {
                 
                 self.historyRecordableDelegate?.loaded(urlString: release.urlString, nameOrTitle: release.title, thumbnailUrlString: release.coverURLString, objectType: .release)
                 
-                Analytics.logEvent("view_release", parameters: ["release_title": release.title!, "release_id": release.id!])
+                Analytics.logEvent("view_release", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
                 
                 Crashlytics.sharedInstance().setObjectValue(release.generalDescription, forKey: "release")
             }
@@ -150,7 +150,7 @@ final class ReleaseDetailViewController: DeezerableViewController {
     @objc private func tableViewBackgroundViewTapped() {
         presentReleaseCoverInPhotoViewer()
         
-        Analytics.logEvent("view_release_cover", parameters: nil)
+        Analytics.logEvent("view_release_cover", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
     }
     
     private func presentReleaseCoverInPhotoViewer() {
@@ -195,7 +195,7 @@ final class ReleaseDetailViewController: DeezerableViewController {
             
             self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(release.title!) in browser", alertMessage: release.urlString, shareMessage: "Share this release URL")
             
-            Analytics.logEvent("share_release", parameters: nil)
+            Analytics.logEvent("share_release", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
         }
     }
 
@@ -345,20 +345,20 @@ extension ReleaseDetailViewController {
             guard let bandUrlString = release.band?.urlString else { return }
             self.pushBandDetailViewController(urlString: bandUrlString, animated: true)
             
-            Analytics.logEvent("view_release_band", parameters: nil)
+            Analytics.logEvent("view_release_band", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? "", "band_url": bandUrlString])
         }
         
         cell.tappedLastModifiedOnLabel = { [unowned self] in
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
             
-            Analytics.logEvent("view_release_last_modified_date", parameters: nil)
+            Analytics.logEvent("view_release_last_modified_date", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
         }
         cell.tappedLabelLabel = { [unowned self] in
             guard let labelUrlString = release.label.urlString else { return }
             self.pushLabelDetailViewController(urlString: labelUrlString, animated: true)
             
-            Analytics.logEvent("view_release_label", parameters: nil)
+            Analytics.logEvent("view_release_label", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
         }
         
         return cell
@@ -379,11 +379,11 @@ extension ReleaseDetailViewController: HorizontalMenuViewDelegate {
         pinHorizontalMenuViewThenRefreshAndScrollTableView()
         
         switch currentReleaseMenuOption {
-        case .trackList: Analytics.logEvent("view_release_tracklist", parameters: nil)
-        case .lineup: Analytics.logEvent("view_release_lineup", parameters: nil)
-        case .reviews: Analytics.logEvent("view_release_reviews", parameters: nil)
-        case .otherVersions: Analytics.logEvent("view_release_other_versions", parameters: nil)
-        case .additionalNotes: Analytics.logEvent("view_release_additional_notes", parameters: nil)
+        case .trackList: Analytics.logEvent("view_release_tracklist", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
+        case .lineup: Analytics.logEvent("view_release_lineup", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
+        case .reviews: Analytics.logEvent("view_release_reviews", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
+        case .otherVersions: Analytics.logEvent("view_release_other_versions", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
+        case .additionalNotes: Analytics.logEvent("view_release_additional_notes", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
         }
     }
     
@@ -452,7 +452,7 @@ extension ReleaseDetailViewController {
             
             present(navLyricViewController, animated: true, completion: nil)
             
-            Analytics.logEvent("view_lyric", parameters: nil)
+            Analytics.logEvent("view_lyric", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? "", "lyric_id": lyricID])
         } else {
             ToastCenter.default.cancelAll()
             Toast(text: "This song has no lyric", duration: Delay.short).show()
@@ -586,7 +586,7 @@ extension ReleaseDetailViewController {
             self.currentLineupType = lineupType
             self.pinHorizontalMenuViewThenRefreshAndScrollTableView()
             
-            Analytics.logEvent("change_release_lineup_type", parameters: nil)
+            Analytics.logEvent("change_release_lineup_type", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? "", "lineup_type": lineupType.description])
         }
         
         present(lineupOptionListViewController, animated: true, completion: nil)
@@ -606,7 +606,7 @@ extension ReleaseDetailViewController {
         if let artist = artist {
             pushArtistDetailViewController(urlString: artist.urlString, animated: true)
             
-            Analytics.logEvent("select_release_member", parameters: nil)
+            Analytics.logEvent("select_release_member", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? "", "artist_id": artist.id, "artist_name": artist.name])
         }
     }
 }
@@ -664,7 +664,7 @@ extension ReleaseDetailViewController {
             cell.setOrderingTitle(isAscending: self.isAscendingOrderReview)
             self.tableView.reloadSections([1], with: .automatic)
             
-            Analytics.logEvent("change_release_reviews_order", parameters: nil)
+            Analytics.logEvent("change_release_reviews_order", parameters: ["release_title": self.release.title ?? "", "release_id": self.release.id ?? "", "is_ascending": self.isAscendingOrderReview])
         }
         return cell
     }
@@ -683,7 +683,7 @@ extension ReleaseDetailViewController {
         let review = release.reviews[index]
         presentReviewController(urlString: review.urlString, animated: true)
         
-        Analytics.logEvent("select_release_review", parameters: nil)
+        Analytics.logEvent("select_release_review", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? "", "review_url": review.urlString])
     }
 }
 
@@ -727,7 +727,7 @@ extension ReleaseDetailViewController {
         let otherVersion = release.otherVersions[indexPath.row]
         pushReleaseDetailViewController(urlString: otherVersion.urlString, animated: true)
         
-        Analytics.logEvent("select_release_other_version", parameters: nil)
+        Analytics.logEvent("select_release_other_version", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? "", "other_version_url": otherVersion.urlString])
     }
 }
 
