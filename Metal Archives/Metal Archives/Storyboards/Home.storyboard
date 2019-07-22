@@ -222,7 +222,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kfd-QL-a8U">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="rGU-TM-Got" id="xP1-ka-CEp"/>
@@ -242,7 +242,7 @@
                             <constraint firstItem="Kfd-QL-a8U" firstAttribute="top" secondItem="bAA-4y-uHK" secondAttribute="top" id="3E4-Sx-p53"/>
                             <constraint firstItem="NZJ-S3-10h" firstAttribute="leading" secondItem="7Ti-jW-3sj" secondAttribute="leading" id="DdT-hT-oN1"/>
                             <constraint firstItem="Kfd-QL-a8U" firstAttribute="leading" secondItem="bAA-4y-uHK" secondAttribute="leading" id="J2n-YO-7KF"/>
-                            <constraint firstItem="bAA-4y-uHK" firstAttribute="bottom" secondItem="Kfd-QL-a8U" secondAttribute="bottom" id="b2C-Z6-3ER"/>
+                            <constraint firstAttribute="bottom" secondItem="Kfd-QL-a8U" secondAttribute="bottom" id="Urk-lI-Fvt"/>
                             <constraint firstItem="bAA-4y-uHK" firstAttribute="trailing" secondItem="Kfd-QL-a8U" secondAttribute="trailing" id="hUn-XR-elS"/>
                             <constraint firstAttribute="trailing" secondItem="NZJ-S3-10h" secondAttribute="trailing" id="m41-L3-xeV"/>
                             <constraint firstItem="NZJ-S3-10h" firstAttribute="top" secondItem="7Ti-jW-3sj" secondAttribute="top" id="xG6-lX-Pc4"/>

@@ -34,7 +34,8 @@ final class LatestReviewsViewController: RefreshableViewController {
     
     override func initAppearance() {
         super.initAppearance()
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = Settings.currentTheme.backgroundColor
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
         
         LoadingTableViewCell.register(with: tableView)
         LatestReviewTableViewCell.register(with: tableView)
@@ -122,7 +123,7 @@ extension LatestReviewsViewController: MonthListViewControllerDelegate {
     func didSelectAMonth(_ month: MonthInYear) {
         selectedMonth = month
         
-        Analytics.logEvent("change_month_in_latest_reviews", parameters: nil)
+        Analytics.logEvent("change_month_in_latest_reviews", parameters: ["month": month.shortDisplayString])
     }
 }
 
@@ -145,7 +146,7 @@ extension LatestReviewsViewController: UITableViewDelegate {
         let latestReview = latestReviewsPagableManager.objects[indexPath.row]
         takeActionFor(actionableObject: latestReview)
         
-        Analytics.logEvent("select_an_item_in_latest_reviews", parameters: nil)
+        Analytics.logEvent("select_an_item_in_latest_reviews", parameters: ["latest_review": latestReview.reviewURLString])
     }
 }
 
