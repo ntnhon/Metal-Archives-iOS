@@ -17,6 +17,7 @@ final class DeezerTracklistViewController: BaseViewController {
     var topTrack = false
     var albumTitleOrArtistName: String!
     var deezerTrackData: DeezerData<DeezerTrack>!
+    var albumCoverUrlString: String?
     
     private var player: AVPlayer?
     private var isPlayingIndex: Int = -1
@@ -134,11 +135,17 @@ extension DeezerTracklistViewController: UITableViewDataSource {
         let cell = DeezerTrackTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         let track = deezerTrackData.data[indexPath.row]
         cell.fill(with: track)
+        if let albumCoverUrlString = albumCoverUrlString {
+            cell.thumbnailImageView.sd_setImage(with: URL(string: albumCoverUrlString))
+        }
         cell.setPlaying(indexPath.row == isPlayingIndex)
         
         cell.tappedThumbnailImageView = { [unowned self] in
-            guard let album = track.album else { return }
-            self.presentPhotoViewer(photoUrlString: album.cover_xl, description: album.title, fromImageView: cell.thumbnailImageView)
+            if let album = track.album {
+                self.presentPhotoViewer(photoUrlString: album.cover_xl, description: album.title, fromImageView: cell.thumbnailImageView)
+            } else if let albumCoverUrlString = self.albumCoverUrlString {
+                self.presentPhotoViewer(photoUrlString: albumCoverUrlString, description: self.albumTitleOrArtistName, fromImageView: cell.thumbnailImageView)
+            }
         }
         
         return cell

@@ -25,10 +25,15 @@ final class DeezerAlbumTableViewCell: ThumbnailableTableViewCell, RegisterableCe
         thumbnailImageView.sd_setImage(with: URL(string: album.cover_xl))
         albumTitleLabel.text = album.title
         
-        if let releaseDateString = album.release_date {
-            dateOrArtistAndTypeLabel.text = album.artist.name + " • " + releaseDateString + " • " + album.record_type
-        } else {
-            dateOrArtistAndTypeLabel.text = album.artist.name + " • " + album.record_type
+        var string = ""
+        if let artistName = album.artist?.name {
+            string += "\(artistName) • "
         }
+        
+        if let releaseDateString = album.release_date {
+            string += "\(releaseDateString) • "
+        }
+        
+        dateOrArtistAndTypeLabel.text = string + album.record_type
     }
 }

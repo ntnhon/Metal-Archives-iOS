@@ -64,7 +64,9 @@ final class BandDetailViewController: DeezerableViewController {
         initHorizontalMenuView()
         handleSimpleNavigationBarViewActions()
         fetchBand()
-        navigationController?.interactivePopGestureRecognizer?.delegate = navigationController as! HomepageNavigationController
+        navigationController?.interactivePopGestureRecognizer?.delegate = navigationController as? HomepageNavigationController
+        // bring deezerButton to front because it is overlapped by horizontalMenuView
+        view.bringSubviewToFront(deezerButton)
     }
     
     override func viewDidAppear(_ animated: Bool) {

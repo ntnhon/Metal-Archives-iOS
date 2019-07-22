@@ -58,6 +58,8 @@ final class ReleaseDetailViewController: DeezerableViewController {
         initHorizontalMenuView()
         handleUtileBarViewActions()
         fetchRelease()
+        // bring deezerButton to front because it is overlapped by horizontalMenuView
+        view.bringSubviewToFront(deezerButton)
     }
     
     override func viewDidAppear(_ animated: Bool) {

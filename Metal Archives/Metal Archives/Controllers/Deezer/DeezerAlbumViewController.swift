@@ -70,15 +70,16 @@ extension DeezerAlbumViewController: UITableViewDelegate {
                 Toast.displayMessageShortly(errorLoadingMessage)
             } else if let deezerData = deezerData {
                 DispatchQueue.main.async {
-                    self?.pushDeezerTracklist(withAlbumTitle: album.title, deezerTrackData: deezerData)
+                    self?.pushDeezerTracklist(with: album, deezerTrackData: deezerData)
                 }
             }
         }
     }
     
-    private func pushDeezerTracklist(withAlbumTitle albumTitle: String, deezerTrackData: DeezerData<DeezerTrack>) {
+    private func pushDeezerTracklist(with album: DeezerAlbum, deezerTrackData: DeezerData<DeezerTrack>) {
         let deezerTracklistViewController = UIStoryboard(name: "Deezer", bundle: nil).instantiateViewController(withIdentifier: "DeezerTracklistViewController") as! DeezerTracklistViewController
-        deezerTracklistViewController.albumTitleOrArtistName = albumTitle
+        deezerTracklistViewController.albumTitleOrArtistName = album.title
+        deezerTracklistViewController.albumCoverUrlString = album.cover_xl
         deezerTracklistViewController.topTrack = false
         deezerTracklistViewController.deezerTrackData = deezerTrackData
         

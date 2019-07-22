@@ -14,5 +14,5 @@ struct DeezerAlbum: Decodable {
     let release_date: String?
     let record_type: String
     let tracklist: String
-    let artist: DeezerArtistLite
+    let artist: DeezerArtistLite?
 }
