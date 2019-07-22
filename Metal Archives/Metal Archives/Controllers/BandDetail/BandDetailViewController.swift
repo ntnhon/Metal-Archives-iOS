@@ -727,24 +727,24 @@ extension BandDetailViewController {
         
         switch currentMemberType {
         case .complete:
-            if let complete = band.completeLineup, complete.count > index {
+            if let complete = band.completeLineup, complete.indices.contains(index) {
                 artist = complete[index]
             }
             
         case .current:
-            if let current = band.currentLineup, current.count > index {
+            if let current = band.currentLineup, current.indices.contains(index) {
                 artist = current[index]
             }
         case .lastKnown:
-            if let lastKnown = band.lastKnownLineup, lastKnown.count > index {
+            if let lastKnown = band.lastKnownLineup, lastKnown.indices.contains(index) {
                 artist = lastKnown[index]
             }
         case .past:
-            if let past = band.pastMembers, past.count > index {
+            if let past = band.pastMembers, past.indices.contains(index) {
                 artist = past[index]
             }
         case .live:
-            if let live = band.liveMusicians, live.count > index {
+            if let live = band.liveMusicians, live.indices.contains(index) {
                 artist = live[index]
             }
         }
