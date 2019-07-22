@@ -37,7 +37,7 @@ final class AdvancedSearchSongsResultsViewController: RefreshableViewController 
     
     override func initAppearance() {
         super.initAppearance()
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
         AdvancedSongTableViewCell.register(with: tableView)
         LoadingTableViewCell.register(with: tableView)
     }
@@ -167,6 +167,7 @@ extension AdvancedSearchSongsResultsViewController: UITableViewDataSource {
         cell.fill(with: result)
         cell.tappedThumbnailImageView = { [unowned self]  in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: result.release.imageURLString, description: result.release.title, fromImageView: cell.thumbnailImageView)
+            Analytics.logEvent("view_advanced_search_result_thumbnail", parameters: nil)
         }
         return cell
     }
