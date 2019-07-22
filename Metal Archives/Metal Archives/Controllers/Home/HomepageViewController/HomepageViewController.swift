@@ -50,7 +50,8 @@ final class HomepageViewController: RefreshableViewController {
     override func initAppearance() {
         super.initAppearance()
         tableView.contentInsetAdjustmentBehavior = .never
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = Settings.currentTheme.backgroundColor
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
         
         LoadingTableViewCell.register(with: tableView)
         NewsTableViewCell.register(with: tableView)

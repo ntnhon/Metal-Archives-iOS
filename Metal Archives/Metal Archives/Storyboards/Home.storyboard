@@ -171,7 +171,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SyQ-aE-sAp">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="7Wm-uq-IxL" id="WbZ-tR-V1D"/>
@@ -188,10 +188,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="SyQ-aE-sAp" firstAttribute="bottom" secondItem="Hxw-97-0IO" secondAttribute="bottom" id="0EV-AV-afx"/>
                             <constraint firstItem="BSO-ZE-Iy6" firstAttribute="trailing" secondItem="Hxw-97-0IO" secondAttribute="trailing" id="2qA-Pi-ezb"/>
                             <constraint firstItem="BSO-ZE-Iy6" firstAttribute="top" secondItem="dTt-OI-3Mn" secondAttribute="top" id="4Nv-BW-dMu"/>
                             <constraint firstItem="BSO-ZE-Iy6" firstAttribute="leading" secondItem="Hxw-97-0IO" secondAttribute="leading" id="7JU-ii-mor"/>
+                            <constraint firstAttribute="bottom" secondItem="SyQ-aE-sAp" secondAttribute="bottom" id="BPy-Qw-ldE"/>
                             <constraint firstItem="SyQ-aE-sAp" firstAttribute="top" secondItem="Hxw-97-0IO" secondAttribute="top" id="I7R-4F-mQN"/>
                             <constraint firstItem="SyQ-aE-sAp" firstAttribute="trailing" secondItem="Hxw-97-0IO" secondAttribute="trailing" id="ITg-Yo-LUb"/>
                             <constraint firstItem="SyQ-aE-sAp" firstAttribute="leading" secondItem="Hxw-97-0IO" secondAttribute="leading" id="gbI-ua-mGm"/>
