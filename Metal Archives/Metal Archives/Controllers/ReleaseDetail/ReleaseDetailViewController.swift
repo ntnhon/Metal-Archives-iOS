@@ -533,6 +533,7 @@ extension ReleaseDetailViewController {
             
             cell.tappedThumbnailImageView = { [unowned self] in
                 self.presentPhotoViewerWithCacheChecking(photoUrlString: artist.imageURLString, description: artist.name, fromImageView: cell.thumbnailImageView)
+                Analytics.logEvent("view_release_lineup_member", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? "", "artist_id": artist.id, "artist_name": artist.name])
             }
             
             return cell

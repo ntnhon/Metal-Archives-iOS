@@ -517,6 +517,7 @@ extension BandDetailViewController {
             
             cell.tappedThumbnailImageView = { [unowned self] in
                 self.presentPhotoViewerWithCacheChecking(photoUrlString: release.imageURLString, description: release.title, fromImageView: cell.thumbnailImageView)
+                Analytics.logEvent("view_band_release_thumbnail", parameters: ["band_id": self.band?.id ?? "", "band_name": self.band?.name ?? "", "release_id": release.id, "release_title": release.title])
             }
             
             return cell
@@ -709,6 +710,7 @@ extension BandDetailViewController {
             
             cell.tappedThumbnailImageView = { [unowned self] in
                 self.presentPhotoViewerWithCacheChecking(photoUrlString: artist.imageURLString, description: artist.name, fromImageView: cell.thumbnailImageView)
+                Analytics.logEvent("view_band_member_thumbnail", parameters: ["band_id": self.band?.id ?? "", "band_name": self.band?.name ?? "", "artist_id": artist.id, "artist_name": artist.name])
             }
             
             return cell
@@ -851,6 +853,7 @@ extension BandDetailViewController {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: review.release?.imageURLString, description: review.release?.title ?? "", fromImageView: cell.thumbnailImageView)
+            Analytics.logEvent("view_band_review_thumbnail", parameters: ["band_id": self.band?.id ?? "", "band_name": self.band?.name ?? "", "release_id": review.release?.id ?? "", "release_title": review.release?.title ?? "", "review_url": review.urlString])
         }
         
         return cell
@@ -899,6 +902,7 @@ extension BandDetailViewController {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: similarArtist.imageURLString, description: similarArtist.name, fromImageView: cell.thumbnailImageView)
+            Analytics.logEvent("view_band_similar_artist_thumbnail", parameters: ["band_id": self.band?.id ?? "", "band_name": self.band?.name ?? "", "artist_id": similarArtist.id, "artist_name": similarArtist.name])
         }
         
         return cell

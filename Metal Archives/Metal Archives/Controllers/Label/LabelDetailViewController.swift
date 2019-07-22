@@ -111,7 +111,7 @@ final class LabelDetailViewController: BaseViewController {
                     self.historyRecordableDelegate?.loaded(urlString: label.urlString, nameOrTitle: label.name, thumbnailUrlString: label.logoURLString, objectType: .label)
                 }
                 
-                Analytics.logEvent("view_label", parameters: nil)
+                Analytics.logEvent("view_label", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
                 Crashlytics.sharedInstance().setObjectValue(label.generalDescription, forKey: "label")
             }
         }
@@ -225,7 +225,7 @@ final class LabelDetailViewController: BaseViewController {
             
             self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(label.name!) in browser", alertMessage: label.urlString, shareMessage: "Share this label URL")
             
-            Analytics.logEvent("share_label", parameters: nil)
+            Analytics.logEvent("share_label", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
         }
     }
     
@@ -374,7 +374,7 @@ extension LabelDetailViewController {
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
             
-            Analytics.logEvent("view_label_last_modified_date", parameters: nil)
+            Analytics.logEvent("view_label_last_modified_date", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
         }
         
         cell.tappedWebsite = { [unowned self] in
@@ -384,14 +384,14 @@ extension LabelDetailViewController {
             
             self.presentAlertOpenURLInBrowsers(url, alertTitle: "Open this link in browser", alertMessage: website.urlString, shareMessage: "Share this link")
             
-            Analytics.logEvent("view_label_website", parameters: nil)
+            Analytics.logEvent("view_label_website", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
         }
         
         cell.tappedParentLabel = { [unowned self] in
             guard let parentLabel = self.label.parentLabel else { return }
             self.pushLabelDetailViewController(urlString: parentLabel.urlString, animated: true)
             
-            Analytics.logEvent("view_label_parent_label", parameters: nil)
+            Analytics.logEvent("view_label_parent_label", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? "", "parent_label_id": parentLabel.id, "parent_label_name": parentLabel.name])
         }
         
         return cell
@@ -418,6 +418,8 @@ extension LabelDetailViewController {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: subLabel.imageURLString, description: subLabel.name, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_label_sublabel_thumbnail", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? "", "sublabel_id": subLabel.id, "sublabel_name": subLabel.name])
         }
         
         return cell
@@ -429,7 +431,7 @@ extension LabelDetailViewController {
         let subLabel = label.subLabels![indexPath.row]
         pushLabelDetailViewController(urlString: subLabel.urlString, animated: true)
         
-        Analytics.logEvent("select_label_sublabel", parameters: nil)
+        Analytics.logEvent("select_label_sublabel", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? "", "sublabel_id": subLabel.id, "sublabel_name": subLabel.name])
     }
 }
 
@@ -440,13 +442,13 @@ extension LabelDetailViewController: HorizontalMenuViewDelegate {
         pinHorizontalMenuViewThenRefreshAndScrollTableView()
         
         switch currentLabelMenuOption! {
-        case .subLabels: Analytics.logEvent("view_label_sub_labels", parameters: nil)
-        case .currentRoster: Analytics.logEvent("view_label_current_roster", parameters: nil)
-        case .pastRoster: Analytics.logEvent("view_label_past_roster", parameters: nil)
-        case .lastKnownRoster: Analytics.logEvent("view_label_lastknown_roster", parameters: nil)
-        case .releases: Analytics.logEvent("view_label_releases", parameters: nil)
-        case .additionalNotes: Analytics.logEvent("view_label_additional_notes", parameters: nil)
-        case .links: Analytics.logEvent("view_label_links", parameters: nil)
+        case .subLabels: Analytics.logEvent("view_label_sub_labels", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
+        case .currentRoster: Analytics.logEvent("view_label_current_roster", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
+        case .pastRoster: Analytics.logEvent("view_label_past_roster", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
+        case .lastKnownRoster: Analytics.logEvent("view_label_lastknown_roster", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
+        case .releases: Analytics.logEvent("view_label_releases", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
+        case .additionalNotes: Analytics.logEvent("view_label_additional_notes", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
+        case .links: Analytics.logEvent("view_label_links", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
         }
     }
     
@@ -490,6 +492,8 @@ extension LabelDetailViewController {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: roster.imageURLString, description: roster.name, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_label_current_or_last_roster_thumbnail", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? "", "roster_id": roster.id, "roster_name": roster.name])
         }
         
         return cell
@@ -505,7 +509,7 @@ extension LabelDetailViewController {
         let roster = label.currentRosterPagableManager.objects[indexPath.row]
         pushBandDetailViewController(urlString: roster.urlString, animated: true)
         
-        Analytics.logEvent("select_label_current_lastknown_roster", parameters: nil)
+        Analytics.logEvent("select_label_current_lastknown_roster", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? "", "roster_id": roster.id, "roster_name": roster.name])
     }
     
     private func pastRosterTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -526,6 +530,8 @@ extension LabelDetailViewController {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: pastRoster.imageURLString, description: pastRoster.name, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_label_past_roster_thumbnail", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? "", "roster_id": pastRoster.id, "roster_name": pastRoster.name])
         }
         
         return cell
@@ -541,7 +547,7 @@ extension LabelDetailViewController {
         let pastRoster = label.pastRosterPagableManager.objects[indexPath.row]
         pushBandDetailViewController(urlString: pastRoster.urlString, animated: true)
         
-        Analytics.logEvent("select_label_past_roster", parameters: nil)
+        Analytics.logEvent("select_label_past_roster", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? "", "past_roster_id": pastRoster.id, "past_roster_name": pastRoster.name])
     }
 }
 
@@ -573,7 +579,7 @@ extension LabelDetailViewController {
         let link = links[indexPath.row]
         presentAlertOpenURLInBrowsers(URL(string: link.urlString)!, alertTitle: "Open this link in browser", alertMessage: link.urlString, shareMessage: "Share this link")
         
-        Analytics.logEvent("select_label_link", parameters: nil)
+        Analytics.logEvent("select_label_link", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? "", "link_title": link.title, "link_url": link.urlString])
     }
 }
 
@@ -597,6 +603,8 @@ extension LabelDetailViewController {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: release.imageURLString, description: release.release.title, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_label_release_thumbnail", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? "", "release_id": release.id, "release_name": release.release.title])
         }
         
         return cell
@@ -612,7 +620,7 @@ extension LabelDetailViewController {
         let release = label.releasesPagableManager.objects[indexPath.row]
         takeActionFor(actionableObject: release)
         
-        Analytics.logEvent("select_label_release", parameters: nil)
+        Analytics.logEvent("select_label_release", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? "", "release_id": release.id, "release_title": release.release.title])
     }
 }
 
