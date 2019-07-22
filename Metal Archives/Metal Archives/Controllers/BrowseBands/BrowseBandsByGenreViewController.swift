@@ -16,7 +16,7 @@ final class BrowseBandsByGenreViewController: BaseViewController {
     override func initAppearance() {
         super.initAppearance()
         tableView.contentInsetAdjustmentBehavior = .never
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
         
         tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor

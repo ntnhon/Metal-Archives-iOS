@@ -26,8 +26,9 @@ final class BrowseBandsResultViewController: RefreshableViewController {
 
     override func initAppearance() {
         super.initAppearance()
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         tableView.contentInsetAdjustmentBehavior = .never
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
         
         LoadingTableViewCell.register(with: tableView)
         BrowseBandsResultTableViewCell.register(with: tableView)
