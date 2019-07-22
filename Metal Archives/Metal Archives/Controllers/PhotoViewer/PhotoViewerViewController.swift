@@ -63,6 +63,8 @@ final class PhotoViewerViewController: BaseViewController {
         super.viewDidLoad()
         self.addGestures()
         self.setPhoto()
+        
+        Analytics.logEvent("open_photo_viewer", parameters: nil)
     }
     
     override func initAppearance() {

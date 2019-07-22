@@ -164,9 +164,9 @@ final class BandDetailViewController: DeezerableViewController {
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
             guard let `band` = self.band, let url = URL(string: band.urlString) else { return }
             
-            self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(band.name!) in browser", alertMessage: band.urlString, shareMessage: "Share this band URL")
+            self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(band.name ?? "") in browser", alertMessage: band.urlString, shareMessage: "Share this band URL")
             
-            Analytics.logEvent("share_band", parameters: nil)
+            Analytics.logEvent("share_band", parameters: ["band_id": band.id ?? "", "band_name": band.name ?? ""])
         }
     }
 
@@ -194,7 +194,7 @@ final class BandDetailViewController: DeezerableViewController {
     private func presentOldBands() {
         guard let oldBands = band?.oldBands else { return }
         
-        Analytics.logEvent("view_band_old_names", parameters: nil)
+        Analytics.logEvent("view_band_old_names", parameters: ["band_id": band?.id ?? "", "band_name": band?.name ?? ""])
         
         if oldBands.count == 1 {
             let oldBand = oldBands[0]
@@ -272,7 +272,7 @@ extension BandDetailViewController {
     
     @objc private func tableViewBackgroundViewTapped() {
         presentBandLogoInPhotoViewer()
-        Analytics.logEvent("view_band_logo", parameters: nil)
+        Analytics.logEvent("view_band_logo", parameters: ["band_id": band?.id ?? "", "band_name": band?.name ?? ""])
     }
 }
 
@@ -398,7 +398,7 @@ extension BandDetailViewController {
         cell.tappedPhotoImageView = { [unowned self] in
             if let band = self.band, let bandPhotoURLString = band.photoURLString {
                 self.presentPhotoViewer(photoUrlString: bandPhotoURLString, description: band.name, fromImageView: cell.photoImageView)
-                Analytics.logEvent("view_band_photo", parameters: nil)
+                Analytics.logEvent("view_band_photo", parameters: ["band_id": band.id ?? "", "band_name": band.name ?? ""])
             } else {
                 Toast.displayMessageShortly("No photo added")
             }
@@ -418,12 +418,12 @@ extension BandDetailViewController {
         cell.tappedLastModifiedOnLabel = { [unowned self] in
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
-            Analytics.logEvent("view_band_last_modified_date", parameters: nil)
+            Analytics.logEvent("view_band_last_modified_date", parameters: ["band_id": self.band?.id ?? "", "band_name": self.band?.name ?? ""])
         }
         cell.tappedLastLabelLabel = { [unowned self] in
             guard let lastLabelUrlString = self.band?.lastLabel.urlString else { return }
             self.pushLabelDetailViewController(urlString: lastLabelUrlString, animated: true)
-            Analytics.logEvent("view_band_last_label", parameters: nil)
+            Analytics.logEvent("view_band_last_label", parameters: ["band_id": self.band?.id ?? "", "band_name": self.band?.name ?? ""])
         }
         return cell
     }
@@ -443,12 +443,12 @@ extension BandDetailViewController: HorizontalMenuViewDelegate {
         pinHorizontalMenuViewThenRefreshAndScrollTableView()
         
         switch currentMenuOption {
-        case .discography: Analytics.logEvent("view_band_discography", parameters: nil)
-        case .members: Analytics.logEvent("view_band_members", parameters: nil)
-        case .reviews: Analytics.logEvent("view_band_reviews", parameters: nil)
+        case .discography: Analytics.logEvent("view_band_discography", parameters: ["band_id": band?.id ?? "", "band_name": band?.name ?? ""])
+        case .members: Analytics.logEvent("view_band_members", parameters: ["band_id": band?.id ?? "", "band_name": band?.name ?? ""])
+        case .reviews: Analytics.logEvent("view_band_reviews", parameters: ["band_id": band?.id ?? "", "band_name": band?.name ?? ""])
         case .similarArtists: Analytics.logEvent("view_band_similar_artists", parameters: nil)
-        case .about: Analytics.logEvent("view_band_about", parameters: nil)
-        case .relatedLinks: Analytics.logEvent("view_band_related_links", parameters: nil)
+        case .about: Analytics.logEvent("view_band_about", parameters: ["band_id": band?.id ?? "", "band_name": band?.name ?? ""])
+        case .relatedLinks: Analytics.logEvent("view_band_related_links", parameters: ["band_id": band?.id ?? "", "band_name": band?.name ?? ""])
         }
     }
     
@@ -534,7 +534,7 @@ extension BandDetailViewController {
         if let release = release(forIndexPath: indexPath) {
             pushReleaseDetailViewController(urlString: release.urlString, animated: true)
             
-            Analytics.logEvent("select_band_release", parameters: nil)
+            Analytics.logEvent("select_band_release", parameters: ["band_id": band?.id ?? "", "band_name": band?.name ?? "", "release_id": release.id, "release_title": release.title])
         }
     }
     
@@ -608,14 +608,13 @@ extension BandDetailViewController {
         cell.tappedDiscographyTypeButton = { [unowned self] in
             let rect = cell.convert(cell.discographyTypeButton.frame, to: self.view)
             self.displayDiscographyOptionList(fromRect: rect)
-            Analytics.logEvent("change_band_discography_type", parameters: nil)
         }
         
         cell.tappedOrderingButton = { [unowned self] in
             self.isAscendingOrderDiscography.toggle()
             cell.setOrderingTitle(isAscending: self.isAscendingOrderDiscography)
             self.tableView.reloadSections([1], with: .automatic)
-            Analytics.logEvent("change_band_discography_order", parameters: nil)
+            Analytics.logEvent("change_band_discography_order", parameters: ["band_id": self.band?.id ?? "", "band_name": self.band?.name ?? "", "is_ascending": self.isAscendingOrderDiscography])
         }
         
         return cell
@@ -641,6 +640,7 @@ extension BandDetailViewController {
         discographyOptionListViewController.selectedDiscographyType = { [unowned self] (discographyType) in
             self.currentDiscographyType = discographyType
             self.pinHorizontalMenuViewThenRefreshAndScrollTableView()
+            Analytics.logEvent("change_band_discography_type", parameters: ["band_id": self.band?.id ?? "", "band_name": self.band?.name ?? "", "discography_type": discographyType.description])
         }
         
         self.present(discographyOptionListViewController, animated: true, completion: nil)
@@ -685,7 +685,7 @@ extension BandDetailViewController {
     private func didSelectMemberCell(atIndexPath indexPath: IndexPath) {
         guard let artist = artist(forRowAt: indexPath) else { return }
         takeActionFor(actionableObject: artist)
-        Analytics.logEvent("select_band_member", parameters: nil)
+        Analytics.logEvent("select_band_member", parameters: ["band_id": band?.id ?? "", "band_name": band?.name ?? "", "artist_id": artist.id, "artist_name": artist.name])
     }
     
     private func memberCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -773,7 +773,6 @@ extension BandDetailViewController {
         cell.tappedMemberTypeButton = { [unowned self] in
             let rect = cell.convert(cell.memberTypeButton.frame, to: self.view)
             self.displayMemberTypeList(fromRect: rect)
-            Analytics.logEvent("change_band_lineup_type", parameters: nil)
         }
 
         return cell
@@ -799,6 +798,8 @@ extension BandDetailViewController {
         memberTypeListViewController.selectedMemberType = { [unowned self] (currentMemberType) in
             self.currentMemberType = currentMemberType
             self.pinHorizontalMenuViewThenRefreshAndScrollTableView()
+            
+            Analytics.logEvent("change_band_lineup_type", parameters: ["band_id": band.id ?? "", "band_name": band.name ?? "", "lineup_type": currentMemberType.description])
         }
         
         self.present(memberTypeListViewController, animated: true, completion: nil)
@@ -865,7 +866,7 @@ extension BandDetailViewController {
         
         let review = band.reviewLitePagableManager.objects[indexPath.row]
         takeActionFor(actionableObject: review)
-        Analytics.logEvent("select_band_review", parameters: nil)
+        Analytics.logEvent("select_band_review", parameters: ["band_id": band.id ?? "", "band_name": band.name ?? "", "review_url": review.urlString])
     }
 }
 
@@ -908,7 +909,7 @@ extension BandDetailViewController {
         
         pushBandDetailViewController(urlString: similarArtists[indexPath.row].urlString, animated: true)
         
-        Analytics.logEvent("select_band_similar_artist", parameters: nil)
+        Analytics.logEvent("select_band_similar_artist", parameters: ["band_id": band.id ?? "", "band_name": band.name ?? "", "similar_artist_id": similarArtists[indexPath.row].id, "similar_artist_name": similarArtists[indexPath.row].name])
     }
 }
 
@@ -967,6 +968,6 @@ extension BandDetailViewController {
         guard let url = URL(string: relatedLink.urlString) else { return }
         presentAlertOpenURLInBrowsers(url, alertMessage: relatedLink.urlString)
         
-        Analytics.logEvent("select_band_related_link", parameters: nil)
+        Analytics.logEvent("select_band_related_link", parameters: ["band_id": band.id ?? "", "band_name": band.name ?? "", "url_title": relatedLink.title, "url_string": relatedLink.urlString])
     }
 }
