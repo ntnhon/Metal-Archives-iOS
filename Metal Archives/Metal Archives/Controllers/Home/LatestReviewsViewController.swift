@@ -189,6 +189,8 @@ extension LatestReviewsViewController: UITableViewDataSource {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: latestReview.release.imageURLString, description: latestReview.release.title, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_latest_review_thumbnail", parameters: ["latest_review": latestReview.reviewURLString])
         }
         
         return cell

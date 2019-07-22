@@ -25,7 +25,8 @@ final class UpcomingAlbumsViewController: RefreshableViewController {
     
     override func initAppearance() {
         super.initAppearance()
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = Settings.currentTheme.backgroundColor
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
         
         LoadingTableViewCell.register(with: tableView)
         UpcomingAlbumTableViewCell.register(with: tableView)
@@ -98,7 +99,7 @@ extension UpcomingAlbumsViewController: UITableViewDelegate {
         let upcomingAlbum = upcomingAlbumsPagableManager.objects[indexPath.row]
         takeActionFor(actionableObject: upcomingAlbum)
         
-        Analytics.logEvent("select_an_item_in_upcoming_albums", parameters: nil)
+        Analytics.logEvent("select_an_item_in_upcoming_albums", parameters: ["release_id": upcomingAlbum.release.id, "release_title": upcomingAlbum.release.title])
     }
 }
 
@@ -133,6 +134,8 @@ extension UpcomingAlbumsViewController: UITableViewDataSource {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: upcomingAlbum.release.imageURLString, description: upcomingAlbum.release.title, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_upcoming_album_thumbnail", parameters: ["release_id": upcomingAlbum.release.id, "release_title": upcomingAlbum.release.title])
         }
         
         return cell

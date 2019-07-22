@@ -402,6 +402,8 @@ extension LatestAdditionsOrUpdatesViewController {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: band.imageURLString, description: band.name, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_band_latest_additions_thumbnail", parameters: ["band_id": band.id, "band_name": band.name])
         }
         
         return cell
@@ -420,6 +422,8 @@ extension LatestAdditionsOrUpdatesViewController {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: band.imageURLString, description: band.name, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_band_latest_update_thumbnail", parameters: ["band_id": band.id, "band_name": band.name])
         }
         
         return cell
@@ -510,6 +514,8 @@ extension LatestAdditionsOrUpdatesViewController {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: label.imageURLString, description: label.name, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_label_latest_additions_thumbnail", parameters: ["label_id": label.id, "label_name": label.name])
         }
         
         return cell
@@ -528,6 +534,8 @@ extension LatestAdditionsOrUpdatesViewController {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: label.imageURLString, description: label.name, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_label_latest_update_thumbnail", parameters: ["label_id": label.id, "label_name": label.name])
         }
         
         return cell
@@ -619,6 +627,8 @@ extension LatestAdditionsOrUpdatesViewController {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: artist.imageURLString, description: artist.nameInBand, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_artist_latest_additions_thumbnail", parameters: ["artist_id": artist.id, "artist_name": artist.nameInBand])
         }
         
         return cell
@@ -637,6 +647,8 @@ extension LatestAdditionsOrUpdatesViewController {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: artist.imageURLString, description: artist.nameInBand, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_artist_latest_updates_thumbnail", parameters: ["artist_id": artist.id, "artist_name": artist.nameInBand])
         }
         
         return cell
