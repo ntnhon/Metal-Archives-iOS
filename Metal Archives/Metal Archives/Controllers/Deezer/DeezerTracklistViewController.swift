@@ -65,6 +65,7 @@ final class DeezerTracklistViewController: BaseViewController {
         }
         
         isPlayingIndex = -1
+        Analytics.logEvent("play_deezer_track_till_end", parameters: nil)
     }
 }
 

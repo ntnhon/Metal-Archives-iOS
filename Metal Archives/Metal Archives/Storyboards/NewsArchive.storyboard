@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="i9P-kc-nPh">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,11 +15,11 @@
             <objects>
                 <viewController storyboardIdentifier="NewsArchiveViewController" id="i9P-kc-nPh" customClass="NewsArchiveViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DWx-Ku-mol">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SDm-LO-JwB">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="i9P-kc-nPh" id="c8t-By-DT7"/>
@@ -27,17 +27,17 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdN-Yz-f1G" customClass="SimpleNavigationBarView" customModule="Metal_Archives" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="gu9-ij-bof"/>
+                                    <constraint firstAttribute="height" constant="84" placeholder="YES" id="gu9-ij-bof"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="tdN-Yz-f1G" secondAttribute="trailing" id="6Db-WM-Tke"/>
-                            <constraint firstItem="05o-Dg-qlE" firstAttribute="bottom" secondItem="SDm-LO-JwB" secondAttribute="bottom" id="D5E-KL-JQa"/>
+                            <constraint firstAttribute="bottom" secondItem="SDm-LO-JwB" secondAttribute="bottom" id="amc-Ia-Xb1"/>
                             <constraint firstItem="05o-Dg-qlE" firstAttribute="trailing" secondItem="SDm-LO-JwB" secondAttribute="trailing" id="eNg-s1-XKP"/>
                             <constraint firstItem="tdN-Yz-f1G" firstAttribute="leading" secondItem="DWx-Ku-mol" secondAttribute="leading" id="fYr-Z0-CII"/>
                             <constraint firstItem="tdN-Yz-f1G" firstAttribute="top" secondItem="DWx-Ku-mol" secondAttribute="top" id="iMs-Q0-T5X"/>
