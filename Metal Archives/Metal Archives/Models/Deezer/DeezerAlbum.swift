@@ -11,7 +11,8 @@ import Foundation
 struct DeezerAlbum: Decodable {
     let title: String
     let cover_xl: String
-    let release_date: String
+    let release_date: String?
     let record_type: String
     let tracklist: String
+    let artist: DeezerArtistLite
 }

@@ -17,6 +17,7 @@ final class DeezerResultViewController: BaseViewController {
     var deezerableSearchTerm: String!
     
     private var deezerArtistData: DeezerData<DeezerArtist>?
+    private var deezerAlbumData: DeezerData<DeezerAlbum>?
     
     private var requestUrlString: String {
         let baseURL = "https://api.deezer.com/search/<TYPE>?q=<TERM>"
@@ -56,6 +57,7 @@ final class DeezerResultViewController: BaseViewController {
         tableView.tableFooterView = UIView(frame: .zero)
         
         DeezerArtistTableViewCell.register(with: tableView)
+        DeezerAlbumTableViewCell.register(with: tableView)
         SimpleTableViewCell.register(with: tableView)
     }
     
@@ -79,7 +81,18 @@ final class DeezerResultViewController: BaseViewController {
             }
             
         case .album:
-            break
+            Service.shared.fetchDeezerAlbum(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
+                if let _ = error {
+                    Toast.displayMessageShortly(errorLoadingMessage)
+                    self?.navigationController?.popViewController(animated: true)
+                } else if let deezerData = deezerData {
+                    self?.deezerAlbumData = deezerData
+                    
+                    DispatchQueue.main.async {
+                        self?.tableView.reloadData()
+                    }
+                }
+            }
         }
     }
 }
@@ -91,11 +104,14 @@ extension DeezerResultViewController: UITableViewDelegate {
         
         switch deezerableType! {
         case .artist:
-            guard let deezerArtistData = deezerArtistData else { return }
+            guard let deezerArtistData = deezerArtistData, deezerArtistData.data.count > 0 else { return }
             let deezerArtist = deezerArtistData.data[indexPath.row]
             fetchAndPushArtistTopTracks(deezerArtist)
             
-        case .album: break
+        case .album:
+            guard let deezerAlbumData = deezerAlbumData, deezerAlbumData.data.count > 0 else { return }
+            let deezerAlbum = deezerAlbumData.data[indexPath.row]
+            fetchAndPushAlbumTracklist(deezerAlbum)
         }
     }
     
@@ -151,6 +167,30 @@ extension DeezerResultViewController: UITableViewDelegate {
         
         navigationController?.pushViewController(deezerAlbumViewController, animated: true)
     }
+    
+    private func fetchAndPushAlbumTracklist(_ album: DeezerAlbum) {
+        guard let formattedRequestUrlString = album.tracklist.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
+        
+        Service.shared.fetchDeezerTrack(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
+            
+            if let _ = error {
+                Toast.displayMessageShortly(errorLoadingMessage)
+            } else if let deezerData = deezerData {
+                DispatchQueue.main.async {
+                    self?.pushDeezerTracklist(with: album, deezerTrackData: deezerData)
+                }
+            }
+        }
+    }
+    
+    private func pushDeezerTracklist(with album: DeezerAlbum, deezerTrackData: DeezerData<DeezerTrack>) {
+        let deezerTracklistViewController = UIStoryboard(name: "Deezer", bundle: nil).instantiateViewController(withIdentifier: "DeezerTracklistViewController") as! DeezerTracklistViewController
+        deezerTracklistViewController.albumTitleOrArtistName = album.title
+        deezerTracklistViewController.topTrack = false
+        deezerTracklistViewController.deezerTrackData = deezerTrackData
+        
+        navigationController?.pushViewController(deezerTracklistViewController, animated: true)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -167,7 +207,11 @@ extension DeezerResultViewController: UITableViewDataSource {
             }
             return max(deezerArtistData.data.count, 1)
             
-        case .album: return 0
+        case .album:
+            guard let deezerAlbumData = deezerAlbumData else {
+                return 0
+            }
+            return max(deezerAlbumData.data.count, 1)
         }
     }
     
@@ -201,6 +245,23 @@ extension DeezerResultViewController: UITableViewDataSource {
     }
     
     private func albumCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let deezerAlbumData = deezerAlbumData else {
+            return UITableViewCell()
+        }
+        
+        if deezerAlbumData.data.count == 0 {
+            let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            simpleCell.displayAsItalicBodyText()
+            simpleCell.fill(with: "No result found.")
+            return simpleCell
+        }
+        
+        let cell = DeezerAlbumTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        let deezerAlbum = deezerAlbumData.data[indexPath.row]
+        cell.fill(with: deezerAlbum)
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewer(photoUrlString: deezerAlbum.cover_xl, description: deezerAlbum.title, fromImageView: cell.thumbnailImageView)
+        }
+        return cell
     }
 }

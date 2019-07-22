@@ -11,6 +11,7 @@ import UIKit
 final class DeezerTrackTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
     @IBOutlet private weak var trackTitleLabel: UILabel!
     @IBOutlet private weak var artistNameLabel: UILabel!
+    @IBOutlet private weak var durationLabel: UILabel!
     @IBOutlet private weak var nowPlayingImageView: UIImageView!
     
     override func initAppearance() {
@@ -22,6 +23,9 @@ final class DeezerTrackTableViewCell: ThumbnailableTableViewCell, RegisterableCe
         artistNameLabel.font = Settings.currentFontSize.bodyTextFont
         artistNameLabel.textColor = Settings.currentTheme.bodyTextColor
         artistNameLabel.numberOfLines = 0
+        
+        durationLabel.font = Settings.currentFontSize.tertiaryFont
+        durationLabel.textColor = Settings.currentTheme.bodyTextColor.withAlphaComponent(0.7)
         
         nowPlayingImageView.tintColor = Settings.currentTheme.bodyTextColor
         nowPlayingImageView.image = #imageLiteral(resourceName: "playing3")
@@ -36,6 +40,7 @@ final class DeezerTrackTableViewCell: ThumbnailableTableViewCell, RegisterableCe
         
         trackTitleLabel.text = track.title
         artistNameLabel.text = track.artist.name
+        durationLabel.text = track.durationString
     }
     
     func setPlaying(_ playing: Bool) {

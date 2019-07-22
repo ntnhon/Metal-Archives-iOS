@@ -88,7 +88,7 @@ final class ReleaseDetailViewController: DeezerableViewController {
                 })
             }
             else if let `release` = release {
-                self.deezerButton.isHidden = true
+                self.deezerButton.isHidden = false
                 self.release = release
                 
                 if let coverURLString = release.coverURLString, let coverURL = URL(string: coverURLString) {

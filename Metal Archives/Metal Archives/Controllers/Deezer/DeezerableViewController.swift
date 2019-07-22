@@ -53,6 +53,7 @@ class DeezerableViewController: BaseViewController {
     }
 }
 
+// MARK: - UIScrollViewDelegate
 extension DeezerableViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.panGestureRecognizer.translation(in: scrollView.superview).y < 0 {

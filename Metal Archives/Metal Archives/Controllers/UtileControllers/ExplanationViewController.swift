@@ -91,11 +91,13 @@ final class ExplanationViewController: DismissableOnSwipeViewController {
     private func showDeezer() {
         let deezerMutableAttrString = NSMutableAttributedString()
         
+        deezerMutableAttrString.append("Deezer Search & Preview helps you search and play 30 seconds preview while exploring in Metal Archives.\nYou may sometimes find yourself in a list of strange results that have nothing to do with the current band/album that you are looking for. That is because this band/album is simply not available on Deezer platform. It is up to you to pick the appropriate results.\n\n".at.attributed(with: boldBodyTextAttributes))
+        
         deezerMutableAttrString.append("What is Deezer?\n".at.attributed(with: titleAttributes))
-        deezerMutableAttrString.append("Deezer is a French online music streaming service.\n\n".at.attributed(with: bodyTextAttributes))
+        deezerMutableAttrString.append("Deezer is a French online music streaming service.\n\n".at.attributed(with: boldBodyTextAttributes))
         
         deezerMutableAttrString.append("Why Deezer Search & Preview in this app?\n".at.attributed(with: titleAttributes))
-        deezerMutableAttrString.append("Because Deezer allows a third party to easily and freely search and play preview of songs that are available on it's platform.\n\n".at.attributed(with: bodyTextAttributes))
+        deezerMutableAttrString.append("Because Deezer allows a third party to easily and freely search and play preview that are available on its platform.\n\n".at.attributed(with: boldBodyTextAttributes))
         
         textView.attributedText = deezerMutableAttrString
     }
