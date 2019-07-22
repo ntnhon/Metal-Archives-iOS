@@ -8,6 +8,7 @@
 
 import UIKit
 import Toaster
+import FirebaseAnalytics
 
 final class DeezerResultViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
@@ -94,6 +95,8 @@ final class DeezerResultViewController: BaseViewController {
                 }
             }
         }
+        
+        Analytics.logEvent("view_deezer_result", parameters: ["type": deezerableType.requestParameterName, "term": deezerableSearchTerm ?? ""])
     }
 }
 
@@ -106,11 +109,13 @@ extension DeezerResultViewController: UITableViewDelegate {
         case .artist:
             guard let deezerArtistData = deezerArtistData, deezerArtistData.data.count > 0 else { return }
             let deezerArtist = deezerArtistData.data[indexPath.row]
+            Analytics.logEvent("select_deezer_result", parameters: ["type": "artist", "artist": deezerArtist.name])
             fetchAndPushArtistTopTracks(deezerArtist)
             
         case .album:
             guard let deezerAlbumData = deezerAlbumData, deezerAlbumData.data.count > 0 else { return }
             let deezerAlbum = deezerAlbumData.data[indexPath.row]
+            Analytics.logEvent("select_deezer_result", parameters: ["type": "album", "album": deezerAlbum.title])
             fetchAndPushAlbumTracklist(deezerAlbum)
         }
     }
@@ -239,6 +244,7 @@ extension DeezerResultViewController: UITableViewDataSource {
         cell.fill(with: deezerArtist)
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewer(photoUrlString: deezerArtist.picture_xl, description: deezerArtist.name, fromImageView: cell.thumbnailImageView)
+            Analytics.logEvent("view_deezer_result_thumbnail", parameters: ["type": "artist", "artist": deezerArtist.name])
         }
         
         return cell
@@ -261,6 +267,7 @@ extension DeezerResultViewController: UITableViewDataSource {
         cell.fill(with: deezerAlbum)
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewer(photoUrlString: deezerAlbum.cover_xl, description: deezerAlbum.title, fromImageView: cell.thumbnailImageView)
+            Analytics.logEvent("view_deezer_result_thumbnail", parameters: ["type": "album", "album": deezerAlbum.title])
         }
         return cell
     }

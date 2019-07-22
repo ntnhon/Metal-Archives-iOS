@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 enum DeezerableType {
     case album, artist
@@ -48,6 +49,12 @@ class DeezerableViewController: BaseViewController {
         
         deezerResultViewController.deezerableType = deezerableSelf.deezerableType
         deezerResultViewController.deezerableSearchTerm = deezerableSelf.deezerSearchTerm
+        
+        if let _ = self as? BandDetailViewController {
+            Analytics.logEvent("deezer_band", parameters: nil)
+        } else if let _ = self as? ReleaseDetailViewController {
+            Analytics.logEvent("deezer_release", parameters: nil)
+        }
         
         navigationController?.pushViewController(deezerResultViewController, animated: true)
     }

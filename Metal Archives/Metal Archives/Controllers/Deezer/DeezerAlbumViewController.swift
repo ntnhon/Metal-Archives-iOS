@@ -8,6 +8,7 @@
 
 import UIKit
 import Toaster
+import FirebaseAnalytics
 
 final class DeezerAlbumViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
@@ -24,6 +25,8 @@ final class DeezerAlbumViewController: BaseViewController {
         super.viewDidLoad()
         initSimpleNavigationBarView()
         configureTableView()
+        
+        Analytics.logEvent("view_deezer_albums", parameters: ["artist": artistName ?? ""])
     }
     
     private func initSimpleNavigationBarView() {
@@ -52,6 +55,9 @@ extension DeezerAlbumViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         guard deezerAlbumData.data.count > 0 else { return }
         let album = deezerAlbumData.data[indexPath.row]
+        
+        Analytics.logEvent("select_deezer_album", parameters: ["artist": artistName ?? "", "album": album.title])
+        
         fetchAndPushDeezerTracklist(with: album)
     }
     

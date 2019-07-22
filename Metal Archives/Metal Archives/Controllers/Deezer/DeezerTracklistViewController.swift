@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import FirebaseAnalytics
 
 final class DeezerTracklistViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
@@ -30,6 +31,7 @@ final class DeezerTracklistViewController: BaseViewController {
         configureTableView()
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: nil)
         try? AVAudioSession.sharedInstance().setCategory(.playback)
+        Analytics.logEvent("view_deezer_tracklist", parameters: ["albumTitleOrArtistName": albumTitleOrArtistName ?? ""])
     }
     
     private func initSimpleNavigationBarView() {
@@ -71,16 +73,19 @@ extension DeezerTracklistViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         guard deezerTrackData.data.count > 0 else { return }
         
+        let track = deezerTrackData.data[indexPath.row]
+        
         if indexPath.row == isPlayingIndex {
             if let playingCell = tableView.cellForRow(at: indexPath) as? DeezerTrackTableViewCell {
                 playingCell.setPlaying(false)
             }
             isPlayingIndex = -1
             player?.pause()
+            
+            Analytics.logEvent("pause_deezer_track", parameters: ["track": track.title])
+            
             return
         }
-        
-        let track = deezerTrackData.data[indexPath.row]
         
         guard let trackURL = URL(string: track.preview) else { return }
         
@@ -99,6 +104,8 @@ extension DeezerTracklistViewController: UITableViewDelegate {
         }
         
         isPlayingIndex = indexPath.row
+        
+        Analytics.logEvent("play_deezer_track", parameters: ["track": track.title])
     }
 }
 
