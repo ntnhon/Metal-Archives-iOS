@@ -108,7 +108,7 @@ final class BandDetailViewController: DeezerableViewController {
                 if let logoURLString = band.logoURLString, let logoURL = URL(string: logoURLString) {
                     self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
                 } else {
-                    self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
+                    self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
                 }
                 
                 self.simpleNavigationBarView.setTitle(band.name)
@@ -255,7 +255,7 @@ extension BandDetailViewController {
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.contentInset = .init(top: Settings.strechyLogoImageViewHeight - Settings.bandPhotoImageViewHeight / 2, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = .init(top: Settings.strechyLogoImageViewHeight - Settings.bandPhotoImageViewHeight / 2, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
         
         // observe when tableView is scrolled to animate alphas because scrollViewDidScroll doesn't capture enough event.
         tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
@@ -467,7 +467,8 @@ extension BandDetailViewController: HorizontalMenuViewDelegate {
     }
     
     private func setTableViewBottomInsetToFillBottomSpace() {
-        self.tableView.contentInset.bottom = max(0, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView)
+        let minimumBottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        self.tableView.contentInset.bottom = max(minimumBottomInset, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView - minimumBottomInset)
     }
 }
 

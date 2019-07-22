@@ -52,8 +52,9 @@ final class DeezerTracklistViewController: BaseViewController {
     
     private func configureTableView() {
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         tableView.tableFooterView = UIView(frame: .zero)
+        tableView.contentInset = .init(top: 0, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
         
         DeezerTrackTableViewCell.register(with: tableView)
         SimpleTableViewCell.register(with: tableView)

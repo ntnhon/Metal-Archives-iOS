@@ -26,7 +26,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="YHp-Pm-XVM">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="dpe-da-Wtg" id="ulY-sD-pLO"/>
@@ -59,9 +59,9 @@
                             <constraint firstItem="ITT-hZ-R3L" firstAttribute="bottom" secondItem="jc4-JW-7Mi" secondAttribute="bottom" constant="30" id="KcO-e4-VY0"/>
                             <constraint firstItem="ITT-hZ-R3L" firstAttribute="trailing" secondItem="YHp-Pm-XVM" secondAttribute="trailing" id="L4i-N5-wvI"/>
                             <constraint firstItem="YHp-Pm-XVM" firstAttribute="top" secondItem="qje-dm-7ii" secondAttribute="top" id="Vfc-ec-QXa"/>
-                            <constraint firstItem="ITT-hZ-R3L" firstAttribute="bottom" secondItem="YHp-Pm-XVM" secondAttribute="bottom" id="aAK-vy-UUT"/>
                             <constraint firstItem="YHp-Pm-XVM" firstAttribute="leading" secondItem="ITT-hZ-R3L" secondAttribute="leading" id="bAd-mK-uXR"/>
                             <constraint firstItem="PbG-FH-lM0" firstAttribute="top" secondItem="qje-dm-7ii" secondAttribute="top" id="ecz-1a-vjf"/>
+                            <constraint firstAttribute="bottom" secondItem="YHp-Pm-XVM" secondAttribute="bottom" id="utR-zc-nVf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ITT-hZ-R3L"/>
                     </view>
