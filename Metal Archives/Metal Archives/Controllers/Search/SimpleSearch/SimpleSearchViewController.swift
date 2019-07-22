@@ -64,7 +64,7 @@ final class SimpleSearchViewController: UITableViewController {
         tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.contentInset = .init(top: -2, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = .init(top: -2, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
         
         tableView.register(SearchHistoryTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "Header")
         SimpleSearchTermTableViewCell.register(with: tableView)
@@ -101,7 +101,7 @@ final class SimpleSearchViewController: UITableViewController {
                 simpleSearchResultVC.isFeelingLucky = false
             }
 
-            Analytics.logEvent("perform_simple_search", parameters: ["search_type": currentSimpleSearchType.description, "search_term": searchTermTextField.text!])
+            Analytics.logEvent("perform_simple_search", parameters: ["search_type": currentSimpleSearchType.description, "search_term": searchTermTextField.text ?? ""])
             
         default:
             break
@@ -206,15 +206,29 @@ extension SimpleSearchViewController {
             searchTermTextField.text = term
             currentSimpleSearchType = SimpleSearchType(rawValue: Int(searchHistory.searchType)) ?? .bandName
             doNotRecordHistory = true
+            
+            Analytics.logEvent("select_search_history_term", parameters: ["term": term])
+            
             performSegue(withIdentifier: "ShowSearchResult", sender: searchTermTextField)
         } else {
             let objectType = SearchResultObjectType(rawValue: Int(searchHistory.objectType)) ?? .band
             let urlString = searchHistory.urlString ?? ""
             switch objectType {
-            case .band: pushBandDetailViewController(urlString: urlString, animated: true)
-            case .release: pushReleaseDetailViewController(urlString: urlString, animated: true)
-            case .artist: pushArtistDetailViewController(urlString: urlString, animated: true)
-            case .label: pushLabelDetailViewController(urlString: urlString, animated: true)
+            case .band:
+                Analytics.logEvent("select_search_history_band", parameters: ["band": searchHistory.nameOrTitle ?? ""])
+                pushBandDetailViewController(urlString: urlString, animated: true)
+                
+            case .release:
+                Analytics.logEvent("select_search_history_release", parameters: ["release": searchHistory.nameOrTitle ?? ""])
+                pushReleaseDetailViewController(urlString: urlString, animated: true)
+                
+            case .artist:
+                Analytics.logEvent("select_search_history_artist", parameters: ["artist": searchHistory.nameOrTitle ?? ""])
+                pushArtistDetailViewController(urlString: urlString, animated: true)
+                
+            case .label:
+                Analytics.logEvent("select_search_history_label", parameters: ["label": searchHistory.nameOrTitle ?? ""])
+                pushLabelDetailViewController(urlString: urlString, animated: true)
             }
         }
     }

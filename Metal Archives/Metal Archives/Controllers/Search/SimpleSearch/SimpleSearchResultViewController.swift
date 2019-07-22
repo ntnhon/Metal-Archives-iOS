@@ -68,8 +68,8 @@ final class SimpleSearchResultViewController: BaseViewController {
     override func initAppearance() {
         super.initAppearance()
         tableView.contentInsetAdjustmentBehavior = .never
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
-        tableView.backgroundColor = Settings.currentTheme.backgroundColor
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
@@ -339,6 +339,7 @@ extension SimpleSearchResultViewController {
         cell.fill(with: result)
         cell.tappedThumbnailImageView = { [unowned self]  in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: result.imageURLString, description: result.band.name, fromImageView: cell.thumbnailImageView)
+            Analytics.logEvent("select_a_simple_search_result_thumbnail", parameters: nil)
         }
         return cell
     }
@@ -391,6 +392,7 @@ extension SimpleSearchResultViewController {
         cell.fill(with: result)
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: result.imageURLString, description: result.band.name, fromImageView: cell.thumbnailImageView)
+            Analytics.logEvent("select_a_simple_search_result_thumbnail", parameters: nil)
         }
         return cell
     }
@@ -443,6 +445,7 @@ extension SimpleSearchResultViewController {
         cell.fill(with: result)
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: result.band.imageURLString, description: result.band.name, fromImageView: cell.thumbnailImageView)
+            Analytics.logEvent("select_a_simple_search_result_thumbnail", parameters: nil)
         }
         return cell
     }
@@ -494,6 +497,7 @@ extension SimpleSearchResultViewController {
         cell.fill(with: result)
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: result.release.imageURLString, description: result.release.title, fromImageView: cell.thumbnailImageView)
+            Analytics.logEvent("select_a_simple_search_result_thumbnail", parameters: nil)
         }
         return cell
     }
@@ -546,6 +550,7 @@ extension SimpleSearchResultViewController {
         cell.fill(with: result)
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: result.release.imageURLString, description: result.release.title, fromImageView: cell.thumbnailImageView)
+            Analytics.logEvent("select_a_simple_search_result_thumbnail", parameters: nil)
         }
         return cell
     }
@@ -598,6 +603,7 @@ extension SimpleSearchResultViewController {
         cell.fill(with: result)
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: result.label.imageURLString, description: result.label.name, fromImageView: cell.thumbnailImageView)
+            Analytics.logEvent("select_a_simple_search_result_thumbnail", parameters: nil)
         }
         return cell
     }
@@ -650,6 +656,7 @@ extension SimpleSearchResultViewController {
         cell.fill(with: result)
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: result.artist.imageURLString, description: result.artist.name, fromImageView: cell.thumbnailImageView)
+            Analytics.logEvent("select_a_simple_search_result_thumbnail", parameters: nil)
         }
         return cell
     }

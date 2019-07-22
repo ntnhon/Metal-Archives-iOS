@@ -34,13 +34,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ToT-0z-ShG">
-                                <rect key="frame" x="0.0" y="84" width="414" height="778"/>
+                                <rect key="frame" x="0.0" y="84" width="414" height="812"/>
                                 <connections>
                                     <segue destination="wkr-ug-QhJ" kind="embed" id="dd9-eW-3Xf"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S9e-gs-J5L">
-                                <rect key="frame" x="0.0" y="84" width="414" height="778"/>
+                                <rect key="frame" x="0.0" y="84" width="414" height="812"/>
                                 <connections>
                                     <segue destination="6W0-45-QLX" kind="embed" id="xIB-0H-cI6"/>
                                 </connections>
@@ -49,7 +49,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="xmE-C3-WHR"/>
+                                    <constraint firstAttribute="height" constant="84" placeholder="YES" id="xmE-C3-WHR"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -57,15 +57,15 @@
                         <constraints>
                             <constraint firstItem="S9e-gs-J5L" firstAttribute="top" secondItem="W8D-1A-JKg" secondAttribute="bottom" id="0yF-QM-ujW"/>
                             <constraint firstAttribute="trailing" secondItem="W8D-1A-JKg" secondAttribute="trailing" id="DBf-0Q-lri"/>
-                            <constraint firstItem="QFX-C9-cB4" firstAttribute="bottom" secondItem="S9e-gs-J5L" secondAttribute="bottom" id="K0l-ci-Gg0"/>
-                            <constraint firstItem="QFX-C9-cB4" firstAttribute="bottom" secondItem="ToT-0z-ShG" secondAttribute="bottom" id="Nab-Ns-FBd"/>
                             <constraint firstItem="W8D-1A-JKg" firstAttribute="leading" secondItem="7Bk-TX-JAk" secondAttribute="leading" id="W54-iA-gsY"/>
+                            <constraint firstAttribute="bottom" secondItem="ToT-0z-ShG" secondAttribute="bottom" id="aZ1-VJ-CE1"/>
                             <constraint firstItem="QFX-C9-cB4" firstAttribute="trailing" secondItem="ToT-0z-ShG" secondAttribute="trailing" id="fSO-zs-jy1"/>
                             <constraint firstItem="S9e-gs-J5L" firstAttribute="leading" secondItem="QFX-C9-cB4" secondAttribute="leading" id="luI-q1-Zko"/>
                             <constraint firstItem="QFX-C9-cB4" firstAttribute="trailing" secondItem="S9e-gs-J5L" secondAttribute="trailing" id="pWk-xL-zBR"/>
                             <constraint firstItem="ToT-0z-ShG" firstAttribute="leading" secondItem="QFX-C9-cB4" secondAttribute="leading" id="tTX-WL-IYs"/>
                             <constraint firstItem="W8D-1A-JKg" firstAttribute="top" secondItem="7Bk-TX-JAk" secondAttribute="top" id="tjO-zI-Dx2"/>
                             <constraint firstItem="ToT-0z-ShG" firstAttribute="top" secondItem="W8D-1A-JKg" secondAttribute="bottom" id="uIX-tR-U6j"/>
+                            <constraint firstAttribute="bottom" secondItem="S9e-gs-J5L" secondAttribute="bottom" id="wJX-DA-t4x"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QFX-C9-cB4"/>
                     </view>
@@ -87,7 +87,7 @@
             <objects>
                 <tableViewController id="6W0-45-QLX" customClass="AdvancedSearchViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="NUX-Bi-skH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -176,7 +176,7 @@
             <objects>
                 <tableViewController id="j7N-qP-UeD" customClass="AdvancedSearchSongsViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="49w-um-bgb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
@@ -452,11 +452,11 @@
             <objects>
                 <viewController id="zBY-kz-qMl" customClass="AdvancedSearchSongsResultsViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iqF-im-XCq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1IR-sW-JoA">
-                                <rect key="frame" x="0.0" y="88" width="414" height="656"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="690"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="zBY-kz-qMl" id="phc-0W-VRD"/>
@@ -487,11 +487,11 @@
             <objects>
                 <viewController id="WSe-Hd-ysG" customClass="AdvancedSearchAlbumsResultsViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5t8-Ao-tEa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lcR-Kz-D8y">
-                                <rect key="frame" x="0.0" y="88" width="414" height="656"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="690"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="WSe-Hd-ysG" id="tLJ-va-Pev"/>
@@ -522,7 +522,7 @@
             <objects>
                 <tableViewController id="nV3-7J-5bf" customClass="AdvancedSearchAlbumsViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="yee-U4-jfp">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
@@ -1070,11 +1070,11 @@
             <objects>
                 <viewController id="zdi-ld-0Qj" customClass="AdvancedSearchReleaseFormatListViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DpX-mh-4rD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="BMg-px-QDe">
-                                <rect key="frame" x="0.0" y="88" width="414" height="656"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="690"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="zdi-ld-0Qj" id="YaY-cO-29n"/>
@@ -1105,11 +1105,11 @@
             <objects>
                 <viewController id="gLN-Iw-IiG" customClass="AdvancedSearchReleaseTypeListViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JY2-rq-stZ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="mXN-gA-skt">
-                                <rect key="frame" x="0.0" y="88" width="414" height="656"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="690"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="gLN-Iw-IiG" id="ms3-cj-bSh"/>
@@ -1140,7 +1140,7 @@
             <objects>
                 <tableViewController id="PLF-5a-k4w" customClass="AdvancedSearchBandsViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="W1G-Fl-tSd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
@@ -1513,11 +1513,11 @@
             <objects>
                 <viewController id="beo-dE-kch" customClass="AdvancedSearchCountryListViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KKT-yb-ShL">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vnU-3L-3wO">
-                                <rect key="frame" x="0.0" y="88" width="414" height="656"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="690"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="beo-dE-kch" id="rEA-bL-Xhg"/>
@@ -1548,11 +1548,11 @@
             <objects>
                 <viewController id="E41-CC-5w2" customClass="AdvancedSearchBandStatusListViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cCN-YL-Qze">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="PFE-KF-N5X">
-                                <rect key="frame" x="0.0" y="88" width="414" height="656"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="690"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="E41-CC-5w2" id="bFl-GU-hxF"/>
@@ -1583,7 +1583,7 @@
             <objects>
                 <tableViewController id="wkr-ug-QhJ" customClass="SimpleSearchViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="0hn-Pu-HDL">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections/>
@@ -1605,11 +1605,11 @@
             <objects>
                 <viewController id="HDL-d6-t7Q" customClass="SimpleSearchResultViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iC8-CZ-gOn">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6zP-mh-eRK">
-                                <rect key="frame" x="0.0" y="44" width="414" height="700"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="768"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="HDL-d6-t7Q" id="1aY-xH-ojB"/>
@@ -1628,9 +1628,9 @@
                         <constraints>
                             <constraint firstItem="HpS-f2-hew" firstAttribute="top" secondItem="iC8-CZ-gOn" secondAttribute="top" id="HSr-JL-fFI"/>
                             <constraint firstItem="vRm-7e-BuH" firstAttribute="trailing" secondItem="6zP-mh-eRK" secondAttribute="trailing" id="Iug-DC-oM7"/>
-                            <constraint firstItem="vRm-7e-BuH" firstAttribute="bottom" secondItem="6zP-mh-eRK" secondAttribute="bottom" id="KOl-S0-HA9"/>
                             <constraint firstAttribute="trailing" secondItem="HpS-f2-hew" secondAttribute="trailing" id="lXO-yk-LMC"/>
                             <constraint firstItem="6zP-mh-eRK" firstAttribute="top" secondItem="vRm-7e-BuH" secondAttribute="top" id="mvK-of-JE6"/>
+                            <constraint firstAttribute="bottom" secondItem="6zP-mh-eRK" secondAttribute="bottom" id="ojc-Bc-WsW"/>
                             <constraint firstItem="6zP-mh-eRK" firstAttribute="leading" secondItem="vRm-7e-BuH" secondAttribute="leading" id="ps2-H1-SQN"/>
                             <constraint firstItem="HpS-f2-hew" firstAttribute="leading" secondItem="iC8-CZ-gOn" secondAttribute="leading" id="qA0-Gf-8xv"/>
                         </constraints>
@@ -1650,11 +1650,11 @@
             <objects>
                 <viewController id="k64-qg-N3m" customClass="AdvancedSearchBandsResultsViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GrS-us-bts">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qcH-63-sFd">
-                                <rect key="frame" x="0.0" y="44" width="414" height="700"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="734"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="k64-qg-N3m" id="LbQ-xC-u3P"/>

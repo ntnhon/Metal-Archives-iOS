@@ -28,7 +28,7 @@ final class AdvancedSearchViewController: UITableViewController {
         tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.contentInset = .init(top: -2, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = .init(top: -2, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
         
         advancedSearchTypeLabels.forEach({
             $0.textColor = Settings.currentTheme.bodyTextColor
