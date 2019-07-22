@@ -450,23 +450,23 @@ extension HomepageViewController {
         cell.didSelectBand = { [unowned self] band in
             self.pushBandDetailViewController(urlString: band.urlString, animated: true)
             
-            Analytics.logEvent("homepage_select_band_addition", parameters: nil)
+            Analytics.logEvent("homepage_select_band_addition", parameters: ["band": band.name])
         }
         
         cell.didSelectLabel = { [unowned self] label in
             self.pushLabelDetailViewController(urlString: label.urlString, animated: true)
-            Analytics.logEvent("homepage_select_label_addition", parameters: nil)
+            Analytics.logEvent("homepage_select_label_addition", parameters: ["label": label.name])
         }
         
         cell.didSelectArtist = { [unowned self] artist in
             self.takeActionFor(actionableObject: artist)
-            Analytics.logEvent("homepage_select_artist_addition", parameters: nil)
+            Analytics.logEvent("homepage_select_artist_addition", parameters: ["artist": artist.nameInBand])
         }
         
         cell.changeType = { [unowned self] selectedType in
             self.latestAdditionType = selectedType
             
-            Analytics.logEvent("homepage_change_addition_type", parameters: nil)
+            Analytics.logEvent("homepage_change_addition_type", parameters: ["type": selectedType.description])
         }
         
         cell.didSelectImageView = { [unowned self] imageView, urlString, description in
@@ -497,25 +497,25 @@ extension HomepageViewController {
         cell.didSelectBand = { [unowned self] band in
             self.pushBandDetailViewController(urlString: band.urlString, animated: true)
             
-            Analytics.logEvent("homepage_select_band_update", parameters: nil)
+            Analytics.logEvent("homepage_select_band_update", parameters: ["band": band.name])
         }
         
         cell.didSelectLabel = { [unowned self] label in
             self.pushLabelDetailViewController(urlString: label.urlString, animated: true)
             
-            Analytics.logEvent("homepage_select_label_update", parameters: nil)
+            Analytics.logEvent("homepage_select_label_update", parameters: ["label": label.name])
         }
         
         cell.didSelectArtist = { [unowned self] artist in
             self.takeActionFor(actionableObject: artist)
             
-            Analytics.logEvent("homepage_select_artist_update", parameters: nil)
+            Analytics.logEvent("homepage_select_artist_update", parameters: ["artist": artist.nameInBand])
         }
         
         cell.changeType = { [unowned self] selectedType in
             self.latestUpdateType = selectedType
             
-            Analytics.logEvent("homepage_change_update_type", parameters: nil)
+            Analytics.logEvent("homepage_change_update_type", parameters: ["type": selectedType.description])
         }
         
         cell.didSelectImageView = { [unowned self] imageView, urlString, description in
@@ -544,7 +544,7 @@ extension HomepageViewController {
         cell.didSelectLatestReview = { [unowned self] latestReview in
             self.takeActionFor(actionableObject: latestReview)
             
-            Analytics.logEvent("homepage_select_latest_review", parameters: nil)
+            Analytics.logEvent("homepage_select_latest_review", parameters: ["latestReview": latestReview.reviewURLString])
         }
         
         cell.didSelectImageView = { [unowned self] imageView, urlString, description in
@@ -573,7 +573,7 @@ extension HomepageViewController {
         cell.didSelectUpcomingAlbum = { [unowned self] upcomingAlbum in
             self.takeActionFor(actionableObject: upcomingAlbum)
             
-            Analytics.logEvent("homepage_select_upcoming_album", parameters: nil)
+            Analytics.logEvent("homepage_select_upcoming_album", parameters: ["upcomingAlbum": upcomingAlbum.release.id])
         }
         
         cell.didSelectImageView = { [unowned self] imageView, urlString, description in
