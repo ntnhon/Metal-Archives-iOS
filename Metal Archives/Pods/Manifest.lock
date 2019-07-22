@@ -68,6 +68,7 @@ PODS:
     - GoogleUtilities/Logger
   - Kanna (5.0.0)
   - MarqueeLabel/Swift (3.2.1)
+  - MBProgressHUD (1.1.0)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
@@ -96,6 +97,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Messaging
   - Kanna
+  - MBProgressHUD (~> 1.1.0)
   - NotificationBannerSwift
   - SDWebImage
   - Siren
@@ -122,6 +124,7 @@ SPEC REPOS:
     - GoogleUtilities
     - Kanna
     - MarqueeLabel
+    - MBProgressHUD
     - nanopb
     - NotificationBannerSwift
     - Protobuf
@@ -150,6 +153,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 273e67030e0de313e7304f6dcfa96fc5214f6c23
   Kanna: a32875df62975f8f4b871e933b4ea1a5c3b8be0f
   MarqueeLabel: 2daf039bf916937c8a4c9adfc13577cc5e51b4ce
+  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   NotificationBannerSwift: 4483919639202bec56d6bfe8f106ebc352d38bc7
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
@@ -161,6 +165,6 @@ SPEC CHECKSUMS:
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
   UIColor_Hex_Swift: 8be7432edacb7fa91c78aa05ef3c30b66e4f9415
 
-PODFILE CHECKSUM: 8a3eab13826b8732658a4314312f4305b07c7975
+PODFILE CHECKSUM: e9d3a8151e8c4e000847f8ee61d6ebff6bb8b154
 
 COCOAPODS: 1.6.1

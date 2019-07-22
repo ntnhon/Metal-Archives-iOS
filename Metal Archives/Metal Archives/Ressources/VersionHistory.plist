@@ -4,6 +4,16 @@
 <array>
 	<dict>
 		<key>number</key>
+		<string>3.2</string>
+		<key>date</key>
+		<string>July 2019</string>
+		<key>features</key>
+		<string>- Integrate Deezer Search &amp; Preview (30 seconds preview) which allows user to listening to band&apos;s top tracks and releases inside the app.
+- Minor UI improvements.
+- Fix occasional crashes.</string>
+	</dict>
+	<dict>
+		<key>number</key>
 		<string>3.1</string>
 		<key>date</key>
 		<string>July 2019</string>
