@@ -64,13 +64,14 @@ extension DeezerAlbumViewController: UITableViewDelegate {
     
     private func fetchAndPushDeezerTracklist(with album: DeezerAlbum) {
         guard let formattedRequestUrlString = album.tracklist.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
+        showHUD()
         
         Service.shared.fetchDeezerTrack(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
-            
-            if let _ = error {
-                Toast.displayMessageShortly(errorLoadingMessage)
-            } else if let deezerData = deezerData {
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                self?.hideHUD()
+                if let _ = error {
+                    Toast.displayMessageShortly(errorLoadingMessage)
+                } else if let deezerData = deezerData {
                     self?.pushDeezerTracklist(with: album, deezerTrackData: deezerData)
                 }
             }

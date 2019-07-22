@@ -65,32 +65,33 @@ final class DeezerResultViewController: BaseViewController {
     
     private func fetch() {
         guard let formattedRequestUrlString = requestUrlString.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
+        showHUD()
         
         switch deezerableType! {
         case .artist:
             Service.shared.fetchDeezerArtist(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
-                
-                if let _ = error {
-                    Toast.displayMessageShortly(errorLoadingMessage)
-                    self?.navigationController?.popViewController(animated: true)
-                } else if let deezerData = deezerData {
-                    self?.deezerArtistData = deezerData
-                    
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    self?.hideHUD()
+                    if let _ = error {
+                        Toast.displayMessageShortly(errorLoadingMessage)
+                        self?.navigationController?.popViewController(animated: true)
+                    } else if let deezerData = deezerData {
+                        self?.deezerArtistData = deezerData
                         self?.tableView.reloadData()
                     }
                 }
+                
             }
             
         case .album:
             Service.shared.fetchDeezerAlbum(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
-                if let _ = error {
-                    Toast.displayMessageShortly(errorLoadingMessage)
-                    self?.navigationController?.popViewController(animated: true)
-                } else if let deezerData = deezerData {
-                    self?.deezerAlbumData = deezerData
-                    
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    self?.hideHUD()
+                    if let _ = error {
+                        Toast.displayMessageShortly(errorLoadingMessage)
+                        self?.navigationController?.popViewController(animated: true)
+                    } else if let deezerData = deezerData {
+                        self?.deezerAlbumData = deezerData
                         self?.tableView.reloadData()
                     }
                 }
@@ -123,18 +124,19 @@ extension DeezerResultViewController: UITableViewDelegate {
     
     private func fetchAndPushArtistTopTracks(_ artist: DeezerArtist) {
         guard let formattedRequestUrlString = artist.tracklist.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
+        showHUD()
         
         Service.shared.fetchDeezerTrack(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
-            
-            if let _ = error {
-                Toast.displayMessageShortly(errorLoadingMessage)
-            } else if let deezerData = deezerData {
-                if deezerData.data.count > 0 {
-                    DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                self?.hideHUD()
+                if let _ = error {
+                    Toast.displayMessageShortly(errorLoadingMessage)
+                } else if let deezerData = deezerData {
+                    if deezerData.data.count > 0 {
                         self?.pushDeezerTracklist(with: artist, deezerTrackData: deezerData)
+                    } else {
+                        self?.fetchAndPushArtistAlbums(artist)
                     }
-                } else {
-                    self?.fetchAndPushArtistAlbums(artist)
                 }
             }
         }
@@ -144,13 +146,14 @@ extension DeezerResultViewController: UITableViewDelegate {
         let requestUrlString = "https://api.deezer.com/artist/\(artist.id)/albums"
         
         guard let formattedRequestUrlString = requestUrlString.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
+        showHUD()
         
         Service.shared.fetchDeezerAlbum(urlString: formattedRequestUrlString) {[weak self] (deezerData, error) in
-            
-            if let _ = error {
-                Toast.displayMessageShortly(errorLoadingMessage)
-            } else if let deezerData = deezerData {
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                self?.hideHUD()
+                if let _ = error {
+                    Toast.displayMessageShortly(errorLoadingMessage)
+                } else if let deezerData = deezerData {
                     self?.pushDeezerAlbums(with: artist, deezerAlbumData: deezerData)
                 }
             }
@@ -176,13 +179,13 @@ extension DeezerResultViewController: UITableViewDelegate {
     
     private func fetchAndPushAlbumTracklist(_ album: DeezerAlbum) {
         guard let formattedRequestUrlString = album.tracklist.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
-        
+        showHUD()
         Service.shared.fetchDeezerTrack(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
-            
-            if let _ = error {
-                Toast.displayMessageShortly(errorLoadingMessage)
-            } else if let deezerData = deezerData {
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                self?.hideHUD()
+                if let _ = error {
+                    Toast.displayMessageShortly(errorLoadingMessage)
+                } else if let deezerData = deezerData {
                     self?.pushDeezerTracklist(with: album, deezerTrackData: deezerData)
                 }
             }
