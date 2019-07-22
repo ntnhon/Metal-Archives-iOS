@@ -14,7 +14,10 @@ extension RequestHelper {
         typealias FetchArtistDetailOnError = (Error) -> Void
         
         static func fetchArtistDetail(urlString: String, onSuccess: @escaping FetchArtistDetailOnSuccess, onError: @escaping FetchArtistDetailOnError) {
-            let requestURL = URL(string: urlString)!
+            guard let requestURL = URL(string: urlString) else {
+                onError(MANetworkingError.badURL(urlString))
+                return
+            }
             
             RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
                 switch response.result {

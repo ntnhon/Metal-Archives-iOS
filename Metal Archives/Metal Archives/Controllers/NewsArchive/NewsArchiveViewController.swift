@@ -54,12 +54,18 @@ final class NewsArchiveViewController: RefreshableViewController {
 
 // MARK: - PagableManagerProtocol
 extension NewsArchiveViewController: PagableManagerDelegate {
+    func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        showHUD()
+    }
+    
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        hideHUD()
         endRefreshing()
         Toast.displayMessageShortly(errorLoadingMessage)
     }
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        hideHUD()
         refreshSuccessfully()
         tableView.reloadData()
     }

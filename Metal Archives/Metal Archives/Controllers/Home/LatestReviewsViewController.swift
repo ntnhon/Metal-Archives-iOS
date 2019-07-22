@@ -93,14 +93,17 @@ final class LatestReviewsViewController: RefreshableViewController {
 extension LatestReviewsViewController: PagableManagerDelegate {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
         latestReviewsNavigationBarView.setTitle("Loading...")
+        showHUD()
     }
     
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        hideHUD()
         endRefreshing()
         Toast.displayMessageShortly(errorLoadingMessage)
     }
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        hideHUD()
         refreshSuccessfully()
         updateTitle()
         tableView.reloadData()

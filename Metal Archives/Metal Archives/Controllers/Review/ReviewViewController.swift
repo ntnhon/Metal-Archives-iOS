@@ -92,11 +92,13 @@ final class ReviewViewController: DismissableOnSwipeViewController {
     }
     
     private func loadReview() {
+        showHUD()
         MetalArchivesAPI.fetchReviewDetail(urlString: urlString) { [weak self] (review, error) in
             guard let self = self else { return }
             if let _ = error {
                 self.loadReview()
             } else {
+                self.hideHUD()
                 if let review = review {
                     DispatchQueue.main.async {
                         self.review = review
@@ -129,6 +131,11 @@ final class ReviewViewController: DismissableOnSwipeViewController {
             
             Analytics.logEvent("share_review", parameters: ["release_title": self.review.release.title, "review_title": self.review.title!])
         }
+    }
+    
+    override func cancelFromHUD() {
+        // don't call super because this view controller is not in navigation stack
+        dismissToBottom()
     }
 }
 

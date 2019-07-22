@@ -75,13 +75,16 @@ final class BrowseLabelsByCountryResultViewController: RefreshableViewController
 extension BrowseLabelsByCountryResultViewController: PagableManagerDelegate {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
         simpleNavigationBarView.setTitle("Loading...")
+        showHUD()
     }
     
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        hideHUD()
         Toast.displayMessageShortly(errorLoadingMessage)
     }
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        hideHUD()
         endRefreshing()
         updateTitle()
         tableView.reloadData()

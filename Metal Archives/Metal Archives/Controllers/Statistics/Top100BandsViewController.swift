@@ -54,8 +54,11 @@ final class Top100BandsViewController: BaseViewController {
     }
 
     private func fetchData() {
+        showHUD()
+        
         if numberOfTries == Settings.numberOfRetries {
             Toast.displayMessageShortly("Error loading content. Please check your internet connection and retry.")
+            hideHUD()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.navigationController?.popViewController(animated: true)
             }
@@ -68,6 +71,7 @@ final class Top100BandsViewController: BaseViewController {
                 self?.fetchData()
             } else if let `top100Bands` = top100Bands {
                 DispatchQueue.main.async {
+                    self?.hideHUD()
                     self?.top100Bands = top100Bands
                     self?.tableView.reloadData()
                 }

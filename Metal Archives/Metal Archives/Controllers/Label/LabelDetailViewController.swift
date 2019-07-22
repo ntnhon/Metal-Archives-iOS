@@ -77,6 +77,8 @@ final class LabelDetailViewController: BaseViewController {
     }
 
     private func fetchLabel() {
+        showHUD()
+        
         MetalArchivesAPI.reloadLabel(urlString: self.urlString) { [weak self] (label, error) in
             guard let self = self else { return }
             if let _ = error {
@@ -84,6 +86,8 @@ final class LabelDetailViewController: BaseViewController {
                     self.fetchLabel()
                 })
             } else if let `label` = label {
+                self.hideHUD()
+                
                 DispatchQueue.main.async {
                     self.label = label
                     self.title = label.name

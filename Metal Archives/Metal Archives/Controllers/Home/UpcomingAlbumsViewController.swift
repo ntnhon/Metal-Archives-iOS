@@ -63,12 +63,18 @@ final class UpcomingAlbumsViewController: RefreshableViewController {
 
 //MARK: - PagableManagerProtocol
 extension UpcomingAlbumsViewController: PagableManagerDelegate {
+    func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        showHUD()
+    }
+    
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        hideHUD()
         endRefreshing()
         Toast.displayMessageShortly(errorLoadingMessage)
     }
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        hideHUD()
         refreshSuccessfully()
         updateTitle()
         tableView.reloadData()

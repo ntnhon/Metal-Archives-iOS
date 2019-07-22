@@ -81,6 +81,7 @@ final class ReleaseDetailViewController: DeezerableViewController {
     
     private func fetchRelease() {
         deezerButton.isHidden = true
+        showHUD()
         
         MetalArchivesAPI.reloadRelease(urlString: urlString) { [weak self] (release, error) in
             guard let self = self else { return }
@@ -91,6 +92,7 @@ final class ReleaseDetailViewController: DeezerableViewController {
             }
             else if let `release` = release {
                 self.deezerButton.isHidden = false
+                self.hideHUD()
                 self.release = release
                 
                 if let coverURLString = release.coverURLString, let coverURL = URL(string: coverURLString) {

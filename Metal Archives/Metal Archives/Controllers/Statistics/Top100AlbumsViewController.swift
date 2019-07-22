@@ -53,8 +53,11 @@ final class Top100AlbumsViewController: BaseViewController {
     }
     
     private func fetchData() {
+        showHUD()
+        
         if numberOfTries == Settings.numberOfRetries {
             Toast.displayMessageShortly("Error loading content. Please check your internet connection and retry.")
+            hideHUD()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.navigationController?.popViewController(animated: true)
             }
@@ -67,6 +70,7 @@ final class Top100AlbumsViewController: BaseViewController {
                 self?.fetchData()
             } else if let `top100Albums` = top100Albums {
                 DispatchQueue.main.async {
+                    self?.hideHUD()
                     self?.top100Albums = top100Albums
                     self?.tableView.reloadData()
                 }

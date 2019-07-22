@@ -54,8 +54,10 @@ final class StatisticsViewController: BaseViewController {
     }
     
     private func fetchStatistic() {
+        showHUD()
         if numberOfTries == Settings.numberOfRetries {
             Toast.displayMessageShortly("Error loading content. Please check your internet connection and retry.")
+            hideHUD()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.navigationController?.popViewController(animated: true)
             }
@@ -67,6 +69,7 @@ final class StatisticsViewController: BaseViewController {
             if let _ = error {
                 self?.fetchStatistic()
             } else if let `statistic` = statistic {
+                self?.hideHUD()
                 self?.statistic = statistic
                 self?.simpleNavigationBarView.setTitle(statistic.dateAndTimeString)
                 self?.tableView.reloadData()

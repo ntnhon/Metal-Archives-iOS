@@ -268,15 +268,18 @@ extension LatestAdditionsOrUpdatesViewController: UIPopoverPresentationControlle
 extension LatestAdditionsOrUpdatesViewController: PagableManagerDelegate {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
         latestAdditionsOrUpdatesNavigationBarView.setMessage("Loading...")
+        showHUD()
     }
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        hideHUD()
         updateMessageLabel()
         refreshSuccessfully()
         tableView.reloadData()
     }
     
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        hideHUD()
         endRefreshing()
         updateMessageLabel()
         Toast.displayMessageShortly(errorLoadingMessage)

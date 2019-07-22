@@ -14,7 +14,10 @@ extension RequestHelper {
         typealias FetchReviewOnError = (Error) -> Void
         
         static func fetchReview(urlString: String, onSuccess: @escaping FetchReviewOnSuccess, onError: @escaping FetchReviewOnError) {
-            let requestURL = URL(string: urlString)!
+            guard let requestURL = URL(string: urlString) else {
+                onError(MANetworkingError.badURL(urlString))
+                return
+            }
             
             RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
                 switch response.result {

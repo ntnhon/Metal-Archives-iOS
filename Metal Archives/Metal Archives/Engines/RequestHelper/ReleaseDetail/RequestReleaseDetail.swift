@@ -17,7 +17,10 @@ extension RequestHelper {
         private init () {}
         
         static func fetchReleaseDetail(urlString: String, onSuccess: @escaping FetchReleaseOnSuccess, onError: @escaping FetchReleaseOnError) {
-            let requestURL = URL(string: urlString)!
+            guard let requestURL = URL(string: urlString) else {
+                onError(MANetworkingError.badURL(urlString))
+                return
+            }
             
             RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
                 switch response.result {

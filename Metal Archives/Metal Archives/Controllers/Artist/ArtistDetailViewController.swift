@@ -82,6 +82,8 @@ final class ArtistDetailViewController: BaseViewController {
     }
 
     private func fetchArtist() {
+        showHUD()
+        
         MetalArchivesAPI.reloadArtist(urlString: urlString) { [weak self] (artist, error) in
             guard let self = self else { return }
             if let _ = error {
@@ -89,6 +91,7 @@ final class ArtistDetailViewController: BaseViewController {
                     self.fetchArtist()
                 })
             } else {
+                self.hideHUD()
                 if let `artist` = artist {
                     DispatchQueue.main.async {
                         self.artist = artist

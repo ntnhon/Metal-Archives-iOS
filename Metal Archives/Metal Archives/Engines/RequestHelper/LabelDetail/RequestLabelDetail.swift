@@ -14,7 +14,10 @@ extension RequestHelper {
         typealias FetchLabelDetailOnError = (Error) -> Void
         
         static func fetchLabelDetail(urlString: String, onSuccess: @escaping FetchLabelDetailOnSuccess, onError: @escaping FetchLabelDetailOnError) {
-            let requestURL = URL(string: urlString)!
+            guard let requestURL = URL(string: urlString) else {
+                onError(MANetworkingError.badURL(urlString))
+                return
+            }
             
             RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
                 switch response.result {

@@ -213,7 +213,12 @@ final class SimpleSearchResultViewController: BaseViewController {
 
 //MARK: - PagableManagerProtocol
 extension SimpleSearchResultViewController: PagableManagerDelegate {
+    func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        showHUD()
+    }
+    
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        hideHUD()
         guard let _ = pagableManager.totalRecords else {
             Toast.displayMessageShortly(noResultMessage)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -232,6 +237,7 @@ extension SimpleSearchResultViewController: PagableManagerDelegate {
     }
     
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        hideHUD()
         Toast.displayMessageShortly(errorLoadingMessage)
     }
     
