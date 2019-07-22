@@ -22,14 +22,16 @@ final class Top100BandsViewController: BaseViewController {
         super.viewDidLoad()
         initTop100NavigationBarView()
         fetchData()
+        
+        Analytics.logEvent("view_top_100_bands", parameters: nil)
     }
 
     override func initAppearance() {
         super.initAppearance()
         tableView.contentInsetAdjustmentBehavior = .never
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = Settings.currentTheme.backgroundColor
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
         
-        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
@@ -119,6 +121,8 @@ extension Top100BandsViewController: UITableViewDataSource {
         
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: bandTop.imageURLString, description: bandTop.name, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_top_100_bands_thumbnail", parameters: ["band_name": bandTop.name, "band_id": bandTop.id])
         }
         
         return cell

@@ -16,12 +16,13 @@ class ThumbnailableTableViewCell: BaseTableViewCell {
     
     override func initAppearance() {
         super.initAppearance()
-        self.thumbnailImageView.backgroundColor = Settings.currentTheme.imageViewBackgroundColor
-        self.thumbnailImageView.tintColor = Settings.currentTheme.iconTintColor
-        self.thumbnailImageView.contentMode = .scaleAspectFit
-        self.thumbnailImageView.sd_setShowActivityIndicatorView(true)
-        self.thumbnailImageView.sd_setIndicatorStyle(Settings.currentTheme.activityIndicatorStyle)
-        self.thumbnailImageViewHeightConstraint.constant = Settings.thumbnailHeight
+        thumbnailImageView.backgroundColor = Settings.currentTheme.imageViewBackgroundColor
+        thumbnailImageView.tintColor = Settings.currentTheme.iconTintColor
+        thumbnailImageView.contentMode = .scaleAspectFit
+        thumbnailImageView.sd_setShowActivityIndicatorView(true)
+        thumbnailImageView.sd_setIndicatorStyle(Settings.currentTheme.activityIndicatorStyle)
+        thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
+        thumbnailImageViewHeightConstraint.constant = Settings.thumbnailHeight
         
         let thumbnailImageViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapThumbnailImageView))
         thumbnailImageView.isUserInteractionEnabled = true
@@ -34,11 +35,11 @@ class ThumbnailableTableViewCell: BaseTableViewCell {
     
     func setThumbnailImageView(with thumbnailableObject: ThumbnailableObject) {
         if thumbnailableObject.noImage || !Settings.thumbnailEnabled {
-            self.thumbnailImageView.image = thumbnailableObject.placeHolderImage
+            thumbnailImageView.image = thumbnailableObject.placeHolderImage
             thumbnailableObject.resetStates()
         }
         else if let imageURLString = thumbnailableObject.imageURLString {
-            self.thumbnailImageView.sd_setImage(with: URL(string: imageURLString)) { [weak self] (image, error, cachType, url) in
+            thumbnailImageView.sd_setImage(with: URL(string: imageURLString)) { [weak self] (image, error, cachType, url) in
                 if let _ = error {
                     thumbnailableObject.retryGenerateImageURLString()
                     self?.setThumbnailImageView(with: thumbnailableObject)

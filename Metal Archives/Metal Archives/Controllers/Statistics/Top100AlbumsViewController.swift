@@ -21,14 +21,16 @@ final class Top100AlbumsViewController: BaseViewController {
         super.viewDidLoad()
         initTop100NavigationBarView()
         fetchData()
+        
+        Analytics.logEvent("view_top_100_albums", parameters: nil)
     }
     
     override func initAppearance() {
         super.initAppearance()
         tableView.contentInsetAdjustmentBehavior = .never
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = Settings.currentTheme.backgroundColor
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
         
-        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
@@ -86,7 +88,7 @@ extension Top100AlbumsViewController: UITableViewDelegate {
         }
         takeActionFor(actionableObject: album)
         
-        Analytics.logEvent("select_an_item_in_top_albums", parameters: nil)
+        Analytics.logEvent("select_an_item_in_top_albums", parameters: ["album_title": album.release.title, "album_id": album.release.id])
     }
 }
 
@@ -115,6 +117,8 @@ extension Top100AlbumsViewController: UITableViewDataSource {
         cell.fill(with: album, order: indexPath.row + 1)
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: album.imageURLString, description: album.release.title, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_top_100_albums_thumbnail", parameters: ["album_title": album.release.title, "album_id": album.release.id])
         }
         return cell
     }

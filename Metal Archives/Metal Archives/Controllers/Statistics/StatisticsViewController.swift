@@ -8,6 +8,7 @@
 
 import UIKit
 import Toaster
+import FirebaseAnalytics
 
 final class StatisticsViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
@@ -19,12 +20,14 @@ final class StatisticsViewController: BaseViewController {
         super.viewDidLoad()
         fetchStatistic()
         handleSimpleNavigationBarViewActions()
+        
+        Analytics.logEvent("view_statistics", parameters: nil)
     }
     
     override func initAppearance() {
         super.initAppearance()
         tableView.contentInsetAdjustmentBehavior = .never
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
         
         tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
