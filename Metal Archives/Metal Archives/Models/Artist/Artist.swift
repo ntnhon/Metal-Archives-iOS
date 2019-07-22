@@ -192,3 +192,9 @@ final class Artist {
         self.links = links
     }
 }
+
+extension Artist: Descriptive {
+    var generalDescription: String {
+        return "\(id ?? "") - \(bandMemberName ?? "") - \(urlString ?? "")"
+    }
+}

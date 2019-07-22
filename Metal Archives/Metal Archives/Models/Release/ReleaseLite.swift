@@ -16,22 +16,18 @@ final class ReleaseLite: ThumbnailableObject {
     let rating: Int?
     let reviewsURLString: String?
     
-    override var description: String {
-        return "\(self.id) - \(self.title) - \(self.year) - \(self.type.description)"
-    }
-    
     lazy var attributedDescription: NSAttributedString = {
-        var yearAndTitleString = "\(self.year) • \(self.type.description)"
+        var yearAndTitleString = "\(year) • \(type.description)"
         
-        if let numberOfReviews = self.numberOfReviews {
-            yearAndTitleString = "\(self.year) • \(self.type.description) • "
+        if let numberOfReviews = numberOfReviews {
+            yearAndTitleString = "\(year) • \(type.description) • "
         }
         
         let yearAndTitleAttributedString = NSMutableAttributedString(string: yearAndTitleString)
 
         yearAndTitleAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(yearAndTitleString.startIndex..., in: yearAndTitleString))
         
-        guard let numberOfReviews = self.numberOfReviews , let rating = self.rating else {
+        guard let numberOfReviews = numberOfReviews , let rating = rating else {
             return yearAndTitleAttributedString
         }
         
@@ -53,5 +49,11 @@ final class ReleaseLite: ThumbnailableObject {
         self.rating = rating
         self.reviewsURLString = reviewsURLString
         super.init(urlString: urlString, imageType: .release)
+    }
+}
+
+extension ReleaseLite {
+    override var generalDescription: String {
+        return "\(id) - \(title) - \(year) - \(type.description)"
     }
 }

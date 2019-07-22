@@ -9,6 +9,7 @@
 import UIKit
 import Toaster
 import FirebaseAnalytics
+import Crashlytics
 
 final class LabelDetailViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -111,6 +112,7 @@ final class LabelDetailViewController: BaseViewController {
                 }
                 
                 Analytics.logEvent("view_label", parameters: nil)
+                Crashlytics.sharedInstance().setObjectValue(label.generalDescription, forKey: "label")
             }
         }
     }

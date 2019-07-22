@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ThumbnailableObject: NSObject {
+class ThumbnailableObject {
     let urlString: String
     let id: String
     let imageType: ImageType
@@ -29,11 +29,7 @@ class ThumbnailableObject: NSObject {
     private var triedPNG = false
     private var triedJPEG = false
     private var triedGIF = false
-    
-    override var description: String {
-        return self.id
-    }
-    
+
     init?(urlString: String, imageType: ImageType) {
         if let id = urlString.components(separatedBy: "/").last {
             self.id = id
@@ -43,7 +39,6 @@ class ThumbnailableObject: NSObject {
         
         self.urlString = urlString
         self.imageType = imageType
-        super.init()
         self.generateImageURLString()
     }
     
@@ -101,5 +96,11 @@ class ThumbnailableObject: NSObject {
         }
         
         noImage = true
+    }
+}
+
+extension ThumbnailableObject: Descriptive {
+    var generalDescription: String {
+        return "\(id) - \(imageType.description) - \(urlString)"
     }
 }

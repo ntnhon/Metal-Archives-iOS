@@ -8,10 +8,20 @@
 
 import Foundation
 
-enum ImageType {
+enum ImageType: CustomStringConvertible {
     case bandLogo, bandPhoto, artist, release, label
     
-    var `additionString`: String {
+    var description: String {
+        switch self {
+        case .bandLogo: return "band logo"
+        case .bandPhoto: return "band photo"
+        case .artist: return "artist"
+        case .release: return "release"
+        case .label: return "label"
+        }
+    }
+    
+    var additionString: String {
         switch self {
         case .bandLogo: return "_logo"
         case .bandPhoto: return "_photo"

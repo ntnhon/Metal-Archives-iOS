@@ -9,7 +9,7 @@
 import Foundation
 import Kanna
 
-final class Band: NSObject {
+final class Band {
     private(set) var id: String!
     private(set) var name: String!
     private(set) var urlString: String!
@@ -460,8 +460,9 @@ extension Band {
     }
 }
 
-extension Band {
-    override var description: String {
+// MARK: - Descriptive
+extension Band: Descriptive {
+    var generalDescription: String {
         return "\(self.id ?? "") - \(self.name ?? "") - \(self.country.nameAndEmoji)"
     }
 }

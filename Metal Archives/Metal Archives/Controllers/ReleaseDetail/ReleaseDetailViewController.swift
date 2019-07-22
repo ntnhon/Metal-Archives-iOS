@@ -112,7 +112,7 @@ final class ReleaseDetailViewController: DeezerableViewController {
                 
                 Analytics.logEvent("view_release", parameters: ["release_title": release.title!, "release_id": release.id!])
                 
-                Crashlytics.sharedInstance().setObjectValue(release, forKey: CrashlyticsKey.Release)
+                Crashlytics.sharedInstance().setObjectValue(release.generalDescription, forKey: "release")
             }
         }
     }

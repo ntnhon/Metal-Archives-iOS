@@ -124,7 +124,7 @@ final class BandDetailViewController: DeezerableViewController {
                 
                 self.historyRecordableDelegate?.loaded(urlString: band.urlString, nameOrTitle: band.name, thumbnailUrlString: band.logoURLString, objectType: .band)
                 
-                Crashlytics.sharedInstance().setObjectValue(self.band, forKey: CrashlyticsKey.Band)
+                Crashlytics.sharedInstance().setObjectValue(self.band?.generalDescription, forKey: "band")
             }
         }
     }

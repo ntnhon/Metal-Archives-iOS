@@ -177,3 +177,9 @@ final class Label {
         self.links = links
     }
 }
+
+extension Label: Descriptive {
+    var generalDescription: String {
+        return "\(id ?? "") - \(name ?? "") - \(urlString ?? "")"
+    }
+}

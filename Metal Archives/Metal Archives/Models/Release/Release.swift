@@ -456,3 +456,9 @@ final class Release {
         return arrayArtists
     }
 }
+
+extension Release: Descriptive {
+    var generalDescription: String {
+        return "\(id ?? "") - \(title ?? "") - \(urlString ?? "")"
+    }
+}
