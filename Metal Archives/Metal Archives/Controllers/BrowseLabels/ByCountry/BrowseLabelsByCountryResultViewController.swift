@@ -25,7 +25,8 @@ final class BrowseLabelsByCountryResultViewController: RefreshableViewController
     override func initAppearance() {
         super.initAppearance()
         tableView.contentInsetAdjustmentBehavior = .never
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
 
         LoadingTableViewCell.register(with: tableView)
         BrowseLabelsByCountryResultTableViewCell.register(with: tableView)
@@ -156,6 +157,8 @@ extension BrowseLabelsByCountryResultViewController: UITableViewDataSource {
         cell.fill(with: label)
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: label.imageURLString, description: label.name, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_browse_labels_result_thumbnail", parameters: ["label_name": label.name, "label_id": label.id])
         }
         return cell
     }

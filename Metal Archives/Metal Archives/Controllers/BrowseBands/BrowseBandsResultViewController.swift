@@ -142,6 +142,8 @@ extension BrowseBandsResultViewController: UITableViewDataSource {
         cell.fill(with: band)
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: band.imageURLString, description: band.name, fromImageView: cell.thumbnailImageView)
+            
+            Analytics.logEvent("view_browse_band_result_thumbnail", parameters: ["band_name": band.name, "band_id": band.id])
         }
         return cell
     }
