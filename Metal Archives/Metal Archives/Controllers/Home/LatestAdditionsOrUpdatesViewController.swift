@@ -49,7 +49,8 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
     
     override func initAppearance() {
         super.initAppearance()
-        tableView.contentInset = UIEdgeInsets(top: segmentedNavigationBarViewHeightWithoutTopInset, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = Settings.currentTheme.backgroundColor
+        tableView.contentInset = UIEdgeInsets(top: segmentedNavigationBarViewHeightWithoutTopInset, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
         
         LoadingTableViewCell.register(with: tableView)
         BandAdditionOrUpdateTableViewCell.register(with: tableView)
@@ -647,12 +648,12 @@ extension LatestAdditionsOrUpdatesViewController {
         case .additions:
             artist = artistAdditionPagableManager.objects[indexPath.row]
             
-            Analytics.logEvent("select_an_item_in_latest_additions", parameters: ["item_type": "Artist", "artist_name": artist!.nameInBand, "artist_id": artist!.id])
+            Analytics.logEvent("select_an_item_in_latest_additions", parameters: ["item_type": "Artist", "artist_name": artist?.nameInBand ?? "", "artist_id": artist?.id ?? ""])
             
         case .updates:
             artist = artistUpdatePagableManager.objects[indexPath.row]
             
-            Analytics.logEvent("select_an_item_in_latest_updates", parameters: ["item_type": "Artist", "artist_name": artist!.nameInBand, "artist_id": artist!.id])
+            Analytics.logEvent("select_an_item_in_latest_updates", parameters: ["item_type": "Artist", "artist_name": artist?.nameInBand ?? "", "artist_id": artist?.id ?? ""])
         }
         
         if let `artist` = artist {
