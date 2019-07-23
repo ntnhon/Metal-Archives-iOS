@@ -363,13 +363,6 @@ extension HomepageViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - UIScrollViewDelegate
-extension HomepageViewController: UIScrollViewDelegate {
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        simpleNavigationBarView.transformWith(scrollView)
-    }
-}
-
 // MARK: - Loading cell
 extension HomepageViewController {
     private func loadingCell(atIndexPath indexPath: IndexPath) -> UITableViewCell {

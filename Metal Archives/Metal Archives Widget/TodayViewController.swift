@@ -102,10 +102,6 @@ extension TodayViewController: PagableManagerDelegate {
         self.tableView.reloadData()
         self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
     }
-    
-    func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        
-    }
 }
 
 //MARK: - UITableViewDelegate

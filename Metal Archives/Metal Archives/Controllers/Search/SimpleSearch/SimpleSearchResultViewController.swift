@@ -240,10 +240,6 @@ extension SimpleSearchResultViewController: PagableManagerDelegate {
         hideHUD()
         Toast.displayMessageShortly(errorLoadingMessage)
     }
-    
-    func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        hideHUD()
-    }
 }
 
 // MARK: - HistoryRecordable
@@ -327,6 +323,10 @@ extension SimpleSearchResultViewController {
         }
         
         if manager.moreToLoad {
+            if manager.objects.count == 0 {
+                return 0
+            }
+            
             return manager.objects.count + 1
         }
         
