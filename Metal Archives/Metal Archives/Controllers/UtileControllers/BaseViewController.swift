@@ -63,6 +63,8 @@ extension BaseViewController {
         if hideNavigationBar {
             showCustomNavigationBarView(false)
         }
+        
+        harmoniseSmokedImageViewToBackgroundColor(false)
     }
     
     @objc func cancelFromHUD() {
@@ -74,12 +76,25 @@ extension BaseViewController {
         hud?.hide(animated: true)
         showCustomNavigationBarView(true)
         view.backgroundColor = Settings.currentTheme.backgroundColor
+        harmoniseSmokedImageViewToBackgroundColor(true)
     }
     
     private func showCustomNavigationBarView(_ show: Bool) {
         for view in view.subviews {
             if let baseNavigationBarView = view as? BaseNavigationBarView {
                 baseNavigationBarView.isHidden = !show
+                return
+            }
+        }
+    }
+    
+    private func harmoniseSmokedImageViewToBackgroundColor(_ harmonized: Bool) {
+        for view in view.subviews {
+            if let smokedImageView = view as? SmokedImageView {
+                if harmonized {
+                    smokedImageView.setBackgroundColor(Settings.currentTheme.backgroundColor)
+                } else { smokedImageView.setBackgroundColor(Settings.currentTheme.tableViewBackgroundColor)
+                }
                 return
             }
         }

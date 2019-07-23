@@ -64,4 +64,9 @@ final class SmokedImageView: UIView {
             imageView.transform = CGAffineTransform(scaleX: scaleRatio, y: scaleRatio)
         }
     }
+    
+    func setBackgroundColor(_ backgroundColor: UIColor) {
+        self.backgroundColor = backgroundColor
+        imageView.backgroundColor = backgroundColor
+    }
 }

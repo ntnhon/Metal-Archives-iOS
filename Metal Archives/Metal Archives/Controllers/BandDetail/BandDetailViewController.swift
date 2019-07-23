@@ -88,7 +88,7 @@ final class BandDetailViewController: DeezerableViewController {
 
     private func fetchBand() {
         deezerButton.isHidden = true
-        showHUD()
+        showHUD(hideNavigationBar: true)
         
         MetalArchivesAPI.reloadBand(bandURLString: bandURLString) { [weak self] (band, error) in
             

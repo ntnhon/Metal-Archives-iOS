@@ -82,7 +82,7 @@ final class ArtistDetailViewController: BaseViewController {
     }
 
     private func fetchArtist() {
-        showHUD()
+        showHUD(hideNavigationBar: true)
         
         MetalArchivesAPI.reloadArtist(urlString: urlString) { [weak self] (artist, error) in
             guard let self = self else { return }

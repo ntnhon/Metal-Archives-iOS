@@ -77,7 +77,7 @@ final class LabelDetailViewController: BaseViewController {
     }
 
     private func fetchLabel() {
-        showHUD()
+        showHUD(hideNavigationBar: true)
         
         MetalArchivesAPI.reloadLabel(urlString: self.urlString) { [weak self] (label, error) in
             guard let self = self else { return }
