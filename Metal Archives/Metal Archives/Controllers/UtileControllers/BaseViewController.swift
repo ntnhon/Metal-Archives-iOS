@@ -58,6 +58,8 @@ extension BaseViewController {
         hud!.button.setTitle("Cancel", for: .normal)
         hud!.button.addTarget(self, action: #selector(cancelFromHUD), for: .touchUpInside)
         
+        view.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
+        
         if hideNavigationBar {
             showCustomNavigationBarView(false)
         }
@@ -71,6 +73,7 @@ extension BaseViewController {
     func hideHUD() {
         hud?.hide(animated: true)
         showCustomNavigationBarView(true)
+        view.backgroundColor = Settings.currentTheme.backgroundColor
     }
     
     private func showCustomNavigationBarView(_ show: Bool) {

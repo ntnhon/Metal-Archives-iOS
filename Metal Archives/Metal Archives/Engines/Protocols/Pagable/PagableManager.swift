@@ -19,6 +19,10 @@ extension PagableManagerDelegate {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) {
         //Empty default implementation to make function optional
     }
+    
+    func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) {
+        //Empty default implementation to make function optional
+    }
 }
 
 final class PagableManager<T: Pagable>: NSCopying {

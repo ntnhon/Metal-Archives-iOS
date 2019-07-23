@@ -12,8 +12,6 @@ import FirebaseAnalytics
 
 final class NewsArchiveViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
-    private var errorFetchingMoreNews = false
-    private var isFetching = false
     
     private var newsArchivesPagableManager = PagableManager<News>()
     
@@ -69,10 +67,6 @@ extension NewsArchiveViewController: PagableManagerDelegate {
         refreshSuccessfully()
         tableView.reloadData()
     }
-    
-    func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        hideHUD()
-    }
 }
 
 // MARK: - UITableViewDelegate
@@ -99,11 +93,11 @@ extension NewsArchiveViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if refreshControl.isRefreshing {
-            return 0
-        }
-        
         if newsArchivesPagableManager.moreToLoad {
+            if newsArchivesPagableManager.objects.count == 0 {
+                return 0
+            }
+            
             return newsArchivesPagableManager.objects.count + 1
         } else {
             return newsArchivesPagableManager.objects.count
@@ -113,15 +107,7 @@ extension NewsArchiveViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if newsArchivesPagableManager.moreToLoad && indexPath.row == newsArchivesPagableManager.objects.count {
             let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-
-            //Fetch is on the way
-            if !errorFetchingMoreNews {
-                loadingCell.displayIsLoading()
-                return loadingCell
-            }
-            
-            //Fetch failed
-            loadingCell.didsplayError("Error loading more news.\n Tap to reload.")
+            loadingCell.displayIsLoading()
             return loadingCell
         }
         
