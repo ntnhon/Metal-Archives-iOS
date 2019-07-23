@@ -95,15 +95,16 @@ final class LabelDetailViewController: BaseViewController {
                 }
                 
                 self.label = label
-                self.title = label.name
-                self.simpleNavigationBarView.setTitle(label.name)
                 self.determineLabelMenuOptions()
                 self.initHorizontalMenuView()
                 
                 if let logoURLString = label.logoURLString, let logoURL = URL(string: logoURLString) {
-                    self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
+                    self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: { [weak self] (image, error, cacheType, url) in
+                        self?.simpleNavigationBarView.setTitle(label.name, withLeadingImage: image)
+                    })
                 } else {
                     self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
+                    self.simpleNavigationBarView.setTitle(label.name)
                 }
                 
                 self.label.currentRosterPagableManager.delegate = self

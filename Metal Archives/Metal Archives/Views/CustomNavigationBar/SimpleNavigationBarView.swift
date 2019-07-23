@@ -96,6 +96,28 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
         titleLabel.text = title
     }
     
+    func setTitle(_ title: String, withLeadingImage leadingImage: UIImage?) {
+        guard let leadingImage = leadingImage else {
+            setTitle(title)
+            return
+        }
+
+        let leadingImageHeight = 2.5 * FontSize.default.titleFont.pointSize
+        let leadingImageWidth = leadingImageHeight * leadingImage.size.width / leadingImage.size.height
+        
+        let resizedLeadingImage = leadingImage.resizedImage(newSize: .init(width: leadingImageWidth, height: leadingImageHeight), interpolationQuality: .default)
+        
+        let attributedString = NSMutableAttributedString(string: "")
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.bounds = CGRect(x: 0, y: CGFloat(roundf(Float(FontSize.default.titleFont.capHeight - resizedLeadingImage.size.height).rounded() / 2)), width: resizedLeadingImage.size.width, height: resizedLeadingImage.size.height)
+        imageAttachment.image = resizedLeadingImage
+        let imageString = NSAttributedString(attachment: imageAttachment)
+        attributedString.append(imageString)
+        attributedString.append(NSAttributedString(string: " \(title)"))
+
+        titleLabel.attributedText = attributedString
+    }
+    
     func setTitleFont(_ font: UIFont) {
         titleLabel.font = font
     }

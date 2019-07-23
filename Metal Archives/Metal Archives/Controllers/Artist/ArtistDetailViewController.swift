@@ -100,12 +100,14 @@ final class ArtistDetailViewController: BaseViewController {
                 }
                 
                 self.artist = artist
-                self.simpleNavigationBarView.setTitle(artist.bandMemberName)
                 
                 if let photoUrlString = artist.photoURLString, let photoURL = URL(string: photoUrlString) {
-                    self.stretchyPhotoSmokedImageView.imageView.sd_setImage(with: photoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
+                    self.stretchyPhotoSmokedImageView.imageView.sd_setImage(with: photoURL, placeholderImage: nil, options: [.retryFailed], completed: { [weak self] (image, error, cacheType, url) in
+                        self?.simpleNavigationBarView.setTitle(artist.bandMemberName, withLeadingImage: image)
+                    })
                 } else {
                     self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
+                    self.simpleNavigationBarView.setTitle(artist.bandMemberName)
                 }
                 
                 self.determineArtistInfoTypes()

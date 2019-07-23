@@ -115,13 +115,14 @@ final class BandDetailViewController: DeezerableViewController {
                 }
                 
                 if let logoURLString = band.logoURLString, let logoURL = URL(string: logoURLString) {
-                    self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
+                    self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: { [weak self] (image, error, cacheType, url) in
+                        self?.simpleNavigationBarView.setTitle(band.name, withLeadingImage: image)
+                    })
                 } else {
                     self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
+                    self.simpleNavigationBarView.setTitle(band.name)
                 }
-                
-                self.simpleNavigationBarView.setTitle(band.name)
-                self.title = band.name
+
                 self.currentMemberType = band.isLastKnown ? .lastKnown : .current
                 
                 self.tableView.reloadData()

@@ -101,13 +101,14 @@ final class ReleaseDetailViewController: DeezerableViewController {
                 self.release = release
                 
                 if let coverURLString = release.coverURLString, let coverURL = URL(string: coverURLString) {
-                    self.stretchyCoverSmokedImageView.imageView.sd_setImage(with: coverURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
+                    self.stretchyCoverSmokedImageView.imageView.sd_setImage(with: coverURL, placeholderImage: nil, options: [.retryFailed], completed: { [weak self] (image, error, cacheType, url) in
+                        self?.simpleNavigationBarView.setTitle(release.title, withLeadingImage: image)
+                    })
                 } else {
                     self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
+                    self.simpleNavigationBarView.setTitle(release.title)
                 }
                 
-                self.simpleNavigationBarView.setTitle(release.title)
-                self.title = release.title
                 self.tableView.reloadData()
                 
                 // Delay this method to wait for info cells to be fully loaded
