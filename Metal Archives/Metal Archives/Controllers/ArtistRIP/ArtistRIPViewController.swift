@@ -125,10 +125,6 @@ extension ArtistRIPViewController: PagableManagerDelegate {
         updateTitle()
         tableView.reloadData()
     }
-    
-    func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        hideHUD()
-    }
 }
 
 // MARK: - UIScrollViewDelegate
@@ -171,12 +167,12 @@ extension ArtistRIPViewController: UITableViewDataSource {
         guard let manager = artistRIPPagableManager else {
             return 0
         }
-        
-        if refreshControl.isRefreshing {
-            return 0
-        }
-        
+
         if manager.moreToLoad {
+            if manager.objects.count == 0 {
+                return 0
+            }
+            
             return manager.objects.count + 1
         }
         

@@ -52,7 +52,7 @@ final class BrowseLabelsAlphabeticallyResultViewController: RefreshableViewContr
             simpleNavigationBarView.setTitle("No result found")
             return
         }
-        simpleNavigationBarView.setTitle("Loaded \(browseLabelsAlphabeticallyPagableManager.objects.count) of \(totalRecords)")
+        simpleNavigationBarView.setTitle("Labels by \"\(letter.description)\" (\(browseLabelsAlphabeticallyPagableManager.objects.count)/\(totalRecords))")
     }
     
     override func refresh() {
@@ -63,6 +63,13 @@ final class BrowseLabelsAlphabeticallyResultViewController: RefreshableViewContr
         }
         
         Analytics.logEvent("refresh_browse_labels_alphabetically_results", parameters: nil)
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension BrowseLabelsAlphabeticallyResultViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        simpleNavigationBarView.transformWith(scrollView)
     }
 }
 
@@ -83,10 +90,6 @@ extension BrowseLabelsAlphabeticallyResultViewController: PagableManagerDelegate
         endRefreshing()
         updateTitle()
         tableView.reloadData()
-    }
-    
-    func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        hideHUD()
     }
 }
 
@@ -131,12 +134,12 @@ extension BrowseLabelsAlphabeticallyResultViewController: UITableViewDataSource 
         guard let manager = browseLabelsAlphabeticallyPagableManager else {
             return 0
         }
-        
-        if refreshControl.isRefreshing {
-            return 0
-        }
-        
+
         if manager.moreToLoad {
+            if manager.objects.count == 0 {
+                return 0
+            }
+            
             return manager.objects.count + 1
         }
         

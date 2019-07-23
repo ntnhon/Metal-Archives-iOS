@@ -57,7 +57,7 @@ final class BrowseLabelsByCountryResultViewController: RefreshableViewController
             return
         }
         
-        simpleNavigationBarView.setTitle("Loaded \(browseLabelsByCountryPagableManager.objects.count) of \(totalRecords)")
+        simpleNavigationBarView.setTitle("Labels from \(country?.nameAndEmoji ?? "") (\(browseLabelsByCountryPagableManager.objects.count)/\(totalRecords))")
     }
     
     override func refresh() {
@@ -68,6 +68,13 @@ final class BrowseLabelsByCountryResultViewController: RefreshableViewController
         }
         
         Analytics.logEvent("refresh_browse_labels_by_country_results", parameters: nil)
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension BrowseLabelsByCountryResultViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        simpleNavigationBarView.transformWith(scrollView)
     }
 }
 
@@ -88,10 +95,6 @@ extension BrowseLabelsByCountryResultViewController: PagableManagerDelegate {
         endRefreshing()
         updateTitle()
         tableView.reloadData()
-    }
-    
-    func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        hideHUD()
     }
 }
 
@@ -137,11 +140,11 @@ extension BrowseLabelsByCountryResultViewController: UITableViewDataSource {
             return 0
         }
         
-        if refreshControl.isRefreshing {
-            return 0
-        }
-        
         if manager.moreToLoad {
+            if manager.objects.count == 0 {
+                return 0
+            }
+            
             return manager.objects.count + 1
         }
         

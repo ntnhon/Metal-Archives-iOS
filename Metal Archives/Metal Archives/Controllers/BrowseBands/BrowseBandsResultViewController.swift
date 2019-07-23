@@ -64,6 +64,13 @@ final class BrowseBandsResultViewController: RefreshableViewController {
     }
 }
 
+// MARK: - UIScrollViewDelegate
+extension BrowseBandsResultViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        simpleNavigationBarView.transformWith(scrollView)
+    }
+}
+
 //MARK: - PagableManagerDelegate
 extension BrowseBandsResultViewController: PagableManagerDelegate {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -81,10 +88,6 @@ extension BrowseBandsResultViewController: PagableManagerDelegate {
         endRefreshing()
         updateTitle()
         tableView.reloadData()
-    }
-    
-    func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        hideHUD()
     }
 }
 
@@ -121,12 +124,12 @@ extension BrowseBandsResultViewController: UITableViewDataSource {
         guard let manager = bandBrowsePagableManager else {
             return 0
         }
-        
-        if refreshControl.isRefreshing {
-            return 0
-        }
-        
+
         if manager.moreToLoad {
+            if manager.objects.count == 0 {
+                return 0
+            }
+            
             return manager.objects.count + 1
         }
         
