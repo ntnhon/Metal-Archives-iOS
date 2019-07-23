@@ -91,16 +91,23 @@ final class BandDetailViewController: DeezerableViewController {
         showHUD()
         
         MetalArchivesAPI.reloadBand(bandURLString: bandURLString) { [weak self] (band, error) in
+            
             guard let self = self else { return }
             
             if let _ = error {
+                self.showHUD()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
                     self.fetchBand()
                 })
-            } else if let `band` = band {
-                self.deezerButton.isHidden = false
+            } else {
                 self.hideHUD()
-
+                guard let band = band else {
+                    Toast.displayMessageShortly(errorLoadingMessage)
+                    self.navigationController?.popViewController(animated: true)
+                    return
+                }
+                
+                self.deezerButton.isHidden = false
                 self.band = band
                 
                 if band.discography?.main.count == 0 {
@@ -126,6 +133,7 @@ final class BandDetailViewController: DeezerableViewController {
                 
                 self.historyRecordableDelegate?.loaded(urlString: band.urlString, nameOrTitle: band.name, thumbnailUrlString: band.logoURLString, objectType: .band)
                 
+                Analytics.logEvent("view_band", parameters: ["band_id": band.id ?? "", "band_name": band.name ?? ""])
                 Crashlytics.sharedInstance().setObjectValue(self.band?.generalDescription, forKey: "band")
             }
         }

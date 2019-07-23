@@ -40,9 +40,9 @@ final class DeezerTracklistViewController: BaseViewController {
         simpleNavigationBarView.setRightButtonIcon(nil)
         
         if topTrack {
-            simpleNavigationBarView.setTitle("Top track for artist \"\(albumTitleOrArtistName!)\"")
+            simpleNavigationBarView.setTitle("Top track of band \"\(albumTitleOrArtistName!)\"")
         } else {
-            simpleNavigationBarView.setTitle("Tracklist for album \"\(albumTitleOrArtistName!)\"")
+            simpleNavigationBarView.setTitle("Tracklist of album \"\(albumTitleOrArtistName!)\"")
         }
         
         simpleNavigationBarView.didTapLeftButton = { [unowned self] in

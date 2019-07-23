@@ -32,7 +32,7 @@ final class DeezerAlbumViewController: BaseViewController {
     private func initSimpleNavigationBarView() {
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
         simpleNavigationBarView.setRightButtonIcon(nil)
-        simpleNavigationBarView.setTitle("Albums for \"\(artistName!)\"")
+        simpleNavigationBarView.setTitle("Albums of band \"\(artistName!)\"")
         
         simpleNavigationBarView.didTapLeftButton = { [unowned self] in
             self.navigationController?.popViewController(animated: true)
@@ -64,7 +64,7 @@ extension DeezerAlbumViewController: UITableViewDelegate {
     
     private func fetchAndPushDeezerTracklist(with album: DeezerAlbum) {
         guard let formattedRequestUrlString = album.tracklist.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
-        showHUD()
+        showHUD(hideNavigationBar: false)
         
         Service.shared.fetchDeezerTrack(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
             DispatchQueue.main.async {

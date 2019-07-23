@@ -91,7 +91,7 @@ extension BrowseLabelsByCountryResultViewController: PagableManagerDelegate {
     }
     
     func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        Toast.displayBlockedMessageWithDelay()
+        hideHUD()
     }
 }
 

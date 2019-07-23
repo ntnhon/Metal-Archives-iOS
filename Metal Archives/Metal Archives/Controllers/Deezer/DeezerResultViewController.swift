@@ -39,7 +39,12 @@ final class DeezerResultViewController: BaseViewController {
     private func initSimpleNavigationBarView() {
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
         simpleNavigationBarView.setRightButtonIcon(#imageLiteral(resourceName: "info"))
-        simpleNavigationBarView.setTitle("Deezer for \"\(deezerableSearchTerm!)\"")
+        
+        switch deezerableType! {
+        case .album: simpleNavigationBarView.setTitle("Results for album \"\(deezerableSearchTerm!)\"")
+        case .artist: simpleNavigationBarView.setTitle("Results for band \"\(deezerableSearchTerm!)\"")
+        }
+        
         
         simpleNavigationBarView.didTapLeftButton = { [unowned self] in
             self.navigationController?.popViewController(animated: true)
@@ -65,7 +70,7 @@ final class DeezerResultViewController: BaseViewController {
     
     private func fetch() {
         guard let formattedRequestUrlString = requestUrlString.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
-        showHUD()
+        showHUD(hideNavigationBar: false)
         
         switch deezerableType! {
         case .artist:
@@ -124,7 +129,7 @@ extension DeezerResultViewController: UITableViewDelegate {
     
     private func fetchAndPushArtistTopTracks(_ artist: DeezerArtist) {
         guard let formattedRequestUrlString = artist.tracklist.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
-        showHUD()
+        showHUD(hideNavigationBar: false)
         
         Service.shared.fetchDeezerTrack(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
             DispatchQueue.main.async {
@@ -146,7 +151,7 @@ extension DeezerResultViewController: UITableViewDelegate {
         let requestUrlString = "https://api.deezer.com/artist/\(artist.id)/albums"
         
         guard let formattedRequestUrlString = requestUrlString.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
-        showHUD()
+        showHUD(hideNavigationBar: false)
         
         Service.shared.fetchDeezerAlbum(urlString: formattedRequestUrlString) {[weak self] (deezerData, error) in
             DispatchQueue.main.async {
@@ -179,7 +184,7 @@ extension DeezerResultViewController: UITableViewDelegate {
     
     private func fetchAndPushAlbumTracklist(_ album: DeezerAlbum) {
         guard let formattedRequestUrlString = album.tracklist.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
-        showHUD()
+        showHUD(hideNavigationBar: false)
         Service.shared.fetchDeezerTrack(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
             DispatchQueue.main.async {
                 self?.hideHUD()

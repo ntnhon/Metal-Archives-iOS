@@ -84,7 +84,6 @@ final class AdvancedSearchSongsResultsViewController: RefreshableViewController 
 //MARK: - PagableManagerDelegate
 extension AdvancedSearchSongsResultsViewController: PagableManagerDelegate {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        simpleNavigationBarView?.setTitle("Loading...")
         showHUD()
     }
     
@@ -102,7 +101,7 @@ extension AdvancedSearchSongsResultsViewController: PagableManagerDelegate {
     }
     
     func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        Toast.displayBlockedMessageWithDelay()
+        hideHUD()
     }
 }
 

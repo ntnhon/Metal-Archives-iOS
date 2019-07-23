@@ -48,11 +48,19 @@ class BaseViewController: UIViewController {
 
 // MARK: - MBProgressHUD
 extension BaseViewController {
-    func showHUD() {
+    func showHUD(hideNavigationBar: Bool = true) {
+        if let hud = hud, hud.alpha > 0.0 {
+            return
+        }
+        
         hud = MBProgressHUD.showAdded(to: view, animated: true)
         hud!.mode = .indeterminate
         hud!.button.setTitle("Cancel", for: .normal)
         hud!.button.addTarget(self, action: #selector(cancelFromHUD), for: .touchUpInside)
+        
+        if hideNavigationBar {
+            showCustomNavigationBarView(false)
+        }
     }
     
     @objc func cancelFromHUD() {
@@ -62,5 +70,15 @@ extension BaseViewController {
 
     func hideHUD() {
         hud?.hide(animated: true)
+        showCustomNavigationBarView(true)
+    }
+    
+    private func showCustomNavigationBarView(_ show: Bool) {
+        for view in view.subviews {
+            if let baseNavigationBarView = view as? BaseNavigationBarView {
+                baseNavigationBarView.isHidden = !show
+                return
+            }
+        }
     }
 }

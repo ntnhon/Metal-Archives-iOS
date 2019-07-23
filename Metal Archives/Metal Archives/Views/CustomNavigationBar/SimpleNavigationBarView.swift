@@ -58,7 +58,13 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
         titleLabel.numberOfLines = 2
         titleLabel.alpha = 0
         addSubview(titleLabel)
-        titleLabel.anchor(top: nil, leading: leftButton.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: 15, right: 10))
+        
+        let bottomSpace: CGFloat
+        switch Settings.currentFontSize! {
+        case .default: bottomSpace = 10
+        case .medium, .large: bottomSpace = 5
+        }
+        titleLabel.anchor(top: nil, leading: leftButton.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: bottomSpace, right: 10))
         titleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         

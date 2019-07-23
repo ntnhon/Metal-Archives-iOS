@@ -94,11 +94,13 @@ final class ReviewViewController: DismissableOnSwipeViewController {
     private func loadReview() {
         showHUD()
         MetalArchivesAPI.fetchReviewDetail(urlString: urlString) { [weak self] (review, error) in
+            DispatchQueue.main.async {
+                self?.hideHUD()
+            }
             guard let self = self else { return }
             if let _ = error {
                 self.loadReview()
             } else {
-                self.hideHUD()
                 if let review = review {
                     DispatchQueue.main.async {
                         self.review = review

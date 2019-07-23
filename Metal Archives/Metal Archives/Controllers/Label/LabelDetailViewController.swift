@@ -82,39 +82,43 @@ final class LabelDetailViewController: BaseViewController {
         MetalArchivesAPI.reloadLabel(urlString: self.urlString) { [weak self] (label, error) in
             guard let self = self else { return }
             if let _ = error {
+                self.showHUD()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
                     self.fetchLabel()
                 })
-            } else if let `label` = label {
+            } else {
                 self.hideHUD()
-                
-                DispatchQueue.main.async {
-                    self.label = label
-                    self.title = label.name
-                    self.simpleNavigationBarView.setTitle(label.name)
-                    self.determineLabelMenuOptions()
-                    self.initHorizontalMenuView()
-                    
-                    if let logoURLString = label.logoURLString, let logoURL = URL(string: logoURLString) {
-                        self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
-                    } else {
-                        self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
-                    }
-                    
-                    self.label.currentRosterPagableManager.delegate = self
-                    self.label.pastRosterPagableManager.delegate = self
-                    self.label.releasesPagableManager.delegate = self
-                    
-                    self.tableView.reloadData()
-                    
-                    // Delay this method to wait for info cells to be fully loaded
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-                        self.setTableViewBottomInsetToFillBottomSpace()
-                    })
-                    
-                    self.historyRecordableDelegate?.loaded(urlString: label.urlString, nameOrTitle: label.name, thumbnailUrlString: label.logoURLString, objectType: .label)
+                guard let label = label else {
+                    Toast.displayMessageShortly(errorLoadingMessage)
+                    self.navigationController?.popViewController(animated: true)
+                    return
                 }
                 
+                self.label = label
+                self.title = label.name
+                self.simpleNavigationBarView.setTitle(label.name)
+                self.determineLabelMenuOptions()
+                self.initHorizontalMenuView()
+                
+                if let logoURLString = label.logoURLString, let logoURL = URL(string: logoURLString) {
+                    self.stretchyLogoSmokedImageView.imageView.sd_setImage(with: logoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
+                } else {
+                    self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
+                }
+                
+                self.label.currentRosterPagableManager.delegate = self
+                self.label.pastRosterPagableManager.delegate = self
+                self.label.releasesPagableManager.delegate = self
+                
+                self.tableView.reloadData()
+                
+                // Delay this method to wait for info cells to be fully loaded
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                    self.setTableViewBottomInsetToFillBottomSpace()
+                })
+                
+                self.historyRecordableDelegate?.loaded(urlString: label.urlString, nameOrTitle: label.name, thumbnailUrlString: label.logoURLString, objectType: .label)
+            
                 Analytics.logEvent("view_label", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
                 Crashlytics.sharedInstance().setObjectValue(label.generalDescription, forKey: "label")
             }

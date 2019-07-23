@@ -66,10 +66,10 @@ final class StatisticsViewController: BaseViewController {
         
         numberOfTries += 1
         MetalArchivesAPI.fetchStatisticDetails { [weak self] (statistic, error) in
+            self?.hideHUD()
             if let _ = error {
                 self?.fetchStatistic()
             } else if let `statistic` = statistic {
-                self?.hideHUD()
                 self?.statistic = statistic
                 self?.simpleNavigationBarView.setTitle(statistic.dateAndTimeString)
                 self?.tableView.reloadData()

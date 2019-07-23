@@ -87,39 +87,42 @@ final class ArtistDetailViewController: BaseViewController {
         MetalArchivesAPI.reloadArtist(urlString: urlString) { [weak self] (artist, error) in
             guard let self = self else { return }
             if let _ = error {
+                self.showHUD()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
                     self.fetchArtist()
                 })
             } else {
                 self.hideHUD()
-                if let `artist` = artist {
-                    DispatchQueue.main.async {
-                        self.artist = artist
-                        self.simpleNavigationBarView.setTitle(artist.bandMemberName)
-                        
-                        if let photoUrlString = artist.photoURLString, let photoURL = URL(string: photoUrlString) {
-                            self.stretchyPhotoSmokedImageView.imageView.sd_setImage(with: photoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
-                        } else {
-                            self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
-                        }
-                        
-                        self.determineArtistInfoTypes()
-                        self.determineArtistRoles()
-                        self.initHorizontalMenuView()
-                        self.tableView.reloadData()
-                        
-                        // Delay this method to wait for info cells to be fully loaded
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-                            self.setTableViewBottomInsetToFillBottomSpace()
-                        })
-                        
-                        self.historyRecordableDelegate?.loaded(urlString: artist.urlString, nameOrTitle: artist.bandMemberName, thumbnailUrlString: artist.photoURLString, objectType: .artist)
-                        
-                        Analytics.logEvent("view_artist", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? ""])
-                        
-                    Crashlytics.sharedInstance().setObjectValue(artist.generalDescription, forKey: "artist")
-                    }
+                guard let artist = artist else {
+                    Toast.displayMessageShortly(errorLoadingMessage)
+                    self.navigationController?.popViewController(animated: true)
+                    return
                 }
+                
+                self.artist = artist
+                self.simpleNavigationBarView.setTitle(artist.bandMemberName)
+                
+                if let photoUrlString = artist.photoURLString, let photoURL = URL(string: photoUrlString) {
+                    self.stretchyPhotoSmokedImageView.imageView.sd_setImage(with: photoURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
+                } else {
+                    self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
+                }
+                
+                self.determineArtistInfoTypes()
+                self.determineArtistRoles()
+                self.initHorizontalMenuView()
+                self.tableView.reloadData()
+                
+                // Delay this method to wait for info cells to be fully loaded
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                    self.setTableViewBottomInsetToFillBottomSpace()
+                })
+                
+                self.historyRecordableDelegate?.loaded(urlString: artist.urlString, nameOrTitle: artist.bandMemberName, thumbnailUrlString: artist.photoURLString, objectType: .artist)
+                
+                Analytics.logEvent("view_artist", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? ""])
+                
+                Crashlytics.sharedInstance().setObjectValue(artist.generalDescription, forKey: "artist")
             }
         }
     }

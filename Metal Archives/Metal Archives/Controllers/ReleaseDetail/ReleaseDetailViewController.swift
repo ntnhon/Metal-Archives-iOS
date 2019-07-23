@@ -86,13 +86,18 @@ final class ReleaseDetailViewController: DeezerableViewController {
         MetalArchivesAPI.reloadRelease(urlString: urlString) { [weak self] (release, error) in
             guard let self = self else { return }
             if let _ = error as NSError? {
+                self.showHUD()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
                     self.fetchRelease()
                 })
-            }
-            else if let `release` = release {
-                self.deezerButton.isHidden = false
+            } else {
                 self.hideHUD()
+                guard let release = release else {
+                    Toast.displayMessageShortly(errorLoadingMessage)
+                    self.navigationController?.popViewController(animated: true)
+                    return
+                }
+                self.deezerButton.isHidden = false
                 self.release = release
                 
                 if let coverURLString = release.coverURLString, let coverURL = URL(string: coverURLString) {

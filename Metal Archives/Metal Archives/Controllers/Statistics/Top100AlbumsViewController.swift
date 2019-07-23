@@ -66,11 +66,13 @@ final class Top100AlbumsViewController: BaseViewController {
         
         numberOfTries += 1
         MetalArchivesAPI.fetchTop100Albums { [weak self] (top100Albums, error) in
+            DispatchQueue.main.async {
+                self?.hideHUD()
+            }
             if let _ = error {
                 self?.fetchData()
             } else if let `top100Albums` = top100Albums {
                 DispatchQueue.main.async {
-                    self?.hideHUD()
                     self?.top100Albums = top100Albums
                     self?.tableView.reloadData()
                 }

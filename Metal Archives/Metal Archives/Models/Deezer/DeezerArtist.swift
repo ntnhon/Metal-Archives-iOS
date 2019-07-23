@@ -15,4 +15,11 @@ struct DeezerArtist: Decodable {
     let nb_album: Int
     let nb_fan: Int
     let tracklist: String
+    
+    var formattedNbFan: String? {
+        let formatter = NumberFormatter()
+        formatter.groupingSeparator = "."
+        formatter.numberStyle = .decimal
+        return formatter.string(from: NSNumber(value: nb_fan))
+    }
 }

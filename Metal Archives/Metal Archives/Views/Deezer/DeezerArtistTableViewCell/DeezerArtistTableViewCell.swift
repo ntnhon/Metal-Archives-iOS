@@ -27,7 +27,7 @@ final class DeezerArtistTableViewCell: ThumbnailableTableViewCell, RegisterableC
         nameLabel.text = artist.name
         
         let numOfReleaseString = "\(artist.nb_album) " + (artist.nb_album > 1 ? "releases" : "release")
-        let numOfFan = "\(artist.nb_fan) " + (artist.nb_fan > 1 ? "fans" : "fan")
+        let numOfFan = "\(artist.formattedNbFan ?? "") " + (artist.nb_fan > 1 ? "fans" : "fan")
         infoLabel.text = numOfReleaseString + " • " + numOfFan
     }
 }
