@@ -48,7 +48,7 @@ class BaseViewController: UIViewController {
 
 // MARK: - MBProgressHUD
 extension BaseViewController {
-    func showHUD(hideNavigationBar: Bool = true) {
+    func showHUD(hideNavigationBar: Bool = false) {
         if let hud = hud, hud.alpha > 0.0 {
             return
         }

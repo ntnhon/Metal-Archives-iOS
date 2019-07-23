@@ -30,6 +30,7 @@ final class LatestReviewsViewController: RefreshableViewController {
         super.viewDidLoad()
         handleLatestReviewsNavigationBarViewActions()
         updateLatestReviewsPagableManager()
+        latestReviewsPagableManager.fetch()
     }
     
     override func initAppearance() {
@@ -108,10 +109,6 @@ extension LatestReviewsViewController: PagableManagerDelegate {
         updateTitle()
         tableView.reloadData()
     }
-    
-    func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        hideHUD()
-    }
 }
 
 //MARK: - UIPopoverPresentationControllerDelegate
@@ -160,11 +157,10 @@ extension LatestReviewsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if refreshControl.isRefreshing {
-            return 0
-        }
-        
         if latestReviewsPagableManager.moreToLoad {
+            if latestReviewsPagableManager.objects.count == 0 {
+                return 0
+            }
             return latestReviewsPagableManager.objects.count + 1
         } else {
             return latestReviewsPagableManager.objects.count
@@ -174,15 +170,7 @@ extension LatestReviewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if latestReviewsPagableManager.moreToLoad && indexPath.row == latestReviewsPagableManager.objects.count {
             let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-
-            //Fetch is on the way
-            if !errorFetchingMoreUpcomingAlbums {
-                loadingCell.displayIsLoading()
-                return loadingCell
-            }
-            
-            //Fetch failed
-            loadingCell.didsplayError("Error loading more upcoming albums.\n Tap to reload.")
+            loadingCell.displayIsLoading()
             return loadingCell
         }
         

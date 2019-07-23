@@ -21,6 +21,7 @@ final class UpcomingAlbumsViewController: RefreshableViewController {
         super.viewDidLoad()
         initAndHandleSimpleNavigationBarViewActions()
         upcomingAlbumsPagableManager.delegate = self
+        upcomingAlbumsPagableManager.fetch()
     }
     
     override func initAppearance() {
@@ -64,6 +65,7 @@ final class UpcomingAlbumsViewController: RefreshableViewController {
 //MARK: - PagableManagerProtocol
 extension UpcomingAlbumsViewController: PagableManagerDelegate {
     func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        simpleNavigationBarView.setTitle("Loading...")
         showHUD()
     }
     
@@ -78,10 +80,6 @@ extension UpcomingAlbumsViewController: PagableManagerDelegate {
         refreshSuccessfully()
         updateTitle()
         tableView.reloadData()
-    }
-    
-    func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        hideHUD()
     }
 }
 
@@ -116,11 +114,11 @@ extension UpcomingAlbumsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if refreshControl.isRefreshing {
-            return 0
-        }
-        
         if upcomingAlbumsPagableManager.moreToLoad {
+            if upcomingAlbumsPagableManager.objects.count == 0 {
+                return 0
+            }
+            
             return upcomingAlbumsPagableManager.objects.count + 1
         } else {
             return upcomingAlbumsPagableManager.objects.count

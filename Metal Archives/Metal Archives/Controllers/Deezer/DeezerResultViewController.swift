@@ -70,7 +70,7 @@ final class DeezerResultViewController: BaseViewController {
     
     private func fetch() {
         guard let formattedRequestUrlString = requestUrlString.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
-        showHUD(hideNavigationBar: false)
+        showHUD()
         
         switch deezerableType! {
         case .artist:
@@ -129,7 +129,7 @@ extension DeezerResultViewController: UITableViewDelegate {
     
     private func fetchAndPushArtistTopTracks(_ artist: DeezerArtist) {
         guard let formattedRequestUrlString = artist.tracklist.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
-        showHUD(hideNavigationBar: false)
+        showHUD()
         
         Service.shared.fetchDeezerTrack(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
             DispatchQueue.main.async {
@@ -151,7 +151,7 @@ extension DeezerResultViewController: UITableViewDelegate {
         let requestUrlString = "https://api.deezer.com/artist/\(artist.id)/albums"
         
         guard let formattedRequestUrlString = requestUrlString.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
-        showHUD(hideNavigationBar: false)
+        showHUD()
         
         Service.shared.fetchDeezerAlbum(urlString: formattedRequestUrlString) {[weak self] (deezerData, error) in
             DispatchQueue.main.async {
@@ -184,7 +184,7 @@ extension DeezerResultViewController: UITableViewDelegate {
     
     private func fetchAndPushAlbumTracklist(_ album: DeezerAlbum) {
         guard let formattedRequestUrlString = album.tracklist.addingPercentEncoding(withAllowedCharacters: customURLQueryAllowedCharacterSet) else { return }
-        showHUD(hideNavigationBar: false)
+        showHUD()
         Service.shared.fetchDeezerTrack(urlString: formattedRequestUrlString) { [weak self] (deezerData, error) in
             DispatchQueue.main.async {
                 self?.hideHUD()

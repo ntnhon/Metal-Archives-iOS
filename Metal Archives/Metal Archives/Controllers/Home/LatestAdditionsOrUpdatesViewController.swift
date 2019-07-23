@@ -187,6 +187,38 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
             case .updates:
                 Analytics.logEvent("change_section_in_latest_updates", parameters: ["section": self.currentAdditionOrUpdateType.description])
             }
+            
+            switch (self.mode!, self.currentAdditionOrUpdateType!) {
+            case (.additions, .bands):
+                if self.bandAdditionPagableManager.objects.count == 0 {
+                    self.bandAdditionPagableManager.fetch()
+                }
+                
+            case (.updates, .bands):
+                if self.bandUpdatePagableManager.objects.count == 0 {
+                    self.bandUpdatePagableManager.fetch()
+                }
+                
+            case (.additions, .labels):
+                if self.labelAdditionPagableManager.objects.count == 0 {
+                    self.labelAdditionPagableManager.fetch()
+                }
+                
+            case (.updates, .labels):
+                if self.labelUpdatePagableManager.objects.count == 0 {
+                    self.labelUpdatePagableManager.fetch()
+                }
+                
+            case (.additions, .artists):
+                if self.artistAdditionPagableManager.objects.count == 0 {
+                    self.artistAdditionPagableManager.fetch()
+                }
+                
+            case (.updates, .artists):
+                if self.artistUpdatePagableManager.objects.count == 0 {
+                    self.artistUpdatePagableManager.fetch()
+                }
+            }
         }
     }
     
@@ -284,10 +316,6 @@ extension LatestAdditionsOrUpdatesViewController: PagableManagerDelegate {
         updateMessageLabel()
         Toast.displayMessageShortly(errorLoadingMessage)
     }
-    
-    func pagableManagerIsBeingBlocked<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
-        hideHUD()
-    }
 }
 
 // MARK: - UIScrollViewDelegate
@@ -324,10 +352,6 @@ extension LatestAdditionsOrUpdatesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if refreshControl.isRefreshing {
-            return 0
-        }
-        
         switch currentAdditionOrUpdateType! {
         case .bands: return numberOfRowsInBandCase()
         case .labels: return numberOfRowsInLabelCase()
@@ -370,6 +394,10 @@ extension LatestAdditionsOrUpdatesViewController {
             }
             
             if bandAdditionPagableManager.moreToLoad {
+                if bandAdditionPagableManager.objects.count == 0 {
+                    return 0
+                }
+                
                 return bandAdditionPagableManager.objects.count + 1
             }
             return bandAdditionPagableManager.objects.count
@@ -379,6 +407,9 @@ extension LatestAdditionsOrUpdatesViewController {
             }
             
             if bandUpdatePagableManager.moreToLoad {
+                if bandUpdatePagableManager.objects.count == 0 {
+                    return 0
+                }
                 return bandUpdatePagableManager.objects.count + 1
             }
             return bandUpdatePagableManager.objects.count
@@ -481,6 +512,9 @@ extension LatestAdditionsOrUpdatesViewController {
             }
             
             if labelAdditionPagableManager.moreToLoad {
+                if labelAdditionPagableManager.objects.count == 0 {
+                    return 0
+                }
                 return labelAdditionPagableManager.objects.count + 1
             }
             return labelAdditionPagableManager.objects.count
@@ -491,6 +525,9 @@ extension LatestAdditionsOrUpdatesViewController {
             }
             
             if labelUpdatePagableManager.moreToLoad {
+                if labelUpdatePagableManager.objects.count == 0 {
+                    return 0
+                }
                 return labelUpdatePagableManager.objects.count + 1
             }
             return labelUpdatePagableManager.objects.count
@@ -595,6 +632,9 @@ extension LatestAdditionsOrUpdatesViewController {
             }
             
             if artistAdditionPagableManager.moreToLoad {
+                if artistAdditionPagableManager.objects.count == 0 {
+                    return 0
+                }
                 return artistAdditionPagableManager.objects.count + 1
             }
             return artistAdditionPagableManager.objects.count
@@ -604,6 +644,9 @@ extension LatestAdditionsOrUpdatesViewController {
             }
             
             if artistUpdatePagableManager.moreToLoad {
+                if artistUpdatePagableManager.objects.count == 0 {
+                    return 0
+                }
                 return artistUpdatePagableManager.objects.count + 1
             }
             return artistUpdatePagableManager.objects.count
