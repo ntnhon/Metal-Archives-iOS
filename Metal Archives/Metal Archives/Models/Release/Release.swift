@@ -249,6 +249,7 @@ final class Release {
                     var elementType: ReleaseElementType?
                     var songLength: String?
                     var songLyricID: String?
+                    let isInstrumental = tr.text?.contains("instrumental")
                     if (tr["class"] == "sideRow" || tr["class"] == "discRow") {
                         if let td = tr.at_css("td") {
                             elementTitle = td.text?.replacingOccurrences(of: " ", with: "")
@@ -316,7 +317,7 @@ final class Release {
                     elementTitle = elementTitle?.replacingOccurrences(of: "\n", with: "")
                     
                     if let `songLength` = songLength, let `elementTitle` = elementTitle {
-                        let song = Song(title: elementTitle, length: songLength, lyricID: songLyricID)
+                        let song = Song(title: elementTitle, length: songLength, lyricID: songLyricID, isInstrumental: isInstrumental)
                         self.elements.append(song)
                     } else if let `elementTitle` = elementTitle, let `elementType` = elementType {
                         let element = ReleaseElement(title: elementTitle, type: elementType)

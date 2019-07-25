@@ -11,10 +11,12 @@ import Foundation
 final class Song: ReleaseElement {
     let length: String
     let lyricID: String?
+    let isInstrumental: Bool
     
-    init(title: String, length: String, lyricID: String?) {
+    init(title: String, length: String, lyricID: String?, isInstrumental: Bool?) {
         self.length = length
         self.lyricID = lyricID
+        self.isInstrumental = isInstrumental ?? false
         
         super.init(title: title, type: .song)
     }

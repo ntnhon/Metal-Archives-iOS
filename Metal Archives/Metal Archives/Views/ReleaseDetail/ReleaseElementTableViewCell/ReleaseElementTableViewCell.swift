@@ -45,7 +45,14 @@ final class ReleaseElementTableViewCell: BaseTableViewCell, RegisterableCell {
                 titleLabel.textAlignment = .left
                 lengthLabel.isHidden = false
                 lengthLabel.text = song.length
-                lyricIconImageView.isHidden = (song.lyricID == nil)
+                lyricIconImageView.isHidden = false
+                if let _ = song.lyricID {
+                    lyricIconImageView.image = #imageLiteral(resourceName: "lyric")
+                } else if song.isInstrumental {
+                    lyricIconImageView.image = #imageLiteral(resourceName: "instrumental")
+                } else {
+                    lyricIconImageView.image = nil
+                }
             }
         }
     }

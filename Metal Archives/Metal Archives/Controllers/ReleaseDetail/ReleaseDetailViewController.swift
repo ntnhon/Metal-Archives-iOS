@@ -461,6 +461,9 @@ extension ReleaseDetailViewController {
             present(navLyricViewController, animated: true, completion: nil)
             
             Analytics.logEvent("view_lyric", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? "", "lyric_id": lyricID])
+        } else if song.isInstrumental {
+            ToastCenter.default.cancelAll()
+            Toast(text: "This is an instrumental song", duration: Delay.short).show()
         } else {
             ToastCenter.default.cancelAll()
             Toast(text: "This song has no lyric", duration: Delay.short).show()
