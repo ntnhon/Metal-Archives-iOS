@@ -348,16 +348,16 @@ extension HomepageViewController: UITableViewDataSource {
         switch indexPath.section {
         //Section: Stats
         case 0: return cellForStatsSection(at: indexPath)
-        //Section: News
-        case 1: return cellForNewsSection(at: indexPath)
+        //Section: Upcoming albums
+        case 1: return cellForUpcomingAlbumsSection(at: indexPath)
         //Section: Latets additions
         case 2: return cellForLatestAdditionsSection(at: indexPath)
         //Section: Latest updates
         case 3: return cellForLatestUpdatesSection(at: indexPath)
         //Section: Latest review
         case 4: return cellForLatestReviewsSection(at: indexPath)
-        //Section: Upcoming albums
-        case 5: return cellForUpcomingAlbumsSection(at: indexPath)
+        //Section: News
+        case 5: return cellForNewsSection(at: indexPath)
         default: return UITableViewCell()
         }
     }

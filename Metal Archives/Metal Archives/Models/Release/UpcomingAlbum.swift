@@ -15,6 +15,19 @@ final class UpcomingAlbum {
     let genre: String
     let date: String
     
+    lazy var typeAndDateAttributedString: NSAttributedString = {
+        let typeAndDateString = "\(releaseType.description) • \(date)"
+        let typeAndDateAttributedString = NSMutableAttributedString(string: typeAndDateString)
+        
+        typeAndDateAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(typeAndDateString.startIndex..., in: typeAndDateString))
+        
+        if let typeRange = typeAndDateString.range(of: releaseType.description) {
+            typeAndDateAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.boldBodyTextFont], range: NSRange(typeRange, in: typeAndDateString))
+        }
+        
+        return typeAndDateAttributedString
+    }()
+    
     /*
      Sample array:
      "<a href="https://www.metal-archives.com/bands/Kalmankantaja/3540342889">Kalmankantaja</a> / <a href="https://www.metal-archives.com/bands/Drudensang/3540369476">Drudensang</a> / <a href="https://www.metal-archives.com/bands/Hiisi/3540401566">Hiisi</a>",

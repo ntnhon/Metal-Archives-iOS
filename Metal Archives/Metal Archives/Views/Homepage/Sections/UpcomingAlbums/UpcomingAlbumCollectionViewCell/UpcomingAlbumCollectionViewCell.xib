@@ -40,23 +40,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icX-Kh-d0D">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EP • 2019-01-01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrG-TU-M1e">
                                 <rect key="frame" x="0.0" y="41" width="291" height="20.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrG-TU-M1e">
-                                        <rect key="frame" x="0.0" y="0.0" width="201.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="2019-01-01" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WIQ-dK-Z7d">
-                                        <rect key="frame" x="201.5" y="0.0" width="89.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Death metal" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PjC-bd-rMg">
                                 <rect key="frame" x="0.0" y="61.5" width="291" height="29.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -90,10 +79,9 @@
             <size key="customSize" width="398" height="99"/>
             <connections>
                 <outlet property="bandsNameLabel" destination="1m8-Wr-cJ4" id="NSR-Q6-U16"/>
-                <outlet property="dateLabel" destination="WIQ-dK-Z7d" id="UMw-cl-1TJ"/>
                 <outlet property="genreLabel" destination="PjC-bd-rMg" id="TVr-Fq-n2M"/>
                 <outlet property="releaseTitleLabel" destination="bou-Qk-GHl" id="lPB-El-MG6"/>
-                <outlet property="releaseTypeLabel" destination="qrG-TU-M1e" id="v8D-yS-8ao"/>
+                <outlet property="releaseTypeAndDateLabel" destination="qrG-TU-M1e" id="v8D-yS-8ao"/>
                 <outlet property="separatorView" destination="NBf-ka-qaq" id="p1u-ZX-gbd"/>
                 <outlet property="thumbnailImageView" destination="aRe-PF-cnX" id="gZc-gY-dF4"/>
             </connections>

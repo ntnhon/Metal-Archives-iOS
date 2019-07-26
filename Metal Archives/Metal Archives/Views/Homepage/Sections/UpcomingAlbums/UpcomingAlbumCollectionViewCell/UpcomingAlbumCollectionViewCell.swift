@@ -11,8 +11,7 @@ import UIKit
 final class UpcomingAlbumCollectionViewCell: ThumbnailableCollectionViewCell, RegisterableCell {
     @IBOutlet private weak var bandsNameLabel: UILabel!
     @IBOutlet private weak var releaseTitleLabel: UILabel!
-    @IBOutlet private weak var releaseTypeLabel: UILabel!
-    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var releaseTypeAndDateLabel: UILabel!
     @IBOutlet private weak var genreLabel: UILabel!
     @IBOutlet private weak var separatorView: UIView!
     
@@ -25,14 +24,11 @@ final class UpcomingAlbumCollectionViewCell: ThumbnailableCollectionViewCell, Re
         releaseTitleLabel.textColor = Settings.currentTheme.secondaryTitleColor
         releaseTitleLabel.font = Settings.currentFontSize.secondaryTitleFont
         
-        releaseTypeLabel.textColor = Settings.currentTheme.bodyTextColor
-        releaseTypeLabel.font = Settings.currentFontSize.bodyTextFont
+        releaseTypeAndDateLabel.textColor = Settings.currentTheme.bodyTextColor
+        releaseTypeAndDateLabel.font = Settings.currentFontSize.bodyTextFont
         
         genreLabel.textColor = Settings.currentTheme.bodyTextColor
-        genreLabel.font = Settings.currentFontSize.bodyTextFont
-        
-        dateLabel.textColor = Settings.currentTheme.bodyTextColor
-        dateLabel.font = Settings.currentFontSize.bodyTextFont
+        genreLabel.font = Settings.currentFontSize.italicBodyTextFont
         
         separatorView.backgroundColor = Settings.currentTheme.collectionViewSeparatorColor
     }
@@ -44,9 +40,8 @@ final class UpcomingAlbumCollectionViewCell: ThumbnailableCollectionViewCell, Re
         bandsNameLabel.attributedText = generateAttributedStringFromStrings(bandNames, as: .title, withSeparator: " / ")
         
         releaseTitleLabel.text = upcomingAlbum.release.title
-        releaseTypeLabel.text = upcomingAlbum.releaseType.description
+        releaseTypeAndDateLabel.attributedText = upcomingAlbum.typeAndDateAttributedString
         genreLabel.text = upcomingAlbum.genre
-        dateLabel.text = upcomingAlbum.date
         setThumbnailImageView(with: upcomingAlbum.release)
     }
     
