@@ -23,7 +23,7 @@ class LabelAdditionOrUpdate: ThumbnailableObject {
         countryAndStatusAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(countryAndStatusString.startIndex..., in: countryAndStatusString))
         
         if let countryNameAndEmojiiRange = countryAndStatusString.range(of: countryNameAndEmojii) {
-            countryAndStatusAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor, .font: Settings.currentFontSize.secondaryTitleFont], range: NSRange(countryNameAndEmojiiRange, in: countryAndStatusString))
+            countryAndStatusAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.boldBodyTextFont], range: NSRange(countryNameAndEmojiiRange, in: countryAndStatusString))
         }
         
         if let statusRange = countryAndStatusString.range(of: status.description) {

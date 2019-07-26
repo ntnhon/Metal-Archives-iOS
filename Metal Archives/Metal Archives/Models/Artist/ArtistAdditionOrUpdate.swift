@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AttributedLib
 
 class ArtistAdditionOrUpdate: ThumbnailableObject {
     let nameInBand: String
@@ -15,6 +16,54 @@ class ArtistAdditionOrUpdate: ThumbnailableObject {
     let bands: [BandLite]
     let updatedDate: Date
     let user: User
+    
+    private let artistNameAttributes = Attributes {
+        return $0.foreground(color: Settings.currentTheme.titleColor)
+            .font(Settings.currentFontSize.titleFont)
+    }
+    
+    private let artistRealFullNameAttributes = Attributes {
+        switch Settings.currentTheme! {
+        case .default:
+            return $0.foreground(color: Settings.currentTheme.bodyTextColor)
+                .font(Settings.currentFontSize.titleFont)
+        default:
+            return $0.foreground(color: Settings.currentTheme.secondaryTitleColor)
+                .font(Settings.currentFontSize.titleFont)
+        }
+    }
+    
+    lazy var combinedNameAttributedString: NSAttributedString? = {
+        if let realFullName = realFullName {
+            return nameInBand.at.attributed(with: artistNameAttributes) + " (\(realFullName))".at.attributed(with: artistRealFullNameAttributes)
+        }
+        return nil
+    }()
+    
+    lazy var countryAndDateAttributedString: NSAttributedString = {
+        let (value, unit) = updatedDate.distanceFromNow()
+        let agoString = "(\(value) \(unit) ago)"
+        let dateString = "\(dateOnlyFormatter.string(from: updatedDate))" + " " + agoString
+        
+        let countryNameAndEmojii = country?.nameAndEmoji ?? "Unknown country"
+        let countryAndDateString = "\(countryNameAndEmojii) • \(dateString)"
+        let countryAndDateStringAttributedString = NSMutableAttributedString(string: countryAndDateString)
+        
+        countryAndDateStringAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.italicBodyTextFont], range: NSRange(countryAndDateString.startIndex..., in: countryAndDateString))
+        
+        if let countryNameAndEmojiiRange = countryAndDateString.range(of: countryNameAndEmojii) {
+            countryAndDateStringAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.boldBodyTextFont], range: NSRange(countryNameAndEmojiiRange, in: countryAndDateString))
+        }
+        
+        return countryAndDateStringAttributedString
+    }()
+    
+    lazy var bandsNameAttributedString: NSAttributedString = {
+        let bandNames = bands.map { (band) -> String in
+            return band.name
+        }
+        return generateAttributedStringFromStrings(bandNames, as: .secondaryTitle, withSeparator: ", ")
+    }()
     
     /*
      Sample array:

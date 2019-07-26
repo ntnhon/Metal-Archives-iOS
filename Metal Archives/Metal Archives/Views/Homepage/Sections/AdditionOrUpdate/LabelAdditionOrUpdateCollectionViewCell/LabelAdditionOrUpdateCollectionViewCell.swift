@@ -22,7 +22,7 @@ final class LabelAdditionOrUpdateCollectionViewCell: ThumbnailableCollectionView
         countryAndStatusLabel.font = Settings.currentFontSize.secondaryTitleFont
         countryAndStatusLabel.textColor = Settings.currentTheme.secondaryTitleColor
         
-        dateLabel.font = Settings.currentFontSize.bodyTextFont
+        dateLabel.font = Settings.currentFontSize.italicBodyTextFont
         dateLabel.textColor = Settings.currentTheme.bodyTextColor
         
         separatorView.backgroundColor = Settings.currentTheme.collectionViewSeparatorColor
