@@ -131,4 +131,23 @@ extension UIImage {
         return transform
     }
     
+    func resize(targetSize: CGSize, rounded: Bool) -> UIImage {
+        // Resize without losing quality
+        if !rounded {
+            return UIGraphicsImageRenderer(size: targetSize).image(actions: { (_) in
+                draw(in: CGRect(origin: .zero, size: targetSize))
+            })
+        }
+        
+        let frame = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+        UIBezierPath(roundedRect: frame, cornerRadius: size.width / 5).addClip()
+        draw(in: frame)
+        let roundedImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
+        UIGraphicsEndImageContext()
+        
+        return UIGraphicsImageRenderer(size: targetSize).image(actions: { (_) in
+            roundedImage.draw(in: CGRect(origin: .zero, size: targetSize))
+        })
+    }
 }
