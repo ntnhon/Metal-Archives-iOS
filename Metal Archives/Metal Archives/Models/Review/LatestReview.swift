@@ -18,14 +18,18 @@ final class LatestReview {
     let timeString: String
     let author: User
     
-    lazy var authorAndRatingAttributedString: NSAttributedString = {
-        let authorAndRatingString = "\(author.name) • \(rating)%"
-        let mutableAttributedString = NSMutableAttributedString(string: authorAndRatingString)
+    lazy var authorAndRatingAndDateAttributedString: NSAttributedString = {
+        let authorAndRatingAndDateString = "\(author.name) • \(rating)% • \(dateString), \(timeString)"
+        let mutableAttributedString = NSMutableAttributedString(string: authorAndRatingAndDateString)
         
-        mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(authorAndRatingString.startIndex..., in: authorAndRatingString))
+        mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(authorAndRatingAndDateString.startIndex..., in: authorAndRatingAndDateString))
+        
+        if let authorNameRange = authorAndRatingAndDateString.range(of: author.name) {
+            mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.boldBodyTextFont], range: NSRange(authorNameRange, in: authorAndRatingAndDateString))
+        }
 
-        if let ratingRange = authorAndRatingString.range(of: "\(rating)%") {
-            mutableAttributedString.addAttributes([.foregroundColor: UIColor.colorByRating(rating)], range: NSRange(ratingRange, in: authorAndRatingString))
+        if let ratingRange = authorAndRatingAndDateString.range(of: "\(rating)%") {
+            mutableAttributedString.addAttributes([.foregroundColor: UIColor.colorByRating(rating), .font: Settings.currentFontSize.boldBodyTextFont], range: NSRange(ratingRange, in: authorAndRatingAndDateString))
         }
         
         return mutableAttributedString

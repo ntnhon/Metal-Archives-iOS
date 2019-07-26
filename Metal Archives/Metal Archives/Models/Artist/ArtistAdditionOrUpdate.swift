@@ -41,10 +41,7 @@ class ArtistAdditionOrUpdate: ThumbnailableObject {
     }()
     
     lazy var countryAndDateAttributedString: NSAttributedString = {
-        let (value, unit) = updatedDate.distanceFromNow()
-        let agoString = "(\(value) \(unit) ago)"
-        let dateString = "\(dateOnlyFormatter.string(from: updatedDate))" + " " + agoString
-        
+        let dateString = dateOnlyFormatter.string(from: updatedDate)
         let countryNameAndEmojii = country?.nameAndEmoji ?? "Unknown country"
         let countryAndDateString = "\(countryNameAndEmojii) • \(dateString)"
         let countryAndDateStringAttributedString = NSMutableAttributedString(string: countryAndDateString)

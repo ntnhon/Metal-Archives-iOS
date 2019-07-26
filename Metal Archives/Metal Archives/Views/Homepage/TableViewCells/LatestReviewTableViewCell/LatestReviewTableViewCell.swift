@@ -12,8 +12,7 @@ import SDWebImage
 final class LatestReviewTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
     @IBOutlet private weak var bandNameLabel: UILabel!
     @IBOutlet private weak var albumNameLabel: UILabel!
-    @IBOutlet private weak var dateAndTimeLabel: UILabel!
-    @IBOutlet private weak var authorAndRatingLabel: UILabel!
+    @IBOutlet private weak var authorAndRatingAndDateLabel: UILabel!
     
     override func initAppearance() {
         super.initAppearance()
@@ -23,18 +22,14 @@ final class LatestReviewTableViewCell: ThumbnailableTableViewCell, RegisterableC
         albumNameLabel.textColor = Settings.currentTheme.secondaryTitleColor
         albumNameLabel.font = Settings.currentFontSize.secondaryTitleFont
         
-        dateAndTimeLabel.textColor = Settings.currentTheme.bodyTextColor
-        dateAndTimeLabel.font = Settings.currentFontSize.bodyTextFont
-        
-        authorAndRatingLabel.textColor = Settings.currentTheme.bodyTextColor
-        authorAndRatingLabel.font = Settings.currentFontSize.bodyTextFont
+        authorAndRatingAndDateLabel.textColor = Settings.currentTheme.bodyTextColor
+        authorAndRatingAndDateLabel.font = Settings.currentFontSize.bodyTextFont
     }
 
     func fill(with latestReview: LatestReview) {
         bandNameLabel.text = latestReview.band.name
         albumNameLabel.text = latestReview.release.title
-        dateAndTimeLabel.text = "\(latestReview.dateString), \(latestReview.timeString)"
-        authorAndRatingLabel.attributedText = latestReview.authorAndRatingAttributedString
+        authorAndRatingAndDateLabel.attributedText = latestReview.authorAndRatingAndDateAttributedString
         setThumbnailImageView(with: latestReview.release)
     }
 }
