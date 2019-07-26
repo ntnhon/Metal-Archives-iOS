@@ -34,23 +34,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iDw-R2-hwK">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="United States - Active" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrm-b8-4UI">
                                 <rect key="frame" x="0.0" y="20.5" width="329" height="20.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="United States" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrm-b8-4UI">
-                                        <rect key="frame" x="0.0" y="0.0" width="281.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Active" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Uy-Gc-dqW">
-                                        <rect key="frame" x="281.5" y="0.0" width="47.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="2019-01-01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nTD-m7-NHN">
                                 <rect key="frame" x="0.0" y="41" width="329" height="38"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -83,11 +72,10 @@
             <viewLayoutGuide key="safeArea" id="kZ5-36-1vM"/>
             <size key="customSize" width="424" height="87"/>
             <connections>
-                <outlet property="countryLabel" destination="lrm-b8-4UI" id="tNQ-3Q-M4x"/>
+                <outlet property="countryAndStatusLabel" destination="lrm-b8-4UI" id="tNQ-3Q-M4x"/>
                 <outlet property="dateLabel" destination="nTD-m7-NHN" id="8VY-1e-Avr"/>
                 <outlet property="nameLabel" destination="oyc-pm-IaK" id="Ieh-I0-UJc"/>
                 <outlet property="separatorView" destination="ufo-z9-dbf" id="AGv-g7-g2a"/>
-                <outlet property="statusLabel" destination="7Uy-Gc-dqW" id="gdW-Dz-pY9"/>
                 <outlet property="thumbnailImageView" destination="kkz-b7-Auz" id="H3q-a6-p0w"/>
             </connections>
             <point key="canvasLocation" x="276.81159420289856" y="77.34375"/>

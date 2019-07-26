@@ -15,6 +15,31 @@ class LabelAdditionOrUpdate: ThumbnailableObject {
     let updatedDate: Date
     let user: User
     
+    lazy var countryAndStatusAttributedString: NSAttributedString = {
+        let countryNameAndEmojii = country?.nameAndEmoji ?? "Unknown country"
+        let countryAndStatusString = "\(countryNameAndEmojii) • \(status.description)"
+        let countryAndStatusAttributedString = NSMutableAttributedString(string: countryAndStatusString)
+        
+        countryAndStatusAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(countryAndStatusString.startIndex..., in: countryAndStatusString))
+        
+        if let countryNameAndEmojiiRange = countryAndStatusString.range(of: countryNameAndEmojii) {
+            countryAndStatusAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor, .font: Settings.currentFontSize.secondaryTitleFont], range: NSRange(countryNameAndEmojiiRange, in: countryAndStatusString))
+        }
+        
+        if let statusRange = countryAndStatusString.range(of: status.description) {
+            countryAndStatusAttributedString.addAttributes([.foregroundColor: status.color, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(statusRange, in: countryAndStatusString))
+        }
+        
+        return countryAndStatusAttributedString
+    }()
+    
+    lazy var formattedDateString: String = {
+        let (value, unit) = updatedDate.distanceFromNow()
+        let agoString = "(\(value) \(unit) ago)"
+        
+        return "\(defaultDateFormatter.string(from: updatedDate))" + " " + agoString
+    }()
+    
     /*
      Sample array:
      "May 13",
