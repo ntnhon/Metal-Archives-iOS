@@ -11,24 +11,38 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RolesInBandTableViewCell" rowHeight="72" id="rJF-bs-PjX" customClass="RolesInBandTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="402" height="72"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RolesInBandTableViewCell" rowHeight="80" id="rJF-bs-PjX" customClass="RolesInBandTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="402" height="80"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rJF-bs-PjX" id="1KD-HV-yz9">
-                <rect key="frame" x="0.0" y="0.0" width="402" height="71.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="402" height="79.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V6c-jb-6z3">
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="kTl-67-1rD"/>
+                        </constraints>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jdz-7H-Au7">
+                        <rect key="frame" x="5" y="18" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="Caj-co-yq2"/>
+                            <constraint firstAttribute="width" secondItem="Jdz-7H-Au7" secondAttribute="height" multiplier="1:1" id="sU8-qx-EUR"/>
+                        </constraints>
+                    </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="s8e-Qc-Zbp">
-                        <rect key="frame" x="10" y="0.0" width="392" height="51.5"/>
+                        <rect key="frame" x="57" y="18" width="325" height="43.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Control Denied" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7HG-Yf-hho">
-                                <rect key="frame" x="0.0" y="0.0" width="392" height="28.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="325" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJM-AJ-BxB">
-                                <rect key="frame" x="0.0" y="33.5" width="392" height="18"/>
+                                <rect key="frame" x="0.0" y="25.5" width="325" height="18"/>
                                 <string key="text">Guitars, Vocals	(1995-2001)</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
@@ -38,17 +52,28 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="s8e-Qc-Zbp" firstAttribute="leading" secondItem="1KD-HV-yz9" secondAttribute="leading" constant="10" id="7fq-Ij-LVZ"/>
-                    <constraint firstAttribute="bottom" secondItem="s8e-Qc-Zbp" secondAttribute="bottom" constant="20" symbolic="YES" id="9kd-Yd-W3Q"/>
-                    <constraint firstItem="s8e-Qc-Zbp" firstAttribute="top" secondItem="1KD-HV-yz9" secondAttribute="top" id="aId-Y2-QlH"/>
-                    <constraint firstAttribute="trailing" secondItem="s8e-Qc-Zbp" secondAttribute="trailing" id="jVh-SE-6s5"/>
+                    <constraint firstItem="V6c-jb-6z3" firstAttribute="leading" secondItem="1KD-HV-yz9" secondAttribute="leading" id="4kT-Xg-H92"/>
+                    <constraint firstItem="Jdz-7H-Au7" firstAttribute="centerY" secondItem="1KD-HV-yz9" secondAttribute="centerY" id="6kz-2x-gv4"/>
+                    <constraint firstItem="s8e-Qc-Zbp" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1KD-HV-yz9" secondAttribute="top" constant="5" id="J14-qs-aok"/>
+                    <constraint firstItem="V6c-jb-6z3" firstAttribute="top" secondItem="1KD-HV-yz9" secondAttribute="top" id="JYn-jf-UDw"/>
+                    <constraint firstAttribute="trailing" secondItem="V6c-jb-6z3" secondAttribute="trailing" id="P5v-ji-DSq"/>
+                    <constraint firstItem="Jdz-7H-Au7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1KD-HV-yz9" secondAttribute="top" constant="5" id="PaF-AT-QMf"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="s8e-Qc-Zbp" secondAttribute="bottom" constant="5" id="TPz-F0-3Dz"/>
+                    <constraint firstItem="s8e-Qc-Zbp" firstAttribute="leading" secondItem="Jdz-7H-Au7" secondAttribute="trailing" constant="8" symbolic="YES" id="dEK-Dk-FWc"/>
+                    <constraint firstItem="Jdz-7H-Au7" firstAttribute="leading" secondItem="1KD-HV-yz9" secondAttribute="leading" constant="5" id="jOV-cC-ne8"/>
+                    <constraint firstAttribute="trailing" secondItem="s8e-Qc-Zbp" secondAttribute="trailing" constant="20" symbolic="YES" id="syp-ey-LWn"/>
+                    <constraint firstItem="s8e-Qc-Zbp" firstAttribute="centerY" secondItem="1KD-HV-yz9" secondAttribute="centerY" id="tNU-ob-mrk"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Jdz-7H-Au7" secondAttribute="bottom" constant="5" id="wkq-jn-IWJ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="bandNameLabel" destination="7HG-Yf-hho" id="O45-JO-RDh"/>
                 <outlet property="rolesAndYearsActiveLabel" destination="XJM-AJ-BxB" id="cy0-Je-QgS"/>
+                <outlet property="separatorView" destination="V6c-jb-6z3" id="qz2-kq-wm9"/>
+                <outlet property="thumbnailImageView" destination="Jdz-7H-Au7" id="MrJ-GX-2jY"/>
+                <outlet property="thumbnailImageViewHeightConstraint" destination="Caj-co-yq2" id="Wgn-cc-KIv"/>
             </connections>
-            <point key="canvasLocation" x="17.600000000000001" y="136.73163418290855"/>
+            <point key="canvasLocation" x="17.600000000000001" y="140.32983508245877"/>
         </tableViewCell>
     </objects>
 </document>

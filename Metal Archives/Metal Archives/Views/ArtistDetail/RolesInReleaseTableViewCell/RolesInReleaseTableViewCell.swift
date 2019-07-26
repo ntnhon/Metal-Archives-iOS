@@ -8,22 +8,28 @@
 
 import UIKit
 
-final class RolesInReleaseTableViewCell: BaseTableViewCell, RegisterableCell {
+final class RolesInReleaseTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
     @IBOutlet private weak var releaseTitleLabel: UILabel!
-    @IBOutlet private weak var yearAndRolesLabel: UILabel!
+    @IBOutlet private weak var yearLabel: UILabel!
+    @IBOutlet private weak var rolesLabel: UILabel!
     
     override func initAppearance() {
         super.initAppearance()
+        
+        yearLabel.textColor = Settings.currentTheme.bodyTextColor
+        yearLabel.font = Settings.currentFontSize.bodyTextFont
 
         releaseTitleLabel.textColor = Settings.currentTheme.secondaryTitleColor
         releaseTitleLabel.font = Settings.currentFontSize.secondaryTitleFont
         
-        yearAndRolesLabel.textColor = Settings.currentTheme.bodyTextColor
-        yearAndRolesLabel.font = Settings.currentFontSize.bodyTextFont
+        rolesLabel.textColor = Settings.currentTheme.bodyTextColor
+        rolesLabel.font = Settings.currentFontSize.bodyTextFont
     }
     
     func fill(with rolesInRelease: RolesInRelease) {
         releaseTitleLabel.attributedText = rolesInRelease.releaseTitleAttributedString
-        yearAndRolesLabel.text = "\(rolesInRelease.year!) • \(rolesInRelease.roles!)"
+        yearLabel.text = "\(rolesInRelease.year ?? 0)"
+        rolesLabel.text = rolesInRelease.roles
+        setThumbnailImageView(with: rolesInRelease.release)
     }
 }

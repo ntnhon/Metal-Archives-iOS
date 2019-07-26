@@ -10,10 +10,16 @@ import Foundation
 import Kanna
 
 final class RolesInBand {
-    private(set) var bandName: String!
-    private(set) var bandURLString: String?
+    private(set) var band: BandNullable!
     private(set) var roleAndYearsActive: String!
     private(set) var rolesInReleases: [RolesInRelease]?
+    
+    lazy var thumbnailableBand: BandLite? = {
+        if let bandUrlString = band.urlString {
+            return BandLite(name: band.name, urlString: bandUrlString)
+        }
+        return nil
+    }()
     
     lazy var roleAndYearsActiveAttributedString: NSAttributedString = {
        let mutableAttributedString = NSMutableAttributedString(string: roleAndYearsActive)
@@ -32,16 +38,16 @@ final class RolesInBand {
     init?(div_member_in_band: XMLElement) {
         if let h3 = div_member_in_band.at_css("h3") {
             if let a = h3.at_css("a") {
-                if let bandName = a.text {
-                    self.bandName = bandName
-                }
-                if let bandURLString = a["href"] {
-                    self.bandURLString = bandURLString
+                let bandName = a.text
+                let bandUrlString = a["href"]?.replacingOccurrences(of: "#band_tab_members", with: "")
+                
+                if let bandName = bandName {
+                    self.band = BandNullable(name: bandName, urlString: bandUrlString)
                 }
             }
             else {
                 if let bandName = h3.text {
-                    self.bandName = bandName
+                    self.band = BandNullable(name: bandName, urlString: nil)
                 }
             }
         }

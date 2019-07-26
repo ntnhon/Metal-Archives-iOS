@@ -449,10 +449,20 @@ extension ArtistDetailViewController {
         if let rolesInBand = roles as? RolesInBand {
             let cell = RolesInBandTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             cell.fill(with: rolesInBand)
+            cell.tappedThumbnailImageView = { [unowned self] in
+                if let thumbnailableBand = rolesInBand.thumbnailableBand {
+                    self.presentPhotoViewerWithCacheChecking(photoUrlString: thumbnailableBand.imageURLString, description: thumbnailableBand.name, fromImageView: cell.thumbnailImageView)
+                    Analytics.logEvent("view_artist_rolesInBand_thumbnail", parameters: ["artist_name": self.artist.bandMemberName ?? "", "artist_id": self.artist.id ?? "", "band_id": thumbnailableBand.id, "band_url": thumbnailableBand.urlString])
+                }
+            }
             return cell
         } else if let rolesInRelease = roles as? RolesInRelease {
             let cell = RolesInReleaseTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             cell.fill(with: rolesInRelease)
+            cell.tappedThumbnailImageView = { [unowned self] in
+                self.presentPhotoViewerWithCacheChecking(photoUrlString: rolesInRelease.release.imageURLString, description: rolesInRelease.release.title, fromImageView: cell.thumbnailImageView)
+                Analytics.logEvent("view_artist_rolesInRelease_thumbnail", parameters: ["artist_name": self.artist.bandMemberName ?? "", "artist_id": self.artist.id ?? "", "release_id": rolesInRelease.release.id, "release_url": rolesInRelease.release.urlString])
+            }
             return cell
         }
         
@@ -473,14 +483,14 @@ extension ArtistDetailViewController {
         default: return
         }
         
-        if let rolesInBand = roles as? RolesInBand, let bandURLString = rolesInBand.bandURLString {
+        if let rolesInBand = roles as? RolesInBand, let bandURLString = rolesInBand.band.urlString {
             pushBandDetailViewController(urlString: bandURLString, animated: true)
             
-            Analytics.logEvent("select_artist_roles_in_band", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? "", "role": rolesInBand.bandName ?? ""])
+            Analytics.logEvent("select_artist_roles_in_band", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? "", "role": rolesInBand.band.name])
         } else if let rolesInRelease = roles as? RolesInRelease {
-            pushReleaseDetailViewController(urlString: rolesInRelease.releaseURLString, animated: true)
+            pushReleaseDetailViewController(urlString: rolesInRelease.release.urlString, animated: true)
             
-            Analytics.logEvent("select_artist_roles_in_release", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? "", "role": rolesInRelease.releaseTitle ?? ""])
+            Analytics.logEvent("select_artist_roles_in_release", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? "", "role": rolesInRelease.release.title])
         }
     }
 }

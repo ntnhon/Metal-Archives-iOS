@@ -11,19 +11,18 @@ import Kanna
 
 final class RolesInRelease {
     private(set) var year: Int!
-    private(set) var releaseTitle: String!
-    private(set) var releaseURLString: String!
+    private(set) var release: ReleaseExtraLite!
     private(set) var roles: String!
     
     lazy var releaseTitleAttributedString: NSAttributedString = {
-        let attributedString = NSMutableAttributedString(string: releaseTitle)
-        attributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor, .font: Settings.currentFontSize.secondaryTitleFont], range: NSRange(releaseTitle.startIndex..., in: releaseTitle))
+        let attributedString = NSMutableAttributedString(string: release.title)
+        attributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor, .font: Settings.currentFontSize.secondaryTitleFont], range: NSRange(release.title.startIndex..., in: release.title))
         
-        let additionalDetails = RegexHelpers.listMatches(for: #"\(.+\)"#, inString: releaseTitle)
+        let additionalDetails = RegexHelpers.listMatches(for: #"\(.+\)"#, inString: release.title)
         
         additionalDetails.forEach({
-            if let range = releaseTitle.range(of: $0) {
-                attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor], range: NSRange(range, in: releaseTitle))
+            if let range = release.title.range(of: $0) {
+                attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor], range: NSRange(range, in: release.title))
             }
         })
         
@@ -44,11 +43,15 @@ final class RolesInRelease {
             }
                 
             else if (i == 1) {
-                if let a = td.at_css("a"), let releaseURLString = a["href"] {
-                    self.releaseURLString = releaseURLString
+                if let releaseTitle = td.text?.removeHTMLTagsAndNoisySpaces() {
+                    if let a = td.at_css("a"), let releaseURLString = a["href"] {
+                        self.release = ReleaseExtraLite(urlString: releaseURLString, title: releaseTitle)
+                    } else {
+                        return nil
+                    }
+                } else {
+                    return nil
                 }
-                
-                self.releaseTitle = td.text?.removeHTMLTagsAndNoisySpaces()
             }
             else if (i == 2) {
                 self.roles = td.text?.removeHTMLTagsAndNoisySpaces()
