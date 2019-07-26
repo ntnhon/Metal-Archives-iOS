@@ -10,8 +10,7 @@ import UIKit
 
 final class BandAdditionOrUpdateCollectionViewCell: ThumbnailableCollectionViewCell, RegisterableCell {
     @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var countryLabel: UILabel!
-    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var countryAndDateLabel: UILabel!
     @IBOutlet private weak var genreLabel: UILabel!
     @IBOutlet private weak var separatorView: UIView!
     
@@ -24,13 +23,10 @@ final class BandAdditionOrUpdateCollectionViewCell: ThumbnailableCollectionViewC
         nameLabel.font = Settings.currentFontSize.titleFont
         nameLabel.textColor = Settings.currentTheme.titleColor
         
-        countryLabel.font = Settings.currentFontSize.secondaryTitleFont
-        countryLabel.textColor = Settings.currentTheme.secondaryTitleColor
+        countryAndDateLabel.font = Settings.currentFontSize.secondaryTitleFont
+        countryAndDateLabel.textColor = Settings.currentTheme.secondaryTitleColor
         
-        dateLabel.font = Settings.currentFontSize.bodyTextFont
-        dateLabel.textColor = Settings.currentTheme.bodyTextColor
-        
-        genreLabel.font = Settings.currentFontSize.bodyTextFont
+        genreLabel.font = Settings.currentFontSize.italicBodyTextFont
         genreLabel.textColor = Settings.currentTheme.bodyTextColor
         
         separatorView.backgroundColor = Settings.currentTheme.collectionViewSeparatorColor
@@ -38,8 +34,7 @@ final class BandAdditionOrUpdateCollectionViewCell: ThumbnailableCollectionViewC
     
     func fill(with band: BandAdditionOrUpdate) {
         nameLabel.text = band.name
-        countryLabel.text = band.country.nameAndEmoji
-        dateLabel.text = band.updatedDateAndTimeString
+        countryAndDateLabel.attributedText = band.countryAndDateAttributedString
         genreLabel.text = band.genre
         setThumbnailImageView(with: band)
     }

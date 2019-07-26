@@ -34,23 +34,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYa-A1-71K">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="United States" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAA-zn-KrX">
                                 <rect key="frame" x="0.0" y="20.5" width="289" height="20.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="United States" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAA-zn-KrX">
-                                        <rect key="frame" x="0.0" y="0.0" width="219.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="May 12th" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOc-8Y-5fv">
-                                        <rect key="frame" x="219.5" y="0.0" width="69.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Death metal" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQN-Wt-L8Z">
                                 <rect key="frame" x="0.0" y="41" width="289" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -83,8 +72,7 @@
             <viewLayoutGuide key="safeArea" id="dKQ-wK-a1x"/>
             <size key="customSize" width="378" height="81"/>
             <connections>
-                <outlet property="countryLabel" destination="eAA-zn-KrX" id="Pdu-pR-qfv"/>
-                <outlet property="dateLabel" destination="qOc-8Y-5fv" id="HRP-Tx-pt3"/>
+                <outlet property="countryAndDateLabel" destination="eAA-zn-KrX" id="Pdu-pR-qfv"/>
                 <outlet property="genreLabel" destination="wQN-Wt-L8Z" id="MrH-Aq-SzJ"/>
                 <outlet property="nameLabel" destination="CMF-dE-IMe" id="2dx-rr-Bek"/>
                 <outlet property="separatorView" destination="AnI-sM-6wW" id="7lt-3J-mvW"/>

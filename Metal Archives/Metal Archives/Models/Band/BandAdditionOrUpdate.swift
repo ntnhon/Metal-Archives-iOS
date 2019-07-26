@@ -15,6 +15,19 @@ class BandAdditionOrUpdate: ThumbnailableObject {
     let updatedDateAndTimeString: String
     let user: User
     
+    lazy var countryAndDateAttributedString: NSAttributedString = {
+        let countryAndDateString = "\(country.nameAndEmoji) • \(updatedDateAndTimeString)"
+        let countryAndDateAttributedString = NSMutableAttributedString(string: countryAndDateString)
+        
+        countryAndDateAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(countryAndDateString.startIndex..., in: countryAndDateString))
+        
+        if let countryNameAndEmojiRange = countryAndDateString.range(of: country.nameAndEmoji) {
+            countryAndDateAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor, .font: Settings.currentFontSize.secondaryTitleFont], range: NSRange(countryNameAndEmojiRange, in: countryAndDateString))
+        }
+        
+        return countryAndDateAttributedString
+    }()
+    
     /*
      Sample array:
      "May 11",
