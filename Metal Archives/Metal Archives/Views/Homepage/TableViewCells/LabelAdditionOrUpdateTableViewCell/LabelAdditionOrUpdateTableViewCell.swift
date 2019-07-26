@@ -10,43 +10,25 @@ import UIKit
 
 final class LabelAdditionOrUpdateTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
     @IBOutlet private var nameLabel: UILabel!
-    @IBOutlet private var countryLabel: UILabel!
-    @IBOutlet private var statusLabel: UILabel!
+    @IBOutlet private var countryAndStatusLabel: UILabel!
     @IBOutlet private var dateLabel: UILabel!
 
     override func initAppearance() {
         super.initAppearance()
-        self.nameLabel.textColor = Settings.currentTheme.titleColor
-        self.nameLabel.font = Settings.currentFontSize.titleFont
+        nameLabel.textColor = Settings.currentTheme.titleColor
+        nameLabel.font = Settings.currentFontSize.titleFont
         
-        self.countryLabel.textColor = Settings.currentTheme.secondaryTitleColor
-        self.countryLabel.font = Settings.currentFontSize.secondaryTitleFont
+        countryAndStatusLabel.textColor = Settings.currentTheme.secondaryTitleColor
+        countryAndStatusLabel.font = Settings.currentFontSize.secondaryTitleFont
         
-        self.statusLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.statusLabel.font = Settings.currentFontSize.bodyTextFont
-        
-        self.dateLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.dateLabel.font = Settings.currentFontSize.bodyTextFont
+        dateLabel.textColor = Settings.currentTheme.bodyTextColor
+        dateLabel.font = Settings.currentFontSize.italicBodyTextFont
     }
     
     func fill(with label: LabelAdditionOrUpdate) {
-        self.nameLabel.text = label.name
-        
-        if let country = label.country {
-            self.countryLabel.text = country.nameAndEmoji
-        } else {
-            self.countryLabel.text = "Unknown country"
-        }
-        
-        self.statusLabel.text = label.status.description
-        self.statusLabel.textColor = label.status.color
-        
-        
-        let (value, unit) = label.updatedDate.distanceFromNow()
-        let agoString = "(\(value) \(unit) ago)"
-        
-        self.dateLabel.text = "\(defaultDateFormatter.string(from: label.updatedDate))" + " " + agoString
-        
-        self.setThumbnailImageView(with: label)
+        nameLabel.text = label.name
+        countryAndStatusLabel.attributedText = label.countryAndStatusAttributedString
+        dateLabel.text = label.formattedDateString
+        setThumbnailImageView(with: label)
     }
 }

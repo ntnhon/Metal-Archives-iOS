@@ -15,6 +15,13 @@ final class UpcomingAlbum {
     let genre: String
     let date: String
     
+    lazy var combinedBandNamesAttributedString: NSAttributedString = {
+        let bandNames = bands.map { (band) -> String in
+            return band.name
+        }
+        return generateAttributedStringFromStrings(bandNames, as: .title, withSeparator: " / ")
+    }()
+    
     lazy var typeAndDateAttributedString: NSAttributedString = {
         let typeAndDateString = "\(releaseType.description) • \(date)"
         let typeAndDateAttributedString = NSMutableAttributedString(string: typeAndDateString)

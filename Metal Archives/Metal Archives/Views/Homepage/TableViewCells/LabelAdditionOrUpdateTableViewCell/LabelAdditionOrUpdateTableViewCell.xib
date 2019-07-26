@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -32,13 +32,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="United States " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WR-y4-dCh">
-                        <rect key="frame" x="97.5" y="28" width="229" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="active" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QdT-FZ-WgW">
-                        <rect key="frame" x="336.5" y="28" width="36.5" height="16"/>
+                        <rect key="frame" x="97.5" y="28" width="259.5" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -57,23 +51,20 @@
                     <constraint firstItem="0WR-y4-dCh" firstAttribute="top" secondItem="uMf-3M-BbX" secondAttribute="bottom" constant="5" id="AEj-GF-kKZ"/>
                     <constraint firstAttribute="bottom" secondItem="5sU-RY-8wU" secondAttribute="bottom" constant="5" id="Dt8-ef-o3N"/>
                     <constraint firstItem="dT2-PK-yHf" firstAttribute="leading" secondItem="21Y-aJ-F0M" secondAttribute="leading" constant="20" symbolic="YES" id="ECI-XX-tqR"/>
-                    <constraint firstItem="QdT-FZ-WgW" firstAttribute="leading" secondItem="0WR-y4-dCh" secondAttribute="trailing" constant="10" id="EWl-kD-mwT"/>
                     <constraint firstItem="0WR-y4-dCh" firstAttribute="leading" secondItem="dT2-PK-yHf" secondAttribute="trailing" constant="10" id="F1a-ze-mXF"/>
                     <constraint firstItem="dT2-PK-yHf" firstAttribute="centerY" secondItem="21Y-aJ-F0M" secondAttribute="centerY" id="SHa-AG-dqn"/>
-                    <constraint firstItem="QdT-FZ-WgW" firstAttribute="centerY" secondItem="0WR-y4-dCh" secondAttribute="centerY" id="Xhx-NA-4H5"/>
                     <constraint firstItem="5sU-RY-8wU" firstAttribute="leading" secondItem="dT2-PK-yHf" secondAttribute="trailing" constant="10" id="YIP-Ba-z96"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dT2-PK-yHf" secondAttribute="bottom" constant="5" id="cOi-6i-x4v"/>
                     <constraint firstItem="uMf-3M-BbX" firstAttribute="leading" secondItem="dT2-PK-yHf" secondAttribute="trailing" constant="10" id="eRT-TQ-U2U"/>
                     <constraint firstAttribute="trailing" secondItem="uMf-3M-BbX" secondAttribute="trailing" constant="10" id="iR8-8V-N5Q"/>
                     <constraint firstItem="5sU-RY-8wU" firstAttribute="top" secondItem="0WR-y4-dCh" secondAttribute="bottom" constant="5" id="mws-0n-AI5"/>
-                    <constraint firstAttribute="trailing" secondItem="QdT-FZ-WgW" secondAttribute="trailing" constant="10" id="uXu-JL-a3E"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="0WR-y4-dCh" secondAttribute="trailing" constant="10" id="qMN-OJ-Zg1"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="countryLabel" destination="0WR-y4-dCh" id="wsa-8b-NLx"/>
+                <outlet property="countryAndStatusLabel" destination="0WR-y4-dCh" id="wsa-8b-NLx"/>
                 <outlet property="dateLabel" destination="5sU-RY-8wU" id="o36-xo-Pld"/>
                 <outlet property="nameLabel" destination="uMf-3M-BbX" id="oll-3c-4BL"/>
-                <outlet property="statusLabel" destination="QdT-FZ-WgW" id="Xte-vq-Fuh"/>
                 <outlet property="thumbnailImageView" destination="dT2-PK-yHf" id="vsY-Oo-hIr"/>
                 <outlet property="thumbnailImageViewHeightConstraint" destination="ffZ-kL-30f" id="ZAT-pB-Mh3"/>
             </connections>

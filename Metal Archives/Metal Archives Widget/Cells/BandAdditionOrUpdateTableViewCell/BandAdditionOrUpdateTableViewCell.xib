@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -69,7 +65,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="countryLabel" destination="xfu-Fr-u1L" id="ejK-Sk-Fba"/>
+                <outlet property="countryAndDateLabel" destination="xfu-Fr-u1L" id="ejK-Sk-Fba"/>
                 <outlet property="dateLabel" destination="iGO-Lw-58E" id="dVO-U6-mnN"/>
                 <outlet property="genreLabel" destination="7uj-lu-Vao" id="o9a-rZ-Hej"/>
                 <outlet property="thumbnailImageView" destination="0DW-V3-2cY" id="iWe-Xl-yjK"/>

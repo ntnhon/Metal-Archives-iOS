@@ -34,11 +34,7 @@ final class UpcomingAlbumCollectionViewCell: ThumbnailableCollectionViewCell, Re
     }
     
     func fill(with upcomingAlbum: UpcomingAlbum) {
-        let bandNames = upcomingAlbum.bands.map { (band) -> String in
-            return band.name
-        }
-        bandsNameLabel.attributedText = generateAttributedStringFromStrings(bandNames, as: .title, withSeparator: " / ")
-        
+        bandsNameLabel.attributedText = upcomingAlbum.combinedBandNamesAttributedString
         releaseTitleLabel.text = upcomingAlbum.release.title
         releaseTypeAndDateLabel.attributedText = upcomingAlbum.typeAndDateAttributedString
         genreLabel.text = upcomingAlbum.genre

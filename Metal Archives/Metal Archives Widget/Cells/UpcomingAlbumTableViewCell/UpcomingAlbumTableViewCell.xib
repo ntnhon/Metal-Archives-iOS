@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -82,7 +78,7 @@
                 <outlet property="dateLabel" destination="sYD-ho-Z3Q" id="nyd-fc-KZy"/>
                 <outlet property="genreLabel" destination="j5q-W1-ZIE" id="QM2-v8-ihZ"/>
                 <outlet property="releaseTitleLabel" destination="eU0-tc-HMQ" id="5Vq-SG-3dx"/>
-                <outlet property="releaseTypeLabel" destination="iL2-lP-Oop" id="Zxr-Yn-Uoj"/>
+                <outlet property="releaseTypeAndDateLabel" destination="iL2-lP-Oop" id="Zxr-Yn-Uoj"/>
                 <outlet property="thumbnailImageView" destination="iUQ-4r-znk" id="h9L-n0-0Gv"/>
                 <outlet property="thumbnailImageViewHeightConstraint" destination="PSF-rb-MtL" id="sEo-kI-6Aw"/>
             </connections>

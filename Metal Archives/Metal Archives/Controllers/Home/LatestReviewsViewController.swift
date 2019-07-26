@@ -86,7 +86,7 @@ final class LatestReviewsViewController: RefreshableViewController {
             return
         }
         
-        latestReviewsNavigationBarView.setTitle("Loaded \(latestReviewsPagableManager.objects.count) of \(totalRecords)")
+        latestReviewsNavigationBarView.setTitle("Latest Reviews (\(latestReviewsPagableManager.objects.count)/\(totalRecords))")
     }
 }
 

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -31,7 +32,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="United States" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcD-By-ib8">
-                        <rect key="frame" x="105.5" y="28" width="82.5" height="31.5"/>
+                        <rect key="frame" x="105.5" y="28" width="286.5" height="31.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -42,16 +43,10 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="January 14, 02:54" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TA9-Qp-fom">
-                        <rect key="frame" x="303" y="36" width="109" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="bcD-By-ib8" secondAttribute="trailing" constant="10" id="38K-YX-UQ5"/>
                     <constraint firstAttribute="bottom" secondItem="3dV-YE-3DY" secondAttribute="bottom" constant="5" id="BeT-MC-eKz"/>
-                    <constraint firstAttribute="trailing" secondItem="TA9-Qp-fom" secondAttribute="trailing" constant="10" id="FN6-6w-OPL"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="IgS-DG-B9C" secondAttribute="bottom" constant="5" id="Iz2-BQ-sgu"/>
                     <constraint firstItem="IgS-DG-B9C" firstAttribute="centerY" secondItem="Fod-3I-t2g" secondAttribute="centerY" id="L0B-bK-EMj"/>
                     <constraint firstItem="3dV-YE-3DY" firstAttribute="top" secondItem="bcD-By-ib8" secondAttribute="bottom" constant="5" id="Mcp-Op-WQi"/>
@@ -59,7 +54,6 @@
                     <constraint firstItem="bcD-By-ib8" firstAttribute="leading" secondItem="IgS-DG-B9C" secondAttribute="trailing" constant="10" id="TcE-0J-837"/>
                     <constraint firstItem="bcD-By-ib8" firstAttribute="top" secondItem="Ssv-cP-sxc" secondAttribute="bottom" constant="5" id="XBb-qp-9rz"/>
                     <constraint firstItem="Ssv-cP-sxc" firstAttribute="top" secondItem="Fod-3I-t2g" secondAttribute="top" constant="5" id="at5-tK-lGe"/>
-                    <constraint firstItem="TA9-Qp-fom" firstAttribute="centerY" secondItem="bcD-By-ib8" secondAttribute="centerY" id="bIo-8k-GEv"/>
                     <constraint firstItem="IgS-DG-B9C" firstAttribute="leading" secondItem="Fod-3I-t2g" secondAttribute="leading" constant="20" symbolic="YES" id="bSY-vy-dQ4"/>
                     <constraint firstAttribute="trailing" secondItem="Ssv-cP-sxc" secondAttribute="trailing" constant="10" id="brE-Ea-CD5"/>
                     <constraint firstItem="3dV-YE-3DY" firstAttribute="leading" secondItem="IgS-DG-B9C" secondAttribute="trailing" constant="10" id="fMn-u5-8Z4"/>
@@ -68,8 +62,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="countryLabel" destination="bcD-By-ib8" id="vF6-uo-8nM"/>
-                <outlet property="dateLabel" destination="TA9-Qp-fom" id="dmj-Tf-UHq"/>
+                <outlet property="countryAndDateLabel" destination="bcD-By-ib8" id="vF6-uo-8nM"/>
                 <outlet property="genreLabel" destination="3dV-YE-3DY" id="vCK-PK-UGq"/>
                 <outlet property="thumbnailImageView" destination="IgS-DG-B9C" id="IeB-eZ-NMJ"/>
                 <outlet property="thumbnailImageViewHeightConstraint" destination="LIU-Zq-S6m" id="pW2-KS-Heq"/>

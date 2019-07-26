@@ -11,30 +11,26 @@ import SDWebImage
 
 final class BandAdditionOrUpdateTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
     @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var countryLabel: UILabel!
+    @IBOutlet private weak var countryAndDateLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var genreLabel: UILabel!
 
     override func initAppearance() {
         super.initAppearance()
-        self.titleLabel.textColor = Settings.currentTheme.titleColor
-        self.titleLabel.font = Settings.currentFontSize.titleFont
+        titleLabel.textColor = Settings.currentTheme.titleColor
+        titleLabel.font = Settings.currentFontSize.titleFont
         
-        self.dateLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.dateLabel.font = Settings.currentFontSize.bodyTextFont
+        countryAndDateLabel.textColor = Settings.currentTheme.secondaryTitleColor
+        countryAndDateLabel.font = Settings.currentFontSize.secondaryTitleFont
         
-        self.countryLabel.textColor = Settings.currentTheme.secondaryTitleColor
-        self.countryLabel.font = Settings.currentFontSize.secondaryTitleFont
-        
-        self.genreLabel.textColor = Settings.currentTheme.bodyTextColor
-        self.genreLabel.font = Settings.currentFontSize.bodyTextFont
+        genreLabel.textColor = Settings.currentTheme.bodyTextColor
+        genreLabel.font = Settings.currentFontSize.italicBodyTextFont
     }
 
     func fill(with band: BandAdditionOrUpdate) {
-        self.titleLabel.text = band.name
-        self.dateLabel.text = band.updatedDateAndTimeString
-        self.countryLabel.text = band.country.nameAndEmoji
-        self.genreLabel.text = band.genre
-        self.setThumbnailImageView(with: band)
+        titleLabel.text = band.name
+        countryAndDateLabel.attributedText = band.countryAndDateAttributedString
+        genreLabel.text = band.genre
+        setThumbnailImageView(with: band)
     }
 }
