@@ -4184,6 +4184,7 @@
 					"$(SRCROOT)/Pods/**",
 				);
 				INFOPLIST_FILE = "Metal ArchivesTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4213,6 +4214,7 @@
 					"$(SRCROOT)/Pods/**",
 				);
 				INFOPLIST_FILE = "Metal ArchivesTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4234,6 +4236,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Metal ArchivesUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4254,6 +4257,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Metal ArchivesUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

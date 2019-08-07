@@ -4,6 +4,17 @@
 <array>
 	<dict>
 		<key>number</key>
+		<string>3.3</string>
+		<key>date</key>
+		<string>August 2019</string>
+		<key>features</key>
+		<string>- Add annotation to instrumental songs in a release (thanks to Lenn for the suggestion).
+- Upcoming albums section is now on top of homepage.
+- Artist page with thumbnails for band&apos;s logo and release&apos;s cover.
+- And many more small UI changes.</string>
+	</dict>
+	<dict>
+		<key>number</key>
 		<string>3.2</string>
 		<key>date</key>
 		<string>July 2019</string>

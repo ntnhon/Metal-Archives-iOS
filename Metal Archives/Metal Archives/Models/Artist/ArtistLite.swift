@@ -12,7 +12,7 @@ final class ArtistLite: ThumbnailableObject {
     let name: String
     let instrumentsInBand: String
     let bands: [BandLite]?
-    private let seeAlsoString: String?
+    let seeAlsoString: String?
     
     lazy var seeAlsoAttributedString: NSAttributedString? = {
         guard let seeAlsoString = self.seeAlsoString else { return nil }
