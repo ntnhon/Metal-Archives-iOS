@@ -20,7 +20,7 @@ final class HomepageStatistic {
         attrString.append(" bands, ".at.attributed(with: bodyTextAttributes))
         
         attrString.append("\(self.numOfUsers.formattedWithSeparator)".at.attributed(with: hilightedBodyTextAttributes))
-        attrString.append(" registerd users\n& ".at.attributed(with: bodyTextAttributes))
+        attrString.append(" registered users\n& ".at.attributed(with: bodyTextAttributes))
         
         attrString.append("\(self.numOfReviews.formattedWithSeparator)".at.attributed(with: hilightedBodyTextAttributes))
         attrString.append(" reviews.".at.attributed(with: bodyTextAttributes))
