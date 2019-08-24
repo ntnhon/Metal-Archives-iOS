@@ -8,8 +8,8 @@
 
 import Foundation
 
-enum Genre: CustomStringConvertible, CaseIterable {
-    case black
+enum Genre: Int, CustomStringConvertible, CaseIterable {
+    case black = 0
     case death
     case doomStonerSludge
     case electronicIndustrial
@@ -65,6 +65,27 @@ enum Genre: CustomStringConvertible, CaseIterable {
         case .speed: return "speed"
         case .symphonic: return "orchestral"
         case .thrash: return "thrash"
+        }
+    }
+    
+    var upcomingAlbumPredicate: NSPredicate {
+        switch self {
+        case .black: return NSPredicate(format: "self.genre CONTAINS[cd] 'black'")
+        case .death: return NSPredicate(format: "genre CONTAINS[cd] 'death'")
+        case .doomStonerSludge: return NSPredicate(format: "genre CONTAINS[cd] 'doom' || genre CONTAINS[cd] 'stoner' || genre CONTAINS[cd] 'sludge'")
+        case .electronicIndustrial: return NSPredicate(format: "genre CONTAINS[cd] 'electronic' || genre CONTAINS[cd] 'industrial'")
+        case .experimentalAvantGarde: return NSPredicate(format: "genre CONTAINS[cd] 'experimental' || genre CONTAINS[cd] 'avant-garde'")
+        case .folkVikingPagan: return NSPredicate(format: "genre CONTAINS[cd] 'folk' || genre CONTAINS[cd] 'viking' || genre CONTAINS[cd] 'pagan'")
+        case .gothic: return NSPredicate(format: "genre CONTAINS[cd] 'gothic'")
+        case .grindcore: return NSPredicate(format: "genre CONTAINS[cd] 'grindcore'")
+        case .groove: return NSPredicate(format: "genre CONTAINS[cd] 'groove'")
+        case .heavy: return NSPredicate(format: "genre CONTAINS[cd] 'heavy'")
+        case .metalcoreDeathcore: return NSPredicate(format: "genre CONTAINS[cd] 'metalcore' || genre CONTAINS[cd] 'deathcore'")
+        case .power: return NSPredicate(format: "genre CONTAINS[cd] 'power'")
+        case .progressive: return NSPredicate(format: "genre CONTAINS[cd] 'progressive'")
+        case .speed: return NSPredicate(format: "genre CONTAINS[cd] 'speed'")
+        case .symphonic: return NSPredicate(format: "genre CONTAINS[cd] 'symphonic'")
+        case .thrash: return NSPredicate(format: "genre CONTAINS[cd] 'thrash'")
         }
     }
 }

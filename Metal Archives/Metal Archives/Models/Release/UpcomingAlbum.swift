@@ -8,11 +8,11 @@
 
 import Foundation
 
-final class UpcomingAlbum {
+final class UpcomingAlbum: NSObject {
     let bands: [BandLite]
     let release: ReleaseExtraLite
     let releaseType: ReleaseType
-    let genre: String
+    @objc let genre: String
     let date: String
     
     lazy var combinedBandNamesAttributedString: NSAttributedString = {

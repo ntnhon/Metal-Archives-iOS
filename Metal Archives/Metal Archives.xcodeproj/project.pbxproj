@@ -493,6 +493,7 @@
 		C0F0BE842244099800B90605 /* WidgetSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F0BE812243FA0B00B90605 /* WidgetSection.swift */; };
 		C0F1537F21EF5DE500355616 /* MetalArchivesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1537E21EF5DE500355616 /* MetalArchivesAPI.swift */; };
 		C0F5DB45228B608100888FED /* String+RemoveHTMLTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F5DB44228B608100888FED /* String+RemoveHTMLTags.swift */; };
+		C0F64B962311A45D00C01645 /* UpcomingAlbumsFilterOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F64B952311A45D00C01645 /* UpcomingAlbumsFilterOptionsViewController.swift */; };
 		C0F7E7FC225D26F800F907A6 /* FontSizeListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F7E7FB225D26F800F907A6 /* FontSizeListTableViewController.swift */; };
 		C0F7E802225D2EBD00F907A6 /* DiscographyTypeListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F7E801225D2EBD00F907A6 /* DiscographyTypeListTableViewController.swift */; };
 		C0F7E803225D37B900F907A6 /* DiscographyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D3602223D5E4100B29B43 /* DiscographyType.swift */; };
@@ -1019,6 +1020,7 @@
 		C0F0BE8622440C6B00B90605 /* Metal Archives.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Metal Archives.entitlements"; sourceTree = "<group>"; };
 		C0F1537E21EF5DE500355616 /* MetalArchivesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalArchivesAPI.swift; sourceTree = "<group>"; };
 		C0F5DB44228B608100888FED /* String+RemoveHTMLTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RemoveHTMLTags.swift"; sourceTree = "<group>"; };
+		C0F64B952311A45D00C01645 /* UpcomingAlbumsFilterOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbumsFilterOptionsViewController.swift; sourceTree = "<group>"; };
 		C0F7E7FB225D26F800F907A6 /* FontSizeListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeListTableViewController.swift; sourceTree = "<group>"; };
 		C0F7E801225D2EBD00F907A6 /* DiscographyTypeListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyTypeListTableViewController.swift; sourceTree = "<group>"; };
 		C0FBBE692208750A00226FB1 /* SimilarBandTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarBandTableViewCell.swift; sourceTree = "<group>"; };
@@ -1767,11 +1769,11 @@
 		C0602BCB21EA858E00046367 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				C0F64B942311A31600C01645 /* UpcomingAlbumsViewController */,
 				C094BCAE229D27B70005BF3E /* HomepageNavigationController.swift */,
 				C066136F22895C1D00F99006 /* HomepageViewController */,
 				C0AABDE3221D7EDC0044A2CF /* LatestAdditionsOrUpdatesViewController.swift */,
 				C0AABDE5221D89780044A2CF /* MonthListViewController.swift */,
-				C0AABDEB221DED3B0044A2CF /* UpcomingAlbumsViewController.swift */,
 				C0A48CF12221F3010047FC70 /* LatestReviewsViewController.swift */,
 				C0356F1A22ABA40700B4927E /* NewsDetailViewController.swift */,
 			);
@@ -3043,6 +3045,15 @@
 			path = MetalArchivesAPI;
 			sourceTree = "<group>";
 		};
+		C0F64B942311A31600C01645 /* UpcomingAlbumsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C0AABDEB221DED3B0044A2CF /* UpcomingAlbumsViewController.swift */,
+				C0F64B952311A45D00C01645 /* UpcomingAlbumsFilterOptionsViewController.swift */,
+			);
+			path = UpcomingAlbumsViewController;
+			sourceTree = "<group>";
+		};
 		C0FF16C6220CE34F00B8EBB9 /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
@@ -3761,6 +3772,7 @@
 				C01839E522256AF100FF88B7 /* LabelAdditionOrUpdate.swift in Sources */,
 				C0F1537F21EF5DE500355616 /* MetalArchivesAPI.swift in Sources */,
 				C082CDA622E4A246002202F6 /* DeezerAlbumLite.swift in Sources */,
+				C0F64B962311A45D00C01645 /* UpcomingAlbumsFilterOptionsViewController.swift in Sources */,
 				C082CD9222E4757E002202F6 /* DeezerArtist.swift in Sources */,
 				C053DD7A22271E920028568B /* SearchViewController.swift in Sources */,
 				C0BAD4A5222EC70200C4D38D /* SimpleSearchResultBandName.swift in Sources */,

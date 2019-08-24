@@ -12,7 +12,7 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
     private var backgroundView: UIView!
     private var titleLabel: UILabel!
     private var leftButton: UIButton!
-    private var rightButton: UIButton!
+    private(set) var rightButton: UIButton!
     
     var didTapLeftButton: (() -> Void)?
     var didTapRightButton: (() -> Void)?
