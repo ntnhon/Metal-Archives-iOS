@@ -139,7 +139,7 @@ final class AdvancedSearchAlbumsViewController: BaseAdvancedSearchTableViewContr
         //From month
         optionsList += "releaseMonthFrom="
         if let fromMonth = selectedFromMonth {
-            optionsList += "\(fromMonth)"
+            optionsList += "\(fromMonth.rawValue)"
         }
         optionsList += "&"
         
@@ -153,7 +153,7 @@ final class AdvancedSearchAlbumsViewController: BaseAdvancedSearchTableViewContr
         //To month
         optionsList += "releaseMonthTo="
         if let toMonth = selectedToMonth {
-            optionsList += "\(toMonth)"
+            optionsList += "\(toMonth.rawValue)"
         }
         optionsList += "&"
         
