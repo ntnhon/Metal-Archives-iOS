@@ -10,6 +10,7 @@
 		8805F1F21291EB9313EB707A /* Pods_Metal_ArchivesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EED03F29AC7BB9EE0B7F9D25 /* Pods_Metal_ArchivesTests.framework */; };
 		955E9CC6FE7F6F6E9D18A6D5 /* Pods_Metal_Archives_Widget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8BA00F138939FF255125F82 /* Pods_Metal_Archives_Widget.framework */; };
 		9B4B74CB68626BDBF23C6C58 /* Pods_Metal_Archives.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69197B05E0690D7395A5F473 /* Pods_Metal_Archives.framework */; };
+		C002C356231591E300164CBB /* UpcomingAlbumsFilterManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C002C355231591E300164CBB /* UpcomingAlbumsFilterManagementViewController.swift */; };
 		C003D7B722E3B3EF00F9F622 /* DeezerableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C003D7B622E3B3EF00F9F622 /* DeezerableViewController.swift */; };
 		C003D7BE22E3B62300F9F622 /* Deezer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C003D7BD22E3B62300F9F622 /* Deezer.storyboard */; };
 		C003D7C022E3BA1200F9F622 /* DeezerResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C003D7BF22E3BA1200F9F622 /* DeezerResultViewController.swift */; };
@@ -561,6 +562,7 @@
 		B5FF8BF7938B393A21BD7E3A /* Pods-Metal Archives.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Metal Archives.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Metal Archives/Pods-Metal Archives.debug.xcconfig"; sourceTree = "<group>"; };
 		B7BBA88E1D5C432A82827A4B /* Pods-Metal Archives Widget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Metal Archives Widget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Metal Archives Widget/Pods-Metal Archives Widget.debug.xcconfig"; sourceTree = "<group>"; };
 		B7C790FE63B41E66E0C050E7 /* Pods-Metal Archives Widget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Metal Archives Widget.release.xcconfig"; path = "Pods/Target Support Files/Pods-Metal Archives Widget/Pods-Metal Archives Widget.release.xcconfig"; sourceTree = "<group>"; };
+		C002C355231591E300164CBB /* UpcomingAlbumsFilterManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbumsFilterManagementViewController.swift; sourceTree = "<group>"; };
 		C003D7B622E3B3EF00F9F622 /* DeezerableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeezerableViewController.swift; sourceTree = "<group>"; };
 		C003D7BD22E3B62300F9F622 /* Deezer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Deezer.storyboard; sourceTree = "<group>"; };
 		C003D7BF22E3BA1200F9F622 /* DeezerResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeezerResultViewController.swift; sourceTree = "<group>"; };
@@ -3050,6 +3052,7 @@
 			children = (
 				C0AABDEB221DED3B0044A2CF /* UpcomingAlbumsViewController.swift */,
 				C0F64B952311A45D00C01645 /* UpcomingAlbumsFilterOptionsViewController.swift */,
+				C002C355231591E300164CBB /* UpcomingAlbumsFilterManagementViewController.swift */,
 			);
 			path = UpcomingAlbumsViewController;
 			sourceTree = "<group>";
@@ -3849,6 +3852,7 @@
 				C0752962229EBE3B0067B5E1 /* DiscographyOptionListViewController.swift in Sources */,
 				C013364722384E7100963940 /* AdvancedBandNameTableViewCell.swift in Sources */,
 				C04872C021EE841900ECFDC2 /* News.swift in Sources */,
+				C002C356231591E300164CBB /* UpcomingAlbumsFilterManagementViewController.swift in Sources */,
 				C03280052209E12F00FC9A44 /* ReleaseDetailViewController.swift in Sources */,
 				C05606ED22A2FDA5006F5BC1 /* BandMenuOption.swift in Sources */,
 				C05937DF222F378F00F7C2A9 /* UITextField+CustomClearButton.swift in Sources */,

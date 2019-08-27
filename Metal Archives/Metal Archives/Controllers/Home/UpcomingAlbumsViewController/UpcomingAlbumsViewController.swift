@@ -34,6 +34,11 @@ final class UpcomingAlbumsViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     
     private var upcomingAlbumsPagableManager = PagableManager<UpcomingAlbum>()
+    
+    deinit {
+        print("UpcomingAlbumsViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initAndHandleSimpleNavigationBarViewActions()
@@ -98,19 +103,31 @@ final class UpcomingAlbumsViewController: RefreshableViewController {
     
     private func showFilterOptions() {
         let filterOptionsViewController = UpcomingAlbumsFilterOptionsViewController()
-        filterOptionsViewController.modalPresentationStyle = .popover
-        filterOptionsViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-        filterOptionsViewController.preferredContentSize = CGSize(width: 250, height: screenHeight * 2 / 3)
         
-        filterOptionsViewController.popoverPresentationController?.delegate = self
-        filterOptionsViewController.popoverPresentationController?.sourceView = view
-        filterOptionsViewController.popoverPresentationController?.sourceRect = simpleNavigationBarView.rightButton.positionIn(view: view)
+        let navigationViewController = UINavigationController(rootViewController: filterOptionsViewController)
+        
+        navigationViewController.modalPresentationStyle = .popover
+        navigationViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+        navigationViewController.preferredContentSize = CGSize(width: 250, height: screenHeight * 2 / 3)
+        
+        navigationViewController.popoverPresentationController?.delegate = self
+        navigationViewController.popoverPresentationController?.sourceView = view
+        navigationViewController.popoverPresentationController?.sourceRect = simpleNavigationBarView.rightButton.positionIn(view: view)
         
         filterOptionsViewController.didSelectGenre = { [unowned self] selectedGenre in
             self.selectedGenre = selectedGenre
         }
         
-        present(filterOptionsViewController, animated: true, completion: nil)
+        filterOptionsViewController.didTapManageButton = { [unowned self] in
+            self.showFilterManagement()
+        }
+        
+        present(navigationViewController, animated: true, completion: nil)
+    }
+    
+    private func showFilterManagement() {
+        let upcomingAlbumsFilterManagementViewController = UpcomingAlbumsFilterManagementViewController()
+        navigationController?.pushViewController(upcomingAlbumsFilterManagementViewController, animated: true)
     }
 }
 

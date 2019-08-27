@@ -12,10 +12,25 @@ final class UpcomingAlbumsFilterOptionsViewController: BaseViewController {
     private var tableView: UITableView!
 
     var didSelectGenre: ((_ genre: Genre?) -> Void)?
+    var didTapManageButton: (() -> Void)?
+    
+    deinit {
+        print("UpcomingAlbumsFilterOptionsViewController is deallocated")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addManageBarButton()
         initTableView()
+    }
+    
+    private func addManageBarButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(manageBarButtonTapped))
+    }
+    
+    @objc private func manageBarButtonTapped() {
+        dismiss(animated: true, completion: nil)
+        didTapManageButton?()
     }
     
     private func initTableView() {
