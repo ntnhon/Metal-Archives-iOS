@@ -22,6 +22,14 @@ final class UpcomingAlbumsFilterManagementViewController: BaseViewController {
         super.viewDidLoad()
         initSimpleNavigationBarView()
         initTableView()
+        customGenres = UserDefaults.customGenres()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParent {
+            UserDefaults.setCustomGenres(customGenres)
+        }
     }
     
     private func initSimpleNavigationBarView() {
@@ -62,8 +70,11 @@ final class UpcomingAlbumsFilterManagementViewController: BaseViewController {
         alert.addTextField(configurationHandler: nil)
         
         let addAction = UIAlertAction(title: "Add 🤘", style: .default) { [unowned self] (_) in
-            guard let textField = alert.textFields?.first else { return }
-            print(textField.text)
+            guard let textField = alert.textFields?.first, let genre = textField.text else { return }
+            self.customGenres.append(genre)
+            self.tableView.beginUpdates()
+            self.tableView.insertRows(at: [IndexPath(row: self.customGenres.count-1, section: 0)], with: .fade)
+            self.tableView.endUpdates()
         }
         alert.addAction(addAction)
         
@@ -81,13 +92,42 @@ extension UpcomingAlbumsFilterManagementViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Your custom genres"
+        return "Click + button to create custom genres"
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         let predefinedGenres = Genre.allCases.map({$0.description}).joined(separator: ", ")
         
         return "PREDEFINED GENRES:\n\(predefinedGenres)."
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return swipeActionsConfiguration(forRowAt: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return swipeActionsConfiguration(forRowAt: indexPath)
+    }
+    
+    private func swipeActionsConfiguration(forRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard customGenres.count > 0 else {
+            return nil
+        }
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] (_, _, completionHanlder) in
+            self.customGenres.remove(at: indexPath.row)
+            self.tableView.beginUpdates()
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.tableView.endUpdates()
+            
+            if self.customGenres.count == 0 {
+                self.tableView.reloadData()
+            }
+            
+            completionHanlder(true)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 
@@ -98,24 +138,13 @@ extension UpcomingAlbumsFilterManagementViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if customGenres.count == 0 {
-            return 1
-        }
-        
         return customGenres.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        
-        if customGenres.count == 0 {
-            cell.displayAsItalicBodyText()
-            cell.fill(with: "Tap + button to add a new genre")
-        } else {
-            cell.displayAsBodyText()
-            cell.fill(with: customGenres[indexPath.row])
-        }
-        
+        cell.displayAsBodyText()
+        cell.fill(with: customGenres[indexPath.row])
         return cell
     }
 }

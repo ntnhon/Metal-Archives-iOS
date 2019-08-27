@@ -11,7 +11,7 @@ import Foundation
 fileprivate let defaults = UserDefaults(suiteName: "group.info.nguyenthanhnhon.metal-archives-ios")!
 
 extension UserDefaults {
-    //MARK: - Init default values
+    // MARK: - Init default values
     static func registerDefaultValues() {
         defaults.register(defaults: [themeKey: Theme.default.rawValue,
                                      thumbnailEnabledKey: true])
@@ -21,7 +21,7 @@ extension UserDefaults {
         defaults.register(defaults: [didMakeAReviewKey: false])
     }
     
-    //MARK: - Theme
+    // MARK: - Theme
     private static let themeKey = "ThemeKey"
     static func setTheme(_ theme: Theme) {
         defaults.set(theme.rawValue, forKey: themeKey)
@@ -32,7 +32,7 @@ extension UserDefaults {
         return Theme(rawValue: themeRawValue) ?? .default
     }
     
-    //MARK: - Font Size
+    // MARK: - Font Size
     private static let fontSizeKey = "FontSizeKey"
     static func setFontSize(_ fontSize: FontSize) {
         defaults.set(fontSize.rawValue, forKey: fontSizeKey)
@@ -43,7 +43,7 @@ extension UserDefaults {
         return FontSize(rawValue: fontSizeRawValue) ?? .default
     }
     
-    //MARK: - Discography Type
+    // MARK: - Discography Type
     private static let discographyTypeKey = "DiscographyTypeKey"
     static func setDiscographyType(_ discographyType: DiscographyType) {
         defaults.set(discographyType.rawValue, forKey: discographyTypeKey)
@@ -54,7 +54,7 @@ extension UserDefaults {
         return DiscographyType(rawValue: discographyTypeRawValue) ?? .complete
     }
     
-    //MARK: - Thumbnail
+    // MARK: - Thumbnail
     private static let thumbnailEnabledKey = "ThumbnailEnabledKey"
     static func setThumbnailEnabled(_ enabled: Bool) {
         defaults.set(enabled, forKey: thumbnailEnabledKey)
@@ -64,7 +64,7 @@ extension UserDefaults {
         return defaults.bool(forKey: thumbnailEnabledKey)
     }
     
-    //MARK: - Widget
+    // MARK: - Widget
     private static let widgetSectionsKey = "WidgetSectionsKey"
     static func setWidgetSections(_ widgetSection: [WidgetSection]) {
         guard widgetSection.count == 1 || widgetSection.count == 2 else {
@@ -91,7 +91,7 @@ extension UserDefaults {
         })
     }
     
-    //Review
+    // MARK: - Review
     private static let numberOfSessionKey = "NumberOfSessionKey"
     static func numberOfSessions() -> Int {
         return defaults.integer(forKey: numberOfSessionKey)
@@ -111,7 +111,7 @@ extension UserDefaults {
         defaults.set(true, forKey: didMakeAReviewKey)
     }
     
-    //New version
+    // MARK: - New version
     static func shouldAlertNewVersion() -> Bool {
         if let `appVersion` = appVersion {
             return !defaults.bool(forKey: appVersion)
@@ -124,5 +124,20 @@ extension UserDefaults {
         if let `appVersion` = appVersion {
             defaults.set(true, forKey: appVersion)
         }
+    }
+    
+    // MARK: - Thumbnail
+    private static let customGenresKey = "CustomGenresKey"
+    
+    static func setCustomGenres(_ customGenres: [String]) {
+        defaults.set(customGenres, forKey: customGenresKey)
+    }
+
+    static func customGenres() -> [String] {
+        if let customGenres = defaults.object(forKey: customGenresKey) as? [String] {
+            return customGenres
+        }
+        
+        return []
     }
 }
