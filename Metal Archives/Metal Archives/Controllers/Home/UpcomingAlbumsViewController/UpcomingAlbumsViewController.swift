@@ -105,13 +105,17 @@ final class UpcomingAlbumsViewController: RefreshableViewController {
         filterOptionsViewController.didSelectGenreString = { [unowned self] selectedGenreString, byAndOperator in
             self.selectedGenreString = selectedGenreString
             self.filter(byAndOperator: byAndOperator)
+            Analytics.logEvent("filter_in_upcoming_albums", parameters: ["genre": selectedGenreString ?? ""])
         }
         
         filterOptionsViewController.didTapManageButton = { [unowned self] in
             self.showFilterManagement()
+            Analytics.logEvent("open_genre_filter_management_in_upcoming_albums", parameters: nil)
         }
         
         present(navigationViewController, animated: true, completion: nil)
+        
+        Analytics.logEvent("show_genre_filter_in_upcoming_albums", parameters: nil)
     }
     
     private func showFilterManagement() {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 final class UpcomingAlbumsFilterManagementViewController: BaseViewController {
     private var simpleNavigationBarView: SimpleNavigationBarView!
@@ -75,10 +76,13 @@ final class UpcomingAlbumsFilterManagementViewController: BaseViewController {
             self.tableView.beginUpdates()
             self.tableView.insertRows(at: [IndexPath(row: self.customGenres.count-1, section: 0)], with: .fade)
             self.tableView.endUpdates()
+            Analytics.logEvent("add_genre_in_filter_management", parameters: nil)
         }
         alert.addAction(addAction)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { (_) in
+            Analytics.logEvent("cancel_add_genre_in_filter_management", parameters: nil)
+        }
         alert.addAction(cancelAction)
         
         present(alert, animated: true, completion: nil)
@@ -125,6 +129,7 @@ extension UpcomingAlbumsFilterManagementViewController: UITableViewDelegate {
             }
             
             completionHanlder(true)
+            Analytics.logEvent("remove_genre_in_filter_management", parameters: nil)
         }
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
