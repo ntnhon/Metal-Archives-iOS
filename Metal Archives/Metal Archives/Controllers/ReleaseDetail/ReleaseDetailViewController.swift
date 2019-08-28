@@ -350,10 +350,9 @@ extension ReleaseDetailViewController {
         cell.fill(with: release)
         
         cell.tappedBandNameLabel = { [unowned self] in
-            guard let bandUrlString = release.band?.urlString else { return }
-            self.pushBandDetailViewController(urlString: bandUrlString, animated: true)
+            self.takeActionFor(actionableObject: release)
             
-            Analytics.logEvent("view_release_band", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? "", "band_url": bandUrlString])
+            Analytics.logEvent("view_release_band_list", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
         }
         
         cell.tappedLastModifiedOnLabel = { [unowned self] in

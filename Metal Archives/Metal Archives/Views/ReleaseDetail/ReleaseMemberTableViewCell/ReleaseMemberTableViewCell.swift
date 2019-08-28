@@ -10,6 +10,7 @@ import UIKit
 
 final class ReleaseMemberTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
     @IBOutlet private weak var artistNameLabel: UILabel!
+    @IBOutlet private weak var bandNameLabel: UILabel!
     @IBOutlet private weak var instrumentsLabel: UILabel!
     
     override func initAppearance() {
@@ -17,6 +18,9 @@ final class ReleaseMemberTableViewCell: ThumbnailableTableViewCell, Registerable
         
         artistNameLabel.textColor = Settings.currentTheme.titleColor
         artistNameLabel.font = Settings.currentFontSize.secondaryTitleFont
+        
+        bandNameLabel.textColor = Settings.currentTheme.bodyTextColor
+        bandNameLabel.font = Settings.currentFontSize.boldBodyTextFont
         
         instrumentsLabel.textColor = Settings.currentTheme.bodyTextColor
         instrumentsLabel.font = Settings.currentFontSize.bodyTextFont
@@ -38,7 +42,12 @@ final class ReleaseMemberTableViewCell: ThumbnailableTableViewCell, Registerable
             artistNameLabel.text = artist.name
         }
         
-        
+        if let bandName = artist.bandName {
+            bandNameLabel.text = "\(bandName)'s member"
+        } else {
+            bandNameLabel.text = nil
+        }
+
         instrumentsLabel.text = artist.instrumentString
         setThumbnailImageView(with: artist)
     }

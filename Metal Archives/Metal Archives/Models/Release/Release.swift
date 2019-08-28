@@ -12,7 +12,7 @@ import Kanna
 final class Release {
     private(set) var id: String!
     private(set) var urlString: String!
-    private(set) var band: BandLite?
+    private(set) var bands: [BandLite]!
     private(set) var coverURLString: String?
     private(set) var reviewsURLString: String?
     private(set) var title: String!
@@ -126,10 +126,14 @@ final class Release {
                     }
                 }
                 
-                if let h2 = div.at_css("h2") {
-                    if let a = h2.at_css("a") {
-                        if let bandName = a.text, let bandURLString = a["href"] {
-                            self.band = BandLite(name: bandName, urlString: bandURLString)
+                if let h2 = div.at_css("h2"), let h2Text = h2.innerHTML {
+                    bands = []
+                    // In case of split, band names are separated by a /
+                    let modifiedH2Text = h2Text.replacingOccurrences(of: " / ", with: "🤘")
+                    let listOfTagA = modifiedH2Text.split(separator: "🤘")
+                    listOfTagA.forEach { (eachTagA) in
+                        if let band = BandLite(from: String(eachTagA)) {
+                            bands.append(band)
                         }
                     }
                 }
@@ -403,18 +407,17 @@ final class Release {
     
     private static func parseMembers(document: XMLElement, lineUpType: LineUpType) -> [ArtistLiteInRelease] {
         var arrayArtists = [ArtistLiteInRelease]()
-        
+        var currentBandName: String?
         for tr in document.css("tr") {
             // Workaround
             // In case Split or Original line up
-            //Count number of td tag
+            // Count number of td tag
             // number of td tag == 1 => skip
-            var j = 0
-            for _ in tr.css("td") {
-                j = j + 1
-            }
             
-            if (j == 1) {
+            if tr.css("td").count == 1 {
+                // Split or original line up
+                // band name here
+                currentBandName = tr.at_css("td")?.text
                 continue
             }
             
@@ -449,7 +452,12 @@ final class Release {
             
             
             if let `artistName` = artistName, let `artistURLString` = artistURLString, let `artistInstrumentString` = artistInstrumentString {
-                if let artist = ArtistLiteInRelease(name: artistName, urlString: artistURLString, additionalDetail: artistAdditionalDetail, instrumentString: artistInstrumentString, lineUpType: lineUpType) {
+                
+                if lineUpType != .member {
+                    currentBandName = nil
+                }
+                
+                if let artist = ArtistLiteInRelease(name: artistName, urlString: artistURLString, additionalDetail: artistAdditionalDetail, instrumentString: artistInstrumentString, lineUpType: lineUpType, bandName: currentBandName) {
                     arrayArtists.append(artist)
                 }
             }
@@ -458,8 +466,24 @@ final class Release {
     }
 }
 
+// MARK: - Descriptive
 extension Release: Descriptive {
     var generalDescription: String {
         return "\(id ?? "") - \(title ?? "") - \(urlString ?? "")"
     }
+}
+
+//MARK: - Actionable
+extension Release: Actionable {
+    var actionableElements: [ActionableElement] {
+        var elements: [ActionableElement] = []
+        
+        self.bands.forEach { (eachBand) in
+            let bandElement = ActionableElement(name: eachBand.name, urlString: eachBand.urlString, type: .band)
+            elements.append(bandElement)
+        }
+        
+        return elements
+    }
+    
 }

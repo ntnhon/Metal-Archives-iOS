@@ -9,7 +9,7 @@
 import UIKit
 
 final class ReleaseInfoTableViewCell: BaseTableViewCell, RegisterableCell {
-    @IBOutlet private weak var bandNameLabel: UILabel!
+    @IBOutlet private weak var bandNamesLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var catalogIDLabel: UILabel!
     @IBOutlet private weak var labelLabel: UILabel!
@@ -42,10 +42,10 @@ final class ReleaseInfoTableViewCell: BaseTableViewCell, RegisterableCell {
         })
         
         let bandNameLabelTap = UITapGestureRecognizer(target: self, action: #selector(didTapBandNameLabel))
-        bandNameLabel.isUserInteractionEnabled = true
-        bandNameLabel.addGestureRecognizer(bandNameLabelTap)
-        bandNameLabel.textColor = Settings.currentTheme.secondaryTitleColor
-        bandNameLabel.font = Settings.currentFontSize.secondaryTitleFont
+        bandNamesLabel.isUserInteractionEnabled = true
+        bandNamesLabel.addGestureRecognizer(bandNameLabelTap)
+        bandNamesLabel.textColor = Settings.currentTheme.secondaryTitleColor
+        bandNamesLabel.font = Settings.currentFontSize.secondaryTitleFont
         
         let lastLabelLabelTap = UITapGestureRecognizer(target: self, action: #selector(didTapLabelLabel))
         labelLabel.isUserInteractionEnabled = true
@@ -62,7 +62,8 @@ final class ReleaseInfoTableViewCell: BaseTableViewCell, RegisterableCell {
     func fill(with release: Release) {
         self.release = release
         
-        bandNameLabel.text = release.band?.name
+        let bandNames = release.bands.map({$0.name})
+        bandNamesLabel.attributedText = generateAttributedStringFromStrings(bandNames, as: .secondaryTitle, withSeparator: " / ")
         dateLabel.text = release.dateString
         catalogIDLabel.text = release.catalogID
         labelLabel.text = release.label.name
