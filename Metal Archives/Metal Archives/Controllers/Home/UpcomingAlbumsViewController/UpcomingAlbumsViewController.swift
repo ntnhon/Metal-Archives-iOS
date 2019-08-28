@@ -14,20 +14,7 @@ final class UpcomingAlbumsViewController: RefreshableViewController {
     private var errorFetchingMoreUpcomingAlbums = false
     private var isFetching = false
     
-    private var selectedGenre: Genre? {
-        didSet {
-            defer {
-                tableView.reloadData()
-                updateSimpleNavigationBarRightButton()
-                updateTitle()
-                tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-            }
-            
-            guard let selectedGenre = selectedGenre else { return }
-            
-            filteredUpcomingAlbums = (upcomingAlbumsPagableManager.objects as NSArray).filtered(using: selectedGenre.upcomingAlbumPredicate) as? [UpcomingAlbum]
-        }
-    }
+    private var selectedGenreString: String?
     
     private var filteredUpcomingAlbums: [UpcomingAlbum]?
 
@@ -66,7 +53,7 @@ final class UpcomingAlbumsViewController: RefreshableViewController {
     }
     
     private func updateTitle() {
-        if let selectedGenre = selectedGenre {
+        if let selectedGenre = selectedGenreString {
             simpleNavigationBarView.setTitle("Filtered by \"\(selectedGenre.description)\"")
         } else {
             guard let totalRecords = upcomingAlbumsPagableManager.totalRecords else {
@@ -78,10 +65,11 @@ final class UpcomingAlbumsViewController: RefreshableViewController {
     }
     
     private func updateSimpleNavigationBarRightButton() {
-        if let _ = selectedGenre {
+        if let _ = selectedGenreString {
             simpleNavigationBarView.setRightButtonIcon(#imageLiteral(resourceName: "X"))
             simpleNavigationBarView.didTapRightButton = { [unowned self] in
-                self.selectedGenre = nil
+                self.selectedGenreString = nil
+                self.reload()
             }
         } else {
             simpleNavigationBarView.setRightButtonIcon(#imageLiteral(resourceName: "funnel"))
@@ -114,8 +102,9 @@ final class UpcomingAlbumsViewController: RefreshableViewController {
         navigationViewController.popoverPresentationController?.sourceView = view
         navigationViewController.popoverPresentationController?.sourceRect = simpleNavigationBarView.rightButton.positionIn(view: view)
         
-        filterOptionsViewController.didSelectGenre = { [unowned self] selectedGenre in
-            self.selectedGenre = selectedGenre
+        filterOptionsViewController.didSelectGenreString = { [unowned self] selectedGenreString, byAndOperator in
+            self.selectedGenreString = selectedGenreString
+            self.filter(byAndOperator: byAndOperator)
         }
         
         filterOptionsViewController.didTapManageButton = { [unowned self] in
@@ -128,6 +117,28 @@ final class UpcomingAlbumsViewController: RefreshableViewController {
     private func showFilterManagement() {
         let upcomingAlbumsFilterManagementViewController = UpcomingAlbumsFilterManagementViewController()
         navigationController?.pushViewController(upcomingAlbumsFilterManagementViewController, animated: true)
+    }
+    
+    private func filter(byAndOperator: Bool) {
+        defer {
+            reload()
+        }
+        
+        guard let selectedGenreString = selectedGenreString else { return }
+        
+        let predicateString = selectedGenreString.genreStringToKeywords().toPredicateString(byAndOperator: byAndOperator)
+        let predicate = NSPredicate(format: predicateString)
+        
+        filteredUpcomingAlbums = (upcomingAlbumsPagableManager.objects as NSArray).filtered(using: predicate) as? [UpcomingAlbum]
+    }
+    
+    private func reload() {
+        tableView.reloadData()
+        updateSimpleNavigationBarRightButton()
+        updateTitle()
+        if tableView.numberOfRows(inSection: 0) > 0 {
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        }
     }
 }
 
@@ -171,7 +182,7 @@ extension UpcomingAlbumsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if let _ = selectedGenre {
+        if let _ = selectedGenreString {
             guard let upcomingAlbum = filteredUpcomingAlbums?[indexPath.row] else { return }
             takeActionFor(actionableObject: upcomingAlbum)
             Analytics.logEvent("select_an_item_in_filtered_upcoming_albums", parameters: ["release_id": upcomingAlbum.release.id, "release_title": upcomingAlbum.release.title])
@@ -197,7 +208,7 @@ extension UpcomingAlbumsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let _ = selectedGenre {
+        if let _ = selectedGenreString {
             return filteredUpcomingAlbums?.count ?? 0
         }
         
@@ -213,7 +224,7 @@ extension UpcomingAlbumsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let _ = selectedGenre {
+        if let _ = selectedGenreString {
             let cell = UpcomingAlbumTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             guard let upcomingAlbum = filteredUpcomingAlbums?[indexPath.row] else {
                 return cell
@@ -251,7 +262,8 @@ extension UpcomingAlbumsViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let _ = selectedGenre {
+        if let _ = selectedGenreString {
+            // Don't load more in filter mode
             return
         }
         

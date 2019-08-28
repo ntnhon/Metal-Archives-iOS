@@ -65,7 +65,7 @@ final class UpcomingAlbumsFilterManagementViewController: BaseViewController {
     }
     
     private func displayAlertToAddNewGenre() {
-        let alert = UIAlertController(title: "Enter new genre", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Enter new genre", message: "Needless to say \"metal\" in the genre", preferredStyle: .alert)
         
         alert.addTextField(configurationHandler: nil)
         

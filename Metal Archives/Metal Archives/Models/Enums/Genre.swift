@@ -70,7 +70,7 @@ enum Genre: Int, CustomStringConvertible, CaseIterable {
     
     var upcomingAlbumPredicate: NSPredicate {
         switch self {
-        case .black: return NSPredicate(format: "self.genre CONTAINS[cd] 'black'")
+        case .black: return NSPredicate(format: "genre CONTAINS[cd] 'black'")
         case .death: return NSPredicate(format: "genre CONTAINS[cd] 'death'")
         case .doomStonerSludge: return NSPredicate(format: "genre CONTAINS[cd] 'doom' || genre CONTAINS[cd] 'stoner' || genre CONTAINS[cd] 'sludge'")
         case .electronicIndustrial: return NSPredicate(format: "genre CONTAINS[cd] 'electronic' || genre CONTAINS[cd] 'industrial'")

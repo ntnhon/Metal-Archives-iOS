@@ -475,6 +475,8 @@
 		C0CAC19F229887130044363E /* BandPhotoAndNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CAC19E229887130044363E /* BandPhotoAndNameTableViewCell.xib */; };
 		C0D6320822A08A2D00CAE52F /* ReleaseTitleAndTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6320722A08A2D00CAE52F /* ReleaseTitleAndTypeTableViewCell.swift */; };
 		C0DC881E220763E600A9187B /* ReviewLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DC881D220763E600A9187B /* ReviewLite.swift */; };
+		C0E2C6702316836C0037B4A5 /* GenreStringToKeywordsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E2C66F2316836C0037B4A5 /* GenreStringToKeywordsTests.swift */; };
+		C0E2C672231683CC0037B4A5 /* String+GenreStringToKeywords+Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E2C671231683CC0037B4A5 /* String+GenreStringToKeywords+Predicate.swift */; };
 		C0E763A222E60D580025C509 /* Descriptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E763A122E60D580025C509 /* Descriptive.swift */; };
 		C0E763A322E60E360025C509 /* Descriptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E763A122E60D580025C509 /* Descriptive.swift */; };
 		C0ECE6F0221AB1E400489A8E /* LyricViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ECE6EF221AB1E400489A8E /* LyricViewController.swift */; };
@@ -1004,6 +1006,8 @@
 		C0CAC19E229887130044363E /* BandPhotoAndNameTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BandPhotoAndNameTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6320722A08A2D00CAE52F /* ReleaseTitleAndTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTitleAndTypeTableViewCell.swift; sourceTree = "<group>"; };
 		C0DC881D220763E600A9187B /* ReviewLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLite.swift; sourceTree = "<group>"; };
+		C0E2C66F2316836C0037B4A5 /* GenreStringToKeywordsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreStringToKeywordsTests.swift; sourceTree = "<group>"; };
+		C0E2C671231683CC0037B4A5 /* String+GenreStringToKeywords+Predicate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+GenreStringToKeywords+Predicate.swift"; sourceTree = "<group>"; };
 		C0E763A122E60D580025C509 /* Descriptive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Descriptive.swift; sourceTree = "<group>"; };
 		C0ECE6EF221AB1E400489A8E /* LyricViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricViewController.swift; sourceTree = "<group>"; };
 		C0ECE6F1221AB32B00489A8E /* Lyric.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Lyric.storyboard; sourceTree = "<group>"; };
@@ -1513,6 +1517,7 @@
 			isa = PBXGroup;
 			children = (
 				C04C5004228C0C7A00DAFBF1 /* ParseBandActiveYearsStringTests.swift */,
+				C0E2C66F2316836C0037B4A5 /* GenreStringToKeywordsTests.swift */,
 			);
 			path = "Extensions & Utilities Tests";
 			sourceTree = "<group>";
@@ -2532,6 +2537,7 @@
 				C09A18A421FF182B00152908 /* String+HTMLToAttributedString.swift */,
 				C05309F322235BE20027D11E /* String+RemoveEmptySpaces.swift */,
 				C0F5DB44228B608100888FED /* String+RemoveHTMLTags.swift */,
+				C0E2C671231683CC0037B4A5 /* String+GenreStringToKeywords+Predicate.swift */,
 			);
 			path = String;
 			sourceTree = "<group>";
@@ -3620,6 +3626,7 @@
 				C053DD7E2227275B0028568B /* SimpleSearchViewController.swift in Sources */,
 				C075296A229F0CDE0067B5E1 /* MemberOptionTableViewCell.swift in Sources */,
 				C01336442238272B00963940 /* AdvancedSearchBandsResultsViewController.swift in Sources */,
+				C0E2C672231683CC0037B4A5 /* String+GenreStringToKeywords+Predicate.swift in Sources */,
 				C013363F223811CD00963940 /* BaseAdvancedSearchTableViewController.swift in Sources */,
 				C00D35F9223D033D00B29B43 /* BrowseBandsResultTableViewCell.swift in Sources */,
 				C033C4FE22D3A0BD001294BA /* SearchResultObjectType.swift in Sources */,
@@ -3927,6 +3934,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C04C500C228C349300DAFBF1 /* ParseAuditTrailTests.swift in Sources */,
+				C0E2C6702316836C0037B4A5 /* GenreStringToKeywordsTests.swift in Sources */,
 				C04C5005228C0C7A00DAFBF1 /* ParseBandActiveYearsStringTests.swift in Sources */,
 				C03E4035228C718A004429E9 /* ParseBandMembersTests.swift in Sources */,
 			);

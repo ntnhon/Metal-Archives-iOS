@@ -10,8 +10,10 @@ import UIKit
 
 final class UpcomingAlbumsFilterOptionsViewController: BaseViewController {
     private var tableView: UITableView!
+    
+    private let customGenres = UserDefaults.customGenres()
 
-    var didSelectGenre: ((_ genre: Genre?) -> Void)?
+    var didSelectGenreString: ((_ genreString: String?, _ byAndOperator: Bool) -> Void)?
     var didTapManageButton: (() -> Void)?
     
     deinit {
@@ -50,20 +52,44 @@ final class UpcomingAlbumsFilterOptionsViewController: BaseViewController {
 extension UpcomingAlbumsFilterOptionsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let selectedGenre = Genre(rawValue: indexPath.row)
-        didSelectGenre?(selectedGenre)
+        
+        let genreString: String
+        if indexPath.section == 0 {
+            genreString = Genre.allCases[indexPath.row].description
+            didSelectGenreString?(genreString, false)
+        } else {
+            genreString = customGenres[indexPath.row]
+            didSelectGenreString?(genreString, true)
+        }
+        
         dismiss(animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard customGenres.count > 0 else {
+            return nil
+        }
+        
+        if section == 0 {
+            return "Predefined genres"
+        } else {
+            return "Your custom genres"
+        }
     }
 }
 
 // MARK: - UITableViewDataSource
 extension UpcomingAlbumsFilterOptionsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return customGenres.count > 0 ? 2 : 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Genre.allCases.count
+        if section == 0 {
+            return Genre.allCases.count
+        }
+        
+        return customGenres.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -71,8 +97,14 @@ extension UpcomingAlbumsFilterOptionsViewController: UITableViewDataSource {
         cell.displayAsBodyText()
         cell.inverseColors()
         
-        let genre = Genre.allCases[indexPath.row]
-        cell.fill(with: genre.description)
+        let genreString: String
+        if indexPath.section == 0 {
+            genreString = Genre.allCases[indexPath.row].description
+        } else {
+            genreString = customGenres[indexPath.row]
+        }
+        
+        cell.fill(with: genreString)
         return cell
     }
 }
