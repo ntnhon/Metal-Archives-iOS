@@ -228,8 +228,9 @@ extension AppDelegate {
         }
         
         let numberOfSessions = UserDefaults.numberOfSessions()
-        if (numberOfSessions == 10 || numberOfSessions == 20 || numberOfSessions == 50) && !UserDefaults.didMakeAReview() {
-            //Ask for review after 1 minute
+        if (numberOfSessions % 20 == 0) && !UserDefaults.didMakeAReview() {
+            // Continously ask for review after every 20 usages
+            // Prompt 1 minute after app launch
             DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
                 NotificationCenter.default.post(name: NSNotification.Name.AskForReview, object: nil)
             }
