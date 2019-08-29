@@ -27,9 +27,9 @@ struct Settings {
     static let numberOfGeneralItemPerRow = 3
     static let generalCollectionViewCellHeight: CGFloat = {
         switch currentFontSize! {
-        case .default: return ceil(screenHeight / 11)
-        case .medium: return ceil(screenHeight / 10)
-        case .large: return ceil(screenHeight / 9)
+        case .default: return ceil(screenHeight / 9)
+        case .medium: return ceil(screenHeight / 8)
+        case .large: return ceil(screenHeight / 7)
         }
     }()
     static let upcomingAlbumCollectionViewCellHeight: CGFloat = {
