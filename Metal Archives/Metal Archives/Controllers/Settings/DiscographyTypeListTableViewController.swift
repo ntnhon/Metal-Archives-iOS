@@ -12,7 +12,7 @@ protocol DiscographyTypeListTableViewControllerDelegate {
     func didChangeDiscographyType()
 }
 
-final class DiscographyTypeListTableViewController: UITableViewController {
+final class DiscographyTypeListTableViewController: BaseSubSettingsTableViewController {
     @IBOutlet private weak var completeTableViewCell: BaseTableViewCell!
     @IBOutlet private weak var mainTableViewCell: BaseTableViewCell!
     @IBOutlet private weak var livesTableViewCell: BaseTableViewCell!
@@ -21,9 +21,6 @@ final class DiscographyTypeListTableViewController: UITableViewController {
     
     @IBOutlet private var discographyTypeTableViewCells: [BaseTableViewCell]!
     @IBOutlet private var titleLabels: [UILabel]!
-    
-    // SimpleNavigationBarView
-    weak var simpleNavigationBarView: SimpleNavigationBarView?
     
     var delegate: DiscographyTypeListTableViewControllerDelegate?
     
@@ -36,10 +33,8 @@ final class DiscographyTypeListTableViewController: UITableViewController {
         initAppearance()
     }
     
-    private func initAppearance() {
-        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        tableView.rowHeight = UITableView.automaticDimension
+    override func initAppearance() {
+        super.initAppearance()
         
         titleLabels.forEach({
             $0.textColor = Settings.currentTheme.bodyTextColor
@@ -47,7 +42,6 @@ final class DiscographyTypeListTableViewController: UITableViewController {
         })
         
         simpleNavigationBarView?.setTitle("Default Discography Mode")
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: 0, right: 0)
     }
     
     private func didTapCompleteTableViewCell() {

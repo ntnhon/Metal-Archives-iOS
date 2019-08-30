@@ -14,6 +14,8 @@ final class SettingsTableViewController: BaseTableViewController {
     @IBOutlet private var detailLabels: [UILabel]!
     @IBOutlet private var switches: [UISwitch]!
     
+    //Homepage section order
+    @IBOutlet private weak var homepageSectionOrderLabel: UILabel!
     //Theme
     @IBOutlet private weak var themeLabel: UILabel!
     //Font Size
@@ -39,6 +41,7 @@ final class SettingsTableViewController: BaseTableViewController {
         super.viewDidLoad()
         initAppearance()
         initThumbnailSwitch()
+        updateHomepageSectionOrderLabel()
         updateThemeTitle()
         updateFontSizeLabel()
         updateDiscographyTypeLabel()
@@ -94,6 +97,11 @@ final class SettingsTableViewController: BaseTableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.destination {
+        case let homepageSectionListViewController as
+            HomepageSectionListViewController:
+            homepageSectionListViewController.delegate = self
+            homepageSectionListViewController.simpleNavigationBarView = simpleNavigationBarView
+            
         case let settingExplicationTableViewController as SettingExplicationTableViewController:
             if segue.identifier == "ShowThumbnailExplication" {
                 settingExplicationTableViewController.explainThumbnail = true
@@ -122,6 +130,17 @@ final class SettingsTableViewController: BaseTableViewController {
         default:
             break
         }
+    }
+}
+
+// MARK: - HomepageSectionListViewControllerDelegate
+extension SettingsTableViewController: HomepageSectionListViewControllerDelegate {
+    func didChangeHomepageSectionOrder() {
+        updateHomepageSectionOrderLabel()
+    }
+    
+    private func updateHomepageSectionOrderLabel() {
+        homepageSectionOrderLabel.text = UserDefaults.homepageSections().map({$0.description}).joined(separator: " > ")
     }
 }
 

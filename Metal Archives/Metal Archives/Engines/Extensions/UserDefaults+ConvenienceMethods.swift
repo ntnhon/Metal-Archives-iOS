@@ -140,4 +140,19 @@ extension UserDefaults {
         
         return []
     }
+    
+    // MARK: - Homepage Section Order
+    private static let homepageSectionOrderKey = "HomepageSectionOrderKey"
+    
+    static func setHomepageSections(_ homepageSections: [HomepageSection]) {
+        defaults.set(homepageSections.map({$0.rawValue}), forKey: homepageSectionOrderKey)
+    }
+    
+    static func homepageSections() -> [HomepageSection] {
+        if let homepageSectionRawValues = defaults.object(forKey: homepageSectionOrderKey) as? [Int] {
+            return homepageSectionRawValues.map({HomepageSection(rawValue: $0) ?? .upcomingAlbums})
+        }
+        
+        return HomepageSection.allCases
+    }
 }

@@ -9,11 +9,8 @@
 import UIKit
 import FirebaseAnalytics
 
-final class SettingExplicationTableViewController: UITableViewController {
+final class SettingExplicationTableViewController: BaseSubSettingsTableViewController {
     @IBOutlet private weak var explicationTextView: UITextView!
-    
-    // SimpleNavigationBarView
-    weak var simpleNavigationBarView: SimpleNavigationBarView?
     
     var explainThumbnail = false
     var explainWidget = false
@@ -36,15 +33,12 @@ final class SettingExplicationTableViewController: UITableViewController {
         }
     }
 
-    private func initAppearance() {
-        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
+    override func initAppearance() {
+        super.initAppearance()
         
         explicationTextView.textColor = Settings.currentTheme.bodyTextColor
         explicationTextView.font = Settings.currentFontSize.bodyTextFont
         explicationTextView.backgroundColor = Settings.currentTheme.backgroundColor
-    
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: 0, right: 0)
     }
     
     private func setTitle() {

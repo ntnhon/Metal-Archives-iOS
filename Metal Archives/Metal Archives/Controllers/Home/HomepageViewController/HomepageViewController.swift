@@ -13,6 +13,9 @@ import NotificationBannerSwift
 
 final class HomepageViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
+    
+    private let sections = UserDefaults.homepageSections()
+    
     private var statisticAttrString: NSAttributedString?
     private var newsPagableManager = PagableManager<News>()
     //Latest additions
@@ -325,9 +328,8 @@ extension HomepageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        switch indexPath.section {
-        //Section: Stats
-        case 0: didSelectRowInStatisticsSection(at: indexPath)
+        switch sections[indexPath.section] {
+        case .statistics: didSelectRowInStatisticsSection(at: indexPath)
         default: return
         }
     }
@@ -345,20 +347,13 @@ extension HomepageViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        //Section: Stats
-        case 0: return cellForStatsSection(at: indexPath)
-        //Section: Upcoming albums
-        case 1: return cellForUpcomingAlbumsSection(at: indexPath)
-        //Section: Latets additions
-        case 2: return cellForLatestAdditionsSection(at: indexPath)
-        //Section: Latest updates
-        case 3: return cellForLatestUpdatesSection(at: indexPath)
-        //Section: Latest review
-        case 4: return cellForLatestReviewsSection(at: indexPath)
-        //Section: News
-        case 5: return cellForNewsSection(at: indexPath)
-        default: return UITableViewCell()
+        switch sections[indexPath.section] {
+        case .statistics: return cellForStatsSection(at: indexPath)
+        case .upcomingAlbums: return cellForUpcomingAlbumsSection(at: indexPath)
+        case .latestAdditions: return cellForLatestAdditionsSection(at: indexPath)
+        case .latestUpdates: return cellForLatestUpdatesSection(at: indexPath)
+        case .latestReviews: return cellForLatestReviewsSection(at: indexPath)
+        case .newsArchives: return cellForNewsSection(at: indexPath)
         }
     }
 }

@@ -424,6 +424,10 @@
 		C0A48CEE222181BD0047FC70 /* Toaster+DisplayMessageShortly.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A48CED222181BD0047FC70 /* Toaster+DisplayMessageShortly.swift */; };
 		C0A48CF02221D76C0047FC70 /* Error+Code&Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A48CEF2221D76C0047FC70 /* Error+Code&Domain.swift */; };
 		C0A48CF22221F3020047FC70 /* LatestReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A48CF12221F3010047FC70 /* LatestReviewsViewController.swift */; };
+		C0A7FFBD231985A800A929A1 /* HomepageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7FFBC231985A800A929A1 /* HomepageSection.swift */; };
+		C0A7FFBF231986D900A929A1 /* HomepageSectionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7FFBE231986D900A929A1 /* HomepageSectionListViewController.swift */; };
+		C0A7FFC12319877B00A929A1 /* BaseSubSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7FFC02319877B00A929A1 /* BaseSubSettingsTableViewController.swift */; };
+		C0A7FFC223198A7000A929A1 /* HomepageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7FFBC231985A800A929A1 /* HomepageSection.swift */; };
 		C0AA06AC223939A3001BE21D /* AdvancedSearchReleaseTypeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AA06AB223939A3001BE21D /* AdvancedSearchReleaseTypeListViewController.swift */; };
 		C0AA06AE22393F76001BE21D /* AdvancedSearchReleaseFormatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AA06AD22393F76001BE21D /* AdvancedSearchReleaseFormatListViewController.swift */; };
 		C0AA06B022394845001BE21D /* AdvancedSearchAlbumsResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AA06AF22394845001BE21D /* AdvancedSearchAlbumsResultsViewController.swift */; };
@@ -949,6 +953,9 @@
 		C0A48CED222181BD0047FC70 /* Toaster+DisplayMessageShortly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toaster+DisplayMessageShortly.swift"; sourceTree = "<group>"; };
 		C0A48CEF2221D76C0047FC70 /* Error+Code&Domain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Code&Domain.swift"; sourceTree = "<group>"; };
 		C0A48CF12221F3010047FC70 /* LatestReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestReviewsViewController.swift; sourceTree = "<group>"; };
+		C0A7FFBC231985A800A929A1 /* HomepageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageSection.swift; sourceTree = "<group>"; };
+		C0A7FFBE231986D900A929A1 /* HomepageSectionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageSectionListViewController.swift; sourceTree = "<group>"; };
+		C0A7FFC02319877B00A929A1 /* BaseSubSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSubSettingsTableViewController.swift; sourceTree = "<group>"; };
 		C0AA06AB223939A3001BE21D /* AdvancedSearchReleaseTypeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchReleaseTypeListViewController.swift; sourceTree = "<group>"; };
 		C0AA06AD22393F76001BE21D /* AdvancedSearchReleaseFormatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchReleaseFormatListViewController.swift; sourceTree = "<group>"; };
 		C0AA06AF22394845001BE21D /* AdvancedSearchAlbumsResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchAlbumsResultsViewController.swift; sourceTree = "<group>"; };
@@ -1201,6 +1208,7 @@
 				C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */,
 				C0F7E7FB225D26F800F907A6 /* FontSizeListTableViewController.swift */,
 				C0F7E801225D2EBD00F907A6 /* DiscographyTypeListTableViewController.swift */,
+				C0A7FFBE231986D900A929A1 /* HomepageSectionListViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1893,6 +1901,7 @@
 				C05606EE22A2FDBB006F5BC1 /* ReleaseMenuOption.swift */,
 				C028CBE322A67509005929F1 /* LabelMenuOption.swift */,
 				C033C4FD22D3A0BC001294BA /* SearchResultObjectType.swift */,
+				C0A7FFBC231985A800A929A1 /* HomepageSection.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -2871,6 +2880,7 @@
 				C027A28022B57D5D0011EA73 /* DismissableOnSwipeViewController.swift */,
 				C024A85222B9437500C6BAFE /* BaseTableViewController.swift */,
 				C05ADC0E2235B29200D82E36 /* ExplanationViewController.swift */,
+				C0A7FFC02319877B00A929A1 /* BaseSubSettingsTableViewController.swift */,
 			);
 			path = UtileControllers;
 			sourceTree = "<group>";
@@ -3540,6 +3550,7 @@
 				C06B629D224282C600A3FE6B /* Settings.swift in Sources */,
 				C06B62BC2242949B00A3FE6B /* ThumbnailableTableViewCell.swift in Sources */,
 				C0795B9622885B8500E5D94F /* GenerateAttributesString.swift in Sources */,
+				C0A7FFC223198A7000A929A1 /* HomepageSection.swift in Sources */,
 				C08607FE225235F800FE750F /* MonthInYear.swift in Sources */,
 				C06B62A32242831C00A3FE6B /* ImageExtension.swift in Sources */,
 				C06B629F224282E900A3FE6B /* Ressources.swift in Sources */,
@@ -3652,6 +3663,7 @@
 				C003D7C022E3BA1200F9F622 /* DeezerResultViewController.swift in Sources */,
 				C04872BA21EE368700ECFDC2 /* StringProtocol.swift in Sources */,
 				C053DD2A222679520028568B /* Statistic.swift in Sources */,
+				C0A7FFBD231985A800A929A1 /* HomepageSection.swift in Sources */,
 				C0ECE6F7221B19CC00489A8E /* ArtistDetailViewController.swift in Sources */,
 				C0FFE1FC2295941F00909765 /* SimpleNavigationBarView.swift in Sources */,
 				C0A1F95622419BC5005C2C83 /* BrowseLabelsAlphabeticallyResultViewController.swift in Sources */,
@@ -3747,6 +3759,7 @@
 				C0AA06CD2239B24E001BE21D /* BrowseBandsResultViewController.swift in Sources */,
 				C05FC9B4222AC9E200D4B0DF /* ThumbnailableTableViewCell.swift in Sources */,
 				C053DD652226D5A50028568B /* Top100BandsViewController.swift in Sources */,
+				C0A7FFBF231986D900A929A1 /* HomepageSectionListViewController.swift in Sources */,
 				C061021B21EFE1610025F8C1 /* ViewMoreTableViewCell.swift in Sources */,
 				C0C19C812287833B008B68F8 /* NewsCollectionViewCell.swift in Sources */,
 				C01839F72225DCB900FF88B7 /* ArtistAddition.swift in Sources */,
@@ -3842,6 +3855,7 @@
 				C0F5DB45228B608100888FED /* String+RemoveHTMLTags.swift in Sources */,
 				C053DD672226DE2E0028568B /* RequestTop100Bands.swift in Sources */,
 				C008388422009ECE00B35996 /* Date+Distance.swift in Sources */,
+				C0A7FFC12319877B00A929A1 /* BaseSubSettingsTableViewController.swift in Sources */,
 				C023739522C7917D00818E23 /* ReviewTitleTableViewCell.swift in Sources */,
 				C071306B21ECD24800082BC6 /* StatisticTableViewCell.swift in Sources */,
 				C0332FEA2201D4CB008B34E0 /* BandLite.swift in Sources */,

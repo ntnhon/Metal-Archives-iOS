@@ -12,7 +12,7 @@ import FirebaseAnalytics
 protocol ThemeListTableViewControllerDelegate {
     func didChangeTheme()
 }
-final class ThemeListTableViewController: UITableViewController {
+final class ThemeListTableViewController: BaseSubSettingsTableViewController {
     @IBOutlet private weak var defaultThemeTableViewCell: BaseTableViewCell!
     @IBOutlet private weak var lightThemeTableViewCell: BaseTableViewCell!
     @IBOutlet private weak var vintageThemeTableViewCell: BaseTableViewCell!
@@ -20,9 +20,6 @@ final class ThemeListTableViewController: UITableViewController {
     
     @IBOutlet private var themeTableViewCells: [BaseTableViewCell]!
     @IBOutlet private var titleLabels: [UILabel]!
-    
-    // SimpleNavigationBarView
-    weak var simpleNavigationBarView: SimpleNavigationBarView?
     
     var delegate: ThemeListTableViewControllerDelegate?
     
@@ -35,10 +32,8 @@ final class ThemeListTableViewController: UITableViewController {
         initAppearance()
     }
     
-    private func initAppearance() {
-        tableView.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
-        tableView.separatorColor = Settings.currentTheme.tableViewSeparatorColor
-        tableView.rowHeight = UITableView.automaticDimension
+    override func initAppearance() {
+        super.initAppearance()
         
         titleLabels.forEach({
             $0.textColor = Settings.currentTheme.bodyTextColor
@@ -46,7 +41,6 @@ final class ThemeListTableViewController: UITableViewController {
         })
 
         simpleNavigationBarView?.setTitle("Theme")
-        tableView.contentInset = UIEdgeInsets(top: baseNavigationBarViewHeightWithoutTopInset - 1, left: 0, bottom: 0, right: 0)
     }
 
     private func didTapDefaultThemeTableViewCell() {
