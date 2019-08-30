@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 protocol HomepageSectionListViewControllerDelegate {
     func didChangeHomepageSectionOrder()
@@ -31,6 +32,7 @@ final class HomepageSectionListViewController: BaseSubSettingsTableViewControlle
         
         if isMovingFromParent {
             if madeChanges {
+                Analytics.logEvent("change_homepage_section_order", parameters: nil)
                 parent?.displayRestartAlert()
             }
             UserDefaults.setHomepageSections(sections)
