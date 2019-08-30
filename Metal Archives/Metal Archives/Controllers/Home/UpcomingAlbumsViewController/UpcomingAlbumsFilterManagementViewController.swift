@@ -66,7 +66,7 @@ final class UpcomingAlbumsFilterManagementViewController: BaseViewController {
     }
     
     private func displayAlertToAddNewGenre() {
-        let alert = UIAlertController(title: "Enter new genre", message: "Needless to say \"metal\" in the genre", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Enter new genre", message: "Needless to say \"metal\" in the genre.\n👎 Blackened death metal\n👍 Blackened death", preferredStyle: .alert)
         
         alert.addTextField(configurationHandler: nil)
         
@@ -102,7 +102,7 @@ extension UpcomingAlbumsFilterManagementViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         let predefinedGenres = Genre.allCases.map({$0.description}).joined(separator: ", ")
         
-        return "PREDEFINED GENRES:\n\(predefinedGenres)."
+        return "DEFAULT ENTRIES:\n\(predefinedGenres)."
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

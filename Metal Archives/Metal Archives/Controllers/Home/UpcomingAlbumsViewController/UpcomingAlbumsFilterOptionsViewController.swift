@@ -71,9 +71,9 @@ extension UpcomingAlbumsFilterOptionsViewController: UITableViewDelegate {
         }
         
         if section == 0 {
-            return "Predefined genres"
+            return "Default entries"
         } else {
-            return "Your custom genres"
+            return "Custom entries"
         }
     }
 }
