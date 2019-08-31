@@ -4,6 +4,18 @@
 <array>
 	<dict>
 		<key>number</key>
+		<string>3.4</string>
+		<key>date</key>
+		<string>September 2019</string>
+		<key>features</key>
+		<string>- Homepage section reordering capacity. You now have full control to your homepage layout.
+- Today widget “Unable to load” fix.
+- A filter by genre for Upcoming Albums list. Thanks to Andreas for the suggestion.
+- Split releases are now more informative. All involved bands are listed comparing to only the first band in precedent versions. A band name annotation is also added to involved artists who are band member. Thanks to Lenn, once again, for the suggestion.
+- A minor typo fix in homepage. Thanks to Matt for pointing out.</string>
+	</dict>
+	<dict>
+		<key>number</key>
 		<string>3.3</string>
 		<key>date</key>
 		<string>August 2019</string>
