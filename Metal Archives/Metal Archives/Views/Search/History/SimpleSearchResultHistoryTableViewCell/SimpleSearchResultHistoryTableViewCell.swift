@@ -18,7 +18,8 @@ final class SimpleSearchResultHistoryTableViewCell: BaseTableViewCell, Registera
     
     override func initAppearance() {
         super.initAppearance()
-        thumbnailImageView.sd_showActivityIndicatorView()
+        thumbnailImageView.sd_setShowActivityIndicatorView(true)
+        thumbnailImageView.sd_setIndicatorStyle(Settings.currentTheme.activityIndicatorStyle)
         thumbnailImageViewHeightConstraint.constant = Settings.thumbnailHeight
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapThumbnailImageView))
         tapGestureRecognizer.numberOfTapsRequired = 1
