@@ -36,8 +36,13 @@ class BaseAdvancedSearchTableViewController: BaseTableViewController {
         })
         
         switches.forEach({
-            $0.tintColor = Settings.currentTheme.secondaryTitleColor
-            $0.onTintColor = Settings.currentTheme.titleColor
+            if #available(iOS 13.0, *) {
+                $0.subviews[0].subviews[0].backgroundColor = Settings.currentTheme.titleColor.withAlphaComponent(0.4)
+                $0.onTintColor = Settings.currentTheme.titleColor
+            } else {
+                $0.tintColor = Settings.currentTheme.secondaryTitleColor
+                $0.onTintColor = Settings.currentTheme.titleColor
+            }
         })
     }
 }

@@ -199,8 +199,16 @@ extension AppDelegate {
         if #available(iOS 13.0, *) {
             UISegmentedControl.appearance().backgroundColor = Settings.currentTheme.secondaryTitleColor
             UISegmentedControl.appearance().selectedSegmentTintColor = Settings.currentTheme.titleColor
-            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor], for: .selected)
-            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor], for: .normal)
+            
+            switch Settings.currentTheme {
+            case .default, .vintage:
+                UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor], for: .selected)
+                UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor], for: .normal)
+                
+            default:
+                UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: Settings.currentTheme.backgroundColor], for: .selected)
+                UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: Settings.currentTheme.backgroundColor], for: .normal)
+            }
         }
     }
 }

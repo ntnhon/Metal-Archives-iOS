@@ -12,7 +12,7 @@ import SkyFloatingLabelTextField
 final class BaseTextField: SkyFloatingLabelTextField {
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = Settings.currentTheme.tableViewBackgroundColor.withAlphaComponent(0.4)
+        self.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         
         self.clearButtonMode = .never
         self.setCustomClearButton(withImage: UIImage(named: Ressources.Images.delete)!, tintColor: Settings.currentTheme.bodyTextColor)
