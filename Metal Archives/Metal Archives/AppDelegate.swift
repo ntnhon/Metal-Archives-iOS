@@ -195,6 +195,13 @@ extension AppDelegate {
         ToastView.appearance().bottomOffsetPortrait = 70
         ToastView.appearance().textColor = Settings.currentTheme.backgroundColor
         ToastView.appearance().backgroundColor = Settings.currentTheme.bodyTextColor
+        
+        if #available(iOS 13.0, *) {
+            UISegmentedControl.appearance().backgroundColor = Settings.currentTheme.secondaryTitleColor
+            UISegmentedControl.appearance().selectedSegmentTintColor = Settings.currentTheme.titleColor
+            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor], for: .selected)
+            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor], for: .normal)
+        }
     }
 }
 
