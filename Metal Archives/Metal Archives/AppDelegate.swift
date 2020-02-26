@@ -51,7 +51,7 @@ extension AppDelegate {
     fileprivate func initSlideMenuController() {
         let leftMenuViewController = UIStoryboard(name: "LeftMenu", bundle: Bundle.main).instantiateViewController(withIdentifier: "LeftMenuViewController") as! LeftMenuViewController
         let homepageNavigationViewController = UIStoryboard(name: "Home", bundle: Bundle.main).instantiateViewController(withIdentifier: "HomepageNavigationController") as! UINavigationController
-        SlideMenuOptions.leftViewWidth = 215
+        SlideMenuOptions.leftViewWidth = 250
         SlideMenuOptions.contentViewOpacity = 0.3
         // Prevent user from swiping menu up and down and closing the slide menu in the same time
         SlideMenuOptions.panGesturesEnabled = false
