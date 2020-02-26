@@ -20,6 +20,8 @@ final class BandAdditionOrUpdateTableViewCell: ThumbnailableTableViewCell, Regis
     }
     
     private func initAppearance() {
+        backgroundColor = .clear
+        
         self.titleLabel.textColor = Theme.light.titleColor
         self.titleLabel.font = FontSize.default.titleFont
         

@@ -12,7 +12,7 @@ final class LoadingTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        backgroundColor = .clear
     }
     
     func animate() {

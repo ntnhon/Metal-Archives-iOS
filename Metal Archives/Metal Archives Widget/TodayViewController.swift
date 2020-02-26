@@ -21,6 +21,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .clear
         
         self.initTableViewAppearance()
         self.registerCells()

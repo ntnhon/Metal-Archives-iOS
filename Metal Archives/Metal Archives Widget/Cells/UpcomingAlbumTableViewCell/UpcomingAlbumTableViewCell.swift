@@ -21,6 +21,8 @@ final class UpcomingAlbumTableViewCell: ThumbnailableTableViewCell, Registerable
     }
     
     private func initAppearance() {
+        backgroundColor = .clear
+        
         self.bandsNameLabel.textColor = Theme.light.titleColor
         self.bandsNameLabel.font = FontSize.default.titleFont
         

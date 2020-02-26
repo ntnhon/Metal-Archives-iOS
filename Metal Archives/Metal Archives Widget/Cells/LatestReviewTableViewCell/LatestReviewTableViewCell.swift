@@ -21,6 +21,8 @@ final class LatestReviewTableViewCell: ThumbnailableTableViewCell, RegisterableC
     }
     
     private func initAppearance() {
+        backgroundColor = .clear
+        
         self.bandNameLabel.textColor = Theme.light.titleColor
         self.bandNameLabel.font = FontSize.default.titleFont
         
