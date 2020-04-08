@@ -1,6 +1,0 @@
-framework module Pods_Metal_Archives {
-  umbrella header "Pods-Metal Archives-umbrella.h"
-
-  export *
-  module * { export * }
-}
