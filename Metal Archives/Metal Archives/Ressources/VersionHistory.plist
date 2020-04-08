@@ -4,6 +4,17 @@
 <array>
 	<dict>
 		<key>number</key>
+		<string>3.5</string>
+		<key>date</key>
+		<string>April 2020</string>
+		<key>features</key>
+		<string>- You can now create a reminder for an upcoming album.
+- Fix Today widget background issue.
+- Display album title/artist name alongside the cover/photo.
+- Replace some icons &amp; minor UI fixes.</string>
+	</dict>
+	<dict>
+		<key>number</key>
 		<string>3.4</string>
 		<key>date</key>
 		<string>September 2019</string>
