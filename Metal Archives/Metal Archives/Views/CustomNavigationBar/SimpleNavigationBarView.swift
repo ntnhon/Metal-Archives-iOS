@@ -42,7 +42,7 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
         
         // Init leftButton
         leftButton = UIButton(type: .system)
-        leftButton.contentEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 20)
+        leftButton.contentEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 10)
         leftButton.setImage(#imageLiteral(resourceName: "back"), for: .normal)
         leftButton.tintColor = Settings.currentTheme.secondaryTitleColor
         addSubview(leftButton)
@@ -59,13 +59,13 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
         titleLabel.alpha = 0
         addSubview(titleLabel)
         
-        titleLabel.anchor(top: nil, leading: leftButton.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 10, bottom: 0, right: 10))
+        titleLabel.anchor(top: nil, leading: leftButton.trailingAnchor, bottom: nil, trailing: nil)
         titleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         // Init rightButton
         rightButton = UIButton(type: .system)
-        rightButton.contentEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: 10)
+        rightButton.contentEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 10)
         rightButton.setImage(#imageLiteral(resourceName: "share"), for: .normal)
         rightButton.tintColor = Settings.currentTheme.secondaryTitleColor
         addSubview(rightButton)
@@ -99,7 +99,7 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
         titleLabel.text = title
     }
     
-    func setImageAsTitle(_ image: UIImage?, fallbackTitle: String, roundedCorner: Bool = false) {
+    func setImageAsTitle(_ image: UIImage?, fallbackTitle: String, alwaysShowTitle: Bool, roundedCorner: Bool = false) {
         guard let image = image else {
             setTitle(fallbackTitle)
             return
@@ -116,7 +116,17 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
         imageAttachment.image = resizedImage
         let imageString = NSAttributedString(attachment: imageAttachment)
         attributedString.append(imageString)
+        
+        if alwaysShowTitle {
+            let titleAttributedString = NSAttributedString(string: "  \(fallbackTitle)", attributes: [.font : FontSize.default.titleFont])
+            attributedString.append(titleAttributedString)
+            titleLabel.textAlignment = .left
+        } else {
+            titleLabel.textAlignment = .center
+        }
 
+        titleLabel.numberOfLines = 1
+        titleLabel.lineBreakMode = .byTruncatingTail
         titleLabel.attributedText = attributedString
     }
     

@@ -102,7 +102,7 @@ final class ReleaseDetailViewController: DeezerableViewController {
                 
                 if let coverURLString = release.coverURLString, let coverURL = URL(string: coverURLString) {
                     self.stretchyCoverSmokedImageView.imageView.sd_setImage(with: coverURL, placeholderImage: nil, options: [.retryFailed], completed: { [weak self] (image, error, cacheType, url) in
-                        self?.simpleNavigationBarView.setImageAsTitle(image, fallbackTitle: release.title, roundedCorner: true)
+                        self?.simpleNavigationBarView.setImageAsTitle(image, fallbackTitle: release.title, alwaysShowTitle: true, roundedCorner: true)
                     })
                 } else {
                     self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0, right: 0)
