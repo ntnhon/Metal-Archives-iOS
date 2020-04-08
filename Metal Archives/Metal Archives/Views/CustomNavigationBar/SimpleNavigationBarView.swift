@@ -59,15 +59,9 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
         titleLabel.alpha = 0
         addSubview(titleLabel)
         
-        let bottomSpace: CGFloat
-        switch Settings.currentFontSize! {
-        case .default: bottomSpace = 10
-        case .medium, .large: bottomSpace = 5
-        }
-        titleLabel.anchor(top: nil, leading: leftButton.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: bottomSpace, right: 10))
+        titleLabel.anchor(top: nil, leading: leftButton.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 10, bottom: 0, right: 10))
         titleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        
         
         // Init rightButton
         rightButton = UIButton(type: .system)
@@ -78,6 +72,9 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
         rightButton.anchor(top: nil, leading: titleLabel.trailingAnchor, bottom: nil, trailing: trailingAnchor)
         rightButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
+        // Center vertically buttons & title
+        let yBias = UIApplication.shared.keyWindow!.safeAreaInsets.top / 2
+        titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: yBias).isActive = true
         leftButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
         rightButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
     }
