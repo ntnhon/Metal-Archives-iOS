@@ -13,9 +13,9 @@ enum BandTopType: Int, CustomStringConvertible, CaseIterable {
     
     var description: String {
         switch self {
-        case .release: return "Nº of releases"
-        case .fullLength: return "Nº of full-length"
-        case .review: return "Nº of reviews"
+        case .release: return "Nº releases"
+        case .fullLength: return "Nº full-length"
+        case .review: return "Nº reviews"
         }
     }
 }
