@@ -116,12 +116,12 @@ extension ArtistAdditionOrUpdate: Actionable {
     var actionableElements: [ActionableElement] {
         var elements: [ActionableElement] = []
         
-        let artistElement = ActionableElement(name: self.nameInBand, urlString: self.urlString, type: .artist)
+        let artistElement = ActionableElement.artist(name: nameInBand, urlString: urlString)
         
         elements.append(artistElement)
         
         self.bands.forEach { (eachBand) in
-            let bandElement = ActionableElement(name: eachBand.name, urlString: eachBand.urlString, type: .band)
+            let bandElement = ActionableElement.band(name: eachBand.name, urlString: eachBand.urlString)
             elements.append(bandElement)
         }
         

@@ -102,11 +102,11 @@ extension SimpleSearchResultSongTitle: Actionable {
         var elements: [ActionableElement] = []
         
         if let bandURLString = self.band.urlString {
-            let bandElement = ActionableElement(name: self.band.name, urlString: bandURLString, type: .band)
+            let bandElement = ActionableElement.band(name: band.name, urlString: bandURLString)
             elements.append(bandElement)
         }
         
-        let releaseElement = ActionableElement(name: self.release.title, urlString: self.release.urlString, type: .release)
+        let releaseElement = ActionableElement.release(name: release.title, urlString: release.urlString)
         elements.append(releaseElement)
         return elements
     }

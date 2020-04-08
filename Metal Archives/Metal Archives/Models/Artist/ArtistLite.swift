@@ -51,11 +51,11 @@ extension ArtistLite: Actionable {
     var actionableElements: [ActionableElement] {
         var elements: [ActionableElement] = []
         
-        let artistElement = ActionableElement(name: self.name, urlString: self.urlString, type: .artist)
+        let artistElement = ActionableElement.artist(name: name, urlString: urlString)
         elements.append(artistElement)
         
         self.bands?.forEach({ (eachBand) in
-            let bandElement = ActionableElement(name: eachBand.name, urlString: eachBand.urlString, type: .band)
+            let bandElement = ActionableElement.band(name: eachBand.name, urlString: eachBand.urlString)
             elements.append(bandElement)
         })
         

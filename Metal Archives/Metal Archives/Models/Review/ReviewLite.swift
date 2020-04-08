@@ -103,11 +103,11 @@ extension ReviewLite: Actionable {
     var actionableElements: [ActionableElement] {
         var elements = [ActionableElement]()
         if let release = release {
-            let releaseElement = ActionableElement(name: release.title, urlString: release.urlString, type: .release)
+            let releaseElement = ActionableElement.release(name: release.title, urlString: release.urlString)
             elements.append(releaseElement)
         }
 
-        let reviewElement = ActionableElement(name: "By \(user.name) - \(rating)%", urlString: urlString, type: .review)
+        let reviewElement = ActionableElement.review(name: "By \(user.name) - \(rating)%", urlString: urlString)
         elements.append(reviewElement)
         
         return elements

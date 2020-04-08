@@ -479,7 +479,7 @@ extension Release: Actionable {
         var elements: [ActionableElement] = []
         
         self.bands.forEach { (eachBand) in
-            let bandElement = ActionableElement(name: eachBand.name, urlString: eachBand.urlString, type: .band)
+            let bandElement = ActionableElement.band(name: eachBand.name, urlString: eachBand.urlString)
             elements.append(bandElement)
         }
         

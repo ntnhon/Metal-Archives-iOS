@@ -94,11 +94,11 @@ extension LabelBrowseAlphabetically: Actionable {
     var actionableElements: [ActionableElement] {
         var elements: [ActionableElement] = []
         
-        let labelElement = ActionableElement(name: self.name, urlString: self.urlString, type: .label)
+        let labelElement = ActionableElement.label(name: name, urlString: urlString)
         elements.append(labelElement)
         
         if let websiteURLString = self.websiteURLString {
-            let websiteElement = ActionableElement(name: "\(self.name)'s site", urlString: websiteURLString, type: .website)
+            let websiteElement = ActionableElement.website(name: "\(self.name)'s site", urlString: websiteURLString)
             elements.append(websiteElement)
         }
         

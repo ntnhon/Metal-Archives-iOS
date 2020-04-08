@@ -126,12 +126,12 @@ extension SimpleSearchResultArtist: Actionable {
     var actionableElements: [ActionableElement] {
         var elements: [ActionableElement] = []
         
-        let artistElement = ActionableElement(name: self.artist.name, urlString: self.artist.urlString, type: .artist)
+        let artistElement = ActionableElement.artist(name: artist.name, urlString: artist.urlString)
         elements.append(artistElement)
         
         self.bands.forEach { (nullableBand) in
             if let bandURLString = nullableBand.urlString {
-                let bandElement = ActionableElement(name: nullableBand.name, urlString: bandURLString, type: .band)
+                let bandElement = ActionableElement.band(name: nullableBand.name, urlString: bandURLString)
                 elements.append(bandElement)
             }
         }

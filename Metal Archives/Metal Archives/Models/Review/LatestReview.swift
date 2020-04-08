@@ -104,9 +104,9 @@ extension LatestReview: Pagable {
 //MARK: - Actionable
 extension LatestReview: Actionable {
     var actionableElements: [ActionableElement] {
-        let bandElement = ActionableElement(name: self.band.name, urlString: self.band.urlString, type: .band)
-        let releaseElement = ActionableElement(name: self.release.title, urlString: self.release.urlString, type: .release)
-        let reviewElement = ActionableElement(name: "By \(self.author.name) - \(self.rating)%", urlString: self.reviewURLString, type: .review)
+        let bandElement = ActionableElement.band(name: band.name, urlString: band.urlString)
+        let releaseElement = ActionableElement.release(name: release.title, urlString: release.urlString)
+        let reviewElement = ActionableElement.review(name: "By \(self.author.name) - \(self.rating)%", urlString: reviewURLString)
         return [bandElement, releaseElement, reviewElement]
     }
 }

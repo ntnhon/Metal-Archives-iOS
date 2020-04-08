@@ -36,8 +36,8 @@ final class AlbumTop: ThumbnailableObject {
 //MARK: - Actionable
 extension AlbumTop: Actionable {
     var actionableElements: [ActionableElement] {
-        let bandElement = ActionableElement(name: self.band.name, urlString: self.band.urlString, type: .band)
-        let releaseElement = ActionableElement(name: self.release.title, urlString: self.release.urlString, type: .release)
+        let bandElement = ActionableElement.band(name: band.name, urlString: band.urlString)
+        let releaseElement = ActionableElement.release(name: release.title, urlString: release.urlString)
         return [bandElement, releaseElement]
     }
 }

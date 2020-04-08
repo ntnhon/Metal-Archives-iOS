@@ -7,21 +7,16 @@
 //
 
 import Foundation
+import EventKit
 
-struct ActionableElement {
-    let name: String
-    let urlString: String
-    let type: ActionableElementType
-    
-    init(name: String, urlString: String, type: ActionableElementType) {
-        self.name = name
-        self.urlString = urlString
-        self.type = type
-    }
-}
-
-enum ActionableElementType {
-    case band, artist, release, label, website, review
+enum ActionableElement {
+    case band(name: String, urlString: String)
+    case artist(name: String, urlString: String)
+    case release(name: String, urlString: String)
+    case label(name: String, urlString: String)
+    case website(name: String, urlString: String)
+    case review(name: String, urlString: String)
+    case event(event: EKEvent)
 }
 
 protocol Actionable {

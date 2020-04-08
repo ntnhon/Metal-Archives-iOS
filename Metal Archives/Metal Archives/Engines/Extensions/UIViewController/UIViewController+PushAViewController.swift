@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import EventKitUI
+import Toaster
 
 extension UIViewController {
     func pushBandDetailViewController(urlString: String, animated: Bool) {
@@ -51,9 +53,14 @@ extension UIViewController {
     }
     
     func takeActionFor(actionableObject: Actionable) {
-        if actionableObject.actionableElements.count == 1 && actionableObject.actionableElements[0].type == .artist {
-            self.pushArtistDetailViewController(urlString: actionableObject.actionableElements[0].urlString, animated: true)
-            return
+        if actionableObject.actionableElements.count == 1 {
+            switch actionableObject.actionableElements[0] {
+            case .artist(_, let urlString):
+                self.pushArtistDetailViewController(urlString: urlString, animated: true)
+                return
+                
+            default: break
+            }
         }
         
         var alert: UIAlertController!
@@ -66,30 +73,55 @@ extension UIViewController {
         
         actionableObject.actionableElements.forEach { (element) in
             var action: UIAlertAction!
-            switch element.type {
-            case .band:
-                action = UIAlertAction(title: "👥 Band: \(element.name)", style: .default, handler: { (action) in
-                    self.pushBandDetailViewController(urlString: element.urlString, animated: true)
+            switch element {
+            case .band(let name, let urlString):
+                action = UIAlertAction(title: "👥 Band: \(name)", style: .default, handler: { (action) in
+                    self.pushBandDetailViewController(urlString: urlString, animated: true)
                 })
-            case .artist:
-                action = UIAlertAction(title: "👤 Artist: \(element.name)", style: .default, handler: { (action) in
-                    self.pushArtistDetailViewController(urlString: element.urlString, animated: true)
+                
+            case .artist(let name, let urlString):
+                action = UIAlertAction(title: "👤 Artist: \(name)", style: .default, handler: { (action) in
+                    self.pushArtistDetailViewController(urlString: urlString, animated: true)
                 })
-            case .release:
-                action = UIAlertAction(title: "💿 Release: \(element.name)", style: .default, handler: { (action) in
-                    self.pushReleaseDetailViewController(urlString: element.urlString, animated: true)
+                
+            case .release(let name, let urlString):
+                action = UIAlertAction(title: "💿 Release: \(name)", style: .default, handler: { (action) in
+                    self.pushReleaseDetailViewController(urlString: urlString, animated: true)
                 })
-            case .label:
-                action = UIAlertAction(title: "🏷️ Label: \(element.name)", style: .default, handler: { (action) in
-                    self.pushLabelDetailViewController(urlString: element.urlString, animated: true)
+                
+            case .label(let name, let urlString):
+                action = UIAlertAction(title: "🏷️ Label: \(name)", style: .default, handler: { (action) in
+                    self.pushLabelDetailViewController(urlString: urlString, animated: true)
                 })
-            case .website:
-                action = UIAlertAction(title: "🔗 Website: \(element.name)", style: .default, handler: { (action) in
-                    self.presentAlertOpenURLInBrowsers(URL(string: element.urlString)!, alertMessage: element.name)
+                
+            case .website(let name, let urlString):
+                action = UIAlertAction(title: "🔗 Website: \(name)", style: .default, handler: { (action) in
+                    self.presentAlertOpenURLInBrowsers(URL(string: urlString)!, alertMessage: name)
                 })
-            case .review:
-                action = UIAlertAction(title: "💬 Review: \(element.name)", style: .default, handler: { (action) in
-                    self.presentReviewController(urlString: element.urlString, animated: true)
+                
+            case .review(let name, let urlString):
+                action = UIAlertAction(title: "💬 Review: \(name)", style: .default, handler: { (action) in
+                    self.presentReviewController(urlString: urlString, animated: true)
+                })
+                
+            case .event(let event):
+                action = UIAlertAction(title: "📅 Create a reminder for this release", style: .default, handler: { (action) in
+                    let eventStore = EKEventStore()
+                    eventStore.requestAccess(to: EKEntityType.event) { [unowned self] (granted, error) in
+                        DispatchQueue.main.async {
+                            if let error = error {
+                                Toast.displayMessageShortly(error.localizedDescription)
+                            } else if granted {
+                                let eventEditViewController = EKEventEditViewController()
+                                eventEditViewController.event = event
+                                eventEditViewController.eventStore = EKEventStore()
+                                eventEditViewController.editViewDelegate = self
+                                self.present(eventEditViewController, animated: true, completion: nil)
+                            } else {
+                                self.alertNoCalendarAccess()
+                            }
+                        }
+                    }
                 })
             }
             
@@ -100,5 +132,28 @@ extension UIViewController {
         alert.addAction(cancelAction)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    fileprivate func alertNoCalendarAccess() {
+        let alert = UIAlertController(title: "Calendar access required", message: "You have to allow calendar access in order to create a reminder.", preferredStyle: .alert)
+        
+        let openSettingsAction = UIAlertAction(title: "Open settings", style: .default) { _ in
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        alert.addAction(openSettingsAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: - EKEventEditViewDelegate
+extension UIViewController: EKEventEditViewDelegate {
+    public func eventEditViewController(_ controller: EKEventEditViewController, didCompleteWith action: EKEventEditViewAction) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }

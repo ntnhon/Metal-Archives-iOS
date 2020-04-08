@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import EventKit
 
 final class UpcomingAlbum: NSObject {
     let bands: [BandLite]
@@ -68,6 +69,39 @@ final class UpcomingAlbum: NSObject {
         self.genre = array[3]
         self.date = array[4]
     }
+    
+    func createEvent() -> EKEvent {
+        let event = EKEvent(eventStore: EKEventStore())
+        event.title = "\(release.title) | \(bands.map({$0.name}).joined(separator: "/")) | \(releaseType.description) | \(genre)"
+        event.notes = """
+        \(bands.map({$0.name}).joined(separator: "/"))
+        \(releaseType.description)
+        \(genre)
+        """
+        
+        event.url = URL(string: release.urlString)
+        
+        let dateElements = date.split(separator: " ", maxSplits: 3, omittingEmptySubsequences: true)
+        
+        // Ex: September 12th, 2020
+        guard dateElements.count == 3 else { return event }
+        
+        let monthString = dateElements[0]
+        var dayString = dateElements[1]
+        dayString.removeLast(3)
+        
+        let yearString = dateElements[2]
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d/MMMM/yyyy"
+        let dateString = "\(dayString)/\(monthString)/\(yearString)"
+        let eventDate = dateFormatter.date(from: dateString)
+        
+        event.startDate = eventDate?.addingTimeInterval(10*60*60)
+        event.endDate = eventDate?.addingTimeInterval(12*60*60)
+        
+        return event
+    }
 }
 
 //MARK: - Pagable
@@ -100,12 +134,15 @@ extension UpcomingAlbum: Actionable {
         var elements: [ActionableElement] = []
         
         self.bands.forEach { (eachBand) in
-            let bandElement = ActionableElement(name: eachBand.name, urlString: eachBand.urlString, type: .band)
+            let bandElement = ActionableElement.band(name: eachBand.name, urlString: eachBand.urlString)
             elements.append(bandElement)
         }
         
-        let releaseElement = ActionableElement(name: self.release.title, urlString: self.release.urlString, type: .release)
+        let releaseElement = ActionableElement.release(name: release.title, urlString: release.urlString)
         elements.append(releaseElement)
+        
+        let eventElement = ActionableElement.event(event: createEvent())
+        elements.append(eventElement)
         
         return elements
     }
