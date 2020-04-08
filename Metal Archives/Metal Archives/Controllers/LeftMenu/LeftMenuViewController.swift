@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SlideMenuControllerSwift
 import FirebaseAnalytics
 
 final class LeftMenuViewController: UIViewController {
@@ -42,18 +41,6 @@ final class LeftMenuViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.ShowRandomBand, object: nil, queue: nil) { (notification) in
             self.didSelectRandomBand()
         }
-    }
-}
-
-//MARK: SlideMenuControllerDelegate
-extension LeftMenuViewController: SlideMenuControllerDelegate {
-    func leftWillOpen() {
-        //Only show left menu's shadow when it's opened
-        self.view.layer.shadowRadius = 5
-    }
-    
-    func leftDidClose() {
-        self.view.layer.shadowRadius = 0
     }
 }
 

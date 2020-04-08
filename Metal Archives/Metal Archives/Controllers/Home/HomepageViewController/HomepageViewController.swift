@@ -171,18 +171,19 @@ final class HomepageViewController: RefreshableViewController {
         simpleNavigationBarView.setTitleFont(Settings.currentFontSize.largeMetalTitleFont)
         
         simpleNavigationBarView.setLeftButtonIcon(#imageLiteral(resourceName: "Menu"))
-        simpleNavigationBarView.setRightButtonIcon(#imageLiteral(resourceName: "horns_search"))
+        simpleNavigationBarView.setRightButtonIcon(#imageLiteral(resourceName: "person_circle"))
         
         simpleNavigationBarView.didTapLeftButton = { [unowned self] in
             self.toggleLeft()
         }
         
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
-            self.pushSearchViewController()
+            self.toggleRight()
         }
     }
     
-    private func pushSearchViewController() {guard let searchViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as? SearchViewController else {
+    private func pushSearchViewController() {
+        guard let searchViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as? SearchViewController else {
         return
         }
         

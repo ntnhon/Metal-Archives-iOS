@@ -22,6 +22,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var slideMenuController: SlideMenuController?
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "SearchHistory")
@@ -50,6 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     fileprivate func initSlideMenuController() {
         let leftMenuViewController = UIStoryboard(name: "LeftMenu", bundle: Bundle.main).instantiateViewController(withIdentifier: "LeftMenuViewController") as! LeftMenuViewController
+        
+        let rightMenuViewController = UIStoryboard(name: "RightMenu", bundle: Bundle.main).instantiateViewController(withIdentifier: "RightMenuViewController") as! RightMenuViewController
+        
         let homepageNavigationViewController = UIStoryboard(name: "Home", bundle: Bundle.main).instantiateViewController(withIdentifier: "HomepageNavigationController") as! UINavigationController
         SlideMenuOptions.leftViewWidth = 250
         SlideMenuOptions.contentViewOpacity = 0.3
@@ -57,8 +61,8 @@ extension AppDelegate {
         SlideMenuOptions.panGesturesEnabled = false
         SlideMenuOptions.opacityViewBackgroundColor = Settings.currentTheme.slideMenuControllerOpacityBackgroundColor
         
-        let slideMenuController = SlideMenuController(mainViewController: homepageNavigationViewController, leftMenuViewController: leftMenuViewController)
-        slideMenuController.delegate = leftMenuViewController
+        slideMenuController = SlideMenuController(mainViewController: homepageNavigationViewController, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
+        slideMenuController?.delegate = self
     
         self.window?.rootViewController = slideMenuController
         self.window?.makeKeyAndVisible()
@@ -288,5 +292,26 @@ extension AppDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+}
+
+// MARK: - SlideMenuControllerDelegate
+extension AppDelegate: SlideMenuControllerDelegate {
+    func leftWillOpen() {
+        //Only show left menu's shadow when it's opened
+        slideMenuController?.leftViewController?.view.layer.shadowRadius = 5
+    }
+    
+    func leftDidClose() {
+        slideMenuController?.leftViewController?.view.layer.shadowRadius = 0
+    }
+    
+    func rightWillOpen() {
+        //Only show right menu's shadow when it's opened
+        slideMenuController?.rightViewController?.view.layer.shadowRadius = 5
+    }
+    
+    func rightDidClose() {
+        slideMenuController?.rightViewController?.view.layer.shadowRadius = 0
     }
 }
