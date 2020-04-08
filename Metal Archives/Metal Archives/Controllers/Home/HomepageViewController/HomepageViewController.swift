@@ -13,6 +13,7 @@ import NotificationBannerSwift
 
 final class HomepageViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
+    @IBOutlet private weak var searchButton: UIButton!
     
     private let sections = UserDefaults.homepageSections()
     
@@ -47,6 +48,7 @@ final class HomepageViewController: RefreshableViewController {
         initSimpleNavigationBarView()
         loadHomepage()
         initObservers()
+        initSearchButton()
         alertNewVersion()
     }
     
@@ -63,6 +65,21 @@ final class HomepageViewController: RefreshableViewController {
         LatestReviewsTableViewCell.register(with: tableView)
         UpcomingAlbumsTableViewCell.register(with: tableView)
         ViewMoreTableViewCell.register(with: tableView)
+    }
+    
+    private func initSearchButton() {
+        searchButton.imageEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
+        searchButton.tintColor = Settings.currentTheme.bodyTextColor
+        searchButton.layer.cornerRadius = searchButton.bounds.width/2
+        searchButton.backgroundColor = Settings.currentTheme.iconTintColor
+        searchButton.layer.masksToBounds = false
+        searchButton.layer.shouldRasterize = true
+        searchButton.layer.rasterizationScale = UIScreen.main.scale
+        searchButton.layer.shadowRadius = 10
+        searchButton.layer.shadowOpacity = 0.9
+        searchButton.layer.shadowOffset = .zero
+        searchButton.layer.shadowColor = Settings.currentTheme.bodyTextColor.cgColor
+        searchButton.addTarget(self, action: #selector(pushSearchViewController), for: .touchUpInside)
     }
     
     private func initObservers() {
@@ -182,7 +199,7 @@ final class HomepageViewController: RefreshableViewController {
         }
     }
     
-    private func pushSearchViewController() {
+    @objc private func pushSearchViewController() {
         guard let searchViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as? SearchViewController else {
         return
         }
@@ -313,6 +330,24 @@ extension HomepageViewController {
             guard let latestAdditionsViewController = segue.destination as? LatestAdditionsOrUpdatesViewController else { return }
             latestAdditionsViewController.mode = .updates
             latestAdditionsViewController.currentAdditionOrUpdateType = latestUpdateType
+        }
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension HomepageViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView.superview).y < 0 {
+            // scroll down
+            UIView.animate(withDuration: 0.35) { [unowned self] in
+                self.searchButton.transform = CGAffineTransform(translationX: 0, y: 300)
+            }
+            
+        } else {
+            // scroll up
+            UIView.animate(withDuration: 0.35) { [unowned self] in
+                self.searchButton.transform = .identity
+            }
         }
     }
 }

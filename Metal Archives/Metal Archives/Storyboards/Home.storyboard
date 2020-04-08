@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5cE-Mx-Zrs">
-    <device id="retina6_5" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5cE-Mx-Zrs">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -185,6 +183,10 @@
                                     <constraint firstAttribute="height" constant="84" placeholder="YES" id="Xds-GO-Cxu"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6AK-Yt-U3I">
+                                <rect key="frame" x="183" y="794" width="48" height="48"/>
+                                <state key="normal" image="horns_search"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -194,12 +196,15 @@
                             <constraint firstAttribute="bottom" secondItem="SyQ-aE-sAp" secondAttribute="bottom" id="BPy-Qw-ldE"/>
                             <constraint firstItem="SyQ-aE-sAp" firstAttribute="top" secondItem="Hxw-97-0IO" secondAttribute="top" id="I7R-4F-mQN"/>
                             <constraint firstItem="SyQ-aE-sAp" firstAttribute="trailing" secondItem="Hxw-97-0IO" secondAttribute="trailing" id="ITg-Yo-LUb"/>
+                            <constraint firstItem="6AK-Yt-U3I" firstAttribute="centerX" secondItem="dTt-OI-3Mn" secondAttribute="centerX" id="PAh-7Q-40e"/>
+                            <constraint firstItem="Hxw-97-0IO" firstAttribute="bottom" secondItem="6AK-Yt-U3I" secondAttribute="bottom" constant="20" id="PoX-tE-PrV"/>
                             <constraint firstItem="SyQ-aE-sAp" firstAttribute="leading" secondItem="Hxw-97-0IO" secondAttribute="leading" id="gbI-ua-mGm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Hxw-97-0IO"/>
                     </view>
                     <navigationItem key="navigationItem" id="U2Z-Bc-pAz"/>
                     <connections>
+                        <outlet property="searchButton" destination="6AK-Yt-U3I" id="QQ3-SV-bSO"/>
                         <outlet property="simpleNavigationBarView" destination="BSO-ZE-Iy6" id="BUA-jC-Ahi"/>
                         <outlet property="tableView" destination="SyQ-aE-sAp" id="m1O-eW-LcD"/>
                         <segue destination="LaW-vm-ncz" kind="show" identifier="ShowLatestAdditions" id="58V-7M-dg1"/>
@@ -417,6 +422,9 @@
             <point key="canvasLocation" x="4238" y="-461"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="horns_search" width="48" height="48"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="IxV-1L-mGY"/>
     </inferredMetricsTieBreakers>
