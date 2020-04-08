@@ -168,6 +168,7 @@ extension DeezerResultViewController: UITableViewDelegate {
     private func pushDeezerTracklist(with artist: DeezerArtist, deezerTrackData: DeezerData<DeezerTrack>) {
         let deezerTracklistViewController = UIStoryboard(name: "Deezer", bundle: nil).instantiateViewController(withIdentifier: "DeezerTracklistViewController") as! DeezerTracklistViewController
         deezerTracklistViewController.albumTitleOrArtistName = artist.name
+        deezerTracklistViewController.photoUrlString = artist.picture_xl
         deezerTracklistViewController.topTrack = true
         deezerTracklistViewController.deezerTrackData = deezerTrackData
         
@@ -176,7 +177,7 @@ extension DeezerResultViewController: UITableViewDelegate {
     
     private func pushDeezerAlbums(with artist: DeezerArtist, deezerAlbumData: DeezerData<DeezerAlbum>) {
         let deezerAlbumViewController = UIStoryboard(name: "Deezer", bundle: nil).instantiateViewController(withIdentifier: "DeezerAlbumViewController") as! DeezerAlbumViewController
-        deezerAlbumViewController.artistName = artist.name
+        deezerAlbumViewController.artist = artist
         deezerAlbumViewController.deezerAlbumData = deezerAlbumData
         
         navigationController?.pushViewController(deezerAlbumViewController, animated: true)
@@ -200,7 +201,7 @@ extension DeezerResultViewController: UITableViewDelegate {
     private func pushDeezerTracklist(with album: DeezerAlbum, deezerTrackData: DeezerData<DeezerTrack>) {
         let deezerTracklistViewController = UIStoryboard(name: "Deezer", bundle: nil).instantiateViewController(withIdentifier: "DeezerTracklistViewController") as! DeezerTracklistViewController
         deezerTracklistViewController.albumTitleOrArtistName = album.title
-        deezerTracklistViewController.albumCoverUrlString = album.cover_xl
+        deezerTracklistViewController.photoUrlString = album.cover_xl
         deezerTracklistViewController.topTrack = false
         deezerTracklistViewController.deezerTrackData = deezerTrackData
         

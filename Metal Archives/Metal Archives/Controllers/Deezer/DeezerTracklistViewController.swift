@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import FirebaseAnalytics
+import SDWebImage
 
 final class DeezerTracklistViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
@@ -17,7 +18,7 @@ final class DeezerTracklistViewController: BaseViewController {
     var topTrack = false
     var albumTitleOrArtistName: String!
     var deezerTrackData: DeezerData<DeezerTrack>!
-    var albumCoverUrlString: String?
+    var photoUrlString: String?
     
     private var player: AVPlayer?
     private var isPlayingIndex: Int = -1
@@ -30,6 +31,7 @@ final class DeezerTracklistViewController: BaseViewController {
         super.viewDidLoad()
         initSimpleNavigationBarView()
         configureTableView()
+        fetchAndSetPhoto()
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: nil)
         try? AVAudioSession.sharedInstance().setCategory(.playback)
         Analytics.logEvent("view_deezer_tracklist", parameters: ["albumTitleOrArtistName": albumTitleOrArtistName ?? ""])
@@ -38,13 +40,6 @@ final class DeezerTracklistViewController: BaseViewController {
     private func initSimpleNavigationBarView() {
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
         simpleNavigationBarView.setRightButtonIcon(nil)
-        
-        if topTrack {
-            simpleNavigationBarView.setTitle("Top track of band \"\(albumTitleOrArtistName!)\"")
-        } else {
-            simpleNavigationBarView.setTitle("Tracklist of album \"\(albumTitleOrArtistName!)\"")
-        }
-        
         simpleNavigationBarView.didTapLeftButton = { [unowned self] in
             self.navigationController?.popViewController(animated: true)
         }
@@ -67,6 +62,21 @@ final class DeezerTracklistViewController: BaseViewController {
         
         isPlayingIndex = -1
         Analytics.logEvent("play_deezer_track_till_end", parameters: nil)
+    }
+    
+    private func fetchAndSetPhoto() {
+        guard let photoUrlString = photoUrlString else { return }
+        
+        let title: String
+        if topTrack {
+            title = "\"\(albumTitleOrArtistName!)\" top tracks"
+        } else {
+            title = "\"\(albumTitleOrArtistName!)\" tracklist"
+        }
+        
+        SDWebImageDownloader.shared().downloadImage(with: URL(string: photoUrlString), options: [.highPriority], progress: nil) { [weak self] (image, error, cacheType, url) in
+            self?.simpleNavigationBarView.setImageAsTitle(image, fallbackTitle: title, alwaysShowTitle: true, roundedCorner: true)
+        }
     }
 }
 
@@ -137,7 +147,7 @@ extension DeezerTracklistViewController: UITableViewDataSource {
         let cell = DeezerTrackTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         let track = deezerTrackData.data[indexPath.row]
         cell.fill(with: track)
-        if let albumCoverUrlString = albumCoverUrlString {
+        if let albumCoverUrlString = photoUrlString {
             cell.thumbnailImageView.sd_setImage(with: URL(string: albumCoverUrlString))
         }
         cell.setPlaying(indexPath.row == isPlayingIndex)
@@ -145,7 +155,7 @@ extension DeezerTracklistViewController: UITableViewDataSource {
         cell.tappedThumbnailImageView = { [unowned self] in
             if let album = track.album {
                 self.presentPhotoViewer(photoUrlString: album.cover_xl, description: album.title, fromImageView: cell.thumbnailImageView)
-            } else if let albumCoverUrlString = self.albumCoverUrlString {
+            } else if let albumCoverUrlString = self.photoUrlString {
                 self.presentPhotoViewer(photoUrlString: albumCoverUrlString, description: self.albumTitleOrArtistName, fromImageView: cell.thumbnailImageView)
             }
         }

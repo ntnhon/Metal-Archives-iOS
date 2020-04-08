@@ -9,12 +9,13 @@
 import UIKit
 import Toaster
 import FirebaseAnalytics
+import SDWebImage
 
 final class DeezerAlbumViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var tableView: UITableView!
     
-    var artistName: String!
+    var artist: DeezerArtist!
     var deezerAlbumData: DeezerData<DeezerAlbum>!
 
     deinit {
@@ -25,14 +26,15 @@ final class DeezerAlbumViewController: BaseViewController {
         super.viewDidLoad()
         initSimpleNavigationBarView()
         configureTableView()
+        fetchAndSetAlbumCover()
         
-        Analytics.logEvent("view_deezer_albums", parameters: ["artist": artistName ?? ""])
+        Analytics.logEvent("view_deezer_albums", parameters: ["artist": artist.name])
     }
     
     private func initSimpleNavigationBarView() {
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1)
         simpleNavigationBarView.setRightButtonIcon(nil)
-        simpleNavigationBarView.setTitle("Albums of band \"\(artistName!)\"")
+        simpleNavigationBarView.setTitle("\"\(artist.name)\"'s releases")
         
         simpleNavigationBarView.didTapLeftButton = { [unowned self] in
             self.navigationController?.popViewController(animated: true)
@@ -48,6 +50,12 @@ final class DeezerAlbumViewController: BaseViewController {
         DeezerAlbumTableViewCell.register(with: tableView)
         SimpleTableViewCell.register(with: tableView)
     }
+    
+    private func fetchAndSetAlbumCover() {
+        SDWebImageDownloader.shared().downloadImage(with: URL(string: artist.picture_xl), options: [.highPriority], progress: nil) { [weak self] (image, error, cacheType, url) in
+            self?.simpleNavigationBarView.setImageAsTitle(image, fallbackTitle: self?.artist.name ?? "", alwaysShowTitle: true, roundedCorner: true)
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -57,7 +65,7 @@ extension DeezerAlbumViewController: UITableViewDelegate {
         guard deezerAlbumData.data.count > 0 else { return }
         let album = deezerAlbumData.data[indexPath.row]
         
-        Analytics.logEvent("select_deezer_album", parameters: ["artist": artistName ?? "", "album": album.title])
+        Analytics.logEvent("select_deezer_album", parameters: ["artist": artist.name, "album": album.title])
         
         fetchAndPushDeezerTracklist(with: album)
     }
@@ -81,7 +89,7 @@ extension DeezerAlbumViewController: UITableViewDelegate {
     private func pushDeezerTracklist(with album: DeezerAlbum, deezerTrackData: DeezerData<DeezerTrack>) {
         let deezerTracklistViewController = UIStoryboard(name: "Deezer", bundle: nil).instantiateViewController(withIdentifier: "DeezerTracklistViewController") as! DeezerTracklistViewController
         deezerTracklistViewController.albumTitleOrArtistName = album.title
-        deezerTracklistViewController.albumCoverUrlString = album.cover_xl
+        deezerTracklistViewController.photoUrlString = album.cover_xl
         deezerTracklistViewController.topTrack = false
         deezerTracklistViewController.deezerTrackData = deezerTrackData
         
