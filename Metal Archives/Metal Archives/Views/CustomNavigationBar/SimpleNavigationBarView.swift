@@ -90,6 +90,12 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
     func setAlphaForBackgroundAndTitleLabel(_ alpha: CGFloat) {
         backgroundView.alpha = alpha
         titleLabel.alpha = alpha
+        
+        if alpha <= 0 {
+            leftButton.setImage(UIImage(named: "back_filled"), for: .normal)
+        } else {
+            leftButton.setImage(UIImage(named: "back"), for: .normal)
+        }
     }
     
     func setTitle(_ title: String?) {
