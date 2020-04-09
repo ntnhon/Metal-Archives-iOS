@@ -23,7 +23,7 @@ final class RightMenuViewController: BaseViewController {
         return appDelegate.slideMenuController!
     }()
     
-    private let options: [[RightMenuOption]] = [[.collection, .bookmarks], [.logOut]]
+    private let options: [[RightMenuOption]] = [[.collection], [.bands, .artists, .labels, .releases], [.logOut]]
 
     deinit {
         print("RightMenuViewController is deallocated")
@@ -135,7 +135,10 @@ extension RightMenuViewController: UITableViewDelegate {
         let option = options[indexPath.section][indexPath.row]
         switch option {
         case .collection: print("Collection")
-        case .bookmarks: print("Bookmark")
+        case .bands: print("Bands")
+        case .artists: print("Artists")
+        case .labels: print("Labels")
+        case .releases: print("Releases")
         case .logOut:
             let alert = UIAlertController(title: "You will be logged out", message: "Please confirm.", preferredStyle: .alert)
             
@@ -154,11 +157,11 @@ extension RightMenuViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return KeychainService.getUsername()
+        switch section {
+        case 0: return "Welcome, \(KeychainService.getUsername())"
+        case 1: return "My bookmarks"
+        default: return nil
         }
-        
-        return nil
     }
 }
 
