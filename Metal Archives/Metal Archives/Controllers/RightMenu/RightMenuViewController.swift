@@ -139,7 +139,7 @@ extension RightMenuViewController: UITableViewDelegate {
         case .logOut:
             let alert = UIAlertController(title: "You will be logged out", message: "Please confirm.", preferredStyle: .alert)
             
-            let yesAction = UIAlertAction(title: "Yes log me out", style: .default) { _ in
+            let yesAction = UIAlertAction(title: "Yes, log me out", style: .default) { _ in
                 KeychainService.removeUserCredential()
                 LoginService.logOut()
                 Toast.displayMessageShortly("You are logged out")

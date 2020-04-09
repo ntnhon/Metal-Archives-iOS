@@ -38,6 +38,8 @@ final class LoginService {
                 isLoggedIn = true
                 completion(nil)
                 
+            case 403: completion(MALoginError.incorrectCredential)
+                
             default:
                 isLoggedIn = false
                 completion(MALoginError.unknown(description: "code \(response.statusCode)"))

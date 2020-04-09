@@ -18,7 +18,7 @@ enum MALoginError: LocalizedError {
     
     var localizedDescription: String {
         switch self {
-        case .incorrectCredential: return "[MALoginError] Incorrect username or password"
+        case .incorrectCredential: return "Incorrect username or password"
         case .emptyResponse: return "[MALoginError] Empty response"
         case .unknown(let description): return "[MALoginError] Unknown error: \(description)"
         }
