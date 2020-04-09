@@ -45,6 +45,10 @@ final class LoginService {
         }
     }
     
+    static func logOut() {
+        isLoggedIn = false
+    }
+    
     private static func setCfduidCookie(_ cookie: HTTPCookie) {
         let cookieProps = [
             HTTPCookiePropertyKey.domain: ".metal-archives.com",

@@ -21,6 +21,8 @@
 		C00838892200F23000B35996 /* ReadMore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C00838882200F23000B35996 /* ReadMore.storyboard */; };
 		C0086DC7243F33870008669C /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0086DC6243F33870008669C /* LoginService.swift */; };
 		C0086DC9243F37560008669C /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0086DC8243F37560008669C /* KeychainService.swift */; };
+		C0086DCB243F6D6E0008669C /* LeftMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0086DCA243F6D6E0008669C /* LeftMenuOption.swift */; };
+		C0086DCD243F73920008669C /* RightMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0086DCC243F73910008669C /* RightMenuOption.swift */; };
 		C0091F8822A592F6007E8FC1 /* ArtistNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0091F8722A592F6007E8FC1 /* ArtistNameTableViewCell.swift */; };
 		C00D35F9223D033D00B29B43 /* BrowseBandsResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D35F8223D033D00B29B43 /* BrowseBandsResultTableViewCell.swift */; };
 		C00D35FB223D042500B29B43 /* BrowseBandsResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00D35FA223D042500B29B43 /* BrowseBandsResultTableViewCell.xib */; };
@@ -583,6 +585,8 @@
 		C00838882200F23000B35996 /* ReadMore.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReadMore.storyboard; sourceTree = "<group>"; };
 		C0086DC6243F33870008669C /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		C0086DC8243F37560008669C /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		C0086DCA243F6D6E0008669C /* LeftMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuOption.swift; sourceTree = "<group>"; };
+		C0086DCC243F73910008669C /* RightMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightMenuOption.swift; sourceTree = "<group>"; };
 		C0091F8722A592F6007E8FC1 /* ArtistNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistNameTableViewCell.swift; sourceTree = "<group>"; };
 		C00D35F8223D033D00B29B43 /* BrowseBandsResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseBandsResultTableViewCell.swift; sourceTree = "<group>"; };
 		C00D35FA223D042500B29B43 /* BrowseBandsResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BrowseBandsResultTableViewCell.xib; sourceTree = "<group>"; };
@@ -1912,6 +1916,8 @@
 				C028CBE322A67509005929F1 /* LabelMenuOption.swift */,
 				C033C4FD22D3A0BC001294BA /* SearchResultObjectType.swift */,
 				C0A7FFBC231985A800A929A1 /* HomepageSection.swift */,
+				C0086DCA243F6D6E0008669C /* LeftMenuOption.swift */,
+				C0086DCC243F73910008669C /* RightMenuOption.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -3568,6 +3574,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0086DCD243F73920008669C /* RightMenuOption.swift in Sources */,
 				C0D6320822A08A2D00CAE52F /* ReleaseTitleAndTypeTableViewCell.swift in Sources */,
 				C027A28122B57D5D0011EA73 /* DismissableOnSwipeViewController.swift in Sources */,
 				C07F8BE42287123200295146 /* User.swift in Sources */,
@@ -3605,6 +3612,7 @@
 				C03280172209FB1900FC9A44 /* RequestBandDiscography.swift in Sources */,
 				C09A18A521FF182B00152908 /* String+HTMLToAttributedString.swift in Sources */,
 				C053CF7422244F7D00B056A8 /* BandPastRosterTableViewCell.swift in Sources */,
+				C0086DCB243F6D6E0008669C /* LeftMenuOption.swift in Sources */,
 				C0FBBE6A2208750A00226FB1 /* SimilarBandTableViewCell.swift in Sources */,
 				C09CBC75226F23BE00E20F98 /* HomepageStatistic.swift in Sources */,
 				C0FE9627221C3142003C4B59 /* RolesInBandTableViewCell.swift in Sources */,

@@ -30,5 +30,8 @@ struct Ressources {
         static let person = "person"
         static let band = "band"
         static let delete = "delete"
+        static let bookmark = "bookmark"
+        static let disc_collection = "disc_collection"
+        static let log_out = "log_out"
     }
 }

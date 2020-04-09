@@ -25,8 +25,13 @@ final class LeftMenuOptionTableViewCell: UITableViewCell, RegisterableCell {
         optionIconImageView.tintColor = Settings.currentTheme.menuTitleColor
     }
     
-    func initOption(iconName: String, optionName: String) {
-        optionIconImageView.image = UIImage(named: iconName)
-        optionLabel.text = optionName
+    func bind(with option: LeftMenuOption) {
+        optionIconImageView.image = UIImage(named: option.iconName)
+        optionLabel.text = option.title
+    }
+    
+    func bind(with option: RightMenuOption) {
+        optionIconImageView.image = UIImage(named: option.iconName)
+        optionLabel.text = option.title
     }
 }

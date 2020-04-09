@@ -21,6 +21,8 @@ final class RightMenuViewController: BaseViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.slideMenuController!
     }()
+    
+    private let options: [[RightMenuOption]] = [[.collection, .bookmarks], [.logOut]]
 
     deinit {
         print("RightMenuViewController is deallocated")
@@ -54,7 +56,7 @@ final class RightMenuViewController: BaseViewController {
         //Hide 1st section's header
         tableView.contentInset = UIEdgeInsets(top: -CGFloat.leastNormalMagnitude, left: 0, bottom: 0, right: 0)
         
-        LeftMenuOptionTableViewCell.register(with: self.tableView)
+        LeftMenuOptionTableViewCell.register(with: tableView)
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 1
     }
@@ -81,7 +83,6 @@ final class RightMenuViewController: BaseViewController {
             usernameTextField.autocorrectionType = .no
             usernameTextField.clearButtonMode = .whileEditing
             usernameTextField.returnKeyType = .next
-            usernameTextField.text = "ntnhon"
         }
         
         alert.addTextField { (passwordTextField) in
@@ -90,7 +91,6 @@ final class RightMenuViewController: BaseViewController {
             passwordTextField.clearButtonMode = .whileEditing
             passwordTextField.isSecureTextEntry = true
             passwordTextField.returnKeyType = .done
-            passwordTextField.text = "blackjack2804"
         }
         
         let loginAction = UIAlertAction(title: "Log me in", style: .default) { [unowned self] _ in
@@ -128,35 +128,51 @@ final class RightMenuViewController: BaseViewController {
 extension RightMenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        closeRight()
+        let option = options[indexPath.section][indexPath.row]
+        switch option {
+        case .collection: print("Collection")
+        case .bookmarks: print("Bookmark")
+        case .logOut:
+            let alert = UIAlertController(title: "You will be logged out", message: "Please confirm.", preferredStyle: .alert)
+            
+            let yesAction = UIAlertAction(title: "Yes log me out", style: .default) { _ in
+                KeychainService.removeUserCredential()
+                LoginService.logOut()
+            }
+            alert.addAction(yesAction)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alert.addAction(cancelAction)
+            
+            present(alert, animated: true, completion: nil)
+        }
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        //Hide 1est section's header
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return CGFloat.leastNormalMagnitude
+            return KeychainService.getUsername()
         }
         
-        return 30
+        return nil
     }
 }
 
 // MARK: - UITableViewDataSource
 extension RightMenuViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return options.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0: return 1
-        case 1: return 2
-        case 2: return 1
-        default: return 0
-        }
+        return options[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = LeftMenuOptionTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        let option = options[indexPath.section][indexPath.row]
+        cell.bind(with: option)
         return cell
     }
 }
