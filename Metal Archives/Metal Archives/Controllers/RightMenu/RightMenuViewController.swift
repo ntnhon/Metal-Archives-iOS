@@ -10,6 +10,7 @@ import UIKit
 import Toaster
 import MBProgressHUD
 import SlideMenuControllerSwift
+import Toaster
 
 final class RightMenuViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -106,6 +107,7 @@ final class RightMenuViewController: BaseViewController {
                     Toast.displayMessageShortly(loginError.localizedDescription)
                 } else {
                     KeychainService.save(username: username, password: password)
+                    self.tableView.reloadData()
                     self.properlyShowHideUIComponents()
                 }
             }
@@ -140,6 +142,7 @@ extension RightMenuViewController: UITableViewDelegate {
             let yesAction = UIAlertAction(title: "Yes log me out", style: .default) { _ in
                 KeychainService.removeUserCredential()
                 LoginService.logOut()
+                Toast.displayMessageShortly("You are logged out")
             }
             alert.addAction(yesAction)
             
