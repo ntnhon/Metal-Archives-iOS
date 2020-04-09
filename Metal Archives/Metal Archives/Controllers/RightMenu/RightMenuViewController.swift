@@ -7,10 +7,20 @@
 //
 
 import UIKit
+import Toaster
+import MBProgressHUD
+import SlideMenuControllerSwift
 
-final class RightMenuViewController: UIViewController {
+final class RightMenuViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var booksImageView: UIImageView!
+    @IBOutlet private weak var loginButton: UIButton!
+    @IBOutlet private weak var registerButton: UIButton!
+    
+    private lazy var slideMenuController: SlideMenuController = {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.slideMenuController!
+    }()
 
     deinit {
         print("RightMenuViewController is deallocated")
@@ -21,11 +31,22 @@ final class RightMenuViewController: UIViewController {
         initAppearance()
     }
     
-    private func initAppearance() {
-        view.backgroundColor = Settings.currentTheme.backgroundColor
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        properlyShowHideUIComponents()
+    }
+    
+    override func initAppearance() {
+        super.initAppearance()
         
         booksImageView.tintColor = Settings.currentTheme.titleColor
         booksImageView.alpha = 0.5
+        
+        loginButton.tintColor = Settings.currentTheme.titleColor
+        loginButton.setTitleColor(Settings.currentTheme.titleColor, for: .normal)
+        
+        registerButton.tintColor = Settings.currentTheme.titleColor
+        registerButton.setTitleColor(Settings.currentTheme.titleColor, for: .normal)
         
         tableView.backgroundColor = .clear
         tableView.separatorColor = Settings.currentTheme.secondaryTitleColor
@@ -36,6 +57,70 @@ final class RightMenuViewController: UIViewController {
         LeftMenuOptionTableViewCell.register(with: self.tableView)
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 1
+    }
+    
+    private func properlyShowHideUIComponents() {
+        if LoginService.isLoggedIn {
+            loginButton.isHidden = true
+            registerButton.isHidden = true
+            booksImageView.isHidden = false
+            tableView.isHidden = false
+        } else {
+            loginButton.isHidden = false
+            registerButton.isHidden = false
+            booksImageView.isHidden = true
+            tableView.isHidden = true
+        }
+    }
+    
+    @IBAction private func loginButtonTapped() {
+        let alert = UIAlertController(title: "Log in", message: nil, preferredStyle: .alert)
+        
+        alert.addTextField { (usernameTextField) in
+            usernameTextField.placeholder = "Username"
+            usernameTextField.autocorrectionType = .no
+            usernameTextField.clearButtonMode = .whileEditing
+            usernameTextField.returnKeyType = .next
+            usernameTextField.text = "ntnhon"
+        }
+        
+        alert.addTextField { (passwordTextField) in
+            passwordTextField.placeholder = "Password"
+            passwordTextField.autocorrectionType = .no
+            passwordTextField.clearButtonMode = .whileEditing
+            passwordTextField.isSecureTextEntry = true
+            passwordTextField.returnKeyType = .done
+            passwordTextField.text = "blackjack2804"
+        }
+        
+        let loginAction = UIAlertAction(title: "Log me in", style: .default) { [unowned self] _ in
+            guard let username = alert.textFields?[0].text,
+                let password = alert.textFields?[1].text else { return }
+            
+            MBProgressHUD.showAdded(to: self.slideMenuController.view, animated: true)
+            LoginService.login(username: username, password: password) { [weak self] loginError in
+                guard let self = self else { return }
+                MBProgressHUD.hide(for: self.slideMenuController.view, animated: true)
+                
+                if let loginError = loginError {
+                    Toast.displayMessageShortly(loginError.localizedDescription)
+                } else {
+                    KeychainService.save(username: username, password: password)
+                    self.properlyShowHideUIComponents()
+                }
+            }
+        }
+        alert.addAction(loginAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction private func registerButtonTapped() {
+        guard let url = URL(string: "https://www.metal-archives.com/user/signup") else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
 

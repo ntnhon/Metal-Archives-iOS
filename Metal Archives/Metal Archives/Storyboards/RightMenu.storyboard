@@ -16,10 +16,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="books" translatesAutoresizingMaskIntoConstraints="NO" id="EUP-4l-miI">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="books" translatesAutoresizingMaskIntoConstraints="NO" id="EUP-4l-miI">
                                 <rect key="frame" x="122" y="363" width="170.5" height="170.5"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="n8R-33-4fE">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="n8R-33-4fE">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
@@ -27,11 +27,38 @@
                                     <outlet property="delegate" destination="QMX-MP-PQ1" id="QZX-qB-CHO"/>
                                 </connections>
                             </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Lkb-nB-fOt">
+                                <rect key="frame" x="107" y="408" width="200" height="80"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Hk-8c-eUZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="32"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <state key="normal" title="Log in" image="log_in">
+                                            <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="loginButtonTapped" destination="QMX-MP-PQ1" eventType="touchUpInside" id="KHu-0I-kar"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZW4-96-gnx">
+                                        <rect key="frame" x="0.0" y="48" width="200" height="32"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <state key="normal" title="Resgister an account" image="register">
+                                            <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="registerButtonTapped" destination="QMX-MP-PQ1" eventType="touchUpInside" id="QYT-nd-C6k"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Lkb-nB-fOt" firstAttribute="centerY" secondItem="HHp-x2-TBL" secondAttribute="centerY" id="Eg5-fE-Bh0"/>
                             <constraint firstItem="Lpp-sm-bAt" firstAttribute="trailing" secondItem="n8R-33-4fE" secondAttribute="trailing" id="FvN-Q7-b8c"/>
                             <constraint firstItem="EUP-4l-miI" firstAttribute="centerY" secondItem="HHp-x2-TBL" secondAttribute="centerY" id="XLl-Se-0tY"/>
+                            <constraint firstItem="Lkb-nB-fOt" firstAttribute="centerX" secondItem="HHp-x2-TBL" secondAttribute="centerX" id="Y0s-yY-Zmq"/>
                             <constraint firstItem="n8R-33-4fE" firstAttribute="leading" secondItem="Lpp-sm-bAt" secondAttribute="leading" id="hke-DD-pcY"/>
                             <constraint firstItem="n8R-33-4fE" firstAttribute="top" secondItem="Lpp-sm-bAt" secondAttribute="top" id="jr5-x4-SmZ"/>
                             <constraint firstItem="EUP-4l-miI" firstAttribute="centerX" secondItem="HHp-x2-TBL" secondAttribute="centerX" id="nbT-0e-Wae"/>
@@ -41,6 +68,8 @@
                     </view>
                     <connections>
                         <outlet property="booksImageView" destination="EUP-4l-miI" id="ClD-9u-MTY"/>
+                        <outlet property="loginButton" destination="3Hk-8c-eUZ" id="bMm-Gi-1yt"/>
+                        <outlet property="registerButton" destination="ZW4-96-gnx" id="GWz-hk-frJ"/>
                         <outlet property="tableView" destination="n8R-33-4fE" id="FHm-72-5py"/>
                     </connections>
                 </viewController>
@@ -51,5 +80,7 @@
     </scenes>
     <resources>
         <image name="books" width="170.5" height="170.5"/>
+        <image name="log_in" width="32" height="32"/>
+        <image name="register" width="32" height="32"/>
     </resources>
 </document>

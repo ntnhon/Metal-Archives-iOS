@@ -8,6 +8,23 @@
 
 import Foundation
 
+enum MALoginError: LocalizedError {
+    /// Incorrect username or password
+    case incorrectCredential
+    /// Empty response
+    case emptyResponse
+    /// Unknown error
+    case unknown(description: String)
+    
+    var localizedDescription: String {
+        switch self {
+        case .incorrectCredential: return "[MALoginError] Incorrect username or password"
+        case .emptyResponse: return "[MALoginError] Empty response"
+        case .unknown(let description): return "[MALoginError] Unknown error: \(description)"
+        }
+    }
+}
+
 enum MAParsingError: LocalizedError {
     /// Error while extracting useful informations using regular expresion or string manipulation.
     case badSyntax(string: String, expectedSyntax: String)

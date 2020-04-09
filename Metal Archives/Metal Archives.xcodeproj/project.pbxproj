@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,8 @@
 		C008388422009ECE00B35996 /* Date+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008388322009ECE00B35996 /* Date+Distance.swift */; };
 		C00838872200F21200B35996 /* ReadMoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00838862200F21200B35996 /* ReadMoreViewController.swift */; };
 		C00838892200F23000B35996 /* ReadMore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C00838882200F23000B35996 /* ReadMore.storyboard */; };
+		C0086DC7243F33870008669C /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0086DC6243F33870008669C /* LoginService.swift */; };
+		C0086DC9243F37560008669C /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0086DC8243F37560008669C /* KeychainService.swift */; };
 		C0091F8822A592F6007E8FC1 /* ArtistNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0091F8722A592F6007E8FC1 /* ArtistNameTableViewCell.swift */; };
 		C00D35F9223D033D00B29B43 /* BrowseBandsResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D35F8223D033D00B29B43 /* BrowseBandsResultTableViewCell.swift */; };
 		C00D35FB223D042500B29B43 /* BrowseBandsResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00D35FA223D042500B29B43 /* BrowseBandsResultTableViewCell.xib */; };
@@ -579,6 +581,8 @@
 		C008388322009ECE00B35996 /* Date+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Distance.swift"; sourceTree = "<group>"; };
 		C00838862200F21200B35996 /* ReadMoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreViewController.swift; sourceTree = "<group>"; };
 		C00838882200F23000B35996 /* ReadMore.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReadMore.storyboard; sourceTree = "<group>"; };
+		C0086DC6243F33870008669C /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
+		C0086DC8243F37560008669C /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		C0091F8722A592F6007E8FC1 /* ArtistNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistNameTableViewCell.swift; sourceTree = "<group>"; };
 		C00D35F8223D033D00B29B43 /* BrowseBandsResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseBandsResultTableViewCell.swift; sourceTree = "<group>"; };
 		C00D35FA223D042500B29B43 /* BrowseBandsResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BrowseBandsResultTableViewCell.xib; sourceTree = "<group>"; };
@@ -2638,6 +2642,8 @@
 			isa = PBXGroup;
 			children = (
 				C082CD9622E4795E002202F6 /* Service.swift */,
+				C0086DC6243F33870008669C /* LoginService.swift */,
+				C0086DC8243F37560008669C /* KeychainService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -3836,6 +3842,7 @@
 				C01839E92225715700FF88B7 /* LabelUpdate.swift in Sources */,
 				C053DD2E22267A920028568B /* ReviewStatistic.swift in Sources */,
 				C03270EE220B96B1009FA337 /* RequestReview.swift in Sources */,
+				C0086DC7243F33870008669C /* LoginService.swift in Sources */,
 				C05309F422235BE20027D11E /* String+RemoveEmptySpaces.swift in Sources */,
 				C0BAD4AF222EE0EA00C4D38D /* BandNullable.swift in Sources */,
 				C00D3612223D5F0400B29B43 /* ArtistInfoType.swift in Sources */,
@@ -3862,6 +3869,7 @@
 				C05309EF22233E060027D11E /* ReleaseExtraLite.swift in Sources */,
 				C053DD34222681C80028568B /* MemberStatistic.swift in Sources */,
 				C0602BDF21EA9CE800046367 /* Statics.swift in Sources */,
+				C0086DC9243F37560008669C /* KeychainService.swift in Sources */,
 				C01839E12225401500FF88B7 /* BandUpdate.swift in Sources */,
 				C053CF78222452AB00B056A8 /* ReleaseInLabelTableViewCell.swift in Sources */,
 				C0332FEC2201D502008B34E0 /* ArtistLite.swift in Sources */,

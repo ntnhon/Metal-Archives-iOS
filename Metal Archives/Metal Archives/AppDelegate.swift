@@ -56,6 +56,7 @@ extension AppDelegate {
         
         let homepageNavigationViewController = UIStoryboard(name: "Home", bundle: Bundle.main).instantiateViewController(withIdentifier: "HomepageNavigationController") as! UINavigationController
         SlideMenuOptions.leftViewWidth = 250
+        SlideMenuOptions.rightViewWidth = 250
         SlideMenuOptions.contentViewOpacity = 0.3
         // Prevent user from swiping menu up and down and closing the slide menu in the same time
         SlideMenuOptions.panGesturesEnabled = false

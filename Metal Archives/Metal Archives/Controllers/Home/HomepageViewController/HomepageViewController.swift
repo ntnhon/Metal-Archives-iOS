@@ -50,6 +50,7 @@ final class HomepageViewController: RefreshableViewController {
         initObservers()
         initSearchButton()
         alertNewVersion()
+        loginIfCredentialAvailable()
     }
     
     override func initAppearance() {
@@ -178,6 +179,28 @@ final class HomepageViewController: RefreshableViewController {
         
         upcomingAlbumPagableManager.fetch { [weak self] (error) in
             self?.tableView.reloadData()
+        }
+    }
+    
+    private func loginIfCredentialAvailable() {
+        guard KeychainService.isHavingUserCredential() else { return }
+        
+        let username = KeychainService.getUsername()
+        let password = KeychainService.getPassword()
+        
+        LoginService.login(username: username, password: password) { [weak self] (error) in
+            guard let self = self else { return }
+            
+            if let error = error {
+                KeychainService.removeUserCredential()
+                
+                let alert = UIAlertController(title: "Failed to log you in", message: error.localizedDescription, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "Got it", style: .default, handler: nil)
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                print("Log in successfully")
+            }
         }
     }
     
