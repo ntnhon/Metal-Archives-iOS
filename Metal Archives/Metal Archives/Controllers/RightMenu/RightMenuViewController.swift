@@ -10,6 +10,7 @@ import UIKit
 
 final class RightMenuViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var booksImageView: UIImageView!
 
     deinit {
         print("RightMenuViewController is deallocated")
@@ -22,7 +23,11 @@ final class RightMenuViewController: UIViewController {
     
     private func initAppearance() {
         view.backgroundColor = Settings.currentTheme.backgroundColor
-        tableView.backgroundColor = Settings.currentTheme.backgroundColor
+        
+        booksImageView.tintColor = Settings.currentTheme.titleColor
+        booksImageView.alpha = 0.5
+        
+        tableView.backgroundColor = .clear
         tableView.separatorColor = Settings.currentTheme.secondaryTitleColor
         tableView.rowHeight = UITableView.automaticDimension
         //Hide 1st section's header
