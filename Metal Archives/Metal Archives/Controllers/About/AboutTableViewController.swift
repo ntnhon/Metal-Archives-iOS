@@ -94,7 +94,7 @@ extension AboutTableViewController {
         mailComposerVC.view.tintColor = Settings.currentTheme.titleColor
         mailComposerVC.mailComposeDelegate = self
         mailComposerVC.setSubject("[Metal Archives iOS] Contact author")
-        mailComposerVC.setToRecipients(["contact@nguyenthanhnhon.info", "ntnhon.cs@gmail.com"])
+        mailComposerVC.setToRecipients(["hi@nguyenthanhnhon.info"])
         
         present(mailComposerVC, animated: true, completion: nil)
         

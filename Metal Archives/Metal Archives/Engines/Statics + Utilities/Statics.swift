@@ -8,6 +8,7 @@
 
 
 import UIKit
+import EventKit
 
 let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
 
@@ -61,6 +62,8 @@ let noResultMessage = "No result found."
 
 let minimumYearOfFormation = 1960
 let thisYear = Calendar.current.component(.year, from: Date())
+
+let eventStore = EKEventStore()
 
 //MARK - monthList
 let monthList: [MonthInYear] = {

@@ -71,12 +71,13 @@ final class UpcomingAlbum: NSObject {
     }
     
     func createEvent() -> EKEvent {
-        let event = EKEvent(eventStore: EKEventStore())
+        let event = EKEvent(eventStore: eventStore)
         event.title = "\(release.title) | \(bands.map({$0.name}).joined(separator: "/")) | \(releaseType.description) | \(genre)"
         event.notes = """
-        \(bands.map({$0.name}).joined(separator: "/"))
-        \(releaseType.description)
-        \(genre)
+        Release title: \(release.title)
+        Band(s): \(bands.map({$0.name}).joined(separator: "/"))
+        Type: \(releaseType.description)
+        Genre: \(genre)
         """
         
         event.url = URL(string: release.urlString)

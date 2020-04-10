@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import EventKitUI
 import Toaster
+import FirebaseAnalytics
 
 extension UIViewController {
     func pushBandDetailViewController(urlString: String, animated: Bool) {
@@ -106,7 +107,6 @@ extension UIViewController {
                 
             case .event(let event):
                 action = UIAlertAction(title: "📅 Create a reminder for this release", style: .default, handler: { (action) in
-                    let eventStore = EKEventStore()
                     eventStore.requestAccess(to: EKEntityType.event) { [unowned self] (granted, error) in
                         DispatchQueue.main.async {
                             if let error = error {
@@ -114,7 +114,7 @@ extension UIViewController {
                             } else if granted {
                                 let eventEditViewController = EKEventEditViewController()
                                 eventEditViewController.event = event
-                                eventEditViewController.eventStore = EKEventStore()
+                                eventEditViewController.eventStore = eventStore
                                 eventEditViewController.editViewDelegate = self
                                 self.present(eventEditViewController, animated: true, completion: nil)
                             } else {
@@ -154,6 +154,14 @@ extension UIViewController {
 // MARK: - EKEventEditViewDelegate
 extension UIViewController: EKEventEditViewDelegate {
     public func eventEditViewController(_ controller: EKEventEditViewController, didCompleteWith action: EKEventEditViewAction) {
+        switch action {
+        case .saved:
+            Toast.displayMessageShortly("Reminder created")
+            Analytics.logEvent("create_reminder", parameters: nil)
+            
+        default: break
+        }
+        
         controller.dismiss(animated: true, completion: nil)
     }
 }
