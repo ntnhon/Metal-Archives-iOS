@@ -27,8 +27,6 @@ final class MyProfile {
                 return nil
         }
         
-        self.username = username
-        
         for dl in doc.css("dl") {
             if let `class` = dl["class"], `class` == "float_left" {
                 var i = -1
@@ -58,11 +56,16 @@ final class MyProfile {
                     comments = pText
                 }
                 
+                self.username = username
                 return
                 
             } else {
                 continue
             }
+        }
+        
+        if rank == nil {
+            return nil
         }
     }
 }

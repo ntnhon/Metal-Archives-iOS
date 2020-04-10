@@ -10,6 +10,7 @@ import UIKit
 import Toaster
 import FirebaseAnalytics
 import NotificationBannerSwift
+import MBProgressHUD
 
 final class HomepageViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
@@ -188,20 +189,40 @@ final class HomepageViewController: RefreshableViewController {
         let username = KeychainService.getUsername()
         let password = KeychainService.getPassword()
         
+        // Have to stupidly call login() 2 times
+        // 1st time to let Alamofire generate PHPSESSID cookie
+        // 2nd time to make the PHPSESSID validate at the server
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
         LoginService.login(username: username, password: password) { [weak self] (error) in
             guard let self = self else { return }
             
             if let error = error {
+                MBProgressHUD.hide(for: self.view, animated: true)
                 KeychainService.removeUserCredential()
+                self.alertLoginFailed(error)
                 
-                let alert = UIAlertController(title: "Failed to log you in", message: error.localizedDescription, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "Got it", style: .default, handler: nil)
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
             } else {
-                print("Log in successfully")
+                LoginService.login(username: username, password: password) { [weak self] (error) in
+                    guard let self = self else { return }
+                    
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    if let error = error {
+                        KeychainService.removeUserCredential()
+                        self.alertLoginFailed(error)
+                    } else {
+                        print("Log in successfully")
+                    }
+                }
             }
         }
+    }
+    
+    private func alertLoginFailed(_ error: MALoginError) {
+        let alert = UIAlertController(title: "Failed to log you in", message: error.localizedDescription, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Got it", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     private func initSimpleNavigationBarView() {

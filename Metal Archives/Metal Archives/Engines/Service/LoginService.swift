@@ -15,9 +15,9 @@ final class LoginService {
     static func login(username: String, password: String, completion: @escaping (_ error: MALoginError?) -> Void) {
         isLoggedIn = false
         
-        let parameters: HTTPHeaders = ["loginUsername": username, "loginPassword": password]
-        
-        RequestHelper.shared.alamofireManager.request(URL(string: "https://www.metal-archives.com/authentication/login")!, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).responseString { (response) in
+        let parameters: HTTPHeaders = ["loginUsername": username, "loginPassword": password, "origin": "/"]
+        let url = URL(string: "https://www.metal-archives.com/authentication/login")!
+        RequestHelper.shared.alamofireManager.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).responseString { (response) in
             
             guard let response = response.response else {
                 isLoggedIn = false
@@ -27,14 +27,6 @@ final class LoginService {
             
             switch response.statusCode {
             case 200:
-                let cookies = HTTPCookieStorage.shared.cookies
-                cookies?.forEach({ (cookie) in
-                    switch cookie.name {
-                    case "__cfduid": setCfduidCookie(cookie)
-                    case "PHPSESSID": setPhpsessidCookie(cookie)
-                    default: break
-                    }
-                })
                 isLoggedIn = true
                 completion(nil)
                 
@@ -49,32 +41,6 @@ final class LoginService {
     
     static func logOut() {
         isLoggedIn = false
-    }
-    
-    private static func setCfduidCookie(_ cookie: HTTPCookie) {
-        let cookieProps = [
-            HTTPCookiePropertyKey.domain: ".metal-archives.com",
-            HTTPCookiePropertyKey.path: "/",
-            HTTPCookiePropertyKey.name: "__cfduid",
-            HTTPCookiePropertyKey.value: cookie.value
-        ]
-        
-        if let maCookie = HTTPCookie(properties: cookieProps) {
-            RequestHelper.shared.alamofireManager.session.configuration.httpCookieStorage?.setCookie(maCookie)
-        }
-    }
-    
-    private static func setPhpsessidCookie(_ cookie: HTTPCookie) {
-        let cookieProps = [
-            HTTPCookiePropertyKey.domain: "www.metal-archives.com",
-            HTTPCookiePropertyKey.path: "/",
-            HTTPCookiePropertyKey.name: "PHPSESSID",
-            HTTPCookiePropertyKey.value: cookie.value
-        ]
-        
-        if let maCookie = HTTPCookie(properties: cookieProps) {
-            RequestHelper.shared.alamofireManager.session.configuration.httpCookieStorage?.setCookie(maCookie)
-        }
     }
 }
 

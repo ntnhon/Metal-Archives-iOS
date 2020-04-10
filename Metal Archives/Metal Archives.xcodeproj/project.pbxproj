@@ -98,6 +98,7 @@
 		C028BECB2440708B009BF476 /* MyBookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028BECA2440708B009BF476 /* MyBookmarksViewController.swift */; };
 		C028BECD24407211009BF476 /* MyBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028BECC24407211009BF476 /* MyBookmark.swift */; };
 		C028BECF244072C8009BF476 /* MyProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C028BECE244072C8009BF476 /* MyProfile.storyboard */; };
+		C028BED124407AAB009BF476 /* BandBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028BED024407AAB009BF476 /* BandBookmark.swift */; };
 		C028CBE222A666A4005929F1 /* LabelNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028CBE122A666A4005929F1 /* LabelNameTableViewCell.swift */; };
 		C028CBE422A67509005929F1 /* LabelMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028CBE322A67509005929F1 /* LabelMenuOption.swift */; };
 		C02D980722AB0850003C33E5 /* SpaciousLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D980622AB0850003C33E5 /* SpaciousLabel.swift */; };
@@ -660,6 +661,7 @@
 		C028BECA2440708B009BF476 /* MyBookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarksViewController.swift; sourceTree = "<group>"; };
 		C028BECC24407211009BF476 /* MyBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmark.swift; sourceTree = "<group>"; };
 		C028BECE244072C8009BF476 /* MyProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyProfile.storyboard; sourceTree = "<group>"; };
+		C028BED024407AAB009BF476 /* BandBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandBookmark.swift; sourceTree = "<group>"; };
 		C028CBE122A666A4005929F1 /* LabelNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNameTableViewCell.swift; sourceTree = "<group>"; };
 		C028CBE322A67509005929F1 /* LabelMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMenuOption.swift; sourceTree = "<group>"; };
 		C02D980622AB0850003C33E5 /* SpaciousLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaciousLabel.swift; sourceTree = "<group>"; };
@@ -2619,6 +2621,7 @@
 				C053DD602226D4850028568B /* BandTop.swift */,
 				C0BAD4AE222EE0EA00C4D38D /* BandNullable.swift */,
 				C0AA06C62239AB51001BE21D /* BandBrowse.swift */,
+				C028BED024407AAB009BF476 /* BandBookmark.swift */,
 			);
 			path = Band;
 			sourceTree = "<group>";
@@ -3801,6 +3804,7 @@
 				C06B62402242313300A3FE6B /* LabelBrowseAlphabetically.swift in Sources */,
 				C053CF642223FB3C00B056A8 /* LabelInfoTableViewCell.swift in Sources */,
 				C0F0BE822243FA0B00B90605 /* WidgetSection.swift in Sources */,
+				C028BED124407AAB009BF476 /* BandBookmark.swift in Sources */,
 				C06C6C5B21FFC4FE00D37519 /* BandStatus.swift in Sources */,
 				C0795B9F22886CF500E5D94F /* BandAdditionOrUpdateCollectionViewCell.swift in Sources */,
 				C06F1DFF21F7688900B49D39 /* LabelLiteInBand.swift in Sources */,

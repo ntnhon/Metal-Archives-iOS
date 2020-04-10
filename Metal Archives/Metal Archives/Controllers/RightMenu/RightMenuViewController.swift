@@ -108,7 +108,7 @@ final class RightMenuViewController: BaseViewController {
     
     private func bindMyProfile() {
         guard let myProfile = myProfile else { return }
-        
+    
         fullNameLabel.text = myProfile.fullName
         usernameLabel.text = "@\(myProfile.username!)"
         levelAndPointsLabel.text = "\(myProfile.rank!) • \(myProfile.points!) point(s)"
@@ -147,6 +147,7 @@ final class RightMenuViewController: BaseViewController {
                 } else {
                     KeychainService.save(username: username, password: password)
                     self.tableView.reloadData()
+                    self.fetchMyProfileIfApplicable()
                     self.properlyShowHideUIComponents()
                 }
             }
