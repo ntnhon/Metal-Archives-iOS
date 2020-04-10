@@ -15,7 +15,9 @@ final class MyBookmarksViewController: RefreshableViewController {
     
     var myBookmark: MyBookmark = .bands
     
+    // Band
     private var bandBookmarkPagableManager: PagableManager<BandBookmark>!
+    private var bandBookmarkOrder: BandOrReleaseBookmarkOrder = .lastModifiedDescending
     
     deinit {
         print("MyBookmarksViewController is deallocated")
@@ -37,9 +39,14 @@ final class MyBookmarksViewController: RefreshableViewController {
             self.navigationController?.popViewController(animated: true)
         }
         
-        simpleNavigationBarView.setRightButtonIcon(#imageLiteral(resourceName: "funnel"))
+        simpleNavigationBarView.setRightButtonIcon(#imageLiteral(resourceName: "sort"))
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
-            print("filter")
+            switch self.myBookmark {
+            case .bands: self.displayBandBookmarkOrderViewController()
+            case .artists: break
+            case .labels: break
+            case .releases: break
+            }
         }
     }
     
@@ -51,7 +58,7 @@ final class MyBookmarksViewController: RefreshableViewController {
     private func initPagableManagers() {
         switch myBookmark {
         case .bands:
-            bandBookmarkPagableManager = PagableManager<BandBookmark>()
+            bandBookmarkPagableManager = PagableManager<BandBookmark>(options: bandBookmarkOrder.options)
             bandBookmarkPagableManager.delegate = self
         default: break
         }
@@ -72,6 +79,36 @@ final class MyBookmarksViewController: RefreshableViewController {
         }
         
         tableView.reloadData()
+    }
+}
+
+// MARK: - Popover
+extension MyBookmarksViewController {
+    private func displayBandBookmarkOrderViewController() {
+        let bandOrReleaseBookmarkOrderViewController = UIStoryboard(name: "MyProfile", bundle: nil).instantiateViewController(withIdentifier: "BandOrReleaseBookmarkOrderViewController") as! BandOrReleaseBookmarkOrderViewController
+        bandOrReleaseBookmarkOrderViewController.currentOrder = bandBookmarkOrder
+        bandOrReleaseBookmarkOrderViewController.modalPresentationStyle = .popover
+        bandOrReleaseBookmarkOrderViewController.popoverPresentationController?.permittedArrowDirections = .any
+        
+        bandOrReleaseBookmarkOrderViewController.popoverPresentationController?.delegate = self
+        bandOrReleaseBookmarkOrderViewController.popoverPresentationController?.sourceView = view
+    
+        bandOrReleaseBookmarkOrderViewController.popoverPresentationController?.sourceRect = simpleNavigationBarView.rightButton.frame
+        
+        bandOrReleaseBookmarkOrderViewController.selectedBandOrReleaseBookmarkOrder = { [unowned self] (bandBookmarkOrder) in
+            self.bandBookmarkOrder = bandBookmarkOrder
+            self.initPagableManagers()
+            self.refresh()
+        }
+        
+        present(bandOrReleaseBookmarkOrderViewController, animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIPopoverPresentationControllerDelegate
+extension MyBookmarksViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
 }
 

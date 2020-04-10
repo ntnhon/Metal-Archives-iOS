@@ -103,6 +103,8 @@
 		C028CBE422A67509005929F1 /* LabelMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028CBE322A67509005929F1 /* LabelMenuOption.swift */; };
 		C02C03582440D77F00220AF7 /* BandBookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C03572440D77F00220AF7 /* BandBookmarkTableViewCell.swift */; };
 		C02C035A2440D91400220AF7 /* BandBookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C02C03592440D91400220AF7 /* BandBookmarkTableViewCell.xib */; };
+		C02C035C2440FCD700220AF7 /* BandOrReleaseBookmarkOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C035B2440FCD700220AF7 /* BandOrReleaseBookmarkOrder.swift */; };
+		C02C035E2441042600220AF7 /* BandOrReleaseBookmarkOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C035D2441042600220AF7 /* BandOrReleaseBookmarkOrderViewController.swift */; };
 		C02D980722AB0850003C33E5 /* SpaciousLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D980622AB0850003C33E5 /* SpaciousLabel.swift */; };
 		C03270D1220B1AAD009FA337 /* ReleaseElementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */; };
 		C03270D3220B1ABD009FA337 /* ReleaseElementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03270D2220B1ABD009FA337 /* ReleaseElementTableViewCell.xib */; };
@@ -668,6 +670,8 @@
 		C028CBE322A67509005929F1 /* LabelMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMenuOption.swift; sourceTree = "<group>"; };
 		C02C03572440D77F00220AF7 /* BandBookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandBookmarkTableViewCell.swift; sourceTree = "<group>"; };
 		C02C03592440D91400220AF7 /* BandBookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BandBookmarkTableViewCell.xib; sourceTree = "<group>"; };
+		C02C035B2440FCD700220AF7 /* BandOrReleaseBookmarkOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandOrReleaseBookmarkOrder.swift; sourceTree = "<group>"; };
+		C02C035D2441042600220AF7 /* BandOrReleaseBookmarkOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandOrReleaseBookmarkOrderViewController.swift; sourceTree = "<group>"; };
 		C02D980622AB0850003C33E5 /* SpaciousLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaciousLabel.swift; sourceTree = "<group>"; };
 		C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseElementTableViewCell.swift; sourceTree = "<group>"; };
 		C03270D2220B1ABD009FA337 /* ReleaseElementTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseElementTableViewCell.xib; sourceTree = "<group>"; };
@@ -1383,6 +1387,7 @@
 			isa = PBXGroup;
 			children = (
 				C028BECA2440708B009BF476 /* MyBookmarksViewController.swift */,
+				C02C035D2441042600220AF7 /* BandOrReleaseBookmarkOrderViewController.swift */,
 			);
 			path = MyBookmarks;
 			sourceTree = "<group>";
@@ -1969,6 +1974,7 @@
 				C0086DCA243F6D6E0008669C /* LeftMenuOption.swift */,
 				C0086DCC243F73910008669C /* RightMenuOption.swift */,
 				C028BECC24407211009BF476 /* MyBookmark.swift */,
+				C02C035B2440FCD700220AF7 /* BandOrReleaseBookmarkOrder.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -3938,9 +3944,11 @@
 				C051B6B52219FDDA0030E5EE /* ReviewDetailTableViewCell.swift in Sources */,
 				C053DD572226C2680028568B /* PieChartView+Setup.swift in Sources */,
 				C066137922896CCA00F99006 /* ArtistAdditionOrUpdateCollectionViewCell.swift in Sources */,
+				C02C035E2441042600220AF7 /* BandOrReleaseBookmarkOrderViewController.swift in Sources */,
 				C0B990D122079904000DBD86 /* UIColor+colorByRating.swift in Sources */,
 				C053DD712226EB290028568B /* Top100Albums.swift in Sources */,
 				C0AA06C72239AB51001BE21D /* BandBrowse.swift in Sources */,
+				C02C035C2440FCD700220AF7 /* BandOrReleaseBookmarkOrder.swift in Sources */,
 				C05309EF22233E060027D11E /* ReleaseExtraLite.swift in Sources */,
 				C053DD34222681C80028568B /* MemberStatistic.swift in Sources */,
 				C0602BDF21EA9CE800046367 /* Statics.swift in Sources */,

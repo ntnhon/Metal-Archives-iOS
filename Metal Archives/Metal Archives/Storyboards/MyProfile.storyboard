@@ -53,5 +53,39 @@
             </objects>
             <point key="canvasLocation" x="84" y="102"/>
         </scene>
+        <!--Band Or Release Bookmark Order View Controller-->
+        <scene sceneID="n1X-6L-URd">
+            <objects>
+                <viewController storyboardIdentifier="BandOrReleaseBookmarkOrderViewController" id="iP8-7e-5bs" customClass="BandOrReleaseBookmarkOrderViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uch-kK-cXz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Lt9-u1-31d">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="iP8-7e-5bs" id="pVE-Nl-5Pp"/>
+                                    <outlet property="delegate" destination="iP8-7e-5bs" id="Kuc-qv-atW"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Lt9-u1-31d" secondAttribute="trailing" id="Op2-ag-RV5"/>
+                            <constraint firstItem="Lt9-u1-31d" firstAttribute="top" secondItem="uch-kK-cXz" secondAttribute="top" id="eQ9-ih-aMF"/>
+                            <constraint firstAttribute="bottom" secondItem="Lt9-u1-31d" secondAttribute="bottom" id="imr-KV-MNc"/>
+                            <constraint firstItem="Lt9-u1-31d" firstAttribute="leading" secondItem="uch-kK-cXz" secondAttribute="leading" id="vIM-mu-Ib3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="0WQ-Pn-b7U"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="Lt9-u1-31d" id="h2y-gG-Ifv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="57C-eC-Mn9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="900" y="102"/>
+        </scene>
     </scenes>
 </document>

@@ -37,6 +37,7 @@ final class BandBookmarkTableViewCell: ThumbnailableTableViewCell, RegisterableC
         bandNameLabel.text = bandBookmark.name
         countryLabel.text = bandBookmark.country.nameAndEmoji
         lastModifiedLabel.text = "\(bandBookmark.lastModified) 🕒"
+        genreLabel.text = bandBookmark.genre
         
         noteLabel.attributedText = bandBookmark.note
         noteLabel.isHidden = bandBookmark.note == nil
