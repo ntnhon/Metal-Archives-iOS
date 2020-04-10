@@ -13,6 +13,8 @@ enum MALoginError: LocalizedError {
     case incorrectCredential
     /// Empty response
     case emptyResponse
+    /// Failed to parse MyProfile
+    case failedToParseMyProfile
     /// Unknown error
     case unknown(description: String)
     
@@ -20,6 +22,7 @@ enum MALoginError: LocalizedError {
         switch self {
         case .incorrectCredential: return "Incorrect username or password"
         case .emptyResponse: return "[MALoginError] Empty response"
+        case .failedToParseMyProfile: return "Failed to parse profile"
         case .unknown(let description): return "[MALoginError] Unknown error: \(description)"
         }
     }

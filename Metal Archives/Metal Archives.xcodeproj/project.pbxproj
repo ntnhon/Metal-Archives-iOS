@@ -309,6 +309,7 @@
 		C06C6C6221FFCF5300D37519 /* UIImage+RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06C6C6121FFCF5300D37519 /* UIImage+RoundedCorner.swift */; };
 		C06C6C6521FFD5C100D37519 /* ExpandedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06C6C6421FFD5C100D37519 /* ExpandedButton.swift */; };
 		C06DC34D22705A1E005D513E /* RegexHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06DC34C22705A1E005D513E /* RegexHelpers.swift */; };
+		C06E7E482440408F00762FBB /* MyProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E7E472440408F00762FBB /* MyProfile.swift */; };
 		C06E92D122538FB9006EE887 /* VersionHistory.plist in Resources */ = {isa = PBXBuildFile; fileRef = C06E92D022538FB9006EE887 /* VersionHistory.plist */; };
 		C06E92D3225391A0006EE887 /* VersionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E92D2225391A0006EE887 /* VersionHistoryViewController.swift */; };
 		C06E92D522539248006EE887 /* VersionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E92D422539248006EE887 /* VersionHistory.swift */; };
@@ -848,6 +849,7 @@
 		C06C6C6121FFCF5300D37519 /* UIImage+RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+RoundedCorner.swift"; sourceTree = "<group>"; };
 		C06C6C6421FFD5C100D37519 /* ExpandedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedButton.swift; sourceTree = "<group>"; };
 		C06DC34C22705A1E005D513E /* RegexHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexHelpers.swift; sourceTree = "<group>"; };
+		C06E7E472440408F00762FBB /* MyProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfile.swift; sourceTree = "<group>"; };
 		C06E92D022538FB9006EE887 /* VersionHistory.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = VersionHistory.plist; sourceTree = "<group>"; };
 		C06E92D2225391A0006EE887 /* VersionHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryViewController.swift; sourceTree = "<group>"; };
 		C06E92D422539248006EE887 /* VersionHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistory.swift; sourceTree = "<group>"; };
@@ -1744,6 +1746,7 @@
 		C0602BC521E9E47300046367 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C06E7E462440401B00762FBB /* MyProfile */,
 				C082CD9022E4756E002202F6 /* Deezer */,
 				C0602BD421EA873000046367 /* Enums */,
 				C0BAD49F222EC52E00C4D38D /* Search */,
@@ -2143,6 +2146,14 @@
 				C06DC34C22705A1E005D513E /* RegexHelpers.swift */,
 			);
 			path = RegexHelpers;
+			sourceTree = "<group>";
+		};
+		C06E7E462440401B00762FBB /* MyProfile */ = {
+			isa = PBXGroup;
+			children = (
+				C06E7E472440408F00762FBB /* MyProfile.swift */,
+			);
+			path = MyProfile;
 			sourceTree = "<group>";
 		};
 		C06F1DEC21F70FEA00B49D39 /* LoadingTableViewCell */ = {
@@ -3910,6 +3921,7 @@
 				C06F1E0121F7694600B49D39 /* Artist.swift in Sources */,
 				C085E6C622A27F78007FACFA /* ReleaseInfoTableViewCell.swift in Sources */,
 				C01839EC2225749A00FF88B7 /* LabelAdditionOrUpdateTableViewCell.swift in Sources */,
+				C06E7E482440408F00762FBB /* MyProfile.swift in Sources */,
 				C0FF16CB220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift in Sources */,
 				C06F1E0321F76D2600B49D39 /* Review.swift in Sources */,
 				C06613812289903300F99006 /* LatestReviewsTableViewCell.swift in Sources */,

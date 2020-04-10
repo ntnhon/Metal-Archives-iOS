@@ -13,8 +13,13 @@ import SlideMenuControllerSwift
 import Toaster
 
 final class RightMenuViewController: BaseViewController {
+    @IBOutlet private weak var myProfileStackView: UIStackView!
+    @IBOutlet private weak var fullNameLabel: UILabel!
+    @IBOutlet private weak var usernameLabel: UILabel!
+    @IBOutlet private weak var levelAndPointsLabel: UILabel!
+    @IBOutlet private weak var genresLabel: UILabel!
+    
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var booksImageView: UIImageView!
     @IBOutlet private weak var loginButton: UIButton!
     @IBOutlet private weak var registerButton: UIButton!
     
@@ -23,7 +28,9 @@ final class RightMenuViewController: BaseViewController {
         return appDelegate.slideMenuController!
     }()
     
-    private let options: [[RightMenuOption]] = [[.collection], [.bands, .artists, .labels, .releases], [.logOut]]
+    private let options: [[RightMenuOption]] = [[.collection, .wishlist, .tradeList], [.bands, .artists, .labels, .releases], [.logOut]]
+    
+    private var myProfile: MyProfile?
 
     deinit {
         print("RightMenuViewController is deallocated")
@@ -37,13 +44,20 @@ final class RightMenuViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         properlyShowHideUIComponents()
+        fetchMyProfileIfApplicable()
     }
     
     override func initAppearance() {
         super.initAppearance()
         
-        booksImageView.tintColor = Settings.currentTheme.titleColor
-        booksImageView.alpha = 0.5
+        fullNameLabel.textColor = Settings.currentTheme.bodyTextColor
+        fullNameLabel.text = nil
+        usernameLabel.textColor = Settings.currentTheme.bodyTextColor
+        usernameLabel.text = nil
+        levelAndPointsLabel.textColor = Settings.currentTheme.bodyTextColor
+        levelAndPointsLabel.text = nil
+        genresLabel.textColor = Settings.currentTheme.bodyTextColor
+        genresLabel.text = nil
         
         loginButton.tintColor = Settings.currentTheme.titleColor
         loginButton.setTitleColor(Settings.currentTheme.titleColor, for: .normal)
@@ -66,14 +80,39 @@ final class RightMenuViewController: BaseViewController {
         if LoginService.isLoggedIn {
             loginButton.isHidden = true
             registerButton.isHidden = true
-            booksImageView.isHidden = false
             tableView.isHidden = false
         } else {
             loginButton.isHidden = false
             registerButton.isHidden = false
-            booksImageView.isHidden = true
             tableView.isHidden = true
         }
+        
+        myProfileStackView.isHidden = myProfile == nil
+    }
+    
+    private func fetchMyProfileIfApplicable() {
+        guard myProfile == nil else { return }
+        
+        LoginService.fetchMyProfile(username: KeychainService.getUsername()) { [weak self] (myProfile, error) in
+            guard let self = self else { return }
+            
+            if let error = error {
+                Toast.displayMessageShortly(error.localizedDescription)
+            } else if let myProfile = myProfile {
+                self.myProfile = myProfile
+                self.bindMyProfile()
+                self.properlyShowHideUIComponents()
+            }
+        }
+    }
+    
+    private func bindMyProfile() {
+        guard let myProfile = myProfile else { return }
+        
+        fullNameLabel.text = myProfile.fullName
+        usernameLabel.text = "@\(myProfile.username!)"
+        levelAndPointsLabel.text = "\(myProfile.rank!) • \(myProfile.points!) point(s)"
+        genresLabel.text = myProfile.favoriteGenres
     }
     
     @IBAction private func loginButtonTapped() {
@@ -135,6 +174,8 @@ extension RightMenuViewController: UITableViewDelegate {
         let option = options[indexPath.section][indexPath.row]
         switch option {
         case .collection: print("Collection")
+        case .wishlist: print("Wishlist")
+        case .tradeList: print("Trade list")
         case .bands: print("Bands")
         case .artists: print("Artists")
         case .labels: print("Labels")
@@ -158,7 +199,7 @@ extension RightMenuViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0: return "Welcome, \(KeychainService.getUsername())"
+        case 0: return "My collection"
         case 1: return "My bookmarks"
         default: return nil
         }
