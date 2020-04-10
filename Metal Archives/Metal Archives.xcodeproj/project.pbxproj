@@ -101,6 +101,8 @@
 		C028BED124407AAB009BF476 /* BandBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028BED024407AAB009BF476 /* BandBookmark.swift */; };
 		C028CBE222A666A4005929F1 /* LabelNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028CBE122A666A4005929F1 /* LabelNameTableViewCell.swift */; };
 		C028CBE422A67509005929F1 /* LabelMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028CBE322A67509005929F1 /* LabelMenuOption.swift */; };
+		C02C03582440D77F00220AF7 /* BandBookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C03572440D77F00220AF7 /* BandBookmarkTableViewCell.swift */; };
+		C02C035A2440D91400220AF7 /* BandBookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C02C03592440D91400220AF7 /* BandBookmarkTableViewCell.xib */; };
 		C02D980722AB0850003C33E5 /* SpaciousLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D980622AB0850003C33E5 /* SpaciousLabel.swift */; };
 		C03270D1220B1AAD009FA337 /* ReleaseElementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */; };
 		C03270D3220B1ABD009FA337 /* ReleaseElementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03270D2220B1ABD009FA337 /* ReleaseElementTableViewCell.xib */; };
@@ -664,6 +666,8 @@
 		C028BED024407AAB009BF476 /* BandBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandBookmark.swift; sourceTree = "<group>"; };
 		C028CBE122A666A4005929F1 /* LabelNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNameTableViewCell.swift; sourceTree = "<group>"; };
 		C028CBE322A67509005929F1 /* LabelMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMenuOption.swift; sourceTree = "<group>"; };
+		C02C03572440D77F00220AF7 /* BandBookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandBookmarkTableViewCell.swift; sourceTree = "<group>"; };
+		C02C03592440D91400220AF7 /* BandBookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BandBookmarkTableViewCell.xib; sourceTree = "<group>"; };
 		C02D980622AB0850003C33E5 /* SpaciousLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaciousLabel.swift; sourceTree = "<group>"; };
 		C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseElementTableViewCell.swift; sourceTree = "<group>"; };
 		C03270D2220B1ABD009FA337 /* ReleaseElementTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseElementTableViewCell.xib; sourceTree = "<group>"; };
@@ -1389,6 +1393,23 @@
 				C028CBE122A666A4005929F1 /* LabelNameTableViewCell.swift */,
 			);
 			path = LabelNameTableViewCell;
+			sourceTree = "<group>";
+		};
+		C02C03552440D75700220AF7 /* MyProfile */ = {
+			isa = PBXGroup;
+			children = (
+				C02C03562440D76700220AF7 /* BandBookmarkTableViewCell */,
+			);
+			path = MyProfile;
+			sourceTree = "<group>";
+		};
+		C02C03562440D76700220AF7 /* BandBookmarkTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C02C03572440D77F00220AF7 /* BandBookmarkTableViewCell.swift */,
+				C02C03592440D91400220AF7 /* BandBookmarkTableViewCell.xib */,
+			);
+			path = BandBookmarkTableViewCell;
 			sourceTree = "<group>";
 		};
 		C02D980522AB083D003C33E5 /* SpaciousLabel */ = {
@@ -2247,6 +2268,7 @@
 		C071306021ECC43000082BC6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C02C03552440D75700220AF7 /* MyProfile */,
 				C082CD9A22E48DEB002202F6 /* Deezer */,
 				C027A27C22B55CF00011EA73 /* CustomNavigationBar */,
 				C02D980522AB083D003C33E5 /* SpaciousLabel */,
@@ -3362,6 +3384,7 @@
 				C0795BA122886D2600E5D94F /* BandAdditionOrUpdateCollectionViewCell.xib in Resources */,
 				C053CF662223FB5000B056A8 /* LabelInfoTableViewCell.xib in Resources */,
 				C03280022209E0F000FC9A44 /* ReleaseDetail.storyboard in Resources */,
+				C02C035A2440D91400220AF7 /* BandBookmarkTableViewCell.xib in Resources */,
 				C0FE9625221C0558003C4B59 /* ArtistInfoTableViewCell.xib in Resources */,
 				C082CDA022E497CF002202F6 /* Explanation.storyboard in Resources */,
 				C03270EB220B9360009FA337 /* Review.storyboard in Resources */,
@@ -3678,6 +3701,7 @@
 				C08CAAFB22AA31BE00E78520 /* HorizontalOptionsView.swift in Sources */,
 				C0602BC721E9E4A600046367 /* BandAdditionOrUpdate.swift in Sources */,
 				C0AA06AE22393F76001BE21D /* AdvancedSearchReleaseFormatListViewController.swift in Sources */,
+				C02C03582440D77F00220AF7 /* BandBookmarkTableViewCell.swift in Sources */,
 				C00D3621223D64D700B29B43 /* BrowseBandsByGenreViewController.swift in Sources */,
 				C053DD612226D4850028568B /* BandTop.swift in Sources */,
 				C0FE962F221C3B10003C4B59 /* UIView+InitFromNib.swift in Sources */,

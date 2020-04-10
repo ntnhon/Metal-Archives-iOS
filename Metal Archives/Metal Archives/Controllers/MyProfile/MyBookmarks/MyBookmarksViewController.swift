@@ -24,6 +24,7 @@ final class MyBookmarksViewController: RefreshableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         handleSimpleNavigationBarViewActions()
+        setUpTableView()
         initPagableManagers()
         bandBookmarkPagableManager.fetch()
     }
@@ -42,6 +43,11 @@ final class MyBookmarksViewController: RefreshableViewController {
         }
     }
     
+    private func setUpTableView() {
+        LoadingTableViewCell.register(with: tableView)
+        BandBookmarkTableViewCell.register(with: tableView)
+    }
+    
     private func initPagableManagers() {
         switch myBookmark {
         case .bands:
@@ -49,6 +55,23 @@ final class MyBookmarksViewController: RefreshableViewController {
             bandBookmarkPagableManager.delegate = self
         default: break
         }
+    }
+    
+    override func refresh() {
+        switch myBookmark {
+        case .bands:
+            bandBookmarkPagableManager.reset()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                self.bandBookmarkPagableManager.fetch()
+            }
+            
+        case .artists: break
+        case .labels: break
+        case .releases: break
+        }
+        
+        tableView.reloadData()
     }
 }
 
@@ -75,6 +98,20 @@ extension MyBookmarksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        switch myBookmark {
+        case .bands:
+            if bandBookmarkPagableManager.moreToLoad && indexPath.row == bandBookmarkPagableManager.objects.count {
+                bandBookmarkPagableManager.fetch()
+            }
+            return
+            
+        case .artists: return
+        case .labels: return
+        case .releases: return
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -84,10 +121,62 @@ extension MyBookmarksViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        let moreToLoad: Bool
+        let count: Int
+        switch myBookmark {
+        case .bands:
+            guard let manager = bandBookmarkPagableManager else { return 0 }
+            moreToLoad = manager.moreToLoad
+            count = manager.objects.count
+            
+        case .artists: return 0
+        case .labels: return 0
+        case .releases: return 0
+        }
+        
+        if moreToLoad {
+            if count == 0 {
+                return 0
+            }
+            
+            return count + 1
+        }
+        
+        return count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        // Display loading cell if applicable
+        let shouldDisplayLoadingCell: Bool
+        switch myBookmark {
+        case .bands:
+            shouldDisplayLoadingCell = bandBookmarkPagableManager.moreToLoad && indexPath.row == bandBookmarkPagableManager.objects.count
+            
+        case .artists: shouldDisplayLoadingCell = false
+        case .labels: shouldDisplayLoadingCell = false
+        case .releases: shouldDisplayLoadingCell = false
+        }
+        
+        if shouldDisplayLoadingCell {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            loadingCell.displayIsLoading()
+            return loadingCell
+        }
+        
+        // Display normal cells
+        switch myBookmark {
+        case .bands:
+            let cell = BandBookmarkTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            let bandBookmark = bandBookmarkPagableManager.objects[indexPath.row]
+            cell.fill(with: bandBookmark)
+            cell.tappedThumbnailImageView = { [unowned self] in
+                self.presentPhotoViewerWithCacheChecking(photoUrlString: bandBookmark.imageURLString, description: bandBookmark.name, fromImageView: cell.thumbnailImageView)
+            }
+            return cell
+            
+        case .artists: return UITableViewCell()
+        case .labels: return UITableViewCell()
+        case .releases: return UITableViewCell()
+        }
     }
 }

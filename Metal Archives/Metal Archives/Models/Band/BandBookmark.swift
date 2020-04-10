@@ -13,7 +13,7 @@ final class BandBookmark: ThumbnailableObject {
     let country: Country
     let genre: String
     let lastModified: String
-    let note: String
+    let note: NSAttributedString?
     
     /*
      Sample array:
@@ -40,7 +40,14 @@ final class BandBookmark: ThumbnailableObject {
         self.country = country
         self.genre = array[2]
         self.lastModified = array[3]
-        self.note = String(noteSubstring)
+        
+        let noteString = String(noteSubstring)
+        if noteString != "" {
+            self.note = ("📝 " + noteString).htmlToAttributedString(attributes: [.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont])
+        } else {
+            self.note = nil
+        }
+
         super.init(urlString: String(urlSubstring), imageType: .bandLogo)
     }
 }
