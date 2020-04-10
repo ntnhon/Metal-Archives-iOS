@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.5</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -45,8 +45,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Allow to create reminder (event) from an upcoming album</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow to save photos to your device (band&apos;s photo, logo, release&apos;s artwork...)</string>
+	<string>Allow to save photos to your device (band's photo, logo, release's artwork...)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NewRocker-Regular.ttf</string>
@@ -97,7 +99,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>NSCalendarsUsageDescription</key>
-	<string>Allow to create reminder (event) from an upcoming album</string>
 </dict>
 </plist>
