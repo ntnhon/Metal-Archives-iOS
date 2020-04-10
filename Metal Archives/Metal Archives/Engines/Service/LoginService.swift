@@ -15,27 +15,33 @@ final class LoginService {
     static func login(username: String, password: String, completion: @escaping (_ error: MALoginError?) -> Void) {
         isLoggedIn = false
         
-        let parameters: HTTPHeaders = ["loginUsername": username, "loginPassword": password, "origin": "/"]
-        let url = URL(string: "https://www.metal-archives.com/authentication/login")!
-        RequestHelper.shared.alamofireManager.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).responseString { (response) in
+        // First make a dummy post to generate PHPSESSID
+        RequestHelper.shared.alamofireManager.request(URL(string: "https://www.metal-archives.com")!, method: .post, parameters: nil, encoding: URLEncoding.default, headers: nil).response { (_) in
             
-            guard let response = response.response else {
-                isLoggedIn = false
-                completion(MALoginError.emptyResponse)
-                return
+            // PHPSESSID is generated and saved
+            let parameters: HTTPHeaders = ["loginUsername": username, "loginPassword": password, "origin": "/"]
+            let url = URL(string: "https://www.metal-archives.com/authentication/login")!
+            RequestHelper.shared.alamofireManager.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).responseString { (response) in
+                
+                guard let response = response.response else {
+                    isLoggedIn = false
+                    completion(MALoginError.emptyResponse)
+                    return
+                }
+                
+                switch response.statusCode {
+                case 200:
+                    isLoggedIn = true
+                    completion(nil)
+                    
+                case 403: completion(MALoginError.incorrectCredential)
+                    
+                default:
+                    isLoggedIn = false
+                    completion(MALoginError.unknown(description: "code \(response.statusCode)"))
+                }
             }
             
-            switch response.statusCode {
-            case 200:
-                isLoggedIn = true
-                completion(nil)
-                
-            case 403: completion(MALoginError.incorrectCredential)
-                
-            default:
-                isLoggedIn = false
-                completion(MALoginError.unknown(description: "code \(response.statusCode)"))
-            }
         }
     }
     
