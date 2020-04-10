@@ -163,6 +163,12 @@ final class RightMenuViewController: BaseViewController {
         guard let url = URL(string: "https://www.metal-archives.com/user/signup") else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
+    
+    private func pushMyBookmarksViewController(_ myBookmark: MyBookmark) {
+        let myBookmarksViewController = UIStoryboard(name: "MyProfile", bundle: Bundle.main).instantiateViewController(withIdentifier: "MyBookmarksViewController") as! MyBookmarksViewController
+        myBookmarksViewController.myBookmark = myBookmark
+        (slideMenuController.mainViewController as? UINavigationController)?.pushViewController(myBookmarksViewController, animated: true)
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -176,10 +182,10 @@ extension RightMenuViewController: UITableViewDelegate {
         case .collection: print("Collection")
         case .wishlist: print("Wishlist")
         case .tradeList: print("Trade list")
-        case .bands: print("Bands")
-        case .artists: print("Artists")
-        case .labels: print("Labels")
-        case .releases: print("Releases")
+        case .bands: pushMyBookmarksViewController(.bands)
+        case .artists: pushMyBookmarksViewController(.artists)
+        case .labels: pushMyBookmarksViewController(.labels)
+        case .releases: pushMyBookmarksViewController(.releases)
         case .logOut:
             let alert = UIAlertController(title: "You will be logged out", message: "Please confirm.", preferredStyle: .alert)
             

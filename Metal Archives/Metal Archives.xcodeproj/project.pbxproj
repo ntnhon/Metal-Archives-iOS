@@ -95,6 +95,9 @@
 		C027A28122B57D5D0011EA73 /* DismissableOnSwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A28022B57D5D0011EA73 /* DismissableOnSwipeViewController.swift */; };
 		C027A28422B593FE0011EA73 /* Top100NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A28322B593FE0011EA73 /* Top100NavigationBarView.swift */; };
 		C027A28622B59A570011EA73 /* TransformableWithScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A28522B59A570011EA73 /* TransformableWithScrollView.swift */; };
+		C028BECB2440708B009BF476 /* MyBookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028BECA2440708B009BF476 /* MyBookmarksViewController.swift */; };
+		C028BECD24407211009BF476 /* MyBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028BECC24407211009BF476 /* MyBookmark.swift */; };
+		C028BECF244072C8009BF476 /* MyProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C028BECE244072C8009BF476 /* MyProfile.storyboard */; };
 		C028CBE222A666A4005929F1 /* LabelNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028CBE122A666A4005929F1 /* LabelNameTableViewCell.swift */; };
 		C028CBE422A67509005929F1 /* LabelMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028CBE322A67509005929F1 /* LabelMenuOption.swift */; };
 		C02D980722AB0850003C33E5 /* SpaciousLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D980622AB0850003C33E5 /* SpaciousLabel.swift */; };
@@ -654,6 +657,9 @@
 		C027A28022B57D5D0011EA73 /* DismissableOnSwipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableOnSwipeViewController.swift; sourceTree = "<group>"; };
 		C027A28322B593FE0011EA73 /* Top100NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top100NavigationBarView.swift; sourceTree = "<group>"; };
 		C027A28522B59A570011EA73 /* TransformableWithScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformableWithScrollView.swift; sourceTree = "<group>"; };
+		C028BECA2440708B009BF476 /* MyBookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarksViewController.swift; sourceTree = "<group>"; };
+		C028BECC24407211009BF476 /* MyBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmark.swift; sourceTree = "<group>"; };
+		C028BECE244072C8009BF476 /* MyProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyProfile.storyboard; sourceTree = "<group>"; };
 		C028CBE122A666A4005929F1 /* LabelNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNameTableViewCell.swift; sourceTree = "<group>"; };
 		C028CBE322A67509005929F1 /* LabelMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMenuOption.swift; sourceTree = "<group>"; };
 		C02D980622AB0850003C33E5 /* SpaciousLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaciousLabel.swift; sourceTree = "<group>"; };
@@ -1359,6 +1365,22 @@
 			path = CustomNavigationBar;
 			sourceTree = "<group>";
 		};
+		C028BEC82440704B009BF476 /* MyProfile */ = {
+			isa = PBXGroup;
+			children = (
+				C028BEC924407057009BF476 /* MyBookmarks */,
+			);
+			path = MyProfile;
+			sourceTree = "<group>";
+		};
+		C028BEC924407057009BF476 /* MyBookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				C028BECA2440708B009BF476 /* MyBookmarksViewController.swift */,
+			);
+			path = MyBookmarks;
+			sourceTree = "<group>";
+		};
 		C028CBE022A66653005929F1 /* LabelNameTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1772,6 +1794,7 @@
 		C0602BC821E9E54A00046367 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C028BEC82440704B009BF476 /* MyProfile */,
 				C003D7B822E3B59C00F9F622 /* Deezer */,
 				C0A1F94F224198DE005C2C83 /* BrowseLabels */,
 				C0A1F948224187E5005C2C83 /* ArtistRIP */,
@@ -1835,6 +1858,7 @@
 				C0A1F95222419947005C2C83 /* BrowseLabels.storyboard */,
 				C003D7BD22E3B62300F9F622 /* Deezer.storyboard */,
 				C082CD9F22E497CF002202F6 /* Explanation.storyboard */,
+				C028BECE244072C8009BF476 /* MyProfile.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1921,6 +1945,7 @@
 				C0A7FFBC231985A800A929A1 /* HomepageSection.swift */,
 				C0086DCA243F6D6E0008669C /* LeftMenuOption.swift */,
 				C0086DCC243F73910008669C /* RightMenuOption.swift */,
+				C028BECC24407211009BF476 /* MyBookmark.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -3379,6 +3404,7 @@
 				C074FEE02205C46E0086909E /* MemberTableViewCell.xib in Resources */,
 				C09A18AA21FF4CE200152908 /* PhotoViewer.storyboard in Resources */,
 				C082CD9E22E48E97002202F6 /* DeezerArtistTableViewCell.xib in Resources */,
+				C028BECF244072C8009BF476 /* MyProfile.storyboard in Resources */,
 				C06613832289913000F99006 /* LatestReviewsTableViewCell.xib in Resources */,
 				C0602BDB21EA8FA900046367 /* Home.storyboard in Resources */,
 				C00838892200F23000B35996 /* ReadMore.storyboard in Resources */,
@@ -3617,6 +3643,7 @@
 				C0795B8B2288234F00E5D94F /* BetterSnappingLayout.swift in Sources */,
 				C01D5870225CE28100DC7556 /* ThemeListTableViewController.swift in Sources */,
 				C027A28422B593FE0011EA73 /* Top100NavigationBarView.swift in Sources */,
+				C028BECB2440708B009BF476 /* MyBookmarksViewController.swift in Sources */,
 				C00D3631223D98D700B29B43 /* DetailTableViewCell.swift in Sources */,
 				C0A1F94222416B82005C2C83 /* ArtistRIP.swift in Sources */,
 				C06F92962231CD310079E63E /* SimpleLabelTableViewCell.swift in Sources */,
@@ -3809,6 +3836,7 @@
 				C03270E2220B7B37009FA337 /* RequestReleaseOtherVersion.swift in Sources */,
 				C01D5872225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift in Sources */,
 				C06C6C6521FFD5C100D37519 /* ExpandedButton.swift in Sources */,
+				C028BECD24407211009BF476 /* MyBookmark.swift in Sources */,
 				C053DD5022269ADB0028568B /* ReleaseStatisticTableViewCell.swift in Sources */,
 				C0328021220A228200FC9A44 /* Song.swift in Sources */,
 				C053DD3C222697920028568B /* BandStatisticTableViewCell.swift in Sources */,
