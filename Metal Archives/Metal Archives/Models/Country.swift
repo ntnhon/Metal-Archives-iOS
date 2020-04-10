@@ -17,14 +17,28 @@ final class Country: Equatable {
         return "\(name) \(emoji)"
     }
     
-    init?(iso: String) {
+    static let unknownCountry = Country(iso: "ZZ", emoji: "🏳️", name: "Unknown")
+    
+    fileprivate init(iso: String, emoji: String, name: String) {
+        self.iso = iso
+        self.emoji = emoji
+        self.name = name
+    }
+    
+    init(iso: String) {
         if iso.count != 2 {
-            return nil
+            self.iso = "ZZ"
+            self.emoji = "🏳️"
+            self.name = "Unknown"
+            return
         }
         
         for (eachISO, eachISODictionary) in countryDictionary {
             guard let `eachISO` = eachISO as? String, let `eachISODictionary` = eachISODictionary as? NSDictionary else {
-                return nil
+                self.iso = "ZZ"
+                self.emoji = "🏳️"
+                self.name = "Unknown"
+                return
             }
             
             if eachISO.caseInsensitiveCompare(iso) == .orderedSame {
@@ -35,17 +49,26 @@ final class Country: Equatable {
             }
         }
         
-        return nil
+        self.iso = "ZZ"
+        self.emoji = "🏳️"
+        self.name = "Unknown"
+        return
     }
     
-    init?(name: String) {
+    init(name: String) {
         for (eachISO, eachISODictionary) in countryDictionary {
             guard let `eachISO` = eachISO as? String, let `eachISODictionary` = eachISODictionary as? NSDictionary else {
-                return nil
+                self.iso = "ZZ"
+                self.emoji = "🏳️"
+                self.name = "Unknown"
+                return
             }
             
             guard let countryName = eachISODictionary["Name"] as? String else {
-                return nil
+                self.iso = "ZZ"
+                self.emoji = "🏳️"
+                self.name = "Unknown"
+                return
             }
             
             if name == countryName {
@@ -56,17 +79,26 @@ final class Country: Equatable {
             }
         }
         
-        return nil
+        self.iso = "ZZ"
+        self.emoji = "🏳️"
+        self.name = "Unknown"
+        return
     }
     
-    init?(emoji: String) {
+    init(emoji: String) {
         for (eachISO, eachISODictionary) in countryDictionary {
             guard let `eachISO` = eachISO as? String, let `eachISODictionary` = eachISODictionary as? NSDictionary else {
-                return nil
+                self.iso = "ZZ"
+                self.emoji = "🏳️"
+                self.name = "Unknown"
+                return
             }
             
             guard let countryEmoji = eachISODictionary["Emoji"] as? String else {
-                return nil
+                self.iso = "ZZ"
+                self.emoji = "🏳️"
+                self.name = "Unknown"
+                return
             }
             
             if emoji == countryEmoji {
@@ -77,7 +109,10 @@ final class Country: Equatable {
             }
         }
         
-        return nil
+        self.iso = "ZZ"
+        self.emoji = "🏳️"
+        self.name = "Unknown"
+        return
     }
     
     static func == (lhs: Country, rhs: Country) -> Bool {

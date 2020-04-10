@@ -45,8 +45,7 @@ class BandAdditionOrUpdate: ThumbnailableObject {
                 return nil
         }
         
-        guard let countryIsoSubString = array[2].subString(after: "lists/", before: #"">"#, options: .caseInsensitive),
-            let country = Country(iso: String(countryIsoSubString)) else {
+        guard let countryIsoSubString = array[2].subString(after: "lists/", before: #"">"#, options: .caseInsensitive) else {
             return nil
         }
         
@@ -55,7 +54,7 @@ class BandAdditionOrUpdate: ThumbnailableObject {
         }
         
         self.name = String(nameSubstring)
-        self.country = country
+        self.country = Country(iso: String(countryIsoSubString))
         self.genre = array[3]
         self.updatedDateAndTimeString = array[4]
         self.user = user

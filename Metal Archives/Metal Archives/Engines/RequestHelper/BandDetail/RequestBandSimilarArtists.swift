@@ -61,8 +61,8 @@ extension RequestHelper.BandDetail {
                         }
                             
                         else if (i == 1) {
-                            if let countryName = td.text, let country = Country(name: countryName) {
-                                bandCountry = country
+                            if let countryName = td.text {
+                                bandCountry = Country(name: countryName)
                             }
                         }
                             

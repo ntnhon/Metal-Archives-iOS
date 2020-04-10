@@ -9,6 +9,10 @@
 import UIKit
 
 final class BandOrReleaseBookmarkOrderViewController: BaseViewController {
+    enum BookmarkType {
+        case band, release
+    }
+    
     @IBOutlet private weak var tableView: UITableView!
     
     var currentOrder: BandOrReleaseBookmarkOrder = .nameAscending

@@ -32,12 +32,10 @@ final class BandBookmark: ThumbnailableObject {
                 return nil
         }
         
-        guard let country = Country(name: array[1]) else { return nil }
-        
         guard let noteSubstring = array[4].subString(after: "\">", before: "</span>", options: .caseInsensitive) else { return nil}
         
         self.name = String(nameSubstring)
-        self.country = country
+        self.country = Country(name: array[1])
         self.genre = array[2]
         self.lastModified = array[3]
         

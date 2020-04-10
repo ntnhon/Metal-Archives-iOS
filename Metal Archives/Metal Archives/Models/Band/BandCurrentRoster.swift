@@ -52,10 +52,9 @@ extension BandCurrentRoster: Pagable {
             let genre = eachBandCurrentRosterDetail[1]
             let countryName = eachBandCurrentRosterDetail[2]
             
-            if let country = Country(name: countryName) {
-                if let bandCurrentRoster = BandCurrentRoster(urlString: bandURLString, name: bandName, genre: genre, country: country) {
-                    list.append(bandCurrentRoster)
-                }
+            let country = Country(name: countryName)
+            if let bandCurrentRoster = BandCurrentRoster(urlString: bandURLString, name: bandName, genre: genre, country: country) {
+                list.append(bandCurrentRoster)
             }
         }
         

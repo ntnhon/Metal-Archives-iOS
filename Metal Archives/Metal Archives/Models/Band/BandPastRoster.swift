@@ -74,7 +74,9 @@ extension BandPastRoster: Pagable {
             let countryName = eachBandPastRosterDetail[2]
             let numberOfReleases = Int(eachBandPastRosterDetail[3])
             
-            if let country = Country(name: countryName), let `numberOfReleases` = numberOfReleases {
+            let country = Country(name: countryName)
+            
+            if let numberOfReleases = numberOfReleases {
                 if let bandPastRoster = BandPastRoster(urlString: bandURLString, name: bandName, genre: genre, country: country, numberOfReleases: numberOfReleases) {
                     list.append(bandPastRoster)
                 }

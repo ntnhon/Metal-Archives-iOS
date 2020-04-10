@@ -105,6 +105,9 @@
 		C02C035A2440D91400220AF7 /* BandBookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C02C03592440D91400220AF7 /* BandBookmarkTableViewCell.xib */; };
 		C02C035C2440FCD700220AF7 /* BandOrReleaseBookmarkOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C035B2440FCD700220AF7 /* BandOrReleaseBookmarkOrder.swift */; };
 		C02C035E2441042600220AF7 /* BandOrReleaseBookmarkOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C035D2441042600220AF7 /* BandOrReleaseBookmarkOrderViewController.swift */; };
+		C02C03602441101C00220AF7 /* ReleaseBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C035F2441101C00220AF7 /* ReleaseBookmark.swift */; };
+		C02C0363244113C300220AF7 /* ReleaseBookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C0362244113C300220AF7 /* ReleaseBookmarkTableViewCell.swift */; };
+		C02C0365244113CE00220AF7 /* ReleaseBookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C02C0364244113CE00220AF7 /* ReleaseBookmarkTableViewCell.xib */; };
 		C02D980722AB0850003C33E5 /* SpaciousLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D980622AB0850003C33E5 /* SpaciousLabel.swift */; };
 		C03270D1220B1AAD009FA337 /* ReleaseElementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */; };
 		C03270D3220B1ABD009FA337 /* ReleaseElementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03270D2220B1ABD009FA337 /* ReleaseElementTableViewCell.xib */; };
@@ -672,6 +675,9 @@
 		C02C03592440D91400220AF7 /* BandBookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BandBookmarkTableViewCell.xib; sourceTree = "<group>"; };
 		C02C035B2440FCD700220AF7 /* BandOrReleaseBookmarkOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandOrReleaseBookmarkOrder.swift; sourceTree = "<group>"; };
 		C02C035D2441042600220AF7 /* BandOrReleaseBookmarkOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandOrReleaseBookmarkOrderViewController.swift; sourceTree = "<group>"; };
+		C02C035F2441101C00220AF7 /* ReleaseBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseBookmark.swift; sourceTree = "<group>"; };
+		C02C0362244113C300220AF7 /* ReleaseBookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseBookmarkTableViewCell.swift; sourceTree = "<group>"; };
+		C02C0364244113CE00220AF7 /* ReleaseBookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseBookmarkTableViewCell.xib; sourceTree = "<group>"; };
 		C02D980622AB0850003C33E5 /* SpaciousLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaciousLabel.swift; sourceTree = "<group>"; };
 		C03270D0220B1AAD009FA337 /* ReleaseElementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseElementTableViewCell.swift; sourceTree = "<group>"; };
 		C03270D2220B1ABD009FA337 /* ReleaseElementTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseElementTableViewCell.xib; sourceTree = "<group>"; };
@@ -1404,6 +1410,7 @@
 			isa = PBXGroup;
 			children = (
 				C02C03562440D76700220AF7 /* BandBookmarkTableViewCell */,
+				C02C0361244113AF00220AF7 /* ReleaseBookmarkTableViewCell */,
 			);
 			path = MyProfile;
 			sourceTree = "<group>";
@@ -1415,6 +1422,15 @@
 				C02C03592440D91400220AF7 /* BandBookmarkTableViewCell.xib */,
 			);
 			path = BandBookmarkTableViewCell;
+			sourceTree = "<group>";
+		};
+		C02C0361244113AF00220AF7 /* ReleaseBookmarkTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C02C0362244113C300220AF7 /* ReleaseBookmarkTableViewCell.swift */,
+				C02C0364244113CE00220AF7 /* ReleaseBookmarkTableViewCell.xib */,
+			);
+			path = ReleaseBookmarkTableViewCell;
 			sourceTree = "<group>";
 		};
 		C02D980522AB083D003C33E5 /* SpaciousLabel */ = {
@@ -2694,6 +2710,7 @@
 				C05309EC22233D8F0027D11E /* ReleaseInLabel.swift */,
 				C05309EE22233E060027D11E /* ReleaseExtraLite.swift */,
 				C053DD6E2226EA1A0028568B /* AlbumTop.swift */,
+				C02C035F2441101C00220AF7 /* ReleaseBookmark.swift */,
 			);
 			path = Release;
 			sourceTree = "<group>";
@@ -3399,6 +3416,7 @@
 				C053CF722224498F00B056A8 /* BandCurrentRosterTableViewCell.xib in Resources */,
 				C071307A21ECE0D600082BC6 /* LatestReviewTableViewCell.xib in Resources */,
 				C003D7BE22E3B62300F9F622 /* Deezer.storyboard in Resources */,
+				C02C0365244113CE00220AF7 /* ReleaseBookmarkTableViewCell.xib in Resources */,
 				C06B62452242382500A3FE6B /* BrowseLabelsAlphabeticallyResultTableViewCell.xib in Resources */,
 				C053DD4A22269A260028568B /* ArtistStatisticTableViewCell.xib in Resources */,
 				C071307521ECDDD300082BC6 /* BandAdditionOrUpdateTableViewCell.xib in Resources */,
@@ -3742,6 +3760,7 @@
 				C066139122899EBC00F99006 /* UpcomingAlbumCollectionViewCell.swift in Sources */,
 				C05309E7222338CA0027D11E /* Label.swift in Sources */,
 				C071A22122AD3F6A00A06D2F /* UIView+PositionIn.swift in Sources */,
+				C02C03602441101C00220AF7 /* ReleaseBookmark.swift in Sources */,
 				C075295B229E841A0067B5E1 /* HorizontalMenuAnchorTableViewCell.swift in Sources */,
 				C06B624E2242491E00A3FE6B /* BrowseLabelsByCountryResultTableViewCell.swift in Sources */,
 				C0A48CF02221D76C0047FC70 /* Error+Code&Domain.swift in Sources */,
@@ -3779,6 +3798,7 @@
 				C00D362D223D957800B29B43 /* Library.swift in Sources */,
 				C071307321ECDDC700082BC6 /* BandAdditionOrUpdateTableViewCell.swift in Sources */,
 				C06F1DFD21F767AB00B49D39 /* Band.swift in Sources */,
+				C02C0363244113C300220AF7 /* ReleaseBookmarkTableViewCell.swift in Sources */,
 				C01BA1B222C7D587003DD40E /* LatestAdditionsOrUpdatesNavigationBarView.swift in Sources */,
 				C0F7E7FC225D26F800F907A6 /* FontSizeListTableViewController.swift in Sources */,
 				C053DD3922268F7E0028568B /* RequestStatisticDetails.swift in Sources */,

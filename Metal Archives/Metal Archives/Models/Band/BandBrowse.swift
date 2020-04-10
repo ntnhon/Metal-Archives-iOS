@@ -57,7 +57,8 @@ extension BandBrowse: Pagable {
             var countryOrLocation: String?
             var genre: String?
             
-            if let country = Country(name: bandDetails[1]) {
+            let country = Country(name: bandDetails[1])
+            if country != Country.unknownCountry {
                 countryOrLocation = country.nameAndEmoji
                 genre = bandDetails[2]
             } else {

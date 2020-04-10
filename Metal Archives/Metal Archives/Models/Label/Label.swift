@@ -78,9 +78,8 @@ final class Label {
                             }
                         } else if dts[i].text == "Country:" {
                             if let a = dds[i].at_css("a"),
-                                let countryName = a.text,
-                                let country = Country(name: countryName) {
-                                self.country = country
+                                let countryName = a.text {
+                                self.country = Country(name: countryName)
                             }
                         } else if dts[i].text == "Phone number:" {
                             if let phoneNumber = dds[i].text {
