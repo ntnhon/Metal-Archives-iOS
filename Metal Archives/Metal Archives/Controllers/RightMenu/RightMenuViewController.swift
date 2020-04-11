@@ -170,6 +170,12 @@ final class RightMenuViewController: BaseViewController {
         myBookmarksViewController.myBookmark = myBookmark
         (slideMenuController.mainViewController as? UINavigationController)?.pushViewController(myBookmarksViewController, animated: true)
     }
+    
+    private func pushMyCollectionViewController(_ myCollection: MyCollection) {
+        let myCollectionViewController = UIStoryboard(name: "MyProfile", bundle: Bundle.main).instantiateViewController(withIdentifier: "MyCollectionViewController") as! MyCollectionViewController
+        myCollectionViewController.myCollection = myCollection
+        (slideMenuController.mainViewController as? UINavigationController)?.pushViewController(myCollectionViewController, animated: true)
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -180,9 +186,9 @@ extension RightMenuViewController: UITableViewDelegate {
         closeRight()
         let option = options[indexPath.section][indexPath.row]
         switch option {
-        case .collection: print("Collection")
-        case .wishlist: print("Wishlist")
-        case .tradeList: print("Trade list")
+        case .collection: pushMyCollectionViewController(.collection)
+        case .wishlist: pushMyCollectionViewController(.wanted)
+        case .tradeList: pushMyCollectionViewController(.trade)
         case .bands: pushMyBookmarksViewController(.bands)
         case .artists: pushMyBookmarksViewController(.artists)
         case .labels: pushMyBookmarksViewController(.labels)

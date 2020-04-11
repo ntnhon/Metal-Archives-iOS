@@ -61,6 +61,11 @@
 		C00E71372441E73F00A17471 /* LabelBookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71362441E73F00A17471 /* LabelBookmarkTableViewCell.swift */; };
 		C00E71392441E74900A17471 /* LabelBookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00E71382441E74900A17471 /* LabelBookmarkTableViewCell.xib */; };
 		C00E713C2442113100A17471 /* BookmarkRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E713B2442113100A17471 /* BookmarkRequests.swift */; };
+		C00E713E2442206B00A17471 /* ReleaseInCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E713D2442206B00A17471 /* ReleaseInCollection.swift */; };
+		C00E71412442330D00A17471 /* MyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71402442330D00A17471 /* MyCollectionViewController.swift */; };
+		C00E71432442335500A17471 /* MyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71422442335500A17471 /* MyCollection.swift */; };
+		C00E71462442363E00A17471 /* ReleaseInCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71452442363E00A17471 /* ReleaseInCollectionTableViewCell.swift */; };
+		C00E71482442364500A17471 /* ReleaseInCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00E71472442364500A17471 /* ReleaseInCollectionTableViewCell.xib */; };
 		C0107027222DC9570092D3A5 /* ImFeelingLuckyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0107026222DC9570092D3A5 /* ImFeelingLuckyView.swift */; };
 		C0107029222DC9840092D3A5 /* ImFeelingLuckyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0107028222DC9840092D3A5 /* ImFeelingLuckyView.xib */; };
 		C013363D223809B700963940 /* AdvancedSearchBandStatusListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013363C223809B700963940 /* AdvancedSearchBandStatusListViewController.swift */; };
@@ -646,6 +651,11 @@
 		C00E71362441E73F00A17471 /* LabelBookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBookmarkTableViewCell.swift; sourceTree = "<group>"; };
 		C00E71382441E74900A17471 /* LabelBookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelBookmarkTableViewCell.xib; sourceTree = "<group>"; };
 		C00E713B2442113100A17471 /* BookmarkRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRequests.swift; sourceTree = "<group>"; };
+		C00E713D2442206B00A17471 /* ReleaseInCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInCollection.swift; sourceTree = "<group>"; };
+		C00E71402442330D00A17471 /* MyCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewController.swift; sourceTree = "<group>"; };
+		C00E71422442335500A17471 /* MyCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollection.swift; sourceTree = "<group>"; };
+		C00E71452442363E00A17471 /* ReleaseInCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInCollectionTableViewCell.swift; sourceTree = "<group>"; };
+		C00E71472442364500A17471 /* ReleaseInCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseInCollectionTableViewCell.xib; sourceTree = "<group>"; };
 		C0107026222DC9570092D3A5 /* ImFeelingLuckyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImFeelingLuckyView.swift; sourceTree = "<group>"; };
 		C0107028222DC9840092D3A5 /* ImFeelingLuckyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImFeelingLuckyView.xib; sourceTree = "<group>"; };
 		C013363C223809B700963940 /* AdvancedSearchBandStatusListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchBandStatusListViewController.swift; sourceTree = "<group>"; };
@@ -1293,6 +1303,23 @@
 			path = Bookmarks;
 			sourceTree = "<group>";
 		};
+		C00E713F244232F300A17471 /* MyCollection */ = {
+			isa = PBXGroup;
+			children = (
+				C00E71402442330D00A17471 /* MyCollectionViewController.swift */,
+			);
+			path = MyCollection;
+			sourceTree = "<group>";
+		};
+		C00E71442442362F00A17471 /* ReleaseInCollectionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C00E71452442363E00A17471 /* ReleaseInCollectionTableViewCell.swift */,
+				C00E71472442364500A17471 /* ReleaseInCollectionTableViewCell.xib */,
+			);
+			path = ReleaseInCollectionTableViewCell;
+			sourceTree = "<group>";
+		};
 		C0107025222DC9390092D3A5 /* ImFeelingLuckyView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1428,6 +1455,7 @@
 		C028BEC82440704B009BF476 /* MyProfile */ = {
 			isa = PBXGroup;
 			children = (
+				C00E713F244232F300A17471 /* MyCollection */,
 				C028BEC924407057009BF476 /* MyBookmarks */,
 			);
 			path = MyProfile;
@@ -1454,6 +1482,7 @@
 		C02C03552440D75700220AF7 /* MyProfile */ = {
 			isa = PBXGroup;
 			children = (
+				C00E71442442362F00A17471 /* ReleaseInCollectionTableViewCell */,
 				C00E71352441E72E00A17471 /* LabelBookmarkTableViewCell */,
 				C00E712A2441D18200A17471 /* ArtistBookmarkTableViewCell */,
 				C02C03562440D76700220AF7 /* BandBookmarkTableViewCell */,
@@ -2037,6 +2066,7 @@
 				C0086DCA243F6D6E0008669C /* LeftMenuOption.swift */,
 				C0086DCC243F73910008669C /* RightMenuOption.swift */,
 				C028BECC24407211009BF476 /* MyBookmark.swift */,
+				C00E71422442335500A17471 /* MyCollection.swift */,
 				C02C035B2440FCD700220AF7 /* BandOrReleaseBookmarkOrder.swift */,
 				C00E712F2441D38300A17471 /* ArtistOrLabelBookmarkOrder.swift */,
 			);
@@ -2760,6 +2790,7 @@
 				C05309EE22233E060027D11E /* ReleaseExtraLite.swift */,
 				C053DD6E2226EA1A0028568B /* AlbumTop.swift */,
 				C02C035F2441101C00220AF7 /* ReleaseBookmark.swift */,
+				C00E713D2442206B00A17471 /* ReleaseInCollection.swift */,
 			);
 			path = Release;
 			sourceTree = "<group>";
@@ -3510,6 +3541,7 @@
 				C0602BDB21EA8FA900046367 /* Home.storyboard in Resources */,
 				C00838892200F23000B35996 /* ReadMore.storyboard in Resources */,
 				C00E71392441E74900A17471 /* LabelBookmarkTableViewCell.xib in Resources */,
+				C00E71482442364500A17471 /* ReleaseInCollectionTableViewCell.xib in Resources */,
 				C06E92D122538FB9006EE887 /* VersionHistory.plist in Resources */,
 				C03270DE220B47A4009FA337 /* ReleaseReviewTableViewCell.xib in Resources */,
 				C0BE339721E68CDF001ED000 /* Assets.xcassets in Resources */,
@@ -3799,6 +3831,7 @@
 				C065BCA8222D3E460009808A /* BaseTextField.swift in Sources */,
 				C053DD692226E1250028568B /* BandTopTableViewCell.swift in Sources */,
 				C082CD9922E47C17002202F6 /* DeezerData.swift in Sources */,
+				C00E71432442335500A17471 /* MyCollection.swift in Sources */,
 				C0BE339021E68CDD001ED000 /* AppDelegate.swift in Sources */,
 				C024A85322B9437500C6BAFE /* BaseTableViewController.swift in Sources */,
 				C053DD5F2226D45B0028568B /* Top100Bands.swift in Sources */,
@@ -3806,6 +3839,7 @@
 				C00D3610223D5EEE00B29B43 /* ReleaseElementType.swift in Sources */,
 				C00D3603223D5E4100B29B43 /* DiscographyType.swift in Sources */,
 				C0CAC19D229886ED0044363E /* BandPhotoAndNameTableViewCell.swift in Sources */,
+				C00E71412442330D00A17471 /* MyCollectionViewController.swift in Sources */,
 				C0FBBE702208E22100226FB1 /* RelatedLinkTableViewCell.swift in Sources */,
 				C05309E322232ECB0027D11E /* LabelDetailViewController.swift in Sources */,
 				C03E6B482247F167007153B9 /* UINavigationController+Theme.swift in Sources */,
@@ -3904,6 +3938,7 @@
 				C05606EF22A2FDBB006F5BC1 /* ReleaseMenuOption.swift in Sources */,
 				C00D3638223D9EFE00B29B43 /* SettingsTableViewController.swift in Sources */,
 				C0752970229F3E550067B5E1 /* FilledButton.swift in Sources */,
+				C00E71462442363E00A17471 /* ReleaseInCollectionTableViewCell.swift in Sources */,
 				C0AA06C022395FF1001BE21D /* AdvancedSearchSongsResultsViewController.swift in Sources */,
 				C0356F1D22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift in Sources */,
 				C033C4FC22D39ECE001294BA /* SimpleSearchResultHistoryTableViewCell.swift in Sources */,
@@ -3953,6 +3988,7 @@
 				C027A27F22B55D330011EA73 /* SearchModeNavigationBarView.swift in Sources */,
 				C04C5009228C2DBE00DAFBF1 /* AuditTrail.swift in Sources */,
 				C033C4F022D39001001294BA /* SimpleSearchTermTableViewCell.swift in Sources */,
+				C00E713E2442206B00A17471 /* ReleaseInCollection.swift in Sources */,
 				C05F3EB62206468700FC0F35 /* String+IDSringToImageURLString.swift in Sources */,
 				C066138C22899B7700F99006 /* UpcomingAlbumsTableViewCell.swift in Sources */,
 				C053DD2C222679640028568B /* BandStatistic.swift in Sources */,

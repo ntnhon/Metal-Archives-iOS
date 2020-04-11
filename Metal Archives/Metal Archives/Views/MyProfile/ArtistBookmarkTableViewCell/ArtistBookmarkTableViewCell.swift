@@ -42,4 +42,3 @@ final class ArtistBookmarkTableViewCell: ThumbnailableTableViewCell, Registerabl
         setThumbnailImageView(with: artistBookmark)
     }
 }
-
