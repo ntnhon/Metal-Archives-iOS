@@ -55,6 +55,10 @@ final class PagableManager<T: Pagable>: NSCopying {
         objects.remove(at: index)
     }
     
+    func insertObject(_ object: T, at index: Int) {
+        objects.insert(object, at: index)
+    }
+    
     func reset() {
         self.totalRecords = nil
         self.currentPage = 0

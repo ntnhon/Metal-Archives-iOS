@@ -10,6 +10,7 @@ import UIKit
 import Toaster
 import Alamofire
 import MBProgressHUD
+import MaterialComponents.MaterialSnackbar
 
 final class MyBookmarksViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
@@ -31,6 +32,9 @@ final class MyBookmarksViewController: RefreshableViewController {
     // Label
     private var labelBookmarkPagableManager: PagableManager<LabelBookmark>!
     private var labelBookmarkOrder: ArtistOrLabelBookmarkOrder = .lastModifiedDescending
+    
+    private var lastDeletedObject: Any? = nil
+    private var lastDeletedObjectIndexPath: IndexPath? = nil
     
     deinit {
         print("MyBookmarksViewController is deallocated")
@@ -285,18 +289,105 @@ extension MyBookmarksViewController {
             MBProgressHUD.hide(for: self.view, animated: true)
             
             if isSuccessful {
+                self.lastDeletedObjectIndexPath = indexPath
+                
                 self.tableView.performBatchUpdates({
                     switch self.myBookmark {
-                    case .bands: self.bandBookmarkPagableManager.removeObject(at: indexPath.row)
-                    case .artists: self.artistBookmarkPagableManager.removeObject(at: indexPath.row)
-                    case .labels: self.labelBookmarkPagableManager.removeObject(at: indexPath.row)
-                    case .releases: self.releaseBookmarkPagableManager.removeObject(at: indexPath.row)
+                    case .bands:
+                        self.lastDeletedObject = self.bandBookmarkPagableManager.objects[indexPath.row]
+                        self.bandBookmarkPagableManager.removeObject(at: indexPath.row)
+                        
+                    case .artists:
+                        self.lastDeletedObject = self.artistBookmarkPagableManager.objects[indexPath.row]
+                        self.artistBookmarkPagableManager.removeObject(at: indexPath.row)
+    
+                    case .labels:
+                        self.lastDeletedObject = self.labelBookmarkPagableManager.objects[indexPath.row]
+                        self.labelBookmarkPagableManager.removeObject(at: indexPath.row)
+                        
+                    case .releases:
+                        self.lastDeletedObject = self.releaseBookmarkPagableManager.objects[indexPath.row]
+                        self.releaseBookmarkPagableManager.removeObject(at: indexPath.row)
                     }
                     self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                })
+                }) { _ in
+                    self.displayUndoSnackbar()
+                }
                 
             } else {
                 Toast.displayMessageShortly("Error removing from bookmark. Please try again later.")
+            }
+        }
+    }
+    
+    private func displayUndoSnackbar() {
+        let objectName: String
+        switch myBookmark {
+        case .bands: objectName = (lastDeletedObject as! BandBookmark).name
+        case .artists: objectName = (lastDeletedObject as! ArtistBookmark).name
+        case .labels: objectName = (lastDeletedObject as! LabelBookmark).name
+        case .releases: objectName = (lastDeletedObject as! ReleaseBookmark).title
+        }
+        
+        let message = MDCSnackbarMessage()
+        message.text = "\(objectName) removed from bookmark"
+        let action = MDCSnackbarMessageAction()
+        action.handler = { [unowned self] () in
+            self.undoLastRemoval()
+        }
+        action.title = "Undo"
+        message.action = action
+        MDCSnackbarManager.show(message)
+    }
+    
+    private func undoLastRemoval() {
+        guard let lastDeletedObject = lastDeletedObject, let lastDeletedObjectIndexPath = lastDeletedObjectIndexPath else { return }
+        
+        let id: String
+        let type: BookmarkType
+        switch myBookmark {
+        case .bands:
+            id = (lastDeletedObject as! BandBookmark).id
+            type = .band
+            
+        case .artists:
+            id = (lastDeletedObject as! ArtistBookmark).id
+            type = .artist
+            
+        case .labels:
+            id = (lastDeletedObject as! LabelBookmark).id
+            type = .label
+            
+        case .releases:
+            id = (lastDeletedObject as! ReleaseBookmark).id
+            type = .release
+        }
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        RequestHelper.Bookmark.bookmark(id: id, action: .add, type: type) { [weak self] (isSuccessful) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if isSuccessful {
+                self.tableView.performBatchUpdates({
+                    switch self.myBookmark {
+                    case .bands:
+                        self.bandBookmarkPagableManager.insertObject(lastDeletedObject as! BandBookmark, at: lastDeletedObjectIndexPath.row)
+                        
+                    case .artists:
+                        self.artistBookmarkPagableManager.insertObject(lastDeletedObject as! ArtistBookmark, at: lastDeletedObjectIndexPath.row)
+                        
+                    case .labels:
+                        self.labelBookmarkPagableManager.insertObject(lastDeletedObject as! LabelBookmark, at: lastDeletedObjectIndexPath.row)
+                        
+                    case .releases:
+                        self.releaseBookmarkPagableManager.insertObject(lastDeletedObject as! ReleaseBookmark, at: lastDeletedObjectIndexPath.row)
+                    }
+                    
+                    self.tableView.insertRows(at: [lastDeletedObjectIndexPath], with: .automatic)
+                })
+            } else {
+                Toast.displayMessageShortly("Undo error 😞")
             }
         }
     }

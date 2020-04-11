@@ -23,6 +23,7 @@ target 'Metal Archives' do
     pod 'NotificationBannerSwift'
     pod 'MBProgressHUD', '~> 1.1.0'
     pod 'KeychainAccess'
+    pod 'MaterialComponents/Snackbar'
 end
 
 target 'Metal Archives Widget' do
