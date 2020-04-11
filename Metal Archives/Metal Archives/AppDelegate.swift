@@ -17,6 +17,7 @@ import UserNotifications
 import Siren
 import FirebaseMessaging
 import CoreData
+import MBProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,14 +37,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        self.initAppSettings()
-        self.initAppearance()
-        self.initSlideMenuController()
-        self.askForReview()
-        self.checkNewVersion()
+        initAppSettings()
+        initAppearance()
+        initSlideMenuController()
+        askForReview()
+        checkNewVersion()
         application.registerForRemoteNotifications()
         
         return true
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        loginIfCredentialAvailable()
     }
 }
 
@@ -65,8 +70,8 @@ extension AppDelegate {
         slideMenuController = SlideMenuController(mainViewController: homepageNavigationViewController, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
         slideMenuController?.delegate = self
     
-        self.window?.rootViewController = slideMenuController
-        self.window?.makeKeyAndVisible()
+        window?.rootViewController = slideMenuController
+        window?.makeKeyAndVisible()
     }
 }
 
@@ -314,5 +319,31 @@ extension AppDelegate: SlideMenuControllerDelegate {
     
     func rightDidClose() {
         slideMenuController?.rightViewController?.view.layer.shadowRadius = 0
+    }
+}
+
+// MARK: - Login
+extension AppDelegate {
+    private func loginIfCredentialAvailable() {
+        guard KeychainService.isHavingUserCredential(), let slideMenuController = slideMenuController else { return }
+        
+        let username = KeychainService.getUsername()
+        let password = KeychainService.getPassword()
+        
+        MBProgressHUD.showAdded(to: slideMenuController.view, animated: true)
+        LoginService.login(username: username, password: password) { (error) in
+            MBProgressHUD.hide(for: slideMenuController.view, animated: true)
+            
+            if let error = error {
+                KeychainService.removeUserCredential()
+                let alert = UIAlertController(title: "Failed to log you in", message: error.localizedDescription, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "Got it", style: .default, handler: nil)
+                alert.addAction(okAction)
+                slideMenuController.present(alert, animated: true, completion: nil)
+                
+            } else {
+                print("Log in successfully")
+            }
+        }
     }
 }
