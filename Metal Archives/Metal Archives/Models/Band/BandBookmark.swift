@@ -9,6 +9,7 @@
 import Foundation
 
 final class BandBookmark: ThumbnailableObject {
+    let editId: String
     let name: String
     let country: Country
     let genre: String
@@ -34,6 +35,9 @@ final class BandBookmark: ThumbnailableObject {
         
         guard let noteSubstring = array[4].subString(after: "\">", before: "</span>", options: .caseInsensitive) else { return nil}
         
+        guard let editIdSubstring = array[5].subString(after: "onclick=\"editComment(", before: ");\" title=\"Edit", options: .caseInsensitive) else { return nil }
+        
+        self.editId = String(editIdSubstring)
         self.name = String(nameSubstring)
         self.country = Country(name: array[1])
         self.genre = array[2]
