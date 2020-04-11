@@ -128,22 +128,27 @@ final class MyBookmarksViewController: RefreshableViewController {
     }
 }
 
-// MARK: - View details & Edit note
+// MARK: - View details & Edit note & Remove
 extension MyBookmarksViewController {
     private func takeActionForBandBookmark(at indexPath: IndexPath) {
         let bandBookmark = bandBookmarkPagableManager.objects[indexPath.row]
         
         let alert = UIAlertController(title: bandBookmark.name, message: "\(bandBookmark.country.name) | \(bandBookmark.genre)", preferredStyle: .actionSheet)
         
-        let viewAction = UIAlertAction(title: "View band", style: .default) { [unowned self] _ in
+        let viewAction = UIAlertAction(title: "👥 View band", style: .default) { [unowned self] _ in
             self.pushBandDetailViewController(urlString: bandBookmark.urlString, animated: true)
         }
         alert.addAction(viewAction)
         
-        let editAction = UIAlertAction(title: "Edit note", style: .default) { [unowned self] _ in
+        let editAction = UIAlertAction(title: "📝 Edit note", style: .default) { [unowned self] _ in
             self.presentEditNoteAlert(editId: bandBookmark.editId, oldNote: bandBookmark.note, indexPath: indexPath)
         }
         alert.addAction(editAction)
+        
+        let removeAction = UIAlertAction(title: "🗑️ Remove from bookmark", style: .destructive) { [unowned self] _ in
+            self.remove(type: .band, id: bandBookmark.id, indexPath: indexPath)
+        }
+        alert.addAction(removeAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
@@ -156,15 +161,20 @@ extension MyBookmarksViewController {
         
         let alert = UIAlertController(title: artistBookmark.name, message: artistBookmark.country.name, preferredStyle: .actionSheet)
         
-        let viewAction = UIAlertAction(title: "View artist", style: .default) { [unowned self] _ in
+        let viewAction = UIAlertAction(title: "👤 View artist", style: .default) { [unowned self] _ in
             self.pushArtistDetailViewController(urlString: artistBookmark.urlString, animated: true)
         }
         alert.addAction(viewAction)
         
-        let editAction = UIAlertAction(title: "Edit note", style: .default) { [unowned self] _ in
+        let editAction = UIAlertAction(title: "📝 Edit note", style: .default) { [unowned self] _ in
             self.presentEditNoteAlert(editId: artistBookmark.editId, oldNote: artistBookmark.note, indexPath: indexPath)
         }
         alert.addAction(editAction)
+        
+        let removeAction = UIAlertAction(title: "🗑️ Remove from bookmark", style: .destructive) { [unowned self] _ in
+            self.remove(type: .artist, id: artistBookmark.id, indexPath: indexPath)
+        }
+        alert.addAction(removeAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
@@ -177,15 +187,20 @@ extension MyBookmarksViewController {
         
         let alert = UIAlertController(title: labelBookmark.name, message: labelBookmark.country.name, preferredStyle: .actionSheet)
         
-        let viewAction = UIAlertAction(title: "View label", style: .default) { [unowned self] _ in
+        let viewAction = UIAlertAction(title: "🏷️ View label", style: .default) { [unowned self] _ in
             self.pushLabelDetailViewController(urlString: labelBookmark.urlString, animated: true)
         }
         alert.addAction(viewAction)
         
-        let editAction = UIAlertAction(title: "Edit note", style: .default) { [unowned self] _ in
+        let editAction = UIAlertAction(title: "📝 Edit note", style: .default) { [unowned self] _ in
             self.presentEditNoteAlert(editId: labelBookmark.editId, oldNote: labelBookmark.note, indexPath: indexPath)
         }
         alert.addAction(editAction)
+        
+        let removeAction = UIAlertAction(title: "🗑️ Remove from bookmark", style: .destructive) { [unowned self] _ in
+            self.remove(type: .label, id: labelBookmark.id, indexPath: indexPath)
+        }
+        alert.addAction(removeAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
@@ -198,15 +213,20 @@ extension MyBookmarksViewController {
         
         let alert = UIAlertController(title: releaseBookmark.title, message: "\(releaseBookmark.bandName) | \(releaseBookmark.country.name) | \(releaseBookmark.genre)", preferredStyle: .actionSheet)
         
-        let viewAction = UIAlertAction(title: "View release", style: .default) { [unowned self] _ in
+        let viewAction = UIAlertAction(title: "💿 View release", style: .default) { [unowned self] _ in
             self.pushReleaseDetailViewController(urlString: releaseBookmark.urlString, animated: true)
         }
         alert.addAction(viewAction)
         
-        let editAction = UIAlertAction(title: "Edit note", style: .default) { [unowned self] _ in
+        let editAction = UIAlertAction(title: "📝 Edit note", style: .default) { [unowned self] _ in
             self.presentEditNoteAlert(editId: releaseBookmark.editId, oldNote: releaseBookmark.note, indexPath: indexPath)
         }
         alert.addAction(editAction)
+        
+        let removeAction = UIAlertAction(title: "🗑️ Remove from bookmark", style: .destructive) { [unowned self] _ in
+            self.remove(type: .release, id: releaseBookmark.id, indexPath: indexPath)
+        }
+        alert.addAction(removeAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
@@ -254,6 +274,29 @@ extension MyBookmarksViewController {
                 Toast.displayMessageShortly("Updated note")
             } else {
                 Toast.displayMessageShortly("Error saving note. Please try again later.")
+            }
+        }
+    }
+    
+    private func remove(type: BookmarkType, id: String, indexPath: IndexPath) {
+        MBProgressHUD.showAdded(to: view, animated: true)
+        RequestHelper.Bookmark.bookmark(id: id, action: .remove, type: type) { [weak self] (isSuccessful) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if isSuccessful {
+                self.tableView.performBatchUpdates({
+                    switch self.myBookmark {
+                    case .bands: self.bandBookmarkPagableManager.removeObject(at: indexPath.row)
+                    case .artists: self.artistBookmarkPagableManager.removeObject(at: indexPath.row)
+                    case .labels: self.labelBookmarkPagableManager.removeObject(at: indexPath.row)
+                    case .releases: self.releaseBookmarkPagableManager.removeObject(at: indexPath.row)
+                    }
+                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                })
+                
+            } else {
+                Toast.displayMessageShortly("Error removing from bookmark. Please try again later.")
             }
         }
     }

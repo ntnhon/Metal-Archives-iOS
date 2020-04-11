@@ -51,6 +51,10 @@ final class PagableManager<T: Pagable>: NSCopying {
         return copyPagableManager
     }
     
+    func removeObject(at index: Int) {
+        objects.remove(at: index)
+    }
+    
     func reset() {
         self.totalRecords = nil
         self.currentPage = 0
