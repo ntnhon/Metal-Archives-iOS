@@ -57,6 +57,9 @@
 		C00E712E2441D19B00A17471 /* ArtistBookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00E712D2441D19B00A17471 /* ArtistBookmarkTableViewCell.xib */; };
 		C00E71302441D38300A17471 /* ArtistOrLabelBookmarkOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E712F2441D38300A17471 /* ArtistOrLabelBookmarkOrder.swift */; };
 		C00E71322441E2E000A17471 /* ArtistOrLabelBookmarkOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71312441E2E000A17471 /* ArtistOrLabelBookmarkOrderViewController.swift */; };
+		C00E71342441E60B00A17471 /* LabelBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71332441E60B00A17471 /* LabelBookmark.swift */; };
+		C00E71372441E73F00A17471 /* LabelBookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71362441E73F00A17471 /* LabelBookmarkTableViewCell.swift */; };
+		C00E71392441E74900A17471 /* LabelBookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00E71382441E74900A17471 /* LabelBookmarkTableViewCell.xib */; };
 		C0107027222DC9570092D3A5 /* ImFeelingLuckyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0107026222DC9570092D3A5 /* ImFeelingLuckyView.swift */; };
 		C0107029222DC9840092D3A5 /* ImFeelingLuckyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0107028222DC9840092D3A5 /* ImFeelingLuckyView.xib */; };
 		C013363D223809B700963940 /* AdvancedSearchBandStatusListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013363C223809B700963940 /* AdvancedSearchBandStatusListViewController.swift */; };
@@ -638,6 +641,9 @@
 		C00E712D2441D19B00A17471 /* ArtistBookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtistBookmarkTableViewCell.xib; sourceTree = "<group>"; };
 		C00E712F2441D38300A17471 /* ArtistOrLabelBookmarkOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistOrLabelBookmarkOrder.swift; sourceTree = "<group>"; };
 		C00E71312441E2E000A17471 /* ArtistOrLabelBookmarkOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistOrLabelBookmarkOrderViewController.swift; sourceTree = "<group>"; };
+		C00E71332441E60B00A17471 /* LabelBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBookmark.swift; sourceTree = "<group>"; };
+		C00E71362441E73F00A17471 /* LabelBookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBookmarkTableViewCell.swift; sourceTree = "<group>"; };
+		C00E71382441E74900A17471 /* LabelBookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelBookmarkTableViewCell.xib; sourceTree = "<group>"; };
 		C0107026222DC9570092D3A5 /* ImFeelingLuckyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImFeelingLuckyView.swift; sourceTree = "<group>"; };
 		C0107028222DC9840092D3A5 /* ImFeelingLuckyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImFeelingLuckyView.xib; sourceTree = "<group>"; };
 		C013363C223809B700963940 /* AdvancedSearchBandStatusListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchBandStatusListViewController.swift; sourceTree = "<group>"; };
@@ -1268,6 +1274,15 @@
 			path = ArtistBookmarkTableViewCell;
 			sourceTree = "<group>";
 		};
+		C00E71352441E72E00A17471 /* LabelBookmarkTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C00E71362441E73F00A17471 /* LabelBookmarkTableViewCell.swift */,
+				C00E71382441E74900A17471 /* LabelBookmarkTableViewCell.xib */,
+			);
+			path = LabelBookmarkTableViewCell;
+			sourceTree = "<group>";
+		};
 		C0107025222DC9390092D3A5 /* ImFeelingLuckyView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1429,6 +1444,7 @@
 		C02C03552440D75700220AF7 /* MyProfile */ = {
 			isa = PBXGroup;
 			children = (
+				C00E71352441E72E00A17471 /* LabelBookmarkTableViewCell */,
 				C00E712A2441D18200A17471 /* ArtistBookmarkTableViewCell */,
 				C02C03562440D76700220AF7 /* BandBookmarkTableViewCell */,
 				C02C0361244113AF00220AF7 /* ReleaseBookmarkTableViewCell */,
@@ -2954,6 +2970,7 @@
 				C01839E82225715700FF88B7 /* LabelUpdate.swift */,
 				C06B623F2242313300A3FE6B /* LabelBrowseAlphabetically.swift */,
 				C06B624B2242486B00A3FE6B /* LabelBrowseByCountry.swift */,
+				C00E71332441E60B00A17471 /* LabelBookmark.swift */,
 			);
 			path = Label;
 			sourceTree = "<group>";
@@ -3481,6 +3498,7 @@
 				C06613832289913000F99006 /* LatestReviewsTableViewCell.xib in Resources */,
 				C0602BDB21EA8FA900046367 /* Home.storyboard in Resources */,
 				C00838892200F23000B35996 /* ReadMore.storyboard in Resources */,
+				C00E71392441E74900A17471 /* LabelBookmarkTableViewCell.xib in Resources */,
 				C06E92D122538FB9006EE887 /* VersionHistory.plist in Resources */,
 				C03270DE220B47A4009FA337 /* ReleaseReviewTableViewCell.xib in Resources */,
 				C0BE339721E68CDF001ED000 /* Assets.xcassets in Resources */,
@@ -3833,6 +3851,7 @@
 				C09CBC73226F22BC00E20F98 /* MAError.swift in Sources */,
 				C00D3608223D5EA000B29B43 /* MembersType.swift in Sources */,
 				C06613862289953700F99006 /* LatestReviewCollectionViewCell.swift in Sources */,
+				C00E71342441E60B00A17471 /* LabelBookmark.swift in Sources */,
 				C0F0BE802243F79F00B90605 /* ChooseWidgetSectionsViewController.swift in Sources */,
 				C082CDBA22E4FB6C002202F6 /* DeezerAlbum.swift in Sources */,
 				C05F3EBA22065E7A00FC0F35 /* ThumbnailableObject.swift in Sources */,
@@ -3860,6 +3879,7 @@
 				C05FC9B4222AC9E200D4B0DF /* ThumbnailableTableViewCell.swift in Sources */,
 				C053DD652226D5A50028568B /* Top100BandsViewController.swift in Sources */,
 				C0A7FFBF231986D900A929A1 /* HomepageSectionListViewController.swift in Sources */,
+				C00E71372441E73F00A17471 /* LabelBookmarkTableViewCell.swift in Sources */,
 				C061021B21EFE1610025F8C1 /* ViewMoreTableViewCell.swift in Sources */,
 				C0C19C812287833B008B68F8 /* NewsCollectionViewCell.swift in Sources */,
 				C01839F72225DCB900FF88B7 /* ArtistAddition.swift in Sources */,

@@ -27,6 +27,10 @@ final class MyBookmarksViewController: RefreshableViewController {
     private var artistBookmarkPagableManager: PagableManager<ArtistBookmark>!
     private var artistBookmarkOrder: ArtistOrLabelBookmarkOrder = .lastModifiedDescending
     
+    // Label
+    private var labelBookmarkPagableManager: PagableManager<LabelBookmark>!
+    private var labelBookmarkOrder: ArtistOrLabelBookmarkOrder = .lastModifiedDescending
+    
     deinit {
         print("MyBookmarksViewController is deallocated")
     }
@@ -40,7 +44,7 @@ final class MyBookmarksViewController: RefreshableViewController {
         switch myBookmark {
         case .bands: bandBookmarkPagableManager.fetch()
         case .artists: artistBookmarkPagableManager.fetch()
-        case .labels: break
+        case .labels: labelBookmarkPagableManager.fetch()
         case .releases: releaseBookmarkPagableManager.fetch()
         }
     }
@@ -57,8 +61,8 @@ final class MyBookmarksViewController: RefreshableViewController {
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
             switch self.myBookmark {
             case .bands: self.displayBandOrReleaseBookmarkOrderViewController(type: .band)
-            case .artists: self.displayBandOrReleaseBookmarkOrderViewController(type: .artist)
-            case .labels: break
+            case .artists: self.displayArtistOrLabelBookmarkOrderViewController(type: .artist)
+            case .labels: self.displayArtistOrLabelBookmarkOrderViewController(type: .label)
             case .releases: self.displayBandOrReleaseBookmarkOrderViewController(type: .release)
             }
         }
@@ -69,6 +73,7 @@ final class MyBookmarksViewController: RefreshableViewController {
         BandBookmarkTableViewCell.register(with: tableView)
         ReleaseBookmarkTableViewCell.register(with: tableView)
         ArtistBookmarkTableViewCell.register(with: tableView)
+        LabelBookmarkTableViewCell.register(with: tableView)
     }
     
     private func initPagableManagers() {
@@ -81,7 +86,9 @@ final class MyBookmarksViewController: RefreshableViewController {
             artistBookmarkPagableManager = PagableManager<ArtistBookmark>(options: artistBookmarkOrder.options)
             artistBookmarkPagableManager.delegate = self
             
-        case .labels: break
+        case .labels:
+            labelBookmarkPagableManager = PagableManager<LabelBookmark>(options: labelBookmarkOrder.options)
+            labelBookmarkPagableManager.delegate = self
             
         case .releases:
             releaseBookmarkPagableManager = PagableManager<ReleaseBookmark>(options: releaseBookmarkOrder.options)
@@ -93,22 +100,24 @@ final class MyBookmarksViewController: RefreshableViewController {
         switch myBookmark {
         case .bands:
             bandBookmarkPagableManager.reset()
-            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                 self.bandBookmarkPagableManager.fetch()
             }
             
         case .artists:
             artistBookmarkPagableManager.reset()
-            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                 self.artistBookmarkPagableManager.fetch()
             }
             
-        case .labels: break
+        case .labels:
+            labelBookmarkPagableManager.reset()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                self.labelBookmarkPagableManager.fetch()
+            }
+            
         case .releases:
             releaseBookmarkPagableManager.reset()
-            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                 self.releaseBookmarkPagableManager.fetch()
             }
@@ -149,12 +158,12 @@ extension MyBookmarksViewController {
         present(bandOrReleaseBookmarkOrderViewController, animated: true, completion: nil)
     }
     
-    private func displayBandOrReleaseBookmarkOrderViewController(type: ArtistOrLabelBookmarkOrderViewController.BookmarkType) {
+    private func displayArtistOrLabelBookmarkOrderViewController(type: ArtistOrLabelBookmarkOrderViewController.BookmarkType) {
         let artistOrLabelBookmarkOrderViewController = UIStoryboard(name: "MyProfile", bundle: nil).instantiateViewController(withIdentifier: "ArtistOrLabelBookmarkOrderViewController") as! ArtistOrLabelBookmarkOrderViewController
         
         switch type {
         case .artist: artistOrLabelBookmarkOrderViewController.currentOrder = artistBookmarkOrder
-        case .label: break
+        case .label: artistOrLabelBookmarkOrderViewController.currentOrder = labelBookmarkOrder
         }
         
         artistOrLabelBookmarkOrderViewController.modalPresentationStyle = .popover
@@ -168,8 +177,7 @@ extension MyBookmarksViewController {
         artistOrLabelBookmarkOrderViewController.selectedArtistOrLabelBookmarkOrder = { [unowned self] (artistOrLabelBookmarkOrder) in
             switch type {
             case .artist: self.artistBookmarkOrder = artistOrLabelBookmarkOrder
-            case .label: break
-//            case .label: self.releaseBookmarkOrder = artistOrLabelBookmarkOrder
+            case .label: self.labelBookmarkOrder = artistOrLabelBookmarkOrder
             }
             
             self.initPagableManagers()
@@ -225,7 +233,12 @@ extension MyBookmarksViewController: UITableViewDelegate {
             }
             return
             
-        case .labels: return
+        case .labels:
+            if labelBookmarkPagableManager.moreToLoad && indexPath.row == labelBookmarkPagableManager.objects.count {
+                labelBookmarkPagableManager.fetch()
+            }
+            return
+            
         case .releases:
             if releaseBookmarkPagableManager.moreToLoad && indexPath.row == releaseBookmarkPagableManager.objects.count {
                 releaseBookmarkPagableManager.fetch()
@@ -255,7 +268,11 @@ extension MyBookmarksViewController: UITableViewDataSource {
             moreToLoad = manager.moreToLoad
             count = manager.objects.count
             
-        case .labels: return 0
+        case .labels:
+            guard let manager = labelBookmarkPagableManager else { return 0 }
+            moreToLoad = manager.moreToLoad
+            count = manager.objects.count
+            
         case .releases:
             guard let manager = releaseBookmarkPagableManager else { return 0 }
             moreToLoad = manager.moreToLoad
@@ -283,7 +300,9 @@ extension MyBookmarksViewController: UITableViewDataSource {
         case .artists:
             shouldDisplayLoadingCell = artistBookmarkPagableManager.moreToLoad && indexPath.row == artistBookmarkPagableManager.objects.count
             
-        case .labels: shouldDisplayLoadingCell = false
+        case .labels:
+            shouldDisplayLoadingCell = labelBookmarkPagableManager.moreToLoad && indexPath.row == labelBookmarkPagableManager.objects.count
+            
         case .releases:
             shouldDisplayLoadingCell = releaseBookmarkPagableManager.moreToLoad && indexPath.row == releaseBookmarkPagableManager.objects.count
         }
@@ -314,7 +333,15 @@ extension MyBookmarksViewController: UITableViewDataSource {
             }
             return cell
             
-        case .labels: return UITableViewCell()
+        case .labels:
+            let cell = LabelBookmarkTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            let labelBookmark = labelBookmarkPagableManager.objects[indexPath.row]
+            cell.fill(with: labelBookmark)
+            cell.tappedThumbnailImageView = { [unowned self] in
+                self.presentPhotoViewerWithCacheChecking(photoUrlString: labelBookmark.imageURLString, description: labelBookmark.name, fromImageView: cell.thumbnailImageView)
+            }
+            return cell
+            
         case .releases:
             let cell = ReleaseBookmarkTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             let releaseBookmark = releaseBookmarkPagableManager.objects[indexPath.row]
