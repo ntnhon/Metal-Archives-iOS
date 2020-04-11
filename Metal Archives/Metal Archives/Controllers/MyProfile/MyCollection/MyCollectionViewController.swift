@@ -96,70 +96,80 @@ final class MyCollectionViewController: RefreshableViewController {
 
 // MARK: - View details & Edit note
 extension MyCollectionViewController {
-//    private func takeActionForBandBookmark(at indexPath: IndexPath) {
-//        let bandBookmark = bandBookmarkPagableManager.objects[indexPath.row]
-//
-//        let alert = UIAlertController(title: bandBookmark.name, message: "\(bandBookmark.country.name) | \(bandBookmark.genre)", preferredStyle: .actionSheet)
-//
-//        let viewAction = UIAlertAction(title: "View band", style: .default) { [unowned self] _ in
-//            self.pushBandDetailViewController(urlString: bandBookmark.urlString, animated: true)
-//        }
-//        alert.addAction(viewAction)
-//
-//        let editAction = UIAlertAction(title: "Edit note", style: .default) { [unowned self] _ in
-//            self.presentEditNoteAlert(editId: bandBookmark.editId, oldNote: bandBookmark.note, indexPath: indexPath)
-//        }
-//        alert.addAction(editAction)
-//
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//        alert.addAction(cancelAction)
-//
-//        present(alert, animated: true, completion: nil)
-//    }
-//
-//    private func presentEditNoteAlert(editId: String, oldNote: String?, indexPath: IndexPath) {
-//        let alert = UIAlertController(title: "Edit note", message: "⚠️ Note can not contain emoji", preferredStyle: .alert)
-//
-//        alert.addTextField { (noteTextField) in
-//            noteTextField.placeholder = "Add note"
-//            noteTextField.returnKeyType = .done
-//            noteTextField.clearButtonMode = .whileEditing
-//            noteTextField.text = oldNote
-//        }
-//
-//        let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] _ in
-//            self.updateNote(editId: editId, newNote: alert.textFields?[0].text, indexPath: indexPath)
-//        }
-//        alert.addAction(saveAction)
-//
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//        alert.addAction(cancelAction)
-//
-//        present(alert, animated: true, completion: nil)
-//    }
-//
-//    private func updateNote(editId: String, newNote: String?, indexPath: IndexPath) {
-//        MBProgressHUD.showAdded(to: view, animated: true)
-//
-//        RequestHelper.Bookmark.updateNote(editId: editId, newNote: newNote) { [weak self] (isSuccess) in
-//            guard let self = self else { return }
-//            MBProgressHUD.hide(for: self.view, animated: true)
-//
-//            if isSuccess {
-//                switch self.myBookmark {
-//                case .bands: self.bandBookmarkPagableManager.objects[indexPath.row].updateNote(newNote)
-//                case .artists: self.artistBookmarkPagableManager.objects[indexPath.row].updateNote(newNote)
-//                case .labels: self.labelBookmarkPagableManager.objects[indexPath.row].updateNote(newNote)
-//                case .releases: self.releaseBookmarkPagableManager.objects[indexPath.row].updateNote(newNote)
-//                }
-//
-//                self.tableView.reloadRows(at: [indexPath], with: .automatic)
-//                Toast.displayMessageShortly("Updated note")
-//            } else {
-//                Toast.displayMessageShortly("Error saving note. Please try again later.")
-//            }
-//        }
-//    }
+    private func takeAction(for releaseInCollection: ReleaseInCollection, at indexPath: IndexPath) {
+        let alert = UIAlertController(title: releaseInCollection.versionAndTypeAttributedString.string, message: releaseInCollection.bandsAttributedString.string, preferredStyle: .actionSheet)
+        
+        let releaseAction = UIAlertAction(title: "💿 View release", style: .default) { [unowned self] _ in
+            self.pushReleaseDetailViewController(urlString: releaseInCollection.urlString, animated: true)
+        }
+        alert.addAction(releaseAction)
+        
+        releaseInCollection.bands.forEach { (eachBand) in
+            let bandAction = UIAlertAction(title: "👥 Band: \(eachBand.name)", style: .default) { [unowned self] _ in
+                self.pushBandDetailViewController(urlString: eachBand.urlString, animated: true)
+            }
+            alert.addAction(bandAction)
+        }
+        
+        let changeVersionAction = UIAlertAction(title: "📄 Change version", style: .default) { [unowned self] _ in
+            self.presentChangeVersionAlert(for: releaseInCollection, at: indexPath)
+        }
+        alert.addAction(changeVersionAction)
+        
+        let editNoteAction = UIAlertAction(title: "📝 Edit note", style: .default) { [unowned self] _ in
+            self.editNote(for: releaseInCollection, at: indexPath)
+        }
+        alert.addAction(editNoteAction)
+        
+        let removeAction = UIAlertAction(title: "🗑️ Remove from collection", style: .destructive) { [unowned self] _ in
+            self.remove(releaseInCollection: releaseInCollection, at: indexPath)
+        }
+        alert.addAction(removeAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func presentChangeVersionAlert(for releaseInColletion: ReleaseInCollection, at indexPath: IndexPath) {
+        MBProgressHUD.showAdded(to: view, animated: true)
+        RequestHelper.Collection.getVersionList(id: releaseInColletion.id) { [weak self] (releaseVersions) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if let releaseVersions = releaseVersions {
+                let alert = UIAlertController(title: "Change version", message: releaseInColletion.release.title, preferredStyle: .actionSheet)
+                
+                releaseVersions.forEach { (eachVersion) in
+                    let versionAction = UIAlertAction(title: eachVersion.version, style: .default) { [unowned self] _ in
+                        self.changeVersion(for: releaseInColletion, newVersion: eachVersion, at: indexPath)
+                    }
+                    alert.addAction(versionAction)
+                }
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                alert.addAction(cancelAction)
+                
+                self.present(alert, animated: true, completion: nil)
+                
+            } else {
+                Toast.displayMessageShortly("Error fetching versions")
+            }
+        }
+    }
+    
+    private func changeVersion(for releaseInCollection: ReleaseInCollection, newVersion: ReleaseVersion, at indexPath: IndexPath) {
+        
+    }
+    
+    private func editNote(for releaseInCollection: ReleaseInCollection, at indexPath: IndexPath) {
+        
+    }
+    
+    private func remove(releaseInCollection: ReleaseInCollection, at indexPath: IndexPath) {
+        
+    }
 }
 
 // MARK: - UIPopoverPresentationControllerDelegate
@@ -192,11 +202,14 @@ extension MyCollectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        let releaseInCollection: ReleaseInCollection
         switch myCollection {
-        case .collection: break
-        case .wanted: break
-        case .trade: break
+        case .collection: releaseInCollection = collectionPagableManager.objects[indexPath.row]
+        case .wanted: releaseInCollection = wantedPagableManager.objects[indexPath.row]
+        case .trade: releaseInCollection = tradePagableManager.objects[indexPath.row]
         }
+        
+        takeAction(for: releaseInCollection, at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

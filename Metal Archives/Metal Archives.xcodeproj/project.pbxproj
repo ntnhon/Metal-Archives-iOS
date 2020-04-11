@@ -67,6 +67,8 @@
 		C00E71462442363E00A17471 /* ReleaseInCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71452442363E00A17471 /* ReleaseInCollectionTableViewCell.swift */; };
 		C00E71482442364500A17471 /* ReleaseInCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00E71472442364500A17471 /* ReleaseInCollectionTableViewCell.xib */; };
 		C00E714A2442520400A17471 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71492442520400A17471 /* Bookmark.swift */; };
+		C00E714D2442774900A17471 /* CollectionRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E714C2442774900A17471 /* CollectionRequests.swift */; };
+		C00E714F244277CD00A17471 /* ReleaseVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E714E244277CD00A17471 /* ReleaseVersion.swift */; };
 		C0107027222DC9570092D3A5 /* ImFeelingLuckyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0107026222DC9570092D3A5 /* ImFeelingLuckyView.swift */; };
 		C0107029222DC9840092D3A5 /* ImFeelingLuckyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0107028222DC9840092D3A5 /* ImFeelingLuckyView.xib */; };
 		C013363D223809B700963940 /* AdvancedSearchBandStatusListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013363C223809B700963940 /* AdvancedSearchBandStatusListViewController.swift */; };
@@ -658,6 +660,8 @@
 		C00E71452442363E00A17471 /* ReleaseInCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInCollectionTableViewCell.swift; sourceTree = "<group>"; };
 		C00E71472442364500A17471 /* ReleaseInCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseInCollectionTableViewCell.xib; sourceTree = "<group>"; };
 		C00E71492442520400A17471 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
+		C00E714C2442774900A17471 /* CollectionRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionRequests.swift; sourceTree = "<group>"; };
+		C00E714E244277CD00A17471 /* ReleaseVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseVersion.swift; sourceTree = "<group>"; };
 		C0107026222DC9570092D3A5 /* ImFeelingLuckyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImFeelingLuckyView.swift; sourceTree = "<group>"; };
 		C0107028222DC9840092D3A5 /* ImFeelingLuckyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImFeelingLuckyView.xib; sourceTree = "<group>"; };
 		C013363C223809B700963940 /* AdvancedSearchBandStatusListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchBandStatusListViewController.swift; sourceTree = "<group>"; };
@@ -1320,6 +1324,14 @@
 				C00E71472442364500A17471 /* ReleaseInCollectionTableViewCell.xib */,
 			);
 			path = ReleaseInCollectionTableViewCell;
+			sourceTree = "<group>";
+		};
+		C00E714B2442773700A17471 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				C00E714C2442774900A17471 /* CollectionRequests.swift */,
+			);
+			path = Collection;
 			sourceTree = "<group>";
 		};
 		C0107025222DC9390092D3A5 /* ImFeelingLuckyView */ = {
@@ -2794,6 +2806,7 @@
 				C053DD6E2226EA1A0028568B /* AlbumTop.swift */,
 				C02C035F2441101C00220AF7 /* ReleaseBookmark.swift */,
 				C00E713D2442206B00A17471 /* ReleaseInCollection.swift */,
+				C00E714E244277CD00A17471 /* ReleaseVersion.swift */,
 			);
 			path = Release;
 			sourceTree = "<group>";
@@ -2862,6 +2875,7 @@
 			isa = PBXGroup;
 			children = (
 				C08453FF21EE184E00E6D676 /* RequestHelper.swift */,
+				C00E714B2442773700A17471 /* Collection */,
 				C00E713A2442111200A17471 /* Bookmarks */,
 				C053DD3722268F520028568B /* Statistics */,
 				C05309F022233F9B0027D11E /* LabelDetail */,
@@ -3832,6 +3846,8 @@
 				C00D362A223D86F600B29B43 /* OpenSourceLibrariesViewController.swift in Sources */,
 				C06F929B2231D3100079E63E /* SimpleArtistTableViewCell.swift in Sources */,
 				C065BCA8222D3E460009808A /* BaseTextField.swift in Sources */,
+				C00E714F244277CD00A17471 /* ReleaseVersion.swift in Sources */,
+				C00E714D2442774900A17471 /* CollectionRequests.swift in Sources */,
 				C053DD692226E1250028568B /* BandTopTableViewCell.swift in Sources */,
 				C082CD9922E47C17002202F6 /* DeezerData.swift in Sources */,
 				C00E71432442335500A17471 /* MyCollection.swift in Sources */,
