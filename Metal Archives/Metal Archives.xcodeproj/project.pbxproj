@@ -52,6 +52,11 @@
 		C00D3635223D9ABF00B29B43 /* LibraryCopyrightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D3634223D9ABF00B29B43 /* LibraryCopyrightViewController.swift */; };
 		C00D3638223D9EFE00B29B43 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D3637223D9EFE00B29B43 /* SettingsTableViewController.swift */; };
 		C00D363A223D9F2300B29B43 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C00D3639223D9F2300B29B43 /* Settings.storyboard */; };
+		C00E71292441CD6700A17471 /* ArtistBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71282441CD6700A17471 /* ArtistBookmark.swift */; };
+		C00E712C2441D19300A17471 /* ArtistBookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E712B2441D19300A17471 /* ArtistBookmarkTableViewCell.swift */; };
+		C00E712E2441D19B00A17471 /* ArtistBookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00E712D2441D19B00A17471 /* ArtistBookmarkTableViewCell.xib */; };
+		C00E71302441D38300A17471 /* ArtistOrLabelBookmarkOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E712F2441D38300A17471 /* ArtistOrLabelBookmarkOrder.swift */; };
+		C00E71322441E2E000A17471 /* ArtistOrLabelBookmarkOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71312441E2E000A17471 /* ArtistOrLabelBookmarkOrderViewController.swift */; };
 		C0107027222DC9570092D3A5 /* ImFeelingLuckyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0107026222DC9570092D3A5 /* ImFeelingLuckyView.swift */; };
 		C0107029222DC9840092D3A5 /* ImFeelingLuckyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0107028222DC9840092D3A5 /* ImFeelingLuckyView.xib */; };
 		C013363D223809B700963940 /* AdvancedSearchBandStatusListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013363C223809B700963940 /* AdvancedSearchBandStatusListViewController.swift */; };
@@ -628,6 +633,11 @@
 		C00D3634223D9ABF00B29B43 /* LibraryCopyrightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCopyrightViewController.swift; sourceTree = "<group>"; };
 		C00D3637223D9EFE00B29B43 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		C00D3639223D9F2300B29B43 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		C00E71282441CD6700A17471 /* ArtistBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistBookmark.swift; sourceTree = "<group>"; };
+		C00E712B2441D19300A17471 /* ArtistBookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistBookmarkTableViewCell.swift; sourceTree = "<group>"; };
+		C00E712D2441D19B00A17471 /* ArtistBookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtistBookmarkTableViewCell.xib; sourceTree = "<group>"; };
+		C00E712F2441D38300A17471 /* ArtistOrLabelBookmarkOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistOrLabelBookmarkOrder.swift; sourceTree = "<group>"; };
+		C00E71312441E2E000A17471 /* ArtistOrLabelBookmarkOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistOrLabelBookmarkOrderViewController.swift; sourceTree = "<group>"; };
 		C0107026222DC9570092D3A5 /* ImFeelingLuckyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImFeelingLuckyView.swift; sourceTree = "<group>"; };
 		C0107028222DC9840092D3A5 /* ImFeelingLuckyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImFeelingLuckyView.xib; sourceTree = "<group>"; };
 		C013363C223809B700963940 /* AdvancedSearchBandStatusListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchBandStatusListViewController.swift; sourceTree = "<group>"; };
@@ -1249,6 +1259,15 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		C00E712A2441D18200A17471 /* ArtistBookmarkTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C00E712B2441D19300A17471 /* ArtistBookmarkTableViewCell.swift */,
+				C00E712D2441D19B00A17471 /* ArtistBookmarkTableViewCell.xib */,
+			);
+			path = ArtistBookmarkTableViewCell;
+			sourceTree = "<group>";
+		};
 		C0107025222DC9390092D3A5 /* ImFeelingLuckyView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1394,6 +1413,7 @@
 			children = (
 				C028BECA2440708B009BF476 /* MyBookmarksViewController.swift */,
 				C02C035D2441042600220AF7 /* BandOrReleaseBookmarkOrderViewController.swift */,
+				C00E71312441E2E000A17471 /* ArtistOrLabelBookmarkOrderViewController.swift */,
 			);
 			path = MyBookmarks;
 			sourceTree = "<group>";
@@ -1409,6 +1429,7 @@
 		C02C03552440D75700220AF7 /* MyProfile */ = {
 			isa = PBXGroup;
 			children = (
+				C00E712A2441D18200A17471 /* ArtistBookmarkTableViewCell */,
 				C02C03562440D76700220AF7 /* BandBookmarkTableViewCell */,
 				C02C0361244113AF00220AF7 /* ReleaseBookmarkTableViewCell */,
 			);
@@ -1991,6 +2012,7 @@
 				C0086DCC243F73910008669C /* RightMenuOption.swift */,
 				C028BECC24407211009BF476 /* MyBookmark.swift */,
 				C02C035B2440FCD700220AF7 /* BandOrReleaseBookmarkOrder.swift */,
+				C00E712F2441D38300A17471 /* ArtistOrLabelBookmarkOrder.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -2694,6 +2716,7 @@
 				C01839F82225E28200FF88B7 /* ArtistUpdate.swift */,
 				C0BAD4B6222EEDA500C4D38D /* ArtistExtraLite.swift */,
 				C0A1F94122416B82005C2C83 /* ArtistRIP.swift */,
+				C00E71282441CD6700A17471 /* ArtistBookmark.swift */,
 			);
 			path = Artist;
 			sourceTree = "<group>";
@@ -3475,6 +3498,7 @@
 				C082CDB822E4FA1A002202F6 /* DeezerAlbumTableViewCell.xib in Resources */,
 				C0FE9629221C3153003C4B59 /* RolesInBandTableViewCell.xib in Resources */,
 				C006FB16224900A000CA6CCD /* GoogleService-Info.plist in Resources */,
+				C00E712E2441D19B00A17471 /* ArtistBookmarkTableViewCell.xib in Resources */,
 				C09A4F5F21F3245800421485 /* NewsArchive.storyboard in Resources */,
 				C06C6C5721FFA68C00D37519 /* Countries.plist in Resources */,
 				C0AA06C22239A32E001BE21D /* BrowseBands.storyboard in Resources */,
@@ -3901,6 +3925,7 @@
 				C066138C22899B7700F99006 /* UpcomingAlbumsTableViewCell.swift in Sources */,
 				C053DD2C222679640028568B /* BandStatistic.swift in Sources */,
 				C05606F622A30D2A006F5BC1 /* LineupOptionTableViewCell.swift in Sources */,
+				C00E71322441E2E000A17471 /* ArtistOrLabelBookmarkOrderViewController.swift in Sources */,
 				C0602BD921EA89C000046367 /* Ressources.swift in Sources */,
 				C00D3614223D5F1400B29B43 /* AdditionOrUpdateType.swift in Sources */,
 				C03F440922306FEC005D7AA8 /* SimpleLyricalThemesTableViewCell.swift in Sources */,
@@ -3917,6 +3942,7 @@
 				C0AA06B522394CB4001BE21D /* AdvancedAlbumTableViewCell.swift in Sources */,
 				C053DD752226EE450028568B /* AlbumTopTableViewCell.swift in Sources */,
 				C0AA06B922395D86001BE21D /* AdvancedSearchResultSong.swift in Sources */,
+				C00E712C2441D19300A17471 /* ArtistBookmarkTableViewCell.swift in Sources */,
 				C0E763A222E60D580025C509 /* Descriptive.swift in Sources */,
 				C053CF6C222440FD00B056A8 /* SubLabelTableViewCell.swift in Sources */,
 				C053DD32222681260028568B /* ArtistStatistic.swift in Sources */,
@@ -3953,6 +3979,7 @@
 				C0752962229EBE3B0067B5E1 /* DiscographyOptionListViewController.swift in Sources */,
 				C013364722384E7100963940 /* AdvancedBandNameTableViewCell.swift in Sources */,
 				C04872C021EE841900ECFDC2 /* News.swift in Sources */,
+				C00E71292441CD6700A17471 /* ArtistBookmark.swift in Sources */,
 				C002C356231591E300164CBB /* UpcomingAlbumsFilterManagementViewController.swift in Sources */,
 				C03280052209E12F00FC9A44 /* ReleaseDetailViewController.swift in Sources */,
 				C05606ED22A2FDA5006F5BC1 /* BandMenuOption.swift in Sources */,
@@ -3979,6 +4006,7 @@
 				C03280072209E2EA00FC9A44 /* Release.swift in Sources */,
 				C0328025220A2A2900FC9A44 /* ArtistLiteInRelease.swift in Sources */,
 				C053DD442226996D0028568B /* LabelStatisticTableViewCell.swift in Sources */,
+				C00E71302441D38300A17471 /* ArtistOrLabelBookmarkOrder.swift in Sources */,
 				C01839F52225C5F800FF88B7 /* ArtistAdditionOrUpdate.swift in Sources */,
 				C0AABDDF221D48930044A2CF /* BaseViewController.swift in Sources */,
 				C02D980722AB0850003C33E5 /* SpaciousLabel.swift in Sources */,

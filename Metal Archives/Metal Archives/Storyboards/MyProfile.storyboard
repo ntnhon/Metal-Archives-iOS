@@ -87,5 +87,39 @@
             </objects>
             <point key="canvasLocation" x="900" y="102"/>
         </scene>
+        <!--Artist Or Label Bookmark Order View Controller-->
+        <scene sceneID="y4y-Ve-Bwj">
+            <objects>
+                <viewController storyboardIdentifier="ArtistOrLabelBookmarkOrderViewController" id="7jG-YK-LfI" customClass="ArtistOrLabelBookmarkOrderViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MGA-XE-t6a">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3hN-g9-Hcv">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="7jG-YK-LfI" id="5rX-YK-uBU"/>
+                                    <outlet property="delegate" destination="7jG-YK-LfI" id="pmb-gk-ksf"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="3hN-g9-Hcv" firstAttribute="leading" secondItem="MGA-XE-t6a" secondAttribute="leading" id="Pv9-T2-sC1"/>
+                            <constraint firstAttribute="bottom" secondItem="3hN-g9-Hcv" secondAttribute="bottom" id="YVw-rT-qTy"/>
+                            <constraint firstItem="3hN-g9-Hcv" firstAttribute="top" secondItem="MGA-XE-t6a" secondAttribute="top" id="ngf-9u-zXZ"/>
+                            <constraint firstAttribute="trailing" secondItem="3hN-g9-Hcv" secondAttribute="trailing" id="vSk-xE-blM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="VOT-nL-8K1"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="3hN-g9-Hcv" id="kEg-qr-LTI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xOy-gO-vIq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1678" y="102"/>
+        </scene>
     </scenes>
 </document>

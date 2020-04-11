@@ -1,26 +1,26 @@
 //
-//  BandOrReleaseBookmarkOrderViewController.swift
+//  ArtistOrLabelBookmarkOrderViewController.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 10/04/2020.
+//  Created by Thanh-Nhon Nguyen on 11/04/2020.
 //  Copyright © 2020 Thanh-Nhon Nguyen. All rights reserved.
 //
 
 import UIKit
 
-final class BandOrReleaseBookmarkOrderViewController: BaseViewController {
+final class ArtistOrLabelBookmarkOrderViewController: BaseViewController {
     enum BookmarkType {
-        case band, release
+        case artist, label
     }
     
     @IBOutlet private weak var tableView: UITableView!
     
-    var currentOrder: BandOrReleaseBookmarkOrder = .lastModifiedDescending
+    var currentOrder: ArtistOrLabelBookmarkOrder = .lastModifiedDescending
     
-    var selectedBandOrReleaseBookmarkOrder: ((BandOrReleaseBookmarkOrder) -> Void)?
+    var selectedArtistOrLabelBookmarkOrder: ((ArtistOrLabelBookmarkOrder) -> Void)?
     
     deinit {
-        print("BandOrReleaseBookmarkOrderViewController is deallocated")
+        print("ArtistOrLabelBookmarkOrderViewController is deallocated")
     }
     
     override func viewDidLoad() {
@@ -36,22 +36,22 @@ final class BandOrReleaseBookmarkOrderViewController: BaseViewController {
     }
 }
 
-extension BandOrReleaseBookmarkOrderViewController: UITableViewDelegate {
+extension ArtistOrLabelBookmarkOrderViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        currentOrder = BandOrReleaseBookmarkOrder(rawValue: indexPath.row) ?? .nameAscending
-        selectedBandOrReleaseBookmarkOrder?(currentOrder)
+        currentOrder = ArtistOrLabelBookmarkOrder(rawValue: indexPath.row) ?? .nameAscending
+        selectedArtistOrLabelBookmarkOrder?(currentOrder)
         dismiss(animated: false, completion: nil)
     }
 }
 
-extension BandOrReleaseBookmarkOrderViewController: UITableViewDataSource {
+extension ArtistOrLabelBookmarkOrderViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return BandOrReleaseBookmarkOrder.allCases.count
+        return ArtistOrLabelBookmarkOrder.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -60,7 +60,7 @@ extension BandOrReleaseBookmarkOrderViewController: UITableViewDataSource {
         cell.displayAsBodyText()
         cell.inverseColors()
         
-        let order = BandOrReleaseBookmarkOrder.allCases[indexPath.row]
+        let order = ArtistOrLabelBookmarkOrder.allCases[indexPath.row]
         cell.fill(with: order.description)
         
         if order == currentOrder {
@@ -72,3 +72,4 @@ extension BandOrReleaseBookmarkOrderViewController: UITableViewDataSource {
         return cell
     }
 }
+
