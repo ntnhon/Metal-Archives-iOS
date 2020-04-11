@@ -35,6 +35,14 @@ extension RequestHelper.BandDetail {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8) else {
             return nil
         }
+        // Check if user is logged in, because in this case the html structure is different
+        // there is 1 more column at the beginning (for vote up/down)
+        let isLoggedIn = htmlString.contains("Vote up")
+        
+        let nameColumn = isLoggedIn ? 1 : 0
+        let countryColumn = isLoggedIn ? 2 : 1
+        let genreColumn = isLoggedIn ? 3 : 2
+        let scoreColumn = isLoggedIn ? 4 : 3
         
         var arraySimilarArtists = [BandSimilar]()
         
@@ -53,30 +61,30 @@ extension RequestHelper.BandDetail {
                             break
                         }
                         
-                        if (i == 0) {
+                        if (i == nameColumn) {
                             if let a = td.at_css("a") {
                                 bandName = a.text
                                 bandURLString = a["href"]
                             }
                         }
                             
-                        else if (i == 1) {
+                        else if (i == countryColumn) {
                             if let countryName = td.text {
                                 bandCountry = Country(name: countryName)
                             }
                         }
                             
-                        else if (i == 2) {
+                        else if (i == genreColumn) {
                             bandGenre = td.text
                         }
                             
-                        else if (i == 3) {
+                        else if (i == scoreColumn) {
                             if let span = td.at_css("span") {
                                 bandSimilarScore = Int(span.text?.replacingOccurrences(of: " ", with: "") ?? "")
                             }
                         }
                         
-                        i = i + 1
+                        i += 1
                     }
                     
                     if let name = bandName, let urlString = bandURLString, let country = bandCountry, let genre = bandGenre, let score = bandSimilarScore {

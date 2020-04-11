@@ -105,6 +105,15 @@ final class Discography {
                 throw MAParsingError.badStructure(objectType: "Discography")
         }
         
+        // Check if user is logged in, because in this case the html structure is different
+        // there is 1 more column at the beginning (for editing)
+        let isLoggedIn = htmlString.contains("title=\"Tools\"")
+        
+        let nameColumn = isLoggedIn ? 1 : 0
+        let typeColumn = isLoggedIn ? 2 : 1
+        let yearColumn = isLoggedIn ? 3 : 2
+        let reviewColumn = isLoggedIn ? 4 : 3
+        
         self.releases = [ReleaseLite]()
         
         for tbody in html.css("tbody") {
@@ -125,25 +134,25 @@ final class Discography {
                 }
                 
                 for td in tr.css("td") {
-                    if (i == 0) {
+                    if (i == nameColumn) {
                         // Get disc name and disc URL
                         title = td.text
                         urlString = td.css("a")[0]["href"]
                     }
-                    else if (i == 1) {
+                    else if (i == typeColumn) {
                         // Get disc type
                         if let releaseTypeString = td.text {
                             type = ReleaseType(typeString: releaseTypeString)
                         }
                     }
-                    else if (i == 2) {
+                    else if (i == yearColumn) {
                         // Get disc year
                         if let yearString = td.text {
                             year = Int(yearString)
                         }
                         
                     }
-                    else if (i == 3) {
+                    else if (i == reviewColumn) {
                         // Get disc's reviews
                         if var reviewString = td.text {
                             reviewString = reviewString.replacingOccurrences(of: "\t", with: "")
@@ -171,7 +180,7 @@ final class Discography {
                         
                     }
                     
-                    i = i + 1
+                    i += 1
                 }
                 
                 if let `title` = title, let `urlString` = urlString, let `type` = type, let `year` = year {
