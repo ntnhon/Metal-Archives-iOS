@@ -16,8 +16,9 @@ final class MyCollectionViewController: RefreshableViewController {
     
     var myCollection: MyCollection = .collection
     
-    // Collection
-    private var collectionPagableManager: PagableManager<ReleaseInCollection>!
+    private var collectionPagableManager: PagableManager<ReleaseCollection>!
+    private var wantedPagableManager: PagableManager<ReleaseWanted>!
+    private var tradePagableManager: PagableManager<ReleaseTrade>!
     
     deinit {
         print("MyBookmarksViewController is deallocated")
@@ -31,8 +32,8 @@ final class MyCollectionViewController: RefreshableViewController {
         
         switch myCollection {
         case .collection: collectionPagableManager.fetch()
-        case .wanted: break
-        case .trade: break
+        case .wanted: wantedPagableManager.fetch()
+        case .trade: tradePagableManager.fetch()
         }
     }
     
@@ -55,11 +56,16 @@ final class MyCollectionViewController: RefreshableViewController {
     private func initPagableManagers() {
         switch myCollection {
         case .collection:
-            collectionPagableManager = PagableManager<ReleaseInCollection>()
+            collectionPagableManager = PagableManager<ReleaseCollection>()
             collectionPagableManager.delegate = self
             
-        case .wanted: break
-        case .trade: break
+        case .wanted:
+            wantedPagableManager = PagableManager<ReleaseWanted>()
+            wantedPagableManager.delegate = self
+            
+        case .trade:
+            tradePagableManager = PagableManager<ReleaseTrade>()
+            tradePagableManager.delegate = self
         }
     }
     
@@ -71,8 +77,17 @@ final class MyCollectionViewController: RefreshableViewController {
                 self.collectionPagableManager.fetch()
             }
             
-        case .wanted: break
-        case .trade: break
+        case .wanted:
+            wantedPagableManager.reset()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                self.wantedPagableManager.fetch()
+            }
+            
+        case .trade:
+            tradePagableManager.reset()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                self.tradePagableManager.fetch()
+            }
         }
         
         tableView.reloadData()
@@ -192,8 +207,17 @@ extension MyCollectionViewController: UITableViewDelegate {
             }
             return
             
-        case .wanted: return
-        case .trade: return
+        case .wanted:
+            if wantedPagableManager.moreToLoad && indexPath.row == wantedPagableManager.objects.count {
+                wantedPagableManager.fetch()
+            }
+            return
+            
+        case .trade:
+            if tradePagableManager.moreToLoad && indexPath.row == tradePagableManager.objects.count {
+                tradePagableManager.fetch()
+            }
+            return
         }
     }
 }
@@ -214,12 +238,14 @@ extension MyCollectionViewController: UITableViewDataSource {
             count = manager.objects.count
             
         case .wanted:
-            moreToLoad = false
-            count = 0
+            guard let manager = wantedPagableManager else { return 0 }
+            moreToLoad = manager.moreToLoad
+            count = manager.objects.count
 
         case .trade:
-            moreToLoad = false
-            count = 0
+            guard let manager = tradePagableManager else { return 0 }
+            moreToLoad = manager.moreToLoad
+            count = manager.objects.count
         }
         
         if moreToLoad {
@@ -240,8 +266,11 @@ extension MyCollectionViewController: UITableViewDataSource {
         case .collection:
             shouldDisplayLoadingCell = collectionPagableManager.moreToLoad && indexPath.row == collectionPagableManager.objects.count
             
-        case .wanted: shouldDisplayLoadingCell = false
-        case .trade: shouldDisplayLoadingCell = false
+        case .wanted:
+            shouldDisplayLoadingCell = wantedPagableManager.moreToLoad && indexPath.row == collectionPagableManager.objects.count
+            
+        case .trade:
+            shouldDisplayLoadingCell = tradePagableManager.moreToLoad && indexPath.row == collectionPagableManager.objects.count
         }
         
         if shouldDisplayLoadingCell {
@@ -251,18 +280,18 @@ extension MyCollectionViewController: UITableViewDataSource {
         }
         
         // Display normal cells
+        let release: ReleaseInCollection
         switch myCollection {
-        case .collection:
-            let cell = ReleaseInCollectionTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-            let release = collectionPagableManager.objects[indexPath.row]
-            cell.fill(with: release)
-            cell.tappedThumbnailImageView = { [unowned self] in
-                self.presentPhotoViewerWithCacheChecking(photoUrlString: release.imageURLString, description: release.release.title, fromImageView: cell.thumbnailImageView)
-            }
-            return cell
-            
-        case .wanted: return UITableViewCell()
-        case .trade: return UITableViewCell()
+        case .collection: release = collectionPagableManager.objects[indexPath.row]
+        case .wanted: release = wantedPagableManager.objects[indexPath.row]
+        case .trade: release = tradePagableManager.objects[indexPath.row]
         }
+        
+        let cell = ReleaseInCollectionTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.fill(with: release)
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: release.imageURLString, description: release.release.title, fromImageView: cell.thumbnailImageView)
+        }
+        return cell
     }
 }

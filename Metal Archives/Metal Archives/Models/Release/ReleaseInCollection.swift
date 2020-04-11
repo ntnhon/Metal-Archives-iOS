@@ -28,7 +28,7 @@ fileprivate extension Array where Element == BandLite {
     }
 }
 
-final class ReleaseInCollection: ThumbnailableObject {
+class ReleaseInCollection: ThumbnailableObject {
     let editId: String
     let bands: [BandLite]
     let release: ReleaseExtraLite
@@ -92,20 +92,71 @@ final class ReleaseInCollection: ThumbnailableObject {
     }
 }
 
-extension ReleaseInCollection: Pagable {
+// MARK: - Album collection
+final class ReleaseCollection: ReleaseInCollection, Pagable {
     static var rawRequestURLString =  "https://www.metal-archives.com/collection/ajax-view/id/376380/type/1/json/1/edit/1?sEcho=1&iColumns=6&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&sSearch=&bRegex=false&sSearch_0=&bRegex_0=false&bSearchable_0=true&sSearch_1=&bRegex_1=false&bSearchable_1=true&sSearch_2=&bRegex_2=false&bSearchable_2=true&sSearch_3=&bRegex_3=false&bSearchable_3=true&sSearch_4=&bRegex_4=false&bSearchable_4=true&sSearch_5=&bRegex_5=false&bSearchable_5=true&_=1586624185273"
     
     static var displayLenght = 200
     
-    static func parseListFrom(data: Data) -> (objects: [ReleaseInCollection]?, totalRecords: Int?)? {
+    static func parseListFrom(data: Data) -> (objects: [ReleaseCollection]?, totalRecords: Int?)? {
         guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
             return nil
         }
-        var list: [ReleaseInCollection] = []
+        var list: [ReleaseCollection] = []
         
-        array.forEach { (releaseInCollectionDetails) in
-            if let releaseInCollection = ReleaseInCollection(from: releaseInCollectionDetails) {
-                list.append(releaseInCollection)
+        array.forEach { (releaseCollectionDetails) in
+            if let releaseCollection = ReleaseCollection(from: releaseCollectionDetails) {
+                list.append(releaseCollection)
+            }
+        }
+        
+        if list.count == 0 {
+            return (nil, nil)
+        }
+        return (list, totalRecords)
+    }
+}
+
+// MARK: - Wanted
+final class ReleaseWanted: ReleaseInCollection, Pagable {
+    static var rawRequestURLString =  "https://www.metal-archives.com/collection/ajax-view/id/376380/type/3/json/1/edit/1?sEcho=1&iColumns=6&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&sSearch=&bRegex=false&sSearch_0=&bRegex_0=false&bSearchable_0=true&sSearch_1=&bRegex_1=false&bSearchable_1=true&sSearch_2=&bRegex_2=false&bSearchable_2=true&sSearch_3=&bRegex_3=false&bSearchable_3=true&sSearch_4=&bRegex_4=false&bSearchable_4=true&sSearch_5=&bRegex_5=false&bSearchable_5=true&_=1586627540703"
+    
+    static var displayLenght = 200
+    
+    static func parseListFrom(data: Data) -> (objects: [ReleaseWanted]?, totalRecords: Int?)? {
+        guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
+            return nil
+        }
+        var list: [ReleaseWanted] = []
+        
+        array.forEach { (releaseWantedDetails) in
+            if let releaseWanted = ReleaseWanted(from: releaseWantedDetails) {
+                list.append(releaseWanted)
+            }
+        }
+        
+        if list.count == 0 {
+            return (nil, nil)
+        }
+        return (list, totalRecords)
+    }
+}
+
+// MARK: - Trade
+final class ReleaseTrade: ReleaseInCollection, Pagable {
+    static var rawRequestURLString =  "https://www.metal-archives.com/collection/ajax-view/id/376380/type/2/json/1/edit/1?sEcho=1&iColumns=6&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&sSearch=&bRegex=false&sSearch_0=&bRegex_0=false&bSearchable_0=true&sSearch_1=&bRegex_1=false&bSearchable_1=true&sSearch_2=&bRegex_2=false&bSearchable_2=true&sSearch_3=&bRegex_3=false&bSearchable_3=true&sSearch_4=&bRegex_4=false&bSearchable_4=true&sSearch_5=&bRegex_5=false&bSearchable_5=true&_=1586627540704"
+    
+    static var displayLenght = 200
+    
+    static func parseListFrom(data: Data) -> (objects: [ReleaseTrade]?, totalRecords: Int?)? {
+        guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
+            return nil
+        }
+        var list: [ReleaseTrade] = []
+        
+        array.forEach { (releaseTradeDetails) in
+            if let releaseTrade = ReleaseTrade(from: releaseTradeDetails) {
+                list.append(releaseTrade)
             }
         }
         
