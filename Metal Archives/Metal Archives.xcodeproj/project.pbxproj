@@ -60,6 +60,7 @@
 		C00E71342441E60B00A17471 /* LabelBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71332441E60B00A17471 /* LabelBookmark.swift */; };
 		C00E71372441E73F00A17471 /* LabelBookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71362441E73F00A17471 /* LabelBookmarkTableViewCell.swift */; };
 		C00E71392441E74900A17471 /* LabelBookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00E71382441E74900A17471 /* LabelBookmarkTableViewCell.xib */; };
+		C00E713C2442113100A17471 /* BookmarkRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E713B2442113100A17471 /* BookmarkRequests.swift */; };
 		C0107027222DC9570092D3A5 /* ImFeelingLuckyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0107026222DC9570092D3A5 /* ImFeelingLuckyView.swift */; };
 		C0107029222DC9840092D3A5 /* ImFeelingLuckyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0107028222DC9840092D3A5 /* ImFeelingLuckyView.xib */; };
 		C013363D223809B700963940 /* AdvancedSearchBandStatusListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013363C223809B700963940 /* AdvancedSearchBandStatusListViewController.swift */; };
@@ -644,6 +645,7 @@
 		C00E71332441E60B00A17471 /* LabelBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBookmark.swift; sourceTree = "<group>"; };
 		C00E71362441E73F00A17471 /* LabelBookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBookmarkTableViewCell.swift; sourceTree = "<group>"; };
 		C00E71382441E74900A17471 /* LabelBookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelBookmarkTableViewCell.xib; sourceTree = "<group>"; };
+		C00E713B2442113100A17471 /* BookmarkRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRequests.swift; sourceTree = "<group>"; };
 		C0107026222DC9570092D3A5 /* ImFeelingLuckyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImFeelingLuckyView.swift; sourceTree = "<group>"; };
 		C0107028222DC9840092D3A5 /* ImFeelingLuckyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImFeelingLuckyView.xib; sourceTree = "<group>"; };
 		C013363C223809B700963940 /* AdvancedSearchBandStatusListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchBandStatusListViewController.swift; sourceTree = "<group>"; };
@@ -1281,6 +1283,14 @@
 				C00E71382441E74900A17471 /* LabelBookmarkTableViewCell.xib */,
 			);
 			path = LabelBookmarkTableViewCell;
+			sourceTree = "<group>";
+		};
+		C00E713A2442111200A17471 /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				C00E713B2442113100A17471 /* BookmarkRequests.swift */,
+			);
+			path = Bookmarks;
 			sourceTree = "<group>";
 		};
 		C0107025222DC9390092D3A5 /* ImFeelingLuckyView */ = {
@@ -2818,6 +2828,7 @@
 			isa = PBXGroup;
 			children = (
 				C08453FF21EE184E00E6D676 /* RequestHelper.swift */,
+				C00E713A2442111200A17471 /* Bookmarks */,
 				C053DD3722268F520028568B /* Statistics */,
 				C05309F022233F9B0027D11E /* LabelDetail */,
 				C0ECE6FE221B464400489A8E /* ArtistDetail */,
@@ -3808,6 +3819,7 @@
 				C0A48CF02221D76C0047FC70 /* Error+Code&Domain.swift in Sources */,
 				C0A2BF7821F67293002CCFEC /* UIViewController+OpenURLInBrowsers.swift in Sources */,
 				C075295E229E97950067B5E1 /* DiscographyOptionsTableViewCell.swift in Sources */,
+				C00E713C2442113100A17471 /* BookmarkRequests.swift in Sources */,
 				C00838872200F21200B35996 /* ReadMoreViewController.swift in Sources */,
 				C0A1F94A224187FD005C2C83 /* ArtistRIPViewController.swift in Sources */,
 				C09A18AE21FF56B300152908 /* SlideMenuController+AutoRotate.swift in Sources */,

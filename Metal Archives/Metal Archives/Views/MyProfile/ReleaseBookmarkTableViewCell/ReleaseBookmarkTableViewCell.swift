@@ -44,7 +44,9 @@ final class ReleaseBookmarkTableViewCell: ThumbnailableTableViewCell, Registerab
         lastModifiedLabel.text = "\(releaseBookmark.lastModified) 🕒"
         genreLabel.text = releaseBookmark.genre
         
-        noteLabel.attributedText = releaseBookmark.note
+        if let note = releaseBookmark.note {
+            noteLabel.text = "📝 " + note
+        }
         noteLabel.isHidden = releaseBookmark.note == nil
         
         setThumbnailImageView(with: releaseBookmark)

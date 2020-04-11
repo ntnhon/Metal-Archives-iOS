@@ -15,7 +15,7 @@ final class ReleaseBookmark: ThumbnailableObject {
     let country: Country
     let genre: String
     let lastModified: String
-    let note: NSAttributedString?
+    private(set) var note: String?
     
     /*
      Sample array:
@@ -49,12 +49,16 @@ final class ReleaseBookmark: ThumbnailableObject {
         
         let noteString = String(noteSubstring)
         if noteString != "" {
-            self.note = ("📝 " + noteString).htmlToAttributedString(attributes: [.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont])
+            self.note = noteString.htmlToString
         } else {
             self.note = nil
         }
 
         super.init(urlString: String(urlSubstring), imageType: .release)
+    }
+    
+    func updateNote(_ note: String?) {
+        self.note = note
     }
 }
 

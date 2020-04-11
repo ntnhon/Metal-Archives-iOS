@@ -34,7 +34,9 @@ final class LabelBookmarkTableViewCell: ThumbnailableTableViewCell, Registerable
         countryLabel.text = labelBookmark.country.nameAndEmoji
         lastModifiedLabel.text = "\(labelBookmark.lastModified) 🕒"
         
-        noteLabel.attributedText = labelBookmark.note
+        if let note = labelBookmark.note {
+            noteLabel.text = "📝 " + note
+        }
         noteLabel.isHidden = labelBookmark.note == nil
         
         setThumbnailImageView(with: labelBookmark)

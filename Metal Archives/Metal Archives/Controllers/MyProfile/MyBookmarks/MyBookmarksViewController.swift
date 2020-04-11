@@ -9,6 +9,7 @@
 import UIKit
 import Toaster
 import Alamofire
+import MBProgressHUD
 
 final class MyBookmarksViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
@@ -127,6 +128,137 @@ final class MyBookmarksViewController: RefreshableViewController {
     }
 }
 
+// MARK: - View details & Edit note
+extension MyBookmarksViewController {
+    private func takeActionForBandBookmark(at indexPath: IndexPath) {
+        let bandBookmark = bandBookmarkPagableManager.objects[indexPath.row]
+        
+        let alert = UIAlertController(title: bandBookmark.name, message: "\(bandBookmark.country.name) | \(bandBookmark.genre)", preferredStyle: .actionSheet)
+        
+        let viewAction = UIAlertAction(title: "View band", style: .default) { [unowned self] _ in
+            self.pushBandDetailViewController(urlString: bandBookmark.urlString, animated: true)
+        }
+        alert.addAction(viewAction)
+        
+        let editAction = UIAlertAction(title: "Edit note", style: .default) { [unowned self] _ in
+            self.presentEditNoteAlert(editId: bandBookmark.editId, oldNote: bandBookmark.note, indexPath: indexPath)
+        }
+        alert.addAction(editAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func takeActionForArtistBookmark(at indexPath: IndexPath) {
+        let artistBookmark = artistBookmarkPagableManager.objects[indexPath.row]
+        
+        let alert = UIAlertController(title: artistBookmark.name, message: artistBookmark.country.name, preferredStyle: .actionSheet)
+        
+        let viewAction = UIAlertAction(title: "View artist", style: .default) { [unowned self] _ in
+            self.pushArtistDetailViewController(urlString: artistBookmark.urlString, animated: true)
+        }
+        alert.addAction(viewAction)
+        
+        let editAction = UIAlertAction(title: "Edit note", style: .default) { [unowned self] _ in
+            self.presentEditNoteAlert(editId: artistBookmark.editId, oldNote: artistBookmark.note, indexPath: indexPath)
+        }
+        alert.addAction(editAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func takeActionForLabelBookmark(at indexPath: IndexPath) {
+        let labelBookmark = labelBookmarkPagableManager.objects[indexPath.row]
+        
+        let alert = UIAlertController(title: labelBookmark.name, message: labelBookmark.country.name, preferredStyle: .actionSheet)
+        
+        let viewAction = UIAlertAction(title: "View label", style: .default) { [unowned self] _ in
+            self.pushLabelDetailViewController(urlString: labelBookmark.urlString, animated: true)
+        }
+        alert.addAction(viewAction)
+        
+        let editAction = UIAlertAction(title: "Edit note", style: .default) { [unowned self] _ in
+            self.presentEditNoteAlert(editId: labelBookmark.editId, oldNote: labelBookmark.note, indexPath: indexPath)
+        }
+        alert.addAction(editAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func takeActionForReleaseBookmark(at indexPath: IndexPath) {
+        let releaseBookmark = releaseBookmarkPagableManager.objects[indexPath.row]
+        
+        let alert = UIAlertController(title: releaseBookmark.title, message: "\(releaseBookmark.bandName) | \(releaseBookmark.country.name) | \(releaseBookmark.genre)", preferredStyle: .actionSheet)
+        
+        let viewAction = UIAlertAction(title: "View release", style: .default) { [unowned self] _ in
+            self.pushReleaseDetailViewController(urlString: releaseBookmark.urlString, animated: true)
+        }
+        alert.addAction(viewAction)
+        
+        let editAction = UIAlertAction(title: "Edit note", style: .default) { [unowned self] _ in
+            self.presentEditNoteAlert(editId: releaseBookmark.editId, oldNote: releaseBookmark.note, indexPath: indexPath)
+        }
+        alert.addAction(editAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func presentEditNoteAlert(editId: String, oldNote: String?, indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Edit note", message: "⚠️ Note can not contain emoji", preferredStyle: .alert)
+        
+        alert.addTextField { (noteTextField) in
+            noteTextField.placeholder = "Add note"
+            noteTextField.returnKeyType = .done
+            noteTextField.clearButtonMode = .whileEditing
+            noteTextField.text = oldNote
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] _ in
+            self.updateNote(editId: editId, newNote: alert.textFields?[0].text, indexPath: indexPath)
+        }
+        alert.addAction(saveAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func updateNote(editId: String, newNote: String?, indexPath: IndexPath) {
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        RequestHelper.Bookmark.updateNote(editId: editId, newNote: newNote) { [weak self] (isSuccess) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if isSuccess {
+                switch self.myBookmark {
+                case .bands: self.bandBookmarkPagableManager.objects[indexPath.row].updateNote(newNote)
+                case .artists: self.artistBookmarkPagableManager.objects[indexPath.row].updateNote(newNote)
+                case .labels: self.labelBookmarkPagableManager.objects[indexPath.row].updateNote(newNote)
+                case .releases: self.releaseBookmarkPagableManager.objects[indexPath.row].updateNote(newNote)
+                }
+                
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                Toast.displayMessageShortly("Updated note")
+            } else {
+                Toast.displayMessageShortly("Error saving note. Please try again later.")
+            }
+        }
+    }
+}
+
 // MARK: - Popover
 extension MyBookmarksViewController {
     private func displayBandOrReleaseBookmarkOrderViewController(type: BandOrReleaseBookmarkOrderViewController.BookmarkType) {
@@ -217,6 +349,13 @@ extension MyBookmarksViewController: PagableManagerDelegate {
 extension MyBookmarksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        switch myBookmark {
+        case .bands: takeActionForBandBookmark(at: indexPath)
+        case .artists: takeActionForArtistBookmark(at: indexPath)
+        case .labels: takeActionForLabelBookmark(at: indexPath)
+        case .releases: takeActionForReleaseBookmark(at: indexPath)
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

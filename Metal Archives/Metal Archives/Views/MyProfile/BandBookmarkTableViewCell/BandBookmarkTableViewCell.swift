@@ -39,7 +39,9 @@ final class BandBookmarkTableViewCell: ThumbnailableTableViewCell, RegisterableC
         lastModifiedLabel.text = "\(bandBookmark.lastModified) 🕒"
         genreLabel.text = bandBookmark.genre
         
-        noteLabel.attributedText = bandBookmark.note
+        if let note = bandBookmark.note {
+            noteLabel.text = "📝 " + note
+        }
         noteLabel.isHidden = bandBookmark.note == nil
         
         setThumbnailImageView(with: bandBookmark)
