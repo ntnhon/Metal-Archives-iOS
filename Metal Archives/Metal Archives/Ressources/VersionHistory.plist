@@ -4,6 +4,18 @@
 <array>
 	<dict>
 		<key>number</key>
+		<string>4.0</string>
+		<key>date</key>
+		<string>April 2020</string>
+		<key>features</key>
+		<string>- You can now log in with your Metal Archives account.
+- Manage your bookmarks: add/remove/edit bands/artists/labels/releases.
+- Manage your collection: add/remove/edit releases.
+- Fix reminder creation error.
+- Create reminder from inside a release page.</string>
+	</dict>
+	<dict>
+		<key>number</key>
 		<string>3.5</string>
 		<key>date</key>
 		<string>April 2020</string>
