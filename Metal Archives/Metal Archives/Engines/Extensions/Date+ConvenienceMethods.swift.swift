@@ -53,3 +53,29 @@ extension Date {
         }
     }
 }
+
+extension Date {
+    /// String must respect the following structure: September 12th, 2020
+    init?(from string: String) {
+        let dateElements = string.split(separator: " ", maxSplits: 3, omittingEmptySubsequences: true)
+        
+        // Ex: September 12th, 2020
+        guard dateElements.count == 3 else { return nil }
+        
+        let monthString = dateElements[0]
+        var dayString = dateElements[1]
+        dayString.removeLast(3)
+        
+        let yearString = dateElements[2]
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d/MMMM/yyyy"
+        let dateString = "\(dayString)/\(monthString)/\(yearString)"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            self = date
+        } else {
+            return nil
+        }
+    }
+}

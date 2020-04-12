@@ -12,6 +12,7 @@ import FirebaseAnalytics
 import Crashlytics
 import Floaty
 import MBProgressHUD
+import EventKitUI
 
 //MARK: - Properties
 final class ReleaseDetailViewController: BaseViewController {
@@ -49,6 +50,8 @@ final class ReleaseDetailViewController: BaseViewController {
     var historyRecordableDelegate: HistoryRecordable?
     
     private var adjustedTableViewContentOffset = false
+    
+    private var addedReminderButton = false
 
     deinit {
         print("ReleaseDetailViewController is deallocated")
@@ -113,7 +116,7 @@ final class ReleaseDetailViewController: BaseViewController {
                     self.simpleNavigationBarView.setTitle(release.title)
                 }
                 
-                self.updateBookmarkIcon()
+                self.updateBookmarkIconAndAddReminderOption()
                 self.tableView.reloadData()
                 
                 // Delay this method to wait for info cells to be fully loaded
@@ -271,7 +274,7 @@ final class ReleaseDetailViewController: BaseViewController {
             
             if isSuccessful {
                 self.release?.setIsBookmarked(!isBookmarked)
-                self.updateBookmarkIcon()
+                self.updateBookmarkIconAndAddReminderOption()
                 
                 if isBookmarked {
                     Toast.displayMessageShortly("\"\(release.title ?? "")\" is removed from your bookmarks")
@@ -287,7 +290,7 @@ final class ReleaseDetailViewController: BaseViewController {
         }
     }
     
-    private func updateBookmarkIcon() {
+    private func updateBookmarkIconAndAddReminderOption() {
         guard let release = release, let isBookmarked = release.isBookmarked else {
             simpleNavigationBarView.setRightButtonIcon(UIImage(named: Ressources.Images.star))
             return
@@ -295,6 +298,28 @@ final class ReleaseDetailViewController: BaseViewController {
         
         let iconName = isBookmarked ? Ressources.Images.star_filled : Ressources.Images.star
         simpleNavigationBarView.setRightButtonIcon(UIImage(named: iconName))
+        
+        if let event = release.event, !addedReminderButton {
+            addedReminderButton = true
+            floaty.addItem("Create a reminder", icon: UIImage(named: Ressources.Images.calendar)) { [unowned self] _ in
+                eventStore.requestAccess(to: EKEntityType.event) { [unowned self] (granted, error) in
+                    DispatchQueue.main.async {
+                        if let error = error {
+                            Toast.displayMessageShortly(error.localizedDescription)
+                        } else if granted {
+                            let eventEditViewController = EKEventEditViewController()
+                            eventEditViewController.event = event
+                            eventEditViewController.eventStore = eventStore
+                            eventEditViewController.editViewDelegate = self
+                            self.present(eventEditViewController, animated: true, completion: nil)
+                        } else {
+                            self.alertNoCalendarAccess()
+                        }
+                    }
+                }
+            }
+            floaty.items.swapAt(0, floaty.items.count - 1)
+        }
     }
     
     private func addToCollection(type: MyCollection) {

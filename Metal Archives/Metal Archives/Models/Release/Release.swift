@@ -8,6 +8,7 @@
 
 import Foundation
 import Kanna
+import EventKit
 
 final class Release {
     private(set) var id: String!
@@ -79,6 +80,19 @@ final class Release {
         }
         
         return "Other staff (0 artist)"
+    }()
+    
+    lazy var event: EKEvent? = {
+        let eventTitle = "\(title ?? "") | \(bands.map({$0.name}).joined(separator: "/")) | \(type.description)"
+        let notes = """
+        Release title: \(title ?? "")
+        Band(s): \(bands.map({$0.name}).joined(separator: "/"))
+        Type: \(type.description)
+        """
+        
+        let url = URL(string: urlString)
+        
+        return EKEvent.createEventFrom(dateString: dateString, title: eventTitle, notes: notes, url: url)
     }()
     
     func setOtherVersions(_ otherVersions: [ReleaseOtherVersion]) {

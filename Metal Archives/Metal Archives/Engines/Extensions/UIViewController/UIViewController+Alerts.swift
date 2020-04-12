@@ -22,4 +22,20 @@ extension UIViewController {
         alert.addAction(okayAction)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func alertNoCalendarAccess() {
+        let alert = UIAlertController(title: "Calendar access required", message: "You have to allow calendar access in order to create a reminder.", preferredStyle: .alert)
+        
+        let openSettingsAction = UIAlertAction(title: "Open settings", style: .default) { _ in
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        alert.addAction(openSettingsAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
 }

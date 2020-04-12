@@ -36,6 +36,20 @@ final class UpcomingAlbum: NSObject {
         return typeAndDateAttributedString
     }()
     
+    lazy var event: EKEvent? = {
+        let title = "\(release.title) | \(bands.map({$0.name}).joined(separator: "/")) | \(releaseType.description) | \(genre)"
+        let notes = """
+        Release title: \(release.title)
+        Band(s): \(bands.map({$0.name}).joined(separator: "/"))
+        Type: \(releaseType.description)
+        Genre: \(genre)
+        """
+        
+        let url = URL(string: release.urlString)
+        
+        return EKEvent.createEventFrom(dateString: date, title: title, notes: notes, url: url)
+    }()
+    
     /*
      Sample array:
      "<a href="https://www.metal-archives.com/bands/Kalmankantaja/3540342889">Kalmankantaja</a> / <a href="https://www.metal-archives.com/bands/Drudensang/3540369476">Drudensang</a> / <a href="https://www.metal-archives.com/bands/Hiisi/3540401566">Hiisi</a>",
@@ -68,40 +82,6 @@ final class UpcomingAlbum: NSObject {
         self.releaseType = releaseType
         self.genre = array[3]
         self.date = array[4]
-    }
-    
-    func createEvent() -> EKEvent {
-        let event = EKEvent(eventStore: eventStore)
-        event.title = "\(release.title) | \(bands.map({$0.name}).joined(separator: "/")) | \(releaseType.description) | \(genre)"
-        event.notes = """
-        Release title: \(release.title)
-        Band(s): \(bands.map({$0.name}).joined(separator: "/"))
-        Type: \(releaseType.description)
-        Genre: \(genre)
-        """
-        
-        event.url = URL(string: release.urlString)
-        
-        let dateElements = date.split(separator: " ", maxSplits: 3, omittingEmptySubsequences: true)
-        
-        // Ex: September 12th, 2020
-        guard dateElements.count == 3 else { return event }
-        
-        let monthString = dateElements[0]
-        var dayString = dateElements[1]
-        dayString.removeLast(3)
-        
-        let yearString = dateElements[2]
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d/MMMM/yyyy"
-        let dateString = "\(dayString)/\(monthString)/\(yearString)"
-        let eventDate = dateFormatter.date(from: dateString)
-        
-        event.startDate = eventDate?.addingTimeInterval(10*60*60)
-        event.endDate = eventDate?.addingTimeInterval(12*60*60)
-        
-        return event
     }
 }
 
@@ -142,9 +122,11 @@ extension UpcomingAlbum: Actionable {
         let releaseElement = ActionableElement.release(name: release.title, urlString: release.urlString)
         elements.append(releaseElement)
         
-        let eventElement = ActionableElement.event(event: createEvent())
-        elements.append(eventElement)
-        
+        if let event = event {
+            let eventElement = ActionableElement.event(event: event)
+            elements.append(eventElement)
+        }
+    
         return elements
     }
 }

@@ -133,22 +133,6 @@ extension UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
-    
-    fileprivate func alertNoCalendarAccess() {
-        let alert = UIAlertController(title: "Calendar access required", message: "You have to allow calendar access in order to create a reminder.", preferredStyle: .alert)
-        
-        let openSettingsAction = UIAlertAction(title: "Open settings", style: .default) { _ in
-            if let url = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }
-        alert.addAction(openSettingsAction)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
-        
-        present(alert, animated: true, completion: nil)
-    }
 }
 
 // MARK: - EKEventEditViewDelegate
@@ -156,8 +140,12 @@ extension UIViewController: EKEventEditViewDelegate {
     public func eventEditViewController(_ controller: EKEventEditViewController, didCompleteWith action: EKEventEditViewAction) {
         switch action {
         case .saved:
+            if let _ = self as? ReleaseDetailViewController {
+                Analytics.logEvent("create_reminder_from_release_page", parameters: nil)
+            } else {
+                Analytics.logEvent("create_reminder", parameters: nil)
+            }
             Toast.displayMessageShortly("Reminder created")
-            Analytics.logEvent("create_reminder", parameters: nil)
             
         default: break
         }

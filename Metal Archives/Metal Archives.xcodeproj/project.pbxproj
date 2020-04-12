@@ -15,7 +15,7 @@
 		C003D7C022E3BA1200F9F622 /* DeezerResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C003D7BF22E3BA1200F9F622 /* DeezerResultViewController.swift */; };
 		C006FB16224900A000CA6CCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C006FB15224900A000CA6CCD /* GoogleService-Info.plist */; };
 		C008388222008D1900B35996 /* UIViewController+CheckPhotoLibraryPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008388122008D1900B35996 /* UIViewController+CheckPhotoLibraryPermission.swift */; };
-		C008388422009ECE00B35996 /* Date+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008388322009ECE00B35996 /* Date+Distance.swift */; };
+		C008388422009ECE00B35996 /* Date+ConvenienceMethods.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008388322009ECE00B35996 /* Date+ConvenienceMethods.swift.swift */; };
 		C00838872200F21200B35996 /* ReadMoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00838862200F21200B35996 /* ReadMoreViewController.swift */; };
 		C00838892200F23000B35996 /* ReadMore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C00838882200F23000B35996 /* ReadMore.storyboard */; };
 		C0086DC7243F33870008669C /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0086DC6243F33870008669C /* LoginService.swift */; };
@@ -293,6 +293,8 @@
 		C066138E22899BA000F99006 /* UpcomingAlbumsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C066138D22899BA000F99006 /* UpcomingAlbumsTableViewCell.xib */; };
 		C066139122899EBC00F99006 /* UpcomingAlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066139022899EBC00F99006 /* UpcomingAlbumCollectionViewCell.swift */; };
 		C066139322899EDA00F99006 /* UpcomingAlbumCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C066139222899EDA00F99006 /* UpcomingAlbumCollectionViewCell.xib */; };
+		C06B4D8D2443793900F9A62A /* EKEvent+ConvenienceMethods.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08503BF244372E1009C3EF2 /* EKEvent+ConvenienceMethods.swift.swift */; };
+		C06B4D8E2443797200F9A62A /* Date+ConvenienceMethods.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008388322009ECE00B35996 /* Date+ConvenienceMethods.swift.swift */; };
 		C06B62402242313300A3FE6B /* LabelBrowseAlphabetically.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06B623F2242313300A3FE6B /* LabelBrowseAlphabetically.swift */; };
 		C06B62432242362800A3FE6B /* BrowseLabelsAlphabeticallyResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06B62422242362800A3FE6B /* BrowseLabelsAlphabeticallyResultTableViewCell.swift */; };
 		C06B62452242382500A3FE6B /* BrowseLabelsAlphabeticallyResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06B62442242382500A3FE6B /* BrowseLabelsAlphabeticallyResultTableViewCell.xib */; };
@@ -416,6 +418,7 @@
 		C084540021EE184E00E6D676 /* RequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08453FF21EE184E00E6D676 /* RequestHelper.swift */; };
 		C084540421EE197200E6D676 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C084540321EE197200E6D676 /* Alamofire.framework */; };
 		C084540621EE197700E6D676 /* SlideMenuControllerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C084540521EE197700E6D676 /* SlideMenuControllerSwift.framework */; };
+		C08503C0244372E1009C3EF2 /* EKEvent+ConvenienceMethods.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08503BF244372E1009C3EF2 /* EKEvent+ConvenienceMethods.swift.swift */; };
 		C0850C14223C4F49009E45A8 /* Actionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0850C13223C4F49009E45A8 /* Actionable.swift */; };
 		C0858EFE2236B38400595B48 /* AdvancedSearchBandsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0858EFD2236B38400595B48 /* AdvancedSearchBandsViewController.swift */; };
 		C0858F002236B39C00595B48 /* AdvancedSearchAlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0858EFF2236B39C00595B48 /* AdvancedSearchAlbumsViewController.swift */; };
@@ -608,7 +611,7 @@
 		C003D7BF22E3BA1200F9F622 /* DeezerResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeezerResultViewController.swift; sourceTree = "<group>"; };
 		C006FB15224900A000CA6CCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C008388122008D1900B35996 /* UIViewController+CheckPhotoLibraryPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+CheckPhotoLibraryPermission.swift"; sourceTree = "<group>"; };
-		C008388322009ECE00B35996 /* Date+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Distance.swift"; sourceTree = "<group>"; };
+		C008388322009ECE00B35996 /* Date+ConvenienceMethods.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ConvenienceMethods.swift.swift"; sourceTree = "<group>"; };
 		C00838862200F21200B35996 /* ReadMoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreViewController.swift; sourceTree = "<group>"; };
 		C00838882200F23000B35996 /* ReadMore.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReadMore.storyboard; sourceTree = "<group>"; };
 		C0086DC6243F33870008669C /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
@@ -981,6 +984,7 @@
 		C084540121EE18E000E6D676 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C084540321EE197200E6D676 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C084540521EE197700E6D676 /* SlideMenuControllerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SlideMenuControllerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C08503BF244372E1009C3EF2 /* EKEvent+ConvenienceMethods.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EKEvent+ConvenienceMethods.swift.swift"; sourceTree = "<group>"; };
 		C0850C13223C4F49009E45A8 /* Actionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actionable.swift; sourceTree = "<group>"; };
 		C0858EFD2236B38400595B48 /* AdvancedSearchBandsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchBandsViewController.swift; sourceTree = "<group>"; };
 		C0858EFF2236B39C00595B48 /* AdvancedSearchAlbumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchAlbumsViewController.swift; sourceTree = "<group>"; };
@@ -2031,7 +2035,7 @@
 				C06F1DF321F7488700B49D39 /* NotificationName.swift */,
 				C098587621FD09100069C348 /* UIStackView+SetBackgroundColor.swift */,
 				C09A18AD21FF56B300152908 /* SlideMenuController+AutoRotate.swift */,
-				C008388322009ECE00B35996 /* Date+Distance.swift */,
+				C008388322009ECE00B35996 /* Date+ConvenienceMethods.swift.swift */,
 				C0B990D022079904000DBD86 /* UIColor+colorByRating.swift */,
 				C0FE962E221C3B10003C4B59 /* UIView+InitFromNib.swift */,
 				C0A48CED222181BD0047FC70 /* Toaster+DisplayMessageShortly.swift */,
@@ -2047,6 +2051,7 @@
 				C0FFE1F822958F4200909765 /* UIView+Layout.swift */,
 				C071A22022AD3F6A00A06D2F /* UIView+PositionIn.swift */,
 				C0253ABD24434A9100864399 /* Floaty+ConvenienceMethods.swift */,
+				C08503BF244372E1009C3EF2 /* EKEvent+ConvenienceMethods.swift.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3717,6 +3722,7 @@
 			files = (
 				C06B62B82242927A00A3FE6B /* ReleaseExtraLite.swift in Sources */,
 				C018B78D2243C05C00CDFFB8 /* BandUpdate.swift in Sources */,
+				C06B4D8E2443797200F9A62A /* Date+ConvenienceMethods.swift.swift in Sources */,
 				C018B7862243B9FC00CDFFB8 /* UpcomingAlbumTableViewCell.swift in Sources */,
 				C0F0BE832244097D00B90605 /* UserDefaults+ConvenienceMethods.swift in Sources */,
 				C06B629D224282C600A3FE6B /* Settings.swift in Sources */,
@@ -3735,6 +3741,7 @@
 				C018B7792243AB9000CDFFB8 /* LoadingTableViewCell.swift in Sources */,
 				C06B629E224282D000A3FE6B /* BaseTableViewCell.swift in Sources */,
 				C06B62992242826100A3FE6B /* RegisterableCell.swift in Sources */,
+				C06B4D8D2443793900F9A62A /* EKEvent+ConvenienceMethods.swift.swift in Sources */,
 				C06B62A12242830C00A3FE6B /* Statics.swift in Sources */,
 				C06B629C224282B700A3FE6B /* ImageType.swift in Sources */,
 				C018B78B2243BF6800CDFFB8 /* RequestHelper.swift in Sources */,
@@ -3799,6 +3806,7 @@
 				C00D3631223D98D700B29B43 /* DetailTableViewCell.swift in Sources */,
 				C0A1F94222416B82005C2C83 /* ArtistRIP.swift in Sources */,
 				C06F92962231CD310079E63E /* SimpleLabelTableViewCell.swift in Sources */,
+				C08503C0244372E1009C3EF2 /* EKEvent+ConvenienceMethods.swift.swift in Sources */,
 				C0253AC0244358E800864399 /* DeezerableType.swift in Sources */,
 				C03280172209FB1900FC9A44 /* RequestBandDiscography.swift in Sources */,
 				C09A18A521FF182B00152908 /* String+HTMLToAttributedString.swift in Sources */,
@@ -4047,7 +4055,7 @@
 				C00D3624223D6E1C00B29B43 /* AboutTableViewController.swift in Sources */,
 				C0F5DB45228B608100888FED /* String+RemoveHTMLTags.swift in Sources */,
 				C053DD672226DE2E0028568B /* RequestTop100Bands.swift in Sources */,
-				C008388422009ECE00B35996 /* Date+Distance.swift in Sources */,
+				C008388422009ECE00B35996 /* Date+ConvenienceMethods.swift.swift in Sources */,
 				C0A7FFC12319877B00A929A1 /* BaseSubSettingsTableViewController.swift in Sources */,
 				C023739522C7917D00818E23 /* ReviewTitleTableViewCell.swift in Sources */,
 				C071306B21ECD24800082BC6 /* StatisticTableViewCell.swift in Sources */,
