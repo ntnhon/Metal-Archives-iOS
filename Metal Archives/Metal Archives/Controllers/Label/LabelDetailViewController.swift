@@ -297,6 +297,7 @@ final class LabelDetailViewController: BaseViewController {
                 
             } else {
                 Toast.displayMessageShortly(errorBookmarkMessage)
+                Analytics.logEvent("bookmark_unbookmark_label_error", parameters: nil)
             }
         }
     }

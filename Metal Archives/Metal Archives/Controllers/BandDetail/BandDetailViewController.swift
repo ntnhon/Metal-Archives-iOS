@@ -281,6 +281,7 @@ final class BandDetailViewController: BaseViewController {
                 
             } else {
                 Toast.displayMessageShortly(errorBookmarkMessage)
+                Analytics.logEvent("bookmark_unbookmark_band_error", parameters: nil)
             }
         }
     }

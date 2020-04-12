@@ -286,6 +286,7 @@ final class ReleaseDetailViewController: BaseViewController {
                 
             } else {
                 Toast.displayMessageShortly(errorBookmarkMessage)
+                Analytics.logEvent("bookmark_unbookmark_release_error", parameters: nil)
             }
         }
     }
@@ -312,6 +313,7 @@ final class ReleaseDetailViewController: BaseViewController {
                             eventEditViewController.eventStore = eventStore
                             eventEditViewController.editViewDelegate = self
                             self.present(eventEditViewController, animated: true, completion: nil)
+                            Analytics.logEvent("create_reminder_from_release_page", parameters: nil)
                         } else {
                             self.alertNoCalendarAccess()
                         }
@@ -336,8 +338,26 @@ final class ReleaseDetailViewController: BaseViewController {
             
             if isSuccessful {
                 Toast.displayMessageShortly("\"\(release.title ?? "")\" is added to your \(type.listDescription)")
+                
+                switch type {
+                case .collection:
+                    Analytics.logEvent("collection_add_success", parameters: nil)
+                case .wanted:
+                    Analytics.logEvent("wanted_list_add_success", parameters: nil)
+                case .trade:
+                    Analytics.logEvent("trade_list_add_success", parameters: nil)
+                }
             } else {
                 Toast.displayMessageShortly("Error adding release to \(type.listDescription). Please try again later.")
+                
+                switch type {
+                case .collection:
+                    Analytics.logEvent("collection_add_error", parameters: nil)
+                case .wanted:
+                    Analytics.logEvent("wanted_list_add_error", parameters: nil)
+                case .trade:
+                    Analytics.logEvent("trade_list_add_error", parameters: nil)
+                }
             }
         }
     }
