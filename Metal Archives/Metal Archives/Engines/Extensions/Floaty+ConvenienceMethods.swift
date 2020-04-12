@@ -12,6 +12,7 @@ import Floaty
 extension Floaty {
     func customizeAppearance() {
         buttonColor = Settings.currentTheme.iconTintColor
+        itemButtonColor = Settings.currentTheme.iconTintColor
         plusColor = Settings.currentTheme.backgroundColor
         overlayColor = UIColor.black.withAlphaComponent(0.7)
     }
