@@ -19,11 +19,27 @@ enum MyCollection: CustomStringConvertible {
         }
     }
     
+    var listDescription: String {
+        switch self {
+        case .collection: return "album collection"
+        case .wanted: return "wanted list"
+        case .trade: return "trade list"
+        }
+    }
+    
     var urlParam: String {
         switch self {
         case .collection: return "collection"
         case .wanted: return "wanted"
         case .trade: return "trade"
+        }
+    }
+    
+    var addOrRemoveParam: String {
+        switch self {
+        case .collection: return "1"
+        case .wanted: return "3"
+        case .trade: return "2"
         }
     }
 }

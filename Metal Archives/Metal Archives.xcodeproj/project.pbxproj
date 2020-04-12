@@ -66,7 +66,6 @@
 		C00E71432442335500A17471 /* MyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71422442335500A17471 /* MyCollection.swift */; };
 		C00E71462442363E00A17471 /* ReleaseInCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71452442363E00A17471 /* ReleaseInCollectionTableViewCell.swift */; };
 		C00E71482442364500A17471 /* ReleaseInCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00E71472442364500A17471 /* ReleaseInCollectionTableViewCell.xib */; };
-		C00E714A2442520400A17471 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71492442520400A17471 /* Bookmark.swift */; };
 		C00E714D2442774900A17471 /* CollectionRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E714C2442774900A17471 /* CollectionRequests.swift */; };
 		C00E714F244277CD00A17471 /* ReleaseVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E714E244277CD00A17471 /* ReleaseVersion.swift */; };
 		C0107027222DC9570092D3A5 /* ImFeelingLuckyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0107026222DC9570092D3A5 /* ImFeelingLuckyView.swift */; };
@@ -659,7 +658,6 @@
 		C00E71422442335500A17471 /* MyCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollection.swift; sourceTree = "<group>"; };
 		C00E71452442363E00A17471 /* ReleaseInCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInCollectionTableViewCell.swift; sourceTree = "<group>"; };
 		C00E71472442364500A17471 /* ReleaseInCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseInCollectionTableViewCell.xib; sourceTree = "<group>"; };
-		C00E71492442520400A17471 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		C00E714C2442774900A17471 /* CollectionRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionRequests.swift; sourceTree = "<group>"; };
 		C00E714E244277CD00A17471 /* ReleaseVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseVersion.swift; sourceTree = "<group>"; };
 		C0107026222DC9570092D3A5 /* ImFeelingLuckyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImFeelingLuckyView.swift; sourceTree = "<group>"; };
@@ -2083,7 +2081,6 @@
 				C00E71422442335500A17471 /* MyCollection.swift */,
 				C02C035B2440FCD700220AF7 /* BandOrReleaseBookmarkOrder.swift */,
 				C00E712F2441D38300A17471 /* ArtistOrLabelBookmarkOrder.swift */,
-				C00E71492442520400A17471 /* Bookmark.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -4133,7 +4130,6 @@
 				C0ECE6FB221B1FBF00489A8E /* RolesInBand.swift in Sources */,
 				C0AABDEC221DED3B0044A2CF /* UpcomingAlbumsViewController.swift in Sources */,
 				C0C19C8322878380008B68F8 /* BaseCollectionViewCell.swift in Sources */,
-				C00E714A2442520400A17471 /* Bookmark.swift in Sources */,
 				C082CDB322E4F94A002202F6 /* DeezerAlbumViewController.swift in Sources */,
 				C0BAD49C222EBCAB00C4D38D /* SimpleSearchResultViewController.swift in Sources */,
 				C053DD6F2226EA1A0028568B /* AlbumTop.swift in Sources */,

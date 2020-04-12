@@ -64,4 +64,29 @@ extension RequestHelper.Collection {
             }
         }
     }
+    
+    static func remove(release: ReleaseInCollection, from collection: MyCollection, completion: @escaping (_ isSuccessful: Bool) -> Void) {
+        let requestURL = URL(string: "https://www.metal-archives.com/collection/save/tab/\(collection.urlParam)")!
+        let parameters: HTTPHeaders = ["notes[\(release.editId)]": "", "item[\(release.editId)]": "1", "changes[\(release.editId)]": "1", "choice": "delete"]
+        
+        RequestHelper.shared.alamofireManager.request(requestURL, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
+            if let statusCode = response.response?.statusCode, statusCode == 200 {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
+    
+    static func add(release: ReleaseInCollection, to collection: MyCollection, completion: @escaping (_ isSuccessful: Bool) -> Void) {
+        let requestURL = URL(string: "https://www.metal-archives.com/collection/add/json/1/id/\(release.id)/type/\(collection.addOrRemoveParam)")!
+        
+        RequestHelper.shared.alamofireManager.request(requestURL).response { (response) in
+            if let statusCode = response.response?.statusCode, statusCode == 200 {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
 }

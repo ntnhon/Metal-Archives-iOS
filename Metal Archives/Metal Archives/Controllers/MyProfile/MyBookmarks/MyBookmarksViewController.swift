@@ -150,7 +150,7 @@ extension MyBookmarksViewController {
         alert.addAction(editAction)
         
         let removeAction = UIAlertAction(title: "🗑️ Remove from bookmark", style: .destructive) { [unowned self] _ in
-            self.remove(type: .band, id: bandBookmark.id, indexPath: indexPath)
+            self.remove(id: bandBookmark.id, at: indexPath)
         }
         alert.addAction(removeAction)
         
@@ -176,7 +176,7 @@ extension MyBookmarksViewController {
         alert.addAction(editAction)
         
         let removeAction = UIAlertAction(title: "🗑️ Remove from bookmark", style: .destructive) { [unowned self] _ in
-            self.remove(type: .artist, id: artistBookmark.id, indexPath: indexPath)
+            self.remove(id: artistBookmark.id, at: indexPath)
         }
         alert.addAction(removeAction)
         
@@ -202,7 +202,7 @@ extension MyBookmarksViewController {
         alert.addAction(editAction)
         
         let removeAction = UIAlertAction(title: "🗑️ Remove from bookmark", style: .destructive) { [unowned self] _ in
-            self.remove(type: .label, id: labelBookmark.id, indexPath: indexPath)
+            self.remove(id: labelBookmark.id, at: indexPath)
         }
         alert.addAction(removeAction)
         
@@ -228,7 +228,7 @@ extension MyBookmarksViewController {
         alert.addAction(editAction)
         
         let removeAction = UIAlertAction(title: "🗑️ Remove from bookmark", style: .destructive) { [unowned self] _ in
-            self.remove(type: .release, id: releaseBookmark.id, indexPath: indexPath)
+            self.remove(id: releaseBookmark.id, at: indexPath)
         }
         alert.addAction(removeAction)
         
@@ -282,9 +282,9 @@ extension MyBookmarksViewController {
         }
     }
     
-    private func remove(type: BookmarkType, id: String, indexPath: IndexPath) {
+    private func remove(id: String, at indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Bookmark.bookmark(id: id, action: .remove, type: type) { [weak self] (isSuccessful) in
+        RequestHelper.Bookmark.bookmark(id: id, action: .remove, type: myBookmark) { [weak self] (isSuccessful) in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
@@ -315,7 +315,7 @@ extension MyBookmarksViewController {
                 }
                 
             } else {
-                Toast.displayMessageShortly("Error removing from bookmark. Please try again later.")
+                Toast.displayMessageShortly("Error removing object from \(self.myBookmark.shortDescription) bookmark. Please try again later.")
             }
         }
     }
@@ -330,7 +330,7 @@ extension MyBookmarksViewController {
         }
         
         let message = MDCSnackbarMessage()
-        message.text = "\(objectName) removed from bookmark"
+        message.text = "\"\(objectName)\" removed from \(myBookmark.shortDescription) bookmarks"
         let action = MDCSnackbarMessageAction()
         action.handler = { [unowned self] () in
             self.undoLastRemoval()
@@ -344,27 +344,15 @@ extension MyBookmarksViewController {
         guard let lastDeletedObject = lastDeletedObject, let lastDeletedObjectIndexPath = lastDeletedObjectIndexPath else { return }
         
         let id: String
-        let type: BookmarkType
         switch myBookmark {
-        case .bands:
-            id = (lastDeletedObject as! BandBookmark).id
-            type = .band
-            
-        case .artists:
-            id = (lastDeletedObject as! ArtistBookmark).id
-            type = .artist
-            
-        case .labels:
-            id = (lastDeletedObject as! LabelBookmark).id
-            type = .label
-            
-        case .releases:
-            id = (lastDeletedObject as! ReleaseBookmark).id
-            type = .release
+        case .bands: id = (lastDeletedObject as! BandBookmark).id
+        case .artists: id = (lastDeletedObject as! ArtistBookmark).id
+        case .labels: id = (lastDeletedObject as! LabelBookmark).id
+        case .releases: id = (lastDeletedObject as! ReleaseBookmark).id
         }
         
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Bookmark.bookmark(id: id, action: .add, type: type) { [weak self] (isSuccessful) in
+        RequestHelper.Bookmark.bookmark(id: id, action: .add, type: myBookmark) { [weak self] (isSuccessful) in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             

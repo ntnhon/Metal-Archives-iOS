@@ -10,6 +10,7 @@ import UIKit
 import Toaster
 import Alamofire
 import MBProgressHUD
+import MaterialComponents.MaterialSnackbar
 
 final class MyCollectionViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
@@ -19,6 +20,9 @@ final class MyCollectionViewController: RefreshableViewController {
     private var collectionPagableManager: PagableManager<ReleaseCollection>!
     private var wantedPagableManager: PagableManager<ReleaseWanted>!
     private var tradePagableManager: PagableManager<ReleaseTrade>!
+    
+    private var lastDeletedRelease: ReleaseInCollection? = nil
+    private var lastDeletedReleaseIndexPath: IndexPath? = nil
     
     deinit {
         print("MyBookmarksViewController is deallocated")
@@ -135,7 +139,7 @@ extension MyCollectionViewController {
         alert.addAction(editNoteAction)
         
         let removeAction = UIAlertAction(title: "🗑️ Remove from collection", style: .destructive) { [unowned self] _ in
-            self.remove(releaseInCollection: release, at: indexPath)
+            self.remove(releaseAt: indexPath)
         }
         alert.addAction(removeAction)
         
@@ -246,8 +250,82 @@ extension MyCollectionViewController {
         }
     }
     
-    private func remove(releaseInCollection: ReleaseInCollection, at indexPath: IndexPath) {
+    private func remove(releaseAt indexPath: IndexPath) {
+        let release = getRelease(for: indexPath)
+        MBProgressHUD.showAdded(to: view, animated: true)
+        RequestHelper.Collection.remove(release: release, from: myCollection) { [weak self] (isSuccessful) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if isSuccessful {
+                self.lastDeletedReleaseIndexPath = indexPath
+                
+                self.tableView.performBatchUpdates({
+                    switch self.myCollection {
+                    case .collection:
+                        self.lastDeletedRelease = self.collectionPagableManager.objects[indexPath.row]
+                        self.collectionPagableManager.removeObject(at: indexPath.row)
+                        
+                    case .wanted:
+                        self.lastDeletedRelease = self.wantedPagableManager.objects[indexPath.row]
+                        self.wantedPagableManager.removeObject(at: indexPath.row)
+                        
+                    case .trade:
+                        self.lastDeletedRelease = self.tradePagableManager.objects[indexPath.row]
+                        self.tradePagableManager.removeObject(at: indexPath.row)
+                    }
+                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                }) { _ in
+                    self.displayUndoSnackbar()
+                }
+                
+            } else {
+                Toast.displayMessageShortly("Error removing release from \(self.myCollection.listDescription). Please try again later.")
+            }
+        }
+    }
+    
+    private func displayUndoSnackbar() {
+        guard let lastDeletedRelease = lastDeletedRelease else { return }
+        let message = MDCSnackbarMessage()
+        message.text = "\"\(lastDeletedRelease.release.title)\" removed from \(myCollection.listDescription)"
+        let action = MDCSnackbarMessageAction()
+        action.handler = { [unowned self] () in
+            self.undoLastRemoval()
+        }
+        action.title = "Undo"
+        message.action = action
+        MDCSnackbarManager.show(message)
+    }
+    
+    private func undoLastRemoval() {
+        guard let lastDeletedRelease = lastDeletedRelease, let lastDeletedReleaseIndexPath = lastDeletedReleaseIndexPath else { return }
+
+        MBProgressHUD.showAdded(to: view, animated: true)
         
+        RequestHelper.Collection.add(release: lastDeletedRelease, to: myCollection) { [weak self] (isSuccessful) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if isSuccessful {
+                self.tableView.performBatchUpdates({
+                    switch self.myCollection {
+                    case .collection:
+                        self.collectionPagableManager.insertObject(lastDeletedRelease as! ReleaseCollection, at: lastDeletedReleaseIndexPath.row)
+
+                    case .wanted:
+                        self.wantedPagableManager.insertObject(lastDeletedRelease as! ReleaseWanted, at: lastDeletedReleaseIndexPath.row)
+                        
+                    case .trade:
+                        self.tradePagableManager.insertObject(lastDeletedRelease as! ReleaseTrade, at: lastDeletedReleaseIndexPath.row)
+                    }
+
+                    self.tableView.insertRows(at: [lastDeletedReleaseIndexPath], with: .automatic)
+                })
+            } else {
+                Toast.displayMessageShortly("Undo error 😞")
+            }
+        }
     }
 }
 

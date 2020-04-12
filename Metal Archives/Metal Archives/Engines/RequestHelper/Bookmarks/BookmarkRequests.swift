@@ -26,8 +26,8 @@ extension RequestHelper.Bookmark {
         }
     }
     
-    static func bookmark(id: String, action: BookmarkAction, type: BookmarkType, completion: @escaping (_ isSuccessful: Bool) -> Void) {
-        let requestURL = URL(string: "https://www.metal-archives.com/bookmark/\(action.rawValue)/type/\(type.rawValue)/id/\(id)?json=true")!
+    static func bookmark(id: String, action: BookmarkAction, type: MyBookmark, completion: @escaping (_ isSuccessful: Bool) -> Void) {
+        let requestURL = URL(string: "https://www.metal-archives.com/bookmark/\(action.rawValue)/type/\(type.param)/id/\(id)?json=true")!
         
         RequestHelper.shared.alamofireManager.request(requestURL).response { (response) in
             if let statusCode = response.response?.statusCode, statusCode == 200 {
