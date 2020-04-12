@@ -304,6 +304,17 @@ final class ReleaseDetailViewController: BaseViewController {
             displayLoginRequiredAlert()
             return
         }
+        MBProgressHUD.showAdded(to: view, animated: true)
+        RequestHelper.Collection.add(releaseId: release.id, to: type) { [weak self] (isSuccessful) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if isSuccessful {
+                Toast.displayMessageShortly("\"\(release.title ?? "")\" is added to your \(type.listDescription)")
+            } else {
+                Toast.displayMessageShortly("Error adding release to \(type.listDescription). Please try again later.")
+            }
+        }
     }
 }
 

@@ -335,7 +335,7 @@ extension MyCollectionViewController {
 
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Collection.add(release: lastDeletedRelease, to: myCollection) { [weak self] (isSuccessful) in
+        RequestHelper.Collection.add(releaseId: lastDeletedRelease.id, to: myCollection) { [weak self] (isSuccessful) in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             

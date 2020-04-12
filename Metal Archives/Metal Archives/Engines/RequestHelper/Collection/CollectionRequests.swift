@@ -78,8 +78,8 @@ extension RequestHelper.Collection {
         }
     }
     
-    static func add(release: ReleaseInCollection, to collection: MyCollection, completion: @escaping (_ isSuccessful: Bool) -> Void) {
-        let requestURL = URL(string: "https://www.metal-archives.com/collection/add/json/1/id/\(release.id)/type/\(collection.addOrRemoveParam)")!
+    static func add(releaseId: String, to collection: MyCollection, completion: @escaping (_ isSuccessful: Bool) -> Void) {
+        let requestURL = URL(string: "https://www.metal-archives.com/collection/add/json/1/id/\(releaseId)/type/\(collection.addOrRemoveParam)")!
         
         RequestHelper.shared.alamofireManager.request(requestURL).response { (response) in
             if let statusCode = response.response?.statusCode, statusCode == 200 {
