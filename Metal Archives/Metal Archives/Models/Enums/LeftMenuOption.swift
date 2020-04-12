@@ -28,7 +28,7 @@ enum LeftMenuOption {
     
     var title: String {
         switch self {
-        case .homepage: return "Alphabetical"
+        case .homepage: return "Metal Archives"
         case .bandByAphabetical: return "Alphabetical"
         case .bandByCountry: return "Country"
         case .bandByGenre: return "Genre"

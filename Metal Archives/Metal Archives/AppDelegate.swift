@@ -194,6 +194,10 @@ extension AppDelegate {
             Analytics.logEvent("today_widget_2_sections", parameters: ["widget_name": widgetNames])
         }
         
+        if KeychainService.isHavingUserCredential() {
+            Analytics.logEvent("use_app_with_log_in", parameters: nil)
+        }
+        
         Analytics.logEvent("num_of_sessions", parameters: ["count": UserDefaults.numberOfSessions()])
     }
     

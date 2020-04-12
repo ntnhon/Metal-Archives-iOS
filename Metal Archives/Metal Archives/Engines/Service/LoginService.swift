@@ -52,7 +52,7 @@ final class LoginService {
 
 extension LoginService {
     static func fetchMyProfile(username: String, completion: @escaping (_ myProfile: MyProfile?, _ error: MALoginError?) -> Void) {
-        let requestURL = URL(string: "https://www.metal-archives.com/users/\(username)")!
+        let requestURL = URL(string: "https://www.metal-archives.com/users/\(username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed) ?? "")")!
         RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
             switch response.result {
             case .success:
