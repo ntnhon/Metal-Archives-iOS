@@ -10,13 +10,16 @@ import UIKit
 import Toaster
 import FirebaseAnalytics
 import Crashlytics
+import Floaty
+import MBProgressHUD
 
 //MARK: - Properties
-final class ReleaseDetailViewController: DeezerableViewController {
+final class ReleaseDetailViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var stretchyCoverSmokedImageView: SmokedImageView!
     @IBOutlet private weak var stretchyCoverSmokedImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
+    @IBOutlet private weak var floaty: Floaty!
     
     var urlString: String!
     
@@ -55,11 +58,12 @@ final class ReleaseDetailViewController: DeezerableViewController {
         super.viewDidLoad()
         stretchyCoverSmokedImageViewHeightConstraint.constant = screenWidth
         configureTableView()
+        initFloaty()
         initHorizontalMenuView()
         handleUtileBarViewActions()
         fetchRelease()
         // bring deezerButton to front because it is overlapped by horizontalMenuView
-        view.bringSubviewToFront(deezerButton)
+        view.bringSubviewToFront(floaty)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,7 +84,7 @@ final class ReleaseDetailViewController: DeezerableViewController {
     }
     
     private func fetchRelease() {
-        deezerButton.isHidden = true
+        floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         
         MetalArchivesAPI.reloadRelease(urlString: urlString) { [weak self] (release, error) in
@@ -97,7 +101,7 @@ final class ReleaseDetailViewController: DeezerableViewController {
                     self.navigationController?.popViewController(animated: true)
                     return
                 }
-                self.deezerButton.isHidden = false
+                self.floaty.isHidden = false
                 self.release = release
                 
                 if let coverURLString = release.coverURLString, let coverURL = URL(string: coverURLString) {
@@ -109,6 +113,7 @@ final class ReleaseDetailViewController: DeezerableViewController {
                     self.simpleNavigationBarView.setTitle(release.title)
                 }
                 
+                self.updateBookmarkIcon()
                 self.tableView.reloadData()
                 
                 // Delay this method to wait for info cells to be fully loaded
@@ -166,6 +171,34 @@ final class ReleaseDetailViewController: DeezerableViewController {
         presentPhotoViewer(photoUrlString: coverURLString, description: release.title, fromImageView: stretchyCoverSmokedImageView.imageView)
     }
     
+    private func initFloaty() {
+        floaty.customizeAppearance()
+        
+        floaty.addItem("Add to your collection", icon: UIImage(named: Ressources.Images.disc_collection)) { [unowned self] _ in
+            self.addToCollection(type: .collection)
+        }
+        
+        floaty.addItem("Add to your wanted list", icon: UIImage(named: Ressources.Images.wishlist)) { [unowned self] _ in
+            self.addToCollection(type: .wanted)
+        }
+        
+        floaty.addItem("Add to your trade list", icon: UIImage(named: Ressources.Images.sale)) { [unowned self] _ in
+            self.addToCollection(type: .trade)
+        }
+        
+        floaty.addItem("Deezer this release", icon: UIImage(named: Ressources.Images.deezer)) { [unowned self] _ in
+            self.pushDeezerResultViewController(type: .album, term: self.release?.title ?? "")
+        }
+        
+        floaty.addItem("Share this release", icon: UIImage(named: Ressources.Images.share)) { [unowned self] _ in
+            guard let release = self.release, let url = URL(string: release.urlString) else { return }
+            
+            self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(release.title!) in browser", alertMessage: release.urlString, shareMessage: "Share this release URL")
+            
+            Analytics.logEvent("share_release", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
+        }
+    }
+    
     private func initHorizontalMenuView() {
         let releaseMenuOptionStrings = ReleaseMenuOption.allCases.map({return $0.description})
         horizontalMenuView = HorizontalMenuView(options: releaseMenuOptionStrings, font: Settings.currentFontSize.secondaryTitleFont, normalColor: Settings.currentTheme.bodyTextColor, highlightColor: Settings.currentTheme.secondaryTitleColor)
@@ -198,12 +231,9 @@ final class ReleaseDetailViewController: DeezerableViewController {
             self.navigationController?.popViewController(animated: true)
         }
         
+        simpleNavigationBarView.setRightButtonIcon(nil)
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
-            guard let release = self.release, let url = URL(string: release.urlString) else { return }
-            
-            self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(release.title!) in browser", alertMessage: release.urlString, shareMessage: "Share this release URL")
-            
-            Analytics.logEvent("share_release", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
+            self.toggleBookmarkIfApplicable()
         }
     }
 
@@ -222,19 +252,58 @@ final class ReleaseDetailViewController: DeezerableViewController {
         releaseTitleAndTypeTableViewCell.alpha = (distanceFromReleaseTitleLableToUtileBarView + releaseTitleLabel.frame.height) / releaseTitleLabel.frame.height
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1 - releaseTitleAndTypeTableViewCell.alpha)
     }
-}
-
-// MARK: - Deezerable
-extension ReleaseDetailViewController: Deezerable {
-    var deezerableType: DeezerableType {
-        return .album
+    
+    private func toggleBookmarkIfApplicable() {
+        guard let release = release else { return }
+        
+        guard LoginService.isLoggedIn, let isBookmarked = release.isBookmarked else {
+            displayLoginRequiredAlert()
+            return
+        }
+        
+        let action: BookmarkAction = isBookmarked ? .remove : .add
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        RequestHelper.Bookmark.bookmark(id: release.id, action: action, type: .releases) { [weak self] (isSuccessful) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if isSuccessful {
+                self.release?.setIsBookmarked(!isBookmarked)
+                self.updateBookmarkIcon()
+                
+                if isBookmarked {
+                    Toast.displayMessageShortly("\"\(release.title ?? "")\" is removed from your bookmarks")
+                    Analytics.logEvent("unbookmark_release", parameters: nil)
+                } else {
+                    Toast.displayMessageShortly("\"\(release.title ?? "")\" is added to your bookmarks")
+                    Analytics.logEvent("bookmark_release", parameters: nil)
+                }
+                
+            } else {
+                Toast.displayMessageShortly(errorBookmarkMessage)
+            }
+        }
     }
     
-    var deezerSearchTerm: String {
-        guard let release = release else {
-            return ""
+    private func updateBookmarkIcon() {
+        guard let release = release, let isBookmarked = release.isBookmarked else {
+            simpleNavigationBarView.setRightButtonIcon(nil)
+            return
         }
-        return release.title
+        
+        let iconName = isBookmarked ? Ressources.Images.star_filled : Ressources.Images.star
+        simpleNavigationBarView.setRightButtonIcon(UIImage(named: iconName))
+    }
+    
+    private func addToCollection(type: MyCollection) {
+        guard let release = release else { return }
+        
+        guard LoginService.isLoggedIn else {
+            displayLoginRequiredAlert()
+            return
+        }
     }
 }
 
@@ -242,6 +311,25 @@ extension ReleaseDetailViewController: Deezerable {
 extension ReleaseDetailViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension ReleaseDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView.superview).y < 0 {
+            // scroll down
+            UIView.animate(withDuration: 0.35) { [unowned self] in
+                self.floaty.transform = CGAffineTransform(translationX: 0, y: 300)
+            }
+            
+        } else {
+            // scroll up
+            UIView.animate(withDuration: 0.35) { [unowned self] in
+                self.floaty.transform = .identity
+            }
+            
+        }
     }
 }
 

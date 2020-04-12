@@ -147,16 +147,17 @@ final class BandDetailViewController: BaseViewController {
     
     private func initFloaty() {
         floaty.customizeAppearance()
+        
+        floaty.addItem("Deezer this band", icon: UIImage(named: Ressources.Images.deezer)) { [unowned self] _ in
+            self.pushDeezerResultViewController(type: .artist, term: self.band?.name ?? "")
+        }
+        
         floaty.addItem("Share this band", icon: UIImage(named: Ressources.Images.share)) { [unowned self] _ in
             guard let band = self.band, let url = URL(string: band.urlString) else { return }
             
             self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(band.name ?? "") in browser", alertMessage: band.urlString, shareMessage: "Share this band URL")
             
             Analytics.logEvent("share_band", parameters: ["band_id": band.id ?? "", "band_name": band.name ?? ""])
-        }
-        
-        floaty.addItem("Deezer this band", icon: UIImage(named: Ressources.Images.deezer)) { [unowned self] _ in
-            self.pushDeezerResultViewController(type: .artist, term: self.band?.name ?? "")
         }
     }
     
@@ -292,20 +293,6 @@ final class BandDetailViewController: BaseViewController {
         
         let iconName = isBookmarked ? Ressources.Images.star_filled : Ressources.Images.star
         simpleNavigationBarView.setRightButtonIcon(UIImage(named: iconName))
-    }
-}
-
-// MARK: - Deezerable
-extension BandDetailViewController: Deezerable {
-    var deezerableType: DeezerableType {
-        return .artist
-    }
-    
-    var deezerSearchTerm: String {
-        guard let band = band else {
-            return ""
-        }
-        return band.name
     }
 }
 

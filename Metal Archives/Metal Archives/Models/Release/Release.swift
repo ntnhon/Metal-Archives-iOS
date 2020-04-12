@@ -26,6 +26,8 @@ final class Release {
     private(set) var rating: Int?
     private(set) var auditTrail: AuditTrail!
     
+    private(set) var isBookmarked: Bool? = nil
+    
     private(set) var elements: [ReleaseElement]!
     private(set) var completeLineup: [ArtistLiteInRelease]!
     private(set) var bandMembers: [ArtistLiteInRelease]!
@@ -87,10 +89,26 @@ final class Release {
         print("Release is deallocated")
     }
     
+    func setIsBookmarked(_ isBookmarked: Bool) {
+        self.isBookmarked = isBookmarked
+    }
+    
     init?(data: Data) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
             let doc = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
                 return nil
+        }
+        
+        // Firstly detect if release is bookmarked or not
+        for a in doc.css("a") {
+            // When bookmarked
+            // <a id="bookmark" class="iconContainer ui-state-active ui-corner-all writeAction"...
+            // When not bookmarked
+            // <a id="bookmark" class="iconContainer ui-state-default ui-corner-all writeAction"...
+            if let id = a["id"], id == "bookmark", let classValue = a["class"] {
+                self.isBookmarked = classValue.contains("active")
+                continue
+            }
         }
         
         // Workaround
