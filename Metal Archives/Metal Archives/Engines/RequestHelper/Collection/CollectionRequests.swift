@@ -89,4 +89,17 @@ extension RequestHelper.Collection {
             }
         }
     }
+    
+    static func move(release: ReleaseInCollection, from fromCollection: MyCollection, to toCollection: MyCollection, completion: @escaping (_ isSuccessful: Bool) -> Void) {
+        let requestURL = URL(string: "https://www.metal-archives.com/collection/save/tab/\(fromCollection.urlParam)")!
+        let parameters: HTTPHeaders = ["notes[\(release.editId)]": release.note ?? "", "item[\(release.editId)]": "1", "changes[\(release.editId)]": "1", "choice": toCollection.urlParam]
+        
+        RequestHelper.shared.alamofireManager.request(requestURL, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
+            if let statusCode = response.response?.statusCode, statusCode == 200 {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
 }

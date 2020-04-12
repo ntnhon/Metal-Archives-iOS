@@ -114,13 +114,15 @@ extension MyCollectionViewController {
     private func takeAction(forReleaseAt indexPath: IndexPath) {
         let release = getRelease(for: indexPath)
         
-        let alert = UIAlertController(title: release.titleAndTypeAttributedString.string, message: release.bandsAttributedString.string, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: release.bandsAttributedString.string, message: "\(release.titleAndTypeAttributedString.string)\n\(release.version)", preferredStyle: .actionSheet)
         
+        // View Release
         let releaseAction = UIAlertAction(title: "💿 View release", style: .default) { [unowned self] _ in
             self.pushReleaseDetailViewController(urlString: release.urlString, animated: true)
         }
         alert.addAction(releaseAction)
         
+        // View bands
         release.bands.forEach { (eachBand) in
             let bandAction = UIAlertAction(title: "👥 Band: \(eachBand.name)", style: .default) { [unowned self] _ in
                 self.pushBandDetailViewController(urlString: eachBand.urlString, animated: true)
@@ -128,16 +130,46 @@ extension MyCollectionViewController {
             alert.addAction(bandAction)
         }
         
+        // Change version
         let changeVersionAction = UIAlertAction(title: "📄 Change version", style: .default) { [unowned self] _ in
             self.presentChangeVersionAlert(forReleaseAt: indexPath)
         }
         alert.addAction(changeVersionAction)
         
+        // Edit note
         let editNoteAction = UIAlertAction(title: "📝 Edit note", style: .default) { [unowned self] _ in
             self.presentEditNoteAlert(forReleaseAt: indexPath)
         }
         alert.addAction(editNoteAction)
         
+        // Move to other collection
+        let moveToCollectionAction = UIAlertAction(title: "🔄 Move to collection", style: .default) { [unowned self] _ in
+            self.move(releaseAt: indexPath, to: .collection)
+        }
+        
+        let moveToWantedListAction = UIAlertAction(title: "🔄 Move to wanted list", style: .default) { [unowned self] _ in
+            self.move(releaseAt: indexPath, to: .wanted)
+        }
+        
+        let moveToTradeListAction = UIAlertAction(title: "🔄 Move to trade list", style: .default) { [unowned self] _ in
+            self.move(releaseAt: indexPath, to: .trade)
+        }
+        
+        switch myCollection {
+        case .collection:
+            alert.addAction(moveToWantedListAction)
+            alert.addAction(moveToTradeListAction)
+            
+        case .wanted:
+            alert.addAction(moveToCollectionAction)
+            alert.addAction(moveToTradeListAction)
+            
+        case .trade:
+            alert.addAction(moveToCollectionAction)
+            alert.addAction(moveToWantedListAction)
+        }
+        
+        // Remove
         let removeAction = UIAlertAction(title: "🗑️ Remove from collection", style: .destructive) { [unowned self] _ in
             self.remove(releaseAt: indexPath)
         }
@@ -324,6 +356,30 @@ extension MyCollectionViewController {
                 })
             } else {
                 Toast.displayMessageShortly("Undo error 😞")
+            }
+        }
+    }
+    
+    private func move(releaseAt indexPath: IndexPath, to toCollection: MyCollection) {
+        let release = getRelease(for: indexPath)
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        RequestHelper.Collection.move(release: release, from: myCollection, to: toCollection) { [weak self] (isSuccessful) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if isSuccessful {
+                self.tableView.performBatchUpdates({
+                    switch self.myCollection {
+                    case .collection: self.collectionPagableManager.removeObject(at: indexPath.row)
+                    case .wanted: self.wantedPagableManager.removeObject(at: indexPath.row)
+                    case .trade: self.tradePagableManager.removeObject(at: indexPath.row)
+                    }
+                    
+                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                })
+            } else {
+                Toast.displayMessageShortly("Error moving release. Please try again later.")
             }
         }
     }
