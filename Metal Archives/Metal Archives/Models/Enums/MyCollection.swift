@@ -18,4 +18,12 @@ enum MyCollection: CustomStringConvertible {
         case .trade: return "Trade list"
         }
     }
+    
+    var urlParam: String {
+        switch self {
+        case .collection: return "collection"
+        case .wanted: return "wanted"
+        case .trade: return "trade"
+        }
+    }
 }

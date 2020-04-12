@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 extension RequestHelper {
     final class Collection {}
@@ -24,9 +25,29 @@ extension RequestHelper.Collection {
                         releaseVersions.append(ReleaseVersion(id: id, version: version))
                     }
                 }
-                releaseVersions.count > 0 ? completion(releaseVersions) : completion(nil)
+                
+                if releaseVersions.count > 0 {
+                    releaseVersions.insert(ReleaseVersion(id: "0", version: "Unspecified"), at: 0)
+                    completion(releaseVersions)
+                } else {
+                    completion(nil)
+                }
+                
             } else {
                 completion(nil)
+            }
+        }
+    }
+    
+    static func changeVersion(collection: MyCollection, release: ReleaseInCollection, versionId: String, completion: @escaping (_ isSuccessful: Bool) -> Void) {
+        let requestURL = URL(string: "https://www.metal-archives.com/collection/save/tab/\(collection.urlParam)")!
+        let parameters: HTTPHeaders = ["versions[\(release.editId)]": versionId, "notes[\(release.editId)]": release.note ?? "","changes[\(release.editId)]": "1"]
+        
+        RequestHelper.shared.alamofireManager.request(requestURL, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
+            if let statusCode = response.response?.statusCode, statusCode == 200 {
+                completion(true)
+            } else {
+                completion(false)
             }
         }
     }

@@ -262,11 +262,11 @@ extension MyBookmarksViewController {
     private func updateNote(editId: String, newNote: String?, indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Bookmark.updateNote(editId: editId, newNote: newNote) { [weak self] (isSuccess) in
+        RequestHelper.Bookmark.updateNote(editId: editId, newNote: newNote) { [weak self] (isSuccessful) in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if isSuccess {
+            if isSuccessful {
                 switch self.myBookmark {
                 case .bands: self.bandBookmarkPagableManager.objects[indexPath.row].updateNote(newNote)
                 case .artists: self.artistBookmarkPagableManager.objects[indexPath.row].updateNote(newNote)

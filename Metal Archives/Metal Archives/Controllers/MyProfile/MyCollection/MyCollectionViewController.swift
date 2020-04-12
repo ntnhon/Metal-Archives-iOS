@@ -96,15 +96,28 @@ final class MyCollectionViewController: RefreshableViewController {
 
 // MARK: - View details & Edit note
 extension MyCollectionViewController {
-    private func takeAction(for releaseInCollection: ReleaseInCollection, at indexPath: IndexPath) {
-        let alert = UIAlertController(title: releaseInCollection.versionAndTypeAttributedString.string, message: releaseInCollection.bandsAttributedString.string, preferredStyle: .actionSheet)
+    private func getRelease(for indexPath: IndexPath) -> ReleaseInCollection {
+        let release: ReleaseInCollection
+        switch myCollection {
+        case .collection: release = collectionPagableManager.objects[indexPath.row]
+        case .wanted: release = wantedPagableManager.objects[indexPath.row]
+        case .trade: release = tradePagableManager.objects[indexPath.row]
+        }
+        
+        return release
+    }
+    
+    private func takeAction(forReleaseAt indexPath: IndexPath) {
+        let release = getRelease(for: indexPath)
+        
+        let alert = UIAlertController(title: release.titleAndTypeAttributedString.string, message: release.bandsAttributedString.string, preferredStyle: .actionSheet)
         
         let releaseAction = UIAlertAction(title: "💿 View release", style: .default) { [unowned self] _ in
-            self.pushReleaseDetailViewController(urlString: releaseInCollection.urlString, animated: true)
+            self.pushReleaseDetailViewController(urlString: release.urlString, animated: true)
         }
         alert.addAction(releaseAction)
         
-        releaseInCollection.bands.forEach { (eachBand) in
+        release.bands.forEach { (eachBand) in
             let bandAction = UIAlertAction(title: "👥 Band: \(eachBand.name)", style: .default) { [unowned self] _ in
                 self.pushBandDetailViewController(urlString: eachBand.urlString, animated: true)
             }
@@ -112,17 +125,17 @@ extension MyCollectionViewController {
         }
         
         let changeVersionAction = UIAlertAction(title: "📄 Change version", style: .default) { [unowned self] _ in
-            self.presentChangeVersionAlert(for: releaseInCollection, at: indexPath)
+            self.presentChangeVersionAlert(forReleaseAt: indexPath)
         }
         alert.addAction(changeVersionAction)
         
         let editNoteAction = UIAlertAction(title: "📝 Edit note", style: .default) { [unowned self] _ in
-            self.editNote(for: releaseInCollection, at: indexPath)
+            self.editNote(for: release, at: indexPath)
         }
         alert.addAction(editNoteAction)
         
         let removeAction = UIAlertAction(title: "🗑️ Remove from collection", style: .destructive) { [unowned self] _ in
-            self.remove(releaseInCollection: releaseInCollection, at: indexPath)
+            self.remove(releaseInCollection: release, at: indexPath)
         }
         alert.addAction(removeAction)
         
@@ -132,18 +145,19 @@ extension MyCollectionViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    private func presentChangeVersionAlert(for releaseInColletion: ReleaseInCollection, at indexPath: IndexPath) {
+    private func presentChangeVersionAlert(forReleaseAt indexPath: IndexPath) {
+        let release = getRelease(for: indexPath)
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Collection.getVersionList(id: releaseInColletion.id) { [weak self] (releaseVersions) in
+        RequestHelper.Collection.getVersionList(id: release.versionListId) { [weak self] (releaseVersions) in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
             if let releaseVersions = releaseVersions {
-                let alert = UIAlertController(title: "Change version", message: releaseInColletion.release.title, preferredStyle: .actionSheet)
+                let alert = UIAlertController(title: "Change version", message: release.release.title, preferredStyle: .actionSheet)
                 
                 releaseVersions.forEach { (eachVersion) in
                     let versionAction = UIAlertAction(title: eachVersion.version, style: .default) { [unowned self] _ in
-                        self.changeVersion(for: releaseInColletion, newVersion: eachVersion, at: indexPath)
+                        self.changeVersion(forReleaseAt: indexPath, newVersion: eachVersion)
                     }
                     alert.addAction(versionAction)
                 }
@@ -159,8 +173,29 @@ extension MyCollectionViewController {
         }
     }
     
-    private func changeVersion(for releaseInCollection: ReleaseInCollection, newVersion: ReleaseVersion, at indexPath: IndexPath) {
-        
+    private func changeVersion(forReleaseAt indexPath: IndexPath, newVersion: ReleaseVersion) {
+        let release = getRelease(for: indexPath)
+        MBProgressHUD.showAdded(to: view, animated: true)
+        RequestHelper.Collection.changeVersion(collection: myCollection, release: release, versionId: newVersion.id) { [weak self] (isSuccessful) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if isSuccessful {
+                
+                switch self.myCollection {
+                case .collection: self.collectionPagableManager.objects[indexPath.row].updateVersion(newVersion.version)
+                case .wanted:
+                    self.wantedPagableManager.objects[indexPath.row].updateVersion(newVersion.version)
+                case .trade:
+                    self.tradePagableManager.objects[indexPath.row].updateVersion(newVersion.version)
+                }
+                
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                Toast.displayMessageShortly("Changed version")
+            } else {
+                Toast.displayMessageShortly("Error changing version. Please try again later.")
+            }
+        }
     }
     
     private func editNote(for releaseInCollection: ReleaseInCollection, at indexPath: IndexPath) {
@@ -201,15 +236,7 @@ extension MyCollectionViewController: PagableManagerDelegate {
 extension MyCollectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let releaseInCollection: ReleaseInCollection
-        switch myCollection {
-        case .collection: releaseInCollection = collectionPagableManager.objects[indexPath.row]
-        case .wanted: releaseInCollection = wantedPagableManager.objects[indexPath.row]
-        case .trade: releaseInCollection = tradePagableManager.objects[indexPath.row]
-        }
-        
-        takeAction(for: releaseInCollection, at: indexPath)
+        takeAction(forReleaseAt: indexPath)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -280,10 +307,10 @@ extension MyCollectionViewController: UITableViewDataSource {
             shouldDisplayLoadingCell = collectionPagableManager.moreToLoad && indexPath.row == collectionPagableManager.objects.count
             
         case .wanted:
-            shouldDisplayLoadingCell = wantedPagableManager.moreToLoad && indexPath.row == collectionPagableManager.objects.count
+            shouldDisplayLoadingCell = wantedPagableManager.moreToLoad && indexPath.row == wantedPagableManager.objects.count
             
         case .trade:
-            shouldDisplayLoadingCell = tradePagableManager.moreToLoad && indexPath.row == collectionPagableManager.objects.count
+            shouldDisplayLoadingCell = tradePagableManager.moreToLoad && indexPath.row == tradePagableManager.objects.count
         }
         
         if shouldDisplayLoadingCell {
@@ -293,13 +320,8 @@ extension MyCollectionViewController: UITableViewDataSource {
         }
         
         // Display normal cells
-        let release: ReleaseInCollection
-        switch myCollection {
-        case .collection: release = collectionPagableManager.objects[indexPath.row]
-        case .wanted: release = wantedPagableManager.objects[indexPath.row]
-        case .trade: release = tradePagableManager.objects[indexPath.row]
-        }
-        
+        let release = getRelease(for: indexPath)
+
         let cell = ReleaseInCollectionTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: release)
         cell.tappedThumbnailImageView = { [unowned self] in

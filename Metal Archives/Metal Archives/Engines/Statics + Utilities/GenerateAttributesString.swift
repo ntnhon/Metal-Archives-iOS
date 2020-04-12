@@ -63,6 +63,12 @@ let bodyTextAttributes = Attributes {
         .alignment(.justified)
 }
 
+let bigBodyTextAttributes = Attributes {
+    return $0.foreground(color: Settings.currentTheme.bodyTextColor)
+        .font(Settings.currentFontSize.titleFont)
+        .alignment(.justified)
+}
+
 let hilightedBodyTextAttributes = Attributes {
     return $0.foreground(color: Settings.currentTheme.secondaryTitleColor)
         .font(Settings.currentFontSize.bodyTextFont)

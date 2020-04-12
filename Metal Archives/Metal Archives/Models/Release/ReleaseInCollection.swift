@@ -30,10 +30,11 @@ fileprivate extension Array where Element == BandLite {
 
 class ReleaseInCollection: ThumbnailableObject {
     let editId: String
+    let versionListId: String
     let bands: [BandLite]
     let release: ReleaseExtraLite
     let type: String
-    let version: String
+    private(set) var version: String
     private(set) var note: String?
     
     lazy var bandsAttributedString: NSAttributedString = {
@@ -41,8 +42,8 @@ class ReleaseInCollection: ThumbnailableObject {
         return generateAttributedStringFromStrings(bandNames, as: .secondaryTitle, withSeparator: " / ")
     }()
     
-    lazy var versionAndTypeAttributedString: NSAttributedString = {
-        return version.at.attributed(with: bodyTextAttributes) + " \(type)".at.attributed(with: bodyTextAttributes)
+    lazy var titleAndTypeAttributedString: NSAttributedString = {
+        return release.title.at.attributed(with: titleAttributes) + " \(type)".at.attributed(with: bigBodyTextAttributes)
     }()
     
     /*
@@ -56,6 +57,8 @@ class ReleaseInCollection: ThumbnailableObject {
      */
     init?(from array: [String]) {
         guard array.count == 6 else { return nil }
+        
+        guard let versionListIdSubstring = array[0].subString(after: "releaseId/", before: "\" title=\"", options: .caseInsensitive) else { return nil }
         
         guard let urlSubstring = array[2].subString(after: #"href=""#, before: #"">"#, options: .caseInsensitive), let typeSubstring = array[2].subString(after: "</a>") else {
                 return nil
@@ -72,6 +75,7 @@ class ReleaseInCollection: ThumbnailableObject {
         guard let editIdSubstring = array[5].subString(after: "toggleSelection(\"", before: "\")", options: .caseInsensitive) else { return nil }
         
         self.editId = String(editIdSubstring)
+        self.versionListId = String(versionListIdSubstring)
         self.bands = bands
         self.release = release
         self.type = String(typeSubstring)
@@ -89,6 +93,10 @@ class ReleaseInCollection: ThumbnailableObject {
     
     func updateNote(_ note: String?) {
         self.note = note
+    }
+    
+    func updateVersion(_ version: String) {
+        self.version = version
     }
 }
 

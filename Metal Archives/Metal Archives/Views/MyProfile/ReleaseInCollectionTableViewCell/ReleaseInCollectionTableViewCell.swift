@@ -30,9 +30,9 @@ final class ReleaseInCollectionTableViewCell: ThumbnailableTableViewCell, Regist
     }
 
     func fill(with release: ReleaseInCollection) {
-        titleLabel.text = release.release.title
+        titleLabel.attributedText = release.titleAndTypeAttributedString
         bandsLabel.attributedText = release.bandsAttributedString
-        versionLabel.attributedText = release.versionAndTypeAttributedString
+        versionLabel.text = release.version
         
         if let note = release.note {
             noteLabel.text = "📝 " + note
