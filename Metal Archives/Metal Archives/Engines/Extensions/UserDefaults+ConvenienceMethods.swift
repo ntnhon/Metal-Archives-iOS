@@ -13,12 +13,23 @@ fileprivate let defaults = UserDefaults(suiteName: "group.info.nguyenthanhnhon.m
 extension UserDefaults {
     // MARK: - Init default values
     static func registerDefaultValues() {
+        defaults.register(defaults: [isFirstRunKey: true])
         defaults.register(defaults: [themeKey: Theme.default.rawValue,
                                      thumbnailEnabledKey: true])
         
         defaults.register(defaults: [widgetSectionsKey: [WidgetSection.bandAdditions.rawValue, WidgetSection.bandUpdates.rawValue]])
         defaults.register(defaults: [numberOfSessionKey: 0])
         defaults.register(defaults: [didMakeAReviewKey: false])
+    }
+    
+    // MARK: - First run
+    private static let isFirstRunKey = "IsFirstRunKey"
+    static func isFirstRun() -> Bool {
+        return defaults.bool(forKey: isFirstRunKey)
+    }
+    
+    static func setFirstRunComplete() {
+        defaults.set(false, forKey: isFirstRunKey)
     }
     
     // MARK: - Theme

@@ -615,6 +615,9 @@ extension HomepageViewController {
 // MARK: - Alert new version
 extension HomepageViewController {
     private func alertNewVersion() {
+        guard !UserDefaults.isFirstRun() else { return }
+        UserDefaults.setFirstRunComplete()
+        
         guard UserDefaults.shouldAlertNewVersion() else {
             return
         }
@@ -634,7 +637,7 @@ extension HomepageViewController {
         }
     
         let banner =
-            GrowingNotificationBanner(title: "Congratulation!\nYou are on a new version of Metal Archives iOS!", subtitle: "What's new in this v\(number):\n\(features)\n\nA version history is also available in About section.", leftView: nil, rightView: nil, style: .info, colors: nil, iconPosition: .top)
+            GrowingNotificationBanner(title: "You are up to date 🤘🤘🤘", subtitle: "What's new in this v\(number):\n\(features)", leftView: nil, rightView: nil, style: .info, colors: nil, iconPosition: .top)
         banner.autoDismiss = false
         banner.dismissOnTap = true
         banner.show()

@@ -4,6 +4,15 @@
 <array>
 	<dict>
 		<key>number</key>
+		<string>4.1</string>
+		<key>date</key>
+		<string>April 2020</string>
+		<key>features</key>
+		<string>- Fix app crash when username has spaces
+- Fix left menu item title</string>
+	</dict>
+	<dict>
+		<key>number</key>
 		<string>4.0</string>
 		<key>date</key>
 		<string>April 2020</string>
