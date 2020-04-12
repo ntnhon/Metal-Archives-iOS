@@ -26,6 +26,8 @@ final class Label {
     
     private(set) var isLastKnown = false
     
+    private(set) var isBookmarked: Bool? = nil
+    
     private(set) var website: RelatedLink?
     
     private(set) var additionalNotes: String?
@@ -53,6 +55,18 @@ final class Label {
         self.currentRosterPagableManager = PagableManager<BandCurrentRoster>(options: ["<LABEL_ID>": self.id])
         self.pastRosterPagableManager = PagableManager<BandPastRoster>(options: ["<LABEL_ID>": self.id])
         self.releasesPagableManager = PagableManager<ReleaseInLabel>(options: ["<LABEL_ID>": self.id])
+        
+        // Firstly detect if label is bookmarked or not
+        for a in doc.css("a") {
+            // When bookmarked
+            // <a id="bookmark" class="iconContainer ui-state-active ui-corner-all writeAction"...
+            // When not bookmarked
+            // <a id="bookmark" class="iconContainer ui-state-default ui-corner-all writeAction"...
+            if let id = a["id"], id == "bookmark", let classValue = a["class"] {
+                self.isBookmarked = classValue.contains("active")
+                continue
+            }
+        }
         
         for div in doc.css("div") {
             if div["class"] == "label_img" {
@@ -174,6 +188,10 @@ final class Label {
     
     func setLinks(_ links: [RelatedLink]?) {
         self.links = links
+    }
+    
+    func setIsBookmarked(_ isBookmarked: Bool) {
+        self.isBookmarked = isBookmarked
     }
 }
 

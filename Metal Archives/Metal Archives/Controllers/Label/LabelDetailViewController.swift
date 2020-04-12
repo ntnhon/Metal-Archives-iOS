@@ -10,12 +10,15 @@ import UIKit
 import Toaster
 import FirebaseAnalytics
 import Crashlytics
+import Floaty
+import MBProgressHUD
 
 final class LabelDetailViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var stretchyLogoSmokedImageView: SmokedImageView!
     @IBOutlet private weak var stretchyLogoSmokedImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
+    @IBOutlet private weak var floaty: Floaty!
     
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     
@@ -55,6 +58,7 @@ final class LabelDetailViewController: BaseViewController {
         super.viewDidLoad()
         stretchyLogoSmokedImageViewHeightConstraint.constant = Settings.strechyLogoImageViewHeight
         configureTableView()
+        initFloaty()
         handleSimpleNavigationBarViewActions()
         fetchLabel()
     }
@@ -110,7 +114,7 @@ final class LabelDetailViewController: BaseViewController {
                 self.label.currentRosterPagableManager.delegate = self
                 self.label.pastRosterPagableManager.delegate = self
                 self.label.releasesPagableManager.delegate = self
-                
+                self.updateBookmarkIcon()
                 self.tableView.reloadData()
                 
                 // Delay this method to wait for info cells to be fully loaded
@@ -224,17 +228,26 @@ final class LabelDetailViewController: BaseViewController {
             horizontalMenuAnchorTableViewCellFrameInView.origin.y, simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.height)
     }
     
+    private func initFloaty() {
+           floaty.customizeAppearance()
+
+           floaty.addItem("Share this label", icon: UIImage(named: Ressources.Images.share)) { [unowned self] _ in
+               guard let label = self.label, let url = URL(string: label.urlString) else { return }
+               
+               self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(label.name!) in browser", alertMessage: label.urlString, shareMessage: "Share this label URL")
+               
+               Analytics.logEvent("share_label", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
+           }
+       }
+    
     private func handleSimpleNavigationBarViewActions() {
         simpleNavigationBarView.didTapLeftButton = { [unowned self] in
             self.navigationController?.popViewController(animated: true)
         }
         
+        simpleNavigationBarView.setRightButtonIcon(nil)
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
-            guard let label = self.label, let url = URL(string: label.urlString) else { return }
-            
-            self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(label.name!) in browser", alertMessage: label.urlString, shareMessage: "Share this label URL")
-            
-            Analytics.logEvent("share_label", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
+            self.toggleBookmarkIfApplicable()
         }
     }
     
@@ -252,6 +265,50 @@ final class LabelDetailViewController: BaseViewController {
         // alpha = distance / label's height (dim base on label's frame)
         labelNameTableViewCell.alpha = (distanceFromLabelNameLabelToUtileBarView + labelNameLabel.frame.height) / labelNameLabel.frame.height
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1 - labelNameTableViewCell.alpha)
+    }
+    
+    private func toggleBookmarkIfApplicable() {
+        guard let label = label else { return }
+        
+        guard LoginService.isLoggedIn, let isBookmarked = label.isBookmarked else {
+            displayLoginRequiredAlert()
+            return
+        }
+        
+        let action: BookmarkAction = isBookmarked ? .remove : .add
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        RequestHelper.Bookmark.bookmark(id: label.id, action: action, type: .labels) { [weak self] (isSuccessful) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if isSuccessful {
+                self.label?.setIsBookmarked(!isBookmarked)
+                self.updateBookmarkIcon()
+                
+                if isBookmarked {
+                    Toast.displayMessageShortly("\"\(label.name ?? "")\" is removed from your bookmarks")
+                    Analytics.logEvent("unbookmark_label", parameters: nil)
+                } else {
+                    Toast.displayMessageShortly("\"\(label.name ?? "")\" is added to your bookmarks")
+                    Analytics.logEvent("bookmark_label", parameters: nil)
+                }
+                
+            } else {
+                Toast.displayMessageShortly(errorBookmarkMessage)
+            }
+        }
+    }
+    
+    private func updateBookmarkIcon() {
+        guard let label = label, let isBookmarked = label.isBookmarked else {
+            simpleNavigationBarView.setRightButtonIcon(nil)
+            return
+        }
+        
+        let iconName = isBookmarked ? Ressources.Images.star_filled : Ressources.Images.star
+        simpleNavigationBarView.setRightButtonIcon(UIImage(named: iconName))
     }
 }
 

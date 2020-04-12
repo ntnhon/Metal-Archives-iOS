@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,6 +38,14 @@
                                     <constraint firstAttribute="height" constant="84" id="J9q-yl-bgY"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSf-VZ-BSc" customClass="Floaty" customModule="Floaty">
+                                <rect key="frame" x="336" y="784" width="48" height="48"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="i3M-Ph-YFd"/>
+                                    <constraint firstAttribute="width" constant="48" id="xyW-l2-n6o"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -52,11 +58,14 @@
                             <constraint firstItem="IjC-3D-Nyb" firstAttribute="top" secondItem="VxU-gS-5HC" secondAttribute="top" id="f0m-wA-ft1"/>
                             <constraint firstItem="XSk-Rl-NVE" firstAttribute="leading" secondItem="Iab-WN-xKm" secondAttribute="leading" id="ge8-cQ-uG4"/>
                             <constraint firstAttribute="bottom" secondItem="XSk-Rl-NVE" secondAttribute="bottom" id="hYk-QQ-hcC"/>
+                            <constraint firstItem="Iab-WN-xKm" firstAttribute="trailing" secondItem="rSf-VZ-BSc" secondAttribute="trailing" constant="30" id="kUK-G9-pAB"/>
                             <constraint firstItem="wdu-Wv-r1s" firstAttribute="top" secondItem="VxU-gS-5HC" secondAttribute="top" id="kWa-qa-xl8"/>
+                            <constraint firstItem="Iab-WN-xKm" firstAttribute="bottom" secondItem="rSf-VZ-BSc" secondAttribute="bottom" constant="30" id="t7p-EG-kr4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Iab-WN-xKm"/>
                     </view>
                     <connections>
+                        <outlet property="floaty" destination="rSf-VZ-BSc" id="h4n-CM-9ns"/>
                         <outlet property="simpleNavigationBarView" destination="wdu-Wv-r1s" id="EDV-6a-Uvf"/>
                         <outlet property="stretchyLogoSmokedImageView" destination="IjC-3D-Nyb" id="zgA-r9-mVi"/>
                         <outlet property="stretchyLogoSmokedImageViewHeightConstraint" destination="YZu-ad-gIS" id="dB3-zI-siq"/>

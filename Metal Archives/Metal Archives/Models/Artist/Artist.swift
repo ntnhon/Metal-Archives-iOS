@@ -51,7 +51,7 @@ final class Artist {
         self.urlString = urlString
         self.id = urlString.components(separatedBy: "/").last
         
-        // Firstly detect if band is bookmarked or not
+        // Firstly detect if artist is bookmarked or not
         for a in doc.css("a") {
             // When bookmarked
             // <a id="bookmark" class="iconContainer ui-state-active ui-corner-all writeAction"...
