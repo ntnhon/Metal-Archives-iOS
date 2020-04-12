@@ -87,11 +87,11 @@ final class RightMenuViewController: BaseViewController {
             tableView.isHidden = true
         }
         
-        myProfileStackView.isHidden = myProfile == nil
+        myProfileStackView.isHidden = myProfile == nil || KeychainService.getUsername() == ""
     }
     
     private func fetchMyProfileIfApplicable() {
-        guard myProfile == nil else { return }
+        guard myProfile == nil && KeychainService.getUsername() != "" else { return }
         
         LoginService.fetchMyProfile(username: KeychainService.getUsername()) { [weak self] (myProfile, error) in
             guard let self = self else { return }
@@ -199,6 +199,7 @@ extension RightMenuViewController: UITableViewDelegate {
             let yesAction = UIAlertAction(title: "Yes, log me out", style: .default) { _ in
                 KeychainService.removeUserCredential()
                 LoginService.logOut()
+                self.myProfileStackView.isHidden = true
                 Toast.displayMessageShortly("You are logged out")
             }
             alert.addAction(yesAction)

@@ -193,7 +193,7 @@ final class BandDetailViewController: BaseViewController {
             self.navigationController?.popViewController(animated: true)
         }
         
-        simpleNavigationBarView.setRightButtonIcon(nil)
+        simpleNavigationBarView.setRightButtonIcon(UIImage(named: Ressources.Images.star))
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
             self.toggleBookmarkIfApplicable()
         }
@@ -287,7 +287,7 @@ final class BandDetailViewController: BaseViewController {
     
     private func updateBookmarkIcon() {
         guard let band = band, let isBookmarked = band.isBookmarked else {
-            simpleNavigationBarView.setRightButtonIcon(nil)
+            simpleNavigationBarView.setRightButtonIcon(UIImage(named: Ressources.Images.star))
             return
         }
         
