@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,25 +38,26 @@
                                     <constraint firstAttribute="height" constant="84" placeholder="YES" id="Eze-1Q-8ux"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N84-ub-6te">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xPW-8h-sUG" customClass="Floaty" customModule="Floaty">
                                 <rect key="frame" x="336" y="784" width="48" height="48"/>
-                                <state key="normal" image="deezer"/>
-                                <connections>
-                                    <action selector="deezerButtonTapped" destination="dWf-b3-Gmy" eventType="touchUpInside" id="F3t-W2-Ajs"/>
-                                </connections>
-                            </button>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="fJm-S7-vlB"/>
+                                    <constraint firstAttribute="height" constant="48" id="quF-v2-5eB"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="9Sx-i2-YRh" firstAttribute="leading" secondItem="WjS-ZS-av0" secondAttribute="leading" id="7xD-lC-eZb"/>
                             <constraint firstItem="WjS-ZS-av0" firstAttribute="trailing" secondItem="9Sx-i2-YRh" secondAttribute="trailing" id="Lzs-Qr-XLW"/>
                             <constraint firstItem="GiK-tY-2HG" firstAttribute="top" secondItem="WjS-ZS-av0" secondAttribute="top" constant="-20" id="QUC-e2-WVN"/>
-                            <constraint firstItem="WjS-ZS-av0" firstAttribute="trailing" secondItem="N84-ub-6te" secondAttribute="trailing" constant="30" id="SG6-ya-OuR"/>
                             <constraint firstItem="WjS-ZS-av0" firstAttribute="trailing" secondItem="an2-Q1-IJv" secondAttribute="trailing" id="Sjl-6O-xKZ"/>
                             <constraint firstAttribute="bottom" secondItem="9Sx-i2-YRh" secondAttribute="bottom" id="UlU-Bn-wNp"/>
                             <constraint firstItem="WjS-ZS-av0" firstAttribute="trailing" secondItem="GiK-tY-2HG" secondAttribute="trailing" id="X8M-GG-x1c"/>
                             <constraint firstItem="9Sx-i2-YRh" firstAttribute="top" secondItem="5hZ-59-AOT" secondAttribute="top" id="Ygl-Yx-wt9"/>
-                            <constraint firstItem="WjS-ZS-av0" firstAttribute="bottom" secondItem="N84-ub-6te" secondAttribute="bottom" constant="30" id="cYX-6s-Csf"/>
+                            <constraint firstItem="WjS-ZS-av0" firstAttribute="bottom" secondItem="xPW-8h-sUG" secondAttribute="bottom" constant="30" id="ZTh-nG-Lxy"/>
+                            <constraint firstItem="WjS-ZS-av0" firstAttribute="trailing" secondItem="xPW-8h-sUG" secondAttribute="trailing" constant="30" id="ktx-zk-r74"/>
                             <constraint firstItem="GiK-tY-2HG" firstAttribute="leading" secondItem="WjS-ZS-av0" secondAttribute="leading" id="qOA-fo-qsF"/>
                             <constraint firstItem="an2-Q1-IJv" firstAttribute="top" secondItem="5hZ-59-AOT" secondAttribute="top" id="qkV-sZ-Hko"/>
                             <constraint firstItem="an2-Q1-IJv" firstAttribute="leading" secondItem="WjS-ZS-av0" secondAttribute="leading" id="uaN-Bq-Cek"/>
@@ -66,7 +65,7 @@
                         <viewLayoutGuide key="safeArea" id="WjS-ZS-av0"/>
                     </view>
                     <connections>
-                        <outlet property="deezerButton" destination="N84-ub-6te" id="9q6-YK-MdC"/>
+                        <outlet property="floaty" destination="xPW-8h-sUG" id="2cU-Bv-vbG"/>
                         <outlet property="simpleNavigationBarView" destination="an2-Q1-IJv" id="zjB-0o-s04"/>
                         <outlet property="stretchyLogoSmokedImageView" destination="GiK-tY-2HG" id="V4A-1j-ph7"/>
                         <outlet property="stretchyLogoSmokedImageViewHeightConstraint" destination="NMk-Ry-q76" id="yFi-je-Xrv"/>
@@ -146,7 +145,4 @@
             <point key="canvasLocation" x="1806" y="790"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="deezer" width="48" height="47.5"/>
-    </resources>
 </document>

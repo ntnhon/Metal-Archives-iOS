@@ -513,4 +513,8 @@ extension Band {
             }
         }
     }
+    
+    func setIsBookmarked(_ isBookmarked: Bool) {
+        self.isBookmarked = isBookmarked
+    }
 }

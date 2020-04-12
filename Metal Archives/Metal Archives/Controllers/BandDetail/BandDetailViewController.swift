@@ -11,12 +11,15 @@ import SDWebImage
 import Toaster
 import FirebaseAnalytics
 import Crashlytics
+import Floaty
+import MBProgressHUD
 
-final class BandDetailViewController: DeezerableViewController {
+final class BandDetailViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var stretchyLogoSmokedImageView: SmokedImageView!
     @IBOutlet private weak var stretchyLogoSmokedImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
+    @IBOutlet private weak var floaty: Floaty!
     
     var bandURLString: String!
     private var bandPhotoAndNameTableViewCell = BandPhotoAndNameTableViewCell()
@@ -61,12 +64,13 @@ final class BandDetailViewController: DeezerableViewController {
         super.viewDidLoad()
         stretchyLogoSmokedImageViewHeightConstraint.constant = Settings.strechyLogoImageViewHeight
         configureTableView()
+        initFloaty()
         initHorizontalMenuView()
         handleSimpleNavigationBarViewActions()
         fetchBand()
         navigationController?.interactivePopGestureRecognizer?.delegate = navigationController as? HomepageNavigationController
         // bring deezerButton to front because it is overlapped by horizontalMenuView
-        view.bringSubviewToFront(deezerButton)
+        view.bringSubviewToFront(floaty)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -87,7 +91,7 @@ final class BandDetailViewController: DeezerableViewController {
     }
 
     private func fetchBand() {
-        deezerButton.isHidden = true
+        floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         
         MetalArchivesAPI.reloadBand(bandURLString: bandURLString) { [weak self] (band, error) in
@@ -107,7 +111,7 @@ final class BandDetailViewController: DeezerableViewController {
                     return
                 }
                 
-                self.deezerButton.isHidden = false
+                self.floaty.isHidden = false
                 self.band = band
                 
                 if band.discography?.main.count == 0 {
@@ -125,6 +129,7 @@ final class BandDetailViewController: DeezerableViewController {
 
                 self.currentMemberType = band.isLastKnown ? .lastKnown : .current
                 
+                self.updateBookmarkIcon()
                 self.tableView.reloadData()
                 
                 // Delay this method to wait for info cells to be fully loaded
@@ -137,6 +142,21 @@ final class BandDetailViewController: DeezerableViewController {
                 Analytics.logEvent("view_band", parameters: ["band_id": band.id ?? "", "band_name": band.name ?? ""])
                 Crashlytics.sharedInstance().setObjectValue(self.band?.generalDescription, forKey: "band")
             }
+        }
+    }
+    
+    private func initFloaty() {
+        floaty.customizeAppearance()
+        floaty.addItem("Share this band", icon: UIImage(named: Ressources.Images.share)) { [unowned self] _ in
+            guard let band = self.band, let url = URL(string: band.urlString) else { return }
+            
+            self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(band.name ?? "") in browser", alertMessage: band.urlString, shareMessage: "Share this band URL")
+            
+            Analytics.logEvent("share_band", parameters: ["band_id": band.id ?? "", "band_name": band.name ?? ""])
+        }
+        
+        floaty.addItem("Deezer this band", icon: UIImage(named: Ressources.Images.deezer)) { [unowned self] _ in
+            self.pushDeezerResultViewController(type: .artist, term: self.band?.name ?? "")
         }
     }
     
@@ -172,12 +192,9 @@ final class BandDetailViewController: DeezerableViewController {
             self.navigationController?.popViewController(animated: true)
         }
         
+        simpleNavigationBarView.setRightButtonIcon(nil)
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
-            guard let `band` = self.band, let url = URL(string: band.urlString) else { return }
-            
-            self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(band.name ?? "") in browser", alertMessage: band.urlString, shareMessage: "Share this band URL")
-            
-            Analytics.logEvent("share_band", parameters: ["band_id": band.id ?? "", "band_name": band.name ?? ""])
+            self.toggleBookmarkIfApplicable()
         }
     }
 
@@ -232,6 +249,50 @@ final class BandDetailViewController: DeezerableViewController {
             present(alertController, animated: true, completion: nil)
         }
     }
+    
+    private func toggleBookmarkIfApplicable() {
+        guard let band = band else { return }
+        
+        guard LoginService.isLoggedIn, let isBookmarked = band.isBookmarked else {
+            displayLoginRequiredAlert()
+            return
+        }
+        
+        let action: BookmarkAction = isBookmarked ? .remove : .add
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        RequestHelper.Bookmark.bookmark(id: band.id, action: action, type: .bands) { [weak self] (isSuccessful) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if isSuccessful {
+                self.band?.setIsBookmarked(!isBookmarked)
+                self.updateBookmarkIcon()
+                
+                if isBookmarked {
+                    Toast.displayMessageShortly("\"\(band.name ?? "")\" is removed from your bookmarks")
+                    Analytics.logEvent("unbookmark_band", parameters: nil)
+                } else {
+                    Toast.displayMessageShortly("\"\(band.name ?? "")\" is added to your bookmarks")
+                    Analytics.logEvent("bookmark_band", parameters: nil)
+                }
+                
+            } else {
+                Toast.displayMessageShortly(errorBookmarkMessage)
+            }
+        }
+    }
+    
+    private func updateBookmarkIcon() {
+        guard let band = band, let isBookmarked = band.isBookmarked else {
+            simpleNavigationBarView.setRightButtonIcon(nil)
+            return
+        }
+        
+        let iconName = isBookmarked ? Ressources.Images.star_filled : Ressources.Images.star
+        simpleNavigationBarView.setRightButtonIcon(UIImage(named: iconName))
+    }
 }
 
 // MARK: - Deezerable
@@ -245,6 +306,25 @@ extension BandDetailViewController: Deezerable {
             return ""
         }
         return band.name
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension BandDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView.superview).y < 0 {
+            // scroll down
+            UIView.animate(withDuration: 0.35) { [unowned self] in
+                self.floaty.transform = CGAffineTransform(translationX: 0, y: 300)
+            }
+            
+        } else {
+            // scroll up
+            UIView.animate(withDuration: 0.35) { [unowned self] in
+                self.floaty.transform = .identity
+            }
+            
+        }
     }
 }
 

@@ -37,5 +37,7 @@ struct Ressources {
         static let wishlist = "wishlist"
         static let star = "star"
         static let star_filled = "star_filled"
+        static let share = "share"
+        static let deezer = "deezer"
     }
 }

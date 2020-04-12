@@ -165,3 +165,20 @@ extension UIViewController: EKEventEditViewDelegate {
         controller.dismiss(animated: true, completion: nil)
     }
 }
+
+// MARK: - Push deezer
+extension UIViewController {
+    func pushDeezerResultViewController(type: DeezerableType, term: String) {
+        let deezerResultViewController = UIStoryboard(name: "Deezer", bundle: nil).instantiateViewController(withIdentifier: "DeezerResultViewController") as! DeezerResultViewController
+        
+        deezerResultViewController.deezerableType = type
+        deezerResultViewController.deezerableSearchTerm = term
+        
+        switch type {
+        case .artist: Analytics.logEvent("deezer_band", parameters: nil)
+        case .album: Analytics.logEvent("deezer_release", parameters: nil)
+        }
+        
+        navigationController?.pushViewController(deezerResultViewController, animated: true)
+    }
+}

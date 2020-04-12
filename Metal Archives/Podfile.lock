@@ -42,6 +42,7 @@ PODS:
     - GoogleUtilities/Reachability (~> 5.3)
     - GoogleUtilities/UserDefaults (~> 5.3)
     - Protobuf (~> 3.1)
+  - Floaty (4.2.0)
   - GoogleAppMeasurement (5.8.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -151,6 +152,7 @@ DEPENDENCIES:
   - Crashlytics
   - Firebase/Core
   - Firebase/Messaging
+  - Floaty (~> 4.2.0)
   - Kanna
   - KeychainAccess
   - MaterialComponents/Snackbar
@@ -193,6 +195,7 @@ SPEC REPOS:
     - Toaster
     - UIColor_Hex_Swift
   trunk:
+    - Floaty
     - KeychainAccess
     - MaterialComponents
     - MDFInternationalization
@@ -211,6 +214,7 @@ SPEC CHECKSUMS:
   FirebaseCore: f1a9a8be1aee4bf71a2fc0f4096df6788bdfda61
   FirebaseInstanceID: a122b0c258720cf250551bb2bedf48c699f80d90
   FirebaseMessaging: 4235f949ce1c4e827aeb19705ba5c53f9b85aa10
+  Floaty: e2bd5a0f6f7f70899e26ff2da31081c8bee8d1b0
   GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
   GoogleUtilities: 273e67030e0de313e7304f6dcfa96fc5214f6c23
   Kanna: a32875df62975f8f4b871e933b4ea1a5c3b8be0f
@@ -231,6 +235,6 @@ SPEC CHECKSUMS:
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
   UIColor_Hex_Swift: 8be7432edacb7fa91c78aa05ef3c30b66e4f9415
 
-PODFILE CHECKSUM: b832ae8130b827679075cdf7272b2645ecf1c0f2
+PODFILE CHECKSUM: 05fec0d5f8a8364fc89e00592a2825e554d598d0
 
 COCOAPODS: 1.8.3

@@ -57,6 +57,7 @@ let MAImageBaseURLString = "https://www.metal-archives.com/images/"
 
 let endOfListMessage = "That's all! 🤘"
 let errorLoadingMessage = "Unknown error occured."
+let errorBookmarkMessage = "Bookmark error. Please try again later."
 let blockedMessage = "Still loading..."
 let noResultMessage = "No result found."
 

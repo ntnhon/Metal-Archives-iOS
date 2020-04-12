@@ -15,4 +15,11 @@ extension UIViewController {
         alert.addAction(okayAction)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func displayLoginRequiredAlert() {
+        let alert = UIAlertController(title: "Login required", message: "You have to log in in order to perform this action.", preferredStyle: .alert)
+        let okayAction = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+        alert.addAction(okayAction)
+        self.present(alert, animated: true, completion: nil)
+    }
 }

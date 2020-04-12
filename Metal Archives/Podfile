@@ -24,6 +24,7 @@ target 'Metal Archives' do
     pod 'MBProgressHUD', '~> 1.1.0'
     pod 'KeychainAccess'
     pod 'MaterialComponents/Snackbar'
+    pod 'Floaty', '~> 4.2.0'
 end
 
 target 'Metal Archives Widget' do

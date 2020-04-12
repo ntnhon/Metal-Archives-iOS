@@ -104,9 +104,10 @@
 		C01BA1B222C7D587003DD40E /* LatestAdditionsOrUpdatesNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01BA1B122C7D587003DD40E /* LatestAdditionsOrUpdatesNavigationBarView.swift */; };
 		C01BA1B422C7FD63003DD40E /* LatestReviewsNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01BA1B322C7FD63003DD40E /* LatestReviewsNavigationBarView.swift */; };
 		C01D5870225CE28100DC7556 /* ThemeListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */; };
-		C01D5872225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */; };
+		C01D5872225CE37700DC7556 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D5871225CE37700DC7556 /* UIViewController+Alerts.swift */; };
 		C023739522C7917D00818E23 /* ReviewTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C023739422C7917D00818E23 /* ReviewTitleTableViewCell.swift */; };
 		C024A85322B9437500C6BAFE /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C024A85222B9437500C6BAFE /* BaseTableViewController.swift */; };
+		C0253ABE24434A9100864399 /* Floaty+ConvenienceMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0253ABD24434A9100864399 /* Floaty+ConvenienceMethods.swift */; };
 		C027A27F22B55D330011EA73 /* SearchModeNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27E22B55D330011EA73 /* SearchModeNavigationBarView.swift */; };
 		C027A28122B57D5D0011EA73 /* DismissableOnSwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A28022B57D5D0011EA73 /* DismissableOnSwipeViewController.swift */; };
 		C027A28422B593FE0011EA73 /* Top100NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A28322B593FE0011EA73 /* Top100NavigationBarView.swift */; };
@@ -690,9 +691,10 @@
 		C01BA1B122C7D587003DD40E /* LatestAdditionsOrUpdatesNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestAdditionsOrUpdatesNavigationBarView.swift; sourceTree = "<group>"; };
 		C01BA1B322C7FD63003DD40E /* LatestReviewsNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestReviewsNavigationBarView.swift; sourceTree = "<group>"; };
 		C01D586F225CE28100DC7556 /* ThemeListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeListTableViewController.swift; sourceTree = "<group>"; };
-		C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DisplayRestartAlert.swift"; sourceTree = "<group>"; };
+		C01D5871225CE37700DC7556 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		C023739422C7917D00818E23 /* ReviewTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTitleTableViewCell.swift; sourceTree = "<group>"; };
 		C024A85222B9437500C6BAFE /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		C0253ABD24434A9100864399 /* Floaty+ConvenienceMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Floaty+ConvenienceMethods.swift"; sourceTree = "<group>"; };
 		C027A27E22B55D330011EA73 /* SearchModeNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModeNavigationBarView.swift; sourceTree = "<group>"; };
 		C027A28022B57D5D0011EA73 /* DismissableOnSwipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableOnSwipeViewController.swift; sourceTree = "<group>"; };
 		C027A28322B593FE0011EA73 /* Top100NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top100NavigationBarView.swift; sourceTree = "<group>"; };
@@ -2045,6 +2047,7 @@
 				C03E6B472247F167007153B9 /* UINavigationController+Theme.swift */,
 				C0FFE1F822958F4200909765 /* UIView+Layout.swift */,
 				C071A22022AD3F6A00A06D2F /* UIView+PositionIn.swift */,
+				C0253ABD24434A9100864399 /* Floaty+ConvenienceMethods.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2720,7 +2723,7 @@
 				C008388122008D1900B35996 /* UIViewController+CheckPhotoLibraryPermission.swift */,
 				C0FF16CA220CE8AF00B8EBB9 /* UIViewController+PushAViewController.swift */,
 				C0356F1C22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift */,
-				C01D5871225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift */,
+				C01D5871225CE37700DC7556 /* UIViewController+Alerts.swift */,
 			);
 			path = UIViewController;
 			sourceTree = "<group>";
@@ -3830,6 +3833,7 @@
 				C0FE962F221C3B10003C4B59 /* UIView+InitFromNib.swift in Sources */,
 				C0850C14223C4F49009E45A8 /* Actionable.swift in Sources */,
 				C00D360E223D5EDE00B29B43 /* ImageType.swift in Sources */,
+				C0253ABE24434A9100864399 /* Floaty+ConvenienceMethods.swift in Sources */,
 				C00D3618223D5F5500B29B43 /* Month.swift in Sources */,
 				C0332FF022024B7C008B34E0 /* SimpleTableViewCell.swift in Sources */,
 				C05ADC0F2235B29200D82E36 /* ExplanationViewController.swift in Sources */,
@@ -3995,7 +3999,7 @@
 				C0B990CD22079222000DBD86 /* ReviewTableViewCell.swift in Sources */,
 				C06F1DF421F7488700B49D39 /* NotificationName.swift in Sources */,
 				C03270E2220B7B37009FA337 /* RequestReleaseOtherVersion.swift in Sources */,
-				C01D5872225CE37700DC7556 /* UIViewController+DisplayRestartAlert.swift in Sources */,
+				C01D5872225CE37700DC7556 /* UIViewController+Alerts.swift in Sources */,
 				C06C6C6521FFD5C100D37519 /* ExpandedButton.swift in Sources */,
 				C028BECD24407211009BF476 /* MyBookmark.swift in Sources */,
 				C053DD5022269ADB0028568B /* ReleaseStatisticTableViewCell.swift in Sources */,
