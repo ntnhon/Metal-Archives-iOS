@@ -340,9 +340,10 @@ extension AppDelegate {
                 let okAction = UIAlertAction(title: "Got it", style: .default, handler: nil)
                 alert.addAction(okAction)
                 slideMenuController.present(alert, animated: true, completion: nil)
-                
+                Analytics.logEvent("log_in_error", parameters: nil)
             } else {
                 print("Log in successfully")
+                Analytics.logEvent("log_in_success", parameters: nil)
             }
         }
     }

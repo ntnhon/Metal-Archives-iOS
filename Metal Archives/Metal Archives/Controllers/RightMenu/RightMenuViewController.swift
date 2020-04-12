@@ -11,6 +11,7 @@ import Toaster
 import MBProgressHUD
 import SlideMenuControllerSwift
 import Toaster
+import FirebaseAnalytics
 
 final class RightMenuViewController: BaseViewController {
     @IBOutlet private weak var myProfileStackView: UIStackView!
@@ -144,11 +145,13 @@ final class RightMenuViewController: BaseViewController {
                 
                 if let loginError = loginError {
                     Toast.displayMessageShortly(loginError.localizedDescription)
+                    Analytics.logEvent("log_in_error", parameters: nil)
                 } else {
                     KeychainService.save(username: username, password: password)
                     self.tableView.reloadData()
                     self.fetchMyProfileIfApplicable()
                     self.properlyShowHideUIComponents()
+                    Analytics.logEvent("log_in_success", parameters: nil)
                 }
             }
         }
@@ -163,6 +166,7 @@ final class RightMenuViewController: BaseViewController {
     @IBAction private func registerButtonTapped() {
         guard let url = URL(string: "https://www.metal-archives.com/user/signup") else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        Analytics.logEvent("open_register", parameters: nil)
     }
     
     private func pushMyBookmarksViewController(_ myBookmark: MyBookmark) {
@@ -186,13 +190,34 @@ extension RightMenuViewController: UITableViewDelegate {
         closeRight()
         let option = options[indexPath.section][indexPath.row]
         switch option {
-        case .collection: pushMyCollectionViewController(.collection)
-        case .wishlist: pushMyCollectionViewController(.wanted)
-        case .tradeList: pushMyCollectionViewController(.trade)
-        case .bands: pushMyBookmarksViewController(.bands)
-        case .artists: pushMyBookmarksViewController(.artists)
-        case .labels: pushMyBookmarksViewController(.labels)
-        case .releases: pushMyBookmarksViewController(.releases)
+        case .collection:
+            pushMyCollectionViewController(.collection)
+            Analytics.logEvent("open_album_collection", parameters: nil)
+            
+        case .wishlist:
+            pushMyCollectionViewController(.wanted)
+            Analytics.logEvent("open_wanted_list", parameters: nil)
+            
+        case .tradeList:
+            pushMyCollectionViewController(.trade)
+            Analytics.logEvent("open_trade_list", parameters: nil)
+            
+        case .bands:
+            pushMyBookmarksViewController(.bands)
+            Analytics.logEvent("open_band_bookmarks", parameters: nil)
+            
+        case .artists:
+            pushMyBookmarksViewController(.artists)
+            Analytics.logEvent("open_artist_bookmarks", parameters: nil)
+            
+        case .labels:
+            pushMyBookmarksViewController(.labels)
+            Analytics.logEvent("open_label_bookmarks", parameters: nil)
+            
+        case .releases:
+            pushMyBookmarksViewController(.releases)
+            Analytics.logEvent("open_release_bookmarks", parameters: nil)
+            
         case .logOut:
             let alert = UIAlertController(title: "You will be logged out", message: "Please confirm.", preferredStyle: .alert)
             
@@ -201,6 +226,7 @@ extension RightMenuViewController: UITableViewDelegate {
                 LoginService.logOut()
                 self.myProfileStackView.isHidden = true
                 Toast.displayMessageShortly("You are logged out")
+                Analytics.logEvent("log_out", parameters: nil)
             }
             alert.addAction(yesAction)
             

@@ -196,6 +196,7 @@ final class HomepageViewController: RefreshableViewController {
         
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
             self.toggleRight()
+            Analytics.logEvent("toggle_right_menu", parameters: nil)
         }
     }
     

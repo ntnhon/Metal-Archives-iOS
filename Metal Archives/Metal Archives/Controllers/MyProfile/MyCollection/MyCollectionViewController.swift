@@ -11,6 +11,7 @@ import Toaster
 import Alamofire
 import MBProgressHUD
 import MaterialComponents.MaterialSnackbar
+import FirebaseAnalytics
 
 final class MyCollectionViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
@@ -119,6 +120,7 @@ extension MyCollectionViewController {
         // View Release
         let releaseAction = UIAlertAction(title: "💿 View release", style: .default) { [unowned self] _ in
             self.pushReleaseDetailViewController(urlString: release.urlString, animated: true)
+            Analytics.logEvent("view_collection_release", parameters: nil)
         }
         alert.addAction(releaseAction)
         
@@ -126,6 +128,7 @@ extension MyCollectionViewController {
         release.bands.forEach { (eachBand) in
             let bandAction = UIAlertAction(title: "👥 Band: \(eachBand.name)", style: .default) { [unowned self] _ in
                 self.pushBandDetailViewController(urlString: eachBand.urlString, animated: true)
+                Analytics.logEvent("view_collectionband", parameters: nil)
             }
             alert.addAction(bandAction)
         }
@@ -205,6 +208,7 @@ extension MyCollectionViewController {
                 
             } else {
                 Toast.displayMessageShortly("Error fetching versions")
+                Analytics.logEvent("collection_fetch_versions_error", parameters: nil)
             }
         }
     }
@@ -228,8 +232,10 @@ extension MyCollectionViewController {
                 
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
                 Toast.displayMessageShortly("Changed version")
+                Analytics.logEvent("collection_change_version_success", parameters: nil)
             } else {
                 Toast.displayMessageShortly("Error changing version. Please try again later.")
+                Analytics.logEvent("collection_change_version_error", parameters: nil)
             }
         }
     }
@@ -276,8 +282,10 @@ extension MyCollectionViewController {
                 
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
                 Toast.displayMessageShortly("Saved note")
+                Analytics.logEvent("collection_update_note_success", parameters: nil)
             } else {
                 Toast.displayMessageShortly("Error saving note. Please try again later.")
+                Analytics.logEvent("collection~_update_note_error", parameters: nil)
             }
         }
     }
@@ -310,9 +318,10 @@ extension MyCollectionViewController {
                 }) { _ in
                     self.displayUndoSnackbar()
                 }
-                
+                Analytics.logEvent("collection_remove_success", parameters: nil)
             } else {
                 Toast.displayMessageShortly("Error removing release from \(self.myCollection.listDescription). Please try again later.")
+                Analytics.logEvent("collection_remove_error", parameters: nil)
             }
         }
     }
@@ -354,8 +363,10 @@ extension MyCollectionViewController {
 
                     self.tableView.insertRows(at: [lastDeletedReleaseIndexPath], with: .automatic)
                 })
+                Analytics.logEvent("collection_undo_removal_success", parameters: nil)
             } else {
                 Toast.displayMessageShortly("Undo error 😞")
+                Analytics.logEvent("collection_undo_removal_error", parameters: nil)
             }
         }
     }
@@ -378,8 +389,10 @@ extension MyCollectionViewController {
                     
                     self.tableView.deleteRows(at: [indexPath], with: .automatic)
                 })
+                Analytics.logEvent("collection_move_success", parameters: nil)
             } else {
                 Toast.displayMessageShortly("Error moving release. Please try again later.")
+                Analytics.logEvent("collection_move_error", parameters: nil)
             }
         }
     }

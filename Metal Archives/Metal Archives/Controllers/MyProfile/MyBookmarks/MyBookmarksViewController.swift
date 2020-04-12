@@ -11,6 +11,7 @@ import Toaster
 import Alamofire
 import MBProgressHUD
 import MaterialComponents.MaterialSnackbar
+import FirebaseAnalytics
 
 final class MyBookmarksViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
@@ -129,6 +130,7 @@ final class MyBookmarksViewController: RefreshableViewController {
         }
         
         tableView.reloadData()
+        Analytics.logEvent("bookmark_refresh", parameters: nil)
     }
 }
 
@@ -141,6 +143,7 @@ extension MyBookmarksViewController {
         
         let viewAction = UIAlertAction(title: "👥 View band", style: .default) { [unowned self] _ in
             self.pushBandDetailViewController(urlString: bandBookmark.urlString, animated: true)
+            Analytics.logEvent("bookmark_view_band", parameters: nil)
         }
         alert.addAction(viewAction)
         
@@ -167,6 +170,7 @@ extension MyBookmarksViewController {
         
         let viewAction = UIAlertAction(title: "👤 View artist", style: .default) { [unowned self] _ in
             self.pushArtistDetailViewController(urlString: artistBookmark.urlString, animated: true)
+            Analytics.logEvent("bookmark_view_artist", parameters: nil)
         }
         alert.addAction(viewAction)
         
@@ -193,6 +197,7 @@ extension MyBookmarksViewController {
         
         let viewAction = UIAlertAction(title: "🏷️ View label", style: .default) { [unowned self] _ in
             self.pushLabelDetailViewController(urlString: labelBookmark.urlString, animated: true)
+            Analytics.logEvent("bookmark_view_label", parameters: nil)
         }
         alert.addAction(viewAction)
         
@@ -219,6 +224,7 @@ extension MyBookmarksViewController {
         
         let viewAction = UIAlertAction(title: "💿 View release", style: .default) { [unowned self] _ in
             self.pushReleaseDetailViewController(urlString: releaseBookmark.urlString, animated: true)
+            Analytics.logEvent("bookmark_view_release", parameters: nil)
         }
         alert.addAction(viewAction)
         
@@ -276,8 +282,10 @@ extension MyBookmarksViewController {
                 
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
                 Toast.displayMessageShortly("Saved note")
+                Analytics.logEvent("bookmark_edit_note_success", parameters: nil)
             } else {
                 Toast.displayMessageShortly("Error saving note. Please try again later.")
+                Analytics.logEvent("bookmark_edit_note_error", parameters: nil)
             }
         }
     }
@@ -313,9 +321,10 @@ extension MyBookmarksViewController {
                 }) { _ in
                     self.displayUndoSnackbar()
                 }
-                
+                Analytics.logEvent("bookmark_remove_success", parameters: nil)
             } else {
                 Toast.displayMessageShortly("Error removing object from \(self.myBookmark.shortDescription) bookmark. Please try again later.")
+                Analytics.logEvent("bookmark_remove_error", parameters: nil)
             }
         }
     }
@@ -374,8 +383,10 @@ extension MyBookmarksViewController {
                     
                     self.tableView.insertRows(at: [lastDeletedObjectIndexPath], with: .automatic)
                 })
+                Analytics.logEvent("bookmark_undo_removal_success", parameters: nil)
             } else {
                 Toast.displayMessageShortly("Undo error 😞")
+                Analytics.logEvent("bookmark_undo_removal_error", parameters: nil)
             }
         }
     }
@@ -387,8 +398,13 @@ extension MyBookmarksViewController {
         let bandOrReleaseBookmarkOrderViewController = UIStoryboard(name: "MyProfile", bundle: nil).instantiateViewController(withIdentifier: "BandOrReleaseBookmarkOrderViewController") as! BandOrReleaseBookmarkOrderViewController
         
         switch type {
-        case .band: bandOrReleaseBookmarkOrderViewController.currentOrder = bandBookmarkOrder
-        case .release: bandOrReleaseBookmarkOrderViewController.currentOrder = releaseBookmarkOrder
+        case .band:
+            bandOrReleaseBookmarkOrderViewController.currentOrder = bandBookmarkOrder
+            Analytics.logEvent("bookmark_reorder_bands", parameters: nil)
+            
+        case .release:
+            bandOrReleaseBookmarkOrderViewController.currentOrder = releaseBookmarkOrder
+            Analytics.logEvent("bookmark_reorder_release", parameters: nil)
         }
         
         bandOrReleaseBookmarkOrderViewController.modalPresentationStyle = .popover
@@ -416,8 +432,13 @@ extension MyBookmarksViewController {
         let artistOrLabelBookmarkOrderViewController = UIStoryboard(name: "MyProfile", bundle: nil).instantiateViewController(withIdentifier: "ArtistOrLabelBookmarkOrderViewController") as! ArtistOrLabelBookmarkOrderViewController
         
         switch type {
-        case .artist: artistOrLabelBookmarkOrderViewController.currentOrder = artistBookmarkOrder
-        case .label: artistOrLabelBookmarkOrderViewController.currentOrder = labelBookmarkOrder
+        case .artist:
+            artistOrLabelBookmarkOrderViewController.currentOrder = artistBookmarkOrder
+            Analytics.logEvent("bookmark_reorder_artists", parameters: nil)
+            
+        case .label:
+            artistOrLabelBookmarkOrderViewController.currentOrder = labelBookmarkOrder
+            Analytics.logEvent("bookmark_reorder_labels", parameters: nil)
         }
         
         artistOrLabelBookmarkOrderViewController.modalPresentationStyle = .popover
@@ -458,6 +479,7 @@ extension MyBookmarksViewController: PagableManagerDelegate {
     func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
         hideHUD()
         Toast.displayMessageShortly(errorLoadingMessage)
+        Analytics.logEvent("bookmark_fetch_error", parameters: nil)
     }
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
@@ -485,24 +507,28 @@ extension MyBookmarksViewController: UITableViewDelegate {
         case .bands:
             if bandBookmarkPagableManager.moreToLoad && indexPath.row == bandBookmarkPagableManager.objects.count {
                 bandBookmarkPagableManager.fetch()
+                Analytics.logEvent("bookmark_fetch_more_bands", parameters: nil)
             }
             return
             
         case .artists:
             if artistBookmarkPagableManager.moreToLoad && indexPath.row == artistBookmarkPagableManager.objects.count {
                 artistBookmarkPagableManager.fetch()
+                Analytics.logEvent("bookmark_fetch_more_artists", parameters: nil)
             }
             return
             
         case .labels:
             if labelBookmarkPagableManager.moreToLoad && indexPath.row == labelBookmarkPagableManager.objects.count {
                 labelBookmarkPagableManager.fetch()
+                Analytics.logEvent("bookmark_fetch_more_labels", parameters: nil)
             }
             return
             
         case .releases:
             if releaseBookmarkPagableManager.moreToLoad && indexPath.row == releaseBookmarkPagableManager.objects.count {
                 releaseBookmarkPagableManager.fetch()
+                Analytics.logEvent("bookmark_fetch_more_releases", parameters: nil)
             }
             return
         }
