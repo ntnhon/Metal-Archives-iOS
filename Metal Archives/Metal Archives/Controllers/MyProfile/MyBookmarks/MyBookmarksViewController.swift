@@ -275,7 +275,7 @@ extension MyBookmarksViewController {
                 }
                 
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
-                Toast.displayMessageShortly("Updated note")
+                Toast.displayMessageShortly("Saved note")
             } else {
                 Toast.displayMessageShortly("Error saving note. Please try again later.")
             }

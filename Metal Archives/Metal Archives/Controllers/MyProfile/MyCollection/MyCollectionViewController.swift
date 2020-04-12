@@ -130,7 +130,7 @@ extension MyCollectionViewController {
         alert.addAction(changeVersionAction)
         
         let editNoteAction = UIAlertAction(title: "📝 Edit note", style: .default) { [unowned self] _ in
-            self.editNote(for: release, at: indexPath)
+            self.presentEditNoteAlert(forReleaseAt: indexPath)
         }
         alert.addAction(editNoteAction)
         
@@ -198,8 +198,52 @@ extension MyCollectionViewController {
         }
     }
     
-    private func editNote(for releaseInCollection: ReleaseInCollection, at indexPath: IndexPath) {
+    private func presentEditNoteAlert(forReleaseAt indexPath: IndexPath) {
+        let release = getRelease(for: indexPath)
+        let alert = UIAlertController(title: "Edit note", message: "⚠️ Note can not contain emoji", preferredStyle: .alert)
         
+        alert.addTextField { (noteTextField) in
+            noteTextField.placeholder = "Add note"
+            noteTextField.returnKeyType = .done
+            noteTextField.clearButtonMode = .whileEditing
+            noteTextField.text = release.note
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] _ in
+            self.updateNote(forReleaseAt: indexPath, newNote: alert.textFields?[0].text)
+        }
+        alert.addAction(saveAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func updateNote(forReleaseAt indexPath: IndexPath, newNote: String?) {
+        let release = getRelease(for: indexPath)
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        RequestHelper.Collection.updateNote(collection: myCollection, release: release, newNote: newNote) { [weak self] (isSuccessful) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if isSuccessful {
+                
+                switch self.myCollection {
+                case .collection: self.collectionPagableManager.objects[indexPath.row].updateNote(newNote)
+                case .wanted:
+                    self.wantedPagableManager.objects[indexPath.row].updateNote(newNote)
+                case .trade:
+                    self.tradePagableManager.objects[indexPath.row].updateNote(newNote)
+                }
+                
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                Toast.displayMessageShortly("Saved note")
+            } else {
+                Toast.displayMessageShortly("Error saving note. Please try again later.")
+            }
+        }
     }
     
     private func remove(releaseInCollection: ReleaseInCollection, at indexPath: IndexPath) {
