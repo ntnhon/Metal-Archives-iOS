@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HQV-Ej-ses">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HQV-Ej-ses">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,10 +38,20 @@
                                     <constraint firstAttribute="height" constant="84" id="pgj-o0-Jyr"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gAQ-Z5-J8f" customClass="Floaty" customModule="Floaty">
+                                <rect key="frame" x="336" y="784" width="48" height="48"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="VVr-qh-6uW"/>
+                                    <constraint firstAttribute="height" constant="48" id="xIU-zl-Cdv"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ihy-Kl-jzw" firstAttribute="bottom" secondItem="gAQ-Z5-J8f" secondAttribute="bottom" constant="30" id="3xG-kF-9Vw"/>
                             <constraint firstItem="9Y8-DO-Cco" firstAttribute="leading" secondItem="ihy-Kl-jzw" secondAttribute="leading" id="4Om-h9-mlw"/>
+                            <constraint firstItem="ihy-Kl-jzw" firstAttribute="trailing" secondItem="gAQ-Z5-J8f" secondAttribute="trailing" constant="30" id="5jE-D0-X9K"/>
                             <constraint firstItem="9Y8-DO-Cco" firstAttribute="top" secondItem="0sb-VM-KT5" secondAttribute="top" id="7ys-DR-F1y"/>
                             <constraint firstItem="ihy-Kl-jzw" firstAttribute="trailing" secondItem="C8b-Ee-OQC" secondAttribute="trailing" id="Ugx-K4-QWB"/>
                             <constraint firstItem="0gs-2h-ED5" firstAttribute="leading" secondItem="ihy-Kl-jzw" secondAttribute="leading" id="anh-UO-01b"/>
@@ -57,6 +65,7 @@
                         <viewLayoutGuide key="safeArea" id="ihy-Kl-jzw"/>
                     </view>
                     <connections>
+                        <outlet property="floaty" destination="gAQ-Z5-J8f" id="jRf-CJ-zgf"/>
                         <outlet property="simpleNavigationBarView" destination="C8b-Ee-OQC" id="nJm-3U-bmA"/>
                         <outlet property="stretchyPhotoSmokedImageView" destination="0gs-2h-ED5" id="z8e-3K-pOK"/>
                         <outlet property="stretchyPhotoSmokedImageViewHeightConstraint" destination="UZK-t1-fcx" id="4V0-PQ-o41"/>

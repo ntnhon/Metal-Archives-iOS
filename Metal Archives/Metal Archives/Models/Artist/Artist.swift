@@ -25,6 +25,8 @@ final class Artist {
     private(set) var biography: String?
     private(set) var trivia: String?
     
+    private(set) var isBookmarked: Bool? = nil
+    
     private(set) var  addedOnDate: Date?
     private(set) var  lastModifiedOnDate: Date?
     
@@ -48,6 +50,18 @@ final class Artist {
         
         self.urlString = urlString
         self.id = urlString.components(separatedBy: "/").last
+        
+        // Firstly detect if band is bookmarked or not
+        for a in doc.css("a") {
+            // When bookmarked
+            // <a id="bookmark" class="iconContainer ui-state-active ui-corner-all writeAction"...
+            // When not bookmarked
+            // <a id="bookmark" class="iconContainer ui-state-default ui-corner-all writeAction"...
+            if let id = a["id"], id == "bookmark", let classValue = a["class"] {
+                self.isBookmarked = classValue.contains("active")
+                continue
+            }
+        }
         
         for div in doc.css("div") {
             if (div["id"] == "member_info") {
@@ -190,6 +204,10 @@ final class Artist {
     
     func setLinks(links: [RelatedLink]?) {
         self.links = links
+    }
+    
+    func setIsBookmarked(_ isBookmarked: Bool) {
+        self.isBookmarked = isBookmarked
     }
 }
 

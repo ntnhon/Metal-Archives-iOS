@@ -36,8 +36,8 @@ enum MyBookmark: CustomStringConvertible {
     var param: Int {
         switch self {
         case .bands: return 1
-        case .artists: return 2
-        case .labels: return 3
+        case .artists: return 3
+        case .labels: return 2
         case .releases: return 4
         }
     }

@@ -10,12 +10,15 @@ import UIKit
 import Toaster
 import FirebaseAnalytics
 import Crashlytics
+import Floaty
+import MBProgressHUD
 
 final class ArtistDetailViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var stretchyPhotoSmokedImageView: SmokedImageView!
     @IBOutlet private weak var stretchyPhotoSmokedImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
+    @IBOutlet private weak var floaty: Floaty!
     
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     
@@ -60,6 +63,7 @@ final class ArtistDetailViewController: BaseViewController {
         super.viewDidLoad()
         stretchyPhotoSmokedImageViewHeightConstraint.constant = screenWidth
         configureTableView()
+        initFloaty()
         handleSimpleNavigationBarViewActions()
         fetchArtist()
     }
@@ -113,6 +117,7 @@ final class ArtistDetailViewController: BaseViewController {
                 self.determineArtistInfoTypes()
                 self.determineArtistRoles()
                 self.initHorizontalMenuView()
+                self.updateBookmarkIcon()
                 self.tableView.reloadData()
                 
                 // Delay this method to wait for info cells to be fully loaded
@@ -281,17 +286,26 @@ final class ArtistDetailViewController: BaseViewController {
             horizontalMenuAnchorTableViewCellFrameInView.origin.y, simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.height)
     }
     
-    private func handleSimpleNavigationBarViewActions() {
-        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
-            self.navigationController?.popViewController(animated: true)
-        }
-        
-        simpleNavigationBarView.didTapRightButton = { [unowned self] in
+    private func initFloaty() {
+        floaty.customizeAppearance()
+
+        floaty.addItem("Share this artist", icon: UIImage(named: Ressources.Images.share)) { [unowned self] _ in
             guard let artist = self.artist, let url = URL(string: artist.urlString) else { return }
             
             self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(artist.bandMemberName!) in browser", alertMessage: artist.urlString, shareMessage: "Share this artist URL")
             
             Analytics.logEvent("share_artist", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? ""])
+        }
+    }
+    
+    private func handleSimpleNavigationBarViewActions() {
+        simpleNavigationBarView.didTapLeftButton = { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        simpleNavigationBarView.setRightButtonIcon(nil)
+        simpleNavigationBarView.didTapRightButton = { [unowned self] in
+            self.toggleBookmarkIfApplicable()
         }
     }
     
@@ -309,6 +323,69 @@ final class ArtistDetailViewController: BaseViewController {
         // alpha = distance / label's height (dim base on label's frame)
         artistNameTableViewCell.alpha = (distanceFromArtistNameLabelToUtileBarView + artistNameLabel.frame.height) / artistNameLabel.frame.height
         simpleNavigationBarView.setAlphaForBackgroundAndTitleLabel(1 - artistNameTableViewCell.alpha)
+    }
+    
+    private func toggleBookmarkIfApplicable() {
+        guard let artist = artist else { return }
+        
+        guard LoginService.isLoggedIn, let isBookmarked = artist.isBookmarked else {
+            displayLoginRequiredAlert()
+            return
+        }
+        
+        let action: BookmarkAction = isBookmarked ? .remove : .add
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        RequestHelper.Bookmark.bookmark(id: artist.id, action: action, type: .artists) { [weak self] (isSuccessful) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if isSuccessful {
+                self.artist?.setIsBookmarked(!isBookmarked)
+                self.updateBookmarkIcon()
+                
+                if isBookmarked {
+                    Toast.displayMessageShortly("\"\(artist.bandMemberName ?? "")\" is removed from your bookmarks")
+                    Analytics.logEvent("unbookmark_artist", parameters: nil)
+                } else {
+                    Toast.displayMessageShortly("\"\(artist.bandMemberName ?? "")\" is added to your bookmarks")
+                    Analytics.logEvent("bookmark_artist", parameters: nil)
+                }
+                
+            } else {
+                Toast.displayMessageShortly(errorBookmarkMessage)
+            }
+        }
+    }
+    
+    private func updateBookmarkIcon() {
+        guard let artist = artist, let isBookmarked = artist.isBookmarked else {
+            simpleNavigationBarView.setRightButtonIcon(nil)
+            return
+        }
+        
+        let iconName = isBookmarked ? Ressources.Images.star_filled : Ressources.Images.star
+        simpleNavigationBarView.setRightButtonIcon(UIImage(named: iconName))
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension ArtistDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView.superview).y < 0 {
+            // scroll down
+            UIView.animate(withDuration: 0.35) { [unowned self] in
+                self.floaty.transform = CGAffineTransform(translationX: 0, y: 300)
+            }
+            
+        } else {
+            // scroll up
+            UIView.animate(withDuration: 0.35) { [unowned self] in
+                self.floaty.transform = .identity
+            }
+            
+        }
     }
 }
 
