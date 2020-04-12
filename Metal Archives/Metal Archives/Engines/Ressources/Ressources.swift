@@ -35,5 +35,7 @@ struct Ressources {
         static let log_out = "log_out"
         static let sale = "sale"
         static let wishlist = "wishlist"
+        static let star = "star"
+        static let star_filled = "star_filled"
     }
 }

@@ -30,6 +30,8 @@ final class Band {
     private(set) var photoURLString: String?
     private(set) var discography: Discography?
     
+    private(set) var isBookmarked: Bool? = nil
+    
     //Band detail
     private(set) var isLastKnown: Bool = false
     private(set) var completeLineup: [ArtistLite]?
@@ -117,6 +119,18 @@ final class Band {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
             let doc = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
                 return nil
+        }
+        
+        // Firstly detect if band is bookmarked or not
+        for a in doc.css("a") {
+            // When bookmarked
+            // <a id="bookmark" class="iconContainer ui-state-active ui-corner-all writeAction"...
+            // When not bookmarked
+            // <a id="bookmark" class="iconContainer ui-state-default ui-corner-all writeAction"...
+            if let id = a["id"], id == "bookmark", let classValue = a["class"] {
+                self.isBookmarked = classValue.contains("active")
+                continue
+            }
         }
         
         for div in doc.css("div") {
