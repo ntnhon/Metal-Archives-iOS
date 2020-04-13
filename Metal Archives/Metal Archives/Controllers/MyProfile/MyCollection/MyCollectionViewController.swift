@@ -420,6 +420,16 @@ extension MyCollectionViewController: PagableManagerDelegate {
         hideHUD()
         endRefreshing()
         tableView.reloadData()
+        
+        if pagableManager.objects.count == 0 {
+            let message: String
+            switch myCollection {
+            case .collection: message = "You haven't added anything to collection"
+            case .wanted: message = "You haven't added anything to wanted list"
+            case .trade: message = "You haven't added anything to trade list"
+            }
+            Toast.displayMessageShortly(message)
+        }
     }
 }
 

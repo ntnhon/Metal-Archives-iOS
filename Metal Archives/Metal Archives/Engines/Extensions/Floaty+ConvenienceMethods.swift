@@ -30,6 +30,13 @@ extension Floaty {
             return
             }
             
+            // Remove SearchViewController if there is one in the navigation stack
+            navigationController?.viewControllers.forEach({ (eachViewController) in
+                if eachViewController.isKind(of: SearchViewController.self) {
+                    eachViewController.removeFromParent()
+                }
+            })
+            
             navigationController?.pushViewController(searchViewController, animated: true)
             completion?()
         }

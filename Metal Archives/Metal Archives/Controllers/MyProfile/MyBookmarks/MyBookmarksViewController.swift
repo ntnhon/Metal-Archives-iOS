@@ -486,6 +486,17 @@ extension MyBookmarksViewController: PagableManagerDelegate {
         hideHUD()
         endRefreshing()
         tableView.reloadData()
+        
+        if pagableManager.objects.count == 0 {
+            let message: String
+            switch myBookmark {
+            case .bands: message = "You haven't bookmarked any band"
+            case .artists: message = "You haven't bookmarked any artist"
+            case .labels: message = "You haven't bookmarked any label"
+            case .releases: message = "You haven't bookmarked any release"
+            }
+            Toast.displayMessageShortly(message)
+        }
     }
 }
 
