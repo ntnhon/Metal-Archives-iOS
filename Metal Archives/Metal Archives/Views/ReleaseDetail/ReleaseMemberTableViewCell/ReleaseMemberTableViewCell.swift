@@ -43,7 +43,7 @@ final class ReleaseMemberTableViewCell: ThumbnailableTableViewCell, Registerable
         }
         
         if let bandName = artist.bandName {
-            bandNameLabel.text = "\(bandName)'s member"
+            bandNameLabel.text = "\(bandName) member"
         } else {
             bandNameLabel.text = nil
         }

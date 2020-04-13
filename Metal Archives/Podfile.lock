@@ -6,9 +6,9 @@ PODS:
   - Charts (3.3.0):
     - Charts/Core (= 3.3.0)
   - Charts/Core (3.3.0)
-  - Crashlytics (3.12.0):
-    - Fabric (~> 1.9.0)
-  - Fabric (1.9.0)
+  - Crashlytics (3.14.0):
+    - Fabric (~> 1.10.2)
+  - Fabric (1.10.2)
   - Firebase/Core (5.20.2):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.8.1)
@@ -149,7 +149,7 @@ DEPENDENCIES:
   - AlamofireNetworkActivityIndicator
   - AttributedLib
   - Charts
-  - Crashlytics
+  - Crashlytics (~> 3.14.0)
   - Firebase/Core
   - Firebase/Messaging
   - Floaty (~> 4.2.0)
@@ -171,8 +171,6 @@ SPEC REPOS:
     - AlamofireNetworkActivityIndicator
     - AttributedLib
     - Charts
-    - Crashlytics
-    - Fabric
     - Firebase
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
@@ -195,6 +193,8 @@ SPEC REPOS:
     - Toaster
     - UIColor_Hex_Swift
   trunk:
+    - Crashlytics
+    - Fabric
     - Floaty
     - KeychainAccess
     - MaterialComponents
@@ -206,8 +206,8 @@ SPEC CHECKSUMS:
   AlamofireNetworkActivityIndicator: 9acc3de3ca6645bf0efed462396b0df13dd3e7b8
   AttributedLib: ad537d4f9285ed57fc4d9103dd83c2ee6be1582b
   Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
-  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
-  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
+  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
+  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
   FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
   FirebaseAnalyticsInterop: efbe45c8385ec626e29f9525e5ebd38520dfb6c1
@@ -235,6 +235,6 @@ SPEC CHECKSUMS:
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
   UIColor_Hex_Swift: 8be7432edacb7fa91c78aa05ef3c30b66e4f9415
 
-PODFILE CHECKSUM: 05fec0d5f8a8364fc89e00592a2825e554d598d0
+PODFILE CHECKSUM: a7f4eb5dd8455789ba921ffc02b39a583383dd4f
 
 COCOAPODS: 1.8.3

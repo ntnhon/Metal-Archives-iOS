@@ -420,7 +420,7 @@ final class Release {
         if let div_album_members = div_album_tabs_lineup.at_css("div") {
             for div in div_album_members.css("div") {
                 if (div["id"] == "album_members_lineup") {
-                    // Band's member
+                    // Band member
                     bandMembers.append(contentsOf: Release.parseMembers(document: div, lineUpType: .member))
                 }
                 else if (div["id"] == "album_members_guest") {
