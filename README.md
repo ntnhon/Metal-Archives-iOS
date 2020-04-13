@@ -20,16 +20,9 @@ Unofficial facbebook: [https://www.facebook.com/MetalArchivesIOSApp/](https://ww
 Made with 🤘, by metalhead for metalheads.
 
 ## Screenshots
-<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/1-Homepage.png" width="180" />
-<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/2-Band.png" width="180" />
-<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/3-Band-Members.png" width="180" />
-<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/4-Release.png" width="180" />
-<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/5-Artist.png" width="180" />
-<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/6-Review.png" width="180" />
-<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/7-Label.png" width="180" />
-<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/8-Simple-Search.png" width="180" />
-<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/9-Advanced-Search.png" width="180" />
-<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/10-Widget.png" width="180" />
+| <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/1-Homepage.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/2-Band.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/3-Band-Members.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/4-Release.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/5-Artist.png" width="180" /> |
+|----|----|----|----|----|
+| <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/6-Review.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/7-Label.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/8-Simple-Search.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/9-Advanced-Search.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/10-Widget.png" width="180" /> |
 
 ## Features
 The application provides almost everything you can do on the site for research purposes. If you want to contribute to the site's contents, like wikipedia, you will have to register an account, make changes and wait for moderator approvals. In this case you have to use the web interface. iOS interface doesn't mean to be a complete alternative.
