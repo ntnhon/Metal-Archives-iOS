@@ -60,6 +60,18 @@ extension UIViewController {
                 self.pushArtistDetailViewController(urlString: urlString, animated: true)
                 return
                 
+            case .band(_, let urlString):
+                self.pushBandDetailViewController(urlString: urlString, animated: true)
+                return
+                
+            case .label(_, let urlString):
+                self.pushLabelDetailViewController(urlString: urlString, animated: true)
+                return
+                
+            case .release(_, let urlString):
+                self.pushReleaseDetailViewController(urlString: urlString, animated: true)
+                return
+                
             default: break
             }
         }

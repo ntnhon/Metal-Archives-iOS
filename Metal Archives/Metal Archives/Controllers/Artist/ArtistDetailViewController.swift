@@ -86,6 +86,7 @@ final class ArtistDetailViewController: BaseViewController {
     }
 
     private func fetchArtist() {
+        floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         
         MetalArchivesAPI.reloadArtist(urlString: urlString) { [weak self] (artist, error) in
@@ -103,6 +104,7 @@ final class ArtistDetailViewController: BaseViewController {
                     return
                 }
                 
+                self.floaty.isHidden = false
                 self.artist = artist
                 
                 if let photoUrlString = artist.photoURLString, let photoURL = URL(string: photoUrlString) {
@@ -275,6 +277,9 @@ final class ArtistDetailViewController: BaseViewController {
             ])
         horizontalMenuViewTopConstraint = horizontalMenuView.topAnchor.constraint(equalTo: view.topAnchor)
         horizontalMenuViewTopConstraint.isActive = true
+        
+        // bring floaty to front because it is overlapped by horizontalMenuView
+        view.bringSubviewToFront(floaty)
     }
     
     private func anchorHorizontalMenuViewToAnchorTableViewCell() {
@@ -288,6 +293,14 @@ final class ArtistDetailViewController: BaseViewController {
     
     private func initFloaty() {
         floaty.customizeAppearance()
+        
+        floaty.addBackToHomepageItem(navigationController) {
+            Analytics.logEvent("back_to_home_from_artist_detail", parameters: nil)
+        }
+        
+        floaty.addStartNewSearchItem(navigationController) {
+            Analytics.logEvent("start_new_search_from_artist_detail", parameters: nil)
+        }
 
         floaty.addItem("Share this artist", icon: UIImage(named: Ressources.Images.share)) { [unowned self] _ in
             guard let artist = self.artist, let url = URL(string: artist.urlString) else { return }

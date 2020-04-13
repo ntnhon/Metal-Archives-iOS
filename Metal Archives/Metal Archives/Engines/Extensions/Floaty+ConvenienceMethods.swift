@@ -16,4 +16,22 @@ extension Floaty {
         plusColor = Settings.currentTheme.backgroundColor
         overlayColor = UIColor.black.withAlphaComponent(0.7)
     }
+    
+    func addBackToHomepageItem(_ navigationController: UINavigationController?, completion: (() -> Void)?) {
+        addItem("Back to homepage", icon: UIImage(named: Ressources.Images.homeIcon)) { _ in
+            navigationController?.popToRootViewController(animated: true)
+            completion?()
+        }
+    }
+    
+    func addStartNewSearchItem(_ navigationController: UINavigationController?, completion: (() -> Void)?) {
+        addItem("Start new search", icon: UIImage(named: Ressources.Images.horns_search)) { _ in
+            guard let searchViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as? SearchViewController else {
+            return
+            }
+            
+            navigationController?.pushViewController(searchViewController, animated: true)
+            completion?()
+        }
+    }
 }

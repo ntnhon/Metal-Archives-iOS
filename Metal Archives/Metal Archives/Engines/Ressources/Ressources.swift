@@ -40,5 +40,6 @@ struct Ressources {
         static let share = "share"
         static let deezer = "deezer"
         static let calendar = "calendar"
+        static let horns_search = "horns_search"
     }
 }

@@ -69,7 +69,7 @@ final class BandDetailViewController: BaseViewController {
         handleSimpleNavigationBarViewActions()
         fetchBand()
         navigationController?.interactivePopGestureRecognizer?.delegate = navigationController as? HomepageNavigationController
-        // bring deezerButton to front because it is overlapped by horizontalMenuView
+        // bring floaty to front because it is overlapped by horizontalMenuView
         view.bringSubviewToFront(floaty)
     }
     
@@ -150,6 +150,14 @@ final class BandDetailViewController: BaseViewController {
         
         floaty.addItem("Deezer this band", icon: UIImage(named: Ressources.Images.deezer)) { [unowned self] _ in
             self.pushDeezerResultViewController(type: .artist, term: self.band?.name ?? "")
+        }
+        
+        floaty.addBackToHomepageItem(navigationController) {
+            Analytics.logEvent("back_to_home_from_band_detail", parameters: nil)
+        }
+        
+        floaty.addStartNewSearchItem(navigationController) {
+            Analytics.logEvent("start_new_search_from_band_detail", parameters: nil)
         }
         
         floaty.addItem("Share this band", icon: UIImage(named: Ressources.Images.share)) { [unowned self] _ in

@@ -61,6 +61,8 @@ final class LabelDetailViewController: BaseViewController {
         initFloaty()
         handleSimpleNavigationBarViewActions()
         fetchLabel()
+        // bring floaty to front because it is overlapped by horizontalMenuView
+        view.bringSubviewToFront(floaty)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,6 +83,7 @@ final class LabelDetailViewController: BaseViewController {
     }
 
     private func fetchLabel() {
+        floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         
         MetalArchivesAPI.reloadLabel(urlString: self.urlString) { [weak self] (label, error) in
@@ -98,6 +101,7 @@ final class LabelDetailViewController: BaseViewController {
                     return
                 }
                 
+                self.floaty.isHidden = false
                 self.label = label
                 self.determineLabelMenuOptions()
                 self.initHorizontalMenuView()
@@ -217,6 +221,9 @@ final class LabelDetailViewController: BaseViewController {
             ])
         horizontalMenuViewTopConstraint = horizontalMenuView.topAnchor.constraint(equalTo: view.topAnchor)
         horizontalMenuViewTopConstraint.isActive = true
+        
+        // bring floaty to front because it is overlapped by horizontalMenuView
+        view.bringSubviewToFront(floaty)
     }
     
     private func anchorHorizontalMenuViewToAnchorTableViewCell() {
@@ -230,6 +237,14 @@ final class LabelDetailViewController: BaseViewController {
     
     private func initFloaty() {
            floaty.customizeAppearance()
+        
+        floaty.addBackToHomepageItem(navigationController) {
+            Analytics.logEvent("back_to_home_from_label_detail", parameters: nil)
+        }
+        
+        floaty.addStartNewSearchItem(navigationController) {
+            Analytics.logEvent("start_new_search_from_label_detail", parameters: nil)
+        }
 
            floaty.addItem("Share this label", icon: UIImage(named: Ressources.Images.share)) { [unowned self] _ in
                guard let label = self.label, let url = URL(string: label.urlString) else { return }

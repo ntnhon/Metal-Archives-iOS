@@ -193,6 +193,14 @@ final class ReleaseDetailViewController: BaseViewController {
             self.pushDeezerResultViewController(type: .album, term: self.release?.title ?? "")
         }
         
+        floaty.addBackToHomepageItem(navigationController) {
+            Analytics.logEvent("back_to_home_from_release_detail", parameters: nil)
+        }
+        
+        floaty.addStartNewSearchItem(navigationController) {
+            Analytics.logEvent("start_new_search_from_release_detail", parameters: nil)
+        }
+        
         floaty.addItem("Share this release", icon: UIImage(named: Ressources.Images.share)) { [unowned self] _ in
             guard let release = self.release, let url = URL(string: release.urlString) else { return }
             
