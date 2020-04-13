@@ -10,6 +10,7 @@ import Foundation
 import Kanna
 
 final class MyProfile {
+    private(set) var id: String!
     private(set) var username: String!
     private(set) var rank: String!
     private(set) var points: String!
@@ -25,6 +26,18 @@ final class MyProfile {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
             let doc = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
                 return nil
+        }
+        
+        for div in doc.css("div") {
+            if let id = div["id"], id == "userInfo" {
+                for a in div.css("a") {
+                    if let title = a["title"], title == "Submitted bands", let href = a["href"], let idSubstring = href.split(separator: "/").last {
+                        self.id = String(idSubstring)
+                        break
+                    }
+                }
+                break
+            }
         }
         
         for dl in doc.css("dl") {
@@ -55,18 +68,17 @@ final class MyProfile {
                 if let p = dl.css("p").first, let pText = p.text {
                     comments = pText
                 }
-                
+
                 self.username = username
                 return
-                
-            } else {
-                continue
             }
         }
         
-        if rank == nil {
-            return nil
+        if let _ = id, let _ = rank, let _ = points, let _ = gender, let _ = age {
+            return
         }
+        
+        return nil
     }
 }
 

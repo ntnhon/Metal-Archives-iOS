@@ -16,6 +16,7 @@ import FirebaseAnalytics
 final class MyCollectionViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     
+    var myProfile: MyProfile!
     var myCollection: MyCollection = .collection
     
     private var collectionPagableManager: PagableManager<ReleaseCollection>!
@@ -59,17 +60,18 @@ final class MyCollectionViewController: RefreshableViewController {
     }
     
     private func initPagableManagers() {
+        let options = ["<USER_ID>": myProfile.id!]
         switch myCollection {
         case .collection:
-            collectionPagableManager = PagableManager<ReleaseCollection>()
+            collectionPagableManager = PagableManager<ReleaseCollection>(options: options)
             collectionPagableManager.delegate = self
             
         case .wanted:
-            wantedPagableManager = PagableManager<ReleaseWanted>()
+            wantedPagableManager = PagableManager<ReleaseWanted>(options: options)
             wantedPagableManager.delegate = self
             
         case .trade:
-            tradePagableManager = PagableManager<ReleaseTrade>()
+            tradePagableManager = PagableManager<ReleaseTrade>(options: options)
             tradePagableManager.delegate = self
         }
     }

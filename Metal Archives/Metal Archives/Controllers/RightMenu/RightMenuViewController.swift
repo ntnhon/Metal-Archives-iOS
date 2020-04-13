@@ -177,6 +177,7 @@ final class RightMenuViewController: BaseViewController {
     
     private func pushMyCollectionViewController(_ myCollection: MyCollection) {
         let myCollectionViewController = UIStoryboard(name: "MyProfile", bundle: Bundle.main).instantiateViewController(withIdentifier: "MyCollectionViewController") as! MyCollectionViewController
+        myCollectionViewController.myProfile = myProfile
         myCollectionViewController.myCollection = myCollection
         (slideMenuController.mainViewController as? UINavigationController)?.pushViewController(myCollectionViewController, animated: true)
     }
@@ -224,6 +225,7 @@ extension RightMenuViewController: UITableViewDelegate {
             let yesAction = UIAlertAction(title: "Yes, log me out", style: .default) { _ in
                 KeychainService.removeUserCredential()
                 LoginService.logOut()
+                self.myProfile = nil
                 self.myProfileStackView.isHidden = true
                 Toast.displayMessageShortly("You are logged out")
                 Analytics.logEvent("log_out", parameters: nil)
