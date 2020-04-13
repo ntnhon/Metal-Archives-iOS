@@ -4,9 +4,9 @@
 
 ## Metal Archives on iOS
 ![License](https://img.shields.io/badge/license-Apache%202-blue.svg)
-![Xcode 10.0+](https://img.shields.io/badge/Xcode-10.0%2B-blue.svg)
-![iOS 10.0+](https://img.shields.io/badge/iOS-10.0%2B-blue.svg)
-![Swift 4.0+](https://img.shields.io/badge/Swift-4.0%2B-orange.svg)
+![Xcode 11.3+](https://img.shields.io/badge/Xcode-11.3%2B-blue.svg)
+![iOS 11.0+](https://img.shields.io/badge/iOS-11.0%2B-blue.svg)
+![Swift 5.0+](https://img.shields.io/badge/Swift-5.0%2B-orange.svg)
 
 Metal Archives *(a.k.a. Encyclopaedia Metallum)* is the biggest encyclopedia of all metal bands around the world. From most well-known worldwide bands like [*Metallica*](https://www.metal-archives.com/bands/Metallica/125) to underground local bands in countries that you may never have [heard of](https://www.metal-archives.com/lists/BZ).
 
@@ -18,12 +18,27 @@ Available on [App Store](https://itunes.apple.com/us/app/id1074038930) since Jan
 Unofficial facbebook: [https://www.facebook.com/MetalArchivesIOSApp/](https://www.facebook.com/MetalArchivesIOSApp/)
 
 Made with 🤘, by metalhead for metalheads.
+
+## Screenshots
+<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/1-Homepage.png" width="180" />
+<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/2-Band.png" width="180" />
+<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/3-Band-Members.png" width="180" />
+<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/4-Release.png" width="180" />
+<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/5-Artist.png" width="180" />
+<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/6-Review.png" width="180" />
+<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/7-Label.png" width="180" />
+<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/8-Simple-Search.png" width="180" />
+<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/9-Advanced-Search.png" width="180" />
+<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/10-Widget.png" width="180" />
+
 ## Features
 The application provides almost everything you can do on the site for research purposes. If you want to contribute to the site's contents, like wikipedia, you will have to register an account, make changes and wait for moderator approvals. In this case you have to use the web interface. iOS interface doesn't mean to be a complete alternative.
 
 **Replicated features:**
 
  - [Homepage](https://www.metal-archives.com/) which shows: statistics, news, latest additions/updates/reviews, upcoming albums.
+ - Manage your bookmarks: add/remove/edit bands/artists/labels/releases.
+ - Manage your collection: add/remove/edit releases.
  - Browse bands: [alphabetically](https://www.metal-archives.com/browse/letter), [by country](https://www.metal-archives.com/browse/country), [by genre](https://www.metal-archives.com/browse/genre).
  - Browse labels: [alphabetically](https://www.metal-archives.com/label), [by country](https://www.metal-archives.com/label/country).
  - List of [deceased artists](https://www.metal-archives.com/artist/rip).
@@ -47,12 +62,6 @@ The application provides almost everything you can do on the site for research p
    - Enable/disable thumbnails.
    - Today widget sections.
 
-**Todo list:**
-- [ ] WatchOS extension.
-- [ ] iMessages extension.
-- [ ] 2nd Today Widget which shows random bands.
-- [ ] UI improvements.
-
 ## 3rd party Dependencies
  - [Alamofire](https://github.com/Alamofire/Alamofire)
  - [AlamofireNetworkActivityIndicator](https://github.com/Alamofire/AlamofireNetworkActivityIndicator)
@@ -67,10 +76,14 @@ The application provides almost everything you can do on the site for research p
  - [AttributedLib](https://github.com/Nirma/Attributed)
  - [Siren](https://github.com/ArtSabintsev/Siren)
  - [NotificationBanner](https://github.com/Daltron/NotificationBanner)
+ - [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
+ - [KeychainAccess](https://github.com/kishikawakatsumi/KeychainAccess)
+ - [MaterialComponents/Snackbar](https://material.io/develop/ios/components/snackbars/)
+ - [Floaty](https://github.com/kciter/Floaty)
 
 Notices for 3rd party libraries in this repository are contained in `NOTICE.md`.
 ## License
-Copyright 2019 Thanh-Nhon NGUYEN
+Copyright © 2019-2020 Thanh-Nhon NGUYEN
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
