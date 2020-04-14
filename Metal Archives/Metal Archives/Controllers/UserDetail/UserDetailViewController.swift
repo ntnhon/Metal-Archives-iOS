@@ -12,8 +12,7 @@ import FirebaseAnalytics
 import MBProgressHUD
 import Toaster
 
-final class UserDetailViewController: BaseViewController {
-    @IBOutlet private weak var tableView: UITableView!
+final class UserDetailViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var floaty: Floaty!
     
@@ -42,6 +41,9 @@ final class UserDetailViewController: BaseViewController {
     var historyRecordableDelegate: HistoryRecordable?
     
     private var adjustedTableViewContentOffset = false
+    
+    // Pagable managers
+    private var reviewPagableManager: PagableManager<UserReview>!
     
     deinit {
         print("UserDetailViewController is deallocated")
@@ -166,10 +168,35 @@ final class UserDetailViewController: BaseViewController {
             } else if let userProfile = userProfile {
                 self.floaty.isHidden = false
                 self.userProfile = userProfile
-                self.tableView.reloadData()
                 self.simpleNavigationBarView.setTitle(userProfile.username)
+                self.initPagableManagers()
+                self.reviewPagableManager.fetch()
+                self.tableView.reloadData()
             }
         }
+    }
+    
+    private func initPagableManagers() {
+        reviewPagableManager = PagableManager<UserReview>(options: ["<USER_ID>": userProfile!.id])
+        reviewPagableManager.delegate = self
+    }
+}
+
+// MARK: - PagableManagerDelegate
+extension UserDetailViewController: PagableManagerDelegate {
+    func pagableManagerDidBeginFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        showHUD()
+    }
+    
+    func pagableManagerDidFailFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        hideHUD()
+        Toast.displayMessageShortly(errorLoadingMessage)
+    }
+    
+    func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
+        hideHUD()
+        endRefreshing()
+        tableView.reloadData()
     }
 }
 
@@ -241,18 +268,28 @@ extension UserDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let _ = userProfile else { return 0 }
+        
         if section == 0 {
-            return userProfile != nil ? 2 : 0
+            return 2
         }
         
-        return 0
+        switch currentMenuOption {
+        case .reviews: return reviewPagableManager.objects.count
+        default: return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section, indexPath.row) {
         case (0, 0): return userInfoTableViewCell(forRowAt: indexPath)
         case (0, 1): return horizontalMenuAnchorTableViewCell(forRowAt: indexPath)
-        default: return userReviewCell(forRowAt: indexPath)
+        default: break
+        }
+        
+        switch currentMenuOption {
+        case .reviews: return userReviewTableViewCell(forRowAt: indexPath)
+        default: return UITableViewCell()
         }
     }
     
@@ -272,5 +309,9 @@ extension UserDetailViewController: UITableViewDataSource {
         horizontalMenuAnchorTableViewCell = cell
         horizontalMenuAnchorTableViewCell.contentView.heightAnchor.constraint(equalToConstant: horizontalMenuView.intrinsicHeight).isActive = true
         return cell
+    }
+    
+    private func userReviewTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
     }
 }
