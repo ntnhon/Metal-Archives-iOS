@@ -49,27 +49,3 @@ final class LoginService {
         isLoggedIn = false
     }
 }
-
-extension LoginService {
-    static func fetchMyProfile(username: String, completion: @escaping (_ myProfile: MyProfile?, _ error: MALoginError?) -> Void) {
-        let requestURL = URL(string: "https://www.metal-archives.com/users/\(username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed) ?? "")")!
-        RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
-            switch response.result {
-            case .success:
-                if let data = response.data {
-                    if let myProfile = MyProfile(from: data, username: username) {
-                        completion(myProfile, nil)
-                    } else {
-                        completion(nil, MALoginError.failedToParseMyProfile)
-                    }
-                    
-                } else {
-                    completion(nil, MALoginError.emptyResponse)
-                }
-            
-            case .failure(let error):
-                completion(nil, MALoginError.unknown(description: error.localizedDescription))
-            }
-        }
-    }
-}

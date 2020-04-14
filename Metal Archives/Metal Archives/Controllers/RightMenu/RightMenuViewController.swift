@@ -31,7 +31,7 @@ final class RightMenuViewController: BaseViewController {
     
     private let options: [[RightMenuOption]] = [[.collection, .wishlist, .tradeList], [.bands, .artists, .labels, .releases], [.logOut]]
     
-    private var myProfile: MyProfile?
+    private var myProfile: UserProfile?
 
     deinit {
         print("RightMenuViewController is deallocated")
@@ -94,7 +94,7 @@ final class RightMenuViewController: BaseViewController {
     private func fetchMyProfileIfApplicable() {
         guard myProfile == nil && KeychainService.getUsername() != "" else { return }
         
-        LoginService.fetchMyProfile(username: KeychainService.getUsername()) { [weak self] (myProfile, error) in
+        RequestHelper.UserDetail.fetchUserProfile(username: KeychainService.getUsername()) { [weak self] (myProfile, error) in
             guard let self = self else { return }
             
             if let error = error {

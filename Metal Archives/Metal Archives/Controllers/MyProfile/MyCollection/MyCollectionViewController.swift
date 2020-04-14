@@ -16,7 +16,7 @@ import FirebaseAnalytics
 final class MyCollectionViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     
-    var myProfile: MyProfile!
+    var myProfile: UserProfile!
     var myCollection: MyCollection = .collection
     
     private var collectionPagableManager: PagableManager<ReleaseCollection>!

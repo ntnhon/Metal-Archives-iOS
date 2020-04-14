@@ -1,5 +1,5 @@
 //
-//  MyProfile.swift
+//  UserProfile.swift
 //  Metal Archives
 //
 //  Created by Thanh-Nhon Nguyen on 10/04/2020.
@@ -9,7 +9,7 @@
 import Foundation
 import Kanna
 
-final class MyProfile {
+final class UserProfile {
     private(set) var id: String!
     private(set) var username: String!
     private(set) var rank: String!
