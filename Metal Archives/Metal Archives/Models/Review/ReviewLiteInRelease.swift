@@ -12,10 +12,10 @@ final class ReviewLiteInRelease {
     let title: String
     let urlString: String
     let rating: Int
-    let author: User
+    let author: UserLite
     let dateString: String
     
-    init(title: String, urlString: String, rating: Int, author: User, dateString: String) {
+    init(title: String, urlString: String, rating: Int, author: UserLite, dateString: String) {
         self.title = title
         self.urlString = urlString
         self.rating = rating

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--User Detail View Controller-->
+        <scene sceneID="NT1-TG-7ry">
+            <objects>
+                <viewController storyboardIdentifier="UserDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jId-Hd-B54" customClass="UserDetailViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="80i-bC-MZI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Zyl-TB-fT2">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="jId-Hd-B54" id="po7-Nt-XbR"/>
+                                    <outlet property="delegate" destination="jId-Hd-B54" id="PNo-yn-AYh"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mwR-lE-HrH" customClass="SimpleNavigationBarView" customModule="Metal_Archives" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" placeholder="YES" id="Ua6-TK-cjr"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Rd-vE-ggW" customClass="Floaty" customModule="Floaty">
+                                <rect key="frame" x="336" y="784" width="48" height="48"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="3rf-pf-JBt"/>
+                                    <constraint firstAttribute="width" constant="48" id="QWY-te-E2c"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gf7-he-5Pf" firstAttribute="bottom" secondItem="4Rd-vE-ggW" secondAttribute="bottom" constant="30" id="0VW-ua-GUT"/>
+                            <constraint firstItem="gf7-he-5Pf" firstAttribute="trailing" secondItem="mwR-lE-HrH" secondAttribute="trailing" id="6h4-IP-oTz"/>
+                            <constraint firstAttribute="bottom" secondItem="Zyl-TB-fT2" secondAttribute="bottom" id="AKv-hb-fnv"/>
+                            <constraint firstItem="gf7-he-5Pf" firstAttribute="trailing" secondItem="4Rd-vE-ggW" secondAttribute="trailing" constant="30" id="Mxo-Jh-ISd"/>
+                            <constraint firstItem="gf7-he-5Pf" firstAttribute="trailing" secondItem="Zyl-TB-fT2" secondAttribute="trailing" id="P39-Ch-gxc"/>
+                            <constraint firstItem="mwR-lE-HrH" firstAttribute="leading" secondItem="gf7-he-5Pf" secondAttribute="leading" id="eAQ-xK-5uj"/>
+                            <constraint firstItem="Zyl-TB-fT2" firstAttribute="top" secondItem="80i-bC-MZI" secondAttribute="top" id="rWH-j4-d8j"/>
+                            <constraint firstItem="Zyl-TB-fT2" firstAttribute="leading" secondItem="gf7-he-5Pf" secondAttribute="leading" id="z9A-9O-X3Z"/>
+                            <constraint firstItem="mwR-lE-HrH" firstAttribute="top" secondItem="80i-bC-MZI" secondAttribute="top" id="zjN-TY-wgs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gf7-he-5Pf"/>
+                    </view>
+                    <connections>
+                        <outlet property="floaty" destination="4Rd-vE-ggW" id="g8n-B6-5KT"/>
+                        <outlet property="simpleNavigationBarView" destination="mwR-lE-HrH" id="M7e-HH-s3O"/>
+                        <outlet property="tableView" destination="Zyl-TB-fT2" id="juW-Vl-S6M"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QYY-4v-wRL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53.600000000000001" y="91.304347826086968"/>
+        </scene>
+    </scenes>
+</document>

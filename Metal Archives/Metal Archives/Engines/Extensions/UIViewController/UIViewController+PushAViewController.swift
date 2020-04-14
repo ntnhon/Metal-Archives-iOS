@@ -53,6 +53,16 @@ extension UIViewController {
         }
     }
     
+    func pushUserDetailViewController(urlString: String, animated: Bool) {
+        let userDetailViewController = UIStoryboard(name: "UserDetail", bundle: nil).instantiateViewController(withIdentifier: "UserDetailViewController") as! UserDetailViewController
+        userDetailViewController.urlString = urlString
+        navigationController?.pushViewController(userDetailViewController, animated: animated)
+        
+        if let _ = self as? HistoryRecordable {
+            userDetailViewController.historyRecordableDelegate = (self as! HistoryRecordable)
+        }
+    }
+    
     func takeActionFor(actionableObject: Actionable) {
         if actionableObject.actionableElements.count == 1 {
             switch actionableObject.actionableElements[0] {
@@ -134,6 +144,11 @@ extension UIViewController {
                             }
                         }
                     }
+                })
+                
+            case .user(let name, let urlString):
+                action = UIAlertAction(title: "👤 User: \(name)", style: .default, handler: { (action) in
+                    self.pushUserDetailViewController(urlString: urlString, animated: true)
                 })
             }
             

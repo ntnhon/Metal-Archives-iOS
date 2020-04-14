@@ -11,6 +11,7 @@ import UIKit
 protocol ReviewDetailTableViewCellDelegate: class {
     func didTapBandNameLabel()
     func didTapReleaseTitleLabel()
+    func didTapAuthorLabel()
     func didTapBaseVersionLabel()
 }
 
@@ -53,8 +54,12 @@ final class ReviewDetailTableViewCell: BaseTableViewCell, RegisterableCell {
         dateLabel.font = Settings.currentFontSize.bodyTextFont
         
         // Author
-        authorLabel.textColor = Settings.currentTheme.bodyTextColor
+        authorLabel.textColor = Settings.currentTheme.secondaryTitleColor
         authorLabel.font = Settings.currentFontSize.bodyTextFont
+        
+        let authorLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapAuthorLabel))
+        authorLabel.isUserInteractionEnabled = true
+        authorLabel.addGestureRecognizer(authorLabelTapGesture)
         
         // Base version
         baseVersionLabel.textColor = Settings.currentTheme.secondaryTitleColor
@@ -88,6 +93,10 @@ final class ReviewDetailTableViewCell: BaseTableViewCell, RegisterableCell {
     
     @objc private func tapReleaseTitleLabel() {
         delegate?.didTapReleaseTitleLabel()
+    }
+    
+    @objc private func tapAuthorLabel() {
+        delegate?.didTapAuthorLabel()
     }
     
     @objc private func tapBaseVersionLabel() {

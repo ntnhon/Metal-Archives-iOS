@@ -191,6 +191,16 @@ extension ReviewViewController: ReviewDetailTableViewCellDelegate {
         Analytics.logEvent("view_review_release", parameters: ["release_title": self.review.release.title, "review_title": self.review.title!])
     }
     
+    func didTapAuthorLabel() {
+        dismissToBottom { [unowned self] in
+            if let parentViewController = self.parent, parentViewController is UINavigationController {
+                (parentViewController as! UINavigationController).viewControllers.first?.pushUserDetailViewController(urlString: self.review.user.urlString, animated: true)
+            }
+        }
+        
+        Analytics.logEvent("view_review_author", parameters: ["release_title": self.review.release.title, "review_title": self.review.title!])
+    }
+    
     func didTapBaseVersionLabel() {
         dismissToBottom { [unowned self] in
             guard let baseVersionUrlString = self.review.baseVersion?.urlString else {

@@ -13,7 +13,7 @@ final class ReviewLite {
     let releaseTitle: String
     let rating: Int
     let dateString: String
-    let user: User
+    let user: UserLite
     
     lazy var ratingAndUsernameAttributedString: NSAttributedString = {
         guard let release = release else {
@@ -58,7 +58,7 @@ final class ReviewLite {
             let urlSubstring = array[0].subString(after: #"href='"#, before: #"'>"#, options: .caseInsensitive) else { return nil }
         
         let ratingString = array[1].replacingOccurrences(of: "%", with: "")
-        let user = User(from: array[2])
+        let user = UserLite(from: array[2])
         let dateString = array[3]
         
         if let rating = Int(ratingString), let user = user {
@@ -109,6 +109,9 @@ extension ReviewLite: Actionable {
 
         let reviewElement = ActionableElement.review(name: "By \(user.name) - \(rating)%", urlString: urlString)
         elements.append(reviewElement)
+        
+        let userElement = ActionableElement.user(name: user.name, urlString: user.urlString)
+        elements.append(userElement)
         
         return elements
     }

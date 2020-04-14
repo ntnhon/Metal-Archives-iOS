@@ -229,6 +229,10 @@ extension SimpleSearchViewController {
             case .label:
                 Analytics.logEvent("select_search_history_label", parameters: ["label": searchHistory.nameOrTitle ?? ""])
                 pushLabelDetailViewController(urlString: urlString, animated: true)
+                
+            case .user:
+                Analytics.logEvent("select_search_history_user", parameters: ["user": searchHistory.nameOrTitle ?? ""])
+                pushUserDetailViewController(urlString: urlString, animated: true)
             }
         }
     }

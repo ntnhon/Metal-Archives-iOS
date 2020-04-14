@@ -16,7 +16,7 @@ final class LatestReview {
     let rating: Int
     let dateString: String
     let timeString: String
-    let author: User
+    let author: UserLite
     
     lazy var authorAndRatingAndDateAttributedString: NSAttributedString = {
         let authorAndRatingAndDateString = "\(author.name) • \(rating)% • \(dateString), \(timeString)"
@@ -25,7 +25,7 @@ final class LatestReview {
         mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(authorAndRatingAndDateString.startIndex..., in: authorAndRatingAndDateString))
         
         if let authorNameRange = authorAndRatingAndDateString.range(of: author.name) {
-            mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.boldBodyTextFont], range: NSRange(authorNameRange, in: authorAndRatingAndDateString))
+            mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor, .font: Settings.currentFontSize.italicBodyTextFont], range: NSRange(authorNameRange, in: authorAndRatingAndDateString))
         }
 
         if let ratingRange = authorAndRatingAndDateString.range(of: "\(rating)%") {
@@ -58,7 +58,7 @@ final class LatestReview {
         guard
             let band = BandLite(from: array[2]),
             let release = ReleaseExtraLite(from: array[3]),
-            let author = User(from: array[5]) else {
+            let author = UserLite(from: array[5]) else {
             return nil
         }
         
@@ -106,7 +106,8 @@ extension LatestReview: Actionable {
     var actionableElements: [ActionableElement] {
         let bandElement = ActionableElement.band(name: band.name, urlString: band.urlString)
         let releaseElement = ActionableElement.release(name: release.title, urlString: release.urlString)
+        let userElement = ActionableElement.user(name: author.name, urlString: author.urlString)
         let reviewElement = ActionableElement.review(name: "By \(self.author.name) - \(self.rating)%", urlString: reviewURLString)
-        return [bandElement, releaseElement, reviewElement]
+        return [bandElement, releaseElement, reviewElement, userElement]
     }
 }

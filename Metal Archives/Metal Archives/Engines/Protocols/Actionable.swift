@@ -16,6 +16,7 @@ enum ActionableElement {
     case label(name: String, urlString: String)
     case website(name: String, urlString: String)
     case review(name: String, urlString: String)
+    case user(name: String, urlString: String)
     case event(event: EKEvent)
 }
 

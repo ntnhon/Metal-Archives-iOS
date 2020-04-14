@@ -506,6 +506,10 @@
 		C0BAD4B3222EE98F00C4D38D /* SimpleSearchResultLabelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BAD4B2222EE98F00C4D38D /* SimpleSearchResultLabelName.swift */; };
 		C0BAD4B5222EED6300C4D38D /* SimpleSearchResultArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BAD4B4222EED6300C4D38D /* SimpleSearchResultArtist.swift */; };
 		C0BAD4B7222EEDA500C4D38D /* ArtistExtraLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BAD4B6222EEDA500C4D38D /* ArtistExtraLite.swift */; };
+		C0BD10F02445F80A001AA88A /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD10EF2445F80A001AA88A /* UserDetailViewController.swift */; };
+		C0BD10F22445F84C001AA88A /* UserDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0BD10F12445F84C001AA88A /* UserDetail.storyboard */; };
+		C0BD10F52445FCF0001AA88A /* UserLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD10F42445FCF0001AA88A /* UserLite.swift */; };
+		C0BD10F62445FE0B001AA88A /* UserLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD10F42445FCF0001AA88A /* UserLite.swift */; };
 		C0BE339021E68CDD001ED000 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE338F21E68CDC001ED000 /* AppDelegate.swift */; };
 		C0BE339721E68CDF001ED000 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0BE339621E68CDF001ED000 /* Assets.xcassets */; };
 		C0BE339A21E68CDF001ED000 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0BE339821E68CDF001ED000 /* LaunchScreen.storyboard */; };
@@ -1070,6 +1074,9 @@
 		C0BAD4B2222EE98F00C4D38D /* SimpleSearchResultLabelName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchResultLabelName.swift; sourceTree = "<group>"; };
 		C0BAD4B4222EED6300C4D38D /* SimpleSearchResultArtist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchResultArtist.swift; sourceTree = "<group>"; };
 		C0BAD4B6222EEDA500C4D38D /* ArtistExtraLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistExtraLite.swift; sourceTree = "<group>"; };
+		C0BD10EF2445F80A001AA88A /* UserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
+		C0BD10F12445F84C001AA88A /* UserDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserDetail.storyboard; sourceTree = "<group>"; };
+		C0BD10F42445FCF0001AA88A /* UserLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLite.swift; sourceTree = "<group>"; };
 		C0BE338C21E68CDC001ED000 /* Metal Archives.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Metal Archives.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0BE338F21E68CDC001ED000 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0BE339621E68CDF001ED000 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1905,6 +1912,7 @@
 		C0602BC521E9E47300046367 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C0BD10F32445FCB3001AA88A /* User */,
 				C06E7E462440401B00762FBB /* MyProfile */,
 				C082CD9022E4756E002202F6 /* Deezer */,
 				C0602BD421EA873000046367 /* Enums */,
@@ -1922,7 +1930,6 @@
 				C0FBBE6D2208DECF00226FB1 /* RelatedLink.swift */,
 				C00D362C223D957800B29B43 /* Library.swift */,
 				C06E92D422539248006EE887 /* VersionHistory.swift */,
-				C07F8BE32287123200295146 /* User.swift */,
 				C04C5008228C2DBE00DAFBF1 /* AuditTrail.swift */,
 			);
 			path = Models;
@@ -1931,6 +1938,7 @@
 		C0602BC821E9E54A00046367 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C0BD10EE2445F7F7001AA88A /* UserDetail */,
 				C028BEC82440704B009BF476 /* MyProfile */,
 				C003D7B822E3B59C00F9F622 /* Deezer */,
 				C0A1F94F224198DE005C2C83 /* BrowseLabels */,
@@ -1996,6 +2004,7 @@
 				C003D7BD22E3B62300F9F622 /* Deezer.storyboard */,
 				C082CD9F22E497CF002202F6 /* Explanation.storyboard */,
 				C028BECE244072C8009BF476 /* MyProfile.storyboard */,
+				C0BD10F12445F84C001AA88A /* UserDetail.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -3134,6 +3143,23 @@
 			path = AdvancedSearch;
 			sourceTree = "<group>";
 		};
+		C0BD10EE2445F7F7001AA88A /* UserDetail */ = {
+			isa = PBXGroup;
+			children = (
+				C0BD10EF2445F80A001AA88A /* UserDetailViewController.swift */,
+			);
+			path = UserDetail;
+			sourceTree = "<group>";
+		};
+		C0BD10F32445FCB3001AA88A /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C07F8BE32287123200295146 /* User.swift */,
+				C0BD10F42445FCF0001AA88A /* UserLite.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		C0BE338321E68CDC001ED000 = {
 			isa = PBXGroup;
 			children = (
@@ -3534,6 +3560,7 @@
 				C0A1F94C22418B10005C2C83 /* ArtistRIP.storyboard in Resources */,
 				C06B62502242496B00A3FE6B /* BrowseLabelsByCountryResultTableViewCell.xib in Resources */,
 				C065BCA5222D27C10009808A /* NewsDetailTableViewCell.xib in Resources */,
+				C0BD10F22445F84C001AA88A /* UserDetail.storyboard in Resources */,
 				C0752960229E97B70067B5E1 /* DiscographyOptionsTableViewCell.xib in Resources */,
 				C0B2E064243E540B003119BF /* RightMenu.storyboard in Resources */,
 				C094BCB4229D44A20005BF3E /* BandInfoTableViewCell.xib in Resources */,
@@ -3762,6 +3789,7 @@
 				C07F8BE5228721C700295146 /* User.swift in Sources */,
 				C06B62A52242833B00A3FE6B /* String+Utilities.swift in Sources */,
 				C018B78C2243C01D00CDFFB8 /* String+RemoveEmptySpaces.swift in Sources */,
+				C0BD10F62445FE0B001AA88A /* UserLite.swift in Sources */,
 				C0F7E803225D37B900F907A6 /* DiscographyType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3884,6 +3912,7 @@
 				C075295E229E97950067B5E1 /* DiscographyOptionsTableViewCell.swift in Sources */,
 				C00E713C2442113100A17471 /* BookmarkRequests.swift in Sources */,
 				C00838872200F21200B35996 /* ReadMoreViewController.swift in Sources */,
+				C0BD10F52445FCF0001AA88A /* UserLite.swift in Sources */,
 				C0A1F94A224187FD005C2C83 /* ArtistRIPViewController.swift in Sources */,
 				C09A18AE21FF56B300152908 /* SlideMenuController+AutoRotate.swift in Sources */,
 				C0858F002236B39C00595B48 /* AdvancedSearchAlbumsViewController.swift in Sources */,
@@ -4074,6 +4103,7 @@
 				C053CF702224496900B056A8 /* BandCurrentRosterTableViewCell.swift in Sources */,
 				C0752962229EBE3B0067B5E1 /* DiscographyOptionListViewController.swift in Sources */,
 				C013364722384E7100963940 /* AdvancedBandNameTableViewCell.swift in Sources */,
+				C0BD10F02445F80A001AA88A /* UserDetailViewController.swift in Sources */,
 				C04872C021EE841900ECFDC2 /* News.swift in Sources */,
 				C00E71292441CD6700A17471 /* ArtistBookmark.swift in Sources */,
 				C002C356231591E300164CBB /* UpcomingAlbumsFilterManagementViewController.swift in Sources */,

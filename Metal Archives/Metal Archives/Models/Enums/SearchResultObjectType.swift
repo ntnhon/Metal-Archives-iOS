@@ -9,5 +9,5 @@
 import Foundation
 
 enum SearchResultObjectType: Int {
-    case band = 0, release, artist, label
+    case band = 0, release, artist, label, user
 }

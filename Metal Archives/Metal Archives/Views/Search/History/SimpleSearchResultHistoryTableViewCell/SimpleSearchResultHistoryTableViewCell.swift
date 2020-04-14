@@ -50,6 +50,7 @@ final class SimpleSearchResultHistoryTableViewCell: BaseTableViewCell, Registera
             case .release: thumbnailImageView.image = #imageLiteral(resourceName: "vinyl")
             case .artist: thumbnailImageView.image = #imageLiteral(resourceName: "person")
             case .label: thumbnailImageView.image = #imageLiteral(resourceName: "label")
+            case .user: thumbnailImageView.image = #imageLiteral(resourceName: "person")
             }
         }
     }

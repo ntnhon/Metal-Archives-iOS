@@ -15,7 +15,7 @@ final class Review {
     private(set) var coverPhotoURLString: String?
     private(set) var title: String!
     private(set) var rating: Int!
-    private(set) var user: User!
+    private(set) var user: UserLite!
     private(set) var dateString: String!
     private(set) var baseVersion: ReleaseExtraLite?
     private(set) var htmlContentString: String!
@@ -79,7 +79,7 @@ final class Review {
                 
                 // 1st a tag contains user
                 if let userName = aTags[0].text, let userURLString = aTags[0]["href"] {
-                    self.user = User(name: userName, urlString: userURLString)
+                    self.user = UserLite(name: userName, urlString: userURLString)
                 }
                 
                 // 2nd a tag (optional) contains base version
