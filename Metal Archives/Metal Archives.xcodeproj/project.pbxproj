@@ -186,6 +186,9 @@
 		C04C5005228C0C7A00DAFBF1 /* ParseBandActiveYearsStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C5004228C0C7A00DAFBF1 /* ParseBandActiveYearsStringTests.swift */; };
 		C04C5009228C2DBE00DAFBF1 /* AuditTrail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C5008228C2DBE00DAFBF1 /* AuditTrail.swift */; };
 		C04C500C228C349300DAFBF1 /* ParseAuditTrailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C500B228C349300DAFBF1 /* ParseAuditTrailTests.swift */; };
+		C04D05D624466E8500C0469F /* UserReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04D05D524466E8500C0469F /* UserReviewTableViewCell.swift */; };
+		C04D05D824466EA000C0469F /* UserReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C04D05D724466EA000C0469F /* UserReviewTableViewCell.xib */; };
+		C04D05DA24466FD500C0469F /* Array+BandLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04D05D924466FD500C0469F /* Array+BandLite.swift */; };
 		C04D5A0B22A85F6200A687D1 /* UIColor+colorByRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B990D022079904000DBD86 /* UIColor+colorByRating.swift */; };
 		C051B6B52219FDDA0030E5EE /* ReviewDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C051B6B42219FDDA0030E5EE /* ReviewDetailTableViewCell.swift */; };
 		C051B6B72219FDEB0030E5EE /* ReviewDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C051B6B62219FDEB0030E5EE /* ReviewDetailTableViewCell.xib */; };
@@ -786,6 +789,9 @@
 		C04C5007228C0CD100DAFBF1 /* Metal ArchivesTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Metal ArchivesTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		C04C5008228C2DBE00DAFBF1 /* AuditTrail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditTrail.swift; sourceTree = "<group>"; };
 		C04C500B228C349300DAFBF1 /* ParseAuditTrailTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseAuditTrailTests.swift; sourceTree = "<group>"; };
+		C04D05D524466E8500C0469F /* UserReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewTableViewCell.swift; sourceTree = "<group>"; };
+		C04D05D724466EA000C0469F /* UserReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserReviewTableViewCell.xib; sourceTree = "<group>"; };
+		C04D05D924466FD500C0469F /* Array+BandLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+BandLite.swift"; sourceTree = "<group>"; };
 		C051B6B42219FDDA0030E5EE /* ReviewDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailTableViewCell.swift; sourceTree = "<group>"; };
 		C051B6B62219FDEB0030E5EE /* ReviewDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewDetailTableViewCell.xib; sourceTree = "<group>"; };
 		C05309E222232ECB0027D11E /* LabelDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelDetailViewController.swift; sourceTree = "<group>"; };
@@ -1729,6 +1735,15 @@
 			path = "Parsing Tests";
 			sourceTree = "<group>";
 		};
+		C04D05D424466E6900C0469F /* UserReviewTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C04D05D524466E8500C0469F /* UserReviewTableViewCell.swift */,
+				C04D05D724466EA000C0469F /* UserReviewTableViewCell.xib */,
+			);
+			path = UserReviewTableViewCell;
+			sourceTree = "<group>";
+		};
 		C051B6AB2219F04B0030E5EE /* ReviewDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -2070,6 +2085,7 @@
 				C071A22022AD3F6A00A06D2F /* UIView+PositionIn.swift */,
 				C0253ABD24434A9100864399 /* Floaty+ConvenienceMethods.swift */,
 				C08503BF244372E1009C3EF2 /* EKEvent+ConvenienceMethods.swift.swift */,
+				C04D05D924466FD500C0469F /* Array+BandLite.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3178,6 +3194,7 @@
 			isa = PBXGroup;
 			children = (
 				C0BD10FC24460B92001AA88A /* UserInfoTableViewCell */,
+				C04D05D424466E6900C0469F /* UserReviewTableViewCell */,
 			);
 			path = UserDetail;
 			sourceTree = "<group>";
@@ -3555,6 +3572,7 @@
 				C085E6C822A27FD5007FACFA /* ReleaseInfoTableViewCell.xib in Resources */,
 				C075296C229F0CE50067B5E1 /* MemberOptionTableViewCell.xib in Resources */,
 				C066139322899EDA00F99006 /* UpcomingAlbumCollectionViewCell.xib in Resources */,
+				C04D05D824466EA000C0469F /* UserReviewTableViewCell.xib in Resources */,
 				C00D35FB223D042500B29B43 /* BrowseBandsResultTableViewCell.xib in Resources */,
 				C056070122A320A2006F5BC1 /* ReleaseReviewOptionTableViewCell.xib in Resources */,
 				C06613882289955C00F99006 /* LatestReviewCollectionViewCell.xib in Resources */,
@@ -4010,6 +4028,7 @@
 				C082CDB622E4FA02002202F6 /* DeezerAlbumTableViewCell.swift in Sources */,
 				C06F1DEE21F7100800B49D39 /* LoadingTableViewCell.swift in Sources */,
 				C05309F222233FB30027D11E /* RequestLabelDetail.swift in Sources */,
+				C04D05D624466E8500C0469F /* UserReviewTableViewCell.swift in Sources */,
 				C00D3616223D5F4300B29B43 /* SimpleSearchType.swift in Sources */,
 				C09A4F5D21F3243D00421485 /* NewsArchiveViewController.swift in Sources */,
 				C0ECE704221B58B700489A8E /* RequestArtistTrivia.swift in Sources */,
@@ -4135,6 +4154,7 @@
 				C0BAD4AF222EE0EA00C4D38D /* BandNullable.swift in Sources */,
 				C00D3612223D5F0400B29B43 /* ArtistInfoType.swift in Sources */,
 				C0858F072237078800595B48 /* AdvancedSearchCountryListViewController.swift in Sources */,
+				C04D05DA24466FD500C0469F /* Array+BandLite.swift in Sources */,
 				C0107027222DC9570092D3A5 /* ImFeelingLuckyView.swift in Sources */,
 				C053CF702224496900B056A8 /* BandCurrentRosterTableViewCell.swift in Sources */,
 				C0752962229EBE3B0067B5E1 /* DiscographyOptionListViewController.swift in Sources */,

@@ -7,14 +7,29 @@
 //
 
 import Foundation
+import AttributedLib
 
 final class UserReview {
     let urlString: String
     let dateString: String
-    let band: BandLite
+    let bands: [BandLite]
     let release: ReleaseExtraLite
     let title: String
     let rating: Int
+    
+    lazy var bandsAttributedString: NSAttributedString = {
+        let bandNames = bands.map({$0.name})
+        return generateAttributedStringFromStrings(bandNames, as: .title, withSeparator: " / ")
+    }()
+    
+    lazy var ratingAndDateAttributedString: NSAttributedString = {
+        let ratingAttributes = Attributes {
+            return $0.foreground(color: UIColor.colorByRating(rating))
+                .font(Settings.currentFontSize.bodyTextFont)
+                .alignment(.justified)
+        }
+        return "\(rating)%".at.attributed(with: ratingAttributes) + " • \(dateString)".at.attributed(with: bodyTextAttributes)
+    }()
     
     /*Sample array:
      "<a href='https://www.metal-archives.com/reviews/Wolfheart/Wolves_of_Karelia/827791/hells_unicorn/29518' class='iconContainer ui-state-default ui-corners-all' title='Read'><span class='ui-icon ui-icon-search'>Read</span></a>",
@@ -30,7 +45,7 @@ final class UserReview {
         
         guard let urlSubstring = array[0].subString(after: "href='", before: " class='", options: .caseInsensitive) else { return nil }
         
-        guard let band = BandLite(from: array[2]) else { return nil }
+        guard let bands = Array<BandLite>.fromString(array[2]) else { return nil }
         
         guard let release = ReleaseExtraLite(from: array[3]) else { return nil }
         
@@ -38,7 +53,7 @@ final class UserReview {
         
         self.urlString = String(urlSubstring)
         self.dateString = array[1]
-        self.band = band
+        self.bands = bands
         self.release = release
         self.title = array[4]
         self.rating = rating
@@ -66,5 +81,25 @@ extension UserReview: Pagable {
             return (nil, nil)
         }
         return (list, totalRecords)
+    }
+}
+
+// MARK: - Actionable
+extension UserReview: Actionable {
+    var actionableElements: [ActionableElement] {
+        var elements: [ActionableElement] = []
+        
+        let reviewElement = ActionableElement.review(name: title, urlString: urlString)
+        elements.append(reviewElement)
+        
+        let releaseElement = ActionableElement.release(name: release.title, urlString: release.urlString)
+        elements.append(releaseElement)
+        
+        self.bands.forEach { (eachBand) in
+            let bandElement = ActionableElement.band(name: eachBand.name, urlString: eachBand.urlString)
+            elements.append(bandElement)
+        }
+        
+        return elements
     }
 }

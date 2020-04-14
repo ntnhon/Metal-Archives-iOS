@@ -80,6 +80,7 @@ final class UserDetailViewController: RefreshableViewController {
         LoadingTableViewCell.register(with: tableView)
         HorizontalMenuAnchorTableViewCell.register(with: tableView)
         UserInfoTableViewCell.register(with: tableView)
+        UserReviewTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -240,6 +241,17 @@ extension UserDetailViewController: HorizontalMenuViewDelegate {
 extension UserDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard indexPath.section > 0 else { return }
+        
+        switch currentMenuOption {
+        case .reviews:
+            let userReview = reviewPagableManager.objects[indexPath.row]
+            takeActionFor(actionableObject: userReview)
+            
+        default:
+            break
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -312,6 +324,12 @@ extension UserDetailViewController: UITableViewDataSource {
     }
     
     private func userReviewTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = UserReviewTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        let userReview = reviewPagableManager.objects[indexPath.row]
+        cell.bind(with: userReview)
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: userReview.release.imageURLString, description: userReview.release.title, fromImageView: cell.thumbnailImageView)
+        }
+        return cell
     }
 }
