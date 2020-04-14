@@ -483,6 +483,7 @@
 		C0AABDEC221DED3B0044A2CF /* UpcomingAlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AABDEB221DED3B0044A2CF /* UpcomingAlbumsViewController.swift */; };
 		C0AABDEF221DEEBC0044A2CF /* UpcomingAlbumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AABDEE221DEEBC0044A2CF /* UpcomingAlbumTableViewCell.swift */; };
 		C0AABDF1221DEEE10044A2CF /* UpcomingAlbumTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0AABDF0221DEEE10044A2CF /* UpcomingAlbumTableViewCell.xib */; };
+		C0AAE4D82446360600150FFC /* UserMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAE4D72446360600150FFC /* UserMenuOption.swift */; };
 		C0AF0A9122D47E05004B085F /* SearchHistory+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AF0A9022D47E05004B085F /* SearchHistory+CoreDataClass.swift */; };
 		C0AF0A9422D48B6B004B085F /* SearchHistoryTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AF0A9322D48B6B004B085F /* SearchHistoryTableHeaderView.swift */; };
 		C0AF0A9622D4FC6F004B085F /* NewRocker-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0AF0A9522D4FC6E004B085F /* NewRocker-Regular.ttf */; };
@@ -1054,6 +1055,7 @@
 		C0AABDEB221DED3B0044A2CF /* UpcomingAlbumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbumsViewController.swift; sourceTree = "<group>"; };
 		C0AABDEE221DEEBC0044A2CF /* UpcomingAlbumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbumTableViewCell.swift; sourceTree = "<group>"; };
 		C0AABDF0221DEEE10044A2CF /* UpcomingAlbumTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingAlbumTableViewCell.xib; sourceTree = "<group>"; };
+		C0AAE4D72446360600150FFC /* UserMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMenuOption.swift; sourceTree = "<group>"; };
 		C0AF0A9022D47E05004B085F /* SearchHistory+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SearchHistory+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C0AF0A9322D48B6B004B085F /* SearchHistoryTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableHeaderView.swift; sourceTree = "<group>"; };
 		C0AF0A9522D4FC6E004B085F /* NewRocker-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NewRocker-Regular.ttf"; sourceTree = "<group>"; };
@@ -2101,6 +2103,7 @@
 				C02C035B2440FCD700220AF7 /* BandOrReleaseBookmarkOrder.swift */,
 				C00E712F2441D38300A17471 /* ArtistOrLabelBookmarkOrder.swift */,
 				C0253ABF244358E800864399 /* DeezerableType.swift */,
+				C0AAE4D72446360600150FFC /* UserMenuOption.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -3885,6 +3888,7 @@
 				C0A1F940224153A7005C2C83 /* SettingExplicationTableViewController.swift in Sources */,
 				C053DD3022267AE00028568B /* LabelStatistic.swift in Sources */,
 				C08CAAFB22AA31BE00E78520 /* HorizontalOptionsView.swift in Sources */,
+				C0AAE4D82446360600150FFC /* UserMenuOption.swift in Sources */,
 				C0602BC721E9E4A600046367 /* BandAdditionOrUpdate.swift in Sources */,
 				C0AA06AE22393F76001BE21D /* AdvancedSearchReleaseFormatListViewController.swift in Sources */,
 				C02C03582440D77F00220AF7 /* BandBookmarkTableViewCell.swift in Sources */,
