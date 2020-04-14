@@ -13,8 +13,8 @@ import Foundation
 struct AuditTrail {
     let addedOnDate: Date?
     let modifiedOnDate: Date?
-    let addedByUser: User?
-    let modifiedByUser: User?
+    let addedByUser: UserLite?
+    let modifiedByUser: UserLite?
     
     
     /*
@@ -52,13 +52,13 @@ struct AuditTrail {
         }
         
         if let addedBySustring = string.subString(after: "Added by", before: "</td>", options: .caseInsensitive),
-            let addedByUser = User(from: String(addedBySustring)) {
+            let addedByUser = UserLite(from: String(addedBySustring)) {
             self.addedByUser = addedByUser
         } else {
             self.addedByUser = nil
         }
         
-        if let modifiedBySubstring = string.subString(after: "Modified by", before: "</td>", options: .caseInsensitive), let modifiedByUser = User(from: String(modifiedBySubstring)){
+        if let modifiedBySubstring = string.subString(after: "Modified by", before: "</td>", options: .caseInsensitive), let modifiedByUser = UserLite(from: String(modifiedBySubstring)){
             self.modifiedByUser = modifiedByUser
         } else {
             self.modifiedByUser = nil

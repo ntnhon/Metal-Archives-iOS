@@ -13,7 +13,7 @@ class LabelAdditionOrUpdate: ThumbnailableObject {
     let status: LabelStatus
     let country: Country?
     let updatedDate: Date
-    let user: User
+    let user: UserLite
     
     lazy var countryAndStatusAttributedString: NSAttributedString = {
         let countryNameAndEmojii = country?.nameAndEmoji ?? "Unknown country"
@@ -60,7 +60,7 @@ class LabelAdditionOrUpdate: ThumbnailableObject {
         
         guard let updatedDate = defaultDateFormatter.date(from: array[4]) else { return nil }
         
-        guard let user = User(from: array[5]) else { return nil }
+        guard let user = UserLite(from: array[5]) else { return nil }
         
         let countryName = array[3].replacingOccurrences(of: "&nbsp;", with: "")
         self.country = Country(name: countryName)

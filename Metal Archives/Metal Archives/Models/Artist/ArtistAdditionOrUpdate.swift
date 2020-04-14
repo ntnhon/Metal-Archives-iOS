@@ -15,7 +15,7 @@ class ArtistAdditionOrUpdate: ThumbnailableObject {
     let country: Country?
     let bands: [BandLite]
     let updatedDate: Date
-    let user: User
+    let user: UserLite
     
     private let artistNameAttributes = Attributes {
         return $0.foreground(color: Settings.currentTheme.titleColor)
@@ -104,7 +104,7 @@ class ArtistAdditionOrUpdate: ThumbnailableObject {
         guard let updatedDate = defaultDateFormatter.date(from: array[4]) else { return nil }
         self.updatedDate = updatedDate
         
-        guard let user = User(from: array[5]) else { return nil }
+        guard let user = UserLite(from: array[5]) else { return nil }
         self.user = user
         
         super.init(urlString: String(urlSubstring), imageType: .artist)

@@ -9,6 +9,8 @@
 import UIKit
 import Floaty
 import FirebaseAnalytics
+import MBProgressHUD
+import Toaster
 
 final class UserDetailViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -17,7 +19,7 @@ final class UserDetailViewController: BaseViewController {
     
     var urlString: String!
     
-    private var user: User!
+    private var userProfile: UserProfile?
     
     var historyRecordableDelegate: HistoryRecordable?
     
@@ -30,10 +32,12 @@ final class UserDetailViewController: BaseViewController {
         configureTableView()
         initFloaty()
         initSimpleNavigationBarView()
+        fetchUserProfile()
     }
     
     private func configureTableView() {
         LoadingTableViewCell.register(with: tableView)
+        UserInfoTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -68,11 +72,32 @@ final class UserDetailViewController: BaseViewController {
     }
     
     private func shareUser() {
-        guard let user = self.user, let url = URL(string: user.urlString) else { return }
+        guard let userProfile = self.userProfile, let url = URL(string: urlString) else { return }
         
-        self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(user.name) in browser", alertMessage: user.urlString, shareMessage: "Share this user URL")
+        self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(userProfile.username ?? "") in browser", alertMessage: urlString, shareMessage: "Share this user URL")
         
         Analytics.logEvent("share_user", parameters: nil)
+    }
+    
+    private func fetchUserProfile() {
+        floaty.isHidden = true
+        showHUD(hideNavigationBar: true)
+        
+        RequestHelper.UserDetail.fetchUserProfile(urlString: urlString) { [weak self] (userProfile, error) in
+            guard let self = self else { return }
+        
+            self.hideHUD()
+            
+            if let error = error {
+                Toast.displayMessageShortly(error.localizedDescription)
+                self.dismiss(animated: true, completion: nil)
+            } else if let userProfile = userProfile {
+                self.floaty.isHidden = false
+                self.userProfile = userProfile
+                self.tableView.reloadData()
+                self.simpleNavigationBarView.setTitle(userProfile.username)
+            }
+        }
     }
 }
 
@@ -81,19 +106,45 @@ extension UserDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return CGFloat.leastNormalMagnitude
+        }
+        
+        return UITableView.automaticDimension
+    }
 }
 
 // MARK: - UITableViewDataSource
 extension UserDetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return userProfile != nil ? 1 : 0
+        }
+        
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            guard let userProfile = userProfile else {
+                return UITableViewCell()
+            }
+            
+            let userInfoCell = UserInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            userInfoCell.bind(with: userProfile)
+            return userInfoCell
+        }
+        
+        return userReviewCell(forRowAt: indexPath)
+    }
+    
+    private func userReviewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
 }

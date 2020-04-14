@@ -17,15 +17,21 @@ final class UserProfile {
     private(set) var fullName: String?
     private(set) var gender: String!
     private(set) var age: String!
-    private(set) var country: Country?
+    private(set) var country: Country!
     private(set) var homepage: String?
     private(set) var favoriteGenres: String?
     private(set) var comments: String?
     
-    init?(from data: Data, username: String) {
+    init?(from data: Data) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
             let doc = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
                 return nil
+        }
+        
+        for h1 in doc.css("h1") {
+            if let`class` = h1["class"], `class` == "page_title", let h1Text = h1.text {
+                self.username = h1Text.replacingOccurrences(of: "'s profile", with: "")
+            }
         }
         
         for div in doc.css("div") {
@@ -68,13 +74,12 @@ final class UserProfile {
                 if let p = dl.css("p").first, let pText = p.text {
                     comments = pText
                 }
-
-                self.username = username
+                
                 return
             }
         }
         
-        if let _ = id, let _ = rank, let _ = points, let _ = gender, let _ = age {
+        if let _ = id, let _ = username, let _ = rank, let _ = points, let _ = gender, let _ = age, let _ = country {
             return
         }
         

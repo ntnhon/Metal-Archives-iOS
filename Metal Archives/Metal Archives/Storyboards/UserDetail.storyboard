@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Zyl-TB-fT2">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="84" width="414" height="812"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="jId-Hd-B54" id="po7-Nt-XbR"/>
@@ -48,7 +48,7 @@
                             <constraint firstItem="gf7-he-5Pf" firstAttribute="trailing" secondItem="4Rd-vE-ggW" secondAttribute="trailing" constant="30" id="Mxo-Jh-ISd"/>
                             <constraint firstItem="gf7-he-5Pf" firstAttribute="trailing" secondItem="Zyl-TB-fT2" secondAttribute="trailing" id="P39-Ch-gxc"/>
                             <constraint firstItem="mwR-lE-HrH" firstAttribute="leading" secondItem="gf7-he-5Pf" secondAttribute="leading" id="eAQ-xK-5uj"/>
-                            <constraint firstItem="Zyl-TB-fT2" firstAttribute="top" secondItem="80i-bC-MZI" secondAttribute="top" id="rWH-j4-d8j"/>
+                            <constraint firstItem="Zyl-TB-fT2" firstAttribute="top" secondItem="mwR-lE-HrH" secondAttribute="bottom" id="tq6-xO-oc1"/>
                             <constraint firstItem="Zyl-TB-fT2" firstAttribute="leading" secondItem="gf7-he-5Pf" secondAttribute="leading" id="z9A-9O-X3Z"/>
                             <constraint firstItem="mwR-lE-HrH" firstAttribute="top" secondItem="80i-bC-MZI" secondAttribute="top" id="zjN-TY-wgs"/>
                         </constraints>
@@ -62,7 +62,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QYY-4v-wRL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53.600000000000001" y="91.304347826086968"/>
+            <point key="canvasLocation" x="52.173913043478265" y="91.071428571428569"/>
         </scene>
     </scenes>
 </document>

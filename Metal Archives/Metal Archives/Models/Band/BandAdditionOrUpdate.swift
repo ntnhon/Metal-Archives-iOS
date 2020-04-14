@@ -13,7 +13,7 @@ class BandAdditionOrUpdate: ThumbnailableObject {
     let country: Country
     let genre: String
     let updatedDateAndTimeString: String
-    let user: User
+    let user: UserLite
     
     lazy var countryAndDateAttributedString: NSAttributedString = {
         let countryAndDateString = "\(country.nameAndEmoji) • \(updatedDateAndTimeString)"
@@ -49,7 +49,7 @@ class BandAdditionOrUpdate: ThumbnailableObject {
             return nil
         }
         
-        guard let user = User(from: array[5]) else {
+        guard let user = UserLite(from: array[5]) else {
             return nil
         }
         
