@@ -36,6 +36,8 @@ final class UserInfoTableViewCell: BaseTableViewCell, RegisterableCell {
     
     func bind(with userProfile: UserProfile) {
         rankLabel.text = userProfile.rank
+        rankLabel.textColor = userProfile.rank.rankColor()
+        
         pointsLabel.text = userProfile.points
         fullNameLabel.text = userProfile.fullName ?? "N/A"
         genderLabel.text = userProfile.gender

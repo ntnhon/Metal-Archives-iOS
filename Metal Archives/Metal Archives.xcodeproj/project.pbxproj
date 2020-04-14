@@ -427,6 +427,7 @@
 		C085E6C822A27FD5007FACFA /* ReleaseInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C085E6C722A27FD5007FACFA /* ReleaseInfoTableViewCell.xib */; };
 		C08607FE225235F800FE750F /* MonthInYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AABDE7221D8AB00044A2CF /* MonthInYear.swift */; };
 		C08CAAFB22AA31BE00E78520 /* HorizontalOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08CAAFA22AA31BE00E78520 /* HorizontalOptionsView.swift */; };
+		C09339F22446409600E3989B /* String+RankColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09339F12446409600E3989B /* String+RankColor.swift */; };
 		C094BCAF229D27B70005BF3E /* HomepageNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C094BCAE229D27B70005BF3E /* HomepageNavigationController.swift */; };
 		C094BCB2229D44750005BF3E /* BandInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C094BCB1229D44750005BF3E /* BandInfoTableViewCell.swift */; };
 		C094BCB4229D44A20005BF3E /* BandInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C094BCB3229D44A20005BF3E /* BandInfoTableViewCell.xib */; };
@@ -1000,6 +1001,7 @@
 		C085E6C522A27F78007FACFA /* ReleaseInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C085E6C722A27FD5007FACFA /* ReleaseInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C08CAAFA22AA31BE00E78520 /* HorizontalOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalOptionsView.swift; sourceTree = "<group>"; };
+		C09339F12446409600E3989B /* String+RankColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RankColor.swift"; sourceTree = "<group>"; };
 		C094BCAE229D27B70005BF3E /* HomepageNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageNavigationController.swift; sourceTree = "<group>"; };
 		C094BCB1229D44750005BF3E /* BandInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C094BCB3229D44A20005BF3E /* BandInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BandInfoTableViewCell.xib; sourceTree = "<group>"; };
@@ -2751,6 +2753,7 @@
 				C05309F322235BE20027D11E /* String+RemoveEmptySpaces.swift */,
 				C0F5DB44228B608100888FED /* String+RemoveHTMLTags.swift */,
 				C0E2C671231683CC0037B4A5 /* String+GenreStringToKeywords+Predicate.swift */,
+				C09339F12446409600E3989B /* String+RankColor.swift */,
 			);
 			path = String;
 			sourceTree = "<group>";
@@ -3854,6 +3857,7 @@
 				C0A48CEE222181BD0047FC70 /* Toaster+DisplayMessageShortly.swift in Sources */,
 				C0795B8B2288234F00E5D94F /* BetterSnappingLayout.swift in Sources */,
 				C01D5870225CE28100DC7556 /* ThemeListTableViewController.swift in Sources */,
+				C09339F22446409600E3989B /* String+RankColor.swift in Sources */,
 				C027A28422B593FE0011EA73 /* Top100NavigationBarView.swift in Sources */,
 				C028BECB2440708B009BF476 /* MyBookmarksViewController.swift in Sources */,
 				C00D3631223D98D700B29B43 /* DetailTableViewCell.swift in Sources */,

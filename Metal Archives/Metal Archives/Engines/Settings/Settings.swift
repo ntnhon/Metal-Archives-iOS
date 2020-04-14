@@ -364,3 +364,42 @@ enum Theme: Int, CustomStringConvertible {
         }
     }
 }
+
+ // MARK: - User ranking color
+extension Theme {
+    var webmasterColor: UIColor {
+        return .systemRed
+    }
+    
+    var metalGodColor: UIColor {
+        return UIColor("#F26236")
+    }
+    
+    var metalLordColor: UIColor {
+        return UIColor("#2F294F")
+    }
+    
+    var metalDemonColor: UIColor {
+        return UIColor("#319A8C")
+    }
+    
+    var metalKnightColor: UIColor {
+        return UIColor("#B74E8C")
+    }
+    
+    var dishonourablyDischargedColor: UIColor {
+        return UIColor("#143E5A")
+    }
+    
+    var metalFreakColor: UIColor {
+        return UIColor("#EF6061")
+    }
+    
+    var veteranColor: UIColor {
+        return UIColor("#F1A302")
+    }
+    
+    var metalheadColor: UIColor {
+        return UIColor("#7B69F5")
+    }
+}
