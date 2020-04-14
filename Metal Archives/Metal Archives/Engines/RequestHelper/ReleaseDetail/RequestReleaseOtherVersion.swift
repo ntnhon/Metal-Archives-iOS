@@ -40,11 +40,21 @@ extension RequestHelper.ReleaseDetail {
             return otherVersions
         }
         
+        // Check if user is logged in, because in this case the html structure is different
+        // there is 1 more column at the beginning (for editing)
+        let isLoggedIn = htmlString.contains("title=\"Edit\"")
+        
+        let releaseDateColumn = isLoggedIn ? 1 : 0
+        let labelColumn = isLoggedIn ? 2 : 1
+        let catalogIdColumn = isLoggedIn ? 3 : 2
+        let formatColumn = isLoggedIn ? 4 : 3
+        let descriptionColumn = isLoggedIn ? 5 : 4
+        
         if let doc = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) {
             var j = 0
             for tr in doc.css("tr") {
                 if (j == 0) {
-                    j = j + 1
+                    j += 1
                     continue
                 }
                 else {
@@ -60,13 +70,13 @@ extension RequestHelper.ReleaseDetail {
                     
                     for td in tr.css("td") {
                         
-                        if (i == 0) {
+                        if (i == releaseDateColumn) {
                             if let a = td.at_css("a"){
                                 urlString = a["href"]
                                 dateString = a.text
                             }
                             
-                            if let `dateString` = dateString {
+                            if let dateString = dateString {
                                 var additionalDetailString = td.text
                                 additionalDetailString = additionalDetailString?.replacingOccurrences(of: "\n", with: "")
                                 additionalDetailString = additionalDetailString?.replacingOccurrences(of: "\t", with: "")
@@ -78,23 +88,23 @@ extension RequestHelper.ReleaseDetail {
                                 additionalDetail = ""
                             }
                         }
-                        else if (i == 1) {
+                        else if (i == labelColumn) {
                             labelName = td.text
                         }
-                        else if (i == 2) {
+                        else if (i == catalogIdColumn) {
                             catalogID = td.text
                         }
-                        else if (i == 3) {
+                        else if (i == formatColumn) {
                             format = td.text
                         }
-                        else if (i == 4) {
+                        else if (i == descriptionColumn) {
                             description = td.text
                         }
                         
-                        i = i + 1
+                        i += 1
                     }
                     
-                    if let `urlString` = urlString, let `dateString` = dateString, let `additionalDetail` = additionalDetail, let `labelName` = labelName, let `catalogID` = catalogID, let `format` = format, let `description` = description {
+                    if let urlString = urlString, let dateString = dateString, let additionalDetail = additionalDetail, let labelName = labelName, let catalogID = catalogID, let format = format, let description = description {
                         if let version = ReleaseOtherVersion(urlString: urlString, dateString: dateString, additionalDetail: additionalDetail, labelName: labelName, catalogID: catalogID, format: format, description: description) {
                             otherVersions.append(version)
                         }

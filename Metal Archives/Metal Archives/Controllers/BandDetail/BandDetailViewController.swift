@@ -979,7 +979,7 @@ extension BandDetailViewController {
         
         guard let similarArtists = band.similarArtists else {
             let simpleCell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-            simpleCell.fill(with: "No similar band")
+            simpleCell.fill(with: "No similar bands")
             return simpleCell
         }
         
