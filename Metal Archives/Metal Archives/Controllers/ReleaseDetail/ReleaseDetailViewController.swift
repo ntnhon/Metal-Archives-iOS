@@ -310,7 +310,7 @@ final class ReleaseDetailViewController: BaseViewController {
         
         if let event = release.event, !addedReminderButton {
             addedReminderButton = true
-            floaty.addItem("Create a reminder", icon: UIImage(named: Ressources.Images.calendar)) { [unowned self] _ in
+            floaty.addItem("Create a reminder", icon: UIImage(named: Ressources.Images.calendar_reminder)) { [unowned self] _ in
                 eventStore.requestAccess(to: EKEntityType.event) { [unowned self] (granted, error) in
                     DispatchQueue.main.async {
                         if let error = error {
