@@ -20,7 +20,7 @@ target 'Metal Archives' do
     pod 'Firebase/Messaging'
     pod 'Crashlytics', '~> 3.14.0'
     pod 'Siren'
-    pod 'NotificationBannerSwift'
+    pod 'NotificationBannerSwift', '~> 3.0.0'
     pod 'MBProgressHUD', '~> 1.1.0'
     pod 'KeychainAccess'
     pod 'MaterialComponents/Snackbar'
