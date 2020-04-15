@@ -170,6 +170,9 @@
 		C033C50022D3A35C001294BA /* SimpleSearchResultHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C033C4FF22D3A35C001294BA /* SimpleSearchResultHistoryTableViewCell.xib */; };
 		C0356F1B22ABA40700B4927E /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0356F1A22ABA40700B4927E /* NewsDetailViewController.swift */; };
 		C0356F1D22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0356F1C22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift */; };
+		C036F8C32447664E008275F5 /* UserReviewOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C036F8C22447664E008275F5 /* UserReviewOrder.swift */; };
+		C036F8C6244768CE008275F5 /* UserReviewOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C036F8C5244768CE008275F5 /* UserReviewOrderTableViewCell.swift */; };
+		C036F8C8244768D6008275F5 /* UserReviewOrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C036F8C7244768D6008275F5 /* UserReviewOrderTableViewCell.xib */; };
 		C03C5E72221BFEFE0054E55A /* ArtistInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */; };
 		C03E4035228C718A004429E9 /* ParseBandMembersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */; };
 		C03E4036228C718A004429E9 /* DeathLastKnownLineup.txt in Resources */ = {isa = PBXBuildFile; fileRef = C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */; };
@@ -775,6 +778,9 @@
 		C033C4FF22D3A35C001294BA /* SimpleSearchResultHistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleSearchResultHistoryTableViewCell.xib; sourceTree = "<group>"; };
 		C0356F1A22ABA40700B4927E /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		C0356F1C22AC0DD100B4927E /* UIViewController+PresentReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentReviewViewController.swift"; sourceTree = "<group>"; };
+		C036F8C22447664E008275F5 /* UserReviewOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewOrder.swift; sourceTree = "<group>"; };
+		C036F8C5244768CE008275F5 /* UserReviewOrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewOrderTableViewCell.swift; sourceTree = "<group>"; };
+		C036F8C7244768D6008275F5 /* UserReviewOrderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserReviewOrderTableViewCell.xib; sourceTree = "<group>"; };
 		C03C5E71221BFEFE0054E55A /* ArtistInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseBandMembersTests.swift; sourceTree = "<group>"; };
 		C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DeathLastKnownLineup.txt; sourceTree = "<group>"; };
@@ -1686,6 +1692,15 @@
 			path = SimpleSearchResultHistoryTableViewCell;
 			sourceTree = "<group>";
 		};
+		C036F8C4244768B8008275F5 /* UserReviewOrderTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C036F8C5244768CE008275F5 /* UserReviewOrderTableViewCell.swift */,
+				C036F8C7244768D6008275F5 /* UserReviewOrderTableViewCell.xib */,
+			);
+			path = UserReviewOrderTableViewCell;
+			sourceTree = "<group>";
+		};
 		C03E4032228C717D004429E9 /* ParseBandMembersTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2139,6 +2154,7 @@
 				C00E712F2441D38300A17471 /* ArtistOrLabelBookmarkOrder.swift */,
 				C0253ABF244358E800864399 /* DeezerableType.swift */,
 				C0AAE4D72446360600150FFC /* UserMenuOption.swift */,
+				C036F8C22447664E008275F5 /* UserReviewOrder.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -3209,6 +3225,7 @@
 		C0BD10FB24460B88001AA88A /* UserDetail */ = {
 			isa = PBXGroup;
 			children = (
+				C036F8C4244768B8008275F5 /* UserReviewOrderTableViewCell */,
 				C0BD10FC24460B92001AA88A /* UserInfoTableViewCell */,
 				C04D05D424466E6900C0469F /* UserReviewTableViewCell */,
 				C05A77AD244718D600D25138 /* UserCollectionTableViewCell */,
@@ -3681,6 +3698,7 @@
 				C06C6C5721FFA68C00D37519 /* Countries.plist in Resources */,
 				C0AA06C22239A32E001BE21D /* BrowseBands.storyboard in Resources */,
 				C00D3626223D6E5200B29B43 /* About.storyboard in Resources */,
+				C036F8C8244768D6008275F5 /* UserReviewOrderTableViewCell.xib in Resources */,
 				C03270D7220B3728009FA337 /* ReleaseMemberTableViewCell.xib in Resources */,
 				C0FBBE6C2208751C00226FB1 /* SimilarBandTableViewCell.xib in Resources */,
 				C0A1F94722418647005C2C83 /* ArtistRIPTableViewCell.xib in Resources */,
@@ -3941,6 +3959,7 @@
 				C0FE962F221C3B10003C4B59 /* UIView+InitFromNib.swift in Sources */,
 				C0850C14223C4F49009E45A8 /* Actionable.swift in Sources */,
 				C00D360E223D5EDE00B29B43 /* ImageType.swift in Sources */,
+				C036F8C32447664E008275F5 /* UserReviewOrder.swift in Sources */,
 				C0253ABE24434A9100864399 /* Floaty+ConvenienceMethods.swift in Sources */,
 				C00D3618223D5F5500B29B43 /* Month.swift in Sources */,
 				C0332FF022024B7C008B34E0 /* SimpleTableViewCell.swift in Sources */,
@@ -4166,6 +4185,7 @@
 				C0332FEA2201D4CB008B34E0 /* BandLite.swift in Sources */,
 				C071307D21ECF4DD00082BC6 /* LeftMenuOptionTableViewCell.swift in Sources */,
 				C01839DF22253E6100FF88B7 /* BandAddition.swift in Sources */,
+				C036F8C6244768CE008275F5 /* UserReviewOrderTableViewCell.swift in Sources */,
 				C01839E92225715700FF88B7 /* LabelUpdate.swift in Sources */,
 				C053DD2E22267A920028568B /* ReviewStatistic.swift in Sources */,
 				C03270EE220B96B1009FA337 /* RequestReview.swift in Sources */,

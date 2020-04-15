@@ -49,6 +49,8 @@ final class UserDetailViewController: BaseViewController {
     private var wantedReleasePagableManager: PagableManager<UserWantedRelease>!
     private var releaseForTradePagableManager: PagableManager<UserReleaseForTrade>!
     
+    private var currentUserReviewOrder: UserReviewOrder = .dateDescending
+    
     deinit {
         print("UserDetailViewController is deallocated")
     }
@@ -87,6 +89,7 @@ final class UserDetailViewController: BaseViewController {
         UserInfoTableViewCell.register(with: tableView)
         UserReviewTableViewCell.register(with: tableView)
         UserCollectionTableViewCell.register(with: tableView)
+        UserReviewOrderTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -281,7 +284,7 @@ extension UserDetailViewController: UITableViewDelegate {
         switch currentMenuOption {
         case .reviews:
             guard reviewPagableManager.objects.count > 0 else { return }
-            takeActionFor(actionableObject: reviewPagableManager.objects[indexPath.row])
+            takeActionFor(actionableObject: reviewPagableManager.objects[indexPath.row - 1])
             
         case .albumCollection:
             guard albumCollectionPagableManager.objects.count > 0 else { return }
@@ -362,12 +365,12 @@ extension UserDetailViewController: UITableViewDataSource {
         switch currentMenuOption {
         case .reviews:
             if reviewPagableManager.moreToLoad {
-                return reviewPagableManager.objects.count + 1
+                return reviewPagableManager.objects.count + 2 // 1 for order cell & 1 for loading cell
             } else if reviewPagableManager.objects.isEmpty {
-                return 1
+                return 1 // Just 1 for message cell
             }
             
-            return reviewPagableManager.objects.count
+            return reviewPagableManager.objects.count + 1 // plus 1 for order cell
             
         case .albumCollection:
             if albumCollectionPagableManager.moreToLoad {
@@ -446,16 +449,22 @@ extension UserDetailViewController: UITableViewDataSource {
     }
     
     private func userReviewTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        if reviewPagableManager.moreToLoad && indexPath.row == reviewPagableManager.objects.count {
-            return loadingTableViewCell(forRowAt: indexPath)
-        }
-        
-        if reviewPagableManager.objects.count == 0 {
+        if (!reviewPagableManager.moreToLoad && reviewPagableManager.objects.isEmpty) {
             return simpleTableViewCell(forRowAt: indexPath, text: "This user has written no review")
         }
         
+        if indexPath.row == 0 {
+            let orderCell = UserReviewOrderTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            orderCell.setOrderButtonTitle(currentUserReviewOrder)
+            return orderCell
+        }
+        
+        if reviewPagableManager.moreToLoad && indexPath.row == reviewPagableManager.objects.count + 1 {
+            return loadingTableViewCell(forRowAt: indexPath)
+        }
+        
         let cell = UserReviewTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let userReview = reviewPagableManager.objects[indexPath.row]
+        let userReview = reviewPagableManager.objects[indexPath.row - 1]
         cell.bind(with: userReview)
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: userReview.release.imageURLString, description: userReview.release.title, fromImageView: cell.thumbnailImageView)
