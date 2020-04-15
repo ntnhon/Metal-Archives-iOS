@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias SubmittedBandOrderTableViewCell = UserReviewOrderTableViewCell
+
 final class UserReviewOrderTableViewCell: BaseTableViewCell, RegisterableCell {
     @IBOutlet weak var orderButton: FilledButton!
     
@@ -18,6 +20,10 @@ final class UserReviewOrderTableViewCell: BaseTableViewCell, RegisterableCell {
     }
     
     func setOrderButtonTitle(_ order: UserReviewOrder) {
+        orderButton.setTitle(" \(order.description) ", for: .normal)
+    }
+    
+    func setOrderButtonTitle(_ order: SubmittedBandOrder) {
         orderButton.setTitle(" \(order.description) ", for: .normal)
     }
 }

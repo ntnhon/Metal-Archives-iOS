@@ -48,8 +48,10 @@ final class UserDetailViewController: BaseViewController {
     private var albumCollectionPagableManager: PagableManager<UserAlbumCollection>!
     private var wantedReleasePagableManager: PagableManager<UserWantedRelease>!
     private var releaseForTradePagableManager: PagableManager<UserReleaseForTrade>!
+    private var submittedBandPagableManager: PagableManager<SubmittedBand>!
     
     private var currentUserReviewOrder: UserReviewOrder = .dateDescending
+    private var currentSubmittedBandOrder: SubmittedBandOrder = .dateDescending
     
     deinit {
         print("UserDetailViewController is deallocated")
@@ -90,6 +92,8 @@ final class UserDetailViewController: BaseViewController {
         UserReviewTableViewCell.register(with: tableView)
         UserCollectionTableViewCell.register(with: tableView)
         UserReviewOrderTableViewCell.register(with: tableView)
+        SubmittedBandOrderTableViewCell.register(with: tableView)
+        SubmittedBandTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -199,6 +203,8 @@ final class UserDetailViewController: BaseViewController {
         
         releaseForTradePagableManager = PagableManager<UserReleaseForTrade>(options: options)
         releaseForTradePagableManager.delegate = self
+        
+        initSubmittedBandPagableManager()
     }
     
     private func initReviewPagableManager() {
@@ -206,6 +212,13 @@ final class UserDetailViewController: BaseViewController {
         completeOptions["<USER_ID>"] = userProfile!.id!
         reviewPagableManager = PagableManager<UserReview>(options: completeOptions)
         reviewPagableManager.delegate = self
+    }
+    
+    private func initSubmittedBandPagableManager() {
+        var completeOptions = currentSubmittedBandOrder.options
+        completeOptions["<USER_ID>"] = userProfile!.id!
+        submittedBandPagableManager = PagableManager<SubmittedBand>(options: completeOptions)
+        submittedBandPagableManager.delegate = self
     }
     
     private func displayUserReviewOrderViewController(sourceRect: CGRect) {
@@ -285,7 +298,12 @@ extension UserDetailViewController: HorizontalMenuViewDelegate {
             
             Analytics.logEvent("view_user_trade_list", parameters: nil)
             
-        case .submittedBands: Analytics.logEvent("view_user_submitted_bands", parameters: nil)
+        case .submittedBands:
+            if submittedBandPagableManager.moreToLoad {
+                submittedBandPagableManager.fetch()
+            }
+            Analytics.logEvent("view_user_submitted_bands", parameters: nil)
+            
         case .modificationHistory: Analytics.logEvent("view_user_modification_history", parameters: nil)
         }
     }
@@ -379,6 +397,11 @@ extension UserDetailViewController: UITableViewDelegate {
                 releaseForTradePagableManager.fetch()
             }
             
+        case .submittedBands:
+            if submittedBandPagableManager.moreToLoad && indexPath.row == submittedBandPagableManager.objects.count - 1 {
+                submittedBandPagableManager.fetch()
+            }
+            
         default:
             break
         }
@@ -435,6 +458,15 @@ extension UserDetailViewController: UITableViewDataSource {
             
             return releaseForTradePagableManager.objects.count
             
+        case .submittedBands:
+            if submittedBandPagableManager.moreToLoad {
+                return submittedBandPagableManager.objects.count + 2 // 1 for order cell & 1 for loading cell
+            } else if submittedBandPagableManager.objects.isEmpty {
+                return 1 // Just 1 for message cell
+            }
+            
+            return submittedBandPagableManager.objects.count + 1 // plus 1 for order cell
+            
         default: return 0
         }
     }
@@ -453,6 +485,9 @@ extension UserDetailViewController: UITableViewDataSource {
         case .albumCollection, .wantedList, .tradeList:
             return userCollectionTableViewCell(forRowAt: indexPath)
             
+        case .submittedBands:
+            return submittedBandTableViewCell(forRowAt: indexPath)
+            
         default: return UITableViewCell()
         }
     }
@@ -467,6 +502,7 @@ extension UserDetailViewController: UITableViewDataSource {
     private func loadingTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.displayIsLoading()
+        
         return cell
     }
     
@@ -581,5 +617,32 @@ extension UserDetailViewController: UITableViewDataSource {
         }
         
         return simpleTableViewCell(forRowAt: indexPath, text: noItemMessage)
+    }
+    
+    private func submittedBandTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (!submittedBandPagableManager.moreToLoad && submittedBandPagableManager.objects.isEmpty) {
+            return simpleTableViewCell(forRowAt: indexPath, text: "This user has not submitted any band yet.")
+        }
+        
+        if indexPath.row == 0 {
+            let orderCell = SubmittedBandOrderTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            orderCell.setOrderButtonTitle(currentUserReviewOrder)
+            orderCell.tappedOrderButton = { [unowned self] in
+//                self.displayUserReviewOrderViewController(sourceRect: orderCell.positionIn(view: self.view))
+            }
+            return orderCell
+        }
+        
+        if submittedBandPagableManager.moreToLoad && indexPath.row == submittedBandPagableManager.objects.count + 1 {
+            return loadingTableViewCell(forRowAt: indexPath)
+        }
+
+        let cell = SubmittedBandTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        let submittedBand = submittedBandPagableManager.objects[indexPath.row - 1]
+        cell.bind(with: submittedBand)
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: submittedBand.band.imageURLString, description: submittedBand.band.name, fromImageView: cell.thumbnailImageView)
+        }
+        return cell
     }
 }
