@@ -78,6 +78,7 @@ final class UserDetailViewController: RefreshableViewController {
     
     private func configureTableView() {
         LoadingTableViewCell.register(with: tableView)
+        SimpleTableViewCell.register(with: tableView)
         HorizontalMenuAnchorTableViewCell.register(with: tableView)
         UserInfoTableViewCell.register(with: tableView)
         UserReviewTableViewCell.register(with: tableView)
@@ -287,7 +288,12 @@ extension UserDetailViewController: UITableViewDataSource {
         }
         
         switch currentMenuOption {
-        case .reviews: return reviewPagableManager.objects.count
+        case .reviews:
+            if reviewPagableManager.moreToLoad {
+                return reviewPagableManager.objects.count + 1
+            }
+            
+            return 1
         default: return 0
         }
     }
@@ -305,8 +311,17 @@ extension UserDetailViewController: UITableViewDataSource {
         }
     }
     
-    private func userReviewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+    private func simpleTableViewCell(forRowAt indexPath: IndexPath, text: String) -> UITableViewCell {
+        let cell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.displayAsItalicBodyText()
+        cell.fill(with: text)
+        return cell
+    }
+    
+    private func loadingTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.displayIsLoading()
+        return cell
     }
     
     private func userInfoTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -324,6 +339,14 @@ extension UserDetailViewController: UITableViewDataSource {
     }
     
     private func userReviewTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        if reviewPagableManager.moreToLoad && indexPath.row == reviewPagableManager.objects.count {
+            return loadingTableViewCell(forRowAt: indexPath)
+        }
+        
+        if reviewPagableManager.objects.count == 0 {
+            return simpleTableViewCell(forRowAt: indexPath, text: "This user has written no review")
+        }
+        
         let cell = UserReviewTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         let userReview = reviewPagableManager.objects[indexPath.row]
         cell.bind(with: userReview)
