@@ -33,10 +33,10 @@ final class UserDetailViewController: RefreshableViewController {
         }
     }
     private var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat {
-        let yOffset = userInfoTableViewCell.bounds.height + userInfoTableViewCell.bounds.height - simpleNavigationBarView.bounds.height
+        let yOffset = userInfoTableViewCell.bounds.height - simpleNavigationBarView.bounds.height
         return yOffset
     }
-    private var anchorHorizontalMenuToMenuAnchorTableViewCell = true
+    private var anchoredHorizontalMenuToMenuAnchorTableViewCell = true
     
     var historyRecordableDelegate: HistoryRecordable?
     
@@ -44,6 +44,9 @@ final class UserDetailViewController: RefreshableViewController {
     
     // Pagable managers
     private var reviewPagableManager: PagableManager<UserReview>!
+    private var albumCollectionPagableManager: PagableManager<UserAlbumCollection>!
+    private var wantedReleasePagableManager: PagableManager<UserWantedRelease>!
+    private var releaseForTradePagableManager: PagableManager<UserReleaseForTrade>!
     
     deinit {
         print("UserDetailViewController is deallocated")
@@ -82,6 +85,7 @@ final class UserDetailViewController: RefreshableViewController {
         HorizontalMenuAnchorTableViewCell.register(with: tableView)
         UserInfoTableViewCell.register(with: tableView)
         UserReviewTableViewCell.register(with: tableView)
+        UserCollectionTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -139,7 +143,7 @@ final class UserDetailViewController: RefreshableViewController {
     }
     
     private func anchorHorizontalMenuViewToAnchorTableViewCell() {
-           guard let horizontalMenuAnchorTableViewCell = horizontalMenuAnchorTableViewCell, anchorHorizontalMenuToMenuAnchorTableViewCell else { return }
+           guard let horizontalMenuAnchorTableViewCell = horizontalMenuAnchorTableViewCell, anchoredHorizontalMenuToMenuAnchorTableViewCell else { return }
            let horizontalMenuAnchorTableViewCellFrameInView = horizontalMenuAnchorTableViewCell.positionIn(view: view)
        
            horizontalMenuView.isHidden = false
@@ -179,8 +183,19 @@ final class UserDetailViewController: RefreshableViewController {
     }
     
     private func initPagableManagers() {
-        reviewPagableManager = PagableManager<UserReview>(options: ["<USER_ID>": userProfile!.id])
+        let options = ["<USER_ID>": userProfile!.id!]
+        
+        reviewPagableManager = PagableManager<UserReview>(options: options)
         reviewPagableManager.delegate = self
+        
+        albumCollectionPagableManager = PagableManager<UserAlbumCollection>(options: options)
+        albumCollectionPagableManager.delegate = self
+        
+        wantedReleasePagableManager = PagableManager<UserWantedRelease>(options: options)
+        wantedReleasePagableManager.delegate = self
+        
+        releaseForTradePagableManager = PagableManager<UserReleaseForTrade>(options: options)
+        releaseForTradePagableManager.delegate = self
     }
 }
 
@@ -210,16 +225,34 @@ extension UserDetailViewController: HorizontalMenuViewDelegate {
         
         switch currentMenuOption {
         case .reviews: Analytics.logEvent("view_user_reviews", parameters: nil)
-        case .albumCollection: Analytics.logEvent("view_user_album_collection", parameters: nil)
-        case .wantedList: Analytics.logEvent("view_user_wanted_list", parameters: nil)
-        case .tradeList: Analytics.logEvent("view_user_trade_list", parameters: nil)
+        case .albumCollection:
+            if albumCollectionPagableManager.moreToLoad {
+                albumCollectionPagableManager.fetch()
+            }
+            
+            Analytics.logEvent("view_user_album_collection", parameters: nil)
+            
+        case .wantedList:
+            if wantedReleasePagableManager.moreToLoad {
+                wantedReleasePagableManager.fetch()
+            }
+            
+            Analytics.logEvent("view_user_wanted_list", parameters: nil)
+            
+        case .tradeList:
+            if releaseForTradePagableManager.moreToLoad {
+                releaseForTradePagableManager.fetch()
+            }
+            
+            Analytics.logEvent("view_user_trade_list", parameters: nil)
+            
         case .submittedBands: Analytics.logEvent("view_user_submitted_bands", parameters: nil)
         case .modificationHistory: Analytics.logEvent("view_user_modification_history", parameters: nil)
         }
     }
     
     private func pinHorizontalMenuViewThenRefreshAndScrollTableView() {
-        anchorHorizontalMenuToMenuAnchorTableViewCell = false
+        anchoredHorizontalMenuToMenuAnchorTableViewCell = false
         horizontalMenuViewTopConstraint.constant = simpleNavigationBarView.frame.origin.y + simpleNavigationBarView.frame.height
         tableView.reloadSections([1], with: .none)
         tableView.scrollToRow(at: IndexPath(row: 1, section: 0), at: .top, animated: false)
@@ -228,13 +261,17 @@ extension UserDetailViewController: HorizontalMenuViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + CATransaction.animationDuration()) { [weak self] in
             guard let self = self else { return }
             self.setTableViewBottomInsetToFillBottomSpace()
-            self.anchorHorizontalMenuToMenuAnchorTableViewCell = true
+            self.anchoredHorizontalMenuToMenuAnchorTableViewCell = true
         }
     }
     
     private func setTableViewBottomInsetToFillBottomSpace() {
         let minimumBottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
         self.tableView.contentInset.bottom = max(minimumBottomInset, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView - minimumBottomInset)
+        print("[Debug] minimumBottomInset: \(minimumBottomInset)")
+        print("[Debug] yOffsetNeededToPinHorizontalViewToUtileBarView: \(yOffsetNeededToPinHorizontalViewToUtileBarView)")
+        print("[Debug] tableView.contentInset.bottom: \(max(minimumBottomInset, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView - minimumBottomInset))")
+        
     }
 }
 
@@ -272,6 +309,33 @@ extension UserDetailViewController: UITableViewDelegate {
         view.backgroundColor = Settings.currentTheme.tableViewBackgroundColor
         return view
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        switch currentMenuOption {
+        case .reviews:
+            if reviewPagableManager.moreToLoad && indexPath.row == reviewPagableManager.objects.count - 1 {
+                reviewPagableManager.fetch()
+            }
+            
+        case .albumCollection:
+            if albumCollectionPagableManager.moreToLoad && indexPath.row == albumCollectionPagableManager.objects.count - 1 {
+                albumCollectionPagableManager.fetch()
+            }
+            
+        case .wantedList:
+            if wantedReleasePagableManager.moreToLoad && indexPath.row == wantedReleasePagableManager.objects.count - 1 {
+                wantedReleasePagableManager.fetch()
+            }
+            
+        case .tradeList:
+            if releaseForTradePagableManager.moreToLoad && indexPath.row == releaseForTradePagableManager.objects.count - 1 {
+                releaseForTradePagableManager.fetch()
+            }
+            
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -291,9 +355,39 @@ extension UserDetailViewController: UITableViewDataSource {
         case .reviews:
             if reviewPagableManager.moreToLoad {
                 return reviewPagableManager.objects.count + 1
+            } else if reviewPagableManager.objects.isEmpty {
+                return 1
             }
             
-            return 1
+            return reviewPagableManager.objects.count
+            
+        case .albumCollection:
+            if albumCollectionPagableManager.moreToLoad {
+                return albumCollectionPagableManager.objects.count + 1
+            } else if albumCollectionPagableManager.objects.isEmpty {
+                return 1
+            }
+            
+            return albumCollectionPagableManager.objects.count
+            
+        case .wantedList:
+            if wantedReleasePagableManager.moreToLoad {
+                return wantedReleasePagableManager.objects.count + 1
+            } else if wantedReleasePagableManager.objects.isEmpty {
+                return 1
+            }
+            
+            return wantedReleasePagableManager.objects.count
+            
+        case .tradeList:
+            if releaseForTradePagableManager.moreToLoad {
+                return releaseForTradePagableManager.objects.count + 1
+            } else if releaseForTradePagableManager.objects.isEmpty {
+                return 1
+            }
+            
+            return releaseForTradePagableManager.objects.count
+            
         default: return 0
         }
     }
@@ -306,7 +400,12 @@ extension UserDetailViewController: UITableViewDataSource {
         }
         
         switch currentMenuOption {
-        case .reviews: return userReviewTableViewCell(forRowAt: indexPath)
+        case .reviews:
+            return userReviewTableViewCell(forRowAt: indexPath)
+            
+        case .albumCollection, .wantedList, .tradeList:
+            return userCollectionTableViewCell(forRowAt: indexPath)
+            
         default: return UITableViewCell()
         }
     }
@@ -354,5 +453,74 @@ extension UserDetailViewController: UITableViewDataSource {
             self.presentPhotoViewerWithCacheChecking(photoUrlString: userReview.release.imageURLString, description: userReview.release.title, fromImageView: cell.thumbnailImageView)
         }
         return cell
+    }
+    
+    private func userCollectionTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        let shouldDisplayLoadingCell: Bool
+        let noItemMessage: String
+        let release: UserCollection?
+        switch currentMenuOption {
+        case .albumCollection:
+            shouldDisplayLoadingCell = albumCollectionPagableManager.moreToLoad && indexPath.row == albumCollectionPagableManager.objects.count
+            if shouldDisplayLoadingCell {
+                noItemMessage = ""
+                release = nil
+                break
+            }
+            
+            noItemMessage = "Album collection is empty or private"
+            if albumCollectionPagableManager.objects.count > 0 {
+                release = albumCollectionPagableManager.objects[indexPath.row]
+            } else {
+                release = nil
+            }
+            
+        case .wantedList:
+            shouldDisplayLoadingCell = wantedReleasePagableManager.moreToLoad && indexPath.row == wantedReleasePagableManager.objects.count
+            if shouldDisplayLoadingCell {
+                noItemMessage = ""
+                release = nil
+                break
+            }
+            
+            noItemMessage = "Wanted list is empty or private"
+            if wantedReleasePagableManager.objects.count > 0 {
+                release = wantedReleasePagableManager.objects[indexPath.row]
+            } else {
+                release = nil
+            }
+        
+        case .tradeList:
+            shouldDisplayLoadingCell = releaseForTradePagableManager.moreToLoad && indexPath.row == releaseForTradePagableManager.objects.count
+            if shouldDisplayLoadingCell {
+                noItemMessage = ""
+                release = nil
+                break
+            }
+            
+            noItemMessage = "Trade list is empty or private"
+            if releaseForTradePagableManager.objects.count > 0 {
+                release = releaseForTradePagableManager.objects[indexPath.row]
+            } else {
+                release = nil
+            }
+            
+        default:
+            shouldDisplayLoadingCell = false
+            noItemMessage = ""
+            release = nil
+        }
+        
+        if shouldDisplayLoadingCell {
+            return loadingTableViewCell(forRowAt: indexPath)
+        }
+        
+        if let release = release {
+            let cell = UserCollectionTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            cell.fill(with: release)
+            return cell
+        }
+        
+        return simpleTableViewCell(forRowAt: indexPath, text: noItemMessage)
     }
 }

@@ -265,6 +265,9 @@
 		C05937DB222F252E00F7C2A9 /* SimpleBandNameOrMusicGenreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05937DA222F252E00F7C2A9 /* SimpleBandNameOrMusicGenreTableViewCell.swift */; };
 		C05937DD222F27BF00F7C2A9 /* SimpleBandNameOrMusicGenreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05937DC222F27BF00F7C2A9 /* SimpleBandNameOrMusicGenreTableViewCell.xib */; };
 		C05937DF222F378F00F7C2A9 /* UITextField+CustomClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05937DE222F378F00F7C2A9 /* UITextField+CustomClearButton.swift */; };
+		C05A77AC244714D700D25138 /* UserCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A77AB244714D700D25138 /* UserCollection.swift */; };
+		C05A77AF244718E500D25138 /* UserCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A77AE244718E500D25138 /* UserCollectionTableViewCell.swift */; };
+		C05A77B1244719C200D25138 /* UserCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05A77B0244719C200D25138 /* UserCollectionTableViewCell.xib */; };
 		C05ADC0F2235B29200D82E36 /* ExplanationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05ADC0E2235B29200D82E36 /* ExplanationViewController.swift */; };
 		C05F3EB62206468700FC0F35 /* String+IDSringToImageURLString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05F3EB52206468700FC0F35 /* String+IDSringToImageURLString.swift */; };
 		C05F3EB822064C2100FC0F35 /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05F3EB722064C2100FC0F35 /* String+Utilities.swift */; };
@@ -867,6 +870,9 @@
 		C05937DA222F252E00F7C2A9 /* SimpleBandNameOrMusicGenreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleBandNameOrMusicGenreTableViewCell.swift; sourceTree = "<group>"; };
 		C05937DC222F27BF00F7C2A9 /* SimpleBandNameOrMusicGenreTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleBandNameOrMusicGenreTableViewCell.xib; sourceTree = "<group>"; };
 		C05937DE222F378F00F7C2A9 /* UITextField+CustomClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+CustomClearButton.swift"; sourceTree = "<group>"; };
+		C05A77AB244714D700D25138 /* UserCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollection.swift; sourceTree = "<group>"; };
+		C05A77AE244718E500D25138 /* UserCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionTableViewCell.swift; sourceTree = "<group>"; };
+		C05A77B0244719C200D25138 /* UserCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserCollectionTableViewCell.xib; sourceTree = "<group>"; };
 		C05ADC0E2235B29200D82E36 /* ExplanationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationViewController.swift; sourceTree = "<group>"; };
 		C05F3EB52206468700FC0F35 /* String+IDSringToImageURLString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IDSringToImageURLString.swift"; sourceTree = "<group>"; };
 		C05F3EB722064C2100FC0F35 /* String+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utilities.swift"; sourceTree = "<group>"; };
@@ -1917,6 +1923,15 @@
 			path = SimpleSearch;
 			sourceTree = "<group>";
 		};
+		C05A77AD244718D600D25138 /* UserCollectionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C05A77AE244718E500D25138 /* UserCollectionTableViewCell.swift */,
+				C05A77B0244719C200D25138 /* UserCollectionTableViewCell.xib */,
+			);
+			path = UserCollectionTableViewCell;
+			sourceTree = "<group>";
+		};
 		C05FC9AC222AC4A800D4B0DF /* UtileCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -2842,6 +2857,7 @@
 				C02C035F2441101C00220AF7 /* ReleaseBookmark.swift */,
 				C00E713D2442206B00A17471 /* ReleaseInCollection.swift */,
 				C00E714E244277CD00A17471 /* ReleaseVersion.swift */,
+				C05A77AB244714D700D25138 /* UserCollection.swift */,
 			);
 			path = Release;
 			sourceTree = "<group>";
@@ -3195,6 +3211,7 @@
 			children = (
 				C0BD10FC24460B92001AA88A /* UserInfoTableViewCell */,
 				C04D05D424466E6900C0469F /* UserReviewTableViewCell */,
+				C05A77AD244718D600D25138 /* UserCollectionTableViewCell */,
 			);
 			path = UserDetail;
 			sourceTree = "<group>";
@@ -3567,6 +3584,7 @@
 				C0ECE6F9221B19DD00489A8E /* Artist.storyboard in Resources */,
 				C0752967229ECC320067B5E1 /* ReleaseTableViewCell.xib in Resources */,
 				C00D363A223D9F2300B29B43 /* Settings.storyboard in Resources */,
+				C05A77B1244719C200D25138 /* UserCollectionTableViewCell.xib in Resources */,
 				C053CF7622244F9000B056A8 /* BandPastRosterTableViewCell.xib in Resources */,
 				C01839EE222574A200FF88B7 /* LabelAdditionOrUpdateTableViewCell.xib in Resources */,
 				C085E6C822A27FD5007FACFA /* ReleaseInfoTableViewCell.xib in Resources */,
@@ -3850,6 +3868,7 @@
 			files = (
 				C0086DCD243F73920008669C /* RightMenuOption.swift in Sources */,
 				C0D6320822A08A2D00CAE52F /* ReleaseTitleAndTypeTableViewCell.swift in Sources */,
+				C05A77AC244714D700D25138 /* UserCollection.swift in Sources */,
 				C027A28122B57D5D0011EA73 /* DismissableOnSwipeViewController.swift in Sources */,
 				C0AABDE8221D8AB00044A2CF /* MonthInYear.swift in Sources */,
 				C061021521EF92670025F8C1 /* Settings.swift in Sources */,
@@ -4028,6 +4047,7 @@
 				C082CDB622E4FA02002202F6 /* DeezerAlbumTableViewCell.swift in Sources */,
 				C06F1DEE21F7100800B49D39 /* LoadingTableViewCell.swift in Sources */,
 				C05309F222233FB30027D11E /* RequestLabelDetail.swift in Sources */,
+				C05A77AF244718E500D25138 /* UserCollectionTableViewCell.swift in Sources */,
 				C04D05D624466E8500C0469F /* UserReviewTableViewCell.swift in Sources */,
 				C00D3616223D5F4300B29B43 /* SimpleSearchType.swift in Sources */,
 				C09A4F5D21F3243D00421485 /* NewsArchiveViewController.swift in Sources */,
