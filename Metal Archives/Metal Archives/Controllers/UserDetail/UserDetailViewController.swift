@@ -243,6 +243,29 @@ final class UserDetailViewController: BaseViewController {
         
         present(userReviewOrderViewController, animated: true, completion: nil)
     }
+    
+    private func displaySubmittedBandOrderViewController(sourceRect: CGRect) {
+        let submittedBandOrderViewController = UIStoryboard(name: "UserDetail", bundle: nil).instantiateViewController(withIdentifier: "SubmittedBandOrderViewController") as! SubmittedBandOrderViewController
+        submittedBandOrderViewController.currentOrder = currentSubmittedBandOrder
+        submittedBandOrderViewController.modalPresentationStyle = .popover
+        submittedBandOrderViewController.popoverPresentationController?.permittedArrowDirections = .any
+        
+        submittedBandOrderViewController.popoverPresentationController?.delegate = self
+        submittedBandOrderViewController.popoverPresentationController?.sourceView = view
+    
+        submittedBandOrderViewController.popoverPresentationController?.sourceRect = sourceRect
+        
+        submittedBandOrderViewController.selectedOrder = { [unowned self] (order) in
+            self.currentSubmittedBandOrder = order
+            self.initSubmittedBandPagableManager()
+            self.submittedBandPagableManager.reset()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                self.submittedBandPagableManager.fetch()
+            }
+        }
+        
+        present(submittedBandOrderViewController, animated: true, completion: nil)
+    }
 }
 
 // MARK: - UIPopoverPresentationControllerDelegate
@@ -351,6 +374,11 @@ extension UserDetailViewController: UITableViewDelegate {
         case .tradeList:
             guard releaseForTradePagableManager.objects.count > 0 else { return }
             takeActionFor(actionableObject: releaseForTradePagableManager.objects[indexPath.row])
+            
+        case .submittedBands:
+            guard submittedBandPagableManager.objects.count > 0 && indexPath.row > 0 else { return }
+            let submittedBand = submittedBandPagableManager.objects[indexPath.row - 1]
+            pushBandDetailViewController(urlString: submittedBand.band.urlString, animated: true)
             
         default:
             break
@@ -628,7 +656,7 @@ extension UserDetailViewController: UITableViewDataSource {
             let orderCell = SubmittedBandOrderTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             orderCell.setOrderButtonTitle(currentUserReviewOrder)
             orderCell.tappedOrderButton = { [unowned self] in
-//                self.displayUserReviewOrderViewController(sourceRect: orderCell.positionIn(view: self.view))
+            self.displaySubmittedBandOrderViewController(sourceRect: orderCell.positionIn(view: self.view))
             }
             return orderCell
         }

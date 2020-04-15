@@ -98,5 +98,39 @@
             </objects>
             <point key="canvasLocation" x="901" y="91"/>
         </scene>
+        <!--Submitted Band Order View Controller-->
+        <scene sceneID="Gll-hr-h1z">
+            <objects>
+                <viewController storyboardIdentifier="SubmittedBandOrderViewController" id="YcZ-Lv-xht" customClass="SubmittedBandOrderViewController" customModule="Metal_Archives" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GfO-lc-5kj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6a5-v5-6JD">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="YcZ-Lv-xht" id="2NB-hV-KDE"/>
+                                    <outlet property="delegate" destination="YcZ-Lv-xht" id="ZvX-Kg-Nq5"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="6a5-v5-6JD" secondAttribute="trailing" id="1HO-xa-7Qs"/>
+                            <constraint firstItem="6a5-v5-6JD" firstAttribute="leading" secondItem="GfO-lc-5kj" secondAttribute="leading" id="Dk3-M1-G9o"/>
+                            <constraint firstAttribute="bottom" secondItem="6a5-v5-6JD" secondAttribute="bottom" id="XZk-Lt-p1V"/>
+                            <constraint firstItem="6a5-v5-6JD" firstAttribute="top" secondItem="GfO-lc-5kj" secondAttribute="top" id="r3n-Bl-4cN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="YZD-0B-dKv"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="6a5-v5-6JD" id="2AK-Vk-yap"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Esv-gf-Eqp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1709" y="90"/>
+        </scene>
     </scenes>
 </document>
