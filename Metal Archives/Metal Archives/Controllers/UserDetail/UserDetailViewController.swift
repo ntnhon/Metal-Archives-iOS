@@ -29,11 +29,11 @@ final class UserDetailViewController: RefreshableViewController {
     private var horizontalMenuViewTopConstraint: NSLayoutConstraint!
     private var horizontalMenuAnchorTableViewCell: HorizontalMenuAnchorTableViewCell! {
         didSet {
-            anchorHorizontalMenuViewToAnchorTableViewCell()
+            properlyAnchorHorizontalMenuWhenTableViewIsScrolled()
         }
     }
     private var yOffsetNeededToPinHorizontalViewToUtileBarView: CGFloat {
-        let yOffset = userInfoTableViewCell.bounds.height - simpleNavigationBarView.bounds.height
+        let yOffset = userInfoTableViewCell.bounds.height
         return yOffset
     }
     private var anchoredHorizontalMenuToMenuAnchorTableViewCell = true
@@ -92,7 +92,7 @@ final class UserDetailViewController: RefreshableViewController {
         
         // observe when tableView is scrolled to animate alphas because scrollViewDidScroll doesn't capture enough event.
         tableViewContentOffsetObserver = tableView.observe(\UITableView.contentOffset, options: [.new]) { [weak self] (tableView, _) in
-            self?.anchorHorizontalMenuViewToAnchorTableViewCell()
+            self?.properlyAnchorHorizontalMenuWhenTableViewIsScrolled()
         }
     }
     
@@ -142,7 +142,7 @@ final class UserDetailViewController: RefreshableViewController {
         horizontalMenuViewTopConstraint.isActive = true
     }
     
-    private func anchorHorizontalMenuViewToAnchorTableViewCell() {
+    private func properlyAnchorHorizontalMenuWhenTableViewIsScrolled() {
            guard let horizontalMenuAnchorTableViewCell = horizontalMenuAnchorTableViewCell, anchoredHorizontalMenuToMenuAnchorTableViewCell else { return }
            let horizontalMenuAnchorTableViewCellFrameInView = horizontalMenuAnchorTableViewCell.positionIn(view: view)
        
@@ -267,11 +267,7 @@ extension UserDetailViewController: HorizontalMenuViewDelegate {
     
     private func setTableViewBottomInsetToFillBottomSpace() {
         let minimumBottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
-        self.tableView.contentInset.bottom = max(minimumBottomInset, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView - minimumBottomInset)
-        print("[Debug] minimumBottomInset: \(minimumBottomInset)")
-        print("[Debug] yOffsetNeededToPinHorizontalViewToUtileBarView: \(yOffsetNeededToPinHorizontalViewToUtileBarView)")
-        print("[Debug] tableView.contentInset.bottom: \(max(minimumBottomInset, screenHeight - self.tableView.contentSize.height + self.yOffsetNeededToPinHorizontalViewToUtileBarView - minimumBottomInset))")
-        
+        tableView.contentInset.bottom = max(minimumBottomInset, screenHeight - tableView.intrinsicContentSize.height + yOffsetNeededToPinHorizontalViewToUtileBarView - minimumBottomInset )
     }
 }
 
