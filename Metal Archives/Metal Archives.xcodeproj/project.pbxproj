@@ -302,6 +302,7 @@
 		C066138E22899BA000F99006 /* UpcomingAlbumsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C066138D22899BA000F99006 /* UpcomingAlbumsTableViewCell.xib */; };
 		C066139122899EBC00F99006 /* UpcomingAlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066139022899EBC00F99006 /* UpcomingAlbumCollectionViewCell.swift */; };
 		C066139322899EDA00F99006 /* UpcomingAlbumCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C066139222899EDA00F99006 /* UpcomingAlbumCollectionViewCell.xib */; };
+		C069257424477D880009F53B /* UserReviewOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C069257324477D880009F53B /* UserReviewOrderViewController.swift */; };
 		C06B4D8D2443793900F9A62A /* EKEvent+ConvenienceMethods.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08503BF244372E1009C3EF2 /* EKEvent+ConvenienceMethods.swift.swift */; };
 		C06B4D8E2443797200F9A62A /* Date+ConvenienceMethods.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008388322009ECE00B35996 /* Date+ConvenienceMethods.swift.swift */; };
 		C06B62402242313300A3FE6B /* LabelBrowseAlphabetically.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06B623F2242313300A3FE6B /* LabelBrowseAlphabetically.swift */; };
@@ -910,6 +911,7 @@
 		C066138D22899BA000F99006 /* UpcomingAlbumsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingAlbumsTableViewCell.xib; sourceTree = "<group>"; };
 		C066139022899EBC00F99006 /* UpcomingAlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbumCollectionViewCell.swift; sourceTree = "<group>"; };
 		C066139222899EDA00F99006 /* UpcomingAlbumCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingAlbumCollectionViewCell.xib; sourceTree = "<group>"; };
+		C069257324477D880009F53B /* UserReviewOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewOrderViewController.swift; sourceTree = "<group>"; };
 		C06B623F2242313300A3FE6B /* LabelBrowseAlphabetically.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBrowseAlphabetically.swift; sourceTree = "<group>"; };
 		C06B62422242362800A3FE6B /* BrowseLabelsAlphabeticallyResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseLabelsAlphabeticallyResultTableViewCell.swift; sourceTree = "<group>"; };
 		C06B62442242382500A3FE6B /* BrowseLabelsAlphabeticallyResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BrowseLabelsAlphabeticallyResultTableViewCell.xib; sourceTree = "<group>"; };
@@ -3201,6 +3203,7 @@
 			isa = PBXGroup;
 			children = (
 				C0BD10EF2445F80A001AA88A /* UserDetailViewController.swift */,
+				C069257324477D880009F53B /* UserReviewOrderViewController.swift */,
 			);
 			path = UserDetail;
 			sourceTree = "<group>";
@@ -4088,6 +4091,7 @@
 				C0858EFE2236B38400595B48 /* AdvancedSearchBandsViewController.swift in Sources */,
 				C06F1E0521F76E1C00B49D39 /* BandAncient.swift in Sources */,
 				C05606EF22A2FDBB006F5BC1 /* ReleaseMenuOption.swift in Sources */,
+				C069257424477D880009F53B /* UserReviewOrderViewController.swift in Sources */,
 				C00D3638223D9EFE00B29B43 /* SettingsTableViewController.swift in Sources */,
 				C0752970229F3E550067B5E1 /* FilledButton.swift in Sources */,
 				C00E71462442363E00A17471 /* ReleaseInCollectionTableViewCell.swift in Sources */,

@@ -187,10 +187,9 @@ final class UserDetailViewController: BaseViewController {
     }
     
     private func initPagableManagers() {
-        let options = ["<USER_ID>": userProfile!.id!]
+        initReviewPagableManager()
         
-        reviewPagableManager = PagableManager<UserReview>(options: options)
-        reviewPagableManager.delegate = self
+        let options = ["<USER_ID>": userProfile!.id!]
         
         albumCollectionPagableManager = PagableManager<UserAlbumCollection>(options: options)
         albumCollectionPagableManager.delegate = self
@@ -200,6 +199,43 @@ final class UserDetailViewController: BaseViewController {
         
         releaseForTradePagableManager = PagableManager<UserReleaseForTrade>(options: options)
         releaseForTradePagableManager.delegate = self
+    }
+    
+    private func initReviewPagableManager() {
+        var completeOptions = currentUserReviewOrder.options
+        completeOptions["<USER_ID>"] = userProfile!.id!
+        reviewPagableManager = PagableManager<UserReview>(options: completeOptions)
+        reviewPagableManager.delegate = self
+    }
+    
+    private func displayUserReviewOrderViewController(sourceRect: CGRect) {
+        let userReviewOrderViewController = UIStoryboard(name: "UserDetail", bundle: nil).instantiateViewController(withIdentifier: "UserReviewOrderViewController") as! UserReviewOrderViewController
+        userReviewOrderViewController.currentOrder = currentUserReviewOrder
+        userReviewOrderViewController.modalPresentationStyle = .popover
+        userReviewOrderViewController.popoverPresentationController?.permittedArrowDirections = .any
+        
+        userReviewOrderViewController.popoverPresentationController?.delegate = self
+        userReviewOrderViewController.popoverPresentationController?.sourceView = view
+    
+        userReviewOrderViewController.popoverPresentationController?.sourceRect = sourceRect
+        
+        userReviewOrderViewController.selectedOrder = { [unowned self] (order) in
+            self.currentUserReviewOrder = order
+            self.initReviewPagableManager()
+            self.reviewPagableManager.reset()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                self.reviewPagableManager.fetch()
+            }
+        }
+        
+        present(userReviewOrderViewController, animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIPopoverPresentationControllerDelegate
+extension UserDetailViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
 }
 
@@ -283,7 +319,7 @@ extension UserDetailViewController: UITableViewDelegate {
         
         switch currentMenuOption {
         case .reviews:
-            guard reviewPagableManager.objects.count > 0 else { return }
+            guard reviewPagableManager.objects.count > 0 && indexPath.row > 0 else { return }
             takeActionFor(actionableObject: reviewPagableManager.objects[indexPath.row - 1])
             
         case .albumCollection:
@@ -456,6 +492,9 @@ extension UserDetailViewController: UITableViewDataSource {
         if indexPath.row == 0 {
             let orderCell = UserReviewOrderTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             orderCell.setOrderButtonTitle(currentUserReviewOrder)
+            orderCell.tappedOrderButton = { [unowned self] in
+                self.displayUserReviewOrderViewController(sourceRect: orderCell.positionIn(view: self.view))
+            }
             return orderCell
         }
         

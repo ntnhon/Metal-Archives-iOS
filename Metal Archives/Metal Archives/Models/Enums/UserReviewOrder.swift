@@ -29,8 +29,8 @@ enum UserReviewOrder: Int, CustomStringConvertible, CaseIterable {
     var options: [String: String] {
         let column: Int
         switch self {
-        case .dateAscending, .dateDescending: column = 0
-        case .bandAscending, .bandDescending: column = 1
+        case .dateAscending, .dateDescending: column = 1
+        case .bandAscending, .bandDescending: column = 2
         case .releaseAscending, .releaseDescending: column = 3
         case .titleAscending, .titleDescending: column = 4
         case .ratingAscending, .ratingDescending: column = 5
