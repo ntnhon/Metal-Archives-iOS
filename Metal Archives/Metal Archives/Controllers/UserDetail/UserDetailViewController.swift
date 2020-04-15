@@ -12,7 +12,8 @@ import FirebaseAnalytics
 import MBProgressHUD
 import Toaster
 
-final class UserDetailViewController: RefreshableViewController {
+final class UserDetailViewController: BaseViewController {
+    @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var floaty: Floaty!
     
@@ -212,7 +213,6 @@ extension UserDetailViewController: PagableManagerDelegate {
     
     func pagableManagerDidFinishFetching<T>(_ pagableManager: PagableManager<T>) where T : Pagable {
         hideHUD()
-        endRefreshing()
         tableView.reloadData()
     }
 }
@@ -267,7 +267,7 @@ extension UserDetailViewController: HorizontalMenuViewDelegate {
     
     private func setTableViewBottomInsetToFillBottomSpace() {
         let minimumBottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
-        tableView.contentInset.bottom = max(minimumBottomInset, screenHeight - tableView.intrinsicContentSize.height + yOffsetNeededToPinHorizontalViewToUtileBarView - minimumBottomInset )
+        tableView.contentInset.bottom = max(minimumBottomInset, screenHeight - tableView.contentSize.height + yOffsetNeededToPinHorizontalViewToUtileBarView - minimumBottomInset )
     }
 }
 
@@ -280,8 +280,20 @@ extension UserDetailViewController: UITableViewDelegate {
         
         switch currentMenuOption {
         case .reviews:
-            let userReview = reviewPagableManager.objects[indexPath.row]
-            takeActionFor(actionableObject: userReview)
+            guard reviewPagableManager.objects.count > 0 else { return }
+            takeActionFor(actionableObject: reviewPagableManager.objects[indexPath.row])
+            
+        case .albumCollection:
+            guard albumCollectionPagableManager.objects.count > 0 else { return }
+            takeActionFor(actionableObject: albumCollectionPagableManager.objects[indexPath.row])
+            
+        case .wantedList:
+            guard wantedReleasePagableManager.objects.count > 0 else { return }
+            takeActionFor(actionableObject: wantedReleasePagableManager.objects[indexPath.row])
+            
+        case .tradeList:
+            guard releaseForTradePagableManager.objects.count > 0 else { return }
+            takeActionFor(actionableObject: releaseForTradePagableManager.objects[indexPath.row])
             
         default:
             break
@@ -514,6 +526,9 @@ extension UserDetailViewController: UITableViewDataSource {
         if let release = release {
             let cell = UserCollectionTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             cell.fill(with: release)
+            cell.tappedThumbnailImageView = { [unowned self] in
+                self.presentPhotoViewerWithCacheChecking(photoUrlString: release.release.imageURLString, description: release.release.title, fromImageView: cell.thumbnailImageView)
+            }
             return cell
         }
         

@@ -67,6 +67,22 @@ class UserCollection {
     }
 }
 
+extension UserCollection: Actionable {
+    var actionableElements: [ActionableElement] {
+        var elements: [ActionableElement] = []
+        
+        let releaseElement = ActionableElement.release(name: release.title, urlString: release.urlString)
+        elements.append(releaseElement)
+        
+        self.bands.forEach { (eachBand) in
+            let bandElement = ActionableElement.band(name: eachBand.name, urlString: eachBand.urlString)
+            elements.append(bandElement)
+        }
+        
+        return elements
+    }
+}
+
 final class UserAlbumCollection: UserCollection, Pagable {
     static var rawRequestURLString =   "https://www.metal-archives.com/collection/ajax-view/id/<USER_ID>/type/1/json/1?sEcho=1&iColumns=6&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&_=1586945145862"
     
