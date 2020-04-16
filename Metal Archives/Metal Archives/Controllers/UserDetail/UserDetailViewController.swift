@@ -49,6 +49,7 @@ final class UserDetailViewController: BaseViewController {
     private var wantedReleasePagableManager: PagableManager<UserWantedRelease>!
     private var releaseForTradePagableManager: PagableManager<UserReleaseForTrade>!
     private var submittedBandPagableManager: PagableManager<SubmittedBand>!
+    private var modificationHistoryPagableManager: PagableManager<ModificationRecord>!
     
     private var currentUserReviewOrder: UserReviewOrder = .dateDescending
     private var currentSubmittedBandOrder: SubmittedBandOrder = .dateDescending
@@ -94,6 +95,7 @@ final class UserDetailViewController: BaseViewController {
         UserReviewOrderTableViewCell.register(with: tableView)
         SubmittedBandOrderTableViewCell.register(with: tableView)
         SubmittedBandTableViewCell.register(with: tableView)
+        ModificationRecordTableViewCell.register(with: tableView)
         
         tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
@@ -205,6 +207,9 @@ final class UserDetailViewController: BaseViewController {
         releaseForTradePagableManager.delegate = self
         
         initSubmittedBandPagableManager()
+        
+        modificationHistoryPagableManager = PagableManager<ModificationRecord>(options: options)
+        modificationHistoryPagableManager.delegate = self
     }
     
     private func initReviewPagableManager() {
@@ -327,7 +332,12 @@ extension UserDetailViewController: HorizontalMenuViewDelegate {
             }
             Analytics.logEvent("view_user_submitted_bands", parameters: nil)
             
-        case .modificationHistory: Analytics.logEvent("view_user_modification_history", parameters: nil)
+        case .modificationHistory:
+            if modificationHistoryPagableManager.moreToLoad {
+                modificationHistoryPagableManager.fetch()
+            }
+            
+            Analytics.logEvent("view_user_modification_history", parameters: nil)
         }
     }
     
@@ -380,8 +390,9 @@ extension UserDetailViewController: UITableViewDelegate {
             let submittedBand = submittedBandPagableManager.objects[indexPath.row - 1]
             pushBandDetailViewController(urlString: submittedBand.band.urlString, animated: true)
             
-        default:
-            break
+        case .modificationHistory:
+            guard modificationHistoryPagableManager.objects.count > 0 else { return }
+            takeActionFor(actionableObject: modificationHistoryPagableManager.objects[indexPath.row])
         }
     }
     
@@ -430,8 +441,10 @@ extension UserDetailViewController: UITableViewDelegate {
                 submittedBandPagableManager.fetch()
             }
             
-        default:
-            break
+        case .modificationHistory:
+            if modificationHistoryPagableManager.moreToLoad && indexPath.row == modificationHistoryPagableManager.objects.count - 1 {
+                modificationHistoryPagableManager.fetch()
+            }
         }
     }
 }
@@ -495,7 +508,14 @@ extension UserDetailViewController: UITableViewDataSource {
             
             return submittedBandPagableManager.objects.count + 1 // plus 1 for order cell
             
-        default: return 0
+        case .modificationHistory:
+            if modificationHistoryPagableManager.moreToLoad {
+                return modificationHistoryPagableManager.objects.count + 1
+            } else if modificationHistoryPagableManager.objects.isEmpty {
+                return 1
+            }
+            
+            return modificationHistoryPagableManager.objects.count
         }
     }
     
@@ -516,7 +536,8 @@ extension UserDetailViewController: UITableViewDataSource {
         case .submittedBands:
             return submittedBandTableViewCell(forRowAt: indexPath)
             
-        default: return UITableViewCell()
+        case .modificationHistory:
+            return modificationRecordTableViewCell(forRowAt: indexPath)
         }
     }
     
@@ -670,6 +691,24 @@ extension UserDetailViewController: UITableViewDataSource {
         cell.bind(with: submittedBand)
         cell.tappedThumbnailImageView = { [unowned self] in
             self.presentPhotoViewerWithCacheChecking(photoUrlString: submittedBand.band.imageURLString, description: submittedBand.band.name, fromImageView: cell.thumbnailImageView)
+        }
+        return cell
+    }
+    
+    private func modificationRecordTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+        if modificationHistoryPagableManager.moreToLoad && indexPath.row == modificationHistoryPagableManager.objects.count {
+            return loadingTableViewCell(forRowAt: indexPath)
+        }
+        
+        if modificationHistoryPagableManager.objects.isEmpty {
+            return simpleTableViewCell(forRowAt: indexPath, text: "This user has not modified anything.")
+        }
+        
+        let record = modificationHistoryPagableManager.objects[indexPath.row]
+        let cell = ModificationRecordTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.bind(with: record)
+        cell.tappedThumbnailImageView = { [unowned self] in
+            self.presentPhotoViewerWithCacheChecking(photoUrlString: record.thumbnailableObject?.imageURLString, description: record.name, fromImageView: cell.thumbnailImageView)
         }
         return cell
     }

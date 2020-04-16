@@ -288,6 +288,7 @@
 		C0602BDF21EA9CE800046367 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0602BDE21EA9CE800046367 /* Statics.swift */; };
 		C061021521EF92670025F8C1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C061021421EF92670025F8C1 /* Settings.swift */; };
 		C061021B21EFE1610025F8C1 /* ViewMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C061021A21EFE1610025F8C1 /* ViewMoreTableViewCell.swift */; };
+		C0629C13244864BD004A90A0 /* ModificationRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0629C12244864BD004A90A0 /* ModificationRecord.swift */; };
 		C065BCA5222D27C10009808A /* NewsDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C065BCA4222D27C10009808A /* NewsDetailTableViewCell.xib */; };
 		C065BCA8222D3E460009808A /* BaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C065BCA7222D3E460009808A /* BaseTextField.swift */; };
 		C066137122895C3700F99006 /* HomepageViewControllerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066137022895C3700F99006 /* HomepageViewControllerProtocols.swift */; };
@@ -469,6 +470,8 @@
 		C0A1F95122419927005C2C83 /* BrowseLabelsAlphabeticallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A1F95022419927005C2C83 /* BrowseLabelsAlphabeticallyViewController.swift */; };
 		C0A1F95322419947005C2C83 /* BrowseLabels.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A1F95222419947005C2C83 /* BrowseLabels.storyboard */; };
 		C0A1F95622419BC5005C2C83 /* BrowseLabelsAlphabeticallyResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A1F95522419BC5005C2C83 /* BrowseLabelsAlphabeticallyResultViewController.swift */; };
+		C0A2AAE624489A4B00E37204 /* ModificationRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2AAE524489A4B00E37204 /* ModificationRecordTableViewCell.swift */; };
+		C0A2AAE824489A5200E37204 /* ModificationRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0A2AAE724489A5200E37204 /* ModificationRecordTableViewCell.xib */; };
 		C0A2BF7821F67293002CCFEC /* UIViewController+OpenURLInBrowsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2BF7721F67293002CCFEC /* UIViewController+OpenURLInBrowsers.swift */; };
 		C0A48CEA222157520047FC70 /* Pagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A48CE9222157520047FC70 /* Pagable.swift */; };
 		C0A48CEC222161560047FC70 /* PagableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A48CEB222161560047FC70 /* PagableManager.swift */; };
@@ -902,6 +905,7 @@
 		C0602BDE21EA9CE800046367 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
 		C061021421EF92670025F8C1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C061021A21EFE1610025F8C1 /* ViewMoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMoreTableViewCell.swift; sourceTree = "<group>"; };
+		C0629C12244864BD004A90A0 /* ModificationRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModificationRecord.swift; sourceTree = "<group>"; };
 		C065BCA4222D27C10009808A /* NewsDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsDetailTableViewCell.xib; sourceTree = "<group>"; };
 		C065BCA7222D3E460009808A /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
 		C066137022895C3700F99006 /* HomepageViewControllerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewControllerProtocols.swift; sourceTree = "<group>"; };
@@ -1059,6 +1063,8 @@
 		C0A1F95022419927005C2C83 /* BrowseLabelsAlphabeticallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseLabelsAlphabeticallyViewController.swift; sourceTree = "<group>"; };
 		C0A1F95222419947005C2C83 /* BrowseLabels.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BrowseLabels.storyboard; sourceTree = "<group>"; };
 		C0A1F95522419BC5005C2C83 /* BrowseLabelsAlphabeticallyResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseLabelsAlphabeticallyResultViewController.swift; sourceTree = "<group>"; };
+		C0A2AAE524489A4B00E37204 /* ModificationRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModificationRecordTableViewCell.swift; sourceTree = "<group>"; };
+		C0A2AAE724489A5200E37204 /* ModificationRecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModificationRecordTableViewCell.xib; sourceTree = "<group>"; };
 		C0A2BF7721F67293002CCFEC /* UIViewController+OpenURLInBrowsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+OpenURLInBrowsers.swift"; sourceTree = "<group>"; };
 		C0A48CE9222157520047FC70 /* Pagable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagable.swift; sourceTree = "<group>"; };
 		C0A48CEB222161560047FC70 /* PagableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagableManager.swift; sourceTree = "<group>"; };
@@ -1997,6 +2003,7 @@
 				C00D362C223D957800B29B43 /* Library.swift */,
 				C06E92D422539248006EE887 /* VersionHistory.swift */,
 				C04C5008228C2DBE00DAFBF1 /* AuditTrail.swift */,
+				C0629C12244864BD004A90A0 /* ModificationRecord.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3067,6 +3074,15 @@
 			path = Alphabetically;
 			sourceTree = "<group>";
 		};
+		C0A2AAE424489A3900E37204 /* ModificationRecordTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0A2AAE524489A4B00E37204 /* ModificationRecordTableViewCell.swift */,
+				C0A2AAE724489A5200E37204 /* ModificationRecordTableViewCell.xib */,
+			);
+			path = ModificationRecordTableViewCell;
+			sourceTree = "<group>";
+		};
 		C0A48CE8222157100047FC70 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -3250,6 +3266,7 @@
 		C0BD10FB24460B88001AA88A /* UserDetail */ = {
 			isa = PBXGroup;
 			children = (
+				C0A2AAE424489A3900E37204 /* ModificationRecordTableViewCell */,
 				C0792308244797D7004F06A6 /* SubmittedBandTableViewCell */,
 				C036F8C4244768B8008275F5 /* UserReviewOrderTableViewCell */,
 				C0BD10FC24460B92001AA88A /* UserInfoTableViewCell */,
@@ -3652,6 +3669,7 @@
 				C082CDA022E497CF002202F6 /* Explanation.storyboard in Resources */,
 				C03270EB220B9360009FA337 /* Review.storyboard in Resources */,
 				C03270E6220B83F1009FA337 /* ReleaseOtherVersionTableViewCell.xib in Resources */,
+				C0A2AAE824489A5200E37204 /* ModificationRecordTableViewCell.xib in Resources */,
 				C06F92932231CA310079E63E /* SimpleSongTitleTableViewCell.xib in Resources */,
 				C053CF722224498F00B056A8 /* BandCurrentRosterTableViewCell.xib in Resources */,
 				C071307A21ECE0D600082BC6 /* LatestReviewTableViewCell.xib in Resources */,
@@ -3967,6 +3985,7 @@
 				C0E2C672231683CC0037B4A5 /* String+GenreStringToKeywords+Predicate.swift in Sources */,
 				C013363F223811CD00963940 /* BaseAdvancedSearchTableViewController.swift in Sources */,
 				C00D35F9223D033D00B29B43 /* BrowseBandsResultTableViewCell.swift in Sources */,
+				C0629C13244864BD004A90A0 /* ModificationRecord.swift in Sources */,
 				C033C4FE22D3A0BD001294BA /* SearchResultObjectType.swift in Sources */,
 				C03270DB220B476C009FA337 /* ReleaseReviewTableViewCell.swift in Sources */,
 				C0BAD4B3222EE98F00C4D38D /* SimpleSearchResultLabelName.swift in Sources */,
@@ -4025,6 +4044,7 @@
 				C05309E7222338CA0027D11E /* Label.swift in Sources */,
 				C071A22122AD3F6A00A06D2F /* UIView+PositionIn.swift in Sources */,
 				C02C03602441101C00220AF7 /* ReleaseBookmark.swift in Sources */,
+				C0A2AAE624489A4B00E37204 /* ModificationRecordTableViewCell.swift in Sources */,
 				C075295B229E841A0067B5E1 /* HorizontalMenuAnchorTableViewCell.swift in Sources */,
 				C06B624E2242491E00A3FE6B /* BrowseLabelsByCountryResultTableViewCell.swift in Sources */,
 				C0A48CF02221D76C0047FC70 /* Error+Code&Domain.swift in Sources */,

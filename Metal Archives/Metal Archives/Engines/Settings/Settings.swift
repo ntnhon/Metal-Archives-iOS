@@ -372,34 +372,34 @@ extension Theme {
     }
     
     var metalGodColor: UIColor {
-        return UIColor("#F26236")
+        return .systemRed
     }
     
     var metalLordColor: UIColor {
-        return UIColor("#2F294F")
+        return .systemRed
     }
     
     var metalDemonColor: UIColor {
-        return UIColor("#319A8C")
+        return .systemYellow
     }
     
     var metalKnightColor: UIColor {
-        return UIColor("#B74E8C")
+        return .systemGreen
     }
     
     var dishonourablyDischargedColor: UIColor {
-        return UIColor("#143E5A")
+        return .systemBlue
     }
     
     var metalFreakColor: UIColor {
-        return UIColor("#EF6061")
+        return .cyan
     }
     
     var veteranColor: UIColor {
-        return UIColor("#F1A302")
+        return .purple
     }
     
     var metalheadColor: UIColor {
-        return UIColor("#7B69F5")
+        return .magenta
     }
 }
