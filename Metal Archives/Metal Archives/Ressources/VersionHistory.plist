@@ -4,6 +4,21 @@
 <array>
 	<dict>
 		<key>number</key>
+		<string>4.2</string>
+		<key>date</key>
+		<string>April 2020</string>
+		<key>features</key>
+		<string>- This version comes with user profile page which shows user&apos;s reviews, public collection, submitted bands &amp; modification history.
+- You can also search a user by username in Simple Search page.
+- You can now quickly go to search page or go back to homepage from anywhere. Simply tap the &quot;+&quot; button and properly choose an option.
+- Fix error retrieving your collection.
+- Fix crash when picking a release other version.
+- Fix some silly broken English.
+
+Special thanks to Lenn for his continuous suggestions.</string>
+	</dict>
+	<dict>
+		<key>number</key>
 		<string>4.1</string>
 		<key>date</key>
 		<string>April 2020</string>
