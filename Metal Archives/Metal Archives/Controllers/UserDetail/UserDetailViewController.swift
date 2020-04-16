@@ -67,6 +67,7 @@ final class UserDetailViewController: BaseViewController {
         fetchUserProfile()
         // bring floaty to front because it is overlapped by horizontalMenuView
         view.bringSubviewToFront(floaty)
+        Analytics.logEvent("view_user_detail", parameters: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -373,27 +374,33 @@ extension UserDetailViewController: UITableViewDelegate {
         case .reviews:
             guard reviewPagableManager.objects.count > 0 && indexPath.row > 0 else { return }
             takeActionFor(actionableObject: reviewPagableManager.objects[indexPath.row - 1])
+            Analytics.logEvent("select_user_review", parameters: nil)
             
         case .albumCollection:
             guard albumCollectionPagableManager.objects.count > 0 else { return }
             takeActionFor(actionableObject: albumCollectionPagableManager.objects[indexPath.row])
+            Analytics.logEvent("select_user_collection_release", parameters: nil)
             
         case .wantedList:
             guard wantedReleasePagableManager.objects.count > 0 else { return }
             takeActionFor(actionableObject: wantedReleasePagableManager.objects[indexPath.row])
+            Analytics.logEvent("select_user_wanted_release", parameters: nil)
             
         case .tradeList:
             guard releaseForTradePagableManager.objects.count > 0 else { return }
             takeActionFor(actionableObject: releaseForTradePagableManager.objects[indexPath.row])
+            Analytics.logEvent("select_user_trade_release", parameters: nil)
             
         case .submittedBands:
             guard submittedBandPagableManager.objects.count > 0 && indexPath.row > 0 else { return }
             let submittedBand = submittedBandPagableManager.objects[indexPath.row - 1]
             pushBandDetailViewController(urlString: submittedBand.band.urlString, animated: true)
+            Analytics.logEvent("select_user_submitted_band", parameters: nil)
             
         case .modificationHistory:
             guard modificationHistoryPagableManager.objects.count > 0 else { return }
             takeActionFor(actionableObject: modificationHistoryPagableManager.objects[indexPath.row])
+            Analytics.logEvent("select_user_modification_record", parameters: nil)
         }
     }
     
@@ -420,31 +427,37 @@ extension UserDetailViewController: UITableViewDelegate {
         case .reviews:
             if reviewPagableManager.moreToLoad && indexPath.row == reviewPagableManager.objects.count - 1 {
                 reviewPagableManager.fetch()
+                Analytics.logEvent("fetch_more_user_reviews", parameters: nil)
             }
             
         case .albumCollection:
             if albumCollectionPagableManager.moreToLoad && indexPath.row == albumCollectionPagableManager.objects.count - 1 {
                 albumCollectionPagableManager.fetch()
+                Analytics.logEvent("fetch_more_user_album_collection", parameters: nil)
             }
             
         case .wantedList:
             if wantedReleasePagableManager.moreToLoad && indexPath.row == wantedReleasePagableManager.objects.count - 1 {
                 wantedReleasePagableManager.fetch()
+                Analytics.logEvent("fetch_more_user_wanted_list", parameters: nil)
             }
             
         case .tradeList:
             if releaseForTradePagableManager.moreToLoad && indexPath.row == releaseForTradePagableManager.objects.count - 1 {
                 releaseForTradePagableManager.fetch()
+                Analytics.logEvent("fetch_more_user_trade_list", parameters: nil)
             }
             
         case .submittedBands:
             if submittedBandPagableManager.moreToLoad && indexPath.row == submittedBandPagableManager.objects.count - 1 {
                 submittedBandPagableManager.fetch()
+                Analytics.logEvent("fetch_more_user_submitted_bands", parameters: nil)
             }
             
         case .modificationHistory:
             if modificationHistoryPagableManager.moreToLoad && indexPath.row == modificationHistoryPagableManager.objects.count - 1 {
                 modificationHistoryPagableManager.fetch()
+                Analytics.logEvent("fetch_more_user_modification_history", parameters: nil)
             }
         }
     }
