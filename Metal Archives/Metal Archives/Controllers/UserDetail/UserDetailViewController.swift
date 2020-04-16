@@ -188,6 +188,7 @@ final class UserDetailViewController: BaseViewController {
                 self.initPagableManagers()
                 self.reviewPagableManager.fetch()
                 self.tableView.reloadData()
+                self.historyRecordableDelegate?.loaded(urlString: self.urlString, nameOrTitle: userProfile.username, thumbnailUrlString: nil, objectType: .user)
             }
         }
     }

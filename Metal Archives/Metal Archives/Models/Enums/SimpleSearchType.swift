@@ -9,7 +9,7 @@
 import Foundation
 
 enum SimpleSearchType: Int, CustomStringConvertible, CaseIterable {
-    case bandName = 0, musicGenre, lyricalThemes, albumTitle, songTitle, label, artist
+    case bandName = 0, musicGenre, lyricalThemes, albumTitle, songTitle, label, artist, user
     
     var description: String {
         switch self {
@@ -20,6 +20,7 @@ enum SimpleSearchType: Int, CustomStringConvertible, CaseIterable {
         case .songTitle: return "Song title"
         case .label: return "Label"
         case .artist: return "Artist"
+        case .user: return "User"
         }
     }
 }

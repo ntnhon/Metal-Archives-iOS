@@ -82,6 +82,10 @@ extension UIViewController {
                 self.pushReleaseDetailViewController(urlString: urlString, animated: true)
                 return
                 
+            case .user(_, let urlString):
+                self.pushUserDetailViewController(urlString: urlString, animated: true)
+                return
+                
             default: break
             }
         }

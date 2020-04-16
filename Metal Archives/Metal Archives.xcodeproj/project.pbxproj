@@ -472,6 +472,9 @@
 		C0A1F95622419BC5005C2C83 /* BrowseLabelsAlphabeticallyResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A1F95522419BC5005C2C83 /* BrowseLabelsAlphabeticallyResultViewController.swift */; };
 		C0A2AAE624489A4B00E37204 /* ModificationRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2AAE524489A4B00E37204 /* ModificationRecordTableViewCell.swift */; };
 		C0A2AAE824489A5200E37204 /* ModificationRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0A2AAE724489A5200E37204 /* ModificationRecordTableViewCell.xib */; };
+		C0A2AAEA2448A9DE00E37204 /* SimpleSearchResultUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2AAE92448A9DE00E37204 /* SimpleSearchResultUser.swift */; };
+		C0A2AAED2448AD7200E37204 /* SimpleUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2AAEC2448AD7200E37204 /* SimpleUserTableViewCell.swift */; };
+		C0A2AAEF2448AD7C00E37204 /* SimpleUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0A2AAEE2448AD7C00E37204 /* SimpleUserTableViewCell.xib */; };
 		C0A2BF7821F67293002CCFEC /* UIViewController+OpenURLInBrowsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2BF7721F67293002CCFEC /* UIViewController+OpenURLInBrowsers.swift */; };
 		C0A48CEA222157520047FC70 /* Pagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A48CE9222157520047FC70 /* Pagable.swift */; };
 		C0A48CEC222161560047FC70 /* PagableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A48CEB222161560047FC70 /* PagableManager.swift */; };
@@ -1065,6 +1068,9 @@
 		C0A1F95522419BC5005C2C83 /* BrowseLabelsAlphabeticallyResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseLabelsAlphabeticallyResultViewController.swift; sourceTree = "<group>"; };
 		C0A2AAE524489A4B00E37204 /* ModificationRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModificationRecordTableViewCell.swift; sourceTree = "<group>"; };
 		C0A2AAE724489A5200E37204 /* ModificationRecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModificationRecordTableViewCell.xib; sourceTree = "<group>"; };
+		C0A2AAE92448A9DE00E37204 /* SimpleSearchResultUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchResultUser.swift; sourceTree = "<group>"; };
+		C0A2AAEC2448AD7200E37204 /* SimpleUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleUserTableViewCell.swift; sourceTree = "<group>"; };
+		C0A2AAEE2448AD7C00E37204 /* SimpleUserTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleUserTableViewCell.xib; sourceTree = "<group>"; };
 		C0A2BF7721F67293002CCFEC /* UIViewController+OpenURLInBrowsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+OpenURLInBrowsers.swift"; sourceTree = "<group>"; };
 		C0A48CE9222157520047FC70 /* Pagable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagable.swift; sourceTree = "<group>"; };
 		C0A48CEB222161560047FC70 /* PagableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagableManager.swift; sourceTree = "<group>"; };
@@ -1952,6 +1958,7 @@
 				C06F928F2231C8100079E63E /* SimpleSongTitleTableViewCell */,
 				C06F92942231CD0F0079E63E /* SimpleLabelTableViewCell */,
 				C06F92992231D2EB0079E63E /* SimpleArtistTableViewCell */,
+				C0A2AAEB2448AD5C00E37204 /* SimpleUserTableViewCell */,
 			);
 			path = SimpleSearch;
 			sourceTree = "<group>";
@@ -3083,6 +3090,15 @@
 			path = ModificationRecordTableViewCell;
 			sourceTree = "<group>";
 		};
+		C0A2AAEB2448AD5C00E37204 /* SimpleUserTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0A2AAEC2448AD7200E37204 /* SimpleUserTableViewCell.swift */,
+				C0A2AAEE2448AD7C00E37204 /* SimpleUserTableViewCell.xib */,
+			);
+			path = SimpleUserTableViewCell;
+			sourceTree = "<group>";
+		};
 		C0A48CE8222157100047FC70 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -3222,6 +3238,7 @@
 				C0BAD4B0222EE15900C4D38D /* SimpleSearchResultSongTitle.swift */,
 				C0BAD4B2222EE98F00C4D38D /* SimpleSearchResultLabelName.swift */,
 				C0BAD4B4222EED6300C4D38D /* SimpleSearchResultArtist.swift */,
+				C0A2AAE92448A9DE00E37204 /* SimpleSearchResultUser.swift */,
 			);
 			path = SimpleSearch;
 			sourceTree = "<group>";
@@ -3695,6 +3712,7 @@
 				C0ECE6F2221AB32B00489A8E /* Lyric.storyboard in Resources */,
 				C0661376228969D900F99006 /* LabelAdditionOrUpdateCollectionViewCell.xib in Resources */,
 				C0BE339A21E68CDF001ED000 /* LaunchScreen.storyboard in Resources */,
+				C0A2AAEF2448AD7C00E37204 /* SimpleUserTableViewCell.xib in Resources */,
 				C053DD5222269B010028568B /* ReleaseStatisticTableViewCell.xib in Resources */,
 				C071307021ECD73500082BC6 /* StatisticTableViewCell.xib in Resources */,
 				C0107029222DC9840092D3A5 /* ImFeelingLuckyView.xib in Resources */,
@@ -4166,6 +4184,7 @@
 				C0F1537F21EF5DE500355616 /* MetalArchivesAPI.swift in Sources */,
 				C082CDA622E4A246002202F6 /* DeezerAlbumLite.swift in Sources */,
 				C0F64B962311A45D00C01645 /* UpcomingAlbumsFilterOptionsViewController.swift in Sources */,
+				C0A2AAEA2448A9DE00E37204 /* SimpleSearchResultUser.swift in Sources */,
 				C082CD9222E4757E002202F6 /* DeezerArtist.swift in Sources */,
 				C053DD7A22271E920028568B /* SearchViewController.swift in Sources */,
 				C0BAD4A5222EC70200C4D38D /* SimpleSearchResultBandName.swift in Sources */,
@@ -4197,6 +4216,7 @@
 				C05606F622A30D2A006F5BC1 /* LineupOptionTableViewCell.swift in Sources */,
 				C00E71322441E2E000A17471 /* ArtistOrLabelBookmarkOrderViewController.swift in Sources */,
 				C0602BD921EA89C000046367 /* Ressources.swift in Sources */,
+				C0A2AAED2448AD7200E37204 /* SimpleUserTableViewCell.swift in Sources */,
 				C00D3614223D5F1400B29B43 /* AdditionOrUpdateType.swift in Sources */,
 				C03F440922306FEC005D7AA8 /* SimpleLyricalThemesTableViewCell.swift in Sources */,
 				C0ECE702221B580F00489A8E /* RequestArtistBiography.swift in Sources */,

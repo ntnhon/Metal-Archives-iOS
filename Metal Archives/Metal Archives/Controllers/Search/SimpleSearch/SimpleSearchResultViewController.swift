@@ -41,6 +41,9 @@ final class SimpleSearchResultViewController: BaseViewController {
     //Artist
     private var artistResultManager: PagableManager<SimpleSearchResultArtist>!
     
+    // User
+    private var userResultManager: PagableManager<SimpleSearchResultUser>!
+    
     // Core Data
     private let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var doNotRecordHistory = false
@@ -81,6 +84,7 @@ final class SimpleSearchResultViewController: BaseViewController {
         SimpleSongTitleTableViewCell.register(with: tableView)
         SimpleLabelTableViewCell.register(with: tableView)
         SimpleArtistTableViewCell.register(with: tableView)
+        SimpleUserTableViewCell.register(with: tableView)
     }
     
     private func initManager() {
@@ -107,6 +111,9 @@ final class SimpleSearchResultViewController: BaseViewController {
         case .artist:
             artistResultManager = PagableManager<SimpleSearchResultArtist>(options: ["<QUERY>": searchTerm])
             artistResultManager.delegate = self
+        case .user:
+            userResultManager = PagableManager<SimpleSearchResultUser>(options: ["<QUERY>": searchTerm])
+            userResultManager.delegate = self
         }
     }
     
@@ -119,6 +126,7 @@ final class SimpleSearchResultViewController: BaseViewController {
         case .songTitle: songTitleResultManager.fetch()
         case .label: labelNameResultManager.fetch()
         case .artist: artistResultManager.fetch()
+        case .user: userResultManager.fetch()
         }
     }
     
@@ -148,6 +156,9 @@ final class SimpleSearchResultViewController: BaseViewController {
         case .artist:
             loaded = artistResultManager.objects.count
             total = artistResultManager.totalRecords
+        case .user:
+            loaded = userResultManager.objects.count
+            total = userResultManager.totalRecords
         }
         
         if let loaded = loaded, let total = total, let searchTerm = searchTerm {
@@ -205,6 +216,12 @@ final class SimpleSearchResultViewController: BaseViewController {
                 let result = artistResultManager.objects[0]
                 pushArtistDetailViewController(urlString: result.artist.urlString, animated: true)
             }
+            
+        case .user:
+            if userResultManager.objects.count == 1 || (isFeelingLucky && !wasLucky && userResultManager.objects.count > 1) {
+                let user = userResultManager.objects[0]
+                pushUserDetailViewController(urlString: user.urlString, animated: true)
+            }
         }
         
         wasLucky = true
@@ -261,6 +278,7 @@ extension SimpleSearchResultViewController: UITableViewDelegate {
         case .songTitle: didSelectSongTitleResult(at: indexPath)
         case .label: didSelectLabelResult(at: indexPath)
         case .artist: didSelectArtistResult(at: indexPath)
+        case .user: didSelectUserResult(at: indexPath)
         }
     }
     
@@ -273,6 +291,7 @@ extension SimpleSearchResultViewController: UITableViewDelegate {
         case .songTitle: willDisplaySongTitleResultCell(at: indexPath)
         case .label: willDisplayLabelResultCell(at: indexPath)
         case .artist: willDisplayArtistResultCell(at: indexPath)
+        case .user: willDisplayUserResultCell(at: indexPath)
         }
     }
 }
@@ -292,6 +311,7 @@ extension SimpleSearchResultViewController: UITableViewDataSource {
         case .songTitle: return numberOfRowsForSongTitleResults()
         case .label: return numberOfRowsForLabelResults()
         case .artist: return numberOfRowsForArtistResults()
+        case .user: return numberOfRowsForUserResults()
         }
     }
     
@@ -304,6 +324,7 @@ extension SimpleSearchResultViewController: UITableViewDataSource {
         case .songTitle: return cellForSongTitleResult(at: indexPath)
         case .label: return cellForLabelResult(at: indexPath)
         case .artist: return cellForArtistResult(at: indexPath)
+        case .user: return cellForUserResult(at: indexPath)
         }
     }
 }
@@ -684,6 +705,55 @@ extension SimpleSearchResultViewController {
         if artistResultManager.moreToLoad && indexPath.row == artistResultManager.objects.count {
             artistResultManager.fetch()
         } else if !artistResultManager.moreToLoad && indexPath.row == artistResultManager.objects.count - 1 {
+            Toast.displayMessageShortly(endOfListMessage)
+        }
+    }
+}
+
+//MARK: - User
+extension SimpleSearchResultViewController {
+    private func numberOfRowsForUserResults() -> Int {
+        guard let manager = userResultManager else {
+            return 0
+        }
+        
+        if manager.moreToLoad {
+            return manager.objects.count + 1
+        }
+        
+        return manager.objects.count
+    }
+    
+    private func cellForUserResult(at indexPath: IndexPath) -> UITableViewCell {
+        if userResultManager.moreToLoad && indexPath.row == userResultManager.objects.count {
+            let loadingCell = LoadingTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            loadingCell.displayIsLoading()
+            return loadingCell
+        }
+        
+        let result = userResultManager.objects[indexPath.row]
+        let cell = SimpleUserTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.bind(with: result)
+        return cell
+    }
+    
+    private func didSelectUserResult(at indexPath: IndexPath) {
+        if userResultManager.objects.indices.contains(indexPath.row) {
+            let result = userResultManager.objects[indexPath.row]
+            takeActionFor(actionableObject: result)
+            
+            Analytics.logEvent("select_a_simple_search_result", parameters: nil)
+        }
+    }
+    
+    private func willDisplayUserResultCell(at indexPath: IndexPath) {
+        guard let _ = userResultManager.totalRecords else {
+            return
+        }
+        
+        if userResultManager.moreToLoad && indexPath.row == userResultManager.objects.count {
+            userResultManager.fetch()
+        } else if !userResultManager.moreToLoad && indexPath.row == userResultManager.objects.count - 1 {
             Toast.displayMessageShortly(endOfListMessage)
         }
     }
