@@ -22,6 +22,8 @@ final class UserInfoTableViewCell: BaseTableViewCell, RegisterableCell {
     @IBOutlet private var iconImageViews: [UIImageView]!
     @IBOutlet private var infoLabels: [UILabel]!
     
+    var didTapHomepageLabel: (() -> Void)?
+    
     override func initAppearance() {
         super.initAppearance()
         
@@ -32,6 +34,10 @@ final class UserInfoTableViewCell: BaseTableViewCell, RegisterableCell {
             $0.textColor = Settings.currentTheme.bodyTextColor
             $0.font = Settings.currentFontSize.bodyTextFont
         })
+        
+        let homepageLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(homepageLableTapped))
+        homepageLabel.isUserInteractionEnabled = true
+        homepageLabel.addGestureRecognizer(homepageLabelTapGesture)
     }
     
     func bind(with userProfile: UserProfile) {
@@ -51,5 +57,9 @@ final class UserInfoTableViewCell: BaseTableViewCell, RegisterableCell {
         
         favoriteGenresLabel.text = userProfile.favoriteGenres ?? "N/A"
         commentsLabel.text = userProfile.comments ?? "N/A"
+    }
+    
+    @objc private func homepageLableTapped() {
+        didTapHomepageLabel?()
     }
 }

@@ -163,7 +163,7 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOd-0l-N2Q">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOd-0l-N2Q">
                                 <rect key="frame" x="0.0" y="192" width="374" height="159"/>
                                 <string key="text">I've been a writer for The Metal Observer webzine for about 12 years now, and was recently recruited to do some writing for Sonic Perspectives, hence those annoying "Originally written for blank website" tags at the end of some of my reviews. I omit the score sheet portion of my Sonic Perspectives reviews when posting them here, and my scores here are rounded up or down to increments of 5 on The Metal Observer. Most of my work is done exclusively for this site, as it was for my first 3 years as a registered user here.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>

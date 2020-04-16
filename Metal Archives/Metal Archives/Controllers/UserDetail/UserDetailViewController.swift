@@ -572,6 +572,10 @@ extension UserDetailViewController: UITableViewDataSource {
     private func userInfoTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UserInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.bind(with: userProfile!)
+        cell.didTapHomepageLabel = { [unowned self] in
+            guard let homepageUrlString = self.userProfile?.homepage, let url = URL(string: homepageUrlString) else { return }
+            self.presentAlertOpenURLInBrowsers(url, alertMessage: "View \(self.userProfile?.username ?? "user")'s homepage in browser")
+        }
         userInfoTableViewCell = cell
         return cell
     }
