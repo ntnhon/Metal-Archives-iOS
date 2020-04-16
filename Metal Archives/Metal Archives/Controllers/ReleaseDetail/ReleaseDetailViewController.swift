@@ -844,7 +844,7 @@ extension ReleaseDetailViewController {
         }
         
         let review = release.reviews[index]
-        presentReviewController(urlString: review.urlString, animated: true)
+        takeActionFor(actionableObject: review)
         
         Analytics.logEvent("select_release_review", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? "", "review_url": review.urlString])
     }

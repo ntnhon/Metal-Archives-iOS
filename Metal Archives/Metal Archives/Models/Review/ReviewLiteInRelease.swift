@@ -23,3 +23,9 @@ final class ReviewLiteInRelease {
         self.dateString = dateString
     }
 }
+
+extension ReviewLiteInRelease: Actionable {
+    var actionableElements: [ActionableElement] {
+        return [ActionableElement.review(name: title, urlString: urlString), ActionableElement.user(name: author.name, urlString: author.urlString)]
+    }
+}
