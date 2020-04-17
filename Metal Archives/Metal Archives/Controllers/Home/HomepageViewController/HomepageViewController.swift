@@ -615,7 +615,7 @@ extension HomepageViewController {
 // MARK: - Alert new version
 extension HomepageViewController {
     private func alertNewVersion() {
-        guard UserDefaults.shouldAlertNewVersion() else {
+        guard UserDefaults.numberOfSessions() > 1, UserDefaults.shouldAlertNewVersion() else {
             return
         }
         

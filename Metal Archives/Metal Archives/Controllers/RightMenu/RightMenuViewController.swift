@@ -12,6 +12,7 @@ import MBProgressHUD
 import SlideMenuControllerSwift
 import Toaster
 import FirebaseAnalytics
+import SafariServices
 
 final class RightMenuViewController: BaseViewController {
     @IBOutlet private weak var myProfileStackView: UIStackView!
@@ -165,7 +166,9 @@ final class RightMenuViewController: BaseViewController {
     
     @IBAction private func registerButtonTapped() {
         guard let url = URL(string: "https://www.metal-archives.com/user/signup") else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        let safariController = SFSafariViewController(url: url)
+        safariController.dismissButtonStyle = .close
+        present(safariController, animated: true, completion: nil)
         Analytics.logEvent("open_register", parameters: nil)
     }
     
