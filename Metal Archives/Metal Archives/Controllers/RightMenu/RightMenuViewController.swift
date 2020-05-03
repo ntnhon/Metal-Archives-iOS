@@ -84,15 +84,10 @@ final class RightMenuViewController: BaseViewController {
     }
     
     private func properlyShowHideUIComponents() {
-        if LoginService.isLoggedIn {
-            loginButton.isHidden = true
-            registerButton.isHidden = true
-            tableView.isHidden = false
-        } else {
-            loginButton.isHidden = false
-            registerButton.isHidden = false
-            tableView.isHidden = true
-        }
+        loginDescriptionLabel.isHidden = LoginService.isLoggedIn
+        loginButton.isHidden = LoginService.isLoggedIn
+        registerButton.isHidden = LoginService.isLoggedIn
+        tableView.isHidden = !LoginService.isLoggedIn
         
         myProfileStackView.isHidden = myProfile == nil || KeychainService.getUsername() == ""
     }

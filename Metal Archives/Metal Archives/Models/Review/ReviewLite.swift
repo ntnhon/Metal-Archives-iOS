@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ReviewLite {
+final class ReviewLite: Pagable {
     let urlString: String
     let releaseTitle: String
     let rating: Int
@@ -43,6 +43,10 @@ final class ReviewLite {
         self.release = release
     }
     
+    static var rawRequestURLString = "https://www.metal-archives.com/review/ajax-list-band/id/<BAND_ID>/json/1?sEcho=1&iColumns=4&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=3&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true"
+    
+    static var displayLength = 200
+    
     /*
      Sample array:
      "<a href='https://www.metal-archives.com/reviews/Death/Human/606/mordor_machine/565946'>Human</a>",
@@ -70,31 +74,6 @@ final class ReviewLite {
         } else {
             return nil
         }
-    }
-}
-
-// MARK: - Pagable
-extension ReviewLite: Pagable {
-    static var rawRequestURLString = "https://www.metal-archives.com/review/ajax-list-band/id/<BAND_ID>/json/1?sEcho=1&iColumns=4&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=3&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true"
-    
-    static var displayLength = 200
-    
-    static func parseListFrom(data: Data) -> (objects: [ReviewLite]?, totalRecords: Int?)? {
-        guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
-            return nil
-        }
-        var list: [ReviewLite] = []
-        
-        array.forEach { (reviewDetails) in
-            if let reviewLite = ReviewLite(from: reviewDetails) {
-                list.append(reviewLite)
-            }
-        }
-        
-        if list.count == 0 {
-            return (nil, nil)
-        }
-        return (list, totalRecords)
     }
 }
 

@@ -8,11 +8,15 @@
 
 import Foundation
 
-final class SubmittedBand {
+final class SubmittedBand: Pagable {
     let band: BandLite
     let genre: String
     let country: Country
     let date: String
+    
+    static var rawRequestURLString = "https://www.metal-archives.com/band/ajax-list-user/id/<USER_ID>?sEcho=1&iColumns=4&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=<SORT_COLUMN>&sSortDir_0=<SORT_ORDER>&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true"
+    
+    static var displayLength = 100
     
     /*
      Sample array:
@@ -35,29 +39,5 @@ final class SubmittedBand {
         self.genre = array[1]
         self.country = Country(name: array[2])
         self.date = array[3]
-    }
-}
-
-extension SubmittedBand: Pagable {
-    static var rawRequestURLString = "https://www.metal-archives.com/band/ajax-list-user/id/<USER_ID>?sEcho=1&iColumns=4&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=<SORT_COLUMN>&sSortDir_0=<SORT_ORDER>&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true&_=1586977685424"
-    
-    static var displayLength = 100
-    
-    static func parseListFrom(data: Data) -> (objects: [SubmittedBand]?, totalRecords: Int?)? {
-        guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
-            return nil
-        }
-        var list: [SubmittedBand] = []
-        
-        array.forEach { (submittedBandDetails) in
-            if let submittedBand = SubmittedBand(from: submittedBandDetails) {
-                list.append(submittedBand)
-            }
-        }
-        
-        if list.count == 0 {
-            return (nil, nil)
-        }
-        return (list, totalRecords)
     }
 }

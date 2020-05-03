@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class LatestReview {
+final class LatestReview: Pagable {
     let title: String
     let reviewURLString: String
     let band: BandLite
@@ -29,11 +29,15 @@ final class LatestReview {
         }
 
         if let ratingRange = authorAndRatingAndDateString.range(of: "\(rating)%") {
-            mutableAttributedString.addAttributes([.foregroundColor: UIColor.colorByRating(rating), .font: Settings.currentFontSize.boldBodyTextFont], range: NSRange(ratingRange, in: authorAndRatingAndDateString))
+            mutableAttributedString.addAttributes([.foregroundColor: UIColor.colorByRating(rating), .font: Settings.currentFontSize.bodyTextFont], range: NSRange(ratingRange, in: authorAndRatingAndDateString))
         }
         
         return mutableAttributedString
     }()
+    
+    static var rawRequestURLString = "https://www.metal-archives.com/review/ajax-list-browse/by/date/selection/<YEAR_MONTH>?sEcho=3&iColumns=7&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&mDataProp_6=6&iSortCol_0=6&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=false&bSortable_2=true&bSortable_3=false&bSortable_4=true&bSortable_5=true&bSortable_6=true"
+    
+    static var displayLength = 200
     
     /*
      Sample array:
@@ -74,30 +78,6 @@ final class LatestReview {
         self.dateString = array[0]
         self.timeString = array[6]
         self.author = author
-    }
-}
-
-//MARK: - Pagable
-extension LatestReview: Pagable {
-    static var rawRequestURLString = "https://www.metal-archives.com/review/ajax-list-browse/by/date/selection/<YEAR_MONTH>?sEcho=3&iColumns=7&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&mDataProp_6=6&iSortCol_0=6&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=false&bSortable_2=true&bSortable_3=false&bSortable_4=true&bSortable_5=true&bSortable_6=true&_=1550957396237"
-    static var displayLength = 200
-    
-    static func parseListFrom(data: Data) -> (objects: [LatestReview]?, totalRecords: Int?)? {
-        guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
-            return nil
-        }
-        var list: [LatestReview] = []
-        
-        array.forEach { (latestReviewDetails) in
-            if let latestReview = LatestReview(from: latestReviewDetails) {
-                list.append(latestReview)
-            }
-        }
-        
-        if list.count == 0 {
-            return (nil, nil)
-        }
-        return (list, totalRecords)
     }
 }
 

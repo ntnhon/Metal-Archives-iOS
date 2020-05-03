@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ModificationRecord {
+final class ModificationRecord: Pagable {
     enum RecordType {
         case band, artist, label, release
     }
@@ -27,6 +27,10 @@ final class ModificationRecord {
         case .release: return ThumbnailableObject(urlString: urlString, imageType: .release)
         }
     }()
+    
+    static var rawRequestURLString =    "https://www.metal-archives.com/history/ajax-view/id/<USER_ID>/type/user?sEcho=1&iColumns=5&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&iSortCol_0=0&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=false&bSortable_3=false&bSortable_4=true"
+    
+    static var displayLength = 500
     
     /*
      Sample array:
@@ -68,29 +72,5 @@ extension ModificationRecord: Actionable {
         case .label: return [ActionableElement.label(name: name, urlString: urlString)]
         case .release: return [ActionableElement.release(name: name, urlString: urlString)]
         }
-    }
-}
-
-extension ModificationRecord: Pagable {
-    static var rawRequestURLString =    "https://www.metal-archives.com/history/ajax-view/id/<USER_ID>/type/user?sEcho=1&iColumns=5&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&iSortCol_0=0&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=false&bSortable_3=false&bSortable_4=true&_=1587031215598"
-    
-    static var displayLength = 500
-    
-    static func parseListFrom(data: Data) -> (objects: [ModificationRecord]?, totalRecords: Int?)? {
-        guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
-            return nil
-        }
-        var list: [ModificationRecord] = []
-        
-        array.forEach { (modificationRecordDetails) in
-            if let modificationRecord = ModificationRecord(from: modificationRecordDetails) {
-                list.append(modificationRecord)
-            }
-        }
-        
-        if list.count == 0 {
-            return (nil, nil)
-        }
-        return (list, totalRecords)
     }
 }
