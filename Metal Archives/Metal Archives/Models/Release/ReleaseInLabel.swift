@@ -32,7 +32,7 @@ final class ReleaseInLabel: ThumbnailableObject {
 //MARK: - Pagable
 extension ReleaseInLabel: Pagable {
     static var rawRequestURLString = "https://www.metal-archives.com/label/ajax-albums/nbrPerPage/200/id/<LABEL_ID>?sEcho=1&iColumns=7&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&mDataProp_6=6&iSortCol_0=0&sSortDir_0=asc&iSortingCols=1&bSortable_0=true&bSortable_1=false&bSortable_2=true&bSortable_3=true&bSortable_4=true&bSortable_5=true&bSortable_6=false&_=1551083484359"
-    static var displayLenght = 200
+    static var displayLength = 200
     
     static func parseListFrom(data: Data) -> (objects: [ReleaseInLabel]?, totalRecords: Int?)? {
         var list: [ReleaseInLabel] = []

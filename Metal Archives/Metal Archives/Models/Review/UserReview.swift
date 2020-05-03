@@ -63,7 +63,7 @@ final class UserReview {
 extension UserReview: Pagable {
     static var rawRequestURLString = "https://www.metal-archives.com/review/ajax-list-user/userId/<USER_ID>?sEcho=1&iColumns=6&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&iSortCol_0=<SORT_COLUMN>&sSortDir_0=<SORT_ORDER>&iSortingCols=1&bSortable_0=false&bSortable_1=true&bSortable_2=true&bSortable_3=true&bSortable_4=true&bSortable_5=true&_=1586884148723"
     
-    static var displayLenght = 200
+    static var displayLength = 200
     
     static func parseListFrom(data: Data) -> (objects: [UserReview]?, totalRecords: Int?)? {
         guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {

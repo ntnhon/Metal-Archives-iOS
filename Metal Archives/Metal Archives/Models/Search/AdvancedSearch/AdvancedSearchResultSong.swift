@@ -24,7 +24,7 @@ final class AdvancedSearchResultSong {
 extension AdvancedSearchResultSong: Pagable {
     static var rawRequestURLString = "https://www.metal-archives.com/search/ajax-advanced/searching/songs/?<OPTIONS_LIST>sEcho=1&iColumns=6&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5"
     
-    static var displayLenght = 200
+    static var displayLength = 200
     
     static func parseListFrom(data: Data) -> (objects: [AdvancedSearchResultSong]?, totalRecords: Int?)? {
         var list: [AdvancedSearchResultSong] = []

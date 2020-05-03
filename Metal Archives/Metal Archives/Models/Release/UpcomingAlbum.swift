@@ -88,7 +88,7 @@ final class UpcomingAlbum: NSObject {
 //MARK: - Pagable
 extension UpcomingAlbum: Pagable {
     static var rawRequestURLString = "https://www.metal-archives.com/release/ajax-upcoming/json/1?sEcho=1&iColumns=5&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=100&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&iSortCol_0=4&sSortDir_0=asc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true&bSortable_4=true"
-    static var displayLenght = 100
+    static var displayLength = 100
     
     static func parseListFrom(data: Data) -> (objects: [UpcomingAlbum]?, totalRecords: Int?)? {
         guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {

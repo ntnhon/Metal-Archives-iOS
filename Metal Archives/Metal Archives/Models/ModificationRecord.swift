@@ -74,7 +74,7 @@ extension ModificationRecord: Actionable {
 extension ModificationRecord: Pagable {
     static var rawRequestURLString =    "https://www.metal-archives.com/history/ajax-view/id/<USER_ID>/type/user?sEcho=1&iColumns=5&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&iSortCol_0=0&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=false&bSortable_3=false&bSortable_4=true&_=1587031215598"
     
-    static var displayLenght = 500
+    static var displayLength = 500
     
     static func parseListFrom(data: Data) -> (objects: [ModificationRecord]?, totalRecords: Int?)? {
         guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {

@@ -28,7 +28,7 @@ final class BandBrowse: ThumbnailableObject {
 extension BandBrowse: Pagable {
     
     static var rawRequestURLString = "https://www.metal-archives.com/browse/<PARAMETER>/json/1?sEcho=1&iColumns=4&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=500&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=0&sSortDir_0=asc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=false"
-    static var displayLenght = 500
+    static var displayLength = 500
     
     static func parseListFrom(data: Data) -> (objects: [BandBrowse]?, totalRecords: Int?)? {
         var list: [BandBrowse] = []

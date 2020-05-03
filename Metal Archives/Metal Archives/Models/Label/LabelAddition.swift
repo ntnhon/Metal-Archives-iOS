@@ -11,7 +11,7 @@ import Foundation
 final class LabelAddition: LabelAdditionOrUpdate, Pagable {
     static var rawRequestURLString = "https://www.metal-archives.com/archives/ajax-label-list/selection/<YEAR_MONTH>/by/created/json/1?sEcho=1&iColumns=6&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&iSortCol_0=4&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true&bSortable_4=true&bSortable_5=true&_=1551185962686"
     
-    static var displayLenght = 200
+    static var displayLength = 200
     
     static func parseListFrom(data: Data) -> (objects: [LabelAddition]?, totalRecords: Int?)? {
         guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {

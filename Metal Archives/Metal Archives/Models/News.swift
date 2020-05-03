@@ -49,10 +49,14 @@ final class News {
 
 extension News: Pagable {
     static var rawRequestURLString: String = "https://www.metal-archives.com/news/index/p/"
-    static var displayLenght = Int.min
+    static var displayLength = Int.min
     
     static func requestURLString(forPage page: Int, withOptions options: [String : String]?) -> String {
         return rawRequestURLString + "\(page)"
+    }
+    
+    convenience init?(from array: [String]) {
+        return nil
     }
     
     static func parseListFrom(data: Data) -> (objects: [News]?, totalRecords: Int?)? {

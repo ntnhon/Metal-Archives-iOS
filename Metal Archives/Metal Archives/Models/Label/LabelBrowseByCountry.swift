@@ -28,7 +28,7 @@ final class LabelBrowseByCountry: ThumbnailableObject {
 //MARK: - Pagable
 extension LabelBrowseByCountry: Pagable {
     static var rawRequestURLString = "https://www.metal-archives.com/label/ajax-list/c/<COUNTRY>/json/1?sEcho=1&iColumns=6&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&iSortCol_0=1&sSortDir_0=asc&iSortingCols=1&bSortable_0=false&bSortable_1=true&bSortable_2=true&bSortable_3=true&bSortable_4=false&bSortable_5=true&_=1553073795216"
-    static var displayLenght = 200
+    static var displayLength = 200
     
     static func parseListFrom(data: Data) -> (objects: [LabelBrowseByCountry]?, totalRecords: Int?)? {
         var list: [LabelBrowseByCountry] = []

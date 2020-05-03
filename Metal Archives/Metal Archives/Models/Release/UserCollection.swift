@@ -86,7 +86,7 @@ extension UserCollection: Actionable {
 final class UserAlbumCollection: UserCollection, Pagable {
     static var rawRequestURLString =   "https://www.metal-archives.com/collection/ajax-view/id/<USER_ID>/type/1/json/1?sEcho=1&iColumns=6&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&_=1586945145862"
     
-    static var displayLenght = 200
+    static var displayLength = 200
     
     static func parseListFrom(data: Data) -> (objects: [UserAlbumCollection]?, totalRecords: Int?)? {
         guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
@@ -110,7 +110,7 @@ final class UserAlbumCollection: UserCollection, Pagable {
 final class UserWantedRelease: UserCollection, Pagable {
     static var rawRequestURLString = "https://www.metal-archives.com/collection/ajax-view/id/<USER_ID>/type/3/json/1?sEcho=1&iColumns=5&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&_=1586959069460"
     
-    static var displayLenght = 200
+    static var displayLength = 200
     
     static func parseListFrom(data: Data) -> (objects: [UserWantedRelease]?, totalRecords: Int?)? {
         guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
@@ -134,7 +134,7 @@ final class UserWantedRelease: UserCollection, Pagable {
 final class UserReleaseForTrade: UserCollection, Pagable {
     static var rawRequestURLString =   "https://www.metal-archives.com/collection/ajax-view/id/<USER_ID>/type/2/json/1?sEcho=1&iColumns=5&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&_=1586958990689"
     
-    static var displayLenght = 200
+    static var displayLength = 200
     
     static func parseListFrom(data: Data) -> (objects: [UserReleaseForTrade]?, totalRecords: Int?)? {
         guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {

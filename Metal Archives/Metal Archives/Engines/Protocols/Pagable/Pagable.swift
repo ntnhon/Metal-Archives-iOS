@@ -10,18 +10,19 @@ import Foundation
 
 protocol Pagable {
     static var rawRequestURLString: String { get }
-    static var displayLenght: Int { get }
+    static var displayLength: Int { get }
+    //init?(from array: [String])
     static func requestURLString(forPage page: Int, withOptions options: [String: String]?) -> String
     static func parseListFrom(data: Data) -> (objects: [Self]?, totalRecords: Int?)?
 }
 
 extension Pagable {
     static func requestURLString(forPage page: Int, withOptions options: [String: String]?) -> String {
-        var requestURLString = self.rawRequestURLString
-        let displayStart = page * self.displayLenght
+        var requestURLString = rawRequestURLString
+        let displayStart = page * displayLength
         
         requestURLString = requestURLString.replacingOccurrences(of: "<DISPLAY_START>", with: "\(displayStart)")
-        requestURLString = requestURLString.replacingOccurrences(of: "<DISPLAY_LENGTH>", with: "\(self.displayLenght)")
+        requestURLString = requestURLString.replacingOccurrences(of: "<DISPLAY_LENGTH>", with: "\(self.displayLength)")
         
         options?.forEach({ (arg) in
             let (key, value) = arg

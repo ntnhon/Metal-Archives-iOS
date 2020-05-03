@@ -43,7 +43,7 @@ final class BandPastRoster: ThumbnailableObject {
 
 extension BandPastRoster: Pagable {
     static var rawRequestURLString = "https://www.metal-archives.com/label/ajax-bands-past/nbrPerPage/100/id/<LABEL_ID>?sEcho=1&iColumns=4&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=100&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=0&sSortDir_0=asc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true&_=1551083484358"
-    static var displayLenght = 100
+    static var displayLength = 100
     
     static func parseListFrom(data: Data) -> (objects: [BandPastRoster]?, totalRecords: Int?)? {
         var list: [BandPastRoster] = []

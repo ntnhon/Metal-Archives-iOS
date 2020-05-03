@@ -29,7 +29,7 @@ final class ArtistRIP: ThumbnailableObject {
 //MARK: - Pagable
 extension ArtistRIP: Pagable {
     static var rawRequestURLString = "https://www.metal-archives.com/artist/ajax-rip?sEcho=2&iColumns=5&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&sSearch=<YEAR>&bRegex=false&sSearch_0=&bRegex_0=false&bSearchable_0=true&sSearch_1=&bRegex_1=false&bSearchable_1=true&sSearch_2=&bRegex_2=false&bSearchable_2=true&sSearch_3=&bRegex_3=false&bSearchable_3=true&sSearch_4=&bRegex_4=false&bSearchable_4=true&iSortCol_0=3&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=false&bSortable_3=true&bSortable_4=false"
-    static var displayLenght = 200
+    static var displayLength = 200
     
     static func parseListFrom(data: Data) -> (objects: [ArtistRIP]?, totalRecords: Int?)? {
         var list: [ArtistRIP] = []
