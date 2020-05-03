@@ -8,80 +8,57 @@
 
 import Foundation
 
-final class AdvancedSearchResultBand {
+final class AdvancedSearchResultBand: Pagable {
     let band: BandLite
     let akaString: String?
     let otherDetails: [String]
     
-    init(band: BandLite, akaString: String?, otherDetails: [String]) {
-        self.band = band
-        self.akaString = akaString
-        self.otherDetails = otherDetails
-    }
-}
-
-extension AdvancedSearchResultBand: Pagable {
     static var rawRequestURLString = "https://www.metal-archives.com/search/ajax-advanced/searching/bands/?<OPTIONS_LIST>&sEcho=1&iColumns=6&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5"
     static var displayLength = 200
     
-    static func parseListFrom(data: Data) -> (objects: [AdvancedSearchResultBand]?, totalRecords: Int?)? {
-        var list: [AdvancedSearchResultBand] = []
+    init?(from array: [String]) {
+        var band: BandLite?
+        var aka: String?
         
-        guard
-            let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listBandAdvancedSearchResult = json["aaData"] as? [[String]]
-            else {
-                return nil
-        }
-        
-        let totalRecords = json["iTotalRecords"] as? Int
-        
-        listBandAdvancedSearchResult.forEach { (eachSearchResult) in
-            var band: BandLite?
-            var aka: String?
-            
-            if eachSearchResult.indices.contains(0) {
-                var bandName: String?
-                var urlString: String?
-                if let subString = eachSearchResult[0].subString(after: "\">", before: "</a>", options: .caseInsensitive) {
-                    bandName = String(subString)
-                }
-                
-                if let subString = eachSearchResult[0].subString(after: "href=\"", before: "\">", options: .caseInsensitive) {
-                    urlString = String(subString)
-                }
-                
-                if let `bandName` = bandName, let `urlString` = urlString {
-                    band = BandLite(name: bandName, urlString: urlString)
-                }
-                
-                if eachSearchResult[0].contains("a.k.a") {
-                    if let subString = eachSearchResult[0].subString(after: "</a> (", before: ")", options: .caseInsensitive) {
-                        aka = subString.replacingOccurrences(of: "<strong>", with: "").replacingOccurrences(of: "</strong>", with: "")
-                        
-                    }
-                }
+        if array.indices.contains(0) {
+            var bandName: String?
+            var urlString: String?
+            if let subString = array[0].subString(after: "\">", before: "</a>", options: .caseInsensitive) {
+                bandName = String(subString)
             }
             
-            var otherDetails: [String] = []
-            for i in 1..<eachSearchResult.count {
-                let country = Country(name: eachSearchResult[i])
-                if country != Country.unknownCountry {
-                    otherDetails.append(country.nameAndEmoji)
-                } else {
-                    otherDetails.append(eachSearchResult[i])
-                }
+            if let subString = array[0].subString(after: "href=\"", before: "\">", options: .caseInsensitive) {
+                urlString = String(subString)
             }
             
-            if let `band` = band {
-                let result = AdvancedSearchResultBand(band: band, akaString: aka, otherDetails: otherDetails)
-                list.append(result)
+            if let `bandName` = bandName, let `urlString` = urlString {
+                band = BandLite(name: bandName, urlString: urlString)
+            }
+            
+            if array[0].contains("a.k.a") {
+                if let subString = array[0].subString(after: "</a> (", before: ")", options: .caseInsensitive) {
+                    aka = subString.replacingOccurrences(of: "<strong>", with: "").replacingOccurrences(of: "</strong>", with: "")
+                    
+                }
             }
         }
         
-        if list.count == 0 {
-            return (nil, nil)
+        var otherDetails: [String] = []
+        for i in 1..<array.count {
+            let country = Country(name: array[i])
+            if country != Country.unknownCountry {
+                otherDetails.append(country.nameAndEmoji)
+            } else {
+                otherDetails.append(array[i])
+            }
         }
-        return (list, totalRecords)
+        
+        if let band = band {
+            self.band = band
+            self.akaString = aka
+            self.otherDetails = otherDetails
+        } else {
+            return nil
+        }
     }
 }

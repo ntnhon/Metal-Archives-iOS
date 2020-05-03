@@ -8,96 +8,72 @@
 
 import Foundation
 
-final class AdvancedSearchResultAlbum {
+final class AdvancedSearchResultAlbum: Pagable {
     let bands: [BandLite]
     let release: ReleaseExtraLite
     let otherDetails: [String]
     
-    init(bands: [BandLite], release: ReleaseExtraLite, otherDetails: [String]) {
-        self.bands = bands
-        self.release = release
-        self.otherDetails = otherDetails
-    }
-}
-
-//MARK: - Pagable
-extension AdvancedSearchResultAlbum: Pagable {
     static var rawRequestURLString = "https://www.metal-archives.com/search/ajax-advanced/searching/albums/?<OPTIONS_LIST>sEcho=5&iColumns=3&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2"
     
     static var displayLength = 200
     
-    static func parseListFrom(data: Data) -> (objects: [AdvancedSearchResultAlbum]?, totalRecords: Int?)? {
-        var list: [AdvancedSearchResultAlbum] = []
+    init?(from array: [String]) {
+        var bands: [BandLite]?
         
-        guard
-            let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listAlbumAdvancedSearchResult = json["aaData"] as? [[String]]
-            else {
-                return nil
-        }
-        
-        let totalRecords = json["iTotalRecords"] as? Int
-        
-        listAlbumAdvancedSearchResult.forEach { (eachSearchResult) in
-            var bands: [BandLite]?
+        if array.indices.contains(0) {
+            bands = []
+            let detailComponents = array[0].components(separatedBy: "|")
             
-            if eachSearchResult.indices.contains(0) {
-                bands = []
-                let detailComponents = eachSearchResult[0].components(separatedBy: "|")
-                
-                detailComponents.forEach({ (eachComponent) in
-                    var bandName: String?
-                    var urlString: String?
-                    if let subString = eachComponent.subString(after: "\">", before: "</a>", options: .caseInsensitive) {
-                        bandName = String(subString)
-                    }
-                    
-                    if let subString = eachComponent.subString(after: "href=\"", before: "\" title", options: .caseInsensitive) {
-                        urlString = String(subString)
-                    }
-                    
-                    if let `bandName` = bandName, let `urlString` = urlString {
-                        if let band = BandLite(name: bandName, urlString: urlString) {
-                            bands?.append(band)
-                        }
-                    }
-                })
-            }
-            
-            var release: ReleaseExtraLite?
-            
-            if eachSearchResult.indices.contains(1) {
-                var releaseTitle: String?
+            detailComponents.forEach({ (eachComponent) in
+                var bandName: String?
                 var urlString: String?
-                
-                if let subString = eachSearchResult[1].subString(after: "\">", before: "</a>", options: .caseInsensitive) {
-                    releaseTitle = String(subString)
+                if let subString = eachComponent.subString(after: "\">", before: "</a>", options: .caseInsensitive) {
+                    bandName = String(subString)
                 }
                 
-                if let subString = eachSearchResult[1].subString(after: "href=\"", before: "\">", options: .caseInsensitive) {
+                if let subString = eachComponent.subString(after: "href=\"", before: "\" title", options: .caseInsensitive) {
                     urlString = String(subString)
                 }
                 
-                if let `releaseTitle` = releaseTitle, let `urlString` = urlString {
-                    release = ReleaseExtraLite(urlString: urlString, title: releaseTitle)
+                if let `bandName` = bandName, let `urlString` = urlString {
+                    if let band = BandLite(name: bandName, urlString: urlString) {
+                        bands?.append(band)
+                    }
                 }
+            })
+        }
+        
+        var release: ReleaseExtraLite?
+        
+        if array.indices.contains(1) {
+            var releaseTitle: String?
+            var urlString: String?
+            
+            if let subString = array[1].subString(after: "\">", before: "</a>", options: .caseInsensitive) {
+                releaseTitle = String(subString)
             }
             
-            var otherDetails: [String] = []
-            for i in 2..<eachSearchResult.count {
-                otherDetails.append(eachSearchResult[i])
+            if let subString = array[1].subString(after: "href=\"", before: "\">", options: .caseInsensitive) {
+                urlString = String(subString)
             }
             
-            if let `bands` = bands, let `release` = release {
-                let result = AdvancedSearchResultAlbum(bands: bands, release: release, otherDetails: otherDetails)
-                list.append(result)
+            if let `releaseTitle` = releaseTitle, let `urlString` = urlString {
+                release = ReleaseExtraLite(urlString: urlString, title: releaseTitle)
             }
         }
         
-        if list.count == 0 {
-            return (nil, nil)
+        var otherDetails: [String] = []
+        for i in 2..<array.count {
+            otherDetails.append(array[i])
         }
-        return (list, totalRecords)
+        
+        if let bands = bands, let release = release {
+            self.bands = bands
+            self.release = release
+            self.otherDetails = otherDetails
+        } else {
+            return nil
+        }
     }
 }
 

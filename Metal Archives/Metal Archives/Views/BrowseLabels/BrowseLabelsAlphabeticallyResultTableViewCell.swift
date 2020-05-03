@@ -44,11 +44,7 @@ final class BrowseLabelsAlphabeticallyResultTableViewCell: ThumbnailableTableVie
         self.statusLabel.text = label.status.description
         self.statusLabel.textColor = label.status.color
         
-        if let country = label.country {
-            self.countryLabel.text = country.nameAndEmoji
-        } else {
-            self.countryLabel.text = "Unknown country"
-        }
+        self.countryLabel.text = label.country.nameAndEmoji
         
         if let _ = label.websiteURLString {
             self.websiteLabel.text = "Website available"

@@ -8,59 +8,32 @@
 
 import Foundation
 
-final class BandCurrentRoster: ThumbnailableObject {
+final class BandCurrentRoster: ThumbnailableObject, Pagable {
     let name: String
     let genre: String
     let country: Country
     
-    init?(urlString: String, name: String, genre: String, country: Country) {
-        self.name = name
-        self.genre = genre
-        self.country = country
-        super.init(urlString: urlString, imageType: .bandLogo)
-    }
-}
-
-extension BandCurrentRoster: Pagable {
-    static var rawRequestURLString = "https://www.metal-archives.com/label/ajax-bands/nbrPerPage/100/id/<LABEL_ID>?sEcho=1&iColumns=3&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=100&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&iSortCol_0=0&sSortDir_0=asc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&_=1551083484357"
+    static var rawRequestURLString = "https://www.metal-archives.com/label/ajax-bands/nbrPerPage/100/id/<LABEL_ID>?sEcho=1&iColumns=3&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=100&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&iSortCol_0=0&sSortDir_0=asc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true"
     static var displayLength = 100
     
-    static func parseListFrom(data: Data) -> (objects: [BandCurrentRoster]?, totalRecords: Int?)? {
-        var list: [BandCurrentRoster] = []
+    init?(from array: [String]) {
+        //Workaround in case ' instead of "
+        //from: <a href='https://www.metal-archives.com/bands/Red_Ruin/3540450310'>Red Ruin</a>
+        //to: <a href=\"https://www.metal-archives.com/bands/Red_Ruin/3540450310\">Red Ruin</a>
+        var a = array[0]
+        a = a.replacingOccurrences(of: "href='", with: "href=\"")
+        a = a.replacingOccurrences(of: "href=\'", with: "href=\"")
+        a = a.replacingOccurrences(of: "'>", with: "\">")
         
-        guard
-            let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listCurrentRoster = json["aaData"] as? [[String]]
-            else {
-                return nil
-        }
+        let bandName = String(a.subString(after: "\">", before: "</a>", options: .caseInsensitive) ?? "")
+        let bandURLString = String(a.subString(after: "href=\"", before: "\">", options: .caseInsensitive) ?? "")
         
-        let totalRecords = json["iTotalRecords"] as? Int
+        let genre = array[1]
+        let countryName = array[2]
         
-        listCurrentRoster.forEach { (eachBandCurrentRosterDetail) in
-            //Workaround is case ' instead of "
-            //from: <a href='https://www.metal-archives.com/bands/Red_Ruin/3540450310'>Red Ruin</a>
-            //to: <a href=\"https://www.metal-archives.com/bands/Red_Ruin/3540450310\">Red Ruin</a>
-            var a = eachBandCurrentRosterDetail[0]
-            a = a.replacingOccurrences(of: "href='", with: "href=\"")
-            a = a.replacingOccurrences(of: "href=\'", with: "href=\"")
-            a = a.replacingOccurrences(of: "'>", with: "\">")
-            
-            let bandName = String(a.subString(after: "\">", before: "</a>", options: .caseInsensitive) ?? "")
-            let bandURLString = String(a.subString(after: "href=\"", before: "\">", options: .caseInsensitive) ?? "")
-            
-            let genre = eachBandCurrentRosterDetail[1]
-            let countryName = eachBandCurrentRosterDetail[2]
-            
-            let country = Country(name: countryName)
-            if let bandCurrentRoster = BandCurrentRoster(urlString: bandURLString, name: bandName, genre: genre, country: country) {
-                list.append(bandCurrentRoster)
-            }
-        }
-        
-        if list.count == 0 {
-            return (nil, nil)
-        }
-        return (list, totalRecords)
+        self.name = bandName
+        self.genre = genre
+        self.country = Country(name: countryName)
+        super.init(urlString: bandURLString, imageType: .bandLogo)
     }
 }

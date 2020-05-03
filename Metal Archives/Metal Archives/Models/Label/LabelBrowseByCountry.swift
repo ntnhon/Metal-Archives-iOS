@@ -8,79 +8,55 @@
 
 import Foundation
 
-final class LabelBrowseByCountry: ThumbnailableObject {
+final class LabelBrowseByCountry: ThumbnailableObject, Pagable {
     let name: String
     let specialisation: String
     let status: LabelStatus
     let websiteURLString: String?
     let onlineShopping: Bool
     
-    init?(urlString: String, name: String, specialisation: String, status: LabelStatus, websiteURLString: String?, onlineShopping: Bool) {
-        self.name = name
-        self.specialisation = specialisation
-        self.status = status
-        self.websiteURLString = websiteURLString
-        self.onlineShopping = onlineShopping
-        super.init(urlString: urlString, imageType: .label)
-    }
-}
-
-//MARK: - Pagable
-extension LabelBrowseByCountry: Pagable {
-    static var rawRequestURLString = "https://www.metal-archives.com/label/ajax-list/c/<COUNTRY>/json/1?sEcho=1&iColumns=6&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&iSortCol_0=1&sSortDir_0=asc&iSortingCols=1&bSortable_0=false&bSortable_1=true&bSortable_2=true&bSortable_3=true&bSortable_4=false&bSortable_5=true&_=1553073795216"
+    static var rawRequestURLString = "https://www.metal-archives.com/label/ajax-list/c/<COUNTRY>/json/1?sEcho=1&iColumns=6&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&iSortCol_0=1&sSortDir_0=asc&iSortingCols=1&bSortable_0=false&bSortable_1=true&bSortable_2=true&bSortable_3=true&bSortable_4=false&bSortable_5=true"
+    
     static var displayLength = 200
     
-    static func parseListFrom(data: Data) -> (objects: [LabelBrowseByCountry]?, totalRecords: Int?)? {
-        var list: [LabelBrowseByCountry] = []
-        
-        guard
-            let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listLabelBrowseByCountry = json["aaData"] as? [[String]]
-            else {
-                return nil
+    init?(from array: [String]) {
+        var name: String?
+        if let nameSubString = array[1].subString(after: "\">", before: "</a>", options: .caseInsensitive) {
+            name = String(nameSubString)
         }
         
-        let totalRecords = json["iTotalRecords"] as? Int
-        
-        listLabelBrowseByCountry.forEach { (labelDetails) in
-            var name: String?
-            if let nameSubString = labelDetails[1].subString(after: "\">", before: "</a>", options: .caseInsensitive) {
-                name = String(nameSubString)
-            }
-            
-            var urlString: String?
-            if let urlSubString = labelDetails[1].subString(after: "href=\"", before: "\">", options: .caseInsensitive) {
-                urlString = String(urlSubString)
-            }
-            
-            let specialisation = labelDetails[2].replacingOccurrences(of: " &nbsp;", with: "")
-            
-            var status: LabelStatus?
-            if let statusSubString = labelDetails[3].subString(after: "\">", before: "</span>", options: .caseInsensitive) {
-                status = LabelStatus(statusString: String(statusSubString))
-            }
-            
-            var websiteURLString: String?
-            if let websiteURLSubString = labelDetails[4].subString(after: "href='", before: "' title=", options: .caseInsensitive) {
-                websiteURLString = String(websiteURLSubString)
-            }
-            
-            var onlineShopping = false
-            if labelDetails[5] != "&nbsp;" {
-                onlineShopping = true
-            }
-            
-            if let `name` = name, let `urlString` = urlString, let `status` = status {
-                if let label = LabelBrowseByCountry(urlString: urlString, name: name, specialisation: specialisation, status: status, websiteURLString: websiteURLString, onlineShopping: onlineShopping) {
-                    list.append(label)
-                }
-            }
+        var urlString: String?
+        if let urlSubString = array[1].subString(after: "href=\"", before: "\">", options: .caseInsensitive) {
+            urlString = String(urlSubString)
         }
         
-        if list.count == 0 {
-            return (nil, nil)
+        let specialisation = array[2].replacingOccurrences(of: " &nbsp;", with: "")
+        
+        var status: LabelStatus?
+        if let statusSubString = array[3].subString(after: "\">", before: "</span>", options: .caseInsensitive) {
+            status = LabelStatus(statusString: String(statusSubString))
         }
-        return (list, totalRecords)
+        
+        var websiteURLString: String?
+        if let websiteURLSubString = array[4].subString(after: "href='", before: "' title=", options: .caseInsensitive) {
+            websiteURLString = String(websiteURLSubString)
+        }
+        
+        var onlineShopping = false
+        if array[5] != "&nbsp;" {
+            onlineShopping = true
+        }
+        
+        if let name = name, let urlString = urlString, let status = status {
+            self.name = name
+            self.specialisation = specialisation
+            self.status = status
+            self.websiteURLString = websiteURLString
+            self.onlineShopping = onlineShopping
+            super.init(urlString: urlString, imageType: .label)
+        } else {
+            return nil
+        }
     }
 }
 

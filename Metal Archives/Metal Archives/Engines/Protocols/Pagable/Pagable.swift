@@ -9,9 +9,10 @@
 import Foundation
 
 protocol Pagable {
+    init?(from array: [String])
+    
     static var rawRequestURLString: String { get }
     static var displayLength: Int { get }
-    //init?(from array: [String])
     static func requestURLString(forPage page: Int, withOptions options: [String: String]?) -> String
     static func parseListFrom(data: Data) -> (objects: [Self]?, totalRecords: Int?)?
 }
@@ -34,6 +35,24 @@ extension Pagable {
         }
         
         return formattedRequestURLString
+    }
+    
+    static func parseListFrom(data: Data) -> (objects: [Self]?, totalRecords: Int?)? {
+        guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
+            return nil
+        }
+        var list: [Self] = []
+        
+        array.forEach { (details) in
+            if let object = Self(from: details) {
+                list.append(object)
+            }
+        }
+        
+        if list.count == 0 {
+            return (nil, nil)
+        }
+        return (list, totalRecords)
     }
     
     static func parseTotalRecordsAndArrayOfRawValues(_ data: Data) -> (totalRecords: Int?, [[String]])? {

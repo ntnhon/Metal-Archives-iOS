@@ -8,102 +8,78 @@
 
 import Foundation
 
-final class SimpleSearchResultAlbumTitle: ThumbnailableObject {
+final class SimpleSearchResultAlbumTitle: ThumbnailableObject, Pagable {
     let bands: [BandLite]
     let release: ReleaseExtraLite
     let type: String
     let dateString: String
     
-    init?(bands: [BandLite], release: ReleaseExtraLite, type: String, dateString: String) {
-        self.bands = bands
-        self.release = release
-        self.type = type
-        self.dateString = dateString
-        super.init(urlString: release.urlString, imageType: .release)
-    }
-}
-
-//MARK: - Pagable
-extension SimpleSearchResultAlbumTitle: Pagable {
     static var rawRequestURLString = "https://www.metal-archives.com/search/ajax-album-search/?field=title&query=<QUERY>&sEcho=2&iColumns=4&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3"
+    
     static var displayLength = 200
     
-    static func parseListFrom(data: Data) -> (objects: [SimpleSearchResultAlbumTitle]?, totalRecords: Int?)? {
-        var list: [SimpleSearchResultAlbumTitle] = []
+    init?(from array: [String]) {
+        var bands: [BandLite]?
         
-        guard
-            let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String:Any],
-            let listSimpleSearchResultAlbumTitle = json["aaData"] as? [[String]]
-            else {
-                return nil
-        }
-        
-        let totalRecords = json["iTotalRecords"] as? Int
-        
-        listSimpleSearchResultAlbumTitle.forEach { (eachDetail) in
-            var bands: [BandLite]?
+        if array.indices.contains(0) {
+            bands = []
+            let detailComponents = array[0].components(separatedBy: "|")
             
-            if eachDetail.indices.contains(0) {
-                bands = []
-                let detailComponents = eachDetail[0].components(separatedBy: "|")
-        
-                detailComponents.forEach({ (eachComponent) in
-                    var bandName: String?
-                    var urlString: String?
-                    if let subString = eachComponent.subString(after: "\">", before: "</a>", options: .caseInsensitive) {
-                        bandName = String(subString)
-                    }
-                    
-                    if let subString = eachComponent.subString(after: "href=\"", before: "\"", options: .caseInsensitive) {
-                        urlString = String(subString)
-                    }
-                    
-                    if let `bandName` = bandName, let `urlString` = urlString {
-                        if let band = BandLite(name: bandName, urlString: urlString) {
-                            bands?.append(band)
-                        }
-                    }
-                })
-            }
-            
-            var release: ReleaseExtraLite?
-            
-            if eachDetail.indices.contains(1) {
-                var releaseTitle: String?
+            detailComponents.forEach({ (eachComponent) in
+                var bandName: String?
                 var urlString: String?
-                
-                if let subString = eachDetail[1].subString(after: "\">", before: "</a>", options: .caseInsensitive) {
-                    releaseTitle = String(subString)
+                if let subString = eachComponent.subString(after: "\">", before: "</a>", options: .caseInsensitive) {
+                    bandName = String(subString)
                 }
                 
-                if let subString = eachDetail[1].subString(after: "href=\"", before: "\">", options: .caseInsensitive) {
+                if let subString = eachComponent.subString(after: "href=\"", before: "\"", options: .caseInsensitive) {
                     urlString = String(subString)
                 }
                 
-                if let `releaseTitle` = releaseTitle, let `urlString` = urlString {
-                    release = ReleaseExtraLite(urlString: urlString, title: releaseTitle)
+                if let `bandName` = bandName, let `urlString` = urlString {
+                    if let band = BandLite(name: bandName, urlString: urlString) {
+                        bands?.append(band)
+                    }
                 }
+            })
+        }
+        
+        var release: ReleaseExtraLite?
+        
+        if array.indices.contains(1) {
+            var releaseTitle: String?
+            var urlString: String?
+            
+            if let subString = array[1].subString(after: "\">", before: "</a>", options: .caseInsensitive) {
+                releaseTitle = String(subString)
             }
             
-            let type: String? = eachDetail.indices.contains(2) ? eachDetail[2] : nil
-            
-            var dateString: String?
-            if eachDetail.indices.contains(3) {
-                let detailComponents = eachDetail[3].components(separatedBy: " <!--")
-                dateString = detailComponents.indices.contains(0) ? detailComponents[0] : nil
+            if let subString = array[1].subString(after: "href=\"", before: "\">", options: .caseInsensitive) {
+                urlString = String(subString)
             }
             
-            if let `bands` = bands, let `release` = release, let `type` = type, let `dateString` = dateString {
-                if let result = SimpleSearchResultAlbumTitle(bands: bands, release: release, type: type, dateString: dateString) {
-                    list.append(result)
-                }
+            if let `releaseTitle` = releaseTitle, let `urlString` = urlString {
+                release = ReleaseExtraLite(urlString: urlString, title: releaseTitle)
             }
         }
         
-        if list.count == 0 {
-            return (nil, nil)
+        let type: String? = array.indices.contains(2) ? array[2] : nil
+        
+        var dateString: String?
+        if array.indices.contains(3) {
+            let detailComponents = array[3].components(separatedBy: " <!--")
+            dateString = detailComponents.indices.contains(0) ? detailComponents[0] : nil
         }
-        return (list, totalRecords)
+        
+        if let bands = bands, let release = release, let type = type, let dateString = dateString {
+            self.bands = bands
+            self.release = release
+            self.type = type
+            self.dateString = dateString
+            super.init(urlString: release.urlString, imageType: .release)
+        } else {
+            return nil
+        }
     }
 }
 
