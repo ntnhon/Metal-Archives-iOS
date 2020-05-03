@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,11 +25,18 @@
                                 </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Lkb-nB-fOt" userLabel="Buttons Stack View">
-                                <rect key="frame" x="107" y="408" width="200" height="80"/>
+                                <rect key="frame" x="10" y="390" width="394" height="116.5"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in to manage your bookmarks &amp; collection" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ahx-3U-duy">
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Hk-8c-eUZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="32"/>
+                                        <rect key="frame" x="0.0" y="36.5" width="394" height="32"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Log in" image="log_in">
                                             <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -38,8 +45,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZW4-96-gnx">
-                                        <rect key="frame" x="0.0" y="48" width="200" height="32"/>
+                                        <rect key="frame" x="0.0" y="84.5" width="394" height="32"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Resgister an account" image="register">
                                             <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -85,9 +93,10 @@
                             <constraint firstItem="Lkb-nB-fOt" firstAttribute="centerY" secondItem="HHp-x2-TBL" secondAttribute="centerY" id="Eg5-fE-Bh0"/>
                             <constraint firstItem="Lpp-sm-bAt" firstAttribute="trailing" secondItem="n8R-33-4fE" secondAttribute="trailing" id="FvN-Q7-b8c"/>
                             <constraint firstItem="Lpp-sm-bAt" firstAttribute="trailing" secondItem="uj9-Tn-pXZ" secondAttribute="trailing" constant="20" id="JlN-Pg-vFL"/>
-                            <constraint firstItem="Lkb-nB-fOt" firstAttribute="centerX" secondItem="HHp-x2-TBL" secondAttribute="centerX" id="Y0s-yY-Zmq"/>
                             <constraint firstItem="uj9-Tn-pXZ" firstAttribute="leading" secondItem="Lpp-sm-bAt" secondAttribute="leading" constant="20" id="amT-g0-LCl"/>
+                            <constraint firstItem="Lpp-sm-bAt" firstAttribute="trailing" secondItem="Lkb-nB-fOt" secondAttribute="trailing" constant="10" id="gFy-fx-j2h"/>
                             <constraint firstItem="n8R-33-4fE" firstAttribute="leading" secondItem="Lpp-sm-bAt" secondAttribute="leading" id="hke-DD-pcY"/>
+                            <constraint firstItem="Lkb-nB-fOt" firstAttribute="leading" secondItem="Lpp-sm-bAt" secondAttribute="leading" constant="10" id="p6J-YL-wkR"/>
                             <constraint firstItem="uj9-Tn-pXZ" firstAttribute="top" secondItem="Lpp-sm-bAt" secondAttribute="top" constant="20" id="rPc-YN-NHY"/>
                             <constraint firstItem="Lpp-sm-bAt" firstAttribute="bottom" secondItem="n8R-33-4fE" secondAttribute="bottom" id="wOG-YT-PMf"/>
                         </constraints>
@@ -98,6 +107,7 @@
                         <outlet property="genresLabel" destination="U8h-rw-owm" id="Tf4-rG-ktC"/>
                         <outlet property="levelAndPointsLabel" destination="cGy-Or-5f0" id="kKF-wr-1fI"/>
                         <outlet property="loginButton" destination="3Hk-8c-eUZ" id="bMm-Gi-1yt"/>
+                        <outlet property="loginDescriptionLabel" destination="Ahx-3U-duy" id="hcB-hT-hUt"/>
                         <outlet property="myProfileStackView" destination="uj9-Tn-pXZ" id="zHO-ab-XJn"/>
                         <outlet property="registerButton" destination="ZW4-96-gnx" id="GWz-hk-frJ"/>
                         <outlet property="tableView" destination="n8R-33-4fE" id="FHm-72-5py"/>

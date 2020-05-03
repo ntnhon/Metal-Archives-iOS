@@ -22,6 +22,8 @@ final class RightMenuViewController: BaseViewController {
     @IBOutlet private weak var genresLabel: UILabel!
     
     @IBOutlet private weak var tableView: UITableView!
+    
+    @IBOutlet private weak var loginDescriptionLabel: UILabel!
     @IBOutlet private weak var loginButton: UIButton!
     @IBOutlet private weak var registerButton: UIButton!
     
@@ -60,6 +62,9 @@ final class RightMenuViewController: BaseViewController {
         levelAndPointsLabel.text = nil
         genresLabel.textColor = Settings.currentTheme.bodyTextColor
         genresLabel.text = nil
+        
+        loginDescriptionLabel.font = Settings.currentFontSize.bodyTextFont
+        loginDescriptionLabel.textColor = Settings.currentTheme.bodyTextColor
         
         loginButton.tintColor = Settings.currentTheme.titleColor
         loginButton.setTitleColor(Settings.currentTheme.titleColor, for: .normal)
@@ -118,7 +123,7 @@ final class RightMenuViewController: BaseViewController {
     }
     
     @IBAction private func loginButtonTapped() {
-        let alert = UIAlertController(title: "Log in", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Log in", message: "Enter your username and password", preferredStyle: .alert)
         
         alert.addTextField { (usernameTextField) in
             usernameTextField.placeholder = "Username"
