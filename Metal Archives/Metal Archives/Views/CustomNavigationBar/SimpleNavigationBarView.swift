@@ -8,11 +8,16 @@
 
 import UIKit
 
+enum LeftButtonMode {
+    case back, close
+}
+
 final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScrollView {
     private var backgroundView: UIView!
     private var titleLabel: UILabel!
     private var leftButton: UIButton!
     private(set) var rightButton: UIButton!
+    private var leftButtonMode: LeftButtonMode = .back
     
     var didTapLeftButton: (() -> Void)?
     var didTapRightButton: (() -> Void)?
@@ -84,14 +89,29 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
         rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
     }
     
+    func setLeftButtonMode(_ mode: LeftButtonMode) {
+        leftButtonMode = mode
+    }
+    
     func setAlphaForBackgroundAndTitleLabel(_ alpha: CGFloat) {
         backgroundView.alpha = alpha
         titleLabel.alpha = alpha
         
+        let normalImageName: String
+        let filledImageName: String
+        switch leftButtonMode {
+        case .back:
+            normalImageName = Ressources.Images.back
+            filledImageName = Ressources.Images.back_filled
+        case .close:
+            normalImageName = Ressources.Images.close
+            filledImageName = Ressources.Images.close_filled
+        }
+        
         if alpha <= 0 {
-            leftButton.setImage(UIImage(named: "back_filled"), for: .normal)
+            leftButton.setImage(UIImage(named: filledImageName), for: .normal)
         } else {
-            leftButton.setImage(UIImage(named: "back"), for: .normal)
+            leftButton.setImage(UIImage(named: normalImageName), for: .normal)
         }
     }
     

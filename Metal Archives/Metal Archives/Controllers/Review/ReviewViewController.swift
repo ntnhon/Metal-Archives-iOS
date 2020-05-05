@@ -128,6 +128,7 @@ final class ReviewViewController: DismissableOnSwipeViewController {
             self.dismissToBottom()
         }
         
+        simpleNavigationBarView.setLeftButtonMode(.close)
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
             self.presentAlertOpenURLInBrowsers(URL(string: self.urlString)!, alertTitle: "View this review in browser", alertMessage: "\(self.review.title!) - \(self.review.rating!)%", shareMessage: "Share this review URL")
             

@@ -41,5 +41,9 @@ struct Ressources {
         static let deezer = "deezer"
         static let calendar_reminder = "calendar_reminder"
         static let horns_search = "horns_search"
+        static let back = "back"
+        static let back_filled = "back_filled"
+        static let close = "close"
+        static let close_filled = "close_filled"
     }
 }
