@@ -191,7 +191,7 @@ extension MetalArchivesAPI {
 //MARK: - Label
 extension MetalArchivesAPI {
     static func reloadLabel(urlString: String, completion: @escaping (Result<Label, MAError>) -> Void) {
-        RequestHelper.LabelDetail.fetchLabelDetail(urlString: urlString) { result in
+        RequestHelper.LabelDetail.fetchLabelGeneralInfo(urlString: urlString) { result in
             switch result {
             case .success(let label):
                 MetalArchivesAPI.fetchLabelDetails(label: label) { result in

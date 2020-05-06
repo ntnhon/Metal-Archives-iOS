@@ -14,7 +14,7 @@ extension RequestHelper {
 
 extension RequestHelper.LabelDetail {
 
-    static func fetchLabelDetail(urlString: String, completion: @escaping (Result<Label, MAError>) -> Void) {
+    static func fetchLabelGeneralInfo(urlString: String, completion: @escaping (Result<Label, MAError>) -> Void) {
         guard let requestUrl = URL(string: urlString) else {
             completion(.failure(.networking(error: .badURL(urlString))))
             return
