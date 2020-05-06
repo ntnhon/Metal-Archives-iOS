@@ -90,20 +90,13 @@ final class ReleaseDetailViewController: BaseViewController {
         floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         
-        MetalArchivesAPI.reloadRelease(urlString: urlString) { [weak self] (release, error) in
+        MetalArchivesAPI.reloadRelease(urlString: urlString) { [weak self] result in
             guard let self = self else { return }
-            if let _ = error as NSError? {
-                self.showHUD()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-                    self.fetchRelease()
-                })
-            } else {
+            self.hideHUD()
+            
+            switch result {
+            case .success(let release):
                 self.hideHUD()
-                guard let release = release else {
-                    Toast.displayMessageShortly(errorLoadingMessage)
-                    self.navigationController?.popViewController(animated: true)
-                    return
-                }
                 self.floaty.isHidden = false
                 self.release = release
                 
@@ -129,6 +122,13 @@ final class ReleaseDetailViewController: BaseViewController {
                 Analytics.logEvent("view_release", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
                 
                 Crashlytics.sharedInstance().setObjectValue(release.generalDescription, forKey: "release")
+                
+            case .failure(let error):
+                self.showHUD()
+                Toast.displayRetryMessage(error)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                    self.fetchRelease()
+                })
             }
         }
     }

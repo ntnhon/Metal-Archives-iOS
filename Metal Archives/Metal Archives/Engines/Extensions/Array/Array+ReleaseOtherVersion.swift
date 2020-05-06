@@ -1,39 +1,16 @@
 //
-//  RequestReleaseOtherVersion.swift
+//  Array+ReleaseOtherVersion.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 06/02/2019.
-//  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
+//  Created by Thanh-Nhon Nguyen on 06/05/2020.
+//  Copyright © 2020 Thanh-Nhon Nguyen. All rights reserved.
 //
 
 import Foundation
 import Kanna
 
-extension RequestHelper.ReleaseDetail {
-    typealias FetchOtherVersionOnSuccess = (_ otherVersions: [ReleaseOtherVersion]) -> Void
-    typealias FetchOtherVersionOnError = (Error) -> Void
-    
-    static func fetchOtherVersion(releaseID: String, onSuccess: @escaping FetchOtherVersionOnSuccess, onError: @escaping FetchOtherVersionOnError) {
-        let requestURLString = "http://www.metal-archives.com/release/ajax-versions/current/<RELEASE_ID>/parent/<RELEASE_ID>".replacingOccurrences(of: "<RELEASE_ID>", with: releaseID)
-        
-        let requestURL = URL(string: requestURLString)!
-        RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
-            switch response.result {
-            case .success:
-                if let data = response.data {
-                    let otherVersions = RequestHelper.ReleaseDetail.parseOtherVersions(data: data)
-                    onSuccess(otherVersions)
-                } else {
-                    let error = MAParsingError.badStructure(objectType: "Other version")
-                    onError(error)
-                }
-                
-            case .failure(let error): onError(error)
-            }
-        }
-    }
-    
-    private static func parseOtherVersions(data: Data) -> [ReleaseOtherVersion] {
+extension Array where Element == ReleaseOtherVersion {
+    static func from(data: Data) -> [ReleaseOtherVersion] {
         var otherVersions = [ReleaseOtherVersion]()
         
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8) else {
@@ -59,7 +36,7 @@ extension RequestHelper.ReleaseDetail {
                 }
                 else {
                     var i = 0
-
+                    
                     var urlString: String?
                     var dateString: String?
                     var description: String?

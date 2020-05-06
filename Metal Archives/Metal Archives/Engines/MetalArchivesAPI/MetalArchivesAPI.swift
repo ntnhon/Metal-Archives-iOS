@@ -100,37 +100,24 @@ extension MetalArchivesAPI {
 
 //MARK: - Release
 extension MetalArchivesAPI {
-    static func reloadRelease(urlString: String, withCompletion completion: @escaping ((Release?, Error?) -> Void)) {
-        
-        RequestHelper.ReleaseDetail.fetchReleaseDetail(urlString: urlString, onSuccess: { (release) in
-            
-            MetalArchivesAPI.fetchOtherVersions(releaseID: release.id, onSuccess: { (otherVersions) in
-                release.setOtherVersions(otherVersions)
-                completion(release, nil)
-            }, onError: { (error) in
-                completion(nil, error)
-            })
-        }) { (error) in
-            completion(nil, error)
-        }
-    }
-    
-    private static func fetchOtherVersions(releaseID: String, onSuccess: @escaping ([ReleaseOtherVersion]) -> Void, onError: @escaping (Error) -> Void) {
-        RequestHelper.ReleaseDetail.fetchOtherVersion(releaseID: releaseID, onSuccess: { (otherVersions) in
-            onSuccess(otherVersions)
-        }) { (error) in
-            onError(error)
-        }
-    }
-}
-
-//MARK: - Lyric
-extension MetalArchivesAPI {
-    static func fetchLyric(lyricID: String, withCompletion completion: @escaping ((String?, Error?) -> Void)) {
-        RequestHelper.ReleaseDetail.fetchLyric(lyricID: lyricID, onSuccess: { (lyric) in
-            completion(lyric, nil)
-        }) { (error) in
-            completion(nil, error)
+    static func reloadRelease(urlString: String, completion: @escaping (Result<Release, MAError>) -> Void) {
+        RequestHelper.ReleaseDetail.fetchReleaseDetail(urlString: urlString) { result in
+            switch result {
+            case .success(let release):
+                RequestHelper.ReleaseDetail.fetchOtherVersion(releaseID: release.id) { result in
+                    switch result {
+                    case .success(let otherVersions):
+                        release.setOtherVersions(otherVersions)
+                        completion(.success(release))
+                        
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
+                
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
 }

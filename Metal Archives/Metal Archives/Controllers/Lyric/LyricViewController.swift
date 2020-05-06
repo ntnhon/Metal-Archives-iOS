@@ -44,15 +44,16 @@ final class LyricViewController: BaseViewController {
         }
         
         numberOfTries += 1
-        
-        MetalArchivesAPI.fetchLyric(lyricID: lyricID) { [weak self] (lyric, error) in
-            if let `lyric` = lyric {
-                DispatchQueue.main.async  {
-                    self?.lyricTextView.text = lyric.htmlToString
-                    self?.adjustPreferredContentSize()
-                }
-            } else {
-                self?.fetchLyric()
+    
+        RequestHelper.ReleaseDetail.fetchLyric(lyricID: lyricID) { result in
+            switch result {
+            case .success(let lyric):
+                self.lyricTextView.text = lyric.htmlToString
+                self.adjustPreferredContentSize()
+                
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
+                self.fetchLyric()
             }
         }
     }
