@@ -14,13 +14,13 @@ extension RequestHelper {
 }
 
 extension RequestHelper.UserDetail {
-    static func fetchUserProfile(username: String, completion: @escaping (Result<UserProfile, MAParsingError>) -> Void) {
+    static func fetchUserProfile(username: String, completion: @escaping (Result<UserProfile, MAError>) -> Void) {
         fetchUserProfile(urlString: "https://www.metal-archives.com/users/\(username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed) ?? "")", completion: completion)
     }
     
-    static func fetchUserProfile(urlString: String, completion: @escaping (Result<UserProfile, MAParsingError>) -> Void) {
+    static func fetchUserProfile(urlString: String, completion: @escaping (Result<UserProfile, MAError>) -> Void) {
         guard let requestURL = URL(string: urlString) else {
-            completion(.failure(.invalidRequestURL(requestURL: urlString)))
+            completion(.failure(.networking(error: .badURL(urlString))))
             return
         }
         
@@ -30,7 +30,7 @@ extension RequestHelper.UserDetail {
                 if let myProfile = UserProfile(from: data) {
                     completion(.success(myProfile))
                 } else {
-                    completion(.failure(.badStructure(objectType: "UserProfile")))
+                    completion(.failure(.parsing(error: .badStructure(anyObject: UserProfile.self))))
                 }
             
             case .failure(let error):

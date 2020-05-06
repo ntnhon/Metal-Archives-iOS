@@ -11,13 +11,17 @@ import Foundation
 enum MAError: Error, LocalizedError {
     case networking(error: NetworkingError)
     case login(error: LoginError)
+    case parsing(error: ParsingError)
     case unknownStatusCode(code: Int)
+    case unknown(description: String)
     
     var localizedDescription: String {
         switch self {
         case .networking(let error): return error.localizedDescription
         case .login(let error): return error.localizedDescription
+        case .parsing(let error): return error.localizedDescription
         case .unknownStatusCode(let code): return "Unknown error with status code \(code)"
+        case .unknown(let description): return "Unknown error: \(description)"
         }
     }
     
@@ -29,8 +33,8 @@ enum MAError: Error, LocalizedError {
         
         var localizedDescription: String {
             switch self {
-            case .badURL(let urlString): return "[MA Networking Error] Bad URL: \(urlString)"
-            case .badResponse(let response): return "[MA Networking Error] Bad response: \(response)"
+            case .badURL(let urlString): return "Bad URL: \(urlString)"
+            case .badResponse(let response): return "Bad response: \(response)"
             }
         }
     }
@@ -48,9 +52,35 @@ enum MAError: Error, LocalizedError {
         var localizedDescription: String {
             switch self {
             case .incorrectCredential: return "Incorrect username or password"
-            case .emptyResponse: return "[MALoginError] Empty response"
+            case .emptyResponse: return "Empty response"
             case .failedToParseMyProfile: return "Failed to parse profile"
             case .invalidRequestURL(let requestURL): return "Invalid request URL: \(requestURL)"
+            }
+        }
+    }
+    
+    enum ParsingError: LocalizedError {
+        /// Error while extracting useful informations using regular expresion or string manipulation.
+        case badSyntax(string: String, expectedSyntax: String)
+        /// Error converting extracted informations to a strong type
+        case badType(string: String, expectedType: String)
+        /// HTML syntax is not appropriate
+        case badStructure(anyObject: Any)
+
+        var localizedDescription: String {
+            switch self {
+            case .badSyntax(let string, let expectedSyntax):
+                return """
+                Bad syntax for string: \(string).
+                Expected syntax: \(expectedSyntax)
+                """
+            case .badType(let string, let expectedType):
+                return """
+                Error converting - Bad type for string: \(string)
+                Expected type: \(expectedType)
+                """
+            case .badStructure(let anyObject):
+                return "Error parsing \(anyObject.self)"
             }
         }
     }
