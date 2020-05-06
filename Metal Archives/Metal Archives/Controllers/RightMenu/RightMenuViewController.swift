@@ -141,19 +141,21 @@ final class RightMenuViewController: BaseViewController {
                 let password = alert.textFields?[1].text else { return }
             
             MBProgressHUD.showAdded(to: self.slideMenuController.view, animated: true)
-            LoginService.login(username: username, password: password) { [weak self] loginError in
+            LoginService.login(username: username, password: password) { [weak self] result in
                 guard let self = self else { return }
                 MBProgressHUD.hide(for: self.slideMenuController.view, animated: true)
                 
-                if let loginError = loginError {
-                    Toast.displayMessageShortly(loginError.localizedDescription)
-                    Analytics.logEvent("log_in_error", parameters: nil)
-                } else {
+                switch result {
+                case .success(_):
                     KeychainService.save(username: username, password: password)
                     self.tableView.reloadData()
                     self.fetchMyProfileIfApplicable()
                     self.properlyShowHideUIComponents()
                     Analytics.logEvent("log_in_success", parameters: nil)
+                    
+                case .failure(let error):
+                    Toast.displayMessageShortly(error.localizedDescription)
+                    Analytics.logEvent("log_in_error", parameters: nil)
                 }
             }
         }

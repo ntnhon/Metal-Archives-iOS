@@ -334,19 +334,21 @@ extension AppDelegate {
         let password = KeychainService.getPassword()
         
         MBProgressHUD.showAdded(to: slideMenuController.view, animated: true)
-        LoginService.login(username: username, password: password) { (error) in
+        LoginService.login(username: username, password: password) { result in
             MBProgressHUD.hide(for: slideMenuController.view, animated: true)
             
-            if let error = error {
+            switch result {
+            case .success(_):
+                print("Log in successfully")
+                Analytics.logEvent("log_in_success", parameters: nil)
+                
+            case .failure(let error):
                 KeychainService.removeUserCredential()
                 let alert = UIAlertController(title: "Failed to log you in", message: error.localizedDescription, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "Got it", style: .default, handler: nil)
                 alert.addAction(okAction)
                 slideMenuController.present(alert, animated: true, completion: nil)
                 Analytics.logEvent("log_in_error", parameters: nil)
-            } else {
-                print("Log in successfully")
-                Analytics.logEvent("log_in_success", parameters: nil)
             }
         }
     }

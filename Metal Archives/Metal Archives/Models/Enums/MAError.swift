@@ -8,25 +8,50 @@
 
 import Foundation
 
-enum MALoginError: LocalizedError {
-    /// Incorrect username or password
-    case incorrectCredential
-    /// Empty response
-    case emptyResponse
-    /// Failed to parse MyProfile
-    case failedToParseMyProfile
-    /// Invalid request URL
-    case invalidRequestURL(requestURL: String)
-    /// Unknown error
-    case unknown(description: String)
+enum MAError: Error, LocalizedError {
+    case networking(error: NetworkingError)
+    case login(error: LoginError)
+    case unknownStatusCode(code: Int)
     
     var localizedDescription: String {
         switch self {
-        case .incorrectCredential: return "Incorrect username or password"
-        case .emptyResponse: return "[MALoginError] Empty response"
-        case .failedToParseMyProfile: return "Failed to parse profile"
-        case .invalidRequestURL(let requestURL): return "Invalid request URL: \(requestURL)"
-        case .unknown(let description): return "[MALoginError] Unknown error: \(description)"
+        case .networking(let error): return error.localizedDescription
+        case .login(let error): return error.localizedDescription
+        case .unknownStatusCode(let code): return "Unknown error with status code \(code)"
+        }
+    }
+    
+    enum NetworkingError: LocalizedError {
+        /// Error creating an URL to make a request
+        case badURL(_ urlString: String)
+        /// Error parsing response from an URL
+        case badResponse(_ response: Any)
+        
+        var localizedDescription: String {
+            switch self {
+            case .badURL(let urlString): return "[MA Networking Error] Bad URL: \(urlString)"
+            case .badResponse(let response): return "[MA Networking Error] Bad response: \(response)"
+            }
+        }
+    }
+    
+    enum LoginError: LocalizedError {
+        /// Incorrect username or password
+        case incorrectCredential
+        /// Empty response
+        case emptyResponse
+        /// Failed to parse MyProfile
+        case failedToParseMyProfile
+        /// Invalid request URL
+        case invalidRequestURL(requestURL: String)
+        
+        var localizedDescription: String {
+            switch self {
+            case .incorrectCredential: return "Incorrect username or password"
+            case .emptyResponse: return "[MALoginError] Empty response"
+            case .failedToParseMyProfile: return "Failed to parse profile"
+            case .invalidRequestURL(let requestURL): return "Invalid request URL: \(requestURL)"
+            }
         }
     }
 }
