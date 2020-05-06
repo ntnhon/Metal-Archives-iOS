@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import UIColor_Hex_Swift
+import SDWebImage
 
 struct Settings {
     static let numberOfRetries = 5
@@ -335,7 +336,7 @@ enum Theme: Int, CustomStringConvertible {
     }
     
     
-    var activityIndicatorStyle: UIActivityIndicatorView.Style {
+    var activityIndicator: SDWebImageActivityIndicator {
         switch self {
         case .default: return .white
         default: return .gray

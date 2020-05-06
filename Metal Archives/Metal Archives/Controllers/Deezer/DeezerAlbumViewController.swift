@@ -52,7 +52,7 @@ final class DeezerAlbumViewController: BaseViewController {
     }
     
     private func fetchAndSetAlbumCover() {
-        SDWebImageDownloader.shared().downloadImage(with: URL(string: artist.picture_xl), options: [.highPriority], progress: nil) { [weak self] (image, error, cacheType, url) in
+        SDWebImageDownloader.shared.downloadImage(with: URL(string: artist.picture_xl), options: [.highPriority], progress: nil) { [weak self] (image, error, cacheType, url) in
             self?.simpleNavigationBarView.setImageAsTitle(image, fallbackTitle: self?.artist.name ?? "", alwaysShowTitle: true, roundedCorner: true)
         }
     }

@@ -8,6 +8,7 @@
 
 import Foundation
 import Kanna
+import Alamofire
 
 extension RequestHelper.BandDetail {
     typealias FetchReadMoreOnSuccess = (_ readMore: String) -> Void
@@ -19,13 +20,19 @@ extension RequestHelper.BandDetail {
         
         RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
             switch response.result {
-            case .success:
-                if let data = response.data {
-                    let readMoreString = RequestHelper.BandDetail.extractReadMore(data: data)
-                    onSuccess(readMoreString)
-                }
+            case .success(let data):
+                let readMoreString = RequestHelper.BandDetail.extractReadMore(data: data)
+                onSuccess(readMoreString)
                 
-            case .failure(let error): onError(error)
+            case .failure(let error):
+                switch error {
+                case .responseSerializationFailed(let reason):
+                    switch reason {
+                    case .inputDataNilOrZeroLength: onSuccess("")
+                    default: onError(error)
+                    }
+                default: onError(error)
+                }
             }
         }
     }

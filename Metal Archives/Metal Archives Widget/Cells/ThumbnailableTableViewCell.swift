@@ -14,10 +14,9 @@ class ThumbnailableTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.thumbnailImageView.contentMode = .scaleAspectFit
-        self.thumbnailImageView.sd_setShowActivityIndicatorView(true)
-        self.thumbnailImageView.sd_setIndicatorStyle(.gray)
-        self.thumbnailImageViewHeightConstraint.constant = Settings.thumbnailHeight
+        thumbnailImageView.contentMode = .scaleAspectFit
+        thumbnailImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        thumbnailImageViewHeightConstraint.constant = Settings.thumbnailHeight
     }
     
     func setThumbnailImageView(with thumbnailableObject: ThumbnailableObject) {

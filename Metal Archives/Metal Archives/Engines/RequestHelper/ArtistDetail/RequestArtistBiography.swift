@@ -25,7 +25,15 @@ extension RequestHelper.ArtistDetail {
                     onSuccess(biographyString)
                 }
                 
-            case .failure(let error): onError(error)
+            case .failure(let error):
+                switch error {
+                case .responseSerializationFailed(let reason):
+                    switch reason {
+                    case .inputDataNilOrZeroLength: onSuccess(nil)
+                    default: onError(error)
+                    }
+                default: onError(error)
+                }
             }
         }
         

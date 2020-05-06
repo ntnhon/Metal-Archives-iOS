@@ -156,8 +156,8 @@ extension AppDelegate {
         Settings.currentTheme = UserDefaults.selectedTheme()
         Settings.currentFontSize = UserDefaults.selectedFontSize()
         Settings.thumbnailEnabled = UserDefaults.thumbnailEnabled()
-        
-        SDWebImageManager.shared().imageDownloader?.maxConcurrentDownloads = 10
+
+        SDWebImageDownloader.shared.config.maxConcurrentDownloads = 10
         
         //Register for Push Notification
         UNUserNotificationCenter.current().delegate = self

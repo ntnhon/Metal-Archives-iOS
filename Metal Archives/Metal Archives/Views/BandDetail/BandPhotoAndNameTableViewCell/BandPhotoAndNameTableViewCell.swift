@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 final class BandPhotoAndNameTableViewCell: BaseTableViewCell, RegisterableCell {
     @IBOutlet private weak var photoBorderView: UIView!
@@ -39,11 +40,9 @@ final class BandPhotoAndNameTableViewCell: BaseTableViewCell, RegisterableCell {
         
         photoImageViewHeightConstraint.constant = Settings.bandPhotoImageViewHeight
         
-        photoImageView.sd_setShowActivityIndicatorView(true)
-        
         switch Settings.currentTheme! {
-        case .light: photoImageView.sd_setIndicatorStyle(.gray)
-        default: photoImageView.sd_setIndicatorStyle(.white)
+        case .light: photoImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        default: photoImageView.sd_imageIndicator = SDWebImageActivityIndicator.white
         }
         
         photoImageView.isUserInteractionEnabled = true

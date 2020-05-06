@@ -11,11 +11,11 @@ import Alamofire
 
 final class RequestHelper {
     private(set) static var shared = RequestHelper()
-    private(set) var alamofireManager:  Alamofire.SessionManager = {
+    private(set) var alamofireManager:  Alamofire.Session = {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 10
         configuration.httpMaximumConnectionsPerHost = 10
-        return Alamofire.SessionManager(configuration: configuration)
+        return Alamofire.Session(configuration: configuration)
     }()
     
     private init() {}

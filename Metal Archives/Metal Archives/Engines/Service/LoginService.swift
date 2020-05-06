@@ -14,7 +14,7 @@ final class LoginService {
     
     static func login(username: String, password: String, completion: @escaping (_ error: MALoginError?) -> Void) {
         isLoggedIn = false
-        let parameters: HTTPHeaders = ["loginUsername": username, "loginPassword": password, "origin": "/"]
+        let parameters = ["loginUsername": username, "loginPassword": password, "origin": "/"]
         let url = URL(string: "https://www.metal-archives.com/authentication/login")!
         
         // First make a dummy post to generate PHPSESSID

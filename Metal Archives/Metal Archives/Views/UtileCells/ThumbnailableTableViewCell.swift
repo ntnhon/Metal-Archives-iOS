@@ -19,8 +19,7 @@ class ThumbnailableTableViewCell: BaseTableViewCell {
         thumbnailImageView.backgroundColor = Settings.currentTheme.imageViewBackgroundColor
         thumbnailImageView.tintColor = Settings.currentTheme.iconTintColor
         thumbnailImageView.contentMode = .scaleAspectFit
-        thumbnailImageView.sd_setShowActivityIndicatorView(true)
-        thumbnailImageView.sd_setIndicatorStyle(Settings.currentTheme.activityIndicatorStyle)
+        thumbnailImageView.sd_imageIndicator = Settings.currentTheme.activityIndicator
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
         thumbnailImageViewHeightConstraint.constant = Settings.thumbnailHeight
         

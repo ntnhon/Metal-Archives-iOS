@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 final class RelatedLinkTableViewCell: BaseTableViewCell, RegisterableCell {
     @IBOutlet private weak var favIconImageView: UIImageView!
@@ -17,7 +18,7 @@ final class RelatedLinkTableViewCell: BaseTableViewCell, RegisterableCell {
         linkTitleLabel.textColor = Settings.currentTheme.bodyTextColor
         linkTitleLabel.font = Settings.currentFontSize.bodyTextFont
 
-        favIconImageView.sd_setShowActivityIndicatorView(true)
+        favIconImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         favIconImageView.tintColor = Settings.currentTheme.secondaryTitleColor
     }
     

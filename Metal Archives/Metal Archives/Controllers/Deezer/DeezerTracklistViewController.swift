@@ -74,7 +74,7 @@ final class DeezerTracklistViewController: BaseViewController {
             title = "\"\(albumTitleOrArtistName!)\" tracklist"
         }
         
-        SDWebImageDownloader.shared().downloadImage(with: URL(string: photoUrlString), options: [.highPriority], progress: nil) { [weak self] (image, error, cacheType, url) in
+        SDWebImageDownloader.shared.downloadImage(with: URL(string: photoUrlString), options: [.highPriority], progress: nil) { [weak self] (image, error, cacheType, url) in
             self?.simpleNavigationBarView.setImageAsTitle(image, fallbackTitle: title, alwaysShowTitle: true, roundedCorner: true)
         }
     }

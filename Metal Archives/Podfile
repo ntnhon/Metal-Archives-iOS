@@ -10,7 +10,7 @@ def common_pods
 end
 
 target 'Metal Archives' do
-    common_pods
+    common_podsnormalImageName
     pod 'AlamofireNetworkActivityIndicator'
     pod 'SlideMenuControllerSwift'
     pod 'Toaster'
