@@ -294,11 +294,12 @@ extension MyBookmarksViewController {
     
     private func remove(id: String, at indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Bookmark.bookmark(id: id, action: .remove, type: myBookmark) { [weak self] (isSuccessful) in
+        RequestHelper.Bookmark.bookmark(id: id, action: .remove, type: myBookmark) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if isSuccessful {
+            switch result {
+            case .success(_):
                 self.lastDeletedObjectIndexPath = indexPath
                 
                 self.tableView.performBatchUpdates({
@@ -310,7 +311,7 @@ extension MyBookmarksViewController {
                     case .artists:
                         self.lastDeletedObject = self.artistBookmarkPagableManager.objects[indexPath.row]
                         self.artistBookmarkPagableManager.removeObject(at: indexPath.row)
-    
+                        
                     case .labels:
                         self.lastDeletedObject = self.labelBookmarkPagableManager.objects[indexPath.row]
                         self.labelBookmarkPagableManager.removeObject(at: indexPath.row)
@@ -324,8 +325,9 @@ extension MyBookmarksViewController {
                     self.displayUndoSnackbar()
                 }
                 Analytics.logEvent("bookmark_remove_success", parameters: nil)
-            } else {
-                Toast.displayMessageShortly("Error removing object from \(self.myBookmark.shortDescription) bookmark. Please try again later.")
+                
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
                 Analytics.logEvent("bookmark_remove_error", parameters: nil)
             }
         }
@@ -363,11 +365,12 @@ extension MyBookmarksViewController {
         }
         
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Bookmark.bookmark(id: id, action: .add, type: myBookmark) { [weak self] (isSuccessful) in
+        RequestHelper.Bookmark.bookmark(id: id, action: .add, type: myBookmark) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if isSuccessful {
+            switch result {
+            case .success(_):
                 self.tableView.performBatchUpdates({
                     switch self.myBookmark {
                     case .bands:
@@ -386,8 +389,9 @@ extension MyBookmarksViewController {
                     self.tableView.insertRows(at: [lastDeletedObjectIndexPath], with: .automatic)
                 })
                 Analytics.logEvent("bookmark_undo_removal_success", parameters: nil)
-            } else {
-                Toast.displayMessageShortly("Undo error 😞")
+                
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
                 Analytics.logEvent("bookmark_undo_removal_error", parameters: nil)
             }
         }

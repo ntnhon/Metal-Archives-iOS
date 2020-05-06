@@ -271,25 +271,30 @@ final class BandDetailViewController: BaseViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Bookmark.bookmark(id: band.id, action: action, type: .bands) { [weak self] (isSuccessful) in
+        RequestHelper.Bookmark.bookmark(id: band.id, action: action, type: .bands) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if isSuccessful {
+            switch result {
+            case .success(_):
                 self.band?.setIsBookmarked(!isBookmarked)
                 self.updateBookmarkIcon()
                 
                 if isBookmarked {
                     Toast.displayMessageShortly("\"\(band.name ?? "")\" is removed from your bookmarks")
-                    Analytics.logEvent("unbookmark_band", parameters: nil)
+                    Analytics.logEvent("unbookmark_band_success", parameters: nil)
                 } else {
                     Toast.displayMessageShortly("\"\(band.name ?? "")\" is added to your bookmarks")
-                    Analytics.logEvent("bookmark_band", parameters: nil)
+                    Analytics.logEvent("bookmark_band_success", parameters: nil)
                 }
                 
-            } else {
-                Toast.displayMessageShortly(errorBookmarkMessage)
-                Analytics.logEvent("bookmark_unbookmark_band_error", parameters: nil)
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
+                if isBookmarked {
+                    Analytics.logEvent("unbookmark_band_error", parameters: nil)
+                } else {
+                    Analytics.logEvent("bookmark_band_error", parameters: nil)
+                }
             }
         }
     }

@@ -294,25 +294,30 @@ final class LabelDetailViewController: BaseViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Bookmark.bookmark(id: label.id, action: action, type: .labels) { [weak self] (isSuccessful) in
+        RequestHelper.Bookmark.bookmark(id: label.id, action: action, type: .labels) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if isSuccessful {
+            switch result {
+            case .success(_):
                 self.label?.setIsBookmarked(!isBookmarked)
                 self.updateBookmarkIcon()
                 
                 if isBookmarked {
                     Toast.displayMessageShortly("\"\(label.name ?? "")\" is removed from your bookmarks")
-                    Analytics.logEvent("unbookmark_label", parameters: nil)
+                    Analytics.logEvent("unbookmark_label_success", parameters: nil)
                 } else {
                     Toast.displayMessageShortly("\"\(label.name ?? "")\" is added to your bookmarks")
-                    Analytics.logEvent("bookmark_label", parameters: nil)
+                    Analytics.logEvent("bookmark_label_success", parameters: nil)
                 }
                 
-            } else {
-                Toast.displayMessageShortly(errorBookmarkMessage)
-                Analytics.logEvent("bookmark_unbookmark_label_error", parameters: nil)
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
+                if isBookmarked {
+                    Analytics.logEvent("unbookmark_label_error", parameters: nil)
+                } else {
+                    Analytics.logEvent("bookmark_label_error", parameters: nil)
+                }
             }
         }
     }

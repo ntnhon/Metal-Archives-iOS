@@ -276,25 +276,30 @@ final class ReleaseDetailViewController: BaseViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Bookmark.bookmark(id: release.id, action: action, type: .releases) { [weak self] (isSuccessful) in
+        RequestHelper.Bookmark.bookmark(id: release.id, action: action, type: .releases) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if isSuccessful {
+            switch result {
+            case .success(_):
                 self.release?.setIsBookmarked(!isBookmarked)
                 self.updateBookmarkIconAndAddReminderOption()
                 
                 if isBookmarked {
                     Toast.displayMessageShortly("\"\(release.title ?? "")\" is removed from your bookmarks")
-                    Analytics.logEvent("unbookmark_release", parameters: nil)
+                    Analytics.logEvent("unbookmark_release_success", parameters: nil)
                 } else {
                     Toast.displayMessageShortly("\"\(release.title ?? "")\" is added to your bookmarks")
-                    Analytics.logEvent("bookmark_release", parameters: nil)
+                    Analytics.logEvent("bookmark_release_success", parameters: nil)
                 }
                 
-            } else {
-                Toast.displayMessageShortly(errorBookmarkMessage)
-                Analytics.logEvent("bookmark_unbookmark_release_error", parameters: nil)
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
+                if isBookmarked {
+                    Analytics.logEvent("unbookmark_release_error", parameters: nil)
+                } else {
+                    Analytics.logEvent("bookmark_release_error", parameters: nil)
+                }
             }
         }
     }
