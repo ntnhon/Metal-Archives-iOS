@@ -15,6 +15,8 @@ enum MALoginError: LocalizedError {
     case emptyResponse
     /// Failed to parse MyProfile
     case failedToParseMyProfile
+    /// Invalid request URL
+    case invalidRequestURL(requestURL: String)
     /// Unknown error
     case unknown(description: String)
     
@@ -23,6 +25,7 @@ enum MALoginError: LocalizedError {
         case .incorrectCredential: return "Incorrect username or password"
         case .emptyResponse: return "[MALoginError] Empty response"
         case .failedToParseMyProfile: return "Failed to parse profile"
+        case .invalidRequestURL(let requestURL): return "Invalid request URL: \(requestURL)"
         case .unknown(let description): return "[MALoginError] Unknown error: \(description)"
         }
     }
@@ -37,6 +40,8 @@ enum MAParsingError: LocalizedError {
     case badStructure(objectType: String)
     /// Server returns no data
     case noData
+    /// Invalid request URL
+    case invalidRequestURL(requestURL: String)
     /// Unknown error
     case unknown(description: String)
 
@@ -52,6 +57,7 @@ enum MAParsingError: LocalizedError {
             """
         case .badStructure(let objectType): return "[MAParsingError] Error parsing \(objectType) - Bad HTML structure"
         case .noData: return "[MAParsingError] No data"
+        case .invalidRequestURL(let requestURL): return "Invalid request URL: \(requestURL)"
         case .unknown(let description): return "[MAParsingError] Unknown error: \(description)"
         }
     }
@@ -62,10 +68,13 @@ enum MANetworkingError: LocalizedError {
     case badURL(_ urlString: String)
     /// Error parsing response from an URL
     case badResponse(_ response: Any)
+    /// Invalid request URL
+    case invalidRequestURL(requestURL: String)
     
     var localizedDescription: String {
         switch self {
         case .badURL(let urlString): return "[MA Networking Error] Bad URL: \(urlString)"
+        case .invalidRequestURL(let requestURL): return "Invalid request URL: \(requestURL)"
         case .badResponse(let response): return "[MA Networking Error] Bad response: \(response)"
         }
     }

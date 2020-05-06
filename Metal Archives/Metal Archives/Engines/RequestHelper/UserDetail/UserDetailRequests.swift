@@ -14,28 +14,27 @@ extension RequestHelper {
 }
 
 extension RequestHelper.UserDetail {
-    static func fetchUserProfile(username: String, completion: @escaping (_ myProfile: UserProfile?, _ error: MAParsingError?) -> Void) {
+    static func fetchUserProfile(username: String, completion: @escaping (Result<UserProfile, MAParsingError>) -> Void) {
         fetchUserProfile(urlString: "https://www.metal-archives.com/users/\(username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed) ?? "")", completion: completion)
     }
     
-    static func fetchUserProfile(urlString: String, completion: @escaping (_ myProfile: UserProfile?, _ error: MAParsingError?) -> Void) {
-        let requestURL = URL(string: urlString)!
+    static func fetchUserProfile(urlString: String, completion: @escaping (Result<UserProfile, MAParsingError>) -> Void) {
+        guard let requestURL = URL(string: urlString) else {
+            completion(.failure(.invalidRequestURL(requestURL: urlString)))
+            return
+        }
+        
         RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
             switch response.result {
-            case .success:
-                if let data = response.data {
-                    if let myProfile = UserProfile(from: data) {
-                        completion(myProfile, nil)
-                    } else {
-                        completion(nil, MAParsingError.badStructure(objectType: "UserProfile"))
-                    }
-                    
+            case .success(let data):
+                if let myProfile = UserProfile(from: data) {
+                    completion(.success(myProfile))
                 } else {
-                    completion(nil, MAParsingError.noData)
+                    completion(.failure(.badStructure(objectType: "UserProfile")))
                 }
             
             case .failure(let error):
-                completion(nil, MAParsingError.unknown(description: error.localizedDescription))
+                completion(.failure(.unknown(description: error.localizedDescription)))
             }
         }
     }

@@ -174,15 +174,13 @@ final class UserDetailViewController: BaseViewController {
         floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         
-        RequestHelper.UserDetail.fetchUserProfile(urlString: urlString) { [weak self] (userProfile, error) in
+        RequestHelper.UserDetail.fetchUserProfile(urlString: urlString) { [weak self] result in
             guard let self = self else { return }
         
             self.hideHUD()
             
-            if let error = error {
-                Toast.displayMessageShortly(error.localizedDescription)
-                self.dismiss(animated: true, completion: nil)
-            } else if let userProfile = userProfile {
+            switch result {
+            case .success(let userProfile):
                 self.floaty.isHidden = false
                 self.userProfile = userProfile
                 self.simpleNavigationBarView.setTitle(userProfile.username)
@@ -190,6 +188,10 @@ final class UserDetailViewController: BaseViewController {
                 self.reviewPagableManager.fetch()
                 self.tableView.reloadData()
                 self.historyRecordableDelegate?.loaded(urlString: self.urlString, nameOrTitle: userProfile.username, thumbnailUrlString: nil, objectType: .user)
+                
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }
