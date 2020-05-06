@@ -60,10 +60,9 @@ extension RequestHelper.ReleaseDetail {
         }
         
         RequestHelper.shared.alamofireManager.request(requestUrl).responseString { response in
-            if let lyric = response.value {
-                completion(.success(lyric))
-            } else {
-                completion(.failure(.unknown(description: "Error fetching lyric")))
+            switch response.result {
+            case .success(let lyric): completion(.success(lyric))
+            case .failure(let error): completion(.failure(.unknown(description: error.localizedDescription)))
             }
         }
     }

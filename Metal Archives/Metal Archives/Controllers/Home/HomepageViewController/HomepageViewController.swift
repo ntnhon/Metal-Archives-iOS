@@ -133,24 +133,23 @@ final class HomepageViewController: RefreshableViewController {
     }
     
     private func loadHomepage() {
-        
-        RequestHelper.HomePage.Statistic.fetchStats { [weak self] (completion: () throws -> HomepageStatistic) in
-            
-            defer {
-                self?.tableView.reloadData()
-            }
-            
-            do {
-                let homepageStatistic = try completion()
+        RequestHelper.Homepage.fetchStats { [weak self] result in
+            switch result {
+            case .success(let homepageStatistic):
                 self?.statisticAttrString = homepageStatistic.summaryAttributedText
-            } catch let error {
-                Toast.displayMessageShortly(error.localizedDescription)
-                self?.statisticAttrString = NSAttributedString(string: "Error parsing statistic informations.")
+                self?.tableView.reloadData()
+                
+            case .failure(let error):
+                self?.statisticAttrString = NSAttributedString(string: error.localizedDescription)
             }
         }
         
-        newsPagableManager.fetch { [weak self] (error) in
-            self?.tableView.reloadData()
+        newsPagableManager.fetch { [weak self] error in
+            if let error = error {
+                Toast.displayMessageShortly(error.localizedDescription)
+            } else {
+                self?.tableView.reloadData()
+            }
         }
         
         //Latest additions
@@ -164,20 +163,31 @@ final class HomepageViewController: RefreshableViewController {
         
         //Latest updates
         bandUpdatePagableManager = PagableManager<BandUpdate>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString])
-        bandUpdatePagableManager.fetch { [weak self] (error) in
-            self?.respondToUpdateTypeChange()
+        bandUpdatePagableManager.fetch { [weak self] error in
+            if let error = error {
+                Toast.displayMessageShortly(error.localizedDescription)
+            } else {
+                self?.respondToUpdateTypeChange()
+            }
         }
         labelUpdatePagableManager = PagableManager<LabelUpdate>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
         artistUpdatePagableManager = PagableManager<ArtistUpdate>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString]) //Initilized but not start fetching
         
-        
         latestReviewPagableManager =  PagableManager<LatestReview>(options: ["<YEAR_MONTH>": monthList[0].requestParameterString])
-        latestReviewPagableManager.fetch { [weak self] (error) in
-            self?.tableView.reloadData()
+        latestReviewPagableManager.fetch { [weak self] error in
+            if let error = error {
+                Toast.displayMessageShortly(error.localizedDescription)
+            } else {
+                self?.tableView.reloadData()
+            }
         }
         
-        upcomingAlbumPagableManager.fetch { [weak self] (error) in
-            self?.tableView.reloadData()
+        upcomingAlbumPagableManager.fetch { [weak self] error in
+            if let error = error {
+                Toast.displayMessageShortly(error.localizedDescription)
+            } else {
+                self?.tableView.reloadData()
+            }
         }
     }
     

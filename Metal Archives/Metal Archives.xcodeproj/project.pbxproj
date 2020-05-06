@@ -142,7 +142,6 @@
 		C03280022209E0F000FC9A44 /* ReleaseDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03280012209E0F000FC9A44 /* ReleaseDetail.storyboard */; };
 		C03280052209E12F00FC9A44 /* ReleaseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03280042209E12F00FC9A44 /* ReleaseDetailViewController.swift */; };
 		C03280072209E2EA00FC9A44 /* Release.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03280062209E2EA00FC9A44 /* Release.swift */; };
-		C03280092209F78100FC9A44 /* RequestStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03280082209F78100FC9A44 /* RequestStatistic.swift */; };
 		C0328021220A228200FC9A44 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0328020220A228200FC9A44 /* Song.swift */; };
 		C0328023220A271B00FC9A44 /* ReviewLiteInRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0328022220A271B00FC9A44 /* ReviewLiteInRelease.swift */; };
 		C0328025220A2A2900FC9A44 /* ArtistLiteInRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0328024220A2A2900FC9A44 /* ArtistLiteInRelease.swift */; };
@@ -433,6 +432,7 @@
 		C085E6C822A27FD5007FACFA /* ReleaseInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C085E6C722A27FD5007FACFA /* ReleaseInfoTableViewCell.xib */; };
 		C08607FE225235F800FE750F /* MonthInYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AABDE7221D8AB00044A2CF /* MonthInYear.swift */; };
 		C08CAAFB22AA31BE00E78520 /* HorizontalOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08CAAFA22AA31BE00E78520 /* HorizontalOptionsView.swift */; };
+		C091099224635616007960E8 /* HomepageRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C091099124635616007960E8 /* HomepageRequests.swift */; };
 		C09339F22446409600E3989B /* String+RankColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09339F12446409600E3989B /* String+RankColor.swift */; };
 		C09339F42446435700E3989B /* UserReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09339F32446435700E3989B /* UserReview.swift */; };
 		C0938EE924634985009B7536 /* BandDetailRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0938EE824634985009B7536 /* BandDetailRequests.swift */; };
@@ -753,7 +753,6 @@
 		C03280012209E0F000FC9A44 /* ReleaseDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReleaseDetail.storyboard; sourceTree = "<group>"; };
 		C03280042209E12F00FC9A44 /* ReleaseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseDetailViewController.swift; sourceTree = "<group>"; };
 		C03280062209E2EA00FC9A44 /* Release.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Release.swift; sourceTree = "<group>"; };
-		C03280082209F78100FC9A44 /* RequestStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStatistic.swift; sourceTree = "<group>"; };
 		C0328020220A228200FC9A44 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		C0328022220A271B00FC9A44 /* ReviewLiteInRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLiteInRelease.swift; sourceTree = "<group>"; };
 		C0328024220A2A2900FC9A44 /* ArtistLiteInRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistLiteInRelease.swift; sourceTree = "<group>"; };
@@ -1021,6 +1020,7 @@
 		C085E6C522A27F78007FACFA /* ReleaseInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C085E6C722A27FD5007FACFA /* ReleaseInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C08CAAFA22AA31BE00E78520 /* HorizontalOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalOptionsView.swift; sourceTree = "<group>"; };
+		C091099124635616007960E8 /* HomepageRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageRequests.swift; sourceTree = "<group>"; };
 		C09339F12446409600E3989B /* String+RankColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RankColor.swift"; sourceTree = "<group>"; };
 		C09339F32446435700E3989B /* UserReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReview.swift; sourceTree = "<group>"; };
 		C0938EE824634985009B7536 /* BandDetailRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandDetailRequests.swift; sourceTree = "<group>"; };
@@ -1626,7 +1626,7 @@
 		C032801C2209FBA700FC9A44 /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
-				C03280082209F78100FC9A44 /* RequestStatistic.swift */,
+				C091099124635616007960E8 /* HomepageRequests.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -4069,6 +4069,7 @@
 				C0AA06CB2239AC52001BE21D /* BrowseBandsAlphabeticallyViewController.swift in Sources */,
 				C06B624822423E7900A3FE6B /* BrowseLabelsByCountryViewController.swift in Sources */,
 				C0356F1B22ABA40700B4927E /* NewsDetailViewController.swift in Sources */,
+				C091099224635616007960E8 /* HomepageRequests.swift in Sources */,
 				C0938EEF24635202009B7536 /* Array+ReleaseOtherVersion.swift in Sources */,
 				C00D3605223D5E5C00B29B43 /* ReleaseType.swift in Sources */,
 				C071306721ECCB4100082BC6 /* NewsTableViewCell.swift in Sources */,
@@ -4154,7 +4155,6 @@
 				C06F1DFF21F7688900B49D39 /* LabelLiteInBand.swift in Sources */,
 				C094BCB2229D44750005BF3E /* BandInfoTableViewCell.swift in Sources */,
 				C0332FE222019370008B34E0 /* ReleaseLite.swift in Sources */,
-				C03280092209F78100FC9A44 /* RequestStatistic.swift in Sources */,
 				C00D361A223D5F6800B29B43 /* ReleaseFormat.swift in Sources */,
 				C0752958229E83D30067B5E1 /* HorizontalMenuView.swift in Sources */,
 				C013363D223809B700963940 /* AdvancedSearchBandStatusListViewController.swift in Sources */,

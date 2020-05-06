@@ -20,9 +20,3 @@ final class RequestHelper {
     
     private init() {}
 }
-
-extension RequestHelper {
-    final class HomePage {
-        private init () {}
-    }
-}

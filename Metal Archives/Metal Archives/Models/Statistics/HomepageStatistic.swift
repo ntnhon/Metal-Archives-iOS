@@ -28,19 +28,19 @@ final class HomepageStatistic {
         return attrString
     }()
     
-    init(fromRawStatString string: String) throws {
+    init?(fromRawStatString string: String) {
         guard
             let numOfBandsString = RegexHelpers.firstMatch(for: Category.bands.regex, inString: string),
             let numOfUsersString = RegexHelpers.firstMatch(for: Category.registeredUsers.regex, inString: string),
             let numOfReviewsString = RegexHelpers.firstMatch(for: Category.reviews.regex, inString: string) else {
-                throw MAParsingError.badSyntax(string: string, expectedSyntax: "546483 bands")
+                return nil
         }
         
         guard
             let numOfBands = Int(numOfBandsString),
             let numOfUsers = Int(numOfUsersString),
             let numOfReviews = Int(numOfReviewsString) else {
-                throw MAParsingError.badType(string: numOfBandsString, expectedType: "Int")
+                return nil
         }
         
         self.numOfBands = numOfBands
