@@ -9,7 +9,6 @@
 import UIKit
 import Toaster
 import MBProgressHUD
-import SlideMenuControllerSwift
 import Toaster
 import FirebaseAnalytics
 import SafariServices

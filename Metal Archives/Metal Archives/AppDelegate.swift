@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SlideMenuControllerSwift
 import Alamofire
 import Toaster
 import SDWebImage

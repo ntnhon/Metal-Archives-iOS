@@ -10,21 +10,20 @@ def common_pods
 end
 
 target 'Metal Archives' do
-    common_podsnormalImageName
+    common_pods
     pod 'AlamofireNetworkActivityIndicator'
-    pod 'SlideMenuControllerSwift'
     pod 'Toaster'
     pod 'Charts'
-    pod 'SkyFloatingLabelTextField', '~> 3.0'
+    pod 'SkyFloatingLabelTextField'
     pod 'Firebase/Core'
     pod 'Firebase/Messaging'
-    pod 'Crashlytics', '~> 3.14.0'
+    pod 'Crashlytics'
     pod 'Siren'
-    pod 'NotificationBannerSwift', '~> 3.0.0'
-    pod 'MBProgressHUD', '~> 1.1.0'
+    pod 'NotificationBannerSwift'
+    pod 'MBProgressHUD'
     pod 'KeychainAccess'
     pod 'MaterialComponents/Snackbar'
-    pod 'Floaty', '~> 4.2.0'
+    pod 'Floaty'
 end
 
 target 'Metal Archives Widget' do
