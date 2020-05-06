@@ -14,7 +14,7 @@ extension RequestHelper {
 }
 
 extension RequestHelper.Collection {
-    static func getVersionList(id: String, completion: @escaping (_ releaseVersions: [ReleaseVersion]?) -> Void) {
+    static func getVersionList(id: String, completion: @escaping (Result<[ReleaseVersion], MAFetchingError>) -> Void) {
         let requestURL = URL(string: "https://www.metal-archives.com/release/version-json-list/parentId/\(id)")!
         
         RequestHelper.shared.alamofireManager.request(requestURL).responseJSON { response in
@@ -30,16 +30,16 @@ extension RequestHelper.Collection {
                     
                     if releaseVersions.count > 0 {
                         releaseVersions.insert(ReleaseVersion(id: "0", version: "Unspecified"), at: 0)
-                        completion(releaseVersions)
+                        completion(.success(releaseVersions))
                     } else {
-                        completion(nil)
+                        completion(.failure(.failedToFetch(object: "[ReleaseVersion]")))
                     }
                     
                 } else {
-                    completion(nil)
+                    completion(.failure(.failedToFetch(object: "[ReleaseVersion]")))
                 }
                 
-            case .failure(_): completion(nil)
+            case .failure(_): completion(.failure(.failedToFetch(object: "[ReleaseVersion]")))
             }
         }
     }

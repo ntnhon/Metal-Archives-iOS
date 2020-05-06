@@ -189,11 +189,12 @@ extension MyCollectionViewController {
     private func presentChangeVersionAlert(forReleaseAt indexPath: IndexPath) {
         let release = getRelease(for: indexPath)
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Collection.getVersionList(id: release.versionListId) { [weak self] (releaseVersions) in
+        RequestHelper.Collection.getVersionList(id: release.versionListId) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if let releaseVersions = releaseVersions {
+            switch result {
+            case .success(let releaseVersions):
                 let alert = UIAlertController(title: "Change version", message: release.release.title, preferredStyle: .actionSheet)
                 
                 releaseVersions.forEach { (eachVersion) in
@@ -208,8 +209,8 @@ extension MyCollectionViewController {
                 
                 self.present(alert, animated: true, completion: nil)
                 
-            } else {
-                Toast.displayMessageShortly("Error fetching versions")
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
                 Analytics.logEvent("collection_fetch_versions_error", parameters: nil)
             }
         }

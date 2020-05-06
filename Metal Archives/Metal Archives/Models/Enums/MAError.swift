@@ -38,8 +38,6 @@ enum MAParsingError: LocalizedError {
     case badType(string: String, expectedType: String)
     /// HTML syntax is not appropriate
     case badStructure(objectType: String)
-    /// Server returns no data
-    case noData
     /// Invalid request URL
     case invalidRequestURL(requestURL: String)
     /// Unknown error
@@ -56,9 +54,21 @@ enum MAParsingError: LocalizedError {
             Expected type: \(expectedType)
             """
         case .badStructure(let objectType): return "[MAParsingError] Error parsing \(objectType) - Bad HTML structure"
-        case .noData: return "[MAParsingError] No data"
         case .invalidRequestURL(let requestURL): return "Invalid request URL: \(requestURL)"
         case .unknown(let description): return "[MAParsingError] Unknown error: \(description)"
+        }
+    }
+}
+
+enum MAFetchingError: LocalizedError {
+    /// Invalid request URL
+    case invalidRequestURL(requestURL: String)
+    case failedToFetch(object: String)
+    
+    var localizedDescription: String {
+        switch self {
+        case .invalidRequestURL(let requestURL): return "Invalid request URL: \(requestURL)"
+        case .failedToFetch(let object): return "[MAFetchingError] Failed to fetch \(object)"
         }
     }
 }
