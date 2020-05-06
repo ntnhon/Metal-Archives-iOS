@@ -298,11 +298,12 @@ extension MyCollectionViewController {
     private func remove(releaseAt indexPath: IndexPath) {
         let release = getRelease(for: indexPath)
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Collection.remove(release: release, from: myCollection) { [weak self] (isSuccessful) in
+        RequestHelper.Collection.remove(release: release, from: myCollection) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if isSuccessful {
+            switch result {
+            case .success(_):
                 self.lastDeletedReleaseIndexPath = indexPath
                 
                 self.tableView.performBatchUpdates({
@@ -324,8 +325,9 @@ extension MyCollectionViewController {
                     self.displayUndoSnackbar()
                 }
                 Analytics.logEvent("collection_remove_success", parameters: nil)
-            } else {
-                Toast.displayMessageShortly("Error removing release from \(self.myCollection.listDescription). Please try again later.")
+                
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
                 Analytics.logEvent("collection_remove_error", parameters: nil)
             }
         }
