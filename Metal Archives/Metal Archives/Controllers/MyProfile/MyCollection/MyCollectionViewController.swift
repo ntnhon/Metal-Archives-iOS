@@ -351,11 +351,12 @@ extension MyCollectionViewController {
 
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Collection.add(releaseId: lastDeletedRelease.id, to: myCollection) { [weak self] (isSuccessful) in
+        RequestHelper.Collection.add(releaseId: lastDeletedRelease.id, to: myCollection) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if isSuccessful {
+            switch result {
+            case .success(_):
                 self.tableView.performBatchUpdates({
                     switch self.myCollection {
                     case .collection:
@@ -371,8 +372,9 @@ extension MyCollectionViewController {
                     self.tableView.insertRows(at: [lastDeletedReleaseIndexPath], with: .automatic)
                 })
                 Analytics.logEvent("collection_undo_removal_success", parameters: nil)
-            } else {
-                Toast.displayMessageShortly("Undo error 😞")
+                
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
                 Analytics.logEvent("collection_undo_removal_error", parameters: nil)
             }
         }

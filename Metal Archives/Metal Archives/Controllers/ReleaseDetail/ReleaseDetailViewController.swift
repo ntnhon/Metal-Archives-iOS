@@ -340,11 +340,12 @@ final class ReleaseDetailViewController: BaseViewController {
             return
         }
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Collection.add(releaseId: release.id, to: type) { [weak self] (isSuccessful) in
+        RequestHelper.Collection.add(releaseId: release.id, to: type) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if isSuccessful {
+            switch result {
+            case .success(_):
                 Toast.displayMessageShortly("\"\(release.title ?? "")\" is added to your \(type.listDescription)")
                 
                 switch type {
@@ -355,8 +356,9 @@ final class ReleaseDetailViewController: BaseViewController {
                 case .trade:
                     Analytics.logEvent("trade_list_add_success", parameters: nil)
                 }
-            } else {
-                Toast.displayMessageShortly("Error adding release to \(type.listDescription). Please try again later.")
+                
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
                 
                 switch type {
                 case .collection:

@@ -119,14 +119,24 @@ extension RequestHelper.Collection {
         }
     }
     
-    static func add(releaseId: String, to collection: MyCollection, completion: @escaping (_ isSuccessful: Bool) -> Void) {
-        let requestURL = URL(string: "https://www.metal-archives.com/collection/add/json/1/id/\(releaseId)/type/\(collection.addOrRemoveParam)")!
+    static func add(releaseId: String, to collection: MyCollection, completion: @escaping (Result<Any?, MAError>) -> Void) {
+        let requestUrlString = "https://www.metal-archives.com/collection/add/json/1/id/\(releaseId)/type/\(collection.addOrRemoveParam)"
+        guard let requestUrl = URL(string: requestUrlString) else {
+            completion(.failure(.networking(error: .badURL(requestUrlString))))
+            return
+        }
         
-        RequestHelper.shared.alamofireManager.request(requestURL).response { (response) in
-            if let statusCode = response.response?.statusCode, statusCode == 200 {
-                completion(true)
+        RequestHelper.shared.alamofireManager.request(requestUrl).response { (response) in
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(.failure(.networking(error: .unknownStatusCode)))
+                return
+            }
+            
+            if statusCode == 200 {
+                completion(.success(nil))
             } else {
-                completion(false)
+                completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }
