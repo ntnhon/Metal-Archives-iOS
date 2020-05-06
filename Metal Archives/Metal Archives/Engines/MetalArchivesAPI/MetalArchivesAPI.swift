@@ -112,17 +112,6 @@ extension MetalArchivesAPI {
     }
 }
 
-//MARK: - Review
-extension MetalArchivesAPI {
-    static func fetchReviewDetail(urlString: String, withCompletion completion: @escaping ((Review?, Error?) -> Void)) {
-        RequestHelper.ReviewDetail.fetchReview(urlString: urlString, onSuccess: { (review) in
-            completion(review, nil)
-        }) { (error) in
-            completion(nil, error)
-        }
-    }
-}
-
 //MARK: - Lyric
 extension MetalArchivesAPI {
     static func fetchLyric(lyricID: String, withCompletion completion: @escaping ((String?, Error?) -> Void)) {

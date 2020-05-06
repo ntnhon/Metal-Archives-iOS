@@ -139,7 +139,7 @@
 		C03270E6220B83F1009FA337 /* ReleaseOtherVersionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03270E5220B83F1009FA337 /* ReleaseOtherVersionTableViewCell.xib */; };
 		C03270E9220B933F009FA337 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270E8220B933F009FA337 /* ReviewViewController.swift */; };
 		C03270EB220B9360009FA337 /* Review.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03270EA220B9360009FA337 /* Review.storyboard */; };
-		C03270EE220B96B1009FA337 /* RequestReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270ED220B96B1009FA337 /* RequestReview.swift */; };
+		C03270EE220B96B1009FA337 /* ReviewRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270ED220B96B1009FA337 /* ReviewRequests.swift */; };
 		C03280022209E0F000FC9A44 /* ReleaseDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03280012209E0F000FC9A44 /* ReleaseDetail.storyboard */; };
 		C03280052209E12F00FC9A44 /* ReleaseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03280042209E12F00FC9A44 /* ReleaseDetailViewController.swift */; };
 		C03280072209E2EA00FC9A44 /* Release.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03280062209E2EA00FC9A44 /* Release.swift */; };
@@ -754,7 +754,7 @@
 		C03270E5220B83F1009FA337 /* ReleaseOtherVersionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseOtherVersionTableViewCell.xib; sourceTree = "<group>"; };
 		C03270E8220B933F009FA337 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		C03270EA220B9360009FA337 /* Review.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Review.storyboard; sourceTree = "<group>"; };
-		C03270ED220B96B1009FA337 /* RequestReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReview.swift; sourceTree = "<group>"; };
+		C03270ED220B96B1009FA337 /* ReviewRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRequests.swift; sourceTree = "<group>"; };
 		C03280012209E0F000FC9A44 /* ReleaseDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReleaseDetail.storyboard; sourceTree = "<group>"; };
 		C03280042209E12F00FC9A44 /* ReleaseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseDetailViewController.swift; sourceTree = "<group>"; };
 		C03280062209E2EA00FC9A44 /* Release.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Release.swift; sourceTree = "<group>"; };
@@ -1617,7 +1617,7 @@
 		C03270EC220B969F009FA337 /* Review */ = {
 			isa = PBXGroup;
 			children = (
-				C03270ED220B96B1009FA337 /* RequestReview.swift */,
+				C03270ED220B96B1009FA337 /* ReviewRequests.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -4254,7 +4254,7 @@
 				C036F8C6244768CE008275F5 /* UserReviewOrderTableViewCell.swift in Sources */,
 				C01839E92225715700FF88B7 /* LabelUpdate.swift in Sources */,
 				C053DD2E22267A920028568B /* ReviewStatistic.swift in Sources */,
-				C03270EE220B96B1009FA337 /* RequestReview.swift in Sources */,
+				C03270EE220B96B1009FA337 /* ReviewRequests.swift in Sources */,
 				C0086DC7243F33870008669C /* LoginService.swift in Sources */,
 				C05309F422235BE20027D11E /* String+RemoveEmptySpaces.swift in Sources */,
 				C0BAD4AF222EE0EA00C4D38D /* BandNullable.swift in Sources */,

@@ -93,42 +93,41 @@ final class ReviewViewController: DismissableOnSwipeViewController {
     
     private func loadReview() {
         showHUD()
-        MetalArchivesAPI.fetchReviewDetail(urlString: urlString) { [weak self] (review, error) in
-            DispatchQueue.main.async {
-                self?.hideHUD()
-            }
+        RequestHelper.ReviewDetail.fetchReview(urlString: urlString) { [weak self]  result in
             guard let self = self else { return }
-            if let _ = error {
-                self.loadReview()
-            } else {
-                if let review = review {
-                    DispatchQueue.main.async {
-                        self.review = review
-                        
-                        if let coverUrlString = review.coverPhotoURLString, let coverURL = URL(string: coverUrlString) {
-                            self.stretchyCoverSmokedImageView.imageView.sd_setImage(with: coverURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
-                        } else {
-                            self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
-                        }
-                        
-                        self.simpleNavigationBarView.setTitle("\(review.title!) - \(review.rating!)%")
-                        
-                        self.tableView.reloadData()
-                    }
-                    
-                    Analytics.logEvent("view_review", parameters: ["release_title": review.release.title, "review_title": review.title!])
+            self.hideHUD()
+            
+            switch result {
+            case .success(let review):
+                self.review = review
+                
+                if let coverUrlString = review.coverPhotoURLString, let coverURL = URL(string: coverUrlString) {
+                    self.stretchyCoverSmokedImageView.imageView.sd_setImage(with: coverURL, placeholderImage: nil, options: [.retryFailed], completed: nil)
+                } else {
+                    self.tableView.contentInset = .init(top: self.simpleNavigationBarView.frame.origin.y + self.simpleNavigationBarView.frame.height + 10, left: 0, bottom: 0, right: 0)
                 }
+                
+                self.simpleNavigationBarView.setTitle("\(review.title!) - \(review.rating!)%")
+                
+                self.tableView.reloadData()
+                Analytics.logEvent("view_review", parameters: ["release_title": review.release.title, "review_title": review.title!])
+                
+            case .failure(let error):
+                self.showHUD()
+                Toast.displayRetryMessage(error)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                    self.loadReview()
+                })
             }
         }
     }
     
     private func initSimpleNavigationBarViewActions() {
-        simpleNavigationBarView.setLeftButtonIcon(#imageLiteral(resourceName: "down"))
+        simpleNavigationBarView.setLeftButtonMode(.close)
         simpleNavigationBarView.didTapLeftButton = { [unowned self] in
             self.dismissToBottom()
         }
-        
-        simpleNavigationBarView.setLeftButtonMode(.close)
+    
         simpleNavigationBarView.didTapRightButton = { [unowned self] in
             self.presentAlertOpenURLInBrowsers(URL(string: self.urlString)!, alertTitle: "View this review in browser", alertMessage: "\(self.review.title!) - \(self.review.rating!)%", shareMessage: "Share this review URL")
             

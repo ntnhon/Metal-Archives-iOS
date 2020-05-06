@@ -91,6 +91,11 @@ final class SimpleNavigationBarView: BaseNavigationBarView, TransformableWithScr
     
     func setLeftButtonMode(_ mode: LeftButtonMode) {
         leftButtonMode = mode
+        
+        switch leftButtonMode {
+        case .back: leftButton.setImage(UIImage(named: Ressources.Images.back), for: .normal)
+        case .close: leftButton.setImage(UIImage(named: Ressources.Images.close_filled), for: .normal)
+        }
     }
     
     func setAlphaForBackgroundAndTitleLabel(_ alpha: CGFloat) {
