@@ -30,11 +30,19 @@ enum MAError: Error, LocalizedError {
         case badURL(_ urlString: String)
         /// Error parsing response from an URL
         case badResponse(_ response: Any)
+        /// Failed to fetch an object
+        case failedToFetch(anyObject: Any, error: Error)
         
         var localizedDescription: String {
             switch self {
-            case .badURL(let urlString): return "Bad URL: \(urlString)"
-            case .badResponse(let response): return "Bad response: \(response)"
+            case .badURL(let urlString):
+                return "Bad URL: \(urlString)"
+                
+            case .badResponse(let response):
+                return "Bad response: \(response)"
+                
+            case .failedToFetch(let anyObject, let error):
+                return "Failed to fetch \(anyObject.self): \(error.localizedDescription)"
             }
         }
     }
@@ -60,25 +68,35 @@ enum MAError: Error, LocalizedError {
     }
     
     enum ParsingError: LocalizedError {
+        /// Bad JSON syntax
+        case badJsonSyntax(actualSyntax: Any, expectedSyntax: Any)
         /// Error while extracting useful informations using regular expresion or string manipulation.
         case badSyntax(string: String, expectedSyntax: String)
         /// Error converting extracted informations to a strong type
-        case badType(string: String, expectedType: String)
+        case badType(actualType: Any, expectedType: Any)
         /// HTML syntax is not appropriate
         case badStructure(anyObject: Any)
 
         var localizedDescription: String {
             switch self {
+            case .badJsonSyntax(let actualSyntax, let expectedSyntax):
+                return """
+                Bad JSON syntax: \(actualSyntax.self)
+                Expected syntax: \(expectedSyntax.self)
+                """
+                
             case .badSyntax(let string, let expectedSyntax):
                 return """
-                Bad syntax for string: \(string).
-                Expected syntax: \(expectedSyntax)
+                Bad syntax: \(string)
+                Expected syntax: \(expectedSyntax.self)
                 """
-            case .badType(let string, let expectedType):
+                
+            case .badType(let actualType, let expectedType):
                 return """
-                Error converting - Bad type for string: \(string)
-                Expected type: \(expectedType)
+                Bad type: \(actualType.self)
+                Expected type: \(expectedType.self)
                 """
+                
             case .badStructure(let anyObject):
                 return "Error parsing \(anyObject.self)"
             }

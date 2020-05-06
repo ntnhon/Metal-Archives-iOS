@@ -14,10 +14,14 @@ extension RequestHelper {
 }
 
 extension RequestHelper.Collection {
-    static func getVersionList(id: String, completion: @escaping (Result<[ReleaseVersion], MAFetchingError>) -> Void) {
-        let requestURL = URL(string: "https://www.metal-archives.com/release/version-json-list/parentId/\(id)")!
+    static func getVersionList(id: String, completion: @escaping (Result<[ReleaseVersion], MAError>) -> Void) {
+        let requestUrlString = "https://www.metal-archives.com/release/version-json-list/parentId/\(id)"
+        guard let requestUrl = URL(string: requestUrlString) else {
+            completion(.failure(.networking(error: .badURL(requestUrlString))))
+            return
+        }
         
-        RequestHelper.shared.alamofireManager.request(requestURL).responseJSON { response in
+        RequestHelper.shared.alamofireManager.request(requestUrl).responseJSON { response in
             switch response.result {
             case .success(let value):
                 if let json = value as? [[String: String]] {
@@ -32,14 +36,15 @@ extension RequestHelper.Collection {
                         releaseVersions.insert(ReleaseVersion(id: "0", version: "Unspecified"), at: 0)
                         completion(.success(releaseVersions))
                     } else {
-                        completion(.failure(.failedToFetch(object: "[ReleaseVersion]")))
+                        completion(.failure(.parsing(error: .badStructure(anyObject: ReleaseVersion.self))))
                     }
                     
                 } else {
-                    completion(.failure(.failedToFetch(object: "[ReleaseVersion]")))
+                    completion(.failure(.parsing(error: .badJsonSyntax(actualSyntax: value.self, expectedSyntax: [[String: String]].self))))
                 }
                 
-            case .failure(_): completion(.failure(.failedToFetch(object: "[ReleaseVersion]")))
+            case .failure(let error):
+                completion(.failure(.networking(error: .failedToFetch(anyObject: [ReleaseVersion].self, error: error))))
             }
         }
     }
