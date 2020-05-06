@@ -219,12 +219,12 @@ extension MyCollectionViewController {
     private func changeVersion(forReleaseAt indexPath: IndexPath, newVersion: ReleaseVersion) {
         let release = getRelease(for: indexPath)
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Collection.changeVersion(collection: myCollection, release: release, versionId: newVersion.id) { [weak self] (isSuccessful) in
+        RequestHelper.Collection.changeVersion(collection: myCollection, release: release, versionId: newVersion.id) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if isSuccessful {
-                
+            switch result {
+            case .success(_):
                 switch self.myCollection {
                 case .collection: self.collectionPagableManager.objects[indexPath.row].updateVersion(newVersion.version)
                 case .wanted:
@@ -236,8 +236,9 @@ extension MyCollectionViewController {
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
                 Toast.displayMessageShortly("Changed version")
                 Analytics.logEvent("collection_change_version_success", parameters: nil)
-            } else {
-                Toast.displayMessageShortly("Error changing version. Please try again later.")
+                
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
                 Analytics.logEvent("collection_change_version_error", parameters: nil)
             }
         }

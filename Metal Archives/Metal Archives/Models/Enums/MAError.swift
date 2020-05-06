@@ -12,7 +12,7 @@ enum MAError: Error, LocalizedError {
     case networking(error: NetworkingError)
     case login(error: LoginError)
     case parsing(error: ParsingError)
-    case unknownStatusCode(code: Int)
+    case unknownErrorWithStatusCode(statusCode: Int)
     case unknown(description: String)
     
     var localizedDescription: String {
@@ -20,7 +20,7 @@ enum MAError: Error, LocalizedError {
         case .networking(let error): return error.localizedDescription
         case .login(let error): return error.localizedDescription
         case .parsing(let error): return error.localizedDescription
-        case .unknownStatusCode(let code): return "Unknown error with status code \(code)"
+        case .unknownErrorWithStatusCode(let statusCode): return "Unknown error with status code \(statusCode)"
         case .unknown(let description): return "Unknown error: \(description)"
         }
     }
@@ -32,6 +32,8 @@ enum MAError: Error, LocalizedError {
         case badResponse(_ response: Any)
         /// Failed to fetch an object
         case failedToFetch(anyObject: Any, error: Error)
+        /// Unknown status code
+        case unknownStatusCode
         
         var localizedDescription: String {
             switch self {
@@ -43,6 +45,9 @@ enum MAError: Error, LocalizedError {
                 
             case .failedToFetch(let anyObject, let error):
                 return "Failed to fetch \(anyObject.self): \(error.localizedDescription)"
+                
+            case .unknownStatusCode:
+                return "Unknown status code"
             }
         }
     }

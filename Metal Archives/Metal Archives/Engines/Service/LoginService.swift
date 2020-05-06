@@ -42,7 +42,7 @@ final class LoginService {
                     
                 default:
                     isLoggedIn = false
-                    completion(.failure(.unknownStatusCode(code: response.statusCode)))
+                    completion(.failure(.unknownErrorWithStatusCode(statusCode: response.statusCode)))
                 }
             }
             
