@@ -241,22 +241,3 @@ extension MetalArchivesAPI {
         }
     }
 }
-
-//MARK: - Statistic
-extension MetalArchivesAPI {
-    static func fetchTop100Bands(withCompletion completion: @escaping ((Top100Bands?, Error?) -> Void)) {
-        RequestHelper.StatisticDetail.fetchTop100Bands(onSuccess: { (top100Bands) in
-            completion(top100Bands, nil)
-        }) { (error) in
-            completion(nil, error)
-        }
-    }
-    
-    static func fetchTop100Albums(withCompletion completion: @escaping ((Top100Albums?, Error?) -> Void)) {
-        RequestHelper.StatisticDetail.fetchTop100Albums(onSuccess: { (top100Albums) in
-            completion(top100Albums, nil)
-        }) { (error) in
-            completion(nil, error)
-        }
-    }
-}

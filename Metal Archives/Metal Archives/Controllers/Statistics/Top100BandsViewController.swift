@@ -66,17 +66,18 @@ final class Top100BandsViewController: BaseViewController {
         }
         
         numberOfTries += 1
-        MetalArchivesAPI.fetchTop100Bands { [weak self] (top100Bands, error) in
-            DispatchQueue.main.async {
-                self?.hideHUD()
-            }
-            if let _ = error {
-                self?.fetchData()
-            } else if let `top100Bands` = top100Bands {
-                DispatchQueue.main.async {
-                    self?.top100Bands = top100Bands
-                    self?.tableView.reloadData()
-                }
+
+        RequestHelper.StatisticDetail.fetchTop100Bands { [weak self] result in
+            guard let self = self else { return }
+            self.hideHUD()
+            
+            switch result {
+            case .success(let top100Bands):
+                self.top100Bands = top100Bands
+                self.tableView.reloadData()
+                
+            case .failure(_):
+                self.fetchData()
             }
         }
     }
