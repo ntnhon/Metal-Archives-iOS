@@ -99,10 +99,10 @@ final class Discography {
         return "Misc. (\(self.misc.count) releases)"
     }()
     
-    init?(data: Data) throws {
+    init?(data: Data) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
             let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
-                throw MAParsingError.badStructure(objectType: "Discography")
+                return nil
         }
         
         // Check if user is logged in, because in this case the html structure is different
@@ -189,7 +189,7 @@ final class Discography {
                     }
                     
                 } else {
-                    throw MAParsingError.badStructure(objectType: "Discography")
+                    return nil
                 }
 
             }

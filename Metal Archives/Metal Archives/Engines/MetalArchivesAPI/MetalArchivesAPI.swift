@@ -15,38 +15,45 @@ final class MetalArchivesAPI {
 
 //MARK: - Band's details
 extension MetalArchivesAPI {
-    static func reloadBand(bandURLString urlString: String, withCompletion completion: @escaping ((Band?, Error?) -> Void)) {
-        
-        RequestHelper.BandDetail.fetchBandDetail(urlString: urlString, onSuccess: { (fetchedBand) in
-            MetalArchivesAPI.fetchBandDetails(band: fetchedBand, withCompletion: { (band, error) in
-                completion(band, error)
-            })
-        }) { (error) in
-            completion(nil, error)
+    static func reloadBand(bandURLString urlString: String, completion: @escaping (Result<Band, MAError>) -> Void) {
+        RequestHelper.BandDetail.fetchBandGeneralInfo(urlString: urlString) { result in
+            switch result {
+            case .success(let band):
+                fetchBandDetails(band: band) { result in
+                    switch result {
+                    case .success(let band): completion(.success(band))
+                    case .failure(let error): completion(.failure(error))
+                    }
+                }
+                
+            case .failure(let error): completion(.failure(error))
+            }
         }
     }
     
-    private static func fetchBandDetails(band: Band, withCompletion completion: @escaping ((Band?, Error?) -> Void)) {
-        var storedError: Error?
+    private static func fetchBandDetails(band: Band, completion: @escaping (Result<Band, MAError>) -> Void) {
+        var storedError: MAError?
         let fetchGroup = DispatchGroup()
         
         //Readmore
         fetchGroup.enter()
-        RequestHelper.BandDetail.fetchReadMore(bandID: band.id, onSuccess: { (readMoreString) in
-            band.setReadMoreString(readMoreString)
-            fetchGroup.leave()
-        }) { (error) in
-            storedError = error
+        RequestHelper.BandDetail.fetchReadMore(bandID: band.id) { result in
+            switch result {
+            case .success(let readmoreString): band.setReadMoreString(readmoreString)
+            case .failure(let error): storedError = error
+            }
+            
             fetchGroup.leave()
         }
         
         //Discography
         fetchGroup.enter()
-        RequestHelper.BandDetail.fetchDiscography(bandID: band.id, onSuccess: { (fetchedDiscography) in
-            band.setDiscography(fetchedDiscography)
-            fetchGroup.leave()
-        }) { (error) in
-            storedError = error
+        RequestHelper.BandDetail.fetchDiscography(bandID: band.id) { result in
+            switch result {
+            case .success(let discography): band.setDiscography(discography)
+            case .failure(let error): storedError = error
+            }
+            
             fetchGroup.leave()
         }
         
@@ -54,33 +61,38 @@ extension MetalArchivesAPI {
         fetchGroup.enter()
         band.reviewLitePagableManager.fetch { (error) in
             // Don't care about this error because server randomly throws unknown error
-            // storedError = error
             fetchGroup.leave()
         }
         
         //Similar artists
         fetchGroup.enter()
-        RequestHelper.BandDetail.fetchSimilarArtists(bandID: band.id, onSuccess: { (fetchedSimilarArtists) in
-            band.setSimilarArtists(fetchedSimilarArtists)
-            fetchGroup.leave()
-        }) { (error) in
-            storedError = error
+        RequestHelper.BandDetail.fetchSimilarArtists(bandID: band.id) { result in
+            switch result {
+            case .success(let similarBands): band.setSimilarArtists(similarBands)
+            case .failure(let error): storedError = error
+            }
+            
             fetchGroup.leave()
         }
         
         //Related links
         fetchGroup.enter()
-        RequestHelper.BandDetail.fetchRelatedLinks(bandID: band.id, onSuccess: { (fetchedRelatedLinks) in
-            band.setRelatedLinks(fetchedRelatedLinks)
-            fetchGroup.leave()
-        }) { (error) in
-            storedError = error
+        RequestHelper.BandDetail.fetchRelatedLinks(bandID: band.id) { result in
+            switch result {
+            case .success(let relatedLinks): band.setRelatedLinks(relatedLinks)
+            case .failure(let error): storedError = error
+            }
+            
             fetchGroup.leave()
         }
-        
+
         fetchGroup.notify(queue: DispatchQueue.main) {
-            band.associateReleasesToReviews()
-            completion(band, storedError)
+            if let error = storedError {
+                completion(.failure(error))
+            } else {
+                band.associateReleasesToReviews()
+                completion(.success(band))
+            }
         }
     }
 }

@@ -94,23 +94,12 @@ final class BandDetailViewController: BaseViewController {
         floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         
-        MetalArchivesAPI.reloadBand(bandURLString: bandURLString) { [weak self] (band, error) in
-            
+        MetalArchivesAPI.reloadBand(bandURLString: bandURLString) { [weak self] result in
             guard let self = self else { return }
+            self.hideHUD()
             
-            if let _ = error {
-                self.showHUD()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-                    self.fetchBand()
-                })
-            } else {
-                self.hideHUD()
-                guard let band = band else {
-                    Toast.displayMessageShortly(errorLoadingMessage)
-                    self.navigationController?.popViewController(animated: true)
-                    return
-                }
-                
+            switch result {
+            case .success(let band):
                 self.floaty.isHidden = false
                 self.band = band
                 
@@ -141,6 +130,13 @@ final class BandDetailViewController: BaseViewController {
                 
                 Analytics.logEvent("view_band", parameters: ["band_id": band.id ?? "", "band_name": band.name ?? ""])
                 Crashlytics.sharedInstance().setObjectValue(self.band?.generalDescription, forKey: "band")
+                
+            case .failure(let error):
+                self.showHUD()
+                Toast.displayRetryMessage(error)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                    self.fetchBand()
+                })
             }
         }
     }

@@ -1,37 +1,16 @@
 //
-//  RequestBandSimilarArtists.swift
+//  Array+BandSimilar.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 05/02/2019.
-//  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
+//  Created by Thanh-Nhon Nguyen on 06/05/2020.
+//  Copyright © 2020 Thanh-Nhon Nguyen. All rights reserved.
 //
 
 import Foundation
 import Kanna
 
-extension RequestHelper.BandDetail {
-    typealias FetchSimilarArtistsOnSuccess = (_ similarArtists: [BandSimilar]?) -> Void
-    typealias FetchSimilarArtistsOnError = (Error) -> Void
-    private static let requestSimilarArtistsURLString = "https://www.metal-archives.com/band/ajax-recommendations/id/<BAND_ID>/showMoreSimilar/1"
-    
-    static func fetchSimilarArtists(bandID: String, onSuccess: @escaping FetchSimilarArtistsOnSuccess, onError: @escaping FetchSimilarArtistsOnError) {
-        let requestURLString = requestSimilarArtistsURLString.replacingOccurrences(of: "<BAND_ID>", with: bandID)
-        let requestURL = URL(string: requestURLString)!
-        
-        RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
-            switch response.result {
-            case .success:
-                if let data = response.data {
-                    let similarArtists = self.extractSimilarArtists(data: data)
-                    onSuccess(similarArtists)
-                }
-                
-            case .failure(let error): onError(error)
-            }
-        }
-    }
-    
-    private static func extractSimilarArtists(data: Data) -> [BandSimilar]? {
+extension Array where Element == BandSimilar {
+    static func from(data: Data) -> [BandSimilar]? {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8) else {
             return nil
         }
