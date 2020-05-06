@@ -268,11 +268,12 @@ extension MyBookmarksViewController {
     private func updateNote(editId: String, newNote: String?, indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Bookmark.updateNote(editId: editId, newNote: newNote) { [weak self] (isSuccessful) in
+        RequestHelper.Bookmark.updateNote(editId: editId, newNote: newNote) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if isSuccessful {
+            switch result {
+            case .success(_):
                 switch self.myBookmark {
                 case .bands: self.bandBookmarkPagableManager.objects[indexPath.row].updateNote(newNote)
                 case .artists: self.artistBookmarkPagableManager.objects[indexPath.row].updateNote(newNote)
@@ -283,8 +284,9 @@ extension MyBookmarksViewController {
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
                 Toast.displayMessageShortly("Saved note")
                 Analytics.logEvent("bookmark_edit_note_success", parameters: nil)
-            } else {
-                Toast.displayMessageShortly("Error saving note. Please try again later.")
+                
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
                 Analytics.logEvent("bookmark_edit_note_error", parameters: nil)
             }
         }
