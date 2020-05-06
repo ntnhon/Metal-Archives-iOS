@@ -384,11 +384,12 @@ extension MyCollectionViewController {
         let release = getRelease(for: indexPath)
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Collection.move(release: release, from: myCollection, to: toCollection) { [weak self] (isSuccessful) in
+        RequestHelper.Collection.move(release: release, from: myCollection, to: toCollection) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if isSuccessful {
+            switch result {
+            case .success(_):
                 self.tableView.performBatchUpdates({
                     switch self.myCollection {
                     case .collection: self.collectionPagableManager.removeObject(at: indexPath.row)
@@ -399,8 +400,9 @@ extension MyCollectionViewController {
                     self.tableView.deleteRows(at: [indexPath], with: .automatic)
                 })
                 Analytics.logEvent("collection_move_success", parameters: nil)
-            } else {
-                Toast.displayMessageShortly("Error moving release. Please try again later.")
+                
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
                 Analytics.logEvent("collection_move_error", parameters: nil)
             }
         }

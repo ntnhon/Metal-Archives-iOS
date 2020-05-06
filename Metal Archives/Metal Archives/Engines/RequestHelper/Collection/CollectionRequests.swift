@@ -141,15 +141,25 @@ extension RequestHelper.Collection {
         }
     }
     
-    static func move(release: ReleaseInCollection, from fromCollection: MyCollection, to toCollection: MyCollection, completion: @escaping (_ isSuccessful: Bool) -> Void) {
-        let requestURL = URL(string: "https://www.metal-archives.com/collection/save/tab/\(fromCollection.urlParam)")!
+    static func move(release: ReleaseInCollection, from fromCollection: MyCollection, to toCollection: MyCollection, completion: @escaping (Result<Any?, MAError>) -> Void) {
+        let requestUrlString = "https://www.metal-archives.com/collection/save/tab/\(fromCollection.urlParam)"
+        guard let requestUrl = URL(string: requestUrlString) else {
+            completion(.failure(.networking(error: .badURL(requestUrlString))))
+            return
+        }
         let parameters = ["notes[\(release.editId)]": release.note ?? "", "item[\(release.editId)]": "1", "changes[\(release.editId)]": "1", "choice": toCollection.urlParam]
         
-        RequestHelper.shared.alamofireManager.request(requestURL, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
-            if let statusCode = response.response?.statusCode, statusCode == 200 {
-                completion(true)
+        RequestHelper.shared.alamofireManager.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(.failure(.networking(error: .unknownStatusCode)))
+                return
+            }
+            
+            if statusCode == 200 {
+                completion(.success(nil))
             } else {
-                completion(false)
+                completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }
