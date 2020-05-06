@@ -21,4 +21,8 @@ extension Toast {
             Toast(text: blockedMessage, duration: 4).show()
         }
     }
+    
+    static func displayRetryMessage(_ error: MAError) {
+        Toast.displayMessageShortly(error.localizedDescription + "\nWill retry in several seconds")
+    }
 }

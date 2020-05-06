@@ -86,21 +86,12 @@ final class LabelDetailViewController: BaseViewController {
         floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         
-        MetalArchivesAPI.reloadLabel(urlString: self.urlString) { [weak self] (label, error) in
+        MetalArchivesAPI.reloadLabel(urlString: self.urlString) { [weak self] result in
             guard let self = self else { return }
-            if let _ = error {
-                self.showHUD()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-                    self.fetchLabel()
-                })
-            } else {
+            
+            switch result {
+            case .success(let label):
                 self.hideHUD()
-                guard let label = label else {
-                    Toast.displayMessageShortly(errorLoadingMessage)
-                    self.navigationController?.popViewController(animated: true)
-                    return
-                }
-                
                 self.floaty.isHidden = false
                 self.label = label
                 self.determineLabelMenuOptions()
@@ -127,9 +118,16 @@ final class LabelDetailViewController: BaseViewController {
                 })
                 
                 self.historyRecordableDelegate?.loaded(urlString: label.urlString, nameOrTitle: label.name, thumbnailUrlString: label.logoURLString, objectType: .label)
-            
+                
                 Analytics.logEvent("view_label", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
                 Crashlytics.sharedInstance().setObjectValue(label.generalDescription, forKey: "label")
+                
+            case .failure(let error):
+                self.showHUD()
+                Toast.displayRetryMessage(error)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                    self.fetchLabel()
+                })
             }
         }
     }

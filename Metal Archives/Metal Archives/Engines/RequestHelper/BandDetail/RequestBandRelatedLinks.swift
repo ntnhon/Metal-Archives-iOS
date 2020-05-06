@@ -21,7 +21,7 @@ extension RequestHelper.BandDetail {
             switch response.result {
             case .success:
                 if let data = response.data {
-                    let relatedLinks = RequestHelper.extractLinks(data: data)
+                    let relatedLinks = [RelatedLink].from(data: data)
                     onSuccess(relatedLinks)
                 }
                 

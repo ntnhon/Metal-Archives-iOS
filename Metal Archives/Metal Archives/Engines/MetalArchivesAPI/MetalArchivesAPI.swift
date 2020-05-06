@@ -190,29 +190,39 @@ extension MetalArchivesAPI {
 
 //MARK: - Label
 extension MetalArchivesAPI {
-    static func reloadLabel(urlString: String, withCompletion completion: @escaping ((Label?, Error?) -> Void)) {
-        RequestHelper.LabelDetail.fetchLabelDetail(urlString: urlString, onSuccess: { (label) in
-            MetalArchivesAPI.fetchLabelsDetails(label: label, withCompletion: { (label, error) in
-                completion(label, error)
-            })
-        }) { (error) in
-            completion(nil, error)
+    static func reloadLabel(urlString: String, completion: @escaping (Result<Label, MAError>) -> Void) {
+        RequestHelper.LabelDetail.fetchLabelDetail(urlString: urlString) { result in
+            switch result {
+            case .success(let label):
+                MetalArchivesAPI.fetchLabelDetails(label: label) { result in
+                    switch result {
+                    case .success(let label): completion(.success(label))
+                    case .failure(let error): completion(.failure(error))
+                    }
+                }
+                
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
     
-    private static func fetchLabelsDetails(label: Label, withCompletion completion: @escaping ((Label?, Error?) -> Void)) {
-        var storedError: Error?
+    private static func fetchLabelDetails(label: Label, completion: @escaping (Result<Label, MAError>) -> Void) {
+        var storedError: MAError?
         let fetchGroup = DispatchGroup()
-        
         
         //Links
         fetchGroup.enter()
-        RequestHelper.LabelDetail.fetchLabelLinks(id: label.id, onSuccess: { (links) in
-            label.setLinks(links)
-            fetchGroup.leave()
-        }) { (error) in
-            storedError = error
-            fetchGroup.leave()
+        RequestHelper.LabelDetail.fetchLabelLinks(id: label.id) { result in
+            switch result {
+            case .success(let links):
+                label.setLinks(links)
+                fetchGroup.leave()
+                
+            case .failure(let error):
+                storedError = error
+                fetchGroup.leave()
+            }
         }
         
         //Current roster
@@ -237,7 +247,11 @@ extension MetalArchivesAPI {
         }
         
         fetchGroup.notify(queue: DispatchQueue.main) {
-            completion(label, storedError)
+            if let error = storedError {
+                completion(.failure(error))
+            } else {
+                completion(.success(label))
+            }
         }
     }
 }

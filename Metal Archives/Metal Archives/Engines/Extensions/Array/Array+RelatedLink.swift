@@ -1,16 +1,16 @@
 //
-//  RequestRelatedLinks.swift
+//  Array+RelatedLink.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 20/03/2019.
-//  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
+//  Created by Thanh-Nhon Nguyen on 06/05/2020.
+//  Copyright © 2020 Thanh-Nhon Nguyen. All rights reserved.
 //
 
 import Foundation
 import Kanna
 
-extension RequestHelper {
-    static func extractLinks(data: Data) -> [RelatedLink]? {
+extension Array where Element == RelatedLink {
+    static func from(data: Data) -> [RelatedLink]? {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8) else {
             return nil
         }
@@ -32,8 +32,7 @@ extension RequestHelper {
         if relatedLinks.count == 0 {
             return nil
         }
-        
+
         return relatedLinks
     }
 }
-

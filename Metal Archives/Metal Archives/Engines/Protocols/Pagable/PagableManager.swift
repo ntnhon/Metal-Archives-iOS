@@ -26,7 +26,7 @@ extension PagableManagerDelegate {
 }
 
 final class PagableManager<T: Pagable>: NSCopying {
-    typealias PagableManagerFetchCompletion = (Error?) -> Void
+    typealias PagableManagerFetchCompletion = (MAError?) -> Void
     
     private(set) var currentPage = 0
     private(set) var objects: [T] = []
@@ -134,14 +134,13 @@ final class PagableManager<T: Pagable>: NSCopying {
                             })
                         } else {
                             //Unknown error
-                            let error = NSError(domain: "", code: 2804, userInfo: nil)
-                            completion?(error)
+                            completion?(.unknown(description: "unknown reason"))
                             self.delegate?.pagableManagerDidFailFetching(self)
                         }
                     }
                 }
             case .failure(let error):
-                completion?(error)
+                completion?(.unknown(description: error.localizedDescription))
                 //Blocked by the server, automatically retry in 5 seconds later
                 self.delegate?.pagableManagerIsBeingBlocked(self)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 7, execute: {

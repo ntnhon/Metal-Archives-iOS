@@ -21,7 +21,7 @@ extension RequestHelper.ArtistDetail {
             switch response.result {
             case .success:
                 if let data = response.data {
-                    let links = RequestHelper.extractLinks(data: data)
+                    let links = [RelatedLink].from(data: data)
                     onSuccess(links)
                 }
                 
