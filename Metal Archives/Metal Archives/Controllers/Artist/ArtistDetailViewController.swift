@@ -89,20 +89,12 @@ final class ArtistDetailViewController: BaseViewController {
         floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         
-        MetalArchivesAPI.reloadArtist(urlString: urlString) { [weak self] (artist, error) in
+        MetalArchivesAPI.reloadArtist(urlString: urlString) { [weak self] result in
             guard let self = self else { return }
-            if let _ = error {
-                self.showHUD()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-                    self.fetchArtist()
-                })
-            } else {
+            
+            switch result {
+            case .success(let artist):
                 self.hideHUD()
-                guard let artist = artist else {
-                    Toast.displayMessageShortly(errorLoadingMessage)
-                    self.navigationController?.popViewController(animated: true)
-                    return
-                }
                 
                 self.floaty.isHidden = false
                 self.artist = artist
@@ -132,6 +124,13 @@ final class ArtistDetailViewController: BaseViewController {
                 Analytics.logEvent("view_artist", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? ""])
                 
                 Crashlytics.sharedInstance().setObjectValue(artist.generalDescription, forKey: "artist")
+                
+            case .failure(let error):
+                self.showHUD()
+                Toast.displayRetryMessage(error)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                    self.fetchArtist()
+                })
             }
         }
     }

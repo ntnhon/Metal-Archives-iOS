@@ -134,56 +134,67 @@ extension MetalArchivesAPI {
     }
 }
 
-
 //MARK: - Artist
 extension MetalArchivesAPI {
-    static func reloadArtist(urlString: String, withCompletion completion: @escaping ((Artist?, Error?) -> Void)) {
-        RequestHelper.ArtistDetail.fetchArtistDetail(urlString: urlString, onSuccess: { (artist) in
-            MetalArchivesAPI.fetchArtistsDetails(artist: artist, withCompletion: { (artist, error) in
-                completion(artist, error)
-            })
-        }) { (error) in
-            completion(nil, error)
+    static func reloadArtist(urlString: String, withCompletion completion: @escaping (Result<Artist, MAError>) -> Void) {
+        RequestHelper.ArtistDetail.fetchArtistGeneralInfo(urlString: urlString) { result in
+            switch result {
+            case .success(let artist):
+                fetchArtistsDetails(artist: artist) { result in
+                    switch result {
+                    case .success(let artist): completion(.success(artist))
+                    case .failure(let error): completion(.failure(error))
+                    }
+                }
+                
+            case .failure(let error): completion(.failure(error))
+            }
         }
     }
     
-    private static func fetchArtistsDetails(artist: Artist, withCompletion completion: @escaping ((Artist?, Error?) -> Void)) {
-        var storedError: Error?
+    private static func fetchArtistsDetails(artist: Artist, withCompletion completion: @escaping (Result<Artist, MAError>) -> Void) {
+        var storedError: MAError?
         let fetchGroup = DispatchGroup()
-        
         
         //Biography
         fetchGroup.enter()
-        RequestHelper.ArtistDetail.fetchArtistBiography(id: artist.id, onSuccess: { (biographyString) in
-            artist.setBiography(biographyString: biographyString)
-            fetchGroup.leave()
-        }) { (error) in
-            storedError = error
+        RequestHelper.ArtistDetail.fetchArtistBiography(id: artist.id) { result in
+            switch result {
+            case .success(let biography): artist.setBiography(biographyString: biography)
+            case .failure(let error): storedError = error
+            }
+            
             fetchGroup.leave()
         }
         
         //Trivia
         fetchGroup.enter()
-        RequestHelper.ArtistDetail.fetchArtistTrivia(id: artist.id, onSuccess: { (triviaString) in
-            artist.setTrivia(triviaString: triviaString)
-            fetchGroup.leave()
-        }) { (error) in
-            storedError = error
+        RequestHelper.ArtistDetail.fetchArtistTrivia(id: artist.id) { result in
+            switch result {
+            case .success(let trivia): artist.setTrivia(triviaString: trivia)
+            case .failure(let error): storedError = error
+            }
+            
             fetchGroup.leave()
         }
         
         //Links
         fetchGroup.enter()
-        RequestHelper.ArtistDetail.fetchArtistLinks(id: artist.id, onSuccess: { (links) in
-            artist.setLinks(links: links)
-            fetchGroup.leave()
-        }) { (error) in
-            storedError = error
+        RequestHelper.ArtistDetail.fetchArtistLinks(id: artist.id) { result in
+            switch result {
+            case .success(let links): artist.setLinks(links: links)
+            case .failure(let error): storedError = error
+            }
+            
             fetchGroup.leave()
         }
         
         fetchGroup.notify(queue: DispatchQueue.main) {
-            completion(artist, storedError)
+            if let error = storedError {
+                completion(.failure(error))
+            } else {
+                completion(.success(artist))
+            }
         }
     }
 }
