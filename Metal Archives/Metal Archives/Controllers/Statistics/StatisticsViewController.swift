@@ -65,18 +65,22 @@ final class StatisticsViewController: BaseViewController {
         }
         
         numberOfTries += 1
-        MetalArchivesAPI.fetchStatisticDetails { [weak self] (statistic, error) in
-            self?.hideHUD()
-            if let _ = error {
-                self?.fetchStatistic()
-            } else if let `statistic` = statistic {
-                self?.statistic = statistic
-                self?.simpleNavigationBarView.setTitle(statistic.dateAndTimeString)
-                self?.tableView.reloadData()
+        
+        RequestHelper.StatisticDetail.fetchStatisticDetails { [weak self] result in
+            guard let self = self else { return }
+            self.hideHUD()
+            
+            switch result {
+            case .success(let statistic):
+                self.statistic = statistic
+                self.simpleNavigationBarView.setTitle(statistic.dateAndTimeString)
+                self.tableView.reloadData()
+                
+            case .failure(_):
+                self.fetchStatistic()
             }
         }
     }
-
 }
 
 //MARK: - UITableViewDelegate

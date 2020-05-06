@@ -10,24 +10,24 @@ import Foundation
 
 extension RequestHelper {
     final class StatisticDetail {
-        typealias FetchStatisticDetailOnSuccess = (_ statistic: Statistic) -> Void
-        typealias FetchStatisticDetailOnError = (Error) -> Void
-        
-        static func fetchStatisticDetails(onSuccess: @escaping FetchStatisticDetailOnSuccess, onError: @escaping FetchStatisticDetailOnError) {
-            let urlString = "https://www.metal-archives.com/stats"
-            let requestURL = URL(string: urlString)!
+        static func fetchStatisticDetails(completion: @escaping (Result<Statistic, MAError>) -> Void) {
+            let requestUrlString = "https://www.metal-archives.com/stats"
+            guard let requestUrl = URL(string: requestUrlString) else {
+                completion(.failure(.networking(error: .badURL(requestUrlString))))
+                return
+            }
             
-            RequestHelper.shared.alamofireManager.request(requestURL).responseData { (response) in
+            RequestHelper.shared.alamofireManager.request(requestUrl).responseData { (response) in
                 switch response.result {
-                case .success:
-                    if let data = response.data, let statistic = Statistic.init(fromData: data)  {
-                        onSuccess(statistic)
+                case .success(let data):
+                    if let statistic = Statistic.init(fromData: data)  {
+                        completion(.success(statistic))
                     } else {
-                        let error = MAParsingError.badStructure(objectType: "Statistic")
-                        onError(error)
+                        completion(.failure(.parsing(error: .badStructure(anyObject: Statistic.self))))
                     }
                     
-                case .failure(let error): onError(error)
+                case .failure(let error):
+                    completion(.failure(.unknown(description: error.localizedDescription)))
                 }
             }
         }

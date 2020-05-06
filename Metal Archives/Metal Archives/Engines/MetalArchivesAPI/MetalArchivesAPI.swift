@@ -244,15 +244,6 @@ extension MetalArchivesAPI {
 
 //MARK: - Statistic
 extension MetalArchivesAPI {
-    static func fetchStatisticDetails(withCompletion completion: @escaping ((Statistic?, Error?) -> Void)) {
-        
-        RequestHelper.StatisticDetail.fetchStatisticDetails(onSuccess: { (statistic) in
-            completion(statistic, nil)
-        }) { (error) in
-            completion(nil, error)
-        }
-    }
-    
     static func fetchTop100Bands(withCompletion completion: @escaping ((Top100Bands?, Error?) -> Void)) {
         RequestHelper.StatisticDetail.fetchTop100Bands(onSuccess: { (top100Bands) in
             completion(top100Bands, nil)
