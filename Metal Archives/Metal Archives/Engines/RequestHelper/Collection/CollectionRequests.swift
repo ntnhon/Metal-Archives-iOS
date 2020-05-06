@@ -51,7 +51,7 @@ extension RequestHelper.Collection {
     
     static func changeVersion(collection: MyCollection, release: ReleaseInCollection, versionId: String, completion: @escaping (Result<Any?, MAError>) -> Void) {
         let requestUrlString = "https://www.metal-archives.com/collection/save/tab/\(collection.urlParam)"
-        guard let requestUrl = URL(string: "https://www.metal-archives.com/collection/save/tab/\(collection.urlParam)") else {
+        guard let requestUrl = URL(string: requestUrlString) else {
             completion(.failure(.networking(error: .badURL(requestUrlString))))
             return
         }
@@ -73,15 +73,25 @@ extension RequestHelper.Collection {
         }
     }
     
-    static func updateNote(collection: MyCollection, release: ReleaseInCollection, newNote: String?, completion: @escaping (_ isSuccessful: Bool) -> Void) {
-        let requestURL = URL(string: "https://www.metal-archives.com/collection/save/tab/\(collection.urlParam)")!
+    static func updateNote(collection: MyCollection, release: ReleaseInCollection, newNote: String?, completion: @escaping (Result<Any?, MAError>) -> Void) {
+        let requestUrlString = "https://www.metal-archives.com/collection/save/tab/\(collection.urlParam)"
+        guard let requestUrl = URL(string: requestUrlString) else {
+            completion(.failure(.networking(error: .badURL(requestUrlString))))
+            return
+        }
         let parameters = ["versions[\(release.editId)]": "", "notes[\(release.editId)]": newNote ?? "","changes[\(release.editId)]": "1"]
         
-        RequestHelper.shared.alamofireManager.request(requestURL, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
-            if let statusCode = response.response?.statusCode, statusCode == 200 {
-                completion(true)
+        RequestHelper.shared.alamofireManager.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(.failure(.networking(error: .unknownStatusCode)))
+                return
+            }
+            
+            if statusCode == 200 {
+                completion(.success(nil))
             } else {
-                completion(false)
+                completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }

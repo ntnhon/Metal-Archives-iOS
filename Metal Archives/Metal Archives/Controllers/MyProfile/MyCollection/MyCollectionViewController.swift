@@ -270,12 +270,12 @@ extension MyCollectionViewController {
         let release = getRelease(for: indexPath)
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Collection.updateNote(collection: myCollection, release: release, newNote: newNote) { [weak self] (isSuccessful) in
+        RequestHelper.Collection.updateNote(collection: myCollection, release: release, newNote: newNote) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if isSuccessful {
-                
+            switch result {
+            case .success(_):
                 switch self.myCollection {
                 case .collection: self.collectionPagableManager.objects[indexPath.row].updateNote(newNote)
                 case .wanted:
@@ -287,8 +287,9 @@ extension MyCollectionViewController {
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
                 Toast.displayMessageShortly("Saved note")
                 Analytics.logEvent("collection_update_note_success", parameters: nil)
-            } else {
-                Toast.displayMessageShortly("Error saving note. Please try again later.")
+                
+            case .failure(let error):
+                Toast.displayMessageShortly(error.localizedDescription)
                 Analytics.logEvent("collection~_update_note_error", parameters: nil)
             }
         }
