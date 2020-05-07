@@ -40,7 +40,7 @@ final class BandPhotoAndNameTableViewCell: BaseTableViewCell, RegisterableCell {
         
         photoImageViewHeightConstraint.constant = Settings.bandPhotoImageViewHeight
         
-        switch Settings.currentTheme! {
+        switch Settings.currentTheme {
         case .light: photoImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         default: photoImageView.sd_imageIndicator = SDWebImageActivityIndicator.white
         }

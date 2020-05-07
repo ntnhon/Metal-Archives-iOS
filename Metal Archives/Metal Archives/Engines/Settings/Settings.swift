@@ -27,14 +27,14 @@ struct Settings {
     static let newsCollectionViewCellHeight: CGFloat = ceil(screenHeight / 6)
     static let numberOfGeneralItemPerRow = 3
     static let generalCollectionViewCellHeight: CGFloat = {
-        switch currentFontSize! {
+        switch currentFontSize {
         case .default: return ceil(screenHeight / 9)
         case .medium: return ceil(screenHeight / 8)
         case .large: return ceil(screenHeight / 7)
         }
     }()
     static let upcomingAlbumCollectionViewCellHeight: CGFloat = {
-        switch currentFontSize! {
+        switch currentFontSize {
         case .default: return ceil(screenHeight / 8)
         case .medium: return ceil(screenHeight / 7)
         case .large: return ceil(screenHeight / 6)
@@ -45,9 +45,9 @@ struct Settings {
     static let collectionViewContentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     static let collectionViewCellWidth: CGFloat = screenWidth - collectionViewContentInset.left - collectionViewContentInset.right - collectionViewItemSpacing
     
-    static var currentTheme: Theme!
-    static var currentFontSize: FontSize!
-    static var thumbnailEnabled: Bool!
+    static var currentTheme: Theme = .default
+    static var currentFontSize: FontSize = .default
+    static var thumbnailEnabled: Bool = true
     
     static let strechyLogoImageViewHeight: CGFloat = screenHeight / 4
     static let bandPhotoImageViewHeight: CGFloat = screenHeight / 8

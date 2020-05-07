@@ -37,8 +37,8 @@ final class Label {
     private(set) var releasesPagableManager: PagableManager<ReleaseInLabel>!
     private(set) var links: [RelatedLink]?
     
-    private(set) var  addedOnDate: Date?
-    private(set) var  lastModifiedOnDate: Date?
+    private(set) var addedOnDate: Date?
+    private(set) var lastModifiedOnDate: Date?
     
     deinit {
         print("Label is deallocated")

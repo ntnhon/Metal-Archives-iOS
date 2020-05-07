@@ -21,7 +21,7 @@ final class SimpleArtistTableViewCell: ThumbnailableTableViewCell, RegisterableC
     }
     
     private let artistAkaAttributes = Attributes {
-        switch Settings.currentTheme! {
+        switch Settings.currentTheme {
         case .default:
             return $0.foreground(color: Settings.currentTheme.bodyTextColor)
                 .font(Settings.currentFontSize.titleFont)

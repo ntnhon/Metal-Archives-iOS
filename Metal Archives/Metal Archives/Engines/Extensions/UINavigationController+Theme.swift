@@ -12,7 +12,7 @@ extension UINavigationController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        switch Settings.currentTheme! {
+        switch Settings.currentTheme {
         case .unicorn, .vintage:
             self.navigationBar.barTintColor = Settings.currentTheme.secondaryTitleColor
             self.navigationBar.barStyle = .black

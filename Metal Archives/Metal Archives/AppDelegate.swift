@@ -167,7 +167,7 @@ extension AppDelegate {
         Messaging.messaging().delegate = self
         
         //Log app settings
-        switch Settings.currentTheme! {
+        switch Settings.currentTheme {
         case .default: Analytics.logEvent("use_theme_default", parameters: nil)
         case .light: Analytics.logEvent("use_theme_light", parameters: nil)
         case .vintage: Analytics.logEvent("use_theme_vintage", parameters: nil)
@@ -180,7 +180,7 @@ extension AppDelegate {
             Analytics.logEvent("disabled_thumbnail", parameters: nil)
         }
         
-        switch Settings.currentFontSize! {
+        switch Settings.currentFontSize {
         case .default: Analytics.logEvent("use_font_size_default", parameters: nil)
         case .medium: Analytics.logEvent("use_font_size_medium", parameters: nil)
         case .large: Analytics.logEvent("use_font_size_large", parameters: nil)
