@@ -89,7 +89,7 @@ final class ArtistDetailViewController: BaseViewController {
         floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         
-        MetalArchivesAPI.reloadArtist(urlString: urlString) { [weak self] result in
+        RequestService.Artist.fetch(urlString: urlString) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
