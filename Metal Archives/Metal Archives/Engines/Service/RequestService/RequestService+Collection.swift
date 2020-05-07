@@ -1,19 +1,21 @@
 //
-//  CollectionRequests.swift
+//  RequestService+Collection.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 12/04/2020.
+//  Created by Thanh-Nhon Nguyen on 07/05/2020.
 //  Copyright © 2020 Thanh-Nhon Nguyen. All rights reserved.
 //
 
 import Foundation
 import Alamofire
 
-extension RequestHelper {
-    final class Collection {}
+extension RequestService {
+    final class Collection {
+        private init() {}
+    }
 }
 
-extension RequestHelper.Collection {
+extension RequestService.Collection {
     static func getVersionList(id: String, completion: @escaping (Result<[ReleaseVersion], MAError>) -> Void) {
         let requestUrlString = "https://www.metal-archives.com/release/version-json-list/parentId/\(id)"
         guard let requestUrl = URL(string: requestUrlString) else {
@@ -21,7 +23,7 @@ extension RequestHelper.Collection {
             return
         }
         
-        RequestHelper.shared.alamofireManager.request(requestUrl).responseJSON { response in
+        RequestService.shared.alamofireManager.request(requestUrl).responseJSON { response in
             switch response.result {
             case .success(let value):
                 if let json = value as? [[String: String]] {
@@ -58,7 +60,7 @@ extension RequestHelper.Collection {
         
         let parameters = ["versions[\(release.editId)]": versionId, "notes[\(release.editId)]": release.note ?? "","changes[\(release.editId)]": "1"]
         
-        RequestHelper.shared.alamofireManager.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
+        RequestService.shared.alamofireManager.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(.failure(.networking(error: .unknownStatusCode)))
@@ -81,7 +83,7 @@ extension RequestHelper.Collection {
         }
         let parameters = ["versions[\(release.editId)]": "", "notes[\(release.editId)]": newNote ?? "","changes[\(release.editId)]": "1"]
         
-        RequestHelper.shared.alamofireManager.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
+        RequestService.shared.alamofireManager.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(.failure(.networking(error: .unknownStatusCode)))
@@ -104,7 +106,7 @@ extension RequestHelper.Collection {
         }
         let parameters = ["notes[\(release.editId)]": "", "item[\(release.editId)]": "1", "changes[\(release.editId)]": "1", "choice": "delete"]
         
-        RequestHelper.shared.alamofireManager.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
+        RequestService.shared.alamofireManager.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(.failure(.networking(error: .unknownStatusCode)))
@@ -126,7 +128,7 @@ extension RequestHelper.Collection {
             return
         }
         
-        RequestHelper.shared.alamofireManager.request(requestUrl).response { (response) in
+        RequestService.shared.alamofireManager.request(requestUrl).response { (response) in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(.failure(.networking(error: .unknownStatusCode)))
@@ -149,7 +151,7 @@ extension RequestHelper.Collection {
         }
         let parameters = ["notes[\(release.editId)]": release.note ?? "", "item[\(release.editId)]": "1", "changes[\(release.editId)]": "1", "choice": toCollection.urlParam]
         
-        RequestHelper.shared.alamofireManager.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
+        RequestService.shared.alamofireManager.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(.failure(.networking(error: .unknownStatusCode)))

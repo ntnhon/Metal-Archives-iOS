@@ -351,7 +351,7 @@ final class ReleaseDetailViewController: BaseViewController {
             return
         }
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Collection.add(releaseId: release.id, to: type) { [weak self] result in
+        RequestService.Collection.add(releaseId: release.id, to: type) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             

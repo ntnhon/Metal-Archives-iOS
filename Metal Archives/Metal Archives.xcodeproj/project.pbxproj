@@ -65,7 +65,6 @@
 		C00E71432442335500A17471 /* MyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71422442335500A17471 /* MyCollection.swift */; };
 		C00E71462442363E00A17471 /* ReleaseInCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71452442363E00A17471 /* ReleaseInCollectionTableViewCell.swift */; };
 		C00E71482442364500A17471 /* ReleaseInCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00E71472442364500A17471 /* ReleaseInCollectionTableViewCell.xib */; };
-		C00E714D2442774900A17471 /* CollectionRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E714C2442774900A17471 /* CollectionRequests.swift */; };
 		C00E714F244277CD00A17471 /* ReleaseVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E714E244277CD00A17471 /* ReleaseVersion.swift */; };
 		C0107027222DC9570092D3A5 /* ImFeelingLuckyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0107026222DC9570092D3A5 /* ImFeelingLuckyView.swift */; };
 		C0107029222DC9840092D3A5 /* ImFeelingLuckyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0107028222DC9840092D3A5 /* ImFeelingLuckyView.xib */; };
@@ -437,6 +436,7 @@
 		C08607FE225235F800FE750F /* MonthInYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AABDE7221D8AB00044A2CF /* MonthInYear.swift */; };
 		C08CAAFB22AA31BE00E78520 /* HorizontalOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08CAAFA22AA31BE00E78520 /* HorizontalOptionsView.swift */; };
 		C091A67024645BB400B38433 /* RequestService+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C091A66F24645BB400B38433 /* RequestService+Bookmark.swift */; };
+		C091A67224645D8100B38433 /* RequestService+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C091A67124645D8100B38433 /* RequestService+Collection.swift */; };
 		C09339F22446409600E3989B /* String+RankColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09339F12446409600E3989B /* String+RankColor.swift */; };
 		C09339F42446435700E3989B /* UserReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09339F32446435700E3989B /* UserReview.swift */; };
 		C0938EEB24634E92009B7536 /* Array+BandSimilar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0938EEA24634E92009B7536 /* Array+BandSimilar.swift */; };
@@ -682,7 +682,6 @@
 		C00E71422442335500A17471 /* MyCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollection.swift; sourceTree = "<group>"; };
 		C00E71452442363E00A17471 /* ReleaseInCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInCollectionTableViewCell.swift; sourceTree = "<group>"; };
 		C00E71472442364500A17471 /* ReleaseInCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseInCollectionTableViewCell.xib; sourceTree = "<group>"; };
-		C00E714C2442774900A17471 /* CollectionRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionRequests.swift; sourceTree = "<group>"; };
 		C00E714E244277CD00A17471 /* ReleaseVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseVersion.swift; sourceTree = "<group>"; };
 		C0107026222DC9570092D3A5 /* ImFeelingLuckyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImFeelingLuckyView.swift; sourceTree = "<group>"; };
 		C0107028222DC9840092D3A5 /* ImFeelingLuckyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImFeelingLuckyView.xib; sourceTree = "<group>"; };
@@ -1025,6 +1024,7 @@
 		C085E6C722A27FD5007FACFA /* ReleaseInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C08CAAFA22AA31BE00E78520 /* HorizontalOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalOptionsView.swift; sourceTree = "<group>"; };
 		C091A66F24645BB400B38433 /* RequestService+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestService+Bookmark.swift"; sourceTree = "<group>"; };
+		C091A67124645D8100B38433 /* RequestService+Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestService+Collection.swift"; sourceTree = "<group>"; };
 		C09339F12446409600E3989B /* String+RankColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RankColor.swift"; sourceTree = "<group>"; };
 		C09339F32446435700E3989B /* UserReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReview.swift; sourceTree = "<group>"; };
 		C0938EEA24634E92009B7536 /* Array+BandSimilar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+BandSimilar.swift"; sourceTree = "<group>"; };
@@ -1359,14 +1359,6 @@
 				C00E71472442364500A17471 /* ReleaseInCollectionTableViewCell.xib */,
 			);
 			path = ReleaseInCollectionTableViewCell;
-			sourceTree = "<group>";
-		};
-		C00E714B2442773700A17471 /* Collection */ = {
-			isa = PBXGroup;
-			children = (
-				C00E714C2442774900A17471 /* CollectionRequests.swift */,
-			);
-			path = Collection;
 			sourceTree = "<group>";
 		};
 		C0107025222DC9390092D3A5 /* ImFeelingLuckyView */ = {
@@ -1837,6 +1829,7 @@
 				C05519F7246416A800D95D1B /* RequestService+Label.swift */,
 				C05519FB24645A5700D95D1B /* RequestService+Review.swift */,
 				C091A66F24645BB400B38433 /* RequestService+Bookmark.swift */,
+				C091A67124645D8100B38433 /* RequestService+Collection.swift */,
 			);
 			path = RequestService;
 			sourceTree = "<group>";
@@ -2932,7 +2925,6 @@
 			children = (
 				C08453FF21EE184E00E6D676 /* RequestHelper.swift */,
 				C0BD10F824460611001AA88A /* UserDetail */,
-				C00E714B2442773700A17471 /* Collection */,
 			);
 			path = RequestHelper;
 			sourceTree = "<group>";
@@ -3965,7 +3957,6 @@
 				C06F929B2231D3100079E63E /* SimpleArtistTableViewCell.swift in Sources */,
 				C065BCA8222D3E460009808A /* BaseTextField.swift in Sources */,
 				C00E714F244277CD00A17471 /* ReleaseVersion.swift in Sources */,
-				C00E714D2442774900A17471 /* CollectionRequests.swift in Sources */,
 				C053DD692226E1250028568B /* BandTopTableViewCell.swift in Sources */,
 				C082CD9922E47C17002202F6 /* DeezerData.swift in Sources */,
 				C00E71432442335500A17471 /* MyCollection.swift in Sources */,
@@ -4112,6 +4103,7 @@
 				C033C4B022D333C4001294BA /* SearchHistory.xcdatamodeld in Sources */,
 				C0661374228969B300F99006 /* LabelAdditionOrUpdateCollectionViewCell.swift in Sources */,
 				C03F440E22307568005D7AA8 /* SimpleAlbumTitleTableViewCell.swift in Sources */,
+				C091A67224645D8100B38433 /* RequestService+Collection.swift in Sources */,
 				C0133641223814F800963940 /* AdvancedSearchResultBand.swift in Sources */,
 				C0BAD4AD222ED70B00C4D38D /* SimpleSearchResultAlbumTitle.swift in Sources */,
 				C0B2E062243E53C7003119BF /* RightMenuViewController.swift in Sources */,

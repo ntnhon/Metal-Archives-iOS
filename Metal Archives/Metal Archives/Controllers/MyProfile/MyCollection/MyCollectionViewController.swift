@@ -189,7 +189,7 @@ extension MyCollectionViewController {
     private func presentChangeVersionAlert(forReleaseAt indexPath: IndexPath) {
         let release = getRelease(for: indexPath)
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Collection.getVersionList(id: release.versionListId) { [weak self] result in
+        RequestService.Collection.getVersionList(id: release.versionListId) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
@@ -219,7 +219,7 @@ extension MyCollectionViewController {
     private func changeVersion(forReleaseAt indexPath: IndexPath, newVersion: ReleaseVersion) {
         let release = getRelease(for: indexPath)
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Collection.changeVersion(collection: myCollection, release: release, versionId: newVersion.id) { [weak self] result in
+        RequestService.Collection.changeVersion(collection: myCollection, release: release, versionId: newVersion.id) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
@@ -270,7 +270,7 @@ extension MyCollectionViewController {
         let release = getRelease(for: indexPath)
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Collection.updateNote(collection: myCollection, release: release, newNote: newNote) { [weak self] result in
+        RequestService.Collection.updateNote(collection: myCollection, release: release, newNote: newNote) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
@@ -298,7 +298,7 @@ extension MyCollectionViewController {
     private func remove(releaseAt indexPath: IndexPath) {
         let release = getRelease(for: indexPath)
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Collection.remove(release: release, from: myCollection) { [weak self] result in
+        RequestService.Collection.remove(release: release, from: myCollection) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
@@ -351,7 +351,7 @@ extension MyCollectionViewController {
 
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Collection.add(releaseId: lastDeletedRelease.id, to: myCollection) { [weak self] result in
+        RequestService.Collection.add(releaseId: lastDeletedRelease.id, to: myCollection) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
@@ -384,7 +384,7 @@ extension MyCollectionViewController {
         let release = getRelease(for: indexPath)
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Collection.move(release: release, from: myCollection, to: toCollection) { [weak self] result in
+        RequestService.Collection.move(release: release, from: myCollection, to: toCollection) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
