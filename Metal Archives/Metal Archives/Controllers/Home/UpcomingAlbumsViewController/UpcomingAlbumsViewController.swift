@@ -21,11 +21,7 @@ final class UpcomingAlbumsViewController: RefreshableViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     
     private var upcomingAlbumsPagableManager = PagableManager<UpcomingAlbum>()
-    
-    deinit {
-        print("UpcomingAlbumsViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initAndHandleSimpleNavigationBarViewActions()

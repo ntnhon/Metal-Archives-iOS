@@ -22,9 +22,6 @@ final class AdvancedSearchReleaseTypeListViewController: BaseViewController {
     }
     var delegate: AdvancedSearchReleaseTypeListViewControllerDelegate?
     weak var simpleNavigationBarView: SimpleNavigationBarView?
-    deinit {
-        print("AdvancedSearchReleaseTypeListViewController is deallocated")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

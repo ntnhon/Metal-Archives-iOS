@@ -19,10 +19,6 @@ final class BandOrReleaseBookmarkOrderViewController: BaseViewController {
     
     var selectedBandOrReleaseBookmarkOrder: ((BandOrReleaseBookmarkOrder) -> Void)?
     
-    deinit {
-        print("BandOrReleaseBookmarkOrderViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         SimpleTableViewCell.register(with: tableView)

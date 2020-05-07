@@ -23,10 +23,6 @@ final class ThemeListTableViewController: BaseSubSettingsTableViewController {
     
     var delegate: ThemeListTableViewControllerDelegate?
     
-    deinit {
-        print("ThemeListTableViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initAppearance()

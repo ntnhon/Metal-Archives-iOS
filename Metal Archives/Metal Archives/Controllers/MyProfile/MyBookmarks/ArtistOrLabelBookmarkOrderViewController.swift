@@ -18,11 +18,7 @@ final class ArtistOrLabelBookmarkOrderViewController: BaseViewController {
     var currentOrder: ArtistOrLabelBookmarkOrder = .lastModifiedDescending
     
     var selectedArtistOrLabelBookmarkOrder: ((ArtistOrLabelBookmarkOrder) -> Void)?
-    
-    deinit {
-        print("ArtistOrLabelBookmarkOrderViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         SimpleTableViewCell.register(with: tableView)

@@ -11,8 +11,11 @@ import Toaster
 import MBProgressHUD
 
 class BaseViewController: UIViewController {
-    
     private var hud: MBProgressHUD?
+    
+    deinit {
+        print("\(Self.self) is deallocated")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

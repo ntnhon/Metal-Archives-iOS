@@ -50,10 +50,6 @@ final class LabelDetailViewController: BaseViewController {
     
     private var adjustedTableViewContentOffset = false
     
-    deinit {
-        print("LabelDetailViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         stretchyLogoSmokedImageViewHeightConstraint.constant = Settings.strechyLogoImageViewHeight

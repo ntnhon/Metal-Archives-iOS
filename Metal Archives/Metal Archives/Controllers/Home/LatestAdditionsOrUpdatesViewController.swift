@@ -35,11 +35,7 @@ final class LatestAdditionsOrUpdatesViewController: RefreshableViewController {
     
     private var artistAdditionPagableManager: PagableManager<ArtistAddition>!
     private var artistUpdatePagableManager: PagableManager<ArtistUpdate>!
-    
-    deinit {
-        print("LatestAdditionsOrUpdatesViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initPagableManagers()

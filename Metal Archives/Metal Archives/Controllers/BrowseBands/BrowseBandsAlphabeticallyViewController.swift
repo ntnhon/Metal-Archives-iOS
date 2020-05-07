@@ -13,10 +13,6 @@ final class BrowseBandsAlphabeticallyViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var tableView: UITableView!
     
-    deinit {
-        print("BrowseBandsAlphabeticallyViewController is deallocated")
-    }
-    
     override func initAppearance() {
         super.initAppearance()
         tableView.contentInsetAdjustmentBehavior = .never

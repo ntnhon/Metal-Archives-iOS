@@ -15,9 +15,6 @@ final class AdvancedSearchBandsResultsViewController: RefreshableViewController 
     private var bandAdvancedSearchResultPagableManager: PagableManager<AdvancedSearchResultBand>!
     
     weak var simpleNavigationBarView: SimpleNavigationBarView?
-    deinit {
-        print("AdvancedSearchBandsResultsViewController is deallocated")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

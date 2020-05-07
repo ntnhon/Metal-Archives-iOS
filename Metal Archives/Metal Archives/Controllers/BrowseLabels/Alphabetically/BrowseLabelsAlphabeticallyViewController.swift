@@ -15,10 +15,6 @@ final class BrowseLabelsAlphabeticallyViewController: BaseViewController {
     
     private var letters = Letter.allCases
     
-    deinit {
-        print("BrowseLabelsAlphabeticallyViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         //Remove "~"

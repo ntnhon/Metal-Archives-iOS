@@ -8,17 +8,13 @@
 
 import UIKit
 
-final class SearchViewController: UIViewController {
+final class SearchViewController: BaseViewController {
     @IBOutlet private weak var searchModeNavigationBarView: SearchModeNavigationBarView!
     @IBOutlet private weak var simpleSearchView: UIView!
     @IBOutlet private weak var advancedSearchView: UIView!
     
     private var simpleSearchViewController: SimpleSearchViewController!
     private var advancedSearchViewController: AdvancedSearchViewController!
-    
-    deinit {
-        print("SearchViewController is deallocated")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

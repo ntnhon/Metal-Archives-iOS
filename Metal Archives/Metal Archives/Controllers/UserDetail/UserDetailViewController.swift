@@ -53,11 +53,7 @@ final class UserDetailViewController: BaseViewController {
     
     private var currentUserReviewOrder: UserReviewOrder = .dateDescending
     private var currentSubmittedBandOrder: SubmittedBandOrder = .dateDescending
-    
-    deinit {
-        print("UserDetailViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()

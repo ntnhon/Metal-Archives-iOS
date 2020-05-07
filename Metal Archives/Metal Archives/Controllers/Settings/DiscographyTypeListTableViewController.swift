@@ -24,10 +24,6 @@ final class DiscographyTypeListTableViewController: BaseSubSettingsTableViewCont
     
     var delegate: DiscographyTypeListTableViewControllerDelegate?
     
-    deinit {
-        print("DiscographyTypeListTableViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initAppearance()

@@ -32,11 +32,7 @@ final class AdvancedSearchBandsViewController: BaseAdvancedSearchTableViewContro
     private var selectedFromYear: Int?
     private var selectedToYear: Int?
     private var yearsList: [Int]!
-    
-    deinit {
-        print("AdvancedSearchBandsViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         updateCountryListLabel()

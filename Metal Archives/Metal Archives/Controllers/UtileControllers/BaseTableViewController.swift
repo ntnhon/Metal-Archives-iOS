@@ -12,6 +12,10 @@ class BaseTableViewController: UITableViewController {
     // SimpleNavigationBarView
     var simpleNavigationBarView: SimpleNavigationBarView!
     
+    deinit {
+        print("\(Self.self) is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initSimpleNavigationBarView()

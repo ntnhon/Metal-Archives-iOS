@@ -23,10 +23,6 @@ final class AboutTableViewController: BaseTableViewController {
     @IBOutlet private weak var allOpenSourceLibrariesTableViewCell: BaseTableViewCell!
     @IBOutlet private weak var takeMeToAppStoreTableViewCell: BaseTableViewCell!
     
-    deinit {
-        print("AboutTableViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initAppearance()

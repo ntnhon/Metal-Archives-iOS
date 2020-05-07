@@ -23,7 +23,7 @@ final class DeezerTracklistViewController: BaseViewController {
     private var player: AVPlayer?
     private var isPlayingIndex: Int = -1
     deinit {
-        print("DeezerTracklistViewController is deallocated")
+        print("\(Self.self) is deallocated")
         NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
     }
     

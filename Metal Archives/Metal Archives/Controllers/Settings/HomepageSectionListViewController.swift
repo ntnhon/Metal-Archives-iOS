@@ -19,10 +19,6 @@ final class HomepageSectionListViewController: BaseSubSettingsTableViewControlle
     
     var delegate: HomepageSectionListViewControllerDelegate?
     
-    deinit {
-        print("HomepageSectionListViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

@@ -31,10 +31,6 @@ final class AdvancedSearchCountryListViewController: BaseViewController {
     
     weak var simpleNavigationBarView: SimpleNavigationBarView?
     
-    deinit {
-        print("AdvancedSearchCountryListViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateTitle()

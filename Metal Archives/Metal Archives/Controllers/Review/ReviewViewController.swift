@@ -20,11 +20,7 @@ final class ReviewViewController: DismissableOnSwipeViewController {
     var urlString: String!
     private var review: Review!
     private var reviewTitleTableViewCell: ReviewTitleTableViewCell!
-    
-    deinit {
-        print("ReviewViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         stretchyCoverSmokedImageViewHeightConstraint.constant = screenWidth

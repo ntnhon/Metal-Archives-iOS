@@ -15,11 +15,7 @@ final class OpenSourceLibrariesViewController: BaseViewController {
     weak var simpleNavigationBarView: SimpleNavigationBarView?
     
     private var libraries: [Library]!
-    
-    deinit {
-        print("OpenSourceLibrariesViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         initLibraries()
         super.viewDidLoad()

@@ -36,11 +36,7 @@ final class MyBookmarksViewController: RefreshableViewController {
     
     private var lastDeletedObject: Any? = nil
     private var lastDeletedObjectIndexPath: IndexPath? = nil
-    
-    deinit {
-        print("MyBookmarksViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         handleSimpleNavigationBarViewActions()

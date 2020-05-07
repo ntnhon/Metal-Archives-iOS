@@ -24,10 +24,6 @@ final class FontSizeListTableViewController: BaseSubSettingsTableViewController 
 
     var delegate: FontSizeListTableViewControllerDelegate?
     
-    deinit {
-        print("FontSizeListTableViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initAppearance()

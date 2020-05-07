@@ -18,10 +18,6 @@ final class DeezerAlbumViewController: BaseViewController {
     var artist: DeezerArtist!
     var deezerAlbumData: DeezerData<DeezerAlbum>!
 
-    deinit {
-        print("DeezerAlbumViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initSimpleNavigationBarView()

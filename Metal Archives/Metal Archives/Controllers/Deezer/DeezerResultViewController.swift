@@ -25,10 +25,6 @@ final class DeezerResultViewController: BaseViewController {
         return baseURL.replacingOccurrences(of: "<TYPE>", with: deezerableType.requestParameterName).replacingOccurrences(of: "<TERM>", with: deezerableSearchTerm)
     }
     
-    deinit {
-        print("DeezerResultViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initSimpleNavigationBarView()

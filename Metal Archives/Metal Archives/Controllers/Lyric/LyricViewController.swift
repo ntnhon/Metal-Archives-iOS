@@ -19,10 +19,6 @@ final class LyricViewController: BaseViewController {
     
     private var numberOfTries = 0
     
-    deinit {
-        print("LyricViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -15,10 +15,6 @@ final class SettingExplicationTableViewController: BaseSubSettingsTableViewContr
     var explainThumbnail = false
     var explainWidget = false
     
-    deinit {
-        print("SettingExplicationTableViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initAppearance()

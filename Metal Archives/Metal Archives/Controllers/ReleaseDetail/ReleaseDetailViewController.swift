@@ -53,10 +53,6 @@ final class ReleaseDetailViewController: BaseViewController {
     
     private var addedReminderButton = false
 
-    deinit {
-        print("ReleaseDetailViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         stretchyCoverSmokedImageViewHeightConstraint.constant = screenWidth

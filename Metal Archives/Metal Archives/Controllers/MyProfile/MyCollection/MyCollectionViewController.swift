@@ -26,10 +26,6 @@ final class MyCollectionViewController: RefreshableViewController {
     private var lastDeletedRelease: ReleaseInCollection? = nil
     private var lastDeletedReleaseIndexPath: IndexPath? = nil
     
-    deinit {
-        print("MyBookmarksViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         handleSimpleNavigationBarViewActions()

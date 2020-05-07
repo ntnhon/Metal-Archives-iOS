@@ -22,10 +22,6 @@ final class AdvancedSearchSongsViewController: BaseAdvancedSearchTableViewContro
     
     private var selectedReleaseTypes: [ReleaseType] = []
     
-    deinit {
-        print("AdvancedSearchSongsViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

@@ -55,11 +55,7 @@ final class BandDetailViewController: BaseViewController {
     var historyRecordableDelegate: HistoryRecordable?
     
     private var adjustedTableViewContentOffset = false
-    
-    deinit {
-        print("BandDetailViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         stretchyLogoSmokedImageViewHeightConstraint.constant = Settings.strechyLogoImageViewHeight

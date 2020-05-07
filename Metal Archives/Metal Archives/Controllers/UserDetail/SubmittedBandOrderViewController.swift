@@ -8,15 +8,11 @@
 
 import UIKit
 
-final class SubmittedBandOrderViewController: UIViewController {
+final class SubmittedBandOrderViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     var currentOrder: SubmittedBandOrder = .dateDescending
     var selectedOrder: ((SubmittedBandOrder) -> Void)?
-    
-    deinit {
-        print("SubmittedBandOrderViewController is deallocated")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

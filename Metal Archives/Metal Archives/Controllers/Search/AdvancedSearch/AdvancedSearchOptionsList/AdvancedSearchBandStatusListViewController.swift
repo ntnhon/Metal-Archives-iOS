@@ -24,10 +24,6 @@ final class AdvancedSearchBandStatusListViewController: BaseViewController {
     
     weak var simpleNavigationBarView: SimpleNavigationBarView?
     
-    deinit {
-        print("AdvancedSearchBandStatusListViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initAppearance()

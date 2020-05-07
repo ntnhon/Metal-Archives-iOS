@@ -16,10 +16,6 @@ final class UpcomingAlbumsFilterOptionsViewController: BaseViewController {
     var didSelectGenreString: ((_ genreString: String?, _ byAndOperator: Bool) -> Void)?
     var didTapManageButton: (() -> Void)?
     
-    deinit {
-        print("UpcomingAlbumsFilterOptionsViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         addManageBarButton()

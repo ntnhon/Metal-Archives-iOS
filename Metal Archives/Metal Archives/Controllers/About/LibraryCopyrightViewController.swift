@@ -15,11 +15,7 @@ final class LibraryCopyrightViewController: BaseViewController {
     weak var simpleNavigationBarView: SimpleNavigationBarView?
     
     var library: Library!
-    
-    deinit {
-        print("LibraryCopyrightViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }

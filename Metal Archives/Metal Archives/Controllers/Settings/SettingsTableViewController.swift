@@ -32,11 +32,7 @@ final class SettingsTableViewController: BaseTableViewController {
             updateChoosenWidgetSectionsLabel()
         }
     }
-    
-    deinit {
-        print("SettingsTableViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initAppearance()

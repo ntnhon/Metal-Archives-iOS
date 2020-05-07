@@ -8,16 +8,12 @@
 
 import UIKit
 
-final class UserReviewOrderViewController: UIViewController {
+final class UserReviewOrderViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     var currentOrder: UserReviewOrder = .dateDescending
     var selectedOrder: ((UserReviewOrder) -> Void)?
-    
-    deinit {
-        print("UserReviewOrderViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         SimpleTableViewCell.register(with: tableView)

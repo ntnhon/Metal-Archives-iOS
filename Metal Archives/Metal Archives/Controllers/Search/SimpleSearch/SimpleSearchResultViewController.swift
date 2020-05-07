@@ -48,10 +48,6 @@ final class SimpleSearchResultViewController: BaseViewController {
     private let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var doNotRecordHistory = false
     
-    deinit {
-        print("SimpleSearchResultViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initManager()

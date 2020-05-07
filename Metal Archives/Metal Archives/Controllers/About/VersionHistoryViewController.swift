@@ -16,11 +16,7 @@ final class VersionHistoryViewController: BaseViewController {
     weak var simpleNavigationBarView: SimpleNavigationBarView?
     
     private var versionHistoryList: [VersionHistory]!
-    
-    deinit {
-        print("VersionHistoryViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         loadHistories()
         super.viewDidLoad()

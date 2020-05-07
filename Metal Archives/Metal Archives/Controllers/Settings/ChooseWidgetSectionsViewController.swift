@@ -28,10 +28,6 @@ final class ChooseWidgetSectionsViewController: BaseViewController {
     
     var delegate: ChooseWidgetSectionsViewControllerDelegate?
     
-    deinit {
-        print("ChooseWidgetSectionsViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         choosenWidgetSections = UserDefaults.choosenWidgetSections()

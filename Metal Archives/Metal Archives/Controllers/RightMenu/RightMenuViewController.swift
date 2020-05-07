@@ -34,10 +34,6 @@ final class RightMenuViewController: BaseViewController {
     private let options: [[RightMenuOption]] = [[.collection, .wishlist, .tradeList], [.bands, .artists, .labels, .releases], [.logOut]]
     
     private var myProfile: UserProfile?
-
-    deinit {
-        print("RightMenuViewController is deallocated")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

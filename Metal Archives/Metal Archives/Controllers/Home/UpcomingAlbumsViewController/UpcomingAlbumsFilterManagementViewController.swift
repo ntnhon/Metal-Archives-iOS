@@ -14,11 +14,7 @@ final class UpcomingAlbumsFilterManagementViewController: BaseViewController {
     private var tableView: UITableView!
     
     private var customGenres: [String] = []
-    
-    deinit {
-        print("UpcomingAlbumsFilterManagementViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initSimpleNavigationBarView()

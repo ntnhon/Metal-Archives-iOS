@@ -54,11 +54,7 @@ final class ArtistDetailViewController: BaseViewController {
     var historyRecordableDelegate: HistoryRecordable?
     
     private var adjustedTableViewContentOffset = false
-    
-    deinit {
-        print("ArtistDetailViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         stretchyPhotoSmokedImageViewHeightConstraint.constant = screenWidth

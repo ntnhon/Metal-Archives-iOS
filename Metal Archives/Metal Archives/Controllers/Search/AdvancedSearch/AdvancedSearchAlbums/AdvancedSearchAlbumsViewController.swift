@@ -43,10 +43,6 @@ final class AdvancedSearchAlbumsViewController: BaseAdvancedSearchTableViewContr
     private var selectedReleaseTypes: [ReleaseType] = []
     private var selectedReleaseFormats: [ReleaseFormat] = []
     
-    deinit {
-        print("AdvancedSearchAlbumsViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initPickers()

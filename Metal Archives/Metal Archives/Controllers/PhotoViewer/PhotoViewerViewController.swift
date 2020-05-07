@@ -54,10 +54,6 @@ final class PhotoViewerViewController: BaseViewController {
             }
         }
     }
-    
-    deinit {
-        print("PhotoViewerViewController is deallocated")
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
