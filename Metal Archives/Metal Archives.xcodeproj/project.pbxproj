@@ -138,7 +138,6 @@
 		C03270E6220B83F1009FA337 /* ReleaseOtherVersionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03270E5220B83F1009FA337 /* ReleaseOtherVersionTableViewCell.xib */; };
 		C03270E9220B933F009FA337 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270E8220B933F009FA337 /* ReviewViewController.swift */; };
 		C03270EB220B9360009FA337 /* Review.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03270EA220B9360009FA337 /* Review.storyboard */; };
-		C03270EE220B96B1009FA337 /* ReviewRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270ED220B96B1009FA337 /* ReviewRequests.swift */; };
 		C03280022209E0F000FC9A44 /* ReleaseDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03280012209E0F000FC9A44 /* ReleaseDetail.storyboard */; };
 		C03280052209E12F00FC9A44 /* ReleaseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03280042209E12F00FC9A44 /* ReleaseDetailViewController.swift */; };
 		C03280072209E2EA00FC9A44 /* Release.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03280062209E2EA00FC9A44 /* Release.swift */; };
@@ -255,6 +254,7 @@
 		C05519F62464143B00D95D1B /* RequestService+Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05519F52464143B00D95D1B /* RequestService+Artist.swift */; };
 		C05519F8246416A800D95D1B /* RequestService+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05519F7246416A800D95D1B /* RequestService+Label.swift */; };
 		C05519FA2464504500D95D1B /* RequestService+Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05519F92464504500D95D1B /* RequestService+Statistic.swift */; };
+		C05519FC24645A5700D95D1B /* RequestService+Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05519FB24645A5700D95D1B /* RequestService+Review.swift */; };
 		C05606ED22A2FDA5006F5BC1 /* BandMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05606EC22A2FDA5006F5BC1 /* BandMenuOption.swift */; };
 		C05606EF22A2FDBB006F5BC1 /* ReleaseMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05606EE22A2FDBB006F5BC1 /* ReleaseMenuOption.swift */; };
 		C05606F622A30D2A006F5BC1 /* LineupOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05606F522A30D2A006F5BC1 /* LineupOptionTableViewCell.swift */; };
@@ -749,7 +749,6 @@
 		C03270E5220B83F1009FA337 /* ReleaseOtherVersionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseOtherVersionTableViewCell.xib; sourceTree = "<group>"; };
 		C03270E8220B933F009FA337 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		C03270EA220B9360009FA337 /* Review.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Review.storyboard; sourceTree = "<group>"; };
-		C03270ED220B96B1009FA337 /* ReviewRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRequests.swift; sourceTree = "<group>"; };
 		C03280012209E0F000FC9A44 /* ReleaseDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReleaseDetail.storyboard; sourceTree = "<group>"; };
 		C03280042209E12F00FC9A44 /* ReleaseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseDetailViewController.swift; sourceTree = "<group>"; };
 		C03280062209E2EA00FC9A44 /* Release.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Release.swift; sourceTree = "<group>"; };
@@ -866,6 +865,7 @@
 		C05519F52464143B00D95D1B /* RequestService+Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestService+Artist.swift"; sourceTree = "<group>"; };
 		C05519F7246416A800D95D1B /* RequestService+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestService+Label.swift"; sourceTree = "<group>"; };
 		C05519F92464504500D95D1B /* RequestService+Statistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestService+Statistic.swift"; sourceTree = "<group>"; };
+		C05519FB24645A5700D95D1B /* RequestService+Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestService+Review.swift"; sourceTree = "<group>"; };
 		C05606EC22A2FDA5006F5BC1 /* BandMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMenuOption.swift; sourceTree = "<group>"; };
 		C05606EE22A2FDBB006F5BC1 /* ReleaseMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseMenuOption.swift; sourceTree = "<group>"; };
 		C05606F522A30D2A006F5BC1 /* LineupOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupOptionTableViewCell.swift; sourceTree = "<group>"; };
@@ -1606,14 +1606,6 @@
 			path = Review;
 			sourceTree = "<group>";
 		};
-		C03270EC220B969F009FA337 /* Review */ = {
-			isa = PBXGroup;
-			children = (
-				C03270ED220B96B1009FA337 /* ReviewRequests.swift */,
-			);
-			path = Review;
-			sourceTree = "<group>";
-		};
 		C03280032209E11900FC9A44 /* ReleaseDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1851,6 +1843,7 @@
 				C05519F32463FDC800D95D1B /* RequestService+Release.swift */,
 				C05519F52464143B00D95D1B /* RequestService+Artist.swift */,
 				C05519F7246416A800D95D1B /* RequestService+Label.swift */,
+				C05519FB24645A5700D95D1B /* RequestService+Review.swift */,
 			);
 			path = RequestService;
 			sourceTree = "<group>";
@@ -2948,7 +2941,6 @@
 				C0BD10F824460611001AA88A /* UserDetail */,
 				C00E714B2442773700A17471 /* Collection */,
 				C00E713A2442111200A17471 /* Bookmarks */,
-				C03270EC220B969F009FA337 /* Review */,
 			);
 			path = RequestHelper;
 			sourceTree = "<group>";
@@ -4192,7 +4184,6 @@
 				C036F8C6244768CE008275F5 /* UserReviewOrderTableViewCell.swift in Sources */,
 				C01839E92225715700FF88B7 /* LabelUpdate.swift in Sources */,
 				C053DD2E22267A920028568B /* ReviewStatistic.swift in Sources */,
-				C03270EE220B96B1009FA337 /* ReviewRequests.swift in Sources */,
 				C0086DC7243F33870008669C /* LoginService.swift in Sources */,
 				C05309F422235BE20027D11E /* String+RemoveEmptySpaces.swift in Sources */,
 				C0BAD4AF222EE0EA00C4D38D /* BandNullable.swift in Sources */,
@@ -4215,6 +4206,7 @@
 				C0091F8822A592F6007E8FC1 /* ArtistNameTableViewCell.swift in Sources */,
 				C0B990D52207A89D000DBD86 /* BandSimilar.swift in Sources */,
 				C051B6B52219FDDA0030E5EE /* ReviewDetailTableViewCell.swift in Sources */,
+				C05519FC24645A5700D95D1B /* RequestService+Review.swift in Sources */,
 				C053DD572226C2680028568B /* PieChartView+Setup.swift in Sources */,
 				C066137922896CCA00F99006 /* ArtistAdditionOrUpdateCollectionViewCell.swift in Sources */,
 				C02C035E2441042600220AF7 /* BandOrReleaseBookmarkOrderViewController.swift in Sources */,

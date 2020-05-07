@@ -93,7 +93,7 @@ final class ReviewViewController: DismissableOnSwipeViewController {
     
     private func loadReview() {
         showHUD()
-        RequestHelper.ReviewDetail.fetchReview(urlString: urlString) { [weak self]  result in
+        RequestService.Review.fetch(urlString: urlString) { [weak self]  result in
             guard let self = self else { return }
             self.hideHUD()
             
