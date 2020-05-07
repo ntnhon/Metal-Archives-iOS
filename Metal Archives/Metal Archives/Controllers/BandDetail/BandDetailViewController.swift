@@ -21,7 +21,7 @@ final class BandDetailViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var floaty: Floaty!
     
-    var bandURLString: String!
+    var bandURLString: String?
     private var bandPhotoAndNameTableViewCell = BandPhotoAndNameTableViewCell()
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     
@@ -91,10 +91,16 @@ final class BandDetailViewController: BaseViewController {
     }
 
     private func fetchBand() {
+        guard let bandURLString = bandURLString else {
+            Toast.displayMessageShortly("bandURLString is nil")
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        
         floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         
-        MetalArchivesAPI.reloadBand(bandURLString: bandURLString) { [weak self] result in
+        RequestService.Band.fetch(urlString: bandURLString) { [weak self] result in
             guard let self = self else { return }
             self.hideHUD()
             
