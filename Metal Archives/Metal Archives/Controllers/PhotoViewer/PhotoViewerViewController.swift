@@ -10,6 +10,7 @@ import UIKit
 import SDWebImage
 import Toaster
 import FirebaseAnalytics
+import MBProgressHUD
 
 private struct ScaleFactor {
     static let retinaToEye: CGFloat = 0.5
@@ -223,25 +224,46 @@ final class PhotoViewerViewController: BaseViewController {
         }
         
         guard let image = self.photoImageView.image else { return }
-        let (eyesDetected, overlayImage) = self.faceOverlayImageFrom(image)
-        if eyesDetected {
-            self.eyesOverlaid = true
-            DispatchQueue.main.async { [weak self] in
-                ToastCenter.default.cancelAll()
-                Toast(text: "😳😳😳", duration: Delay.short).show()
-                self?.fadeInNewImage(overlayImage!, completion: {
-                    self?.funnyEyesButton.isUserInteractionEnabled = true
-                })
-            }
-            
-            Analytics.logEvent("make_funny_eyes", parameters: nil)
-        } else {
-            ToastCenter.default.cancelAll()
-            Toast(text: "No 👀 detected", duration: Delay.short).show()
-            self.eyesOverlaid = false
-            self.funnyEyesButton.isUserInteractionEnabled = true
-        }
         
+        let hud = MBProgressHUD.showAdded(to: view, animated: true)
+        hud.label.text = "Finding some 👀"
+        DispatchQueue.global(qos: .background).async { [unowned self] in
+            let (eyesDetected, overlayImage) = image.faceOverlay()
+            DispatchQueue.main.async {
+                hud.hide(animated: true)
+                if eyesDetected {
+                    self.eyesOverlaid = true
+                    ToastCenter.default.cancelAll()
+                    Toast(text: "😳😳😳", duration: Delay.short).show()
+                    self.fadeInNewImage(overlayImage!, completion: {
+                        self.funnyEyesButton.isUserInteractionEnabled = true
+                    })
+                    Analytics.logEvent("make_funny_eyes", parameters: nil)
+                } else {
+                    ToastCenter.default.cancelAll()
+                    Toast(text: "No 👀 detected", duration: Delay.short).show()
+                    self.eyesOverlaid = false
+                    self.funnyEyesButton.isUserInteractionEnabled = true
+                }
+            }
+        }
+    }
+    
+    func fadeInNewImage(_ newImage: UIImage, completion: @escaping () ->  Void) {
+        let tmpImageView = UIImageView(image: newImage)
+        tmpImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        tmpImageView.contentMode = self.photoImageView.contentMode
+        tmpImageView.frame = self.photoImageView.bounds
+        tmpImageView.alpha = 0.0
+        self.photoImageView.addSubview(tmpImageView)
+
+        UIView.animate(withDuration: 0.75, animations: {
+            tmpImageView.alpha = 1.0
+        }, completion: { finished in
+            self.photoImageView.image = newImage
+            tmpImageView.removeFromSuperview()
+            completion()
+        })
     }
     
     private func addGestures() {
@@ -347,21 +369,21 @@ extension PhotoViewerViewController: UIScrollViewDelegate {
     }
 }
 
-//MARK: - Face overlay
-private extension PhotoViewerViewController {
-    func faceOverlayImageFrom(_ image: UIImage) -> (Bool, UIImage?) {
+// MARK: - Eyes detection
+private extension UIImage {
+    func faceOverlay() -> (Bool, UIImage?) {
         let detector = CIDetector(ofType: CIDetectorTypeFace,
                                   context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
         
         // Get features from the image
-        let newImage = CIImage(cgImage: image.cgImage!)
+        let newImage = CIImage(cgImage: cgImage!)
         let features = detector!.features(in: newImage) as! [CIFaceFeature]
         
-        UIGraphicsBeginImageContext(image.size)
-        let imageRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+        UIGraphicsBeginImageContext(size)
+        let imageRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         
         // Draws this in the upper left coordinate system
-        image.draw(in: imageRect, blendMode: .normal, alpha: 1.0)
+        draw(in: imageRect, blendMode: .normal, alpha: 1.0)
         
         let context = UIGraphicsGetCurrentContext()
         
@@ -413,7 +435,7 @@ private extension PhotoViewerViewController {
         let overlayImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return (true, overlayImage!)
+        return (true, overlayImage)
     }
     
     func faceRotationInRadians(leftEyePoint startPoint: CGPoint, rightEyePoint endPoint: CGPoint) -> CGFloat {
@@ -443,22 +465,5 @@ private extension PhotoViewerViewController {
         context?.addEllipse(in: eyeBallRect)
         context?.setFillColor(UIColor.black.cgColor)
         context?.fillPath()
-    }
-    
-    func fadeInNewImage(_ newImage: UIImage, completion: @escaping () ->  Void) {
-        let tmpImageView = UIImageView(image: newImage)
-        tmpImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        tmpImageView.contentMode = self.photoImageView.contentMode
-        tmpImageView.frame = self.photoImageView.bounds
-        tmpImageView.alpha = 0.0
-        self.photoImageView.addSubview(tmpImageView)
-
-        UIView.animate(withDuration: 0.75, animations: {
-            tmpImageView.alpha = 1.0
-        }, completion: { finished in
-            self.photoImageView.image = newImage
-            tmpImageView.removeFromSuperview()
-            completion()
-        })
     }
 }
