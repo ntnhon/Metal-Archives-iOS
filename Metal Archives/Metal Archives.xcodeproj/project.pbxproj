@@ -60,7 +60,6 @@
 		C00E71342441E60B00A17471 /* LabelBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71332441E60B00A17471 /* LabelBookmark.swift */; };
 		C00E71372441E73F00A17471 /* LabelBookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71362441E73F00A17471 /* LabelBookmarkTableViewCell.swift */; };
 		C00E71392441E74900A17471 /* LabelBookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00E71382441E74900A17471 /* LabelBookmarkTableViewCell.xib */; };
-		C00E713C2442113100A17471 /* BookmarkRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E713B2442113100A17471 /* BookmarkRequests.swift */; };
 		C00E713E2442206B00A17471 /* ReleaseInCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E713D2442206B00A17471 /* ReleaseInCollection.swift */; };
 		C00E71412442330D00A17471 /* MyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71402442330D00A17471 /* MyCollectionViewController.swift */; };
 		C00E71432442335500A17471 /* MyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E71422442335500A17471 /* MyCollection.swift */; };
@@ -437,6 +436,7 @@
 		C085E6C822A27FD5007FACFA /* ReleaseInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C085E6C722A27FD5007FACFA /* ReleaseInfoTableViewCell.xib */; };
 		C08607FE225235F800FE750F /* MonthInYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AABDE7221D8AB00044A2CF /* MonthInYear.swift */; };
 		C08CAAFB22AA31BE00E78520 /* HorizontalOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08CAAFA22AA31BE00E78520 /* HorizontalOptionsView.swift */; };
+		C091A67024645BB400B38433 /* RequestService+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C091A66F24645BB400B38433 /* RequestService+Bookmark.swift */; };
 		C09339F22446409600E3989B /* String+RankColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09339F12446409600E3989B /* String+RankColor.swift */; };
 		C09339F42446435700E3989B /* UserReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09339F32446435700E3989B /* UserReview.swift */; };
 		C0938EEB24634E92009B7536 /* Array+BandSimilar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0938EEA24634E92009B7536 /* Array+BandSimilar.swift */; };
@@ -677,7 +677,6 @@
 		C00E71332441E60B00A17471 /* LabelBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBookmark.swift; sourceTree = "<group>"; };
 		C00E71362441E73F00A17471 /* LabelBookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBookmarkTableViewCell.swift; sourceTree = "<group>"; };
 		C00E71382441E74900A17471 /* LabelBookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelBookmarkTableViewCell.xib; sourceTree = "<group>"; };
-		C00E713B2442113100A17471 /* BookmarkRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRequests.swift; sourceTree = "<group>"; };
 		C00E713D2442206B00A17471 /* ReleaseInCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInCollection.swift; sourceTree = "<group>"; };
 		C00E71402442330D00A17471 /* MyCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewController.swift; sourceTree = "<group>"; };
 		C00E71422442335500A17471 /* MyCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollection.swift; sourceTree = "<group>"; };
@@ -1025,6 +1024,7 @@
 		C085E6C522A27F78007FACFA /* ReleaseInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C085E6C722A27FD5007FACFA /* ReleaseInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C08CAAFA22AA31BE00E78520 /* HorizontalOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalOptionsView.swift; sourceTree = "<group>"; };
+		C091A66F24645BB400B38433 /* RequestService+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestService+Bookmark.swift"; sourceTree = "<group>"; };
 		C09339F12446409600E3989B /* String+RankColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RankColor.swift"; sourceTree = "<group>"; };
 		C09339F32446435700E3989B /* UserReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReview.swift; sourceTree = "<group>"; };
 		C0938EEA24634E92009B7536 /* Array+BandSimilar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+BandSimilar.swift"; sourceTree = "<group>"; };
@@ -1342,14 +1342,6 @@
 				C00E71382441E74900A17471 /* LabelBookmarkTableViewCell.xib */,
 			);
 			path = LabelBookmarkTableViewCell;
-			sourceTree = "<group>";
-		};
-		C00E713A2442111200A17471 /* Bookmarks */ = {
-			isa = PBXGroup;
-			children = (
-				C00E713B2442113100A17471 /* BookmarkRequests.swift */,
-			);
-			path = Bookmarks;
 			sourceTree = "<group>";
 		};
 		C00E713F244232F300A17471 /* MyCollection */ = {
@@ -1844,6 +1836,7 @@
 				C05519F52464143B00D95D1B /* RequestService+Artist.swift */,
 				C05519F7246416A800D95D1B /* RequestService+Label.swift */,
 				C05519FB24645A5700D95D1B /* RequestService+Review.swift */,
+				C091A66F24645BB400B38433 /* RequestService+Bookmark.swift */,
 			);
 			path = RequestService;
 			sourceTree = "<group>";
@@ -2940,7 +2933,6 @@
 				C08453FF21EE184E00E6D676 /* RequestHelper.swift */,
 				C0BD10F824460611001AA88A /* UserDetail */,
 				C00E714B2442773700A17471 /* Collection */,
-				C00E713A2442111200A17471 /* Bookmarks */,
 			);
 			path = RequestHelper;
 			sourceTree = "<group>";
@@ -4000,7 +3992,6 @@
 				C0A48CF02221D76C0047FC70 /* Error+Code&Domain.swift in Sources */,
 				C0A2BF7821F67293002CCFEC /* UIViewController+OpenURLInBrowsers.swift in Sources */,
 				C075295E229E97950067B5E1 /* DiscographyOptionsTableViewCell.swift in Sources */,
-				C00E713C2442113100A17471 /* BookmarkRequests.swift in Sources */,
 				C00838872200F21200B35996 /* ReadMoreViewController.swift in Sources */,
 				C0BD10F52445FCF0001AA88A /* UserLite.swift in Sources */,
 				C0A1F94A224187FD005C2C83 /* ArtistRIPViewController.swift in Sources */,
@@ -4261,6 +4252,7 @@
 				C00D35FF223D4F0A00B29B43 /* BrowseBandsByCountryViewController.swift in Sources */,
 				C05309E922233C2E0027D11E /* BandCurrentRoster.swift in Sources */,
 				C0AA06AC223939A3001BE21D /* AdvancedSearchReleaseTypeListViewController.swift in Sources */,
+				C091A67024645BB400B38433 /* RequestService+Bookmark.swift in Sources */,
 				C09A18AC21FF50AC00152908 /* UIViewController+PresentPhotoViewerViewController.swift in Sources */,
 				C0ECE6FB221B1FBF00489A8E /* RolesInBand.swift in Sources */,
 				C0AABDEC221DED3B0044A2CF /* UpcomingAlbumsViewController.swift in Sources */,

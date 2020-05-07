@@ -268,7 +268,7 @@ extension MyBookmarksViewController {
     private func updateNote(editId: String, newNote: String?, indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Bookmark.updateNote(editId: editId, newNote: newNote) { [weak self] result in
+        RequestService.Bookmark.updateNote(editId: editId, newNote: newNote) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
@@ -294,7 +294,7 @@ extension MyBookmarksViewController {
     
     private func remove(id: String, at indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Bookmark.bookmark(id: id, action: .remove, type: myBookmark) { [weak self] result in
+        RequestService.Bookmark.bookmark(id: id, action: .remove, type: myBookmark) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
@@ -365,7 +365,7 @@ extension MyBookmarksViewController {
         }
         
         MBProgressHUD.showAdded(to: view, animated: true)
-        RequestHelper.Bookmark.bookmark(id: id, action: .add, type: myBookmark) { [weak self] result in
+        RequestService.Bookmark.bookmark(id: id, action: .add, type: myBookmark) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             

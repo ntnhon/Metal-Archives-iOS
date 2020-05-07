@@ -282,7 +282,7 @@ final class ReleaseDetailViewController: BaseViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Bookmark.bookmark(id: release.id, action: action, type: .releases) { [weak self] result in
+        RequestService.Bookmark.bookmark(id: release.id, action: action, type: .releases) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             

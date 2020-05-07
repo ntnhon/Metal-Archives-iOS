@@ -273,7 +273,7 @@ final class BandDetailViewController: BaseViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Bookmark.bookmark(id: band.id, action: action, type: .bands) { [weak self] result in
+        RequestService.Bookmark.bookmark(id: band.id, action: action, type: .bands) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             

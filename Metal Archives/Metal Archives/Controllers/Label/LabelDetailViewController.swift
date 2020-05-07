@@ -298,7 +298,7 @@ final class LabelDetailViewController: BaseViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Bookmark.bookmark(id: label.id, action: action, type: .labels) { [weak self] result in
+        RequestService.Bookmark.bookmark(id: label.id, action: action, type: .labels) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             

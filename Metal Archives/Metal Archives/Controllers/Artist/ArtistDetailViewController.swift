@@ -355,7 +355,7 @@ final class ArtistDetailViewController: BaseViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        RequestHelper.Bookmark.bookmark(id: artist.id, action: action, type: .artists) { [weak self] result in
+        RequestService.Bookmark.bookmark(id: artist.id, action: action, type: .artists) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
