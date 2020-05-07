@@ -133,7 +133,7 @@ final class HomepageViewController: RefreshableViewController {
     }
     
     private func loadHomepage() {
-        RequestHelper.Homepage.fetchStats { [weak self] result in
+        RequestService.Homepage.fetchStatistic { [weak self] result in
             switch result {
             case .success(let homepageStatistic):
                 self?.statisticAttrString = homepageStatistic.summaryAttributedText

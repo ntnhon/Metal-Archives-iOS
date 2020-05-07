@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import Alamofire
 
 enum MAError: Error, LocalizedError {
     case networking(error: NetworkingError)
     case login(error: LoginError)
     case parsing(error: ParsingError)
+    case alamofire(error: AFError)
     case unknownErrorWithStatusCode(statusCode: Int)
     case unknown(description: String)
     
@@ -20,6 +22,7 @@ enum MAError: Error, LocalizedError {
         case .networking(let error): return error.localizedDescription
         case .login(let error): return error.localizedDescription
         case .parsing(let error): return error.localizedDescription
+        case .alamofire(let error): return "Alamofire error: \(error.localizedDescription)"
         case .unknownErrorWithStatusCode(let statusCode): return "Unknown error with status code \(statusCode)"
         case .unknown(let description): return "Unknown error: \(description)"
         }

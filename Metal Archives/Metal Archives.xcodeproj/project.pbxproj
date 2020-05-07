@@ -250,6 +250,8 @@
 		C053DD7C22271E9C0028568B /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C053DD7B22271E9C0028568B /* Search.storyboard */; };
 		C053DD7E2227275B0028568B /* SimpleSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053DD7D2227275B0028568B /* SimpleSearchViewController.swift */; };
 		C053DD80222727760028568B /* AdvancedSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053DD7F222727760028568B /* AdvancedSearchViewController.swift */; };
+		C05519ED2463F64D00D95D1B /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05519EC2463F64D00D95D1B /* RequestService.swift */; };
+		C05519F02463F6F000D95D1B /* RequestService+Homepage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05519EF2463F6F000D95D1B /* RequestService+Homepage.swift */; };
 		C05606ED22A2FDA5006F5BC1 /* BandMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05606EC22A2FDA5006F5BC1 /* BandMenuOption.swift */; };
 		C05606EF22A2FDBB006F5BC1 /* ReleaseMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05606EE22A2FDBB006F5BC1 /* ReleaseMenuOption.swift */; };
 		C05606F622A30D2A006F5BC1 /* LineupOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05606F522A30D2A006F5BC1 /* LineupOptionTableViewCell.swift */; };
@@ -432,7 +434,6 @@
 		C085E6C822A27FD5007FACFA /* ReleaseInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C085E6C722A27FD5007FACFA /* ReleaseInfoTableViewCell.xib */; };
 		C08607FE225235F800FE750F /* MonthInYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AABDE7221D8AB00044A2CF /* MonthInYear.swift */; };
 		C08CAAFB22AA31BE00E78520 /* HorizontalOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08CAAFA22AA31BE00E78520 /* HorizontalOptionsView.swift */; };
-		C091099224635616007960E8 /* HomepageRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C091099124635616007960E8 /* HomepageRequests.swift */; };
 		C09339F22446409600E3989B /* String+RankColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09339F12446409600E3989B /* String+RankColor.swift */; };
 		C09339F42446435700E3989B /* UserReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09339F32446435700E3989B /* UserReview.swift */; };
 		C0938EE924634985009B7536 /* BandDetailRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0938EE824634985009B7536 /* BandDetailRequests.swift */; };
@@ -861,6 +862,8 @@
 		C053DD7B22271E9C0028568B /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		C053DD7D2227275B0028568B /* SimpleSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchViewController.swift; sourceTree = "<group>"; };
 		C053DD7F222727760028568B /* AdvancedSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchViewController.swift; sourceTree = "<group>"; };
+		C05519EC2463F64D00D95D1B /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
+		C05519EF2463F6F000D95D1B /* RequestService+Homepage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestService+Homepage.swift"; sourceTree = "<group>"; };
 		C05606EC22A2FDA5006F5BC1 /* BandMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMenuOption.swift; sourceTree = "<group>"; };
 		C05606EE22A2FDBB006F5BC1 /* ReleaseMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseMenuOption.swift; sourceTree = "<group>"; };
 		C05606F522A30D2A006F5BC1 /* LineupOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupOptionTableViewCell.swift; sourceTree = "<group>"; };
@@ -1020,7 +1023,6 @@
 		C085E6C522A27F78007FACFA /* ReleaseInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C085E6C722A27FD5007FACFA /* ReleaseInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReleaseInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C08CAAFA22AA31BE00E78520 /* HorizontalOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalOptionsView.swift; sourceTree = "<group>"; };
-		C091099124635616007960E8 /* HomepageRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageRequests.swift; sourceTree = "<group>"; };
 		C09339F12446409600E3989B /* String+RankColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RankColor.swift"; sourceTree = "<group>"; };
 		C09339F32446435700E3989B /* UserReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReview.swift; sourceTree = "<group>"; };
 		C0938EE824634985009B7536 /* BandDetailRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandDetailRequests.swift; sourceTree = "<group>"; };
@@ -1623,14 +1625,6 @@
 			path = ReleaseDetail;
 			sourceTree = "<group>";
 		};
-		C032801C2209FBA700FC9A44 /* HomePage */ = {
-			isa = PBXGroup;
-			children = (
-				C091099124635616007960E8 /* HomepageRequests.swift */,
-			);
-			path = HomePage;
-			sourceTree = "<group>";
-		};
 		C032801D2209FBB800FC9A44 /* BandDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1879,6 +1873,15 @@
 				C0BAD49A222EBC8100C4D38D /* AdvancedSearch */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		C05519EE2463F68500D95D1B /* RequestService */ = {
+			isa = PBXGroup;
+			children = (
+				C05519EC2463F64D00D95D1B /* RequestService.swift */,
+				C05519EF2463F6F000D95D1B /* RequestService+Homepage.swift */,
+			);
+			path = RequestService;
 			sourceTree = "<group>";
 		};
 		C05606F322A30621006F5BC1 /* ReleaseElementTableViewCell */ = {
@@ -2923,6 +2926,7 @@
 		C082CD9322E47937002202F6 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				C05519EE2463F68500D95D1B /* RequestService */,
 				C082CD9622E4795E002202F6 /* Service.swift */,
 				C0086DC6243F33870008669C /* LoginService.swift */,
 				C0086DC8243F37560008669C /* KeychainService.swift */,
@@ -2980,7 +2984,6 @@
 				C03270EC220B969F009FA337 /* Review */,
 				C032801D2209FBB800FC9A44 /* BandDetail */,
 				C0328026220A30EF00FC9A44 /* ReleaseDetail */,
-				C032801C2209FBA700FC9A44 /* HomePage */,
 			);
 			path = RequestHelper;
 			sourceTree = "<group>";
@@ -3955,6 +3958,7 @@
 				C0AF0A9422D48B6B004B085F /* SearchHistoryTableHeaderView.swift in Sources */,
 				C0AA06B222394934001BE21D /* AdvancedSearchResultAlbum.swift in Sources */,
 				C066137122895C3700F99006 /* HomepageViewControllerProtocols.swift in Sources */,
+				C05519F02463F6F000D95D1B /* RequestService+Homepage.swift in Sources */,
 				C03270E9220B933F009FA337 /* ReviewViewController.swift in Sources */,
 				C06C6C6221FFCF5300D37519 /* UIImage+RoundedCorner.swift in Sources */,
 				C0FFE1F522958C6900909765 /* SmokedImageView.swift in Sources */,
@@ -4069,7 +4073,6 @@
 				C0AA06CB2239AC52001BE21D /* BrowseBandsAlphabeticallyViewController.swift in Sources */,
 				C06B624822423E7900A3FE6B /* BrowseLabelsByCountryViewController.swift in Sources */,
 				C0356F1B22ABA40700B4927E /* NewsDetailViewController.swift in Sources */,
-				C091099224635616007960E8 /* HomepageRequests.swift in Sources */,
 				C0938EEF24635202009B7536 /* Array+ReleaseOtherVersion.swift in Sources */,
 				C00D3605223D5E5C00B29B43 /* ReleaseType.swift in Sources */,
 				C071306721ECCB4100082BC6 /* NewsTableViewCell.swift in Sources */,
@@ -4305,6 +4308,7 @@
 				C0BAD4AB222ED4AB00C4D38D /* SimpleSearchResultLyricalThemes.swift in Sources */,
 				C0A48CEC222161560047FC70 /* PagableManager.swift in Sources */,
 				C070BF6F222B3BD60082C20A /* UIImageView+AddShadow.swift in Sources */,
+				C05519ED2463F64D00D95D1B /* RequestService.swift in Sources */,
 				C06F1E0121F7694600B49D39 /* Artist.swift in Sources */,
 				C085E6C622A27F78007FACFA /* ReleaseInfoTableViewCell.swift in Sources */,
 				C01839EC2225749A00FF88B7 /* LabelAdditionOrUpdateTableViewCell.swift in Sources */,
