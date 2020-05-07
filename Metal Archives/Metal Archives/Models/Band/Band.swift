@@ -275,8 +275,8 @@ final class Band {
             }
             
             var bands = [BandLite]()
-            RegexHelpers.listMatches(for: #"<a\s.*?</a>"#, inString: nextTrInnerHTML).forEach { (aTag) in
-                if let results = getUrlAndValueFrom(tagA: aTag), let band = BandLite(name: results.value, urlString: results.urlString) {
+            RegexHelpers.listMatches(for: #"<a\s.*?</a>"#, inString: nextTrInnerHTML).forEach { (aTagHtmlString) in
+                if let tagA = TagA(htmlString: aTagHtmlString), let band = BandLite(name: tagA.value, urlString: tagA.urlString) {
                     bands.append(band)
                 }
             }
@@ -458,9 +458,9 @@ extension Band {
         var oldBands = [BandAncient]()
         
         // Use regex to find out A tags
-        RegexHelpers.listMatches(for: #"<a\s.*?</a>"#, inString: rawTextString).forEach { (aTag) in
-            if let results = getUrlAndValueFrom(tagA: aTag) {
-                oldBands.append(.init(name: results.value, urlString: results.urlString))
+        RegexHelpers.listMatches(for: #"<a\s.*?</a>"#, inString: rawTextString).forEach { (aTagHtmlString) in
+            if let tagA = TagA(htmlString: aTagHtmlString) {
+                oldBands.append(.init(name: tagA.value, urlString: tagA.urlString))
             }
         }
         
@@ -516,5 +516,25 @@ extension Band {
     
     func setIsBookmarked(_ isBookmarked: Bool) {
         self.isBookmarked = isBookmarked
+    }
+}
+
+fileprivate struct TagA {
+    private let htmlString: String
+    let urlString: String
+    let value: String
+    
+    init?(htmlString: String) {
+        self.htmlString = htmlString
+            .replacingOccurrences(of: "href='", with: #"href=""#)
+            .replacingOccurrences(of: "'>", with: #"">"#)
+        
+        guard let urlSubstring = self.htmlString.subString(after: #"href=""#, before: #"">"#, options: .caseInsensitive),
+            let valueSubstring = self.htmlString.subString(after: #"">"#, before: "</a>", options: .caseInsensitive) else {
+                return nil
+        }
+        
+        self.urlString = String(urlSubstring)
+        self.value = String(valueSubstring)
     }
 }
