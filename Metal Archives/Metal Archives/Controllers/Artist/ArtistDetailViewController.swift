@@ -22,7 +22,7 @@ final class ArtistDetailViewController: BaseViewController {
     
     private var tableViewContentOffsetObserver: NSKeyValueObservation?
     
-    var urlString: String!
+    var urlString: String?
     private var artist: Artist!
     
     private var artistInfoTypes: [ArtistInfoType]!
@@ -86,6 +86,12 @@ final class ArtistDetailViewController: BaseViewController {
     }
 
     private func fetchArtist() {
+        guard let urlString = urlString else {
+            Toast.displayMessageShortly("Artist url is undefined")
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        
         floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         

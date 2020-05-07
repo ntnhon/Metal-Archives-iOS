@@ -25,7 +25,7 @@ final class LabelDetailViewController: BaseViewController {
     private var labelMenuOptions: [LabelMenuOption]!
     private var currentLabelMenuOption: LabelMenuOption!
     
-    var urlString: String!
+    var urlString: String?
     
     private var label: Label!
     
@@ -83,10 +83,16 @@ final class LabelDetailViewController: BaseViewController {
     }
 
     private func fetchLabel() {
+        guard let urlString = urlString else {
+            Toast.displayMessageShortly("Label url is undefined")
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        
         floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         
-        MetalArchivesAPI.reloadLabel(urlString: self.urlString) { [weak self] result in
+        RequestService.Label.fetch(urlString: urlString) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
