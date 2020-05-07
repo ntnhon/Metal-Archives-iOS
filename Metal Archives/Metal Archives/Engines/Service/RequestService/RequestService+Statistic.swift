@@ -1,27 +1,28 @@
 //
-//  StatisticRequests.swift
+//  RequestService+Statistic.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 06/05/2020.
+//  Created by Thanh-Nhon Nguyen on 07/05/2020.
 //  Copyright © 2020 Thanh-Nhon Nguyen. All rights reserved.
 //
 
 import Foundation
 
-extension RequestHelper {
-    final class StatisticDetail {}
+extension RequestService {
+    final class Statistic {
+        private init() {}
+    }
 }
 
-extension RequestHelper.StatisticDetail {
-    
-    static func fetchStatisticDetails(completion: @escaping (Result<Statistic, MAError>) -> Void) {
+extension RequestService.Statistic {
+    static func fetchStatistic(completion: @escaping (Result<Statistic, MAError>) -> Void) {
         let requestUrlString = "https://www.metal-archives.com/stats"
         guard let requestUrl = URL(string: requestUrlString) else {
             completion(.failure(.networking(error: .badURL(requestUrlString))))
             return
         }
         
-        RequestHelper.shared.alamofireManager.request(requestUrl).responseData { (response) in
+        RequestService.shared.alamofireManager.request(requestUrl).responseData { (response) in
             switch response.result {
             case .success(let data):
                 if let statistic = Statistic.init(fromData: data)  {
@@ -31,7 +32,7 @@ extension RequestHelper.StatisticDetail {
                 }
                 
             case .failure(let error):
-                completion(.failure(.unknown(description: error.localizedDescription)))
+                completion(.failure(.alamofire(error: error)))
             }
         }
     }
@@ -43,7 +44,7 @@ extension RequestHelper.StatisticDetail {
             return
         }
         
-        RequestHelper.shared.alamofireManager.request(requestUrl).responseData { (response) in
+        RequestService.shared.alamofireManager.request(requestUrl).responseData { (response) in
             switch response.result {
             case .success(let data):
                 if let top100Bands = Top100Bands.init(fromData: data) {
@@ -53,7 +54,7 @@ extension RequestHelper.StatisticDetail {
                 }
                 
             case .failure(let error):
-                completion(.failure(.unknown(description: error.localizedDescription)))
+                completion(.failure(.alamofire(error: error)))
             }
         }
     }
@@ -65,7 +66,7 @@ extension RequestHelper.StatisticDetail {
             return
         }
         
-        RequestHelper.shared.alamofireManager.request(requestUrl).responseData { (response) in
+        RequestService.shared.alamofireManager.request(requestUrl).responseData { (response) in
             switch response.result {
             case .success(let data):
                 if let top100Albums = Top100Albums.init(fromData: data) {
@@ -75,7 +76,7 @@ extension RequestHelper.StatisticDetail {
                 }
                 
             case .failure(let error):
-                completion(.failure(.unknown(description: error.localizedDescription)))
+                completion(.failure(.alamofire(error: error)))
             }
         }
     }

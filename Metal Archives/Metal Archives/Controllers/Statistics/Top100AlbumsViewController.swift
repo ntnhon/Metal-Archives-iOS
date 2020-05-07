@@ -66,7 +66,7 @@ final class Top100AlbumsViewController: BaseViewController {
         
         numberOfTries += 1
         
-        RequestHelper.StatisticDetail.fetchTop100Albums { [weak self] result in
+        RequestService.Statistic.fetchTop100Albums { [weak self] result in
             guard let self = self else { return }
             self.hideHUD()
             

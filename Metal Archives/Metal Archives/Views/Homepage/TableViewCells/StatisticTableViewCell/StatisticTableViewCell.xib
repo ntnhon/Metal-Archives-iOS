@@ -1,64 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="50" id="2XE-PH-xrU" customClass="StatisticTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="415" height="50"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="StatisticTableViewCell" rowHeight="56" id="cY9-k4-bR7" customClass="StatisticTableViewCell" customModule="Metal_Archives" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="434" height="56"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2XE-PH-xrU" id="iXs-Lc-2y4">
-                <rect key="frame" x="0.0" y="0.0" width="377" height="49.5"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cY9-k4-bR7" id="J79-5v-VaD">
+                <rect key="frame" x="0.0" y="0.0" width="434" height="56"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Statistic label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yr3-J2-XkS">
-                        <rect key="frame" x="20" y="10" width="315" height="29.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stat" translatesAutoresizingMaskIntoConstraints="NO" id="FQb-UH-ZtZ">
-                        <rect key="frame" x="345" y="9" width="32" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="FQb-UH-ZtZ" secondAttribute="height" multiplier="1:1" id="9Ld-Bw-uJr"/>
-                            <constraint firstAttribute="width" constant="32" id="esB-t7-mKH"/>
-                        </constraints>
-                    </imageView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YyJ-SR-mCR">
-                        <rect key="frame" x="0.0" y="48.5" width="477" height="1"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="pxK-El-J8L">
+                        <rect key="frame" x="10" y="0.0" width="414" height="56"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Statistic label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brf-dP-yt9">
+                                <rect key="frame" x="0.0" y="0.0" width="356" height="56"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="999" verticalHuggingPriority="1000" image="stat" translatesAutoresizingMaskIntoConstraints="NO" id="nue-Cf-zLC">
+                                <rect key="frame" x="361" y="0.0" width="32" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="8jm-pI-Hc0"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="251" image="chevron_right" translatesAutoresizingMaskIntoConstraints="NO" id="1vw-Tx-NRv">
+                                <rect key="frame" x="398" y="0.0" width="16" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="16" id="Lgf-qg-y9x"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                    </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AVw-sE-7F0">
+                        <rect key="frame" x="0.0" y="55" width="434" height="1"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="ICZ-Vk-uac"/>
+                            <constraint firstAttribute="height" constant="1" id="9Xw-QJ-UK3"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="eoc-uT-3ir"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="FQb-UH-ZtZ" secondAttribute="trailing" id="5Wm-Kl-icc"/>
-                    <constraint firstAttribute="trailing" secondItem="YyJ-SR-mCR" secondAttribute="trailing" constant="-100" id="FuQ-8i-jIy"/>
-                    <constraint firstItem="FQb-UH-ZtZ" firstAttribute="centerY" secondItem="iXs-Lc-2y4" secondAttribute="centerY" id="Lux-v0-GW9"/>
-                    <constraint firstItem="yr3-J2-XkS" firstAttribute="leading" secondItem="iXs-Lc-2y4" secondAttribute="leading" constant="20" symbolic="YES" id="MKT-CT-hYh"/>
-                    <constraint firstItem="YyJ-SR-mCR" firstAttribute="leading" secondItem="iXs-Lc-2y4" secondAttribute="leading" id="Q6K-br-RCh"/>
-                    <constraint firstAttribute="bottom" secondItem="yr3-J2-XkS" secondAttribute="bottom" constant="10" id="ZHP-Hx-2rq"/>
-                    <constraint firstItem="FQb-UH-ZtZ" firstAttribute="leading" secondItem="yr3-J2-XkS" secondAttribute="trailing" constant="10" id="Zdj-db-HJf"/>
-                    <constraint firstAttribute="bottom" secondItem="YyJ-SR-mCR" secondAttribute="bottom" id="pYO-fP-MuZ"/>
-                    <constraint firstItem="yr3-J2-XkS" firstAttribute="top" secondItem="iXs-Lc-2y4" secondAttribute="top" constant="10" id="wLt-FQ-5GS"/>
+                    <constraint firstItem="pxK-El-J8L" firstAttribute="top" secondItem="J79-5v-VaD" secondAttribute="top" id="8HA-fK-rjg"/>
+                    <constraint firstItem="AVw-sE-7F0" firstAttribute="leading" secondItem="J79-5v-VaD" secondAttribute="leading" id="Eya-6K-Wfj"/>
+                    <constraint firstAttribute="trailing" secondItem="AVw-sE-7F0" secondAttribute="trailing" id="GBs-3D-pQe"/>
+                    <constraint firstAttribute="bottom" secondItem="AVw-sE-7F0" secondAttribute="bottom" id="LCc-6B-Eax"/>
+                    <constraint firstAttribute="trailing" secondItem="pxK-El-J8L" secondAttribute="trailing" constant="10" id="TgZ-og-5NT"/>
+                    <constraint firstAttribute="bottom" secondItem="pxK-El-J8L" secondAttribute="bottom" id="cgY-bd-lS6"/>
+                    <constraint firstItem="pxK-El-J8L" firstAttribute="leading" secondItem="J79-5v-VaD" secondAttribute="leading" constant="10" id="wxT-cz-kV9"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="separatorView" destination="YyJ-SR-mCR" id="vAV-U1-20E"/>
-                <outlet property="statisticLabel" destination="yr3-J2-XkS" id="d2B-HN-0h5"/>
+                <outlet property="separatorView" destination="AVw-sE-7F0" id="jaw-hC-Tav"/>
+                <outlet property="statisticLabel" destination="brf-dP-yt9" id="TjS-Xa-lcK"/>
             </connections>
-            <point key="canvasLocation" x="112.8" y="-28.785607196401802"/>
+            <point key="canvasLocation" x="97.599999999999994" y="2.6986506746626691"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="chevron_right" width="25" height="25"/>
         <image name="stat" width="128.5" height="70"/>
     </resources>
 </document>

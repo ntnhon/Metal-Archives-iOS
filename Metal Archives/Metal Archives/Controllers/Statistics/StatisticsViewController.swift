@@ -66,7 +66,7 @@ final class StatisticsViewController: BaseViewController {
         
         numberOfTries += 1
         
-        RequestHelper.StatisticDetail.fetchStatisticDetails { [weak self] result in
+        RequestService.Statistic.fetchStatistic { [weak self] result in
             guard let self = self else { return }
             self.hideHUD()
             
@@ -160,6 +160,7 @@ extension StatisticsViewController {
         let cell = SimpleTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.fill(with: "View top 100 bands")
         cell.accessoryType = .disclosureIndicator
+        cell.tintColor = .red
         return cell
     }
     
