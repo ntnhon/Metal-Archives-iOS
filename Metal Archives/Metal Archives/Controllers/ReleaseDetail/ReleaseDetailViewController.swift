@@ -609,7 +609,7 @@ extension ReleaseDetailViewController {
             ToastCenter.default.cancelAll()
             let lyricViewController = UIStoryboard(name: "Lyric", bundle: nil).instantiateViewController(withIdentifier: "LyricViewController") as! LyricViewController
             lyricViewController.lyricID = lyricID
-            lyricViewController.title = song.title
+            lyricViewController.songTitle = song.title
             
             let navLyricViewController = UINavigationController(rootViewController: lyricViewController)
             navLyricViewController.modalPresentationStyle = .popover

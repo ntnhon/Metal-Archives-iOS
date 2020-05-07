@@ -18,12 +18,7 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         initAppearance()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        ToastCenter.default.cancelAll()
-    }
-    
+
     func initAppearance() {
         view.backgroundColor = Settings.currentTheme.backgroundColor
         view.tintColor = Settings.currentTheme.iconTintColor
