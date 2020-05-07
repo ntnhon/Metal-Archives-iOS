@@ -22,7 +22,7 @@ extension RequestService.Homepage {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseString { response in
+        RequestService.shared.alamofireSession.request(requestUrl).responseString { response in
             switch response.result {
             case .success(let string):
                 if let homepageStatistic = HomepageStatistic(fromRawStatString: string) {

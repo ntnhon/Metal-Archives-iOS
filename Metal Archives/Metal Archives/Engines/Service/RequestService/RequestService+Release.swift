@@ -44,7 +44,7 @@ extension RequestService.Release {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseString { response in
+        RequestService.shared.alamofireSession.request(requestUrl).responseString { response in
             switch response.result {
             case .success(let lyric): completion(.success(lyric))
             case .failure(let error): completion(.failure(.alamofire(error: error)))
@@ -61,7 +61,7 @@ extension RequestService.Release {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { response in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { response in
             switch response.result {
             case .success(let data):
                 if let release = Release(data: data) {
@@ -83,7 +83,7 @@ extension RequestService.Release {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { response in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { response in
             switch response.result {
             case .success(let data):
                 let otherVersions = [ReleaseOtherVersion].from(data: data)

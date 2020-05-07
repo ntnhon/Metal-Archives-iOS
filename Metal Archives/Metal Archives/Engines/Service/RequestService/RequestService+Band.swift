@@ -106,7 +106,7 @@ extension RequestService.Band {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { response in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { response in
             switch response.result {
             case .success(let data):
                 if let band = Band.init(fromData: data) {
@@ -128,7 +128,7 @@ extension RequestService.Band {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { response in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { response in
             let defaultMessage = "No information added"
             switch response.result {
             case .success(let data):
@@ -155,7 +155,7 @@ extension RequestService.Band {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { response in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { response in
             switch response.result {
             case .success(let data):
                 let discography = Discography.init(data: data)
@@ -174,7 +174,7 @@ extension RequestService.Band {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { response in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { response in
             switch response.result {
             case .success(let data):
                 let similarBands = [BandSimilar].from(data: data)
@@ -193,7 +193,7 @@ extension RequestService.Band {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { response in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { response in
             switch response.result {
             case .success(let data):
                 let relatedLinks = [RelatedLink].from(data: data)

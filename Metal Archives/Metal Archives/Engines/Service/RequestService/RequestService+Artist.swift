@@ -87,7 +87,7 @@ extension RequestService.Artist {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { response in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { response in
             switch response.result {
             case .success(let data):
                 if let artist = Artist(fromData: data, urlString: urlString)  {
@@ -109,7 +109,7 @@ extension RequestService.Artist {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { (response) in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { (response) in
             switch response.result {
             case .success(let data):
                 let biography = String.htmlBodyString(data: data)
@@ -136,7 +136,7 @@ extension RequestService.Artist {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { response in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { response in
             switch response.result {
             case .success(let data):
                 let triviaString = String.htmlBodyString(data: data)
@@ -163,7 +163,7 @@ extension RequestService.Artist {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { response in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { response in
             switch response.result {
             case .success(let data):
                 let links = [RelatedLink].from(data: data)

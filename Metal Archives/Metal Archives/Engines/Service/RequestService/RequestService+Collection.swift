@@ -23,7 +23,7 @@ extension RequestService.Collection {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseJSON { response in
+        RequestService.shared.alamofireSession.request(requestUrl).responseJSON { response in
             switch response.result {
             case .success(let value):
                 if let json = value as? [[String: String]] {
@@ -60,7 +60,7 @@ extension RequestService.Collection {
         
         let parameters = ["versions[\(release.editId)]": versionId, "notes[\(release.editId)]": release.note ?? "","changes[\(release.editId)]": "1"]
         
-        RequestService.shared.alamofireManager.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
+        RequestService.shared.alamofireSession.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(.failure(.networking(error: .unknownStatusCode)))
@@ -83,7 +83,7 @@ extension RequestService.Collection {
         }
         let parameters = ["versions[\(release.editId)]": "", "notes[\(release.editId)]": newNote ?? "","changes[\(release.editId)]": "1"]
         
-        RequestService.shared.alamofireManager.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
+        RequestService.shared.alamofireSession.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(.failure(.networking(error: .unknownStatusCode)))
@@ -106,7 +106,7 @@ extension RequestService.Collection {
         }
         let parameters = ["notes[\(release.editId)]": "", "item[\(release.editId)]": "1", "changes[\(release.editId)]": "1", "choice": "delete"]
         
-        RequestService.shared.alamofireManager.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
+        RequestService.shared.alamofireSession.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(.failure(.networking(error: .unknownStatusCode)))
@@ -128,7 +128,7 @@ extension RequestService.Collection {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).response { (response) in
+        RequestService.shared.alamofireSession.request(requestUrl).response { (response) in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(.failure(.networking(error: .unknownStatusCode)))
@@ -151,7 +151,7 @@ extension RequestService.Collection {
         }
         let parameters = ["notes[\(release.editId)]": release.note ?? "", "item[\(release.editId)]": "1", "changes[\(release.editId)]": "1", "choice": toCollection.urlParam]
         
-        RequestService.shared.alamofireManager.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
+        RequestService.shared.alamofireSession.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).response { (response) in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(.failure(.networking(error: .unknownStatusCode)))

@@ -22,10 +22,10 @@ final class LoginService {
         }
         
         // First make a dummy post to generate PHPSESSID
-        RequestService.shared.alamofireManager.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).responseString { (_) in
+        RequestService.shared.alamofireSession.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).responseString { (_) in
             
             // PHPSESSID is generated and saved
-            RequestService.shared.alamofireManager.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).responseString { (response) in
+            RequestService.shared.alamofireSession.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: nil).responseString { (response) in
                 
                 guard let response = response.response else {
                     isLoggedIn = false

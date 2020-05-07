@@ -23,7 +23,7 @@ extension RequestService.Bookmark {
         }
         let parameters: [String : Any] = ["id": editId, "comment": newNote ?? ""]
         
-        RequestService.shared.alamofireManager.request(requestUrl, parameters: parameters).response { (response) in
+        RequestService.shared.alamofireSession.request(requestUrl, parameters: parameters).response { (response) in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(.failure(.networking(error: .unknownStatusCode)))
@@ -45,7 +45,7 @@ extension RequestService.Bookmark {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).response { (response) in
+        RequestService.shared.alamofireSession.request(requestUrl).response { (response) in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(.failure(.networking(error: .unknownStatusCode)))

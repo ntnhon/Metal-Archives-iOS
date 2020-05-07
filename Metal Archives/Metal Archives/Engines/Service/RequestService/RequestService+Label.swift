@@ -87,7 +87,7 @@ extension RequestService.Label {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { (response) in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { (response) in
             switch response.result {
             case .success(let data):
                 if let label = Label.init(fromData: data, urlString: urlString) {
@@ -109,7 +109,7 @@ extension RequestService.Label {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { (response) in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { (response) in
             switch response.result {
             case .success(let data):
                 let links = [RelatedLink].from(data: data)

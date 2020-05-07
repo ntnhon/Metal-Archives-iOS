@@ -22,7 +22,7 @@ extension RequestService.Statistic {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { (response) in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { (response) in
             switch response.result {
             case .success(let data):
                 if let statistic = Statistic.init(fromData: data)  {
@@ -44,7 +44,7 @@ extension RequestService.Statistic {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { (response) in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { (response) in
             switch response.result {
             case .success(let data):
                 if let top100Bands = Top100Bands.init(fromData: data) {
@@ -66,7 +66,7 @@ extension RequestService.Statistic {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { (response) in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { (response) in
             switch response.result {
             case .success(let data):
                 if let top100Albums = Top100Albums.init(fromData: data) {

@@ -25,7 +25,7 @@ extension RequestService.UserProfile {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestURL).responseData { (response) in
+        RequestService.shared.alamofireSession.request(requestURL).responseData { (response) in
             switch response.result {
             case .success(let data):
                 if let myProfile = UserProfile(from: data) {

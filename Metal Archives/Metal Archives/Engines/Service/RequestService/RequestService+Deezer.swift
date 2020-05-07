@@ -33,7 +33,7 @@ extension RequestService.Deezer {
             return
         }
         
-        RequestService.shared.alamofireManager.request(requestUrl).responseData { response in
+        RequestService.shared.alamofireSession.request(requestUrl).responseData { response in
             switch response.result {
             case .success(let data):
                 do {

@@ -95,7 +95,7 @@ final class PagableManager<T: Pagable>: NSCopying {
         
         self.delegate?.pagableManagerDidBeginFetching(self)
         
-        RequestService.shared.alamofireManager.request(requestURL).responseData { [weak self] (response) in
+        RequestService.shared.alamofireSession.request(requestURL).responseData { [weak self] (response) in
             guard let `self` = self else { return }
             self.isFetching = false
             
