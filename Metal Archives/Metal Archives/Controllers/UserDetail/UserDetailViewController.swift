@@ -17,7 +17,7 @@ final class UserDetailViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var floaty: Floaty!
     
-    var urlString: String!
+    var urlString: String?
     
     private var userProfile: UserProfile?
     
@@ -163,7 +163,9 @@ final class UserDetailViewController: BaseViewController {
        }
     
     private func shareUser() {
-        guard let userProfile = self.userProfile, let url = URL(string: urlString) else { return }
+        guard let userProfile = self.userProfile,
+            let urlString = urlString,
+            let url = URL(string: urlString) else { return }
         
         self.presentAlertOpenURLInBrowsers(url, alertTitle: "View \(userProfile.username ?? "") in browser", alertMessage: urlString, shareMessage: "Share this user URL")
         
@@ -171,10 +173,16 @@ final class UserDetailViewController: BaseViewController {
     }
     
     private func fetchUserProfile() {
+        guard let urlString = urlString else {
+            Toast.displayMessageShortly("User url is undefined")
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        
         floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         
-        RequestHelper.UserDetail.fetchUserProfile(urlString: urlString) { [weak self] result in
+        RequestService.UserProfile.fetchWithUrlString(urlString) { [weak self] result in
             guard let self = self else { return }
         
             self.hideHUD()
@@ -187,7 +195,7 @@ final class UserDetailViewController: BaseViewController {
                 self.initPagableManagers()
                 self.reviewPagableManager.fetch()
                 self.tableView.reloadData()
-                self.historyRecordableDelegate?.loaded(urlString: self.urlString, nameOrTitle: userProfile.username, thumbnailUrlString: nil, objectType: .user)
+                self.historyRecordableDelegate?.loaded(urlString: urlString, nameOrTitle: userProfile.username, thumbnailUrlString: nil, objectType: .user)
                 
             case .failure(let error):
                 Toast.displayMessageShortly(error.localizedDescription)

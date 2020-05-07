@@ -94,7 +94,7 @@ final class RightMenuViewController: BaseViewController {
     private func fetchMyProfileIfApplicable() {
         guard myProfile == nil && KeychainService.getUsername() != "" else { return }
         
-        RequestHelper.UserDetail.fetchUserProfile(username: KeychainService.getUsername()) { [weak self] result in
+        RequestService.UserProfile.fetchWithUsername(KeychainService.getUsername()) { [weak self] result in
             guard let self = self else { return }
             
             switch result {

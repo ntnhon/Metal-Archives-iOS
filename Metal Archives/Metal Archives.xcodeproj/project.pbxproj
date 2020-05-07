@@ -95,7 +95,6 @@
 		C018B7862243B9FC00CDFFB8 /* UpcomingAlbumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018B7852243B9FC00CDFFB8 /* UpcomingAlbumTableViewCell.swift */; };
 		C018B7882243BBC800CDFFB8 /* UpcomingAlbumTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C018B7872243BBC800CDFFB8 /* UpcomingAlbumTableViewCell.xib */; };
 		C018B7892243BEF700CDFFB8 /* PagableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A48CEB222161560047FC70 /* PagableManager.swift */; };
-		C018B78B2243BF6800CDFFB8 /* RequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08453FF21EE184E00E6D676 /* RequestHelper.swift */; };
 		C018B78C2243C01D00CDFFB8 /* String+RemoveEmptySpaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05309F322235BE20027D11E /* String+RemoveEmptySpaces.swift */; };
 		C018B78D2243C05C00CDFFB8 /* BandUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01839E02225401500FF88B7 /* BandUpdate.swift */; };
 		C018B78E2243C06F00CDFFB8 /* BandAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01839DE22253E6100FF88B7 /* BandAddition.swift */; };
@@ -422,7 +421,6 @@
 		C082CDB622E4FA02002202F6 /* DeezerAlbumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C082CDB522E4FA02002202F6 /* DeezerAlbumTableViewCell.swift */; };
 		C082CDB822E4FA1A002202F6 /* DeezerAlbumTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C082CDB722E4FA1A002202F6 /* DeezerAlbumTableViewCell.xib */; };
 		C082CDBA22E4FB6C002202F6 /* DeezerAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C082CDB922E4FB6C002202F6 /* DeezerAlbum.swift */; };
-		C084540021EE184E00E6D676 /* RequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08453FF21EE184E00E6D676 /* RequestHelper.swift */; };
 		C084540421EE197200E6D676 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C084540321EE197200E6D676 /* Alamofire.framework */; };
 		C08503C0244372E1009C3EF2 /* EKEvent+ConvenienceMethods.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08503BF244372E1009C3EF2 /* EKEvent+ConvenienceMethods.swift.swift */; };
 		C0850C14223C4F49009E45A8 /* Actionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0850C13223C4F49009E45A8 /* Actionable.swift */; };
@@ -437,6 +435,8 @@
 		C08CAAFB22AA31BE00E78520 /* HorizontalOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08CAAFA22AA31BE00E78520 /* HorizontalOptionsView.swift */; };
 		C091A67024645BB400B38433 /* RequestService+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C091A66F24645BB400B38433 /* RequestService+Bookmark.swift */; };
 		C091A67224645D8100B38433 /* RequestService+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C091A67124645D8100B38433 /* RequestService+Collection.swift */; };
+		C091A67424645FAF00B38433 /* RequestService+UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C091A67324645FAF00B38433 /* RequestService+UserProfile.swift */; };
+		C091A6752464608C00B38433 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05519EC2463F64D00D95D1B /* RequestService.swift */; };
 		C09339F22446409600E3989B /* String+RankColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09339F12446409600E3989B /* String+RankColor.swift */; };
 		C09339F42446435700E3989B /* UserReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09339F32446435700E3989B /* UserReview.swift */; };
 		C0938EEB24634E92009B7536 /* Array+BandSimilar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0938EEA24634E92009B7536 /* Array+BandSimilar.swift */; };
@@ -528,7 +528,6 @@
 		C0BD10F52445FCF0001AA88A /* UserLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD10F42445FCF0001AA88A /* UserLite.swift */; };
 		C0BD10F62445FE0B001AA88A /* UserLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD10F42445FCF0001AA88A /* UserLite.swift */; };
 		C0BD10F7244605A7001AA88A /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E7E472440408F00762FBB /* UserProfile.swift */; };
-		C0BD10FA2446063D001AA88A /* UserDetailRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD10F92446063D001AA88A /* UserDetailRequests.swift */; };
 		C0BD10FE24460BA6001AA88A /* UserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD10FD24460BA6001AA88A /* UserInfoTableViewCell.swift */; };
 		C0BD110024460BD9001AA88A /* UserInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0BD10FF24460BD9001AA88A /* UserInfoTableViewCell.xib */; };
 		C0BE339021E68CDD001ED000 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE338F21E68CDC001ED000 /* AppDelegate.swift */; };
@@ -1009,7 +1008,6 @@
 		C082CDB522E4FA02002202F6 /* DeezerAlbumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeezerAlbumTableViewCell.swift; sourceTree = "<group>"; };
 		C082CDB722E4FA1A002202F6 /* DeezerAlbumTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeezerAlbumTableViewCell.xib; sourceTree = "<group>"; };
 		C082CDB922E4FB6C002202F6 /* DeezerAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeezerAlbum.swift; sourceTree = "<group>"; };
-		C08453FF21EE184E00E6D676 /* RequestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHelper.swift; sourceTree = "<group>"; };
 		C084540121EE18E000E6D676 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C084540321EE197200E6D676 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C084540521EE197700E6D676 /* SlideMenuControllerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SlideMenuControllerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1025,6 +1023,7 @@
 		C08CAAFA22AA31BE00E78520 /* HorizontalOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalOptionsView.swift; sourceTree = "<group>"; };
 		C091A66F24645BB400B38433 /* RequestService+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestService+Bookmark.swift"; sourceTree = "<group>"; };
 		C091A67124645D8100B38433 /* RequestService+Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestService+Collection.swift"; sourceTree = "<group>"; };
+		C091A67324645FAF00B38433 /* RequestService+UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestService+UserProfile.swift"; sourceTree = "<group>"; };
 		C09339F12446409600E3989B /* String+RankColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RankColor.swift"; sourceTree = "<group>"; };
 		C09339F32446435700E3989B /* UserReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReview.swift; sourceTree = "<group>"; };
 		C0938EEA24634E92009B7536 /* Array+BandSimilar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+BandSimilar.swift"; sourceTree = "<group>"; };
@@ -1113,7 +1112,6 @@
 		C0BD10EF2445F80A001AA88A /* UserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		C0BD10F12445F84C001AA88A /* UserDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserDetail.storyboard; sourceTree = "<group>"; };
 		C0BD10F42445FCF0001AA88A /* UserLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLite.swift; sourceTree = "<group>"; };
-		C0BD10F92446063D001AA88A /* UserDetailRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailRequests.swift; sourceTree = "<group>"; };
 		C0BD10FD24460BA6001AA88A /* UserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0BD10FF24460BD9001AA88A /* UserInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C0BE338C21E68CDC001ED000 /* Metal Archives.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Metal Archives.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1830,6 +1828,7 @@
 				C05519FB24645A5700D95D1B /* RequestService+Review.swift */,
 				C091A66F24645BB400B38433 /* RequestService+Bookmark.swift */,
 				C091A67124645D8100B38433 /* RequestService+Collection.swift */,
+				C091A67324645FAF00B38433 /* RequestService+UserProfile.swift */,
 			);
 			path = RequestService;
 			sourceTree = "<group>";
@@ -2052,7 +2051,6 @@
 				C00D3600223D5E0A00B29B43 /* Ressources */,
 				C0A48CE8222157100047FC70 /* Protocols */,
 				C06C6C6321FFD59D00D37519 /* Classes */,
-				C08453FC21EE140B00E6D676 /* RequestHelper */,
 				C0602BD521EA873600046367 /* Settings */,
 				C0602BD321EA872900046367 /* Extensions */,
 			);
@@ -2920,15 +2918,6 @@
 			path = DeezerAlbumTableViewCell;
 			sourceTree = "<group>";
 		};
-		C08453FC21EE140B00E6D676 /* RequestHelper */ = {
-			isa = PBXGroup;
-			children = (
-				C08453FF21EE184E00E6D676 /* RequestHelper.swift */,
-				C0BD10F824460611001AA88A /* UserDetail */,
-			);
-			path = RequestHelper;
-			sourceTree = "<group>";
-		};
 		C085E6C422A27F67007FACFA /* ReleaseInfoTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -3205,14 +3194,6 @@
 				C06E7E472440408F00762FBB /* UserProfile.swift */,
 			);
 			path = User;
-			sourceTree = "<group>";
-		};
-		C0BD10F824460611001AA88A /* UserDetail */ = {
-			isa = PBXGroup;
-			children = (
-				C0BD10F92446063D001AA88A /* UserDetailRequests.swift */,
-			);
-			path = UserDetail;
 			sourceTree = "<group>";
 		};
 		C0BD10FB24460B88001AA88A /* UserDetail */ = {
@@ -3838,9 +3819,9 @@
 				C06B4D8D2443793900F9A62A /* EKEvent+ConvenienceMethods.swift.swift in Sources */,
 				C06B62A12242830C00A3FE6B /* Statics.swift in Sources */,
 				C06B629C224282B700A3FE6B /* ImageType.swift in Sources */,
-				C018B78B2243BF6800CDFFB8 /* RequestHelper.swift in Sources */,
 				C06B62B72242927100A3FE6B /* BandLite.swift in Sources */,
 				C06B62B62242926000A3FE6B /* UpcomingAlbum.swift in Sources */,
+				C091A6752464608C00B38433 /* RequestService.swift in Sources */,
 				C06B62B022428F8F00A3FE6B /* LatestReview.swift in Sources */,
 				C018B77E2243B3FC00CDFFB8 /* LatestReviewTableViewCell.swift in Sources */,
 				C06B62A0224282F600A3FE6B /* String+IDSringToImageURLString.swift in Sources */,
@@ -3877,7 +3858,6 @@
 				C05519F8246416A800D95D1B /* RequestService+Label.swift in Sources */,
 				C0FE963B221CA969003C4B59 /* RefreshableViewController.swift in Sources */,
 				C05606FB22A311AC006F5BC1 /* LineupOptionListViewController.swift in Sources */,
-				C084540021EE184E00E6D676 /* RequestHelper.swift in Sources */,
 				C0AF0A9122D47E05004B085F /* SearchHistory+CoreDataClass.swift in Sources */,
 				C053DD80222727760028568B /* AdvancedSearchViewController.swift in Sources */,
 				C05606FF22A3206F006F5BC1 /* ReleaseReviewOptionTableViewCell.swift in Sources */,
@@ -3960,7 +3940,6 @@
 				C053DD692226E1250028568B /* BandTopTableViewCell.swift in Sources */,
 				C082CD9922E47C17002202F6 /* DeezerData.swift in Sources */,
 				C00E71432442335500A17471 /* MyCollection.swift in Sources */,
-				C0BD10FA2446063D001AA88A /* UserDetailRequests.swift in Sources */,
 				C0BE339021E68CDD001ED000 /* AppDelegate.swift in Sources */,
 				C024A85322B9437500C6BAFE /* BaseTableViewController.swift in Sources */,
 				C053DD5F2226D45B0028568B /* Top100Bands.swift in Sources */,
@@ -4056,6 +4035,7 @@
 				C0AA06CD2239B24E001BE21D /* BrowseBandsResultViewController.swift in Sources */,
 				C05519F42463FDC800D95D1B /* RequestService+Release.swift in Sources */,
 				C05FC9B4222AC9E200D4B0DF /* ThumbnailableTableViewCell.swift in Sources */,
+				C091A67424645FAF00B38433 /* RequestService+UserProfile.swift in Sources */,
 				C053DD652226D5A50028568B /* Top100BandsViewController.swift in Sources */,
 				C0A7FFBF231986D900A929A1 /* HomepageSectionListViewController.swift in Sources */,
 				C00E71372441E73F00A17471 /* LabelBookmarkTableViewCell.swift in Sources */,
