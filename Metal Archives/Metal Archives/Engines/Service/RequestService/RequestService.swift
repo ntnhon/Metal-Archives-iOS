@@ -10,8 +10,8 @@ import Foundation
 import Alamofire
 
 final class RequestService {
-    private static var shared = RequestService()
-    private var alamofireManager:  Alamofire.Session = {
+    static let shared = RequestService()
+    let alamofireManager:  Alamofire.Session = {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 10
         configuration.httpMaximumConnectionsPerHost = 10

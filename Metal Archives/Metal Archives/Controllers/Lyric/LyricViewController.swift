@@ -45,7 +45,7 @@ final class LyricViewController: BaseViewController {
         
         numberOfTries += 1
     
-        RequestHelper.ReleaseDetail.fetchLyric(lyricID: lyricID) { result in
+        RequestService.Release.fetchLyric(lyricId: lyricID) { result in
             switch result {
             case .success(let lyric):
                 self.lyricTextView.text = lyric.htmlToString

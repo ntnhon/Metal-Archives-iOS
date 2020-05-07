@@ -13,30 +13,6 @@ final class MetalArchivesAPI {
     private init () {}
 }
 
-//MARK: - Release
-extension MetalArchivesAPI {
-    static func reloadRelease(urlString: String, completion: @escaping (Result<Release, MAError>) -> Void) {
-        RequestHelper.ReleaseDetail.fetchReleaseDetail(urlString: urlString) { result in
-            switch result {
-            case .success(let release):
-                RequestHelper.ReleaseDetail.fetchOtherVersion(releaseID: release.id) { result in
-                    switch result {
-                    case .success(let otherVersions):
-                        release.setOtherVersions(otherVersions)
-                        completion(.success(release))
-                        
-                    case .failure(let error):
-                        completion(.failure(error))
-                    }
-                }
-                
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-}
-
 //MARK: - Artist
 extension MetalArchivesAPI {
     static func reloadArtist(urlString: String, withCompletion completion: @escaping (Result<Artist, MAError>) -> Void) {

@@ -92,7 +92,7 @@ final class BandDetailViewController: BaseViewController {
 
     private func fetchBand() {
         guard let bandURLString = bandURLString else {
-            Toast.displayMessageShortly("bandURLString is nil")
+            Toast.displayMessageShortly("Band url is undefined")
             self.navigationController?.popViewController(animated: true)
             return
         }

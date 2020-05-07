@@ -22,7 +22,7 @@ final class ReleaseDetailViewController: BaseViewController {
     @IBOutlet private weak var simpleNavigationBarView: SimpleNavigationBarView!
     @IBOutlet private weak var floaty: Floaty!
     
-    var urlString: String!
+    var urlString: String?
     
     private var release: Release!
     private var currentReleaseMenuOption: ReleaseMenuOption = .trackList
@@ -87,10 +87,16 @@ final class ReleaseDetailViewController: BaseViewController {
     }
     
     private func fetchRelease() {
+        guard let urlString = urlString else {
+            Toast.displayMessageShortly("Release url is undefined")
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        
         floaty.isHidden = true
         showHUD(hideNavigationBar: true)
         
-        MetalArchivesAPI.reloadRelease(urlString: urlString) { [weak self] result in
+        RequestService.Release.fetch(urlString: urlString) { [weak self] result in
             guard let self = self else { return }
             self.hideHUD()
             
@@ -620,11 +626,9 @@ extension ReleaseDetailViewController {
             
             Analytics.logEvent("view_lyric", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? "", "lyric_id": lyricID])
         } else if song.isInstrumental {
-            ToastCenter.default.cancelAll()
-            Toast(text: "This is an instrumental song", duration: Delay.short).show()
+            Toast.displayMessageShortly("This is an instrumental song")
         } else {
-            ToastCenter.default.cancelAll()
-            Toast(text: "This song has no lyric", duration: Delay.short).show()
+            Toast.displayMessageShortly("No lyric / Lyric is not yet provided")
         }
     }
 }

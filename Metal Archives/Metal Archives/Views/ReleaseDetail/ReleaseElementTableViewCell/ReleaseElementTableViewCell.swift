@@ -22,7 +22,7 @@ final class ReleaseElementTableViewCell: BaseTableViewCell, RegisterableCell {
         lengthLabel.font = Settings.currentFontSize.bodyTextFont
         
         lyricIconImageView.tintColor = Settings.currentTheme.titleColor
-        lyricIconImageView.backgroundColor = Settings.currentTheme.backgroundColor
+        lyricIconImageView.backgroundColor = .clear
         lyricIconImageView.isHidden = true
     }
     
