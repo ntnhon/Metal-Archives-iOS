@@ -17,28 +17,55 @@ final class ReleaseLite: ThumbnailableObject {
     let reviewsURLString: String?
     
     lazy var attributedDescription: NSAttributedString = {
-        var yearAndTitleString = "\(year) • \(type.description)"
-        
-        if let numberOfReviews = numberOfReviews {
-            yearAndTitleString = "\(year) • \(type.description) • "
+        let reviewString: String?
+        if let numberOfReviews = numberOfReviews, let rating = rating {
+            reviewString = "\(numberOfReviews) (\(rating)%)"
+        } else {
+            reviewString = nil
         }
         
-        let yearAndTitleAttributedString = NSMutableAttributedString(string: yearAndTitleString)
-
-        yearAndTitleAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(yearAndTitleString.startIndex..., in: yearAndTitleString))
-        
-        guard let numberOfReviews = numberOfReviews , let rating = rating else {
-            return yearAndTitleAttributedString
+        let string: String
+        if let reviewString = reviewString {
+            string = "\(year) • \(type.description) • \(reviewString)"
+        } else {
+            string = "\(year) • \(type.description)"
         }
         
-        let ratingString = "\(numberOfReviews) (\(rating)%)"
+        let attributedString = NSMutableAttributedString(string: string)
+        attributedString.addAttributes([
+            .foregroundColor: Settings.currentTheme.bodyTextColor,
+            .font: Settings.currentFontSize.bodyTextFont],range: NSRange(string.startIndex..., in: string))
         
-        let ratingAttributedString = NSMutableAttributedString(string: ratingString)
-        ratingAttributedString.addAttributes([.foregroundColor: UIColor.colorByRating(rating), .font: Settings.currentFontSize.bodyTextFont], range: NSRange(ratingString.startIndex..., in: ratingString))
+        // Review & rating styling
+        if let reviewString = reviewString, let rating = rating, let range = string.range(of: reviewString) {
+            attributedString.addAttribute(.foregroundColor, value: UIColor.colorByRating(rating), range: NSRange(range, in: string))
+        }
         
-        yearAndTitleAttributedString.append(ratingAttributedString)
+        // Release type styling
+        if let range = string.range(of: type.description) {
+            let font: UIFont
+            switch type {
+            case .fullLength: font = Settings.currentFontSize.heavyBodyTextFont
+            case .demo: font = Settings.currentFontSize.italicBodyTextFont
+            case .single: font = Settings.currentFontSize.tertiaryFont
+            default: font = Settings.currentFontSize.bodyTextFont
+            }
+            
+            attributedString.addAttribute(.font, value: font, range: NSRange(range, in: string))
+        }
         
-        return yearAndTitleAttributedString
+        // Year styling
+        if let range = string.range(of: "\(year)") {
+            let font: UIFont
+            switch type {
+            case .fullLength: font = Settings.currentFontSize.heavyBodyTextFont
+            default: font = Settings.currentFontSize.bodyTextFont
+            }
+            
+            attributedString.addAttribute(.font, value: font, range: NSRange(range, in: string))
+        }
+        
+        return attributedString
     }()
     
     init?(urlString: String, type: ReleaseType, title: String, year: Int, numberOfReviews: Int?, rating: Int?, reviewsURLString: String?) {

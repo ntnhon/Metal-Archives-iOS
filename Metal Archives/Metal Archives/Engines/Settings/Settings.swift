@@ -103,6 +103,17 @@ enum FontSize: Int, CustomStringConvertible {
         }
     }
     
+    var heavyTitleFont: UIFont {
+        switch self {
+        case .default:
+            return UIFont.systemFont(ofSize: 17, weight: .heavy)
+        case .medium:
+            return UIFont.systemFont(ofSize: 19, weight: .heavy)
+        case .large:
+            return UIFont.systemFont(ofSize: 21, weight: .heavy)
+        }
+    }
+    
     var secondaryTitleFont: UIFont {
         switch self {
         case .default:
@@ -133,6 +144,17 @@ enum FontSize: Int, CustomStringConvertible {
             return UIFont.systemFont(ofSize: 16, weight: .bold)
         case .large:
             return UIFont.systemFont(ofSize: 18, weight: .bold)
+        }
+    }
+    
+    var heavyBodyTextFont: UIFont {
+        switch self {
+        case .default:
+            return UIFont.systemFont(ofSize: 14, weight: .heavy)
+        case .medium:
+            return UIFont.systemFont(ofSize: 16, weight: .heavy)
+        case .large:
+            return UIFont.systemFont(ofSize: 18, weight: .heavy)
         }
     }
     
@@ -177,6 +199,17 @@ enum FontSize: Int, CustomStringConvertible {
             return UIFont.systemFont(ofSize: 15, weight: .regular)
         case .large:
             return UIFont.systemFont(ofSize: 17, weight: .regular)
+        }
+    }
+    
+    var italicTertiaryFont: UIFont {
+        switch self {
+        case .default:
+            return UIFont.italicSystemFont(ofSize: 13)
+        case .medium:
+            return UIFont.italicSystemFont(ofSize: 15)
+        case .large:
+            return UIFont.italicSystemFont(ofSize: 17)
         }
     }
 }
