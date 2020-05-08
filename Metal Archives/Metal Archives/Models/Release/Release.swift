@@ -238,7 +238,7 @@ final class Release {
                             }
                         }
                         else {
-                            self.ratingString = "None yet"
+                            self.ratingString = "No review yet"
                         }
                         
                     }

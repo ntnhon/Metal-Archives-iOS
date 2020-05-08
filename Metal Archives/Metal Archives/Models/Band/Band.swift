@@ -143,6 +143,32 @@ final class Band {
         return attributedString
     }()
     
+    lazy var reviewStatsAttributedString: NSAttributedString? = {
+        guard let discography = discography else { return nil }
+        
+        let totalReviews = discography.complete.compactMap({$0.numberOfReviews}).reduce(0, +)
+        
+        let ratings = discography.complete.compactMap({$0.rating})
+        let averageRating = ratings.reduce(0, +) / ratings.count
+        
+        let string = "\(totalReviews) \(totalReviews > 1 ? "reviews" : "review") in total • \(averageRating)% on average"
+        
+        let attributedString = NSMutableAttributedString(string: string)
+        attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(string.startIndex..., in: string))
+        
+        // Bold the total number
+        if let range = string.range(of: "\(totalReviews)") {
+            attributedString.addAttribute(.font, value: Settings.currentFontSize.bodyTextFont, range: NSRange(range, in: string))
+        }
+        
+        // Color the average number
+        if let range = string.range(of: "\(averageRating)%") {
+            attributedString.addAttribute(.font, value: UIColor.colorByRating(averageRating), range: NSRange(range, in: string))
+        }
+        
+        return attributedString
+    }()
+    
     //Similar artist
     private(set) var similarArtists: [BandSimilar]?
     
