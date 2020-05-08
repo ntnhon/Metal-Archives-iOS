@@ -36,7 +36,7 @@ final class Band {
         }
     }
     
-    private(set) var yearsActiveAttributedString: NSAttributedString!
+    private var yearsActiveString: String!
     private(set) var oldBands: [BandAncient]?
     private(set) var lyricalTheme: String!
     private(set) var lastLabel: LabelLiteInBand!
@@ -122,6 +122,27 @@ final class Band {
         return manager
     }()
     
+    lazy var yearsActiveAttributedString: NSAttributedString = {
+        let attributedString = NSMutableAttributedString(string: yearsActiveString)
+        
+        attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(yearsActiveString.startIndex..., in: yearsActiveString))
+        
+        let pastBandNames = RegexHelpers.listGroups(for: #"\(as ([^)]+)\)"#, inString: yearsActiveString)
+        
+        for oldBandName in pastBandNames {
+            let oldBandNameRange = yearsActiveString.range(of: oldBandName)!
+            let oldBandNameNSRange = NSRange(oldBandNameRange, in: yearsActiveString)
+            
+            if let oldBands = oldBands, oldBands.contains(where: {$0.name == oldBandName}) {
+                attributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor, .font: Settings.currentFontSize.secondaryTitleFont], range: oldBandNameNSRange)
+            } else {
+                attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.secondaryTitleFont], range: oldBandNameNSRange)
+            }
+        }
+        
+        return attributedString
+    }()
+    
     //Similar artist
     private(set) var similarArtists: [BandSimilar]?
     
@@ -175,7 +196,7 @@ final class Band {
                     self.lyricalTheme = results.lyricalTheme
                     self.lastLabel = results.lastLabel
                     self.oldBands = results.oldBands
-                    self.yearsActiveAttributedString = Band.generateYearsActiveAttributedString(from: results.yearsActiveString, withOldBands: results.oldBands)
+                    self.yearsActiveString = results.yearsActiveString
                     
                 case "auditTrail":
                     guard let innerHTML = div.innerHTML else { return nil }
@@ -310,29 +331,6 @@ final class Band {
         }
         
         return artists
-    }
-    
-    private static func generateYearsActiveAttributedString(from yearsActiveString: String, withOldBands oldBands: [BandAncient]?) -> NSAttributedString {
-        // yearsActiveString example: 1993-2010,2010 (as Satanika),2010-present
-        // Add " " after "," to pretify
-        let attributedString = NSMutableAttributedString(string: yearsActiveString.replacingOccurrences(of: ",", with: ", "))
-        
-        attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(yearsActiveString.startIndex..., in: yearsActiveString))
-        
-        let pastBandNames = RegexHelpers.listGroups(for: #"\(as ([^)]+)\)"#, inString: yearsActiveString)
-        
-        for oldBandName in pastBandNames {
-            let oldBandNameRange = yearsActiveString.range(of: oldBandName)!
-            let oldBandNameNSRange = NSRange(oldBandNameRange, in: yearsActiveString)
-            
-            if let oldBands = oldBands, oldBands.contains(where: {$0.name == oldBandName}) {
-                attributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor, .font: Settings.currentFontSize.secondaryTitleFont], range: oldBandNameNSRange)
-            } else {
-                attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.secondaryTitleFont], range: oldBandNameNSRange)
-            }
-        }
-        
-        return attributedString
     }
 }
 
@@ -483,7 +481,9 @@ extension Band {
             }
         }
         
-        let yearsActiveString = rawTextString.removeHTMLTagsAndNoisySpaces()
+        // yearsActiveString example: 1993-2010,2010 (as Satanika),2010-present
+        // Add " " after "," to pretify
+        let yearsActiveString = rawTextString.removeHTMLTagsAndNoisySpaces().replacingOccurrences(of: ",", with: ", ")
         
         if oldBands.count == 0 {
             return (nil, yearsActiveString)
