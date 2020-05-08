@@ -17,10 +17,10 @@ final class MemberTableViewCell: ThumbnailableTableViewCell, RegisterableCell {
         super.initAppearance()
         
         nameLabel.textColor = Settings.currentTheme.titleColor
-        nameLabel.font = Settings.currentFontSize.secondaryTitleFont
+        nameLabel.font = Settings.currentFontSize.titleFont
         
         instrumentsInBandLabel.textColor = Settings.currentTheme.bodyTextColor
-        instrumentsInBandLabel.font = Settings.currentFontSize.bodyTextFont
+        instrumentsInBandLabel.font = Settings.currentFontSize.boldBodyTextFont
         
         seeAlsoLabel.textColor = Settings.currentTheme.bodyTextColor
         seeAlsoLabel.font = Settings.currentFontSize.bodyTextFont
