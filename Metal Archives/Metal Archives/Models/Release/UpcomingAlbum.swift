@@ -8,6 +8,7 @@
 
 import Foundation
 import EventKit
+import UIKit
 
 final class UpcomingAlbum: NSObject, Pagable {
     let bands: [BandLite]
@@ -30,7 +31,15 @@ final class UpcomingAlbum: NSObject, Pagable {
         typeAndDateAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(typeAndDateString.startIndex..., in: typeAndDateString))
         
         if let typeRange = typeAndDateString.range(of: releaseType.description) {
-            typeAndDateAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.boldBodyTextFont], range: NSRange(typeRange, in: typeAndDateString))
+            let font: UIFont
+            switch releaseType {
+            case .fullLength: font = Settings.currentFontSize.heavyBodyTextFont
+            case .demo: font = Settings.currentFontSize.italicBodyTextFont
+            case .single: font = Settings.currentFontSize.tertiaryFont
+            default: font = Settings.currentFontSize.bodyTextFont
+            }
+            
+            typeAndDateAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: font], range: NSRange(typeRange, in: typeAndDateString))
         }
         
         return typeAndDateAttributedString
