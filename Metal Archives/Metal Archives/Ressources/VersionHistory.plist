@@ -4,6 +4,21 @@
 <array>
 	<dict>
 		<key>number</key>
+		<string>4.3</string>
+		<key>date</key>
+		<string>May 2020</string>
+		<key>features</key>
+		<string>- Introduce badge system: a release with more than 10 positive reviews (&gt;=75%) is annotated with a badge 🏅.
+- Display band’s total reviews, overall average rating &amp; total badges.
+- Display year gap between this year and a band’s year of formation.
+- Copy lyric with a simple tap.
+- Photo viewer detects eyes in background so that the detection process is much faster and does not block the user interface.
+- Upcoming album section: fixed label priorities so that a long release title does not overlap other informations.
+- Some font &amp; colour changes to clearly differentiate between full-length and other release types (demo, single, compilation…).
+- Update underlying libraries to latest version &amp; refactor code structure so that the app is less likely to crash.</string>
+	</dict>
+	<dict>
+		<key>number</key>
 		<string>4.2</string>
 		<key>date</key>
 		<string>April 2020</string>

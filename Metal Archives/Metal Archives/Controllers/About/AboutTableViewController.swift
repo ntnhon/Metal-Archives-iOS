@@ -177,7 +177,7 @@ extension AboutTableViewController {
         } else if section == 2 {
             return "Open source libraries"
         } else if section == 3 {
-            return "Version history"
+            return nil // Version history
         } else if section == 4 {
             return "Review on App Store"
         }
