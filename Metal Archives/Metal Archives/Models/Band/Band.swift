@@ -158,12 +158,12 @@ final class Band {
         
         // Bold the total number
         if let range = string.range(of: "\(totalReviews)") {
-            attributedString.addAttribute(.font, value: Settings.currentFontSize.bodyTextFont, range: NSRange(range, in: string))
+            attributedString.addAttribute(.font, value: Settings.currentFontSize.boldBodyTextFont, range: NSRange(range, in: string))
         }
         
         // Color the average number
         if let range = string.range(of: "\(averageRating)%") {
-            attributedString.addAttribute(.font, value: UIColor.colorByRating(averageRating), range: NSRange(range, in: string))
+            attributedString.addAttribute(.foregroundColor, value: UIColor.colorByRating(averageRating), range: NSRange(range, in: string))
         }
         
         return attributedString

@@ -16,6 +16,7 @@ final class BandInfoTableViewCell: BaseTableViewCell, RegisterableCell {
     @IBOutlet private weak var yearsActiveLabel: UILabel!
     @IBOutlet private weak var genreLabel: UILabel!
     @IBOutlet private weak var lyricalThemesLabel: UILabel!
+    @IBOutlet private weak var reviewStatsLabel: UILabel!
     @IBOutlet private weak var lastLabelLabel: UILabel!
     @IBOutlet private weak var lastModifiedOnLabel: UILabel!
     
@@ -68,6 +69,12 @@ final class BandInfoTableViewCell: BaseTableViewCell, RegisterableCell {
         genreLabel.text = band.genre
         lyricalThemesLabel.text = band.lyricalTheme
         yearsActiveLabel.attributedText = band.yearsActiveAttributedString
+        
+        if let reviewStatsAttributedString = band.reviewStatsAttributedString {
+            reviewStatsLabel.attributedText = reviewStatsAttributedString
+        } else {
+            reviewStatsLabel.text = "No review yet"
+        }
         
         setLastLabelLabel()
         setLastModifiedOnLabel()
