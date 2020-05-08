@@ -201,9 +201,9 @@ final class PhotoViewerViewController: BaseViewController {
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         //Save photo call back
         if let _ = error {
-            Toast(text: "Error! Photo had not been saved.", duration: Delay.short).show()
+            Toast.displayMessageShortly("Error saving photo 😵")
         } else {
-            Toast(text: "Photo successfully saved to your library!", duration: Delay.short).show()
+            Toast.displayMessageShortly("Saved to your Photos")
             
             if self.eyesOverlaid {
                 Analytics.logEvent("save_funny_eyes_photo", parameters: nil)
@@ -214,42 +214,39 @@ final class PhotoViewerViewController: BaseViewController {
     }
     
     @IBAction func didTapFunnyEyesButton() {
-        self.funnyEyesButton.isUserInteractionEnabled = false
-        
-        if self.eyesOverlaid {
-            self.setPhoto()
-            self.eyesOverlaid = false
-            self.funnyEyesButton.isUserInteractionEnabled = true
+        // Un-overlay photo, set back to normal
+        if eyesOverlaid {
+            setPhoto()
+            temporaryImageView.image = photoImageView.image
+            eyesOverlaid = false
             return
         }
         
-        guard let image = self.photoImageView.image else { return }
-        
+        guard let image = photoImageView.image else { return }
+
         let hud = MBProgressHUD.showAdded(to: view, animated: true)
         hud.label.text = "Finding some 👀"
         DispatchQueue.global(qos: .background).async { [unowned self] in
-            let (eyesDetected, overlayImage) = image.faceOverlay()
+            let overlayImage = image.faceOverlay()
+            
             DispatchQueue.main.async {
                 hud.hide(animated: true)
-                if eyesDetected {
+                
+                if let overlayImage = overlayImage {
                     self.eyesOverlaid = true
-                    ToastCenter.default.cancelAll()
-                    Toast(text: "😳😳😳", duration: Delay.short).show()
-                    self.fadeInNewImage(overlayImage!, completion: {
-                        self.funnyEyesButton.isUserInteractionEnabled = true
-                    })
+                    Toast.displayMessageShortly("😳😳😳")
+                    self.fadeInNewImage(overlayImage)
+                    self.temporaryImageView.image = overlayImage
                     Analytics.logEvent("make_funny_eyes", parameters: nil)
                 } else {
-                    ToastCenter.default.cancelAll()
-                    Toast(text: "No 👀 detected", duration: Delay.short).show()
+                    Toast.displayMessageShortly("No 👀 detected")
                     self.eyesOverlaid = false
-                    self.funnyEyesButton.isUserInteractionEnabled = true
                 }
             }
         }
     }
     
-    func fadeInNewImage(_ newImage: UIImage, completion: @escaping () ->  Void) {
+    func fadeInNewImage(_ newImage: UIImage) {
         let tmpImageView = UIImageView(image: newImage)
         tmpImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         tmpImageView.contentMode = self.photoImageView.contentMode
@@ -262,7 +259,6 @@ final class PhotoViewerViewController: BaseViewController {
         }, completion: { finished in
             self.photoImageView.image = newImage
             tmpImageView.removeFromSuperview()
-            completion()
         })
     }
     
@@ -371,7 +367,7 @@ extension PhotoViewerViewController: UIScrollViewDelegate {
 
 // MARK: - Eyes detection
 private extension UIImage {
-    func faceOverlay() -> (Bool, UIImage?) {
+    func faceOverlay() -> UIImage? {
         let detector = CIDetector(ofType: CIDetectorTypeFace,
                                   context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
         
@@ -389,7 +385,7 @@ private extension UIImage {
         
         //Return if there is no facefeatures detected
         if features.count == 0 {
-            return (false, nil)
+            return nil
         }
         
         for faceFeature in features {
@@ -403,7 +399,7 @@ private extension UIImage {
             
             //Return if there is no eyes detected
             if !faceFeature.hasLeftEyePosition || !faceFeature.hasRightEyePosition {
-                return (false, nil)
+                return nil
             }
             
             
@@ -435,7 +431,7 @@ private extension UIImage {
         let overlayImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return (true, overlayImage)
+        return overlayImage
     }
     
     func faceRotationInRadians(leftEyePoint startPoint: CGPoint, rightEyePoint endPoint: CGPoint) -> CGFloat {
