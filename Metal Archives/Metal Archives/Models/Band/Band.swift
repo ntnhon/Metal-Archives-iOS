@@ -145,8 +145,10 @@ final class Band {
     
     lazy var reviewStatsAttributedString: NSAttributedString? = {
         guard let discography = discography else { return nil }
-        
+
         let totalReviews = discography.complete.compactMap({$0.numberOfReviews}).reduce(0, +)
+        
+        guard totalReviews > 0 else { return nil }
         
         let ratings = discography.complete.compactMap({$0.rating})
         let averageRating = ratings.reduce(0, +) / ratings.count
