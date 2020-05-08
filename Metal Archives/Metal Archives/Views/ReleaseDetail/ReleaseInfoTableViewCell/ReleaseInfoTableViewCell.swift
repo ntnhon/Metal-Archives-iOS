@@ -69,11 +69,10 @@ final class ReleaseInfoTableViewCell: BaseTableViewCell, RegisterableCell {
         labelLabel.text = release.label.name
         formatLabel.text = release.format
         
-        reviewsLabel.text = release.ratingString
-        if let rating = release.rating {
-            self.reviewsLabel.textColor = UIColor.colorByRating(rating)
+        if let reviewStatsAttributedString = release.reviewStatsAttributedString {
+            reviewsLabel.attributedText = reviewStatsAttributedString
         } else {
-            self.reviewsLabel.textColor = Settings.currentTheme.bodyTextColor
+            reviewsLabel.text = "No review yet"
         }
         
         setLabelLabel()

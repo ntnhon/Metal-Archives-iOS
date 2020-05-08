@@ -23,7 +23,7 @@ final class Release {
     private(set) var label: LabelLiteInBand!
     private(set) var format: String!
     private(set) var additionalHTMLNotes: String?
-    private(set) var ratingString: String!
+    private(set) var reviewCount: Int?
     private(set) var rating: Int?
     private(set) var auditTrail: AuditTrail!
     
@@ -93,6 +93,32 @@ final class Release {
         let url = URL(string: urlString)
         
         return EKEvent.createEventFrom(dateString: dateString, title: eventTitle, notes: notes, url: url)
+    }()
+    
+    lazy var reviewStatsAttributedString: NSAttributedString? = {
+        guard let reviewCount = reviewCount, let rating = rating else { return nil }
+        
+        var string = "\(reviewCount) \(reviewCount > 1 ? "reviews" : "review") • \(rating)%"
+        if reviewCount >= 10 && rating >= 75 {
+            string += " 🏅"
+        }
+        
+        let attributedString = NSMutableAttributedString(string: string)
+        attributedString.addAttributes([
+            .foregroundColor: Settings.currentTheme.bodyTextColor,
+            .font: Settings.currentFontSize.bodyTextFont],range: NSRange(string.startIndex..., in: string))
+        
+        // Bold reviewCount
+        if let range = string.range(of: "\(reviewCount)") {
+            attributedString.addAttribute(.font, value: Settings.currentFontSize.boldBodyTextFont, range: NSRange(range, in: string))
+        }
+        
+        // Color rating
+        if let range = string.range(of: "\(rating)%") {
+            attributedString.addAttribute(.foregroundColor, value: UIColor.colorByRating(rating), range: NSRange(range, in: string))
+        }
+        
+        return attributedString
     }()
     
     func setOtherVersions(_ otherVersions: [ReleaseOtherVersion]) {
@@ -224,21 +250,19 @@ final class Release {
                         var reviewString = dd.text
                         reviewString = reviewString?.replacingOccurrences(of: "\n", with: "")
                         reviewString = reviewString?.replacingOccurrences(of: "\t", with: "")
-                        reviewString = reviewString?.replacingOccurrences(of: " ", with: "")
+                        reviewString = "🤘" + (reviewString ?? "")
                         
-                        if (reviewString != "Noneyet") {
-                            reviewString = reviewString?.replacingOccurrences(of: "re", with: " re")
-                            reviewString = reviewString?.replacingOccurrences(of: "avg.", with: "avg. ")
-                            reviewString = reviewString?.replacingOccurrences(of: "(", with: " (")
-                            reviewString = reviewString?.replacingOccurrences(of: "co", with: " co")
-                            self.ratingString = reviewString ?? ""
+                        if let reviewString = reviewString,
+                            let reviewCountSubstring = reviewString.subString(after: "🤘", before: " review", options: .caseInsensitive),
+                            let reviewCount = Int(reviewCountSubstring),
+                            let ratingSubstring = reviewString.subString(after: "avg. ", before: "%)", options: .caseInsensitive),
+                            let rating = Int(ratingSubstring) {
+                            self.reviewCount = reviewCount
+                            self.rating = rating
                             
-                            if let ratingSubString = self.ratingString.subString(after: "avg. ", before: "%)", options: .caseInsensitive) {
-                                self.rating = Int(String(ratingSubString))
-                            }
-                        }
-                        else {
-                            self.ratingString = "No review yet"
+                        } else {
+                            self.reviewCount = nil
+                            self.rating = nil
                         }
                         
                     }
