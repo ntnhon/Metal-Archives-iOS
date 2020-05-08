@@ -18,7 +18,24 @@ final class Band {
     private(set) var status: BandStatus!
     
     private(set) var location: String!
-    private(set) var formedIn: String!
+    
+    private var _formedIn: String!
+    var formedIn: String {
+        get {
+            if let year = Int(_formedIn) {
+                let yearGap = Date().year - year
+                
+                switch yearGap {
+                case 0: return "\(year)"
+                case 1: return "\(year) (a year ago)"
+                default: return "\(year) (\(yearGap) years ago)"
+                }
+            }
+            
+            return _formedIn
+        }
+    }
+    
     private(set) var yearsActiveAttributedString: NSAttributedString!
     private(set) var oldBands: [BandAncient]?
     private(set) var lyricalTheme: String!
@@ -153,7 +170,7 @@ final class Band {
                     self.country = results.country
                     self.location = results.location
                     self.status = results.status
-                    self.formedIn = results.formedIn
+                    self._formedIn = results.formedIn
                     self.genre = results.genre
                     self.lyricalTheme = results.lyricalTheme
                     self.lastLabel = results.lastLabel

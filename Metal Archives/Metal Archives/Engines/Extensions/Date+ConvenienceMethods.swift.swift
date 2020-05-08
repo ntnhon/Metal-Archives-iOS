@@ -52,6 +52,10 @@ extension Date {
             return (minute, "minutes")
         }
     }
+    
+    var year: Int {
+        return Calendar.current.component(.year, from: self)
+    }
 }
 
 extension Date {
