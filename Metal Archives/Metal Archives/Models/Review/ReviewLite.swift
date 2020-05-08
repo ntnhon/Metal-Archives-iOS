@@ -15,9 +15,9 @@ final class ReviewLite: Pagable {
     let dateString: String
     let user: UserLite
     
-    lazy var ratingAndUsernameAttributedString: NSAttributedString = {
+    lazy var ratingAndUsernameAttributedString: NSAttributedString? = {
         guard let release = release else {
-            return NSAttributedString(string: "Error occured. Please contact the author.")
+            return nil
         }
         
         let detailString = "\(rating)% • \(release.type.description) • \(user.name)"
@@ -26,6 +26,18 @@ final class ReviewLite: Pagable {
         
         if let rangeOfUserName = detailString.range(of: "\(user.name)") {
             attributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor], range: NSRange(rangeOfUserName, in: detailString))
+        }
+        
+        if let rangeOfType = detailString.range(of: "\(release.type.description)") {
+            let font: UIFont
+            switch release.type {
+            case .fullLength: font = Settings.currentFontSize.heavyBodyTextFont
+            case .demo: font = Settings.currentFontSize.italicBodyTextFont
+            case .single: font = Settings.currentFontSize.tertiaryFont
+            default: font = Settings.currentFontSize.bodyTextFont
+            }
+            
+            attributedString.addAttribute(.font, value: font, range: NSRange(rangeOfType, in: detailString))
         }
         
         if let rangeOfRating = detailString.range(of: "\(rating)%") {
