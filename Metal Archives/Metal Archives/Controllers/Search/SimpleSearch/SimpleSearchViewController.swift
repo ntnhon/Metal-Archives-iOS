@@ -291,10 +291,8 @@ extension SimpleSearchViewController {
             let cell = SimpleSearchResultHistoryTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             cell.fill(with: searchHistory)
             cell.didTapThumbnailImageView = { [unowned self] in
-                if let thumgnailUrlString = searchHistory.thumbnailUrlString {
-                    self.searchTermTextField?.resignFirstResponder()
-                    self.presentPhotoViewerWithCacheChecking(photoUrlString: thumgnailUrlString, description: searchHistory.nameOrTitle!, fromImageView: cell.thumbnailImageView)
-                }
+                self.searchTermTextField?.resignFirstResponder()
+                self.presentPhotoViewerWithCacheChecking(photoUrlString: searchHistory.thumbnailUrlString, description: searchHistory.nameOrTitle ?? "", fromImageView: cell.thumbnailImageView)
             }
             return cell
         }
