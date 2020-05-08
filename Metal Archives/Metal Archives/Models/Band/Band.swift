@@ -296,7 +296,9 @@ final class Band {
     }
     
     private static func generateYearsActiveAttributedString(from yearsActiveString: String, withOldBands oldBands: [BandAncient]?) -> NSAttributedString {
-        let attributedString = NSMutableAttributedString(string: yearsActiveString)
+        // yearsActiveString example: 1993-2010,2010 (as Satanika),2010-present
+        // Add " " after "," to pretify
+        let attributedString = NSMutableAttributedString(string: yearsActiveString.replacingOccurrences(of: ",", with: ", "))
         
         attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(yearsActiveString.startIndex..., in: yearsActiveString))
         
