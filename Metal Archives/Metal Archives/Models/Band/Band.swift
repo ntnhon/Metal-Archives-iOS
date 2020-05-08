@@ -151,7 +151,12 @@ final class Band {
         let ratings = discography.complete.compactMap({$0.rating})
         let averageRating = ratings.reduce(0, +) / ratings.count
         
-        let string = "\(totalReviews) \(totalReviews > 1 ? "reviews" : "review") in total • \(averageRating)% on average"
+        var string = "\(totalReviews) \(totalReviews > 1 ? "reviews" : "review") in total • \(averageRating)% on average"
+        
+        let totalMedals = discography.complete.filter({$0.isPlatinium}).count
+        if totalMedals > 0 {
+            string += " • \(totalMedals)🏅"
+        }
         
         let attributedString = NSMutableAttributedString(string: string)
         attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(string.startIndex..., in: string))
@@ -164,6 +169,11 @@ final class Band {
         // Color the average number
         if let range = string.range(of: "\(averageRating)%") {
             attributedString.addAttribute(.foregroundColor, value: UIColor.colorByRating(averageRating), range: NSRange(range, in: string))
+        }
+        
+        // Bold total medal
+        if let range = string.range(of: "\(totalMedals)🏅") {
+            attributedString.addAttribute(.font, value: Settings.currentFontSize.boldBodyTextFont, range: NSRange(range, in: string))
         }
         
         return attributedString

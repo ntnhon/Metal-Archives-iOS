@@ -16,6 +16,11 @@ final class ReleaseLite: ThumbnailableObject {
     let rating: Int?
     let reviewsURLString: String?
     
+    lazy var isPlatinium: Bool = {
+        guard let numberOfReviews = numberOfReviews, let rating = rating else { return false }
+        return numberOfReviews >= 10 && rating >= 75
+    }()
+    
     lazy var attributedDescription: NSAttributedString = {
         let reviewString: String?
         if let numberOfReviews = numberOfReviews, let rating = rating {
@@ -24,11 +29,15 @@ final class ReleaseLite: ThumbnailableObject {
             reviewString = nil
         }
         
-        let string: String
+        var string: String
         if let reviewString = reviewString {
             string = "\(year) • \(type.description) • \(reviewString)"
         } else {
             string = "\(year) • \(type.description)"
+        }
+        
+        if isPlatinium {
+            string += " 🏅"
         }
         
         let attributedString = NSMutableAttributedString(string: string)
