@@ -13,16 +13,16 @@ Metal Archives *(a.k.a. Encyclopaedia Metallum)* is the biggest encyclopedia of 
 Official website: [https://www.metal-archives.com/](https://www.metal-archives.com/)  
 Official facebook: [https://www.facebook.com/metal.archives](https://www.facebook.com/metal.archives)
 
-Available on [App Store](https://itunes.apple.com/us/app/id1074038930) since January 2016, this application is an unofficial iOS version of the site. It is created in need of an adapted interface on mobile devices for quick researches.
+Available on [App Store](https://itunes.apple.com/us/app/id1074038930) since January 2016, this application is an unofficial iOS version of the site.
 
-Unofficial facbebook: [https://www.facebook.com/MetalArchivesIOSApp/](https://www.facebook.com/MetalArchivesIOSApp/)
+Feature requests, bug reports, need helps? Reach me at the app's Facebook page: [https://www.facebook.com/MetalArchivesIOSApp/](https://www.facebook.com/MetalArchivesIOSApp/)
 
 Made with 🤘, by metalhead for metalheads.
 
 ## Screenshots
-| <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/1-Homepage.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/2-Band.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/3-Band-Members.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/4-Release.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/5-Artist.png" width="180" /> |
+| <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/1.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/2.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/3.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/4.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/5.png" width="180" /> |
 |----|----|----|----|----|
-| <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/6-Review.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/7-Label.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/8-User.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/9-Simple-Search.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/10-Widget.png" width="180" /> |
+| <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/6.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/7.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/8.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/9.png" width="180" /> | <img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/MA/10.png" width="180" /> |
 
 ## Features
 The application provides almost everything you can do on the site for research purposes. If you want to contribute to the site's contents, like wikipedia, you will have to register an account, make changes and wait for moderator approvals. In this case you have to use the web interface. iOS interface doesn't mean to be a complete alternative.
@@ -30,31 +30,36 @@ The application provides almost everything you can do on the site for research p
 **Replicated features:**
 
  - [Homepage](https://www.metal-archives.com/) which shows: statistics, news, latest additions/updates/reviews, upcoming albums.
- - Manage your bookmarks: add/remove/edit bands/artists/labels/releases.
- - Manage your collection: add/remove/edit releases.
- - Browse bands: [alphabetically](https://www.metal-archives.com/browse/letter), [by country](https://www.metal-archives.com/browse/country), [by genre](https://www.metal-archives.com/browse/genre).
- - Browse labels: [alphabetically](https://www.metal-archives.com/label), [by country](https://www.metal-archives.com/label/country).
- - List of [deceased artists](https://www.metal-archives.com/artist/rip).
- - [Random band](https://www.metal-archives.com/band/random)
- - [Statistic details](https://www.metal-archives.com/stats): top 100 bands/albums.
- - [News archives](https://www.metal-archives.com/news).
- - Simple search by: band name, music genre, lyrical themes, album title, song title, label name, artist name.
- - [Advanced search](https://www.metal-archives.com/search/advanced): band, albums, songs.
- - Band details: basic informations, photo, logo, bio, discography, members list, reviews, similar artists, related links.
- - Release details: basic informations, cover photo, additional notes, track list, lyrics, lineup, reviews.
- - Artist details: basic informations, photo, bio, trivia, roles in bands, related links.
- - Label details: basic informations, logo, bio, related labels, current/past roster, releases, related links.
- - User details: reviews, public album collection, submitted bands, modification history.
+- Band details: general infos, logo and photo, discography, members list, reviews list, similar artists, related links.
+- Release details: general infos, cover photo, reviews list, track listing, song’s lyric, lineup list, other versions, additional notes.
+- Artist details: general infos, biography, photo, bands involved.
+- Label details: general infos, sub-labels, current & past roster, releases, related links.
+- User details: general infos, reviews, collection, submitted bands, modification history.
+- Manage your bookmarks: add/remove/edit bands/artists/labels/releases.
+- Manage your collection: add/remove/edit releases.
+- Deezer Search & Preview (30 seconds preview) which allows user to listening to band's top tracks and releases inside the app.
+- Search & track history.
+- Simple search by: band name, music genre, lyrical themes, album title, song title, label name, artist name.
+- [Advanced search](https://www.metal-archives.com/search/advanced): band, albums, songs.
+- Browse bands [by letter](https://www.metal-archives.com/browse/letter), [country of origin](https://www.metal-archives.com/browse/country) & [music genre](https://www.metal-archives.com/browse/genre).
+- Browse labels [by letter](https://www.metal-archives.com/label) & [country of origin](https://www.metal-archives.com/label/country).
+- Browse [deceased artists](https://www.metal-archives.com/artist/rip).
+- [Random band](https://www.metal-archives.com/band/random)
+- [Statistic](https://www.metal-archives.com/stats): top 100 bands/albums.
+- [News archives](https://www.metal-archives.com/news).
+
  
- **Extra features:**
- - Shortcut (3D touch) for quick actions: open search page, open with a random band.
- - Today Widget which display updates from the homepage: band latest additions, band latest updates, latest reviews, upcoming albums.
- - Customizable interface:
+**Extra features:**
+
+- Shortcut (3D touch) for quick actions: open search page, open with a random band.
+- Today Widget which display updates from the homepage: band latest additions, band latest updates, latest reviews, upcoming albums.
+- Customizable interface:
    - 4 built-in themes: default, light, vintage, unicorn.
    - 3 font size options: default, medium, large.
    - Default discography mode.
    - Enable/disable thumbnails.
    - Today widget sections.
+- Badge system: a release with more than 10 positive reviews (>=75%) is annotated with a badge 🏅.
 
 ## 3rd party Dependencies
  - [Alamofire](https://github.com/Alamofire/Alamofire)
