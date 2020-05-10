@@ -113,7 +113,9 @@ extension MyCollectionViewController {
     private func takeAction(forReleaseAt indexPath: IndexPath) {
         let release = getRelease(for: indexPath)
         
-        let alert = UIAlertController(title: release.bandsAttributedString.string, message: "\(release.titleAndTypeAttributedString.string)\n\(release.version)", preferredStyle: .actionSheet)
+        let style: UIAlertController.Style = UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
+        
+        let alert = UIAlertController(title: release.bandsAttributedString.string, message: "\(release.titleAndTypeAttributedString.string)\n\(release.version)", preferredStyle: style)
         
         // View Release
         let releaseAction = UIAlertAction(title: "💿 View release", style: .default) { [unowned self] _ in
@@ -191,7 +193,9 @@ extension MyCollectionViewController {
             
             switch result {
             case .success(let releaseVersions):
-                let alert = UIAlertController(title: "Change version", message: release.release.title, preferredStyle: .actionSheet)
+                let style: UIAlertController.Style = UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
+                
+                let alert = UIAlertController(title: "Change version", message: release.release.title, preferredStyle: style)
                 
                 releaseVersions.forEach { (eachVersion) in
                     let versionAction = UIAlertAction(title: eachVersion.version, style: .default) { [unowned self] _ in

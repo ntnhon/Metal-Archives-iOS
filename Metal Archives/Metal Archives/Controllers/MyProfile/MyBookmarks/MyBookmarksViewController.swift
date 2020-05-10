@@ -135,7 +135,9 @@ extension MyBookmarksViewController {
     private func takeActionForBandBookmark(at indexPath: IndexPath) {
         let bandBookmark = bandBookmarkPagableManager.objects[indexPath.row]
         
-        let alert = UIAlertController(title: bandBookmark.name, message: "\(bandBookmark.country.name) | \(bandBookmark.genre)", preferredStyle: .actionSheet)
+        let style: UIAlertController.Style = UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
+        
+        let alert = UIAlertController(title: bandBookmark.name, message: "\(bandBookmark.country.name) | \(bandBookmark.genre)", preferredStyle: style)
         
         let viewAction = UIAlertAction(title: "👥 View band", style: .default) { [unowned self] _ in
             self.pushBandDetailViewController(urlString: bandBookmark.urlString, animated: true)
@@ -162,7 +164,9 @@ extension MyBookmarksViewController {
     private func takeActionForArtistBookmark(at indexPath: IndexPath) {
         let artistBookmark = artistBookmarkPagableManager.objects[indexPath.row]
         
-        let alert = UIAlertController(title: artistBookmark.name, message: artistBookmark.country.name, preferredStyle: .actionSheet)
+        let style: UIAlertController.Style = UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
+        
+        let alert = UIAlertController(title: artistBookmark.name, message: artistBookmark.country.name, preferredStyle: style)
         
         let viewAction = UIAlertAction(title: "👤 View artist", style: .default) { [unowned self] _ in
             self.pushArtistDetailViewController(urlString: artistBookmark.urlString, animated: true)
@@ -189,7 +193,9 @@ extension MyBookmarksViewController {
     private func takeActionForLabelBookmark(at indexPath: IndexPath) {
         let labelBookmark = labelBookmarkPagableManager.objects[indexPath.row]
         
-        let alert = UIAlertController(title: labelBookmark.name, message: labelBookmark.country.name, preferredStyle: .actionSheet)
+        let style: UIAlertController.Style = UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
+        
+        let alert = UIAlertController(title: labelBookmark.name, message: labelBookmark.country.name, preferredStyle: style)
         
         let viewAction = UIAlertAction(title: "🏷️ View label", style: .default) { [unowned self] _ in
             self.pushLabelDetailViewController(urlString: labelBookmark.urlString, animated: true)
@@ -216,7 +222,9 @@ extension MyBookmarksViewController {
     private func takeActionForReleaseBookmark(at indexPath: IndexPath) {
         let releaseBookmark = releaseBookmarkPagableManager.objects[indexPath.row]
         
-        let alert = UIAlertController(title: releaseBookmark.title, message: "\(releaseBookmark.bandName) | \(releaseBookmark.country.name) | \(releaseBookmark.genre)", preferredStyle: .actionSheet)
+        let style: UIAlertController.Style = UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
+        
+        let alert = UIAlertController(title: releaseBookmark.title, message: "\(releaseBookmark.bandName) | \(releaseBookmark.country.name) | \(releaseBookmark.genre)", preferredStyle: style)
         
         let viewAction = UIAlertAction(title: "💿 View release", style: .default) { [unowned self] _ in
             self.pushReleaseDetailViewController(urlString: releaseBookmark.urlString, animated: true)
