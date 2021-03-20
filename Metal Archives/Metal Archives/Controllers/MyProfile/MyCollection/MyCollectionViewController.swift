@@ -343,7 +343,7 @@ extension MyCollectionViewController {
         }
         action.title = "Undo"
         message.action = action
-        MDCSnackbarManager.show(message)
+        MDCSnackbarManager().show(message)
     }
     
     private func undoLastRemoval() {

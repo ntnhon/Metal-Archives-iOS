@@ -9,7 +9,7 @@
 import UIKit
 import Toaster
 import FirebaseAnalytics
-import Crashlytics
+import FirebaseCrashlytics
 import Floaty
 import MBProgressHUD
 
@@ -124,8 +124,7 @@ final class ArtistDetailViewController: BaseViewController {
                 self.historyRecordableDelegate?.loaded(urlString: artist.urlString, nameOrTitle: artist.bandMemberName, thumbnailUrlString: artist.photoURLString, objectType: .artist)
                 
                 Analytics.logEvent("view_artist", parameters: ["artist_name": artist.bandMemberName ?? "", "artist_id": artist.id ?? ""])
-                
-                Crashlytics.sharedInstance().setObjectValue(artist.generalDescription, forKey: "artist")
+                Crashlytics.crashlytics().setCustomValue(artist.generalDescription, forKey: "artist")
                 
             case .failure(let error):
                 self.showHUD()

@@ -9,7 +9,7 @@
 import UIKit
 import Toaster
 import FirebaseAnalytics
-import Crashlytics
+import FirebaseCrashlytics
 import Floaty
 import MBProgressHUD
 
@@ -122,7 +122,7 @@ final class LabelDetailViewController: BaseViewController {
                 self.historyRecordableDelegate?.loaded(urlString: label.urlString, nameOrTitle: label.name, thumbnailUrlString: label.logoURLString, objectType: .label)
                 
                 Analytics.logEvent("view_label", parameters: ["label_id": label.id ?? "", "label_name": label.name ?? ""])
-                Crashlytics.sharedInstance().setObjectValue(label.generalDescription, forKey: "label")
+                Crashlytics.crashlytics().setCustomValue(label.generalDescription, forKey: "label")
                 
             case .failure(let error):
                 self.showHUD()

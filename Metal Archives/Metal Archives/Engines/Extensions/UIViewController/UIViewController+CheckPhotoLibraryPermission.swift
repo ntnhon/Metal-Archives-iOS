@@ -19,7 +19,7 @@ extension UIViewController {
             alert.addAction(cancelAction)
             self.present(alert, animated: true, completion: nil)
             return false
-        case .restricted: return false
+        case .restricted, .limited: return false
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization { (status) in
                 
