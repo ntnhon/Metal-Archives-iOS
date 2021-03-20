@@ -59,14 +59,26 @@ final class ArtistStatisticTableViewCell: BaseTableViewCell, RegisterableCell {
         let maleDataSet = BarChartDataSet(entries: [maleEntry], label: "Male (\(artistStatistic.male.formattedWithSeparator))")
         maleDataSet.colors = [.cyan]
         maleDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
+
+        // Non-binary
+        let nonBinaryEntry = BarChartDataEntry(x: Double(1.2), y: Double(artistStatistic.nonBinary))
+        let nonBinaryDataSet = BarChartDataSet(entries: [nonBinaryEntry], label: "Non-binary (\(artistStatistic.nonBinary.formattedWithSeparator))")
+        nonBinaryDataSet.colors = [.purple]
+        nonBinaryDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
+
+        // Non-gendered
+        let nonGenderedEntry = BarChartDataEntry(x: Double(1.4), y: Double(artistStatistic.nonGendered))
+        let nonGenderedDataSet = BarChartDataSet(entries: [nonGenderedEntry], label: "Non-gendered entities (companies, orchestras, etc.) (\(artistStatistic.nonGendered.formattedWithSeparator))")
+        nonGenderedDataSet.colors = [.brown]
+        nonGenderedDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
         
         //Unknown
-        let unknownEntry = BarChartDataEntry(x: Double(1.2), y: Double(artistStatistic.unknownOrEntities))
-        let unknownDataSet = BarChartDataSet(entries: [unknownEntry], label: "Unknown or entities (such as orchestras) (\(artistStatistic.unknownOrEntities.formattedWithSeparator))")
+        let unknownEntry = BarChartDataEntry(x: Double(1.6), y: Double(artistStatistic.unknown))
+        let unknownDataSet = BarChartDataSet(entries: [unknownEntry], label: "Unknown (\(artistStatistic.unknown.formattedWithSeparator))")
         unknownDataSet.colors = [.yellow]
         unknownDataSet.valueTextColor = Settings.currentTheme.bodyTextColor
         
-        let data = BarChartData(dataSets: [totalDataSet, deceasedDataSet, stillPlayingDataSet, quitPlayingDataSet, femaleDataSet, maleDataSet, unknownDataSet])
+        let data = BarChartData(dataSets: [totalDataSet, deceasedDataSet, stillPlayingDataSet, quitPlayingDataSet, femaleDataSet, maleDataSet, nonBinaryDataSet, nonGenderedDataSet, unknownDataSet])
         data.barWidth = 0.1
         self.barChartView.data = data
     }
