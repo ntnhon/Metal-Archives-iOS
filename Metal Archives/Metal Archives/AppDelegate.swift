@@ -11,7 +11,7 @@ import Alamofire
 import Toaster
 import SDWebImage
 import Firebase
-import Crashlytics
+import FirebaseCrashlytics
 import UserNotifications
 import Siren
 import FirebaseMessaging
@@ -232,20 +232,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 }
 
 //MARK: - MessagingDelegate
-extension AppDelegate {
+extension AppDelegate: MessagingDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
     }
     
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        
-    }
-}
-
-extension AppDelegate: MessagingDelegate {
-    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        
-    }
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {}
 }
 
 //MARK: - Ask for review

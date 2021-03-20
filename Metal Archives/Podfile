@@ -17,7 +17,7 @@ target 'Metal Archives' do
     pod 'SkyFloatingLabelTextField'
     pod 'Firebase/Core'
     pod 'Firebase/Messaging'
-    pod 'Crashlytics'
+    pod 'FirebaseCrashlytics'
     pod 'Siren'
     pod 'NotificationBannerSwift'
     pod 'MBProgressHUD'

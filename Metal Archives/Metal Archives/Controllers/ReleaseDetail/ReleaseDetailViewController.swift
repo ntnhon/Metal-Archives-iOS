@@ -9,7 +9,7 @@
 import UIKit
 import Toaster
 import FirebaseAnalytics
-import Crashlytics
+import FirebaseCrashlytics
 import Floaty
 import MBProgressHUD
 import EventKitUI
@@ -122,8 +122,7 @@ final class ReleaseDetailViewController: BaseViewController {
                 self.historyRecordableDelegate?.loaded(urlString: release.urlString, nameOrTitle: release.title, thumbnailUrlString: release.coverURLString, objectType: .release)
                 
                 Analytics.logEvent("view_release", parameters: ["release_title": release.title ?? "", "release_id": release.id ?? ""])
-                
-                Crashlytics.sharedInstance().setObjectValue(release.generalDescription, forKey: "release")
+                Crashlytics.crashlytics().setCustomValue(release.generalDescription, forKey: "release")
                 
             case .failure(let error):
                 self.showHUD()
