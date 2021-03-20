@@ -166,6 +166,7 @@
 		C03E4035228C718A004429E9 /* ParseBandMembersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */; };
 		C03E4036228C718A004429E9 /* DeathLastKnownLineup.txt in Resources */ = {isa = PBXBuildFile; fileRef = C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */; };
 		C03E403B228CA9D8004429E9 /* GravesCurrentLineup.txt in Resources */ = {isa = PBXBuildFile; fileRef = C03E403A228CA9D8004429E9 /* GravesCurrentLineup.txt */; };
+		C03E5AEB260690E700D3C6CD /* PhotoViewerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03E5AEA260690E700D3C6CD /* PhotoViewerViewController.xib */; };
 		C03E6B482247F167007153B9 /* UINavigationController+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E6B472247F167007153B9 /* UINavigationController+Theme.swift */; };
 		C03F440922306FEC005D7AA8 /* SimpleLyricalThemesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F440822306FEC005D7AA8 /* SimpleLyricalThemesTableViewCell.swift */; };
 		C03F440B22307128005D7AA8 /* SimpleLyricalThemesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03F440A22307128005D7AA8 /* SimpleLyricalThemesTableViewCell.xib */; };
@@ -446,7 +447,6 @@
 		C098587721FD09100069C348 /* UIStackView+SetBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C098587621FD09100069C348 /* UIStackView+SetBackgroundColor.swift */; };
 		C09A18A521FF182B00152908 /* String+HTMLToAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09A18A421FF182B00152908 /* String+HTMLToAttributedString.swift */; };
 		C09A18A821FF4CD400152908 /* PhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09A18A721FF4CD400152908 /* PhotoViewerViewController.swift */; };
-		C09A18AA21FF4CE200152908 /* PhotoViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09A18A921FF4CE200152908 /* PhotoViewer.storyboard */; };
 		C09A18AC21FF50AC00152908 /* UIViewController+PresentPhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09A18AB21FF50AC00152908 /* UIViewController+PresentPhotoViewerViewController.swift */; };
 		C09A4F5D21F3243D00421485 /* NewsArchiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09A4F5C21F3243D00421485 /* NewsArchiveViewController.swift */; };
 		C09A4F5F21F3245800421485 /* NewsArchive.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09A4F5E21F3245800421485 /* NewsArchive.storyboard */; };
@@ -777,6 +777,7 @@
 		C03E4033228C7189004429E9 /* ParseBandMembersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseBandMembersTests.swift; sourceTree = "<group>"; };
 		C03E4034228C7189004429E9 /* DeathLastKnownLineup.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DeathLastKnownLineup.txt; sourceTree = "<group>"; };
 		C03E403A228CA9D8004429E9 /* GravesCurrentLineup.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = GravesCurrentLineup.txt; sourceTree = "<group>"; };
+		C03E5AEA260690E700D3C6CD /* PhotoViewerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoViewerViewController.xib; sourceTree = "<group>"; };
 		C03E6B472247F167007153B9 /* UINavigationController+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Theme.swift"; sourceTree = "<group>"; };
 		C03F440822306FEC005D7AA8 /* SimpleLyricalThemesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLyricalThemesTableViewCell.swift; sourceTree = "<group>"; };
 		C03F440A22307128005D7AA8 /* SimpleLyricalThemesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleLyricalThemesTableViewCell.xib; sourceTree = "<group>"; };
@@ -1033,7 +1034,6 @@
 		C098587621FD09100069C348 /* UIStackView+SetBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+SetBackgroundColor.swift"; sourceTree = "<group>"; };
 		C09A18A421FF182B00152908 /* String+HTMLToAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTMLToAttributedString.swift"; sourceTree = "<group>"; };
 		C09A18A721FF4CD400152908 /* PhotoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerViewController.swift; sourceTree = "<group>"; };
-		C09A18A921FF4CE200152908 /* PhotoViewer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PhotoViewer.storyboard; sourceTree = "<group>"; };
 		C09A18AB21FF50AC00152908 /* UIViewController+PresentPhotoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentPhotoViewerViewController.swift"; sourceTree = "<group>"; };
 		C09A4F5C21F3243D00421485 /* NewsArchiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArchiveViewController.swift; sourceTree = "<group>"; };
 		C09A4F5E21F3245800421485 /* NewsArchive.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewsArchive.storyboard; sourceTree = "<group>"; };
@@ -2013,7 +2013,6 @@
 				C0602BDA21EA8FA900046367 /* Home.storyboard */,
 				C09A4F5E21F3245800421485 /* NewsArchive.storyboard */,
 				C06F1DFA21F7636F00B49D39 /* BandDetail.storyboard */,
-				C09A18A921FF4CE200152908 /* PhotoViewer.storyboard */,
 				C00838882200F23000B35996 /* ReadMore.storyboard */,
 				C03280012209E0F000FC9A44 /* ReleaseDetail.storyboard */,
 				C03270EA220B9360009FA337 /* Review.storyboard */,
@@ -2948,6 +2947,7 @@
 			isa = PBXGroup;
 			children = (
 				C09A18A721FF4CD400152908 /* PhotoViewerViewController.swift */,
+				C03E5AEA260690E700D3C6CD /* PhotoViewerViewController.xib */,
 			);
 			path = PhotoViewer;
 			sourceTree = "<group>";
@@ -3626,10 +3626,10 @@
 				C053DD42222698DE0028568B /* ReviewStatisticTableViewCell.xib in Resources */,
 				C066138E22899BA000F99006 /* UpcomingAlbumsTableViewCell.xib in Resources */,
 				C074FEE02205C46E0086909E /* MemberTableViewCell.xib in Resources */,
-				C09A18AA21FF4CE200152908 /* PhotoViewer.storyboard in Resources */,
 				C082CD9E22E48E97002202F6 /* DeezerArtistTableViewCell.xib in Resources */,
 				C028BECF244072C8009BF476 /* MyProfile.storyboard in Resources */,
 				C06613832289913000F99006 /* LatestReviewsTableViewCell.xib in Resources */,
+				C03E5AEB260690E700D3C6CD /* PhotoViewerViewController.xib in Resources */,
 				C0602BDB21EA8FA900046367 /* Home.storyboard in Resources */,
 				C00838892200F23000B35996 /* ReadMore.storyboard in Resources */,
 				C00E71392441E74900A17471 /* LabelBookmarkTableViewCell.xib in Resources */,
