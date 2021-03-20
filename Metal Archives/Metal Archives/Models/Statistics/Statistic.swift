@@ -42,35 +42,21 @@ final class Statistic {
                 return nil
         }
         
-        
-        for div in doc.css("div") {
-            if div["class"] == "ui-tabs-panel-content" {
-                
-                let ps = div.css("p")
-                
-                for i in 0..<ps.count {
-                    if i == 0 {
-                        dateAndTimeString = Statistic.parseDateAndTimeString(p: ps[i])
-                    } else if i == 1 {
-                        bandStatistic = Statistic.parseBandStatistic(p: ps[i])
-                    } else if i == 2 {
-                        reviewStatistic = Statistic.parseReviewStatistic(p: ps[i])
-                    } else if i == 3 {
-                        labelStatistic = Statistic.parseLabelStatistic(p: ps[i])
-                    } else if i == 4 {
-                        artistStatistic = Statistic.parseArtistStatistic(p: ps[i])
-                    } else if i == 5 {
-                        memberStatistic = Statistic.parseMemberStatistic(p: ps[i])
-                    } else if i == 6 {
-                        releaseStatistic = Statistic.parseReleaseStatistic(p: ps[i])
-                    }
+        if let div = doc.css("div").first(where: { $0["class"] == "ui-tabs-panel-content" }) {
+            for (index, p) in div.css("p").enumerated() {
+                switch index {
+                case 0: dateAndTimeString = Self.parseDateAndTimeString(p: p)
+                case 1: bandStatistic = Self.parseBandStatistic(p: p)
+                case 2: reviewStatistic = Self.parseReviewStatistic(p: p)
+                case 3: labelStatistic = Self.parseLabelStatistic(p: p)
+                case 4: artistStatistic = ArtistStatistic(p.innerHTML ?? "")
+                case 5: memberStatistic = Self.parseMemberStatistic(p: p)
+                case 6: releaseStatistic = Self.parseReleaseStatistic(p: p)
+                default: break
                 }
-                
-                break
             }
         }
-        
-        
+
         if let `dateAndTimeString` = dateAndTimeString,
             let `bandStatistic` = bandStatistic,
             let `reviewStatistic` = reviewStatistic,
@@ -225,59 +211,6 @@ extension Statistic {
         
         if let `total` = total, let `active` = active, let `closed` = closed, let `changedName` = changedName, let `unknown` = unknown {
             return LabelStatistic(total: total, active: active, closed: closed, changedName: changedName, unknown: unknown)
-        } else {
-            return nil
-        }
-    }
-    
-    private static func parseArtistStatistic(p: XMLElement) -> ArtistStatistic? {
-        /*
-         <p>
-         There is a total of <strong>677096</strong> artists. 554146 are still playing. 122950 quit playing music / metal. 4677 are deceased. 44044 are female, 627881 are male, 5128 are unknown or entities (such as orchestras).
-         </p>
-         */
-        
-        var total: Int?
-        var stillPlaying: Int?
-        var quitPlaying: Int?
-        var deceased: Int?
-        var female: Int?
-        var male: Int?
-        var unknownOrEntities: Int?
-        
-        //Total
-        if let strong = p.at_css("strong"), let strongString = strong.text {
-            total = Int(strongString)
-        }
-        
-        if let rawString = p.innerHTML {
-            if let stillPlayStringSubString = rawString.subString(after: "artists. ", before: " are still", options: .caseInsensitive) {
-                stillPlaying = Int(stillPlayStringSubString)
-            }
-            
-            if let quiPlayingSubString = rawString.subString(after: "playing. ", before: " quit playing", options: .caseInsensitive) {
-                quitPlaying = Int(quiPlayingSubString)
-            }
-            
-            if let deceasesSubString = rawString.subString(after: "music / metal. ", before: " are deceased", options: .caseInsensitive) {
-                deceased = Int(deceasesSubString)
-            }
-            
-            if let femaleSubString = rawString.subString(after: "deceased. ", before: " are female", options: .caseInsensitive) {
-                female = Int(femaleSubString)
-            }
-            
-            if let maleSubString = rawString.subString(after: "are female, ", before: " are male", options: .caseInsensitive) {
-                male = Int(maleSubString)
-            }
-            
-            if let unknownOrEntitiesSubString = rawString.subString(after: "are male, ", before: " are unknown", options: .caseInsensitive) {
-                unknownOrEntities = Int(unknownOrEntitiesSubString)
-            }
-        }
-        
-        if let `total` = total, let `stillPlaying` = stillPlaying, let `quitPlaying` = quitPlaying, let `deceased` = deceased, let `female` = female, let `male` = male, let `unknownOrEntities` = unknownOrEntities {
-            return ArtistStatistic(total: total, stillPlaying: stillPlaying, quitPlaying: quitPlaying, deceased: deceased, female: female, male: male, unknownOrEntities: unknownOrEntities)
         } else {
             return nil
         }
