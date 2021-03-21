@@ -72,7 +72,7 @@ final class AdvancedSearchAlbumsViewController: BaseAdvancedSearchTableViewContr
         case let advancedSearchCountryListViewController as AdvancedSearchCountryListViewController:
             advancedSearchCountryListViewController.selectedCountries = selectedCountries
             advancedSearchCountryListViewController.delegate = self
-            advancedSearchCountryListViewController.simpleNavigationBarView = simpleNavigationBarView
+            advancedSearchCountryListViewController.navigationBar = simpleNavigationBarView
 
         case let advancedSearchReleaseTypeListViewController as AdvancedSearchReleaseTypeListViewController:
             advancedSearchReleaseTypeListViewController.selectedReleaseTypes = selectedReleaseTypes

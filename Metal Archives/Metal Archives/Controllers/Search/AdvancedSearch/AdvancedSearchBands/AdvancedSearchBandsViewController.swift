@@ -56,7 +56,7 @@ final class AdvancedSearchBandsViewController: BaseAdvancedSearchTableViewContro
         case let advancedSearchCountryListViewController as AdvancedSearchCountryListViewController:
             advancedSearchCountryListViewController.selectedCountries = selectedCountries
             advancedSearchCountryListViewController.delegate = self
-            advancedSearchCountryListViewController.simpleNavigationBarView = simpleNavigationBarView
+            advancedSearchCountryListViewController.navigationBar = simpleNavigationBarView
 
         case let advancedSearchBandStatusListViewController as AdvancedSearchBandStatusListViewController:
             advancedSearchBandStatusListViewController.selectedStatus = selectedBandStatus
