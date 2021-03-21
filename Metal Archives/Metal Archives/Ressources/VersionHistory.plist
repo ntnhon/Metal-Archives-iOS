@@ -4,6 +4,15 @@
 <array>
 	<dict>
 		<key>number</key>
+		<string>4.4</string>
+		<key>date</key>
+		<string>March 2021</string>
+		<key>features</key>
+		<string>- Fix buttons in photo viewer not tappable for iPhone X and above.
+- Fix statistics page error.</string>
+	</dict>
+	<dict>
+		<key>number</key>
 		<string>4.3</string>
 		<key>date</key>
 		<string>May 2020</string>
