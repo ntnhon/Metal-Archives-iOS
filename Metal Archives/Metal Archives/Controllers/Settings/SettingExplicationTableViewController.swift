@@ -47,9 +47,9 @@ final class SettingExplicationTableViewController: BaseSubSettingsTableViewContr
     
     private func setText() {
         if explainThumbnail {
-            explicationTextView.text = "Metal Archives server limits the number of request that a client can make at a same time (for performance and security issues). You will find yourregularly in a list of things with thumbnails, e.g., bands, releases, artists, and labels. As every thumbnail is a request to server, you may notice that sometimes it takes a while for loading stuffs (it means you're temporarily blocked by the server).\n\nBut no worry, the application handles this situation by retrying requests, all you have to do is wait. It is good to know that thumbnail requests reduce with time as the application smartly caches images. It's up to you to see."
+            explicationTextView.text = "Metal Archives server limits the number of request that a client can make at a same time (for performance and security issues). You will sometimes find yourself in a list of things with thumbnails, e.g., bands, releases, artists, and labels. As every thumbnail is a request to server, you may notice that sometimes it takes a while to load (it means you're temporarily blocked by the server).\n\nBut no worry, the application handles this situation by retrying requests. It is good to know that thumbnail requests reduce with time as the application smartly caches images. It's up to you to decide."
         } else if explainWidget {
-            explicationTextView.text = "Widget is an extension of the application which can be added to your Notification Center along side with other famous default widgets like Weather and Calendar.\n\nMetal Archives widget helps you stay updated without opening the application."
+            explicationTextView.text = "Widget is an extension of the application which can be added to your Notification Center along side with other famous default widgets like Weather and Calendar.\n\nMetal Archives widget helps you stay up to date without opening the application."
         }
     }
 }
