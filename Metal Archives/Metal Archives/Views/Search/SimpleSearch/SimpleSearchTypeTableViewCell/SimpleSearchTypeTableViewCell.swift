@@ -29,7 +29,7 @@ final class SimpleSearchTypeTableViewCell: BaseTableViewCell, RegisterableCell {
         horizontalOptionsView = HorizontalOptionsView(options: options, font: Settings.currentFontSize.bodyTextFont, textColor: Settings.currentTheme.bodyTextColor, normalColor: Settings.currentTheme.backgroundColor, highlightColor: Settings.currentTheme.secondaryTitleColor)
         horizontalOptionsView.selectedIndex = 0
         
-        addSubview(horizontalOptionsView)
+        contentView.addSubview(horizontalOptionsView)
         horizontalOptionsView.fillSuperview()
     }
 }
