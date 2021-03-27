@@ -4,6 +4,15 @@
 <array>
 	<dict>
 		<key>number</key>
+		<string>4.5</string>
+		<key>date</key>
+		<string>March 2021</string>
+		<key>features</key>
+		<string>Fix a bug that prevents you from changing simple search type on iOS 14 and above.
+Thank to Rob for reporting this issue.</string>
+	</dict>
+	<dict>
+		<key>number</key>
 		<string>4.4</string>
 		<key>date</key>
 		<string>March 2021</string>
