@@ -13,6 +13,11 @@
 		C00A79D92657024A004FA9D7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00A79D82657024A004FA9D7 /* Preview Assets.xcassets */; };
 		C00A79E42657024B004FA9D7 /* Metal_ArchivesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A79E32657024B004FA9D7 /* Metal_ArchivesTests.swift */; };
 		C00A79EF2657024B004FA9D7 /* Metal_ArchivesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A79EE2657024B004FA9D7 /* Metal_ArchivesUITests.swift */; };
+		C0A37B6A26584DDB0017A02F /* MACountries.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A37B6926584DDB0017A02F /* MACountries.json */; };
+		C0A37B6D26584E980017A02F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B6C26584E980017A02F /* Country.swift */; };
+		C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B6F26584FB40017A02F /* CountryManager.swift */; };
+		C0A37B742658591E0017A02F /* CountryManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B732658591E0017A02F /* CountryManagerTests.swift */; };
+		C0A37B7826585C4A0017A02F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B7726585C4A0017A02F /* StringExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +51,11 @@
 		C00A79EE2657024B004FA9D7 /* Metal_ArchivesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metal_ArchivesUITests.swift; sourceTree = "<group>"; };
 		C00A79F02657024B004FA9D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0A37B6426584A690017A02F /* Metal Archives.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Metal Archives.entitlements"; sourceTree = "<group>"; };
+		C0A37B6926584DDB0017A02F /* MACountries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MACountries.json; sourceTree = "<group>"; };
+		C0A37B6C26584E980017A02F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		C0A37B6F26584FB40017A02F /* CountryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryManager.swift; sourceTree = "<group>"; };
+		C0A37B732658591E0017A02F /* CountryManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryManagerTests.swift; sourceTree = "<group>"; };
+		C0A37B7726585C4A0017A02F /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +109,11 @@
 				C0A37B6426584A690017A02F /* Metal Archives.entitlements */,
 				C00A79D126570245004FA9D7 /* Metal_ArchivesApp.swift */,
 				C00A79D326570245004FA9D7 /* ContentView.swift */,
+				C0A37B6E26584F920017A02F /* Managers */,
+				C0A37B6626584C1B0017A02F /* Models */,
+				C0A37B6726584C2D0017A02F /* Modules */,
+				C0A37B6526584C100017A02F /* Networking */,
+				C0A37B6826584D990017A02F /* Resources */,
 				C00A79D52657024A004FA9D7 /* Assets.xcassets */,
 				C00A79DA2657024A004FA9D7 /* Info.plist */,
 				C00A79D72657024A004FA9D7 /* Preview Content */,
@@ -119,6 +134,8 @@
 			children = (
 				C00A79E32657024B004FA9D7 /* Metal_ArchivesTests.swift */,
 				C00A79E52657024B004FA9D7 /* Info.plist */,
+				C0A37B72265859080017A02F /* Managers */,
+				C0A37B7626585C380017A02F /* Utilities */,
 			);
 			path = "Metal ArchivesTests";
 			sourceTree = "<group>";
@@ -132,6 +149,60 @@
 			path = "Metal ArchivesUITests";
 			sourceTree = "<group>";
 		};
+		C0A37B6526584C100017A02F /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		C0A37B6626584C1B0017A02F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C0A37B6C26584E980017A02F /* Country.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C0A37B6726584C2D0017A02F /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		C0A37B6826584D990017A02F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C0A37B6926584DDB0017A02F /* MACountries.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C0A37B6E26584F920017A02F /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C0A37B6F26584FB40017A02F /* CountryManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		C0A37B72265859080017A02F /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C0A37B732658591E0017A02F /* CountryManagerTests.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		C0A37B7626585C380017A02F /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C0A37B7726585C4A0017A02F /* StringExtensions.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -142,6 +213,7 @@
 				C00A79CA26570245004FA9D7 /* Sources */,
 				C00A79CB26570245004FA9D7 /* Frameworks */,
 				C00A79CC26570245004FA9D7 /* Resources */,
+				C0A37B71265852F80017A02F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -236,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C00A79D92657024A004FA9D7 /* Preview Assets.xcassets in Resources */,
+				C0A37B6A26584DDB0017A02F /* MACountries.json in Resources */,
 				C00A79D62657024A004FA9D7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,12 +329,34 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C0A37B71265852F80017A02F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C00A79CA26570245004FA9D7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C00A79D426570245004FA9D7 /* ContentView.swift in Sources */,
+				C0A37B6D26584E980017A02F /* Country.swift in Sources */,
+				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,6 +365,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0A37B7826585C4A0017A02F /* StringExtensions.swift in Sources */,
+				C0A37B742658591E0017A02F /* CountryManagerTests.swift in Sources */,
 				C00A79E42657024B004FA9D7 /* Metal_ArchivesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
