@@ -6,7 +6,9 @@
 //
 
 extension StringProtocol where Index == String.Index {
-    func subSequence(after: String, before: String? = nil, options: String.CompareOptions = []) -> SubSequence? {
+    func subSequence(after: String,
+                     before: String? = nil,
+                     options: String.CompareOptions = []) -> SubSequence? {
         guard let lowerBound = range(of: after, options: options)?.upperBound else { return nil }
         guard let before = before,
             let upperbound = self[lowerBound..<endIndex].range(of: before, options: options)?.lowerBound else {
@@ -15,7 +17,9 @@ extension StringProtocol where Index == String.Index {
         return self[lowerBound..<upperbound]
     }
 
-    func subString(after: String, before: String? = nil, options: String.CompareOptions = .caseInsensitive) -> String? {
+    func subString(after: String,
+                   before: String? = nil,
+                   options: String.CompareOptions = .caseInsensitive) -> String? {
         guard let subSequence = subSequence(after: after, before: before, options: options) else {
             return nil
         }

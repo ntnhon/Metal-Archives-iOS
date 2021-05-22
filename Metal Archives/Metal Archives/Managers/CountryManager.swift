@@ -10,7 +10,6 @@ import Foundation
 struct CountryManager {
     let countries: [Country]
 
-    // swiftlint:disable:next unavailable_function
     private init() {
         guard let path = Bundle.main.path(forResource: "MACountries", ofType: "json"),
            let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
@@ -21,8 +20,8 @@ struct CountryManager {
         var countries = [Country]()
         countriesDict.keys.forEach { isoCode in
             if let countryDict = countriesDict[isoCode] as? [String: String],
-               let emoji = countryDict["emoji"], let name = countryDict["name"] {
-                countries.append(.init(isoCode: isoCode, emoji: emoji, name: name))
+               let flag = countryDict["flag"], let name = countryDict["name"] {
+                countries.append(.init(isoCode: isoCode, flag: flag, name: name))
             } else {
                 fatalError("Failed to load parse country with isoCode: \(isoCode)")
             }

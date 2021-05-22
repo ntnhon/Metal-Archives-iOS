@@ -18,21 +18,33 @@ class CountryManagerTests: XCTestCase {
 
     func testInitSuccess() {
         XCTAssertNotNil(sut)
-        XCTAssertTrue(sut.countries.count == 149, "There should be 149 countries")
+        XCTAssertEqual(sut.countries.count, 149)
     }
 
-    func testGetCountryByIsoCode() {
-        XCTAssertNil(sut.country(by: \.isoCode, value: "II"), "There is no country with such code II")
-        XCTAssertNotNil(sut.country(by: \.isoCode, value: "VN"), "Vietnam is supported")
+    func testGetCountryByIsoCode() throws {
+        XCTAssertNil(sut.country(by: \.isoCode, value: "II"))
+
+        let vietnam = try XCTUnwrap(sut.country(by: \.isoCode, value: "VN"))
+        XCTAssertEqual(vietnam.isoCode, "VN")
+        XCTAssertEqual(vietnam.name, "Vietnam")
+        XCTAssertEqual(vietnam.flag, "🇻🇳")
     }
 
-    func testGetCountryByEmoji() {
-        XCTAssertNil(sut.country(by: \.emoji, value: "👽"), "There is no country with such flag 👽")
-        XCTAssertNotNil(sut.country(by: \.emoji, value: "🇫🇷"), "France is supported")
+    func testGetCountryByEmoji() throws {
+        XCTAssertNil(sut.country(by: \.flag, value: "👽"))
+
+        let france = try XCTUnwrap(sut.country(by: \.flag, value: "🇫🇷"))
+        XCTAssertEqual(france.isoCode, "FR")
+        XCTAssertEqual(france.name, "France")
+        XCTAssertEqual(france.flag, "🇫🇷")
     }
 
-    func testGetCountryByName() {
-        XCTAssertNil(sut.country(by: \.name, value: "Doge"), "There is no country with such name Doge")
-        XCTAssertNotNil(sut.country(by: \.name, value: "United Kingdom"), "United Kingdom is supported")
+    func testGetCountryByName() throws {
+        XCTAssertNil(sut.country(by: \.name, value: "Doge"))
+
+        let uk = try XCTUnwrap(sut.country(by: \.name, value: "United Kingdom"))
+        XCTAssertEqual(uk.isoCode, "GB")
+        XCTAssertEqual(uk.name, "United Kingdom")
+        XCTAssertEqual(uk.flag, "🇬🇧")
     }
 }

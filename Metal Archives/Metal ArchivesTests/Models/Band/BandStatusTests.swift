@@ -11,7 +11,7 @@ import XCTest
 class BandStatusTests: XCTestCase {
     func testStatusActive() {
         ["Active", "active", "aCtive", "actiVE"].forEach {
-            let sut = Band.Status(rawValue: $0)
+            let sut = BandStatus(rawValue: $0)
             XCTAssertEqual(sut, .active)
             XCTAssertEqual(sut.rawValue, "Active")
         }
@@ -19,7 +19,7 @@ class BandStatusTests: XCTestCase {
 
     func testStatusOnHold() {
         ["on hold", "On Hold", "on Hold", "On hold", "on hOlD"].forEach {
-            let sut = Band.Status(rawValue: $0)
+            let sut = BandStatus(rawValue: $0)
             XCTAssertEqual(sut, .onHold)
             XCTAssertEqual(sut.rawValue, "On hold")
         }
@@ -27,7 +27,7 @@ class BandStatusTests: XCTestCase {
 
     func testStatusSplitUp() {
         ["Split-up", "split-up", "spliT-Up", "Split up", "split UP"].forEach {
-            let sut = Band.Status(rawValue: $0)
+            let sut = BandStatus(rawValue: $0)
             XCTAssertEqual(sut, .splitUp)
             XCTAssertEqual(sut.rawValue, "Split up")
         }
@@ -35,7 +35,7 @@ class BandStatusTests: XCTestCase {
 
     func testStatusChangedName() {
         ["Changed name", "changed name", "cHanged name", "changed Name"].forEach {
-            let sut = Band.Status(rawValue: $0)
+            let sut = BandStatus(rawValue: $0)
             XCTAssertEqual(sut, .changedName)
             XCTAssertEqual(sut.rawValue, "Changed name")
         }
@@ -43,7 +43,7 @@ class BandStatusTests: XCTestCase {
 
     func testStatusDisputed() {
         ["Disputed", "disputed", "dISputed"].forEach {
-            let sut = Band.Status(rawValue: $0)
+            let sut = BandStatus(rawValue: $0)
             XCTAssertEqual(sut, .disputed)
             XCTAssertEqual(sut.rawValue, "Disputed")
         }
@@ -51,7 +51,7 @@ class BandStatusTests: XCTestCase {
 
     func testStatusUnknown() {
         ["Unknown", "unknown", "uKNown", "unknowN", "", "ssqcfe"].forEach {
-            let sut = Band.Status(rawValue: $0)
+            let sut = BandStatus(rawValue: $0)
             XCTAssertEqual(sut, .unknown)
             XCTAssertEqual(sut.rawValue, "Unknown")
         }

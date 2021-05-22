@@ -9,10 +9,10 @@ import Foundation
 
 struct Country {
     let isoCode: String
-    let emoji: String
+    let flag: String
     let name: String
 
-    var nameAndEmoji: String { "\(name) \(emoji)" }
+    var nameAndFlag: String { "\(name) \(flag)" }
 }
 
 extension Country: Comparable {
