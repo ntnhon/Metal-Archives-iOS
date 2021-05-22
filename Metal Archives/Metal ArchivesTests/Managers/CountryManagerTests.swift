@@ -22,7 +22,7 @@ class CountryManagerTests: XCTestCase {
     }
 
     func testGetCountryByIsoCode() {
-        XCTAssertNil(sut.country(by: \.isoCode, value: "II"), "There is no country with such code XX")
+        XCTAssertNil(sut.country(by: \.isoCode, value: "II"), "There is no country with such code II")
         XCTAssertNotNil(sut.country(by: \.isoCode, value: "VN"), "Vietnam is supported")
     }
 

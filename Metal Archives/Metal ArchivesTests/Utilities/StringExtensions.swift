@@ -13,4 +13,8 @@ extension String {
         // swiftlint:disable:next force_unwrapping
         return String((0..<length).map { _ in letters.randomElement()! })
     }
+
+    static func randomIdString() -> String {
+        Int.random(in: 10_000..<20_000).toString()
+    }
 }

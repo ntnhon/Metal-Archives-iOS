@@ -7,12 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C004A2B62658F17B0071E12A /* LabelLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2B52658F17B0071E12A /* LabelLite.swift */; };
+		C004A2B82658F2E70071E12A /* ModificationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2B72658F2E70071E12A /* ModificationInfo.swift */; };
+		C004A2BB2658F3290071E12A /* UserLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2BA2658F3290071E12A /* UserLite.swift */; };
+		C004A2BE2658F3760071E12A /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2BD2658F3760071E12A /* StringExtensions.swift */; };
+		C004A2C02658F4F40071E12A /* DateFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2BF2658F4F40071E12A /* DateFormatterExtensions.swift */; };
+		C004A2C42658FBF00071E12A /* UserLiteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2C32658FBF00071E12A /* UserLiteTests.swift */; };
+		C004A2C62658FE310071E12A /* ModificationInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2C52658FE310071E12A /* ModificationInfoTests.swift */; };
+		C004A2C9265900B50071E12A /* LabelLiteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2C8265900B50071E12A /* LabelLiteTests.swift */; };
+		C004A2CB26590D380071E12A /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2CA26590D380071E12A /* IntExtensions.swift */; };
+		C004A2CD26590EB50071E12A /* Metal_ArchivesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2CC26590EB50071E12A /* Metal_ArchivesUITests.swift */; };
+		C004A2D026590FBD0071E12A /* BandStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2CF26590FBD0071E12A /* BandStatusTests.swift */; };
 		C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A79D126570245004FA9D7 /* Metal_ArchivesApp.swift */; };
 		C00A79D426570245004FA9D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A79D326570245004FA9D7 /* ContentView.swift */; };
 		C00A79D62657024A004FA9D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00A79D52657024A004FA9D7 /* Assets.xcassets */; };
 		C00A79D92657024A004FA9D7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00A79D82657024A004FA9D7 /* Preview Assets.xcassets */; };
-		C00A79E42657024B004FA9D7 /* Metal_ArchivesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A79E32657024B004FA9D7 /* Metal_ArchivesTests.swift */; };
-		C00A79EF2657024B004FA9D7 /* Metal_ArchivesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A79EE2657024B004FA9D7 /* Metal_ArchivesUITests.swift */; };
+		C041C3122658EE74006B0F1F /* Band.swift in Sources */ = {isa = PBXBuildFile; fileRef = C041C3112658EE74006B0F1F /* Band.swift */; };
 		C0A37B6A26584DDB0017A02F /* MACountries.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A37B6926584DDB0017A02F /* MACountries.json */; };
 		C0A37B6D26584E980017A02F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B6C26584E980017A02F /* Country.swift */; };
 		C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B6F26584FB40017A02F /* CountryManager.swift */; };
@@ -38,6 +48,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C004A2B52658F17B0071E12A /* LabelLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLite.swift; sourceTree = "<group>"; };
+		C004A2B72658F2E70071E12A /* ModificationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModificationInfo.swift; sourceTree = "<group>"; };
+		C004A2BA2658F3290071E12A /* UserLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLite.swift; sourceTree = "<group>"; };
+		C004A2BD2658F3760071E12A /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		C004A2BF2658F4F40071E12A /* DateFormatterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtensions.swift; sourceTree = "<group>"; };
+		C004A2C32658FBF00071E12A /* UserLiteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLiteTests.swift; sourceTree = "<group>"; };
+		C004A2C52658FE310071E12A /* ModificationInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModificationInfoTests.swift; sourceTree = "<group>"; };
+		C004A2C8265900B50071E12A /* LabelLiteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLiteTests.swift; sourceTree = "<group>"; };
+		C004A2CA26590D380071E12A /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
+		C004A2CC26590EB50071E12A /* Metal_ArchivesUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metal_ArchivesUITests.swift; sourceTree = "<group>"; };
+		C004A2CF26590FBD0071E12A /* BandStatusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandStatusTests.swift; sourceTree = "<group>"; };
 		C00A79CE26570245004FA9D7 /* Metal Archives.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Metal Archives.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C00A79D126570245004FA9D7 /* Metal_ArchivesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metal_ArchivesApp.swift; sourceTree = "<group>"; };
 		C00A79D326570245004FA9D7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -45,11 +66,10 @@
 		C00A79D82657024A004FA9D7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C00A79DA2657024A004FA9D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C00A79DF2657024B004FA9D7 /* Metal ArchivesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Metal ArchivesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C00A79E32657024B004FA9D7 /* Metal_ArchivesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metal_ArchivesTests.swift; sourceTree = "<group>"; };
 		C00A79E52657024B004FA9D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C00A79EA2657024B004FA9D7 /* Metal ArchivesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Metal ArchivesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C00A79EE2657024B004FA9D7 /* Metal_ArchivesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metal_ArchivesUITests.swift; sourceTree = "<group>"; };
 		C00A79F02657024B004FA9D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C041C3112658EE74006B0F1F /* Band.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Band.swift; sourceTree = "<group>"; };
 		C0A37B6426584A690017A02F /* Metal Archives.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Metal Archives.entitlements"; sourceTree = "<group>"; };
 		C0A37B6926584DDB0017A02F /* MACountries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MACountries.json; sourceTree = "<group>"; };
 		C0A37B6C26584E980017A02F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
@@ -83,6 +103,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C004A2B92658F31C0071E12A /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C004A2BA2658F3290071E12A /* UserLite.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		C004A2BC2658F3630071E12A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C004A2BF2658F4F40071E12A /* DateFormatterExtensions.swift */,
+				C004A2BD2658F3760071E12A /* StringExtensions.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		C004A2C12658FBCA0071E12A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C004A2CE26590FB00071E12A /* Band */,
+				C004A2C7265900AC0071E12A /* Label */,
+				C004A2C22658FBDE0071E12A /* User */,
+				C004A2C52658FE310071E12A /* ModificationInfoTests.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C004A2C22658FBDE0071E12A /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C004A2C32658FBF00071E12A /* UserLiteTests.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		C004A2C7265900AC0071E12A /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				C004A2C8265900B50071E12A /* LabelLiteTests.swift */,
+			);
+			path = Label;
+			sourceTree = "<group>";
+		};
+		C004A2CE26590FB00071E12A /* Band */ = {
+			isa = PBXGroup;
+			children = (
+				C004A2CF26590FBD0071E12A /* BandStatusTests.swift */,
+			);
+			path = Band;
+			sourceTree = "<group>";
+		};
 		C00A79C526570245004FA9D7 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +186,7 @@
 				C0A37B6726584C2D0017A02F /* Modules */,
 				C0A37B6526584C100017A02F /* Networking */,
 				C0A37B6826584D990017A02F /* Resources */,
+				C004A2BC2658F3630071E12A /* Utilities */,
 				C00A79D52657024A004FA9D7 /* Assets.xcassets */,
 				C00A79DA2657024A004FA9D7 /* Info.plist */,
 				C00A79D72657024A004FA9D7 /* Preview Content */,
@@ -132,9 +205,9 @@
 		C00A79E22657024B004FA9D7 /* Metal ArchivesTests */ = {
 			isa = PBXGroup;
 			children = (
-				C00A79E32657024B004FA9D7 /* Metal_ArchivesTests.swift */,
 				C00A79E52657024B004FA9D7 /* Info.plist */,
 				C0A37B72265859080017A02F /* Managers */,
+				C004A2C12658FBCA0071E12A /* Models */,
 				C0A37B7626585C380017A02F /* Utilities */,
 			);
 			path = "Metal ArchivesTests";
@@ -143,10 +216,26 @@
 		C00A79ED2657024B004FA9D7 /* Metal ArchivesUITests */ = {
 			isa = PBXGroup;
 			children = (
-				C00A79EE2657024B004FA9D7 /* Metal_ArchivesUITests.swift */,
+				C004A2CC26590EB50071E12A /* Metal_ArchivesUITests.swift */,
 				C00A79F02657024B004FA9D7 /* Info.plist */,
 			);
 			path = "Metal ArchivesUITests";
+			sourceTree = "<group>";
+		};
+		C041C3102658EE5F006B0F1F /* Band */ = {
+			isa = PBXGroup;
+			children = (
+				C041C3112658EE74006B0F1F /* Band.swift */,
+			);
+			path = Band;
+			sourceTree = "<group>";
+		};
+		C041C3132658EF19006B0F1F /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				C004A2B52658F17B0071E12A /* LabelLite.swift */,
+			);
+			path = Label;
 			sourceTree = "<group>";
 		};
 		C0A37B6526584C100017A02F /* Networking */ = {
@@ -159,7 +248,11 @@
 		C0A37B6626584C1B0017A02F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C041C3102658EE5F006B0F1F /* Band */,
+				C041C3132658EF19006B0F1F /* Label */,
+				C004A2B92658F31C0071E12A /* User */,
 				C0A37B6C26584E980017A02F /* Country.swift */,
+				C004A2B72658F2E70071E12A /* ModificationInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -199,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				C0A37B7726585C4A0017A02F /* StringExtensions.swift */,
+				C004A2CA26590D380071E12A /* IntExtensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -278,6 +372,7 @@
 					};
 					C00A79E92657024B004FA9D7 = {
 						CreatedOnToolsVersion = 12.5;
+						LastSwiftMigration = 1250;
 						TestTargetID = C00A79CD26570245004FA9D7;
 					};
 				};
@@ -354,10 +449,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C041C3122658EE74006B0F1F /* Band.swift in Sources */,
 				C00A79D426570245004FA9D7 /* ContentView.swift in Sources */,
+				C004A2BE2658F3760071E12A /* StringExtensions.swift in Sources */,
+				C004A2BB2658F3290071E12A /* UserLite.swift in Sources */,
+				C004A2C02658F4F40071E12A /* DateFormatterExtensions.swift in Sources */,
+				C004A2B82658F2E70071E12A /* ModificationInfo.swift in Sources */,
 				C0A37B6D26584E980017A02F /* Country.swift in Sources */,
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
+				C004A2B62658F17B0071E12A /* LabelLite.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,9 +466,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C004A2CB26590D380071E12A /* IntExtensions.swift in Sources */,
 				C0A37B7826585C4A0017A02F /* StringExtensions.swift in Sources */,
 				C0A37B742658591E0017A02F /* CountryManagerTests.swift in Sources */,
-				C00A79E42657024B004FA9D7 /* Metal_ArchivesTests.swift in Sources */,
+				C004A2C62658FE310071E12A /* ModificationInfoTests.swift in Sources */,
+				C004A2D026590FBD0071E12A /* BandStatusTests.swift in Sources */,
+				C004A2C42658FBF00071E12A /* UserLiteTests.swift in Sources */,
+				C004A2C9265900B50071E12A /* LabelLiteTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,7 +480,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C00A79EF2657024B004FA9D7 /* Metal_ArchivesUITests.swift in Sources */,
+				C004A2CD26590EB50071E12A /* Metal_ArchivesUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +712,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Metal ArchivesUITests/Info.plist";
@@ -617,6 +723,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "info.nguyenthanhnhon.Metal-Archives.SwiftUI.Metal-ArchivesUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Metal Archives";
@@ -627,6 +734,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Metal ArchivesUITests/Info.plist";
