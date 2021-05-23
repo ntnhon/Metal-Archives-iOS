@@ -1,0 +1,32 @@
+<script type="c59a05ba584597cab106bc34-text/javascript" src="https://www.metal-archives.com/js/jquery/jquery.dataTables.min.js"></script>
+<script type="c59a05ba584597cab106bc34-text/javascript">
+
+// Prepare band recommendation dialog
+$(document).ready(function() {
+    $(".no-js").removeClass("no-js");
+    $('#similarBandSelection').dialog({ autoOpen: false, width: 600, height: 500, modal: true, overlay: { opacity: 0.5, background: 'white'} });
+    $('#bandSearch').ajaxForm({ target: '#bandSearchResults', beforeSubmit: toggleLoading, success: toggleLoading});
+});
+
+</script>
+<div id="band_simartists">
+<div class="tool_strip top right writeAction">
+</div>
+</div>
+<div class="ui-tabs-panel-content block_spacer_top_36">
+<table id="artist_list" class="display" cellpadding="0" cellspacing="0">
+<thead>
+<tr>
+<th>Name</th>
+<th width="82">Country</th>
+<th>Genre</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr><td colspan="5" id="no_artists">No similar artist has been recommended yet. (Read more about <a href="https://www.metal-archives.com/content/help#tab_similar">this</a>.)</td></tr>
+<tr><td colspan="5" id="show_more">(<a href="https://www.metal-archives.com/bands/Veracidad/3540488828#Similar_artists">show top 20 only</a>)</td></tr>
+</tbody>
+</table>
+</div>
+<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="c59a05ba584597cab106bc34-|49" defer=""></script>

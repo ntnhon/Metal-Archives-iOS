@@ -29,6 +29,11 @@
 		C0250C22265A39DB00BB6CD9 /* DiscographyPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */; };
 		C0250C24265A3AA700BB6CD9 /* DiscographyEmpty.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C23265A3AA700BB6CD9 /* DiscographyEmpty.html */; };
 		C0250C29265A432500BB6CD9 /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0250C28265A432500BB6CD9 /* DataExtensions.swift */; };
+		C0250C2B265A4BF200BB6CD9 /* SimilarBands.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0250C2A265A4BF200BB6CD9 /* SimilarBands.swift */; };
+		C0250C2E265A541400BB6CD9 /* SimilarBandsLoggedIn.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C2D265A541400BB6CD9 /* SimilarBandsLoggedIn.html */; };
+		C0250C30265A543500BB6CD9 /* SimilarBandsPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C2F265A543500BB6CD9 /* SimilarBandsPublic.html */; };
+		C0250C32265A545E00BB6CD9 /* SimilarBandsEmpty.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C31265A545E00BB6CD9 /* SimilarBandsEmpty.html */; };
+		C0250C34265A548F00BB6CD9 /* SimilarBandsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0250C33265A548F00BB6CD9 /* SimilarBandsTests.swift */; };
 		C0387399265996AE00D2FD5E /* BandStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0387398265996AE00D2FD5E /* BandStatus.swift */; };
 		C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739A265996F000D2FD5E /* ReleaseType.swift */; };
 		C038739D2659A7E700D2FD5E /* BandLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739C2659A7E700D2FD5E /* BandLite.swift */; };
@@ -92,6 +97,11 @@
 		C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DiscographyPublic.html; sourceTree = "<group>"; };
 		C0250C23265A3AA700BB6CD9 /* DiscographyEmpty.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DiscographyEmpty.html; sourceTree = "<group>"; };
 		C0250C28265A432500BB6CD9 /* DataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
+		C0250C2A265A4BF200BB6CD9 /* SimilarBands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SimilarBands.swift; path = ../../../../../../../SimilarBands.swift; sourceTree = "<group>"; };
+		C0250C2D265A541400BB6CD9 /* SimilarBandsLoggedIn.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = SimilarBandsLoggedIn.html; sourceTree = "<group>"; };
+		C0250C2F265A543500BB6CD9 /* SimilarBandsPublic.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = SimilarBandsPublic.html; sourceTree = "<group>"; };
+		C0250C31265A545E00BB6CD9 /* SimilarBandsEmpty.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = SimilarBandsEmpty.html; sourceTree = "<group>"; };
+		C0250C33265A548F00BB6CD9 /* SimilarBandsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarBandsTests.swift; sourceTree = "<group>"; };
 		C0387398265996AE00D2FD5E /* BandStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BandStatus.swift; path = ../../../../../../../Desktop/BandStatus.swift; sourceTree = "<group>"; };
 		C038739A265996F000D2FD5E /* ReleaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseType.swift; sourceTree = "<group>"; };
 		C038739C2659A7E700D2FD5E /* BandLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLite.swift; sourceTree = "<group>"; };
@@ -185,6 +195,7 @@
 			children = (
 				C004A2CF26590FBD0071E12A /* BandStatusTests.swift */,
 				C0250C1A265A385400BB6CD9 /* DiscographyTests.swift */,
+				C0250C33265A548F00BB6CD9 /* SimilarBandsTests.swift */,
 			);
 			path = Band;
 			sourceTree = "<group>";
@@ -279,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				C0250C25265A3AD300BB6CD9 /* Discography */,
+				C0250C2C265A53F500BB6CD9 /* SimilarBands */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -291,6 +303,16 @@
 				C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */,
 			);
 			path = Discography;
+			sourceTree = "<group>";
+		};
+		C0250C2C265A53F500BB6CD9 /* SimilarBands */ = {
+			isa = PBXGroup;
+			children = (
+				C0250C2D265A541400BB6CD9 /* SimilarBandsLoggedIn.html */,
+				C0250C2F265A543500BB6CD9 /* SimilarBandsPublic.html */,
+				C0250C31265A545E00BB6CD9 /* SimilarBandsEmpty.html */,
+			);
+			path = SimilarBands;
 			sourceTree = "<group>";
 		};
 		C038739E2659A90A00D2FD5E /* Artist */ = {
@@ -309,6 +331,7 @@
 				C03873A12659AAD000D2FD5E /* BandSimilar.swift */,
 				C0387398265996AE00D2FD5E /* BandStatus.swift */,
 				C03873AA2659AE4B00D2FD5E /* Discography.swift */,
+				C0250C2A265A4BF200BB6CD9 /* SimilarBands.swift */,
 			);
 			path = Band;
 			sourceTree = "<group>";
@@ -506,8 +529,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0250C20265A391400BB6CD9 /* DiscographyLoggedIn.html in Resources */,
+				C0250C30265A543500BB6CD9 /* SimilarBandsPublic.html in Resources */,
 				C0250C22265A39DB00BB6CD9 /* DiscographyPublic.html in Resources */,
+				C0250C2E265A541400BB6CD9 /* SimilarBandsLoggedIn.html in Resources */,
 				C0250C24265A3AA700BB6CD9 /* DiscographyEmpty.html in Resources */,
+				C0250C32265A545E00BB6CD9 /* SimilarBandsEmpty.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,6 +589,7 @@
 				C03873A02659A92F00D2FD5E /* ArtistLite.swift in Sources */,
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
+				C0250C2B265A4BF200BB6CD9 /* SimilarBands.swift in Sources */,
 				C004A2B62658F17B0071E12A /* LabelLite.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -572,6 +599,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C004A2CB26590D380071E12A /* IntExtensions.swift in Sources */,
+				C0250C34265A548F00BB6CD9 /* SimilarBandsTests.swift in Sources */,
 				C0250C29265A432500BB6CD9 /* DataExtensions.swift in Sources */,
 				C0A37B7826585C4A0017A02F /* StringExtensions.swift in Sources */,
 				C0A37B742658591E0017A02F /* CountryManagerTests.swift in Sources */,

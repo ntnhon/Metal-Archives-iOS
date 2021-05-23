@@ -28,10 +28,7 @@ class DiscographyTests: XCTestCase {
         let sut = Discography(data: data)
 
         // then
-        XCTAssertEqual(sut.releases.count, 58)
-        testDeathByMetal(try XCTUnwrap(sut.releases.first { $0.title == "Death by Metal" }))
-        testSymbolic(try XCTUnwrap(sut.releases.first { $0.title == "Symbolic" }))
-        testLiveInCottbus(try XCTUnwrap(sut.releases.first { $0.title == "Live in Cottbus '98" }))
+        try testNonEmptySut(sut)
     }
 
     func testLoggedInDisography() throws {
@@ -42,6 +39,10 @@ class DiscographyTests: XCTestCase {
         let sut = Discography(data: data)
 
         // then
+        try testNonEmptySut(sut)
+    }
+
+    func testNonEmptySut(_ sut: Discography) throws {
         XCTAssertEqual(sut.releases.count, 58)
         testDeathByMetal(try XCTUnwrap(sut.releases.first { $0.title == "Death by Metal" }))
         testSymbolic(try XCTUnwrap(sut.releases.first { $0.title == "Symbolic" }))

@@ -14,7 +14,8 @@ struct Discography {
     // Sample: https://www.metal-archives.com/band/discography/id/141/tab/all
     init(data: Data) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
-              let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
+              let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8),
+              let tbody = html.at_css("tbody") else {
             self.releases = []
             return
         }
@@ -29,36 +30,34 @@ struct Discography {
         let reviewColumn = isLoggedIn ? 4 : 3
 
         var releases = [ReleaseLite]()
-        for tbody in html.css("tbody") {
-            for tr in tbody.css("tr") {
-                // This band has no release yet
-                if tr.css("td").count == 1 {
-                    self.releases = []
-                    return
-                }
+        for tr in tbody.css("tr") {
+            // This band has no release yet
+            if tr.css("td").count == 1 {
+                self.releases = []
+                return
+            }
 
-                let builder = ReleaseLite.Builder()
-                for (column, td) in tr.css("td").enumerated() {
-                    switch column {
-                    case nameColumn:
-                        builder.title = td.text
-                        builder.urlString = td.css("a").first?["href"]
-                    case typeColumn:
-                        builder.type = ReleaseType(typeString: td.text ?? "")
-                    case yearColumn:
-                        builder.year = td.text?.toInt()
-                    case reviewColumn:
-                        let reviewString = td.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-                        builder.reviewCount = reviewString?.components(separatedBy: " ").first?.toInt()
-                        builder.rating = reviewString?.subString(after: "(", before: "%)")?.toInt()
-                        builder.reviewsUrlString = td.css("a").first?["href"]
-                    default: break
-                    }
+            let builder = ReleaseLite.Builder()
+            for (column, td) in tr.css("td").enumerated() {
+                switch column {
+                case nameColumn:
+                    builder.title = td.text
+                    builder.urlString = td.css("a").first?["href"]
+                case typeColumn:
+                    builder.type = ReleaseType(typeString: td.text ?? "")
+                case yearColumn:
+                    builder.year = td.text?.toInt()
+                case reviewColumn:
+                    let reviewString = td.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+                    builder.reviewCount = reviewString?.components(separatedBy: " ").first?.toInt()
+                    builder.rating = reviewString?.subString(after: "(", before: "%)")?.toInt()
+                    builder.reviewsUrlString = td.css("a").first?["href"]
+                default: break
                 }
+            }
 
-                if let releaseLite = builder.build() {
-                    releases.append(releaseLite)
-                }
+            if let releaseLite = builder.build() {
+                releases.append(releaseLite)
             }
         }
         self.releases = releases
