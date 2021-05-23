@@ -1,0 +1,269 @@
+<script type="7c129501b3ac4d334e8da2d6-text/javascript">
+$(document).ready(function() {
+    // Prepare the sub-tabs
+    $('.tabs2lvl').tabs(); // Prepare the form popup
+    $('#editLink').dialog({
+        autoOpen: false,
+        width: 400,
+        height: 250,
+        modal: true,
+        overlay: {
+            opacity: 0.5,
+            background: 'white'
+        },
+        buttons: {
+            'Save link': function() {
+                $('#linkForm').submit();
+            },
+            'Cancel': function() {
+                $('#editLink').dialog('close');
+            }
+        }
+    });
+});
+
+// Open the link form dialog
+function loadLinkForm(linkId) {
+    $('.loading').show();
+    $('#editLink').load(URL_SITE + 'link/ajax-edit/objectType/Band/objectId/141/id/' + linkId, '', function() {
+        $('#editLink').dialog('open');
+        $('.loading').hide();
+    });
+}
+</script>
+<div id="band_links" class="tabs2lvl">
+    <ul>
+        <li>
+            <a href="#band_links_Official">Official</a>
+        </li>
+        <li>
+            <a href="#band_links_Official_merchandise">Official merchandise</a>
+        </li>
+        <li>
+            <a href="#band_links_Unofficial">Unofficial</a>
+        </li>
+        <li>
+            <a href="#band_links_Tablatures">Tablatures</a>
+        </li>
+    </ul>
+
+    <div id="band_links_Official">
+        <div class="ui-tabs-panel-content">
+            <table id="linksTableOfficial" class="display" width="50%" cellpadding="0" cellspacing="0">
+                <tr class="even" id="linkRow736444">
+                    <td>
+                        <a id="link736444" href="https://death.bandcamp.com/" title="Go to: Bandcamp" target="_blank">Bandcamp</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow999524">
+                    <td>
+                        <a id="link999524" href="https://www.deezer.com/artist/6254" title="Go to: Deezer" target="_blank">Deezer</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow516683">
+                    <td>
+                        <a id="link516683" href="https://www.facebook.com/DeathOfficial" title="Go to: Facebook" target="_blank">Facebook</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow863">
+                    <td>
+                        <a id="link863" href="http://www.emptywords.org" title="Go to: Homepage (with Control Denied)" target="_blank">Homepage (with Control Denied)</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow583758">
+                    <td>
+                        <a id="link583758" href="https://instagram.com/deathofficial" title="Go to: Instagram" target="_blank">Instagram</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow315938">
+                    <td>
+                        <a id="link315938" href="https://myspace.com/deathofficial" title="Go to: Myspace" target="_blank">Myspace</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow911801">
+                    <td>
+                        <a id="link911801" href="https://soundcloud.com/deathofficial" title="Go to: SoundCloud" target="_blank">SoundCloud</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow800544">
+                    <td>
+                        <a id="link800544" href="https://open.spotify.com/artist/4f5V3PQ66nIrBCqugJtaGn" title="Go to: Spotify" target="_blank">Spotify</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow540259">
+                    <td>
+                        <a id="link540259" href="https://twitter.com/DeathOfficial" title="Go to: Twitter" target="_blank">Twitter</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="band_links_Official_merchandise">
+        <div class="ui-tabs-panel-content">
+            <table id="linksTableOfficial_merchandise" class="display" width="50%" cellpadding="0" cellspacing="0">
+                <tr class="odd" id="linkRow719895">
+                    <td>
+                        <a id="link719895" href="https://www.amazon.com/Death/e/B000APYKX8" title="Go to: Amazon" target="_blank">Amazon</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow721487">
+                    <td>
+                        <a id="link721487" href="http://www.deezer.com/artist/6254" title="Go to: Deezer" target="_blank">Deezer</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow649520">
+                    <td>
+                        <a id="link649520" href="https://play.google.com/store/music/artist/Death?id=Ahmnwboqtjwm23brwxaylcfkodq" title="Go to: Google Play" target="_blank">Google Play</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow402953">
+                    <td>
+                        <a id="link402953" href="https://www.indiemerchstore.com/b/death/" title="Go to: Indiemerch" target="_blank">Indiemerch</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow592874">
+                    <td>
+                        <a id="link592874" href="https://itunes.apple.com/us/artist/death/id17249530" title="Go to: iTunes" target="_blank">iTunes</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow952137">
+                    <td>
+                        <a id="link952137" href="https://www.nightshiftmerch.com/collections/Death" title="Go to: Nightshift Merch" target="_blank">Nightshift Merch</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow799370">
+                    <td>
+                        <a id="link799370" href="http://www.plastichead.com/catalogue.asp?ex=backlist&category=merch&target=DEATH" title="Go to: Plastic Head" target="_blank">Plastic Head</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow329731">
+                    <td>
+                        <a id="link329731" href="https://store.relapse.com/band/death" title="Go to: Relapse Records" target="_blank">Relapse Records</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow231815">
+                    <td>
+                        <a id="link231815" href="http://www.rockabilia.com/browse/artists-groups/d/death.html" title="Go to: Rockabilia" target="_blank">Rockabilia</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow214090">
+                    <td>
+                        <a id="link214090" href="http://www.star500.com/store/home.php?cat=2761" title="Go to: Star 500" target="_blank">Star 500</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="band_links_Unofficial">
+        <div class="ui-tabs-panel-content">
+            <table id="linksTableUnofficial" class="display" width="50%" cellpadding="0" cellspacing="0">
+                <tr class="odd" id="linkRow397672">
+                    <td>
+                        <a id="link397672" href="https://deathtr.blogspot.com/" title="Go to: Death Tribute @ Blogspot" target="_blank">Death Tribute @ Blogspot</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow5019">
+                    <td>
+                        <a id="link5019" href="http://www.humandeath.de/" title="Go to: German Tribute to Death" target="_blank">German Tribute to Death</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow304690">
+                    <td>
+                        <a id="link304690" href="https://myspace.com/ripdeathchuck" title="Go to: MySpace Tribute" target="_blank">MySpace Tribute</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow636895">
+                    <td>
+                        <a id="link636895" href="http://www.progarchives.com/artist.asp?id=2368" title="Go to: Prog Archives" target="_blank">Prog Archives</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow4355">
+                    <td>
+                        <a id="link4355" href="http://rkostov.free.fr/death" title="Go to: The Bulgarian Chuck Schuldiner Page" target="_blank">The Bulgarian Chuck Schuldiner Page</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="band_links_Tablatures">
+        <div class="ui-tabs-panel-content">
+            <table id="linksTableTablatures" class="display" width="50%" cellpadding="0" cellspacing="0">
+                <tr class="even" id="linkRow64280">
+                    <td>
+                        <a id="link64280" href="http://www.911tabs.com/tabs/d/death/" title="Go to: 911Tabs" target="_blank">911Tabs</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow23886">
+                    <td>
+                        <a id="link23886" href="http://www.all-good-tabs.com/guitar-tabs-bands-death-790.html" title="Go to: All Good Tabs" target="_blank">All Good Tabs</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow48016">
+                    <td>
+                        <a id="link48016" href="http://www.azchords.com/d/death-tabs-1052.html" title="Go to: AZChords" target="_blank">AZChords</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow155896">
+                    <td>
+                        <a id="link155896" href="http://www.cifraclub.com.br/death/" title="Go to: Cifra Club" target="_blank">Cifra Club</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow141077">
+                    <td>
+                        <a id="link141077" href="http://guitabs.net/tabs/d/death.html" title="Go to: Guitabs.net" target="_blank">Guitabs.net</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow48015">
+                    <td>
+                        <a id="link48015" href="http://www.guitaretab.com/d/death/" title="Go to: GuitareTab" target="_blank">GuitareTab</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow220241">
+                    <td>
+                        <a id="link220241" href="http://www.emptywords.org/tablature.htm" title="Go to: Official Tablatures" target="_blank">Official Tablatures</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow136950">
+                    <td>
+                        <a id="link136950" href="http://www.riversofgore.com/deathindex.htm" title="Go to: Rivers of Gore" target="_blank">Rivers of Gore</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow348269">
+                    <td>
+                        <a id="link348269" href="http://www.songsterr.com/a/wsa/death-tabs-a1851" title="Go to: Songsterr" target="_blank">Songsterr</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow183901">
+                    <td>
+                        <a id="link183901" href="https://www.ttabs.com/search.php?search=death&for=artist" title="Go to: tTabs" target="_blank">tTabs</a>
+                    </td>
+                </tr>
+                <tr class="even" id="linkRow23887">
+                    <td>
+                        <a id="link23887" href="https://www.ultimate-guitar.com/tabs/death_tabs.htm" title="Go to: Ultimate-Guitar" target="_blank">Ultimate-Guitar</a>
+                    </td>
+                </tr>
+                <tr class="odd" id="linkRow48587">
+                    <td>
+                        <a id="link48587" href="http://www.xguitar.com/tabs/death/" title="Go to: XGuitar" target="_blank">XGuitar</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="tool_strip top right writeAction">
+        <a href="#" onclick="if (!window.__cfRLUnblockHandlers) return false; loadLinkForm(''); return false;" class="btn_add" title="Add a new link" data-cf-modified-7c129501b3ac4d334e8da2d6-="">Add</a>
+    </div>
+</div>
+<table class="displayNone">
+    <tr id="templateLinkRow">
+        <td>
+            <a id="templateLink" href="#" title="Go to: template" target="_blank">template link</a>
+        </td>
+    </tr>
+</table>
+<div class="dialog" id="editLink" title="Link form"></div>
+<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="7c129501b3ac4d334e8da2d6-|49" defer=""></script>
