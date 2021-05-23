@@ -11,21 +11,21 @@ import XCTest
 class SimilarBandsTests: XCTestCase {
     func testEmptySimilarBands() throws {
         // given
-        let data = try XCTUnwrap(Data.fromHtml(fileName: "SimilarBandsEmpty"))
+        let data = try XCTUnwrap(Data.fromHtml(fileName: "BandSimilarsEmpty"))
 
         // when
-        let sut = SimilarBands(data: data)
+        let sut = [BandSimilar](data: data)
 
         // then
-        XCTAssertTrue(sut.bands.isEmpty)
+        XCTAssertTrue(sut.isEmpty)
     }
 
     func testPublicSimilarBands() throws {
         // given
-        let data = try XCTUnwrap(Data.fromHtml(fileName: "SimilarBandsPublic"))
+        let data = try XCTUnwrap(Data.fromHtml(fileName: "BandSimilarsPublic"))
 
         // when
-        let sut = SimilarBands(data: data)
+        let sut = [BandSimilar](data: data)
 
         // then
         try testNonEmptySut(sut)
@@ -33,19 +33,19 @@ class SimilarBandsTests: XCTestCase {
 
     func testLoggedInSimilarBands() throws {
         // given
-        let data = try XCTUnwrap(Data.fromHtml(fileName: "SimilarBandsLoggedIn"))
+        let data = try XCTUnwrap(Data.fromHtml(fileName: "BandSimilarsLoggedIn"))
 
         // when
-        let sut = SimilarBands(data: data)
+        let sut = [BandSimilar](data: data)
 
         // then
         try testNonEmptySut(sut)
     }
 
-    func testNonEmptySut(_ sut: SimilarBands) throws {
-        XCTAssertEqual(sut.bands.count, 308)
-        try testAtheist(try XCTUnwrap(sut.bands.first { $0.name == "Atheist" }))
-        try testPestilence(try XCTUnwrap(sut.bands.first { $0.name == "Pestilence" }))
+    func testNonEmptySut(_ sut: [BandSimilar]) throws {
+        XCTAssertEqual(sut.count, 308)
+        try testAtheist(try XCTUnwrap(sut.first { $0.name == "Atheist" }))
+        try testPestilence(try XCTUnwrap(sut.first { $0.name == "Pestilence" }))
     }
 
     func testAtheist(_ atheist: BandSimilar) throws {
