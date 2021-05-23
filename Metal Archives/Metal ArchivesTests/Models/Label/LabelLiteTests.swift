@@ -16,10 +16,9 @@ class LabelLiteTests: XCTestCase {
         let urlString = "https://example.com/\(id)"
 
         // when
-        let sut = LabelLite(name: name, urlString: urlString)
+        let sut = LabelLite(urlString: urlString, name: name)
 
         // then
-        XCTAssertEqual(sut.id, id)
         XCTAssertEqual(sut.name, name)
         XCTAssertEqual(sut.urlString, urlString)
     }
@@ -29,11 +28,10 @@ class LabelLiteTests: XCTestCase {
         let name = String.random(length: 20)
 
         // when
-        let sut = LabelLite(name: name, urlString: nil)
+        let sut = LabelLite(urlString: nil, name: name)
 
         // then
         XCTAssertEqual(sut.name, name)
-        XCTAssertNil(sut.id)
         XCTAssertNil(sut.urlString)
     }
 }

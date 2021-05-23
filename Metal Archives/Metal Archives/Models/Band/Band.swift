@@ -6,11 +6,3 @@
 //
 
 struct Band {}
-
-// MARK: - Old Identity
-extension Band {
-    struct OldIdentity {
-        let name: String
-        let urlString: String
-    }
-}

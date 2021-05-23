@@ -25,4 +25,6 @@ extension StringProtocol where Index == String.Index {
         }
         return String(subSequence)
     }
+
+    func toInt() -> Int? { Int(self) }
 }

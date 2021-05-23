@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,8 +24,20 @@
 		C00A79D426570245004FA9D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A79D326570245004FA9D7 /* ContentView.swift */; };
 		C00A79D62657024A004FA9D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00A79D52657024A004FA9D7 /* Assets.xcassets */; };
 		C00A79D92657024A004FA9D7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00A79D82657024A004FA9D7 /* Preview Assets.xcassets */; };
+		C0250C1B265A385400BB6CD9 /* DiscographyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0250C1A265A385400BB6CD9 /* DiscographyTests.swift */; };
+		C0250C20265A391400BB6CD9 /* DiscographyLoggedIn.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C1F265A391400BB6CD9 /* DiscographyLoggedIn.html */; };
+		C0250C22265A39DB00BB6CD9 /* DiscographyPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */; };
+		C0250C24265A3AA700BB6CD9 /* DiscographyEmpty.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C23265A3AA700BB6CD9 /* DiscographyEmpty.html */; };
+		C0250C29265A432500BB6CD9 /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0250C28265A432500BB6CD9 /* DataExtensions.swift */; };
 		C0387399265996AE00D2FD5E /* BandStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0387398265996AE00D2FD5E /* BandStatus.swift */; };
 		C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739A265996F000D2FD5E /* ReleaseType.swift */; };
+		C038739D2659A7E700D2FD5E /* BandLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739C2659A7E700D2FD5E /* BandLite.swift */; };
+		C03873A02659A92F00D2FD5E /* ArtistLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739F2659A92F00D2FD5E /* ArtistLite.swift */; };
+		C03873A22659AAD000D2FD5E /* BandSimilar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03873A12659AAD000D2FD5E /* BandSimilar.swift */; };
+		C03873A42659AB3600D2FD5E /* RelatedLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03873A32659AB3600D2FD5E /* RelatedLink.swift */; };
+		C03873A62659AC0C00D2FD5E /* ReleaseLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03873A52659AC0C00D2FD5E /* ReleaseLite.swift */; };
+		C03873A92659AD6100D2FD5E /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = C03873A82659AD6100D2FD5E /* Kanna */; };
+		C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03873AA2659AE4B00D2FD5E /* Discography.swift */; };
 		C041C3122658EE74006B0F1F /* Band.swift in Sources */ = {isa = PBXBuildFile; fileRef = C041C3112658EE74006B0F1F /* Band.swift */; };
 		C0A37B6A26584DDB0017A02F /* MACountries.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A37B6926584DDB0017A02F /* MACountries.json */; };
 		C0A37B6D26584E980017A02F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B6C26584E980017A02F /* Country.swift */; };
@@ -75,8 +87,19 @@
 		C00A79E52657024B004FA9D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C00A79EA2657024B004FA9D7 /* Metal ArchivesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Metal ArchivesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C00A79F02657024B004FA9D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0250C1A265A385400BB6CD9 /* DiscographyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyTests.swift; sourceTree = "<group>"; };
+		C0250C1F265A391400BB6CD9 /* DiscographyLoggedIn.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DiscographyLoggedIn.html; sourceTree = "<group>"; };
+		C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DiscographyPublic.html; sourceTree = "<group>"; };
+		C0250C23265A3AA700BB6CD9 /* DiscographyEmpty.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DiscographyEmpty.html; sourceTree = "<group>"; };
+		C0250C28265A432500BB6CD9 /* DataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
 		C0387398265996AE00D2FD5E /* BandStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BandStatus.swift; path = ../../../../../../../Desktop/BandStatus.swift; sourceTree = "<group>"; };
 		C038739A265996F000D2FD5E /* ReleaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseType.swift; sourceTree = "<group>"; };
+		C038739C2659A7E700D2FD5E /* BandLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLite.swift; sourceTree = "<group>"; };
+		C038739F2659A92F00D2FD5E /* ArtistLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistLite.swift; sourceTree = "<group>"; };
+		C03873A12659AAD000D2FD5E /* BandSimilar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilar.swift; sourceTree = "<group>"; };
+		C03873A32659AB3600D2FD5E /* RelatedLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedLink.swift; sourceTree = "<group>"; };
+		C03873A52659AC0C00D2FD5E /* ReleaseLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseLite.swift; sourceTree = "<group>"; };
+		C03873AA2659AE4B00D2FD5E /* Discography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discography.swift; sourceTree = "<group>"; };
 		C041C3112658EE74006B0F1F /* Band.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Band.swift; sourceTree = "<group>"; };
 		C0A37B6426584A690017A02F /* Metal Archives.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Metal Archives.entitlements"; sourceTree = "<group>"; };
 		C0A37B6926584DDB0017A02F /* MACountries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MACountries.json; sourceTree = "<group>"; };
@@ -91,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C03873A92659AD6100D2FD5E /* Kanna in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				C004A2CF26590FBD0071E12A /* BandStatusTests.swift */,
+				C0250C1A265A385400BB6CD9 /* DiscographyTests.swift */,
 			);
 			path = Band;
 			sourceTree = "<group>";
@@ -168,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				C004A2D2265916020071E12A /* Release.swift */,
+				C03873A52659AC0C00D2FD5E /* ReleaseLite.swift */,
 				C038739A265996F000D2FD5E /* ReleaseType.swift */,
 			);
 			path = Release;
@@ -234,6 +260,7 @@
 				C00A79E52657024B004FA9D7 /* Info.plist */,
 				C0A37B72265859080017A02F /* Managers */,
 				C004A2C12658FBCA0071E12A /* Models */,
+				C0250C1C265A386100BB6CD9 /* Resources */,
 				C0A37B7626585C380017A02F /* Utilities */,
 			);
 			path = "Metal ArchivesTests";
@@ -248,11 +275,40 @@
 			path = "Metal ArchivesUITests";
 			sourceTree = "<group>";
 		};
+		C0250C1C265A386100BB6CD9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C0250C25265A3AD300BB6CD9 /* Discography */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C0250C25265A3AD300BB6CD9 /* Discography */ = {
+			isa = PBXGroup;
+			children = (
+				C0250C23265A3AA700BB6CD9 /* DiscographyEmpty.html */,
+				C0250C1F265A391400BB6CD9 /* DiscographyLoggedIn.html */,
+				C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */,
+			);
+			path = Discography;
+			sourceTree = "<group>";
+		};
+		C038739E2659A90A00D2FD5E /* Artist */ = {
+			isa = PBXGroup;
+			children = (
+				C038739F2659A92F00D2FD5E /* ArtistLite.swift */,
+			);
+			path = Artist;
+			sourceTree = "<group>";
+		};
 		C041C3102658EE5F006B0F1F /* Band */ = {
 			isa = PBXGroup;
 			children = (
 				C041C3112658EE74006B0F1F /* Band.swift */,
+				C038739C2659A7E700D2FD5E /* BandLite.swift */,
+				C03873A12659AAD000D2FD5E /* BandSimilar.swift */,
 				C0387398265996AE00D2FD5E /* BandStatus.swift */,
+				C03873AA2659AE4B00D2FD5E /* Discography.swift */,
 			);
 			path = Band;
 			sourceTree = "<group>";
@@ -275,12 +331,14 @@
 		C0A37B6626584C1B0017A02F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C038739E2659A90A00D2FD5E /* Artist */,
 				C041C3102658EE5F006B0F1F /* Band */,
 				C041C3132658EF19006B0F1F /* Label */,
 				C004A2D1265915F50071E12A /* Release */,
 				C004A2B92658F31C0071E12A /* User */,
 				C0A37B6C26584E980017A02F /* Country.swift */,
 				C004A2B72658F2E70071E12A /* ModificationInfo.swift */,
+				C03873A32659AB3600D2FD5E /* RelatedLink.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -319,8 +377,9 @@
 		C0A37B7626585C380017A02F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				C0A37B7726585C4A0017A02F /* StringExtensions.swift */,
+				C0250C28265A432500BB6CD9 /* DataExtensions.swift */,
 				C004A2CA26590D380071E12A /* IntExtensions.swift */,
+				C0A37B7726585C4A0017A02F /* StringExtensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -342,6 +401,9 @@
 			dependencies = (
 			);
 			name = "Metal Archives";
+			packageProductDependencies = (
+				C03873A82659AD6100D2FD5E /* Kanna */,
+			);
 			productName = "Metal Archives";
 			productReference = C00A79CE26570245004FA9D7 /* Metal Archives.app */;
 			productType = "com.apple.product-type.application";
@@ -414,6 +476,9 @@
 				Base,
 			);
 			mainGroup = C00A79C526570245004FA9D7;
+			packageReferences = (
+				C03873A72659AD6100D2FD5E /* XCRemoteSwiftPackageReference "Kanna" */,
+			);
 			productRefGroup = C00A79CF26570245004FA9D7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -440,6 +505,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0250C20265A391400BB6CD9 /* DiscographyLoggedIn.html in Resources */,
+				C0250C22265A39DB00BB6CD9 /* DiscographyPublic.html in Resources */,
+				C0250C24265A3AA700BB6CD9 /* DiscographyEmpty.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,14 +547,20 @@
 			files = (
 				C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */,
 				C041C3122658EE74006B0F1F /* Band.swift in Sources */,
+				C03873A22659AAD000D2FD5E /* BandSimilar.swift in Sources */,
+				C038739D2659A7E700D2FD5E /* BandLite.swift in Sources */,
 				C00A79D426570245004FA9D7 /* ContentView.swift in Sources */,
 				C004A2BE2658F3760071E12A /* StringExtensions.swift in Sources */,
+				C03873A42659AB3600D2FD5E /* RelatedLink.swift in Sources */,
 				C004A2BB2658F3290071E12A /* UserLite.swift in Sources */,
 				C0387399265996AE00D2FD5E /* BandStatus.swift in Sources */,
 				C004A2C02658F4F40071E12A /* DateFormatterExtensions.swift in Sources */,
 				C004A2D3265916020071E12A /* Release.swift in Sources */,
 				C004A2B82658F2E70071E12A /* ModificationInfo.swift in Sources */,
 				C0A37B6D26584E980017A02F /* Country.swift in Sources */,
+				C03873A62659AC0C00D2FD5E /* ReleaseLite.swift in Sources */,
+				C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */,
+				C03873A02659A92F00D2FD5E /* ArtistLite.swift in Sources */,
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
 				C004A2B62658F17B0071E12A /* LabelLite.swift in Sources */,
@@ -498,6 +572,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C004A2CB26590D380071E12A /* IntExtensions.swift in Sources */,
+				C0250C29265A432500BB6CD9 /* DataExtensions.swift in Sources */,
 				C0A37B7826585C4A0017A02F /* StringExtensions.swift in Sources */,
 				C0A37B742658591E0017A02F /* CountryManagerTests.swift in Sources */,
 				C004A2C62658FE310071E12A /* ModificationInfoTests.swift in Sources */,
@@ -505,6 +580,7 @@
 				C004A2C42658FBF00071E12A /* UserLiteTests.swift in Sources */,
 				C004A2C9265900B50071E12A /* LabelLiteTests.swift in Sources */,
 				C004A2D6265918170071E12A /* ReleaseTypeTests.swift in Sources */,
+				C0250C1B265A385400BB6CD9 /* DiscographyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -823,6 +899,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C03873A72659AD6100D2FD5E /* XCRemoteSwiftPackageReference "Kanna" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tid-kijyun/Kanna.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C03873A82659AD6100D2FD5E /* Kanna */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C03873A72659AD6100D2FD5E /* XCRemoteSwiftPackageReference "Kanna" */;
+			productName = Kanna;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C00A79C626570245004FA9D7 /* Project object */;
 }
