@@ -7,15 +7,21 @@
 
 @testable import Metal_Archives
 
+extension ThumbnailInfo: Equatable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.id == rhs.id && lhs.urlString == rhs.urlString && lhs.type == rhs.type
+    }
+}
+
 extension BandLite: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.name == rhs.name && lhs.urlString == rhs.urlString
+        lhs.name == rhs.name && lhs.thumbnailInfo == rhs.thumbnailInfo
     }
 }
 
 extension LabelLite: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.name == rhs.name && lhs.urlString == rhs.urlString
+        lhs.name == rhs.name && lhs.thumbnailInfo == rhs.thumbnailInfo
     }
 }
 
@@ -31,7 +37,7 @@ extension ModificationInfo: Equatable {
 extension ArtistLite: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.name == rhs.name &&
-        lhs.urlString == rhs.urlString &&
+        lhs.thumbnailInfo == rhs.thumbnailInfo &&
         lhs.instruments == rhs.instruments &&
         Set(lhs.instruments) == Set(rhs.instruments) &&
         lhs.seeAlso == rhs.seeAlso

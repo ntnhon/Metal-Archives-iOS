@@ -9,6 +9,17 @@
 import XCTest
 
 class DiscographyTests: XCTestCase {
+    func testInvalidDiscography() throws {
+        // given
+        let data = try XCTUnwrap(Data.fromHtml(fileName: "Dummy"))
+
+        // when
+        let sut = Discography(data: data)
+
+        // then
+        XCTAssertTrue(sut.releases.isEmpty)
+    }
+
     func testEmptyDiscography() throws {
         // given
         let data = try XCTUnwrap(Data.fromHtml(fileName: "DiscographyEmpty"))
@@ -51,8 +62,10 @@ class DiscographyTests: XCTestCase {
 
     // A demo release with all information
     func testDeathByMetal(_ deathByMetal: ReleaseLite) {
-        XCTAssertEqual(deathByMetal.urlString,
+        XCTAssertEqual(deathByMetal.thumbnailInfo.id, 35_807)
+        XCTAssertEqual(deathByMetal.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/albums/Death/Death_by_Metal/35807")
+        XCTAssertEqual(deathByMetal.thumbnailInfo.type, .release)
         XCTAssertEqual(deathByMetal.title, "Death by Metal")
         XCTAssertEqual(deathByMetal.type, .demo)
         XCTAssertEqual(deathByMetal.year, 1_984)
@@ -64,8 +77,10 @@ class DiscographyTests: XCTestCase {
 
     // A full-length release with all information
     func testSymbolic(_ symbolic: ReleaseLite) {
-        XCTAssertEqual(symbolic.urlString,
+        XCTAssertEqual(symbolic.thumbnailInfo.id, 616)
+        XCTAssertEqual(symbolic.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/albums/Death/Symbolic/616")
+        XCTAssertEqual(symbolic.thumbnailInfo.type, .release)
         XCTAssertEqual(symbolic.title, "Symbolic")
         XCTAssertEqual(symbolic.type, .fullLength)
         XCTAssertEqual(symbolic.year, 1_995)
@@ -77,8 +92,10 @@ class DiscographyTests: XCTestCase {
 
     // A video release without review
     func testLiveInCottbus(_ liveInCottbus: ReleaseLite) {
-        XCTAssertEqual(liveInCottbus.urlString,
+        XCTAssertEqual(liveInCottbus.thumbnailInfo.id, 151_800)
+        XCTAssertEqual(liveInCottbus.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/albums/Death/Live_in_Cottbus_%2798/151800")
+        XCTAssertEqual(liveInCottbus.thumbnailInfo.type, .release)
         XCTAssertEqual(liveInCottbus.title, "Live in Cottbus '98")
         XCTAssertEqual(liveInCottbus.type, .video)
         XCTAssertEqual(liveInCottbus.year, 2_005)

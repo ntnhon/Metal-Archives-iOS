@@ -16,6 +16,7 @@ struct Discography {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
               let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8),
               let tbody = html.at_css("tbody") else {
+            Logger.log("Error parsing html for discography")
             self.releases = []
             return
         }
@@ -42,9 +43,14 @@ struct Discography {
                 switch column {
                 case nameColumn:
                     builder.title = td.text
-                    builder.urlString = td.css("a").first?["href"]
+                    // swiftlint:disable:next identifier_name
+                    if let a = td.at_css("a"), let urlString = a["href"] {
+                        builder.thumbnailInfo = ThumbnailInfo(urlString: urlString, type: .release)
+                    }
                 case typeColumn:
-                    builder.type = ReleaseType(typeString: td.text ?? "")
+                    if let typeString = td.text {
+                        builder.type = ReleaseType(typeString: typeString)
+                    }
                 case yearColumn:
                     builder.year = td.text?.toInt()
                 case reviewColumn:

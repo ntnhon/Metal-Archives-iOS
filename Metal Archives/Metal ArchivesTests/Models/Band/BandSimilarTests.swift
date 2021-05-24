@@ -9,6 +9,17 @@
 import XCTest
 
 class SimilarBandsTests: XCTestCase {
+    func testInvalidSimilarBands() throws {
+        // given
+        let data = try XCTUnwrap(Data.fromHtml(fileName: "Dummy"))
+
+        // when
+        let sut = [BandSimilar](data: data)
+
+        // then
+        XCTAssertTrue(sut.isEmpty)
+    }
+
     func testEmptySimilarBands() throws {
         // given
         let data = try XCTUnwrap(Data.fromHtml(fileName: "BandSimilarsEmpty"))
@@ -50,8 +61,10 @@ class SimilarBandsTests: XCTestCase {
 
     func testAtheist(_ atheist: BandSimilar) throws {
         let us = try XCTUnwrap(CountryManager.shared.country(by: \.isoCode, value: "US"))
-        XCTAssertEqual(atheist.urlString,
+        XCTAssertEqual(atheist.thumbnailInfo.id, 304)
+        XCTAssertEqual(atheist.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/bands/Atheist/304")
+        XCTAssertEqual(atheist.thumbnailInfo.type, .bandLogo)
         XCTAssertEqual(atheist.name, "Atheist")
         XCTAssertEqual(atheist.country, us)
         XCTAssertEqual(atheist.genre, "Progressive Death/Thrash Metal with Jazz influences")
@@ -60,8 +73,10 @@ class SimilarBandsTests: XCTestCase {
 
     func testPestilence(_ pestilence: BandSimilar) throws {
         let netherlands = try XCTUnwrap(CountryManager.shared.country(by: \.isoCode, value: "NL"))
-        XCTAssertEqual(pestilence.urlString,
+        XCTAssertEqual(pestilence.thumbnailInfo.id, 238)
+        XCTAssertEqual(pestilence.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/bands/Pestilence/238")
+        XCTAssertEqual(pestilence.thumbnailInfo.type, .bandLogo)
         XCTAssertEqual(pestilence.name, "Pestilence")
         XCTAssertEqual(pestilence.country, netherlands)
         XCTAssertEqual(pestilence.genre,

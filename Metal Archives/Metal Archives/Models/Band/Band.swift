@@ -56,82 +56,82 @@ extension Band {
 
         func build() -> Band? {
             guard let id = id else {
-                print("[Building Band] id can not be nil.")
+                Logger.log("id can not be nil.")
                 return nil
             }
 
             guard let urlString = urlString else {
-                print("[Building Band] urlString can not be nil.")
+                Logger.log("urlString can not be nil.")
                 return nil
             }
 
             guard let name = name else {
-                print("[Building Band] name can not be nil.")
+                Logger.log("name can not be nil.")
                 return nil
             }
 
             guard let country = country else {
-                print("[Building Band] country can not be nil.")
+                Logger.log("country can not be nil.")
                 return nil
             }
 
             guard let genre = genre else {
-                print("[Building Band] genre can not be nil.")
+                Logger.log("genre can not be nil.")
                 return nil
             }
 
             guard let status = status else {
-                print("[Building Band] status can not be nil.")
+                Logger.log("status can not be nil.")
                 return nil
             }
 
             guard let location = location else {
-                print("[Building Band] location can not be nil.")
+                Logger.log("location can not be nil.")
                 return nil
             }
 
             guard let yearOfCreation = yearOfCreation else {
-                print("[Building Band] yearOfCreation can not be nil.")
+                Logger.log("yearOfCreation can not be nil.")
                 return nil
             }
 
             guard let yearsActive = yearsActive else {
-                print("[Building Band] yearsActive can not be nil.")
+                Logger.log("yearsActive can not be nil.")
                 return nil
             }
 
             guard let oldBands = oldBands else {
-                print("[Building Band] oldBands can not be nil.")
+                Logger.log("oldBands can not be nil.")
                 return nil
             }
 
             guard let lyricalTheme = lyricalTheme else {
-                print("[Building Band] lyricalTheme can not be nil.")
+                Logger.log("lyricalTheme can not be nil.")
                 return nil
             }
 
             guard let lastLabel = lastLabel else {
-                print("[Building Band] lastLabel can not be nil.")
+                Logger.log("lastLabel can not be nil.")
                 return nil
             }
 
             guard let modificationInfo = modificationInfo else {
-                print("[Building Band] modificationInfo can not be nil.")
+                Logger.log("modificationInfo can not be nil.")
                 return nil
             }
 
             guard let currentLineUp = currentLineUp else {
-                print("[Building Band] currentLineUp can not be nil.")
+                Logger.log("currentLineUp can not be nil.")
                 return nil
             }
 
             guard let pastMembers = pastMembers else {
-                print("[Building Band] pastMembers can not be nil.")
+                Logger.log("pastMembers can not be nil.")
                 return nil
             }
 
             guard let liveMusicians = liveMusicians else {
-                print("[Building Band] liveMusicians can not be nil.")
+                Logger.log("liveMusicians can not be nil.")
                 return nil
             }
 
@@ -210,6 +210,7 @@ extension Band {
                 default: break
                 }
             } else if let divClass = div["class"] {
+                // swiftlint:disable line_length
                 switch divClass {
                 case "band_name_img":
                     /*
@@ -228,6 +229,7 @@ extension Band {
                     builder.photoUrlString = div.at_css("a")?["href"]
                 default: break
                 }
+                // swiftlint:enable line_length
             }
         }
 
@@ -301,8 +303,9 @@ extension Band {
                         builder.lyricalTheme = dd.text
                     case 2:
                         // Last label
-                        if let a = dd.at_css("a"), let labelName = a.text {
-                            builder.lastLabel = LabelLite(urlString: a["href"], name: labelName)
+                        if let a = dd.at_css("a"), let labelName = a.text, let labelUrlString = a["href"],
+                           let thumbnailInfo = ThumbnailInfo(urlString: labelUrlString, type: .label) {
+                            builder.lastLabel = .init(thumbnailInfo: thumbnailInfo, name: labelName)
                         }
                     default: break
                     }
@@ -315,8 +318,9 @@ extension Band {
                     // Parse old bands
                     var oldBands = [BandLite]()
                     for a in dd.css("a") {
-                        if let bandName = a.text {
-                            oldBands.append(.init(urlString: a["href"], name: bandName))
+                        if let bandName = a.text, let bandUrlString = a["href"],
+                           let band = BandLite(urlString: bandUrlString, name: bandName) {
+                            oldBands.append(band)
                         }
                     }
                     builder.oldBands = oldBands
@@ -366,15 +370,16 @@ extension Band {
                 if let artist = lastArtistBuilder?.build() {
                     lineUp.append(artist)
                 }
-                
+
                 lastArtistBuilder = ArtistLite.Builder()
                 for (index, td) in tr.css("td").enumerated() {
                     switch index {
                     case 0:
                         // Get name and url
-                        let a = td.at_css("a")
-                        lastArtistBuilder?.name = a?.text
-                        lastArtistBuilder?.urlString = a?["href"]
+                        if let a = td.at_css("a"), let name = a.text, let urlString = a["href"] {
+                            lastArtistBuilder?.name = name
+                            lastArtistBuilder?.thumbnailInfo = ThumbnailInfo(urlString: urlString, type: .artist)
+                        }
                     case 1:
                         // Get instruments
                         lastArtistBuilder?.instruments = td.text?.removeHtmlTagsAndNoisySpaces()
@@ -389,8 +394,9 @@ extension Band {
                 if let td = tr.at_css("td") {
                     lastArtistBuilder?.seeAlso = td.text?.removeHtmlTagsAndNoisySpaces()
                     for a in td.css("a") {
-                        if let bandName = a.text {
-                            exBands.append(.init(urlString: a["href"], name: bandName))
+                        if let bandName = a.text, let bandUrlString = a["href"],
+                           let band = BandLite(urlString: bandUrlString, name: bandName) {
+                            exBands.append(band)
                         }
                     }
                 }

@@ -5,7 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 22/05/2021.
 //
 
-struct LabelLite {
-    let urlString: String?
+struct LabelLite: Thumbnailable {
+    let thumbnailInfo: ThumbnailInfo
     let name: String
 }

@@ -8,8 +8,8 @@
 import Foundation
 import Kanna
 
-struct BandSimilar {
-    let urlString: String
+struct BandSimilar: Thumbnailable {
+    let thumbnailInfo: ThumbnailInfo
     let name: String
     let country: Country
     let genre: String
@@ -18,39 +18,44 @@ struct BandSimilar {
 
 extension BandSimilar {
     final class Builder {
-        var urlString: String?
+        var thumbnailInfo: ThumbnailInfo?
         var name: String?
         var country: Country?
         var genre: String?
         var score: Int?
 
         func build() -> BandSimilar? {
-            guard let urlString = urlString else {
-                print("[Building BandSimilar] urlString can not be nil.")
+            guard let thumbnailInfo = thumbnailInfo else {
+                Logger.log("thumbnailInfo can not be nil.")
+                return nil
+            }
+
+            guard thumbnailInfo.type == .bandLogo else {
+                Logger.log("thumbnailInfo must be bandLogo.")
                 return nil
             }
 
             guard let name = name else {
-                print("[Building BandSimilar] name can not be nil.")
+                Logger.log("name can not be nil.")
                 return nil
             }
 
             guard let country = country else {
-                print("[Building BandSimilar] country can not be nil.")
+                Logger.log("country can not be nil.")
                 return nil
             }
 
             guard let genre = genre else {
-                print("[Building BandSimilar] genre can not be nil.")
+                Logger.log("genre can not be nil.")
                 return nil
             }
 
             guard let score = score else {
-                print("[Building BandSimilar] score can not be nil.")
+                Logger.log("score can not be nil.")
                 return nil
             }
 
-            return BandSimilar(urlString: urlString,
+            return BandSimilar(thumbnailInfo: thumbnailInfo,
                                name: name,
                                country: country,
                                genre: genre,
@@ -65,6 +70,7 @@ extension Array where Element == BandSimilar {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
               let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8),
               let tbody = html.at_css("tbody") else {
+            Logger.log("Error parsing html for list of similar artist")
             self = []
             return
         }
@@ -89,12 +95,15 @@ extension Array where Element == BandSimilar {
                 switch column {
                 case nameColumn:
                     // swiftlint:disable:next identifier_name
-                    let a = td.at_css("a")
-                    builder.name = a?.text
-                    builder.urlString = a?["href"]
+                    if let a = td.at_css("a"), let bandName = a.text, let bandUrlString = a["href"] {
+                        builder.name = bandName
+                        builder.thumbnailInfo = ThumbnailInfo(urlString: bandUrlString, type: .bandLogo)
+                    }
                 case countryColumn:
-                    let country = CountryManager.shared.country(by: \.name, value: td.text ?? "")
-                    builder.country = country
+                    if let countryName = td.text {
+                        let country = CountryManager.shared.country(by: \.name, value: countryName)
+                        builder.country = country
+                    }
                 case genreColumn:
                     builder.genre = td.text
                 case scoreColumn:

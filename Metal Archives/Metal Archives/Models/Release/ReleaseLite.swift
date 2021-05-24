@@ -5,8 +5,8 @@
 //  Created by Thanh-Nhon Nguyen on 22/05/2021.
 //
 
-struct ReleaseLite {
-    let urlString: String
+struct ReleaseLite: Thumbnailable {
+    let thumbnailInfo: ThumbnailInfo
     let title: String
     let type: ReleaseType
     let year: Int
@@ -17,7 +17,7 @@ struct ReleaseLite {
 
 extension ReleaseLite {
     final class Builder {
-        var urlString: String?
+        var thumbnailInfo: ThumbnailInfo?
         var title: String?
         var type: ReleaseType?
         var year: Int?
@@ -26,27 +26,32 @@ extension ReleaseLite {
         var reviewsUrlString: String?
 
         func build() -> ReleaseLite? {
-            guard let urlString = urlString else {
-                print("[Building ReleaseLite] urlString can not be nil.")
+            guard let thumbnailInfo = thumbnailInfo else {
+                Logger.log("thumbnailInfo can not be nil.")
+                return nil
+            }
+
+            guard thumbnailInfo.type == .release else {
+                Logger.log("thumbnailInfo's type must be release.")
                 return nil
             }
 
             guard let title = title else {
-                print("[Building ReleaseLite] title can not be nil.")
+                Logger.log("title can not be nil.")
                 return nil
             }
 
             guard let type = type else {
-                print("[Building ReleaseLite] type can not be nil.")
+                Logger.log("type can not be nil.")
                 return nil
             }
 
             guard let year = year else {
-                print("[Building ReleaseLite] year can not be nil.")
+                Logger.log("year can not be nil.")
                 return nil
             }
 
-            return ReleaseLite(urlString: urlString,
+            return ReleaseLite(thumbnailInfo: thumbnailInfo,
                                title: title,
                                type: type,
                                year: year,
