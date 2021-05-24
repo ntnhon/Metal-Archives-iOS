@@ -14,7 +14,9 @@ struct ModificationInfo {
     let modifiedOnDate: Date?
     let addedByUser: UserLite?
     let modifiedByUser: UserLite?
+}
 
+extension ModificationInfo {
     // swiftlint:disable line_length
     /*
      Sample data:

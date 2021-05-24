@@ -27,4 +27,60 @@ extension StringProtocol where Index == String.Index {
     }
 
     func toInt() -> Int? { Int(self) }
+
+    func removeHtmlTagsAndNoisySpaces() -> String {
+        // From
+        /*
+         // swiftlint:disable:next line_length
+        1983-1984                               (as <a href="https://www.metal-archives.com/bands/Mantas/35328">Mantas</a>),
+        1984-2001
+        */
+       // To:
+       /*
+       1983-1984 (as Mantas), 1984-2001
+        */
+        var newString = ""
+        var isInATag = false
+
+        for character in self {
+            if character == "\n" || character == "\t" {
+                continue
+            }
+
+            if character == "<" {
+                isInATag = true
+                continue
+            }
+
+            if character != ">" && isInATag {
+                continue
+            }
+
+            if character == ">" {
+                isInATag = false
+                continue
+            }
+
+            if character == " " {
+                guard let lastCharacter = newString.last, lastCharacter != " " else {
+                    continue
+                }
+            }
+
+            // Add a space after a ) or : if the next character is not a , and not a space
+            if let lastCharacter = newString.last, lastCharacter == ")" ||
+                lastCharacter == ":", character != "," && character != " " {
+                newString.append(" ")
+            }
+
+            newString.append(character)
+        }
+
+        // Remove last space
+        guard let lastCharacter = newString.last, lastCharacter == " " else {
+            return newString
+        }
+
+        return String(newString.dropLast())
+    }
 }

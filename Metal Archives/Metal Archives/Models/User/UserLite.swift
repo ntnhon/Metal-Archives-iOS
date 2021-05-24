@@ -10,7 +10,9 @@ import Foundation
 struct UserLite {
     let name: String
     let urlString: String
+}
 
+extension UserLite {
     // Example:
     // "<a href="https://www.metal-archives.com/users/Euthanasiast" class="profileMenu">Euthanasiast</a>"
     init?(from string: String) {
