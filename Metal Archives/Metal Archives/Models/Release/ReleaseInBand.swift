@@ -1,11 +1,11 @@
 //
-//  ReleaseLite.swift
+//  ReleaseInBand.swift
 //  Metal Archives
 //
 //  Created by Thanh-Nhon Nguyen on 22/05/2021.
 //
 
-struct ReleaseLite: Thumbnailable {
+struct ReleaseInBand: Thumbnailable {
     let thumbnailInfo: ThumbnailInfo
     let title: String
     let type: ReleaseType
@@ -15,7 +15,7 @@ struct ReleaseLite: Thumbnailable {
     let reviewsUrlString: String?
 }
 
-extension ReleaseLite {
+extension ReleaseInBand {
     final class Builder {
         var thumbnailInfo: ThumbnailInfo?
         var title: String?
@@ -25,7 +25,7 @@ extension ReleaseLite {
         var rating: Int?
         var reviewsUrlString: String?
 
-        func build() -> ReleaseLite? {
+        func build() -> ReleaseInBand? {
             guard let thumbnailInfo = thumbnailInfo else {
                 Logger.log("thumbnailInfo can not be nil.")
                 return nil
@@ -51,13 +51,13 @@ extension ReleaseLite {
                 return nil
             }
 
-            return ReleaseLite(thumbnailInfo: thumbnailInfo,
-                               title: title,
-                               type: type,
-                               year: year,
-                               reviewCount: reviewCount,
-                               rating: rating,
-                               reviewsUrlString: reviewsUrlString)
+            return ReleaseInBand(thumbnailInfo: thumbnailInfo,
+                                 title: title,
+                                 type: type,
+                                 year: year,
+                                 reviewCount: reviewCount,
+                                 rating: rating,
+                                 reviewsUrlString: reviewsUrlString)
         }
     }
 }

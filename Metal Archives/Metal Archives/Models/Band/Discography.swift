@@ -9,7 +9,7 @@ import Foundation
 import Kanna
 
 struct Discography {
-    let releases: [ReleaseLite]
+    let releases: [ReleaseInBand]
 
     // Sample: https://www.metal-archives.com/band/discography/id/141/tab/all
     init(data: Data) {
@@ -30,7 +30,7 @@ struct Discography {
         let yearColumn = isLoggedIn ? 3 : 2
         let reviewColumn = isLoggedIn ? 4 : 3
 
-        var releases = [ReleaseLite]()
+        var releases = [ReleaseInBand]()
         for tr in tbody.css("tr") {
             // This band has no release yet
             if tr.css("td").count == 1 {
@@ -38,7 +38,7 @@ struct Discography {
                 return
             }
 
-            let builder = ReleaseLite.Builder()
+            let builder = ReleaseInBand.Builder()
             for (column, td) in tr.css("td").enumerated() {
                 switch column {
                 case nameColumn:

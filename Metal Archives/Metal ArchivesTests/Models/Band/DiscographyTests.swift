@@ -61,7 +61,7 @@ class DiscographyTests: XCTestCase {
     }
 
     // A demo release with all information
-    func testDeathByMetal(_ deathByMetal: ReleaseLite) {
+    func testDeathByMetal(_ deathByMetal: ReleaseInBand) {
         XCTAssertEqual(deathByMetal.thumbnailInfo.id, 35_807)
         XCTAssertEqual(deathByMetal.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/albums/Death/Death_by_Metal/35807")
@@ -76,7 +76,7 @@ class DiscographyTests: XCTestCase {
     }
 
     // A full-length release with all information
-    func testSymbolic(_ symbolic: ReleaseLite) {
+    func testSymbolic(_ symbolic: ReleaseInBand) {
         XCTAssertEqual(symbolic.thumbnailInfo.id, 616)
         XCTAssertEqual(symbolic.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/albums/Death/Symbolic/616")
@@ -91,7 +91,7 @@ class DiscographyTests: XCTestCase {
     }
 
     // A video release without review
-    func testLiveInCottbus(_ liveInCottbus: ReleaseLite) {
+    func testLiveInCottbus(_ liveInCottbus: ReleaseInBand) {
         XCTAssertEqual(liveInCottbus.thumbnailInfo.id, 151_800)
         XCTAssertEqual(liveInCottbus.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/albums/Death/Live_in_Cottbus_%2798/151800")
