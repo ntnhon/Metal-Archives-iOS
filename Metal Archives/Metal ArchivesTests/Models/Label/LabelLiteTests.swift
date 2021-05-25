@@ -9,20 +9,33 @@
 import XCTest
 
 class LabelLiteTests: XCTestCase {
-    func testInit() throws {
+    func testOptional() {
+        // given
+        let name = String.random(length: 20)
+        let urlString = String.random(length: 20)
+
+        // when
+        let sut = LabelLite(thumbnailInfo: .init(urlString: urlString, type: .label), name: name)
+
+        // then
+        XCTAssertEqual(sut.name, name)
+        XCTAssertNil(sut.thumbnailInfo)
+    }
+
+    func testNonOptional() throws {
         // given
         let name = String.random(length: 20)
         let id = Int.randomId()
         let urlString = "https://example.com/\(id)"
 
         // when
-        let thumbnailInfo = try XCTUnwrap(ThumbnailInfo(urlString: urlString, type: .label))
-        let sut = LabelLite(thumbnailInfo: thumbnailInfo, name: name)
+        let sut = LabelLite(thumbnailInfo: .init(urlString: urlString, type: .label), name: name)
 
         // then
         XCTAssertEqual(sut.name, name)
-        XCTAssertEqual(sut.thumbnailInfo.id, id)
-        XCTAssertEqual(sut.thumbnailInfo.urlString, urlString)
-        XCTAssertEqual(sut.thumbnailInfo.type, .label)
+        let thumbnailInfo = try XCTUnwrap(sut.thumbnailInfo)
+        XCTAssertEqual(thumbnailInfo.id, id)
+        XCTAssertEqual(thumbnailInfo.urlString, urlString)
+        XCTAssertEqual(thumbnailInfo.type, .label)
     }
 }

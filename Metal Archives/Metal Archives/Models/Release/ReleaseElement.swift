@@ -5,11 +5,9 @@
 //  Created by Thanh-Nhon Nguyen on 24/05/2021.
 //
 
-struct ReleaseElement {
-    enum `Type` {
-        case song, side, disc, length
-    }
-
-    let title: String
-    let type: Type
+enum ReleaseElement {
+    case song(title: String, length: String, lyricId: String?, isInstrumental: Bool)
+    case side(title: String)
+    case disc(title: String)
+    case length(title: String)
 }

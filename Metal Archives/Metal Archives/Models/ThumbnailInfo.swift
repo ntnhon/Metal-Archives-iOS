@@ -27,6 +27,10 @@ protocol Thumbnailable {
     var thumbnailInfo: ThumbnailInfo { get }
 }
 
+protocol OptionalThumbnailable {
+    var thumbnailInfo: ThumbnailInfo? { get }
+}
+
 enum ThumbnailType: CaseIterable {
     case bandLogo, bandPhoto, artist, release, label
 
