@@ -26,9 +26,9 @@ struct Band {
     let modificationInfo: ModificationInfo
     var isBookmarked: Bool
     let isLastKnownLineUp: Bool
-    let currentLineUp: [ArtistLite]
-    let pastMembers: [ArtistLite]
-    let liveMusicians: [ArtistLite]
+    let currentLineUp: [ArtistInBand]
+    let pastMembers: [ArtistInBand]
+    let liveMusicians: [ArtistInBand]
 }
 
 extension Band {
@@ -50,9 +50,9 @@ extension Band {
         var modificationInfo: ModificationInfo?
         var isBookmarked = false
         var isLastKnownLineUp = false
-        var currentLineUp: [ArtistLite]?
-        var pastMembers: [ArtistLite]?
-        var liveMusicians: [ArtistLite]?
+        var currentLineUp: [ArtistInBand]?
+        var pastMembers: [ArtistInBand]?
+        var liveMusicians: [ArtistInBand]?
 
         func build() -> Band? {
             guard let id = id else {
@@ -356,8 +356,8 @@ extension Band {
          </div>
          */
         // swiftlint:enable line_length
-        var lineUp = [ArtistLite]()
-        var lastArtistBuilder: ArtistLite.Builder?
+        var lineUp = [ArtistInBand]()
+        var lastArtistBuilder: ArtistInBand.Builder?
 
         for tr in div.css("tr") {
             switch tr["class"] {
@@ -371,7 +371,7 @@ extension Band {
                     lineUp.append(artist)
                 }
 
-                lastArtistBuilder = ArtistLite.Builder()
+                lastArtistBuilder = ArtistInBand.Builder()
                 for (index, td) in tr.css("td").enumerated() {
                     switch index {
                     case 0:

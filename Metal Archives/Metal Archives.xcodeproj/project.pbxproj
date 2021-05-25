@@ -25,7 +25,7 @@
 		C0063EB9265C3A6E005AB1E2 /* ThumbnailInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0063EB8265C3A6E005AB1E2 /* ThumbnailInfo.swift */; };
 		C0063EBE265C4630005AB1E2 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0063EBD265C4630005AB1E2 /* Logger.swift */; };
 		C0063EC0265C4B95005AB1E2 /* Dummy.html in Resources */ = {isa = PBXBuildFile; fileRef = C0063EBF265C4B95005AB1E2 /* Dummy.html */; };
-		C0063EC2265C4C2D005AB1E2 /* ArtistLiteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0063EC1265C4C2D005AB1E2 /* ArtistLiteTests.swift */; };
+		C0063EC2265C4C2D005AB1E2 /* ArtistInBandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0063EC1265C4C2D005AB1E2 /* ArtistInBandTests.swift */; };
 		C0063EC4265C4D48005AB1E2 /* ThumbnailInfoExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0063EC3265C4D48005AB1E2 /* ThumbnailInfoExtensions.swift */; };
 		C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A79D126570245004FA9D7 /* Metal_ArchivesApp.swift */; };
 		C00A79D426570245004FA9D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A79D326570245004FA9D7 /* ContentView.swift */; };
@@ -49,7 +49,7 @@
 		C0250C34265A548F00BB6CD9 /* BandSimilarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0250C33265A548F00BB6CD9 /* BandSimilarTests.swift */; };
 		C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739A265996F000D2FD5E /* ReleaseType.swift */; };
 		C038739D2659A7E700D2FD5E /* BandLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739C2659A7E700D2FD5E /* BandLite.swift */; };
-		C03873A02659A92F00D2FD5E /* ArtistLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739F2659A92F00D2FD5E /* ArtistLite.swift */; };
+		C03873A02659A92F00D2FD5E /* ArtistInBand.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739F2659A92F00D2FD5E /* ArtistInBand.swift */; };
 		C03873A22659AAD000D2FD5E /* BandSimilar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03873A12659AAD000D2FD5E /* BandSimilar.swift */; };
 		C03873A42659AB3600D2FD5E /* RelatedLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03873A32659AB3600D2FD5E /* RelatedLink.swift */; };
 		C03873A62659AC0C00D2FD5E /* ReleaseLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03873A52659AC0C00D2FD5E /* ReleaseLite.swift */; };
@@ -100,7 +100,7 @@
 		C0063EB8265C3A6E005AB1E2 /* ThumbnailInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailInfo.swift; sourceTree = "<group>"; };
 		C0063EBD265C4630005AB1E2 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		C0063EBF265C4B95005AB1E2 /* Dummy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Dummy.html; sourceTree = "<group>"; };
-		C0063EC1265C4C2D005AB1E2 /* ArtistLiteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistLiteTests.swift; sourceTree = "<group>"; };
+		C0063EC1265C4C2D005AB1E2 /* ArtistInBandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInBandTests.swift; sourceTree = "<group>"; };
 		C0063EC3265C4D48005AB1E2 /* ThumbnailInfoExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailInfoExtensions.swift; sourceTree = "<group>"; };
 		C00A79CE26570245004FA9D7 /* Metal Archives.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Metal Archives.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C00A79D126570245004FA9D7 /* Metal_ArchivesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metal_ArchivesApp.swift; sourceTree = "<group>"; };
@@ -130,7 +130,7 @@
 		C0250C33265A548F00BB6CD9 /* BandSimilarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilarTests.swift; sourceTree = "<group>"; };
 		C038739A265996F000D2FD5E /* ReleaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseType.swift; sourceTree = "<group>"; };
 		C038739C2659A7E700D2FD5E /* BandLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLite.swift; sourceTree = "<group>"; };
-		C038739F2659A92F00D2FD5E /* ArtistLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistLite.swift; sourceTree = "<group>"; };
+		C038739F2659A92F00D2FD5E /* ArtistInBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInBand.swift; sourceTree = "<group>"; };
 		C03873A12659AAD000D2FD5E /* BandSimilar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilar.swift; sourceTree = "<group>"; };
 		C03873A32659AB3600D2FD5E /* RelatedLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedLink.swift; sourceTree = "<group>"; };
 		C03873A52659AC0C00D2FD5E /* ReleaseLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseLite.swift; sourceTree = "<group>"; };
@@ -253,7 +253,7 @@
 		C0063EBA265C3D2D005AB1E2 /* Artist */ = {
 			isa = PBXGroup;
 			children = (
-				C0063EC1265C4C2D005AB1E2 /* ArtistLiteTests.swift */,
+				C0063EC1265C4C2D005AB1E2 /* ArtistInBandTests.swift */,
 			);
 			path = Artist;
 			sourceTree = "<group>";
@@ -379,7 +379,7 @@
 		C038739E2659A90A00D2FD5E /* Artist */ = {
 			isa = PBXGroup;
 			children = (
-				C038739F2659A92F00D2FD5E /* ArtistLite.swift */,
+				C038739F2659A92F00D2FD5E /* ArtistInBand.swift */,
 			);
 			path = Artist;
 			sourceTree = "<group>";
@@ -657,7 +657,7 @@
 				C0A37B6D26584E980017A02F /* Country.swift in Sources */,
 				C03873A62659AC0C00D2FD5E /* ReleaseLite.swift in Sources */,
 				C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */,
-				C03873A02659A92F00D2FD5E /* ArtistLite.swift in Sources */,
+				C03873A02659A92F00D2FD5E /* ArtistInBand.swift in Sources */,
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
 				C004A2B62658F17B0071E12A /* LabelLite.swift in Sources */,
@@ -677,7 +677,7 @@
 				C004A2C62658FE310071E12A /* ModificationInfoTests.swift in Sources */,
 				C004A2D026590FBD0071E12A /* BandStatusTests.swift in Sources */,
 				C0063EC4265C4D48005AB1E2 /* ThumbnailInfoExtensions.swift in Sources */,
-				C0063EC2265C4C2D005AB1E2 /* ArtistLiteTests.swift in Sources */,
+				C0063EC2265C4C2D005AB1E2 /* ArtistInBandTests.swift in Sources */,
 				C0150354265ADCC50097D785 /* RelatedLinksTests.swift in Sources */,
 				C004A2C42658FBF00071E12A /* UserLiteTests.swift in Sources */,
 				C01B666C265B7FBC00920A71 /* BandTests.swift in Sources */,

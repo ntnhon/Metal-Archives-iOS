@@ -34,7 +34,7 @@ extension ModificationInfo: Equatable {
     }
 }
 
-extension ArtistLite: Equatable {
+extension ArtistInBand: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.name == rhs.name &&
         lhs.thumbnailInfo == rhs.thumbnailInfo &&

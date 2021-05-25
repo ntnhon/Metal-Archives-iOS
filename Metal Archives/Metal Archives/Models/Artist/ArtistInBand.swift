@@ -1,11 +1,11 @@
 //
-//  ArtistLite.swift
+//  ArtistInBand.swift
 //  Metal Archives
 //
 //  Created by Thanh-Nhon Nguyen on 22/05/2021.
 //
 
-struct ArtistLite: Thumbnailable {
+struct ArtistInBand: Thumbnailable {
     let thumbnailInfo: ThumbnailInfo
     let name: String
     let instruments: String
@@ -13,7 +13,7 @@ struct ArtistLite: Thumbnailable {
     let seeAlso: String?
 }
 
-extension ArtistLite {
+extension ArtistInBand {
     final class Builder {
         var thumbnailInfo: ThumbnailInfo?
         var name: String?
@@ -21,7 +21,7 @@ extension ArtistLite {
         var bands: [BandLite]?
         var seeAlso: String?
 
-        func build() -> ArtistLite? {
+        func build() -> ArtistInBand? {
             guard let thumbnailInfo = thumbnailInfo else {
                 Logger.log("thumbnailInfo can not be nil.")
                 return nil
@@ -47,11 +47,11 @@ extension ArtistLite {
                 return nil
             }
 
-            return ArtistLite(thumbnailInfo: thumbnailInfo,
-                              name: name,
-                              instruments: instruments,
-                              bands: bands,
-                              seeAlso: seeAlso)
+            return ArtistInBand(thumbnailInfo: thumbnailInfo,
+                                name: name,
+                                instruments: instruments,
+                                bands: bands,
+                                seeAlso: seeAlso)
         }
     }
 }

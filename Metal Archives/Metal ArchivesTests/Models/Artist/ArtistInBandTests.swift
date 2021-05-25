@@ -1,5 +1,5 @@
 //
-//  ArtistLiteTests.swift
+//  ArtistInBandTests.swift
 //  Metal ArchivesTests
 //
 //  Created by Thanh-Nhon Nguyen on 24/05/2021.
@@ -8,10 +8,10 @@
 @testable import Metal_Archives
 import XCTest
 
-class ArtistLiteTests: XCTestCase {
+class ArtistInBandTests: XCTestCase {
     func testEmptyThumbnailInfo() {
         // given
-        let builder = ArtistLite.Builder()
+        let builder = ArtistInBand.Builder()
         builder.thumbnailInfo = nil
         builder.name = String.random(length: 10)
         builder.instruments = String.random(length: 10)
@@ -27,7 +27,7 @@ class ArtistLiteTests: XCTestCase {
 
     func testFalseThumbnailInfo() {
         // given
-        let builder = ArtistLite.Builder()
+        let builder = ArtistInBand.Builder()
         builder.thumbnailInfo = .random(type: .label)
         builder.name = String.random(length: 10)
         builder.instruments = String.random(length: 10)
@@ -43,7 +43,7 @@ class ArtistLiteTests: XCTestCase {
 
     func testEmptyName() {
         // given
-        let builder = ArtistLite.Builder()
+        let builder = ArtistInBand.Builder()
         builder.thumbnailInfo = .random(type: .artist)
         builder.name = nil
         builder.instruments = String.random(length: 10)
@@ -59,7 +59,7 @@ class ArtistLiteTests: XCTestCase {
 
     func testEmptyInstruments() {
         // given
-        let builder = ArtistLite.Builder()
+        let builder = ArtistInBand.Builder()
         builder.thumbnailInfo = .random(type: .artist)
         builder.name = String.random(length: 10)
         builder.instruments = nil
@@ -75,7 +75,7 @@ class ArtistLiteTests: XCTestCase {
 
     func testEmptyBands() {
         // given
-        let builder = ArtistLite.Builder()
+        let builder = ArtistInBand.Builder()
         builder.thumbnailInfo = .random(type: .artist)
         builder.name = String.random(length: 10)
         builder.instruments = String.random(length: 10)
@@ -91,7 +91,7 @@ class ArtistLiteTests: XCTestCase {
 
     func testInitSuccess() {
         // given
-        let builder = ArtistLite.Builder()
+        let builder = ArtistInBand.Builder()
         builder.thumbnailInfo = .random(type: .artist)
         builder.name = String.random(length: 10)
         builder.instruments = String.random(length: 10)

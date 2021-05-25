@@ -59,12 +59,12 @@ class BandTests: XCTestCase {
         // swiftlint:disable:next line_length
         let expectedChuckThumbnailInfo = try XCTUnwrap(ThumbnailInfo(urlString: "https://www.metal-archives.com/artists/Chuck_Schuldiner/3012",
                                                                      type: .artist))
-        let expectedChuck = ArtistLite(thumbnailInfo: expectedChuckThumbnailInfo,
-                                       name: "Chuck Schuldiner",
-                                       instruments: "Guitars, Vocals (1984-2001)",
-                                       bands: [controlDenied, mantas, slaughter, voodooCult],
-                                       // swiftlint:disable:next line_length
-                                       seeAlso: "(R.I.P. 2001) See also: ex- Control Denied, ex-Mantas, ex-Slaughter, ex-Voodoocult")
+        let expectedChuck = ArtistInBand(thumbnailInfo: expectedChuckThumbnailInfo,
+                                         name: "Chuck Schuldiner",
+                                         instruments: "Guitars, Vocals (1984-2001)",
+                                         bands: [controlDenied, mantas, slaughter, voodooCult],
+                                         // swiftlint:disable:next line_length
+                                         seeAlso: "(R.I.P. 2001) See also: ex- Control Denied, ex-Mantas, ex-Slaughter, ex-Voodoocult")
         XCTAssertEqual(chuck, expectedChuck)
 
         XCTAssertEqual(sut.pastMembers.count, 19)
