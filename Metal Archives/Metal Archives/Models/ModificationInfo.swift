@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Kanna
 
 // Details page for bands, labels, releases, artists all holds an "auditTrail" tag
 // which contains information about the auditor and timestamps

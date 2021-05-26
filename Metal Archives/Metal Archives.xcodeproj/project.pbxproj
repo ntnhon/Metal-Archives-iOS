@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C00473A8265E0BC200C66F45 /* BandInRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00473A7265E0BC200C66F45 /* BandInRelease.swift */; };
 		C004A2B62658F17B0071E12A /* LabelLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2B52658F17B0071E12A /* LabelLite.swift */; };
 		C004A2B82658F2E70071E12A /* ModificationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2B72658F2E70071E12A /* ModificationInfo.swift */; };
 		C004A2BB2658F3290071E12A /* UserLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2BA2658F3290071E12A /* UserLite.swift */; };
@@ -57,12 +58,16 @@
 		C03873A92659AD6100D2FD5E /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = C03873A82659AD6100D2FD5E /* Kanna */; };
 		C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03873AA2659AE4B00D2FD5E /* Discography.swift */; };
 		C041C3122658EE74006B0F1F /* Band.swift in Sources */ = {isa = PBXBuildFile; fileRef = C041C3112658EE74006B0F1F /* Band.swift */; };
+		C0977E1E265EF0A200C3E9A9 /* ReleaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0977E1D265EF0A200C3E9A9 /* ReleaseTests.swift */; };
+		C0977E20265EF12300C3E9A9 /* TheSoundOfPerseverance.html in Resources */ = {isa = PBXBuildFile; fileRef = C0977E1F265EF12300C3E9A9 /* TheSoundOfPerseverance.html */; };
 		C0A37B6A26584DDB0017A02F /* MACountries.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A37B6926584DDB0017A02F /* MACountries.json */; };
 		C0A37B6D26584E980017A02F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B6C26584E980017A02F /* Country.swift */; };
 		C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B6F26584FB40017A02F /* CountryManager.swift */; };
 		C0A37B742658591E0017A02F /* CountryManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B732658591E0017A02F /* CountryManagerTests.swift */; };
 		C0A37B7826585C4A0017A02F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B7726585C4A0017A02F /* StringExtensions.swift */; };
 		C0B5E1B8265B844200023219 /* ModelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B5E1B7265B844200023219 /* ModelExtensions.swift */; };
+		C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */; };
+		C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F01433265D8F420032DAEE /* ReviewLite.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +88,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C00473A7265E0BC200C66F45 /* BandInRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInRelease.swift; sourceTree = "<group>"; };
 		C004A2B52658F17B0071E12A /* LabelLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLite.swift; sourceTree = "<group>"; };
 		C004A2B72658F2E70071E12A /* ModificationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModificationInfo.swift; sourceTree = "<group>"; };
 		C004A2BA2658F3290071E12A /* UserLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLite.swift; sourceTree = "<group>"; };
@@ -138,6 +144,8 @@
 		C03873A52659AC0C00D2FD5E /* ReleaseInBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInBand.swift; sourceTree = "<group>"; };
 		C03873AA2659AE4B00D2FD5E /* Discography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discography.swift; sourceTree = "<group>"; };
 		C041C3112658EE74006B0F1F /* Band.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Band.swift; sourceTree = "<group>"; };
+		C0977E1D265EF0A200C3E9A9 /* ReleaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTests.swift; sourceTree = "<group>"; };
+		C0977E1F265EF12300C3E9A9 /* TheSoundOfPerseverance.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TheSoundOfPerseverance.html; sourceTree = "<group>"; };
 		C0A37B6426584A690017A02F /* Metal Archives.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Metal Archives.entitlements"; sourceTree = "<group>"; };
 		C0A37B6926584DDB0017A02F /* MACountries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MACountries.json; sourceTree = "<group>"; };
 		C0A37B6C26584E980017A02F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
@@ -145,6 +153,8 @@
 		C0A37B732658591E0017A02F /* CountryManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryManagerTests.swift; sourceTree = "<group>"; };
 		C0A37B7726585C4A0017A02F /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		C0B5E1B7265B844200023219 /* ModelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelExtensions.swift; sourceTree = "<group>"; };
+		C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseOtherVersion.swift; sourceTree = "<group>"; };
+		C0F01433265D8F420032DAEE /* ReviewLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLite.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +249,7 @@
 				C004A2D2265916020071E12A /* Release.swift */,
 				C0056C55265C201700400A03 /* ReleaseElement.swift */,
 				C03873A52659AC0C00D2FD5E /* ReleaseInBand.swift */,
+				C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */,
 				C038739A265996F000D2FD5E /* ReleaseType.swift */,
 			);
 			path = Release;
@@ -247,6 +258,7 @@
 		C004A2D4265918090071E12A /* Release */ = {
 			isa = PBXGroup;
 			children = (
+				C0977E1D265EF0A200C3E9A9 /* ReleaseTests.swift */,
 				C004A2D5265918170071E12A /* ReleaseTypeTests.swift */,
 			);
 			path = Release;
@@ -353,6 +365,7 @@
 				C0250C2C265A53F500BB6CD9 /* BandSimilars */,
 				C0250C25265A3AD300BB6CD9 /* Discography */,
 				C015034C265ADB250097D785 /* RelatedLinks */,
+				C0977E1C265EF08F00C3E9A9 /* Release */,
 				C0063EBF265C4B95005AB1E2 /* Dummy.html */,
 			);
 			path = Resources;
@@ -391,6 +404,7 @@
 			isa = PBXGroup;
 			children = (
 				C041C3112658EE74006B0F1F /* Band.swift */,
+				C00473A7265E0BC200C66F45 /* BandInRelease.swift */,
 				C038739C2659A7E700D2FD5E /* BandLite.swift */,
 				C03873A12659AAD000D2FD5E /* BandSimilar.swift */,
 				C018C514265CD6E30022C8DD /* BandStatus.swift */,
@@ -407,6 +421,14 @@
 			path = Label;
 			sourceTree = "<group>";
 		};
+		C0977E1C265EF08F00C3E9A9 /* Release */ = {
+			isa = PBXGroup;
+			children = (
+				C0977E1F265EF12300C3E9A9 /* TheSoundOfPerseverance.html */,
+			);
+			path = Release;
+			sourceTree = "<group>";
+		};
 		C0A37B6526584C100017A02F /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,6 +443,7 @@
 				C041C3102658EE5F006B0F1F /* Band */,
 				C041C3132658EF19006B0F1F /* Label */,
 				C004A2D1265915F50071E12A /* Release */,
+				C0A68A15265D738D00E9A658 /* Review */,
 				C004A2B92658F31C0071E12A /* User */,
 				C0A37B6C26584E980017A02F /* Country.swift */,
 				C004A2B72658F2E70071E12A /* ModificationInfo.swift */,
@@ -471,6 +494,14 @@
 				C0063EC3265C4D48005AB1E2 /* ThumbnailInfoExtensions.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		C0A68A15265D738D00E9A658 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				C0F01433265D8F420032DAEE /* ReviewLite.swift */,
+			);
+			path = Review;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -601,6 +632,7 @@
 				C0250C22265A39DB00BB6CD9 /* DiscographyPublic.html in Resources */,
 				C0250C2E265A541400BB6CD9 /* BandSimilarsLoggedIn.html in Resources */,
 				C0250C24265A3AA700BB6CD9 /* DiscographyEmpty.html in Resources */,
+				C0977E20265EF12300C3E9A9 /* TheSoundOfPerseverance.html in Resources */,
 				C01B666F265B807700920A71 /* Death.html in Resources */,
 				C0250C32265A545E00BB6CD9 /* BandSimilarsEmpty.html in Resources */,
 				C0150352265ADC810097D785 /* RelatedLinksLoggedIn.html in Resources */,
@@ -653,11 +685,13 @@
 				C03873A42659AB3600D2FD5E /* RelatedLink.swift in Sources */,
 				C004A2BB2658F3290071E12A /* UserLite.swift in Sources */,
 				C004A2C02658F4F40071E12A /* DateFormatterExtensions.swift in Sources */,
+				C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */,
 				C0056C56265C201700400A03 /* ReleaseElement.swift in Sources */,
 				C004A2D3265916020071E12A /* Release.swift in Sources */,
 				C004A2B82658F2E70071E12A /* ModificationInfo.swift in Sources */,
 				C0063EB9265C3A6E005AB1E2 /* ThumbnailInfo.swift in Sources */,
 				C018C515265CD6E30022C8DD /* BandStatus.swift in Sources */,
+				C00473A8265E0BC200C66F45 /* BandInRelease.swift in Sources */,
 				C0A37B6D26584E980017A02F /* Country.swift in Sources */,
 				C03873A62659AC0C00D2FD5E /* ReleaseInBand.swift in Sources */,
 				C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */,
@@ -665,6 +699,7 @@
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
 				C004A2B62658F17B0071E12A /* LabelLite.swift in Sources */,
+				C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -677,6 +712,7 @@
 				C0250C29265A432500BB6CD9 /* DataExtensions.swift in Sources */,
 				C0B5E1B8265B844200023219 /* ModelExtensions.swift in Sources */,
 				C0A37B7826585C4A0017A02F /* StringExtensions.swift in Sources */,
+				C0977E1E265EF0A200C3E9A9 /* ReleaseTests.swift in Sources */,
 				C0A37B742658591E0017A02F /* CountryManagerTests.swift in Sources */,
 				C004A2C62658FE310071E12A /* ModificationInfoTests.swift in Sources */,
 				C004A2D026590FBD0071E12A /* BandStatusTests.swift in Sources */,

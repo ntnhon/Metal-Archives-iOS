@@ -56,82 +56,82 @@ extension Band {
 
         func build() -> Band? {
             guard let id = id else {
-                Logger.log("id can not be nil.")
+                Logger.log("[Building Band] id can not be nil.")
                 return nil
             }
 
             guard let urlString = urlString else {
-                Logger.log("urlString can not be nil.")
+                Logger.log("[Building Band] urlString can not be nil.")
                 return nil
             }
 
             guard let name = name else {
-                Logger.log("name can not be nil.")
+                Logger.log("[Building Band] name can not be nil.")
                 return nil
             }
 
             guard let country = country else {
-                Logger.log("country can not be nil.")
+                Logger.log("[Building Band] country can not be nil.")
                 return nil
             }
 
             guard let genre = genre else {
-                Logger.log("genre can not be nil.")
+                Logger.log("[Building Band] genre can not be nil.")
                 return nil
             }
 
             guard let status = status else {
-                Logger.log("status can not be nil.")
+                Logger.log("[Building Band] status can not be nil.")
                 return nil
             }
 
             guard let location = location else {
-                Logger.log("location can not be nil.")
+                Logger.log("[Building Band] location can not be nil.")
                 return nil
             }
 
             guard let yearOfCreation = yearOfCreation else {
-                Logger.log("yearOfCreation can not be nil.")
+                Logger.log("[Building Band] yearOfCreation can not be nil.")
                 return nil
             }
 
             guard let yearsActive = yearsActive else {
-                Logger.log("yearsActive can not be nil.")
+                Logger.log("[Building Band] yearsActive can not be nil.")
                 return nil
             }
 
             guard let oldBands = oldBands else {
-                Logger.log("oldBands can not be nil.")
+                Logger.log("[Building Band] oldBands can not be nil.")
                 return nil
             }
 
             guard let lyricalTheme = lyricalTheme else {
-                Logger.log("lyricalTheme can not be nil.")
+                Logger.log("[Building Band] lyricalTheme can not be nil.")
                 return nil
             }
 
             guard let lastLabel = lastLabel else {
-                Logger.log("lastLabel can not be nil.")
+                Logger.log("[Building Band] lastLabel can not be nil.")
                 return nil
             }
 
             guard let modificationInfo = modificationInfo else {
-                Logger.log("modificationInfo can not be nil.")
+                Logger.log("[Building Band] modificationInfo can not be nil.")
                 return nil
             }
 
             guard let currentLineUp = currentLineUp else {
-                Logger.log("currentLineUp can not be nil.")
+                Logger.log("[Building Band] currentLineUp can not be nil.")
                 return nil
             }
 
             guard let pastMembers = pastMembers else {
-                Logger.log("pastMembers can not be nil.")
+                Logger.log("[Building Band] pastMembers can not be nil.")
                 return nil
             }
 
             guard let liveMusicians = liveMusicians else {
-                Logger.log("liveMusicians can not be nil.")
+                Logger.log("[Building Band] liveMusicians can not be nil.")
                 return nil
             }
 
@@ -159,7 +159,7 @@ extension Band {
     }
 }
 
-fileprivate enum MemberType {
+fileprivate enum BandMemberType {
     case current, past, live
 }
 
@@ -174,17 +174,10 @@ extension Band {
 
         let builder = Band.Builder()
 
-        // Check if band is bookmarked or not
-        // look for the a tag with id "bookmark"
-        // Bookmarked: <a id="bookmark" class="iconContainer ui-state-active ...
-        // Not bookmarked: <a id="bookmark" class="iconContainer ui-state-default ...
-        // Not logged in: the tag a with id "bookmark" doesn't exist
         if let a = html.css("a").first(where: { $0["id"] == "bookmark" }), let aClass = a["class"] {
             builder.isBookmarked = aClass.contains("ui-state-active")
         }
 
-        // Look for band name, id and url in h1 tag (there is only one h1 tag)
-        // <h1 class="band_name"><a href="https://www.metal-archives.com/bands/Death/141">Death</a></h1>
         if let h1 = html.at_css("h1"), let a = h1.at_css("a") {
             let urlString = a["href"]
             builder.id = urlString?.components(separatedBy: "/").last
@@ -192,8 +185,6 @@ extension Band {
             builder.name = a.text
         }
 
-        // Find out if currentLineUp is "current" or "last known"
-        // base of the first tr tag with class "lineupHeaders"
         if let tr = html.css("tr").first(where: { $0["class"] == "lineupHeaders" }),
            let trText = tr.text {
             builder.isLastKnownLineUp = trText.contains("Last known")
@@ -210,26 +201,14 @@ extension Band {
                 default: break
                 }
             } else if let divClass = div["class"] {
-                // swiftlint:disable line_length
                 switch divClass {
                 case "band_name_img":
-                    /*
-                     <div class="band_name_img">
-                         <a class="image" id="logo" title="Death" href="https://www.metal-archives.com/images/1/4/1/141_logo.png?3006"><img src="https://www.metal-archives.com/images/1/4/1/141_logo.png?3006" title="Click to zoom" alt="Death - Logo" border="0" /></a>
-                         </div>
-                     */
                     builder.logoUrlString = div.at_css("a")?["href"]
 
                 case "band_img":
-                /*
-                 <div class="band_img">
-                     <a class="image" id="photo" title="Death" href="https://www.metal-archives.com/images/1/4/1/141_photo.jpg?5804"><img src="https://www.metal-archives.com/images/1/4/1/141_photo.jpg?5804" title="Click to zoom" alt="Death - Photo" border="0" /></a>
-                 </div>
-                 */
                     builder.photoUrlString = div.at_css("a")?["href"]
                 default: break
                 }
-                // swiftlint:enable line_length
             }
         }
 
@@ -238,35 +217,6 @@ extension Band {
     }
 
     private static func parseBandStatsDiv(_ div: XMLElement, to builder: Builder) {
-        // swiftlint:disable line_length
-        /*
-         <div id="band_stats">
-             <dl class="float_left">
-                 <dt>Country of origin:</dt>
-                 <dd><a href="https://www.metal-archives.com/lists/US">United States</a></dd>
-                 <dt>Location:</dt>
-                 <dd>Altamonte Springs, Florida</dd>
-                 <dt>Status:</dt>
-                 <dd class="split_up">Split-up</dd>
-                 <dt>Formed in:</dt>
-                 <dd>1984</dd>
-             </dl>
-             <dl class="float_right">
-                 <dt>Genre:</dt>
-                 <dd>Death Metal (early); Progressive Death Metal (later)</dd>
-                 <dt>Lyrical themes:</dt>
-                 <dd>Death, Gore (early); Society, Enlightenment (later)</dd>
-                 <dt>Last label:</dt>
-                 <dd><a href="https://www.metal-archives.com/labels/Nuclear_Blast/2">Nuclear Blast</a></dd>
-             </dl>
-             <dl style="width: 100%;" class="clear">
-                 <dt>Years active:</dt>
-                 <dd>
-                 1983-1984 (as <a href="https://www.metal-archives.com/bands/Mantas/35328">Mantas</a>), 1984-2001 </dd>
-             </dl>
-         </div>
-         */
-        // swiftlint:enable line_length
         for dl in div.css("dl") {
             switch dl["class"] {
             case "float_left":
@@ -332,30 +282,7 @@ extension Band {
 
     private static func parseMembersDiv(_ div: XMLElement,
                                         to builder: Builder,
-                                        ofType memberType: MemberType) {
-        // swiftlint:disable line_length
-        /*
-         <div id="band_tab_members_current">
-             <div class="ui-tabs-panel-content">
-                 <table class="display lineupTable" cellpadding="0" cellspacing="0">
-                     <tr class="lineupRow">
-                         <td width="200" valign="top">
-                             <a href="https://www.metal-archives.com/artists/Chuck_Schuldiner/3012" class="bold">Chuck Schuldiner</a>
-                         </td>
-                         <td>
-                             Guitars, Vocals&nbsp;(1984-2001) </td>
-                     </tr>
-                     <tr class="lineupBandsRow">
-                         <td colspan="2">
-                             (R.I.P. 2001) See also: ex-
-                             <a href="https://www.metal-archives.com/bands/Control_Denied/549">Control Denied</a>, ex-<a href="https://www.metal-archives.com/bands/Mantas/35328">Mantas</a>, ex-<a href="https://www.metal-archives.com/bands/Slaughter/376">Slaughter</a>,
-                             ex-<a href="https://www.metal-archives.com/bands/Voodoocult/1599">Voodoocult</a> </td>
-                     </tr>
-                 </table>
-             </div>
-         </div>
-         */
-        // swiftlint:enable line_length
+                                        ofType memberType: BandMemberType) {
         var lineUp = [ArtistInBand]()
         var lastArtistBuilder: ArtistInBand.Builder?
 

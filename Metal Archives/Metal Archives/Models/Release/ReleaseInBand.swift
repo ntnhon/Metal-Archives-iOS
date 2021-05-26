@@ -27,27 +27,27 @@ extension ReleaseInBand {
 
         func build() -> ReleaseInBand? {
             guard let thumbnailInfo = thumbnailInfo else {
-                Logger.log("thumbnailInfo can not be nil.")
+                Logger.log("[Building ReleaseInBand] thumbnailInfo can not be nil.")
                 return nil
             }
 
             guard thumbnailInfo.type == .release else {
-                Logger.log("thumbnailInfo's type must be release.")
+                Logger.log("[Building ReleaseInBand] thumbnailInfo's type must be release.")
                 return nil
             }
 
             guard let title = title else {
-                Logger.log("title can not be nil.")
+                Logger.log("[Building ReleaseInBand] title can not be nil.")
                 return nil
             }
 
             guard let type = type else {
-                Logger.log("type can not be nil.")
+                Logger.log("[Building ReleaseInBand] type can not be nil.")
                 return nil
             }
 
             guard let year = year else {
-                Logger.log("year can not be nil.")
+                Logger.log("[Building ReleaseInBand] year can not be nil.")
                 return nil
             }
 

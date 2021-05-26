@@ -25,8 +25,12 @@ extension StringProtocol where Index == String.Index {
         }
         return String(subSequence)
     }
+}
 
+extension String {
     func toInt() -> Int? { Int(self) }
+
+    func removeAll(string: String) -> String { replacingOccurrences(of: string, with: "") }
 
     func removeHtmlTagsAndNoisySpaces() -> String {
         // From

@@ -23,27 +23,27 @@ extension ArtistInBand {
 
         func build() -> ArtistInBand? {
             guard let thumbnailInfo = thumbnailInfo else {
-                Logger.log("thumbnailInfo can not be nil.")
+                Logger.log("[Building ArtistInBand] thumbnailInfo can not be nil.")
                 return nil
             }
 
             guard thumbnailInfo.type == .artist else {
-                Logger.log("thumbnailInfo's type must be artist.")
+                Logger.log("[Building ArtistInBand] thumbnailInfo's type must be artist.")
                 return nil
             }
 
             guard let name = name else {
-                Logger.log("name can not be nil.")
+                Logger.log("[Building ArtistInBand] name can not be nil.")
                 return nil
             }
 
             guard let instruments = instruments else {
-                Logger.log("instruments can not be nil.")
+                Logger.log("[Building ArtistInBand] instruments can not be nil.")
                 return nil
             }
 
             guard let bands = bands else {
-                Logger.log("bands can not be nil.")
+                Logger.log("[Building ArtistInBand] bands can not be nil.")
                 return nil
             }
 
