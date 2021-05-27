@@ -223,7 +223,7 @@ extension Release {
                     Self.parseMembers(from: div, builder: builder, type: .misc)
 
                 case "album_tabs_notes":
-                    builder.additionalHtmlNote = div.innerHTML
+                    builder.additionalHtmlNote = div.innerHTML?.trimmingCharacters(in: .whitespacesAndNewlines)
 
                 case "auditTrail":
                     if let htmlString = div.innerHTML {
@@ -242,23 +242,26 @@ extension Release {
                 var elements = [ReleaseElement]()
 
                 for tr in table.css("tr") {
-                    guard let trText = tr.text else { continue }
+                    guard let trText = tr.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { continue }
                     switch tr["class"] {
                     case "sideRow":
-                        elements.append(.side(title: trText))
+                        elements.append(.side(value: trText))
 
                     case "discRow":
-                        elements.append(.disc(title: trText))
+                        elements.append(.disc(value: trText))
 
                     case "even", "odd":
                         let trackBuilder = ReleaseElement.TrackBuilder()
                         for (index, td) in tr.css("td").enumerated() {
+                            guard let tdText = td.text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
+                                continue
+                            }
                             switch index {
-                            case 0: trackBuilder.number = td.text
-                            case 1: trackBuilder.title = td.text
-                            case 2: trackBuilder.length = td.text
+                            case 0: trackBuilder.number = tdText
+                            case 1: trackBuilder.title = tdText
+                            case 2: trackBuilder.length = tdText
                             case 3:
-                                trackBuilder.isInstrumental = td.text?.contains("instrumental") == true
+                                trackBuilder.isInstrumental = tdText.contains("instrumental") == true
                                 trackBuilder.lyricId = td.at_css("a")?["href"]?.removeAll(string: "#")
                             default: break
                             }
@@ -266,6 +269,8 @@ extension Release {
                         if let track = trackBuilder.build() {
                             elements.append(track)
                         }
+
+                    case nil: elements.append(.length(value: trText))
 
                     default: break
                     }
@@ -318,7 +323,7 @@ extension Release {
                 case .catalogId: builder.catalogId = ddText
                 case .label:
                     if let a = dd.at_css("a"), let labelName = a.text,
-                       let labelUrlString = a["href"] {
+                       let labelUrlString = a["href"]?.components(separatedBy: "#").first {
                         let thumbnailInfo = ThumbnailInfo(urlString: labelUrlString, type: .label)
                         builder.label = LabelLite(thumbnailInfo: thumbnailInfo, name: labelName)
                     }

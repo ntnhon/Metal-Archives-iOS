@@ -7,10 +7,10 @@
 
 enum ReleaseElement {
     // swiftlint:disable:next enum_case_associated_values_count
-    case track(number: String, title: String, length: String, lyricId: String?, isInstrumental: Bool)
-    case side(title: String)
-    case disc(title: String)
-    case length(title: String)
+    case song(number: String, title: String, length: String, lyricId: String?, isInstrumental: Bool)
+    case side(value: String)
+    case disc(value: String)
+    case length(value: String)
 }
 
 extension ReleaseElement {
@@ -37,11 +37,11 @@ extension ReleaseElement {
                 return nil
             }
 
-            return ReleaseElement.track(number: number,
-                                        title: title,
-                                        length: length,
-                                        lyricId: lyricId,
-                                        isInstrumental: isInstrumental)
+            return ReleaseElement.song(number: number,
+                                       title: title,
+                                       length: length,
+                                       lyricId: lyricId,
+                                       isInstrumental: isInstrumental)
         }
     }
 }

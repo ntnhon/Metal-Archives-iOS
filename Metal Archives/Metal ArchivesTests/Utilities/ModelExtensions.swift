@@ -7,9 +7,13 @@
 
 @testable import Metal_Archives
 
-extension ThumbnailInfo: Equatable {
+extension ArtistInBand: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.id == rhs.id && lhs.urlString == rhs.urlString && lhs.type == rhs.type
+        lhs.name == rhs.name &&
+            lhs.thumbnailInfo == rhs.thumbnailInfo &&
+            lhs.instruments == rhs.instruments &&
+            Set(lhs.instruments) == Set(rhs.instruments) &&
+            lhs.seeAlso == rhs.seeAlso
     }
 }
 
@@ -28,18 +32,33 @@ extension LabelLite: Equatable {
 extension ModificationInfo: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.addedOnDate == rhs.addedOnDate &&
-        lhs.modifiedOnDate == rhs.modifiedOnDate &&
-        lhs.addedByUser == rhs.addedByUser &&
-        lhs.modifiedByUser == rhs.modifiedByUser
+            lhs.modifiedOnDate == rhs.modifiedOnDate &&
+            lhs.addedByUser == rhs.addedByUser &&
+            lhs.modifiedByUser == rhs.modifiedByUser
     }
 }
 
-extension ArtistInBand: Equatable {
+extension ThumbnailInfo: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.name == rhs.name &&
-        lhs.thumbnailInfo == rhs.thumbnailInfo &&
-        lhs.instruments == rhs.instruments &&
-        Set(lhs.instruments) == Set(rhs.instruments) &&
-        lhs.seeAlso == rhs.seeAlso
+        lhs.id == rhs.id && lhs.urlString == rhs.urlString && lhs.type == rhs.type
+    }
+}
+
+extension ReleaseElement: Equatable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        switch (lhs, rhs) {
+        case let (.song(lNumber, lTitle, lLength, lLyricId, lIsInstrumental),
+                  .song(rNumber, rTitle, rLength, rLyricId, rIsInstrumental)):
+            return lNumber == rNumber &&
+                lTitle == rTitle &&
+                lLength == rLength &&
+                lLyricId == rLyricId &&
+                lIsInstrumental == rIsInstrumental
+
+        case let (.side(lValue), side(rValue)): return lValue == rValue
+        case let (.disc(lValue), disc(rValue)): return lValue == rValue
+        case let (.length(lValue), length(rValue)): return lValue == rValue
+        default: return false
+        }
     }
 }
