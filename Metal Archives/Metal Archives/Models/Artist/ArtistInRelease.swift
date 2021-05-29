@@ -11,6 +11,7 @@ struct ArtistInRelease: Thumbnailable {
     let additionalDetail: String?
     let lineUpType: LineUpType
     let instruments: String
+    let bandName: String?
 }
 
 enum LineUpType: String, CaseIterable {
@@ -26,6 +27,7 @@ extension ArtistInRelease {
         var additionalDetail: String?
         var lineUpType: LineUpType?
         var instruments: String?
+        var bandName: String?
 
         func build() -> ArtistInRelease? {
             guard let thumbnailInfo = thumbnailInfo else {
@@ -52,7 +54,8 @@ extension ArtistInRelease {
                                    name: name,
                                    additionalDetail: additionalDetail,
                                    lineUpType: lineUpType,
-                                   instruments: instruments)
+                                   instruments: instruments,
+                                   bandName: bandName)
         }
     }
 }

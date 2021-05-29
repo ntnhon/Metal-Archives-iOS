@@ -8,6 +8,7 @@
 @testable import Metal_Archives
 import XCTest
 
+// swiftlint:disable type_body_length
 class ReleaseTests: XCTestCase {
     func testReleaseWithLyricsAndInstrumentalTracks() throws {
         // The Sound of Perseverance
@@ -118,7 +119,7 @@ class ReleaseTests: XCTestCase {
         // Band members
         XCTAssertEqual(sut.bandMembers.count, 1)
         let bandMember = try XCTUnwrap(sut.bandMembers.first)
-        XCTAssertEqual(bandMember.name, "Death")
+        XCTAssertNil(bandMember.name)
         XCTAssertEqual(bandMember.members.count, 4)
 
         let chuck = try XCTUnwrap(bandMember.members[0])
@@ -165,8 +166,8 @@ class ReleaseTests: XCTestCase {
         XCTAssertTrue(sut.guestMembers.isEmpty)
 
         // Other staff
-        XCTAssertEqual(sut.otherStaff.count, 6)
-        let jim = try XCTUnwrap(sut.otherStaff[0])
+        XCTAssertEqual(sut.otherStaff.count, 1)
+        let jim = try XCTUnwrap(sut.otherStaff[0].members[0])
         XCTAssertEqual(jim.thumbnailInfo.id, 15_326)
         XCTAssertEqual(jim.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Jim_Morris/15326")
@@ -176,7 +177,7 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(jim.lineUpType, .other)
         XCTAssertEqual(jim.instruments, "Producer, Engineering, Mixing, Mastering")
 
-        let alex = try XCTUnwrap(sut.otherStaff[1])
+        let alex = try XCTUnwrap(sut.otherStaff[0].members[1])
         XCTAssertEqual(alex.thumbnailInfo.id, 45_198)
         XCTAssertEqual(alex.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Alex_McKnight/45198")
@@ -186,7 +187,7 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(alex.lineUpType, .other)
         XCTAssertEqual(alex.instruments, "Photography (band)")
 
-        let chuck2 = try XCTUnwrap(sut.otherStaff[2])
+        let chuck2 = try XCTUnwrap(sut.otherStaff[0].members[2])
         XCTAssertEqual(chuck2.thumbnailInfo.id, 3_012)
         XCTAssertEqual(chuck2.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Chuck_Schuldiner/3012")
@@ -196,7 +197,7 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(chuck2.lineUpType, .other)
         XCTAssertEqual(chuck2.instruments, "Producer")
 
-        let maria = try XCTUnwrap(sut.otherStaff[3])
+        let maria = try XCTUnwrap(sut.otherStaff[0].members[3])
         XCTAssertEqual(maria.thumbnailInfo.id, 160_346)
         XCTAssertEqual(maria.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Maria_Abril/160346")
@@ -206,7 +207,7 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(maria.lineUpType, .other)
         XCTAssertEqual(maria.instruments, "Art direction, Design")
 
-        let gabe = try XCTUnwrap(sut.otherStaff[4])
+        let gabe = try XCTUnwrap(sut.otherStaff[0].members[4])
         XCTAssertEqual(gabe.thumbnailInfo.id, 78_987)
         XCTAssertEqual(gabe.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Gabe_Mera/78987")
@@ -216,7 +217,7 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(gabe.lineUpType, .other)
         XCTAssertEqual(gabe.instruments, "Art direction, Design")
 
-        let travis = try XCTUnwrap(sut.otherStaff[5])
+        let travis = try XCTUnwrap(sut.otherStaff[0].members[5])
         XCTAssertEqual(travis.thumbnailInfo.id, 21_259)
         XCTAssertEqual(travis.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Travis_Smith/21259")
@@ -246,5 +247,162 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(lastReview.author.urlString, "https://www.metal-archives.com/users/Vic")
         XCTAssertEqual(lastReview.author.name, "Vic")
         XCTAssertEqual(lastReview.date, "August 5th, 2002")
+    }
+
+    func testSplitRelease() throws {
+        // Letárgica Mortis
+        // swiftlint:disable:next line_length
+        // https://www.metal-archives.com/albums/Blestema_-_Arkanus_Mors_-_Grimorium_Serpent/Letárgica_Mortis/948910
+
+        let sut = try XCTUnwrap(Release(data: Data.fromHtml(fileName: "LetargicaMortis")))
+
+        XCTAssertEqual(sut.id, "948910")
+        XCTAssertEqual(sut.urlString,
+                       // swiftlint:disable:next line_length
+                       "https://www.metal-archives.com/albums/Blestema_-_Arkanus_Mors_-_Grimorium_Serpent/Let%C3%A1rgica_Mortis/948910")
+
+        // Bands
+        XCTAssertEqual(sut.bands.count, 3)
+        // swiftlint:disable:next line_length
+        let blestema = try XCTUnwrap(BandLite(urlString: "https://www.metal-archives.com/bands/Blestema/3540297107", name: "Blestema"))
+        XCTAssertEqual(sut.bands[0], blestema)
+
+        // swiftlint:disable:next line_length
+        let arkanusMors = try XCTUnwrap(BandLite(urlString: "https://www.metal-archives.com/bands/Arkanus_Mors/3540481590", name: "Arkanus Mors"))
+        XCTAssertEqual(sut.bands[1], arkanusMors)
+
+        // swiftlint:disable:next line_length
+        let grimoriumSerpent = try XCTUnwrap(BandLite(urlString: "https://www.metal-archives.com/bands/Grimorium_Serpent/3540488692", name: "Grimorium Serpent"))
+        XCTAssertEqual(sut.bands[2], grimoriumSerpent)
+
+        XCTAssertEqual(sut.title, "Letárgica Mortis")
+        XCTAssertEqual(sut.type, .split)
+        XCTAssertEqual(sut.date, "May 18th, 2021")
+        XCTAssertEqual(sut.catalogId, "ER005")
+        XCTAssertEqual(sut.label.name, "Entropy Records")
+        let labelThumbnailInfo = try XCTUnwrap(sut.label.thumbnailInfo)
+        XCTAssertEqual(labelThumbnailInfo.id, 53_786)
+        XCTAssertEqual(labelThumbnailInfo.urlString,
+                       "https://www.metal-archives.com/labels/Entropy_Records/53786")
+        XCTAssertEqual(labelThumbnailInfo.type, .label)
+        XCTAssertEqual(sut.format, "CD")
+        XCTAssertNil(sut.additionalHtmlNote)
+        XCTAssertNil(sut.reviewCount)
+        XCTAssertNil(sut.rating)
+        XCTAssertEqual(sut.otherInfo, [])
+        XCTAssertNotNil(sut.modificationInfo.addedByUser)
+        XCTAssertNotNil(sut.modificationInfo.addedOnDate)
+        XCTAssertNotNil(sut.modificationInfo.modifiedByUser)
+        XCTAssertNotNil(sut.modificationInfo.modifiedOnDate)
+        XCTAssertFalse(sut.isBookmarked)
+
+        // Songs
+        XCTAssertEqual(sut.elements.count, 9)
+        let firstTrack = ReleaseElement.song(number: "1.",
+                                             title: "Grimorium Serpent - Golden Horns",
+                                             length: "05:38",
+                                             lyricId: nil,
+                                             isInstrumental: false)
+        XCTAssertEqual(sut.elements[0], firstTrack)
+
+        let secondTrack = ReleaseElement.song(number: "2.",
+                                              title: "Grimorium Serpent - Ritual of the Nine Weeks",
+                                              length: "05:31",
+                                              lyricId: nil,
+                                              isInstrumental: false)
+        XCTAssertEqual(sut.elements[1], secondTrack)
+
+        XCTAssertEqual(sut.elements[8], ReleaseElement.length(value: "45:41"))
+
+        // Band members
+        XCTAssertEqual(sut.bandMembers.count, 3)
+        let firstBand = try XCTUnwrap(sut.bandMembers.first { $0.name == "Blestema" })
+        XCTAssertEqual(firstBand.members.count, 3)
+
+        let secondBand = try XCTUnwrap(sut.bandMembers.first { $0.name == "Arkanus Mors" })
+        XCTAssertEqual(secondBand.members.count, 5)
+
+        let thirdBand = try XCTUnwrap(sut.bandMembers.first { $0.name == "Grimorium Serpent" })
+        XCTAssertEqual(thirdBand.members.count, 4)
+
+        XCTAssertTrue(sut.guestMembers.isEmpty)
+        XCTAssertTrue(sut.otherStaff.isEmpty)
+        XCTAssertTrue(sut.reviews.isEmpty)
+    }
+
+    func test3CdsRelease() throws {
+        // Human
+        // https://www.metal-archives.com/albums/Death/Human/433097
+        let sut = try XCTUnwrap(Release(data: Data.fromHtml(fileName: "Human_3CDs")))
+
+        XCTAssertEqual(sut.id, "433097")
+        XCTAssertEqual(sut.urlString,
+                       "https://www.metal-archives.com/albums/Death/Human/433097")
+
+        // Bands
+        XCTAssertEqual(sut.bands.count, 1)
+        let death = try XCTUnwrap(BandLite(urlString: "https://www.metal-archives.com/bands/Death/141",
+                                           name: "Death"))
+        XCTAssertEqual(sut.bands[0], death)
+
+        XCTAssertEqual(sut.title, "Human")
+        XCTAssertEqual(sut.type, .fullLength)
+        XCTAssertEqual(sut.date, "June 21st, 2011")
+        XCTAssertEqual(sut.catalogId, "RR 7166")
+        XCTAssertEqual(sut.label.name, "Relapse Records")
+        let labelThumbnailInfo = try XCTUnwrap(sut.label.thumbnailInfo)
+        XCTAssertEqual(labelThumbnailInfo.id, 8)
+        XCTAssertEqual(labelThumbnailInfo.urlString,
+                       "https://www.metal-archives.com/labels/Relapse_Records/8")
+        XCTAssertEqual(labelThumbnailInfo.type, .label)
+        XCTAssertEqual(sut.format, "3CD")
+        let additionalHtmlNote = try XCTUnwrap(sut.additionalHtmlNote)
+        XCTAssertTrue(additionalHtmlNote.contains("Tracks 13-17 Human"))
+        XCTAssertEqual(sut.reviewCount, 28)
+        XCTAssertEqual(sut.rating, 93)
+        XCTAssertEqual(sut.otherInfo.count, 2)
+        XCTAssertTrue(sut.otherInfo.contains("Digipak, Remastered, Limited edition"))
+        XCTAssertTrue(sut.otherInfo.contains("2000 copies"))
+        XCTAssertNotNil(sut.modificationInfo.addedByUser)
+        XCTAssertNotNil(sut.modificationInfo.addedOnDate)
+        XCTAssertNotNil(sut.modificationInfo.modifiedByUser)
+        XCTAssertNotNil(sut.modificationInfo.modifiedOnDate)
+        XCTAssertFalse(sut.isBookmarked)
+
+        // Songs
+        XCTAssertEqual(sut.elements.count, 52)
+        let firstDisc = ReleaseElement.disc(value: "Disc 1 - Human")
+        XCTAssertEqual(sut.elements.first, firstDisc)
+
+        let lastLength = ReleaseElement.length(value: "01:08:00")
+        XCTAssertEqual(sut.elements.last, lastLength)
+
+        // Band members
+        XCTAssertEqual(sut.bandMembers.count, 1)
+        let originalBandMembers = try XCTUnwrap(sut.bandMembers.first)
+        XCTAssertEqual(originalBandMembers.name, "Original line-up")
+        XCTAssertEqual(originalBandMembers.members.count, 4)
+
+        // Guest
+        XCTAssertEqual(sut.guestMembers.count, 2)
+        let originalGuestMembers = try XCTUnwrap(sut.guestMembers[0])
+        XCTAssertEqual(originalGuestMembers.name, "Original line-up")
+        XCTAssertEqual(originalGuestMembers.members.count, 1)
+
+        let additionalGuestMembers = try XCTUnwrap(sut.guestMembers[1])
+        XCTAssertEqual(additionalGuestMembers.name, "Additional line-up")
+        XCTAssertEqual(additionalGuestMembers.members.count, 2)
+
+        // Other staff
+        XCTAssertEqual(sut.otherStaff.count, 2)
+        let originalStaff = try XCTUnwrap(sut.otherStaff[0])
+        XCTAssertEqual(originalStaff.name, "Original line-up")
+        XCTAssertEqual(originalStaff.members.count, 7)
+
+        let additionalSatff = try XCTUnwrap(sut.otherStaff[1])
+        XCTAssertEqual(additionalSatff.name, "Additional line-up")
+        XCTAssertEqual(additionalSatff.members.count, 5)
+
+        XCTAssertEqual(sut.reviews.count, 28)
     }
 }

@@ -36,10 +36,12 @@
 		C0150350265ADC5F0097D785 /* RelatedLinksPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C015034F265ADC5F0097D785 /* RelatedLinksPublic.html */; };
 		C0150352265ADC810097D785 /* RelatedLinksLoggedIn.html in Resources */ = {isa = PBXBuildFile; fileRef = C0150351265ADC810097D785 /* RelatedLinksLoggedIn.html */; };
 		C0150354265ADCC50097D785 /* RelatedLinksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0150353265ADCC50097D785 /* RelatedLinksTests.swift */; };
+		C01809DC266190AD00295B32 /* LetargicaMortis.html in Resources */ = {isa = PBXBuildFile; fileRef = C01809DB266190AD00295B32 /* LetargicaMortis.html */; };
 		C018C515265CD6E30022C8DD /* BandStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018C514265CD6E30022C8DD /* BandStatus.swift */; };
 		C018C517265CE0C40022C8DD /* ArtistInRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018C516265CE0C40022C8DD /* ArtistInRelease.swift */; };
 		C01B666C265B7FBC00920A71 /* BandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01B666B265B7FBB00920A71 /* BandTests.swift */; };
 		C01B666F265B807700920A71 /* Death.html in Resources */ = {isa = PBXBuildFile; fileRef = C01B666E265B807700920A71 /* Death.html */; };
+		C01ECECA26620E08009A3A32 /* Human_3CDs.html in Resources */ = {isa = PBXBuildFile; fileRef = C01ECEC926620E08009A3A32 /* Human_3CDs.html */; };
 		C0250C1B265A385400BB6CD9 /* DiscographyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0250C1A265A385400BB6CD9 /* DiscographyTests.swift */; };
 		C0250C20265A391400BB6CD9 /* DiscographyLoggedIn.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C1F265A391400BB6CD9 /* DiscographyLoggedIn.html */; };
 		C0250C22265A39DB00BB6CD9 /* DiscographyPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */; };
@@ -123,10 +125,12 @@
 		C015034F265ADC5F0097D785 /* RelatedLinksPublic.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RelatedLinksPublic.html; sourceTree = "<group>"; };
 		C0150351265ADC810097D785 /* RelatedLinksLoggedIn.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RelatedLinksLoggedIn.html; sourceTree = "<group>"; };
 		C0150353265ADCC50097D785 /* RelatedLinksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedLinksTests.swift; sourceTree = "<group>"; };
+		C01809DB266190AD00295B32 /* LetargicaMortis.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = LetargicaMortis.html; sourceTree = "<group>"; };
 		C018C514265CD6E30022C8DD /* BandStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandStatus.swift; sourceTree = "<group>"; };
 		C018C516265CE0C40022C8DD /* ArtistInRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInRelease.swift; sourceTree = "<group>"; };
 		C01B666B265B7FBB00920A71 /* BandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandTests.swift; sourceTree = "<group>"; };
 		C01B666E265B807700920A71 /* Death.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Death.html; sourceTree = "<group>"; };
+		C01ECEC926620E08009A3A32 /* Human_3CDs.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Human_3CDs.html; sourceTree = "<group>"; };
 		C0250C1A265A385400BB6CD9 /* DiscographyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyTests.swift; sourceTree = "<group>"; };
 		C0250C1F265A391400BB6CD9 /* DiscographyLoggedIn.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DiscographyLoggedIn.html; sourceTree = "<group>"; };
 		C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DiscographyPublic.html; sourceTree = "<group>"; };
@@ -424,6 +428,8 @@
 		C0977E1C265EF08F00C3E9A9 /* Release */ = {
 			isa = PBXGroup;
 			children = (
+				C01809DB266190AD00295B32 /* LetargicaMortis.html */,
+				C01ECEC926620E08009A3A32 /* Human_3CDs.html */,
 				C0977E1F265EF12300C3E9A9 /* TheSoundOfPerseverance.html */,
 			);
 			path = Release;
@@ -634,9 +640,11 @@
 				C0250C24265A3AA700BB6CD9 /* DiscographyEmpty.html in Resources */,
 				C0977E20265EF12300C3E9A9 /* TheSoundOfPerseverance.html in Resources */,
 				C01B666F265B807700920A71 /* Death.html in Resources */,
+				C01ECECA26620E08009A3A32 /* Human_3CDs.html in Resources */,
 				C0250C32265A545E00BB6CD9 /* BandSimilarsEmpty.html in Resources */,
 				C0150352265ADC810097D785 /* RelatedLinksLoggedIn.html in Resources */,
 				C0063EC0265C4B95005AB1E2 /* Dummy.html in Resources */,
+				C01809DC266190AD00295B32 /* LetargicaMortis.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

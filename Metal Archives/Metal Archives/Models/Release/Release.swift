@@ -27,8 +27,8 @@ struct Release {
     var isBookmarked: Bool
     let elements: [ReleaseElement]
     let bandMembers: [BandInRelease]
-    let guestMembers: [ArtistInRelease]
-    let otherStaff: [ArtistInRelease]
+    let guestMembers: [BandInRelease]
+    let otherStaff: [BandInRelease]
     let reviews: [ReviewLite]
 }
 
@@ -70,8 +70,8 @@ extension Release {
         var isBookmarked = false
         var elements: [ReleaseElement]?
         var bandMembers: [BandInRelease]?
-        var guestMembers: [ArtistInRelease]?
-        var otherStaff: [ArtistInRelease]?
+        var guestMembers: [BandInRelease]?
+        var otherStaff: [BandInRelease]?
         var reviews: [ReviewLite]?
 
         func build() -> Release? {
@@ -140,11 +140,6 @@ extension Release {
                 return nil
             }
 
-            guard let reviews = reviews else {
-                Logger.log("[Building Release] reviews can not be nil.")
-                return nil
-            }
-
             return Release(id: id,
                            urlString: urlString,
                            bands: bands,
@@ -165,7 +160,7 @@ extension Release {
                            bandMembers: bandMembers,
                            guestMembers: guestMembers ?? [],
                            otherStaff: otherStaff ?? [],
-                           reviews: reviews)
+                           reviews: reviews ?? [])
         }
     }
 }
@@ -245,10 +240,10 @@ extension Release {
                     guard let trText = tr.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { continue }
                     switch tr["class"] {
                     case "sideRow":
-                        elements.append(.side(value: trText))
+                        elements.append(.side(value: trText.replacingOccurrences(of: "\n", with: " ")))
 
                     case "discRow":
-                        elements.append(.disc(value: trText))
+                        elements.append(.disc(value: trText.replacingOccurrences(of: "\n", with: " ")))
 
                     case "even", "odd":
                         let trackBuilder = ReleaseElement.TrackBuilder()
@@ -342,23 +337,18 @@ extension Release {
     }
 
     private static func parseMembers(from document: XMLElement, builder: Builder, type: ReleaseMemberType) {
-        var bands = [BandInRelease]()
-        var members = [ArtistInRelease]()
         var currentBandName: String?
+        var allMembers = [ArtistInRelease]()
 
         for tr in document.css("tr") {
             if tr.css("td").count == 1 {
-                currentBandName = tr.at_css("td")?.text
+                currentBandName = tr.at_css("td")?.text?.trimmingCharacters(in: .whitespacesAndNewlines)
                 continue
             }
 
-            if let bandName = currentBandName, !members.isEmpty {
-                bands.append(.init(name: bandName, members: members))
-                members = []
-                currentBandName = nil
-            }
-
             let artistBuilder = ArtistInRelease.Builder()
+            artistBuilder.bandName = currentBandName
+
             for (index, td) in tr.css("td").enumerated() {
                 switch index {
                 case 0:
@@ -380,18 +370,21 @@ extension Release {
             }
 
             if let artist = artistBuilder.build() {
-                members.append(artist)
+                allMembers.append(artist)
             }
         }
 
+        var allBandNames: Set<String?> = []
+        allMembers.forEach { allBandNames.insert($0.bandName) }
+        var bands = [BandInRelease]()
+        allBandNames.forEach { bandName in
+            let filteredMembers = allMembers.filter { $0.bandName == bandName }
+            bands.append(.init(name: bandName, members: filteredMembers))
+        }
         switch type {
-        case .bandMember:
-            if bands.isEmpty {
-                bands.append(.init(name: builder.bands?.first?.name, members: members))
-            }
-            builder.bandMembers = bands
-        case .guest: builder.guestMembers = members
-        case .misc: builder.otherStaff = members
+        case .bandMember: builder.bandMembers = bands
+        case .guest: builder.guestMembers = bands
+        case .misc: builder.otherStaff = bands
         }
     }
 }
