@@ -45,6 +45,12 @@
 		C01ECECE26621F7B009A3A32 /* ReleaseOtherVersionsPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C01ECECC26621F7B009A3A32 /* ReleaseOtherVersionsPublic.html */; };
 		C01ECECF26621F7B009A3A32 /* ReleaseOtherVersionsLoggedIn.html in Resources */ = {isa = PBXBuildFile; fileRef = C01ECECD26621F7B009A3A32 /* ReleaseOtherVersionsLoggedIn.html */; };
 		C01ECED126621F9C009A3A32 /* ReleaseOtherVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ECED026621F9C009A3A32 /* ReleaseOtherVersionTests.swift */; };
+		C01ECED326623273009A3A32 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ECED226623273009A3A32 /* Artist.swift */; };
+		C01ECED52662339F009A3A32 /* RoleInBand.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ECED42662339F009A3A32 /* RoleInBand.swift */; };
+		C01ECED7266233DF009A3A32 /* RoleInRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ECED6266233DF009A3A32 /* RoleInRelease.swift */; };
+		C01ECED92662341A009A3A32 /* ReleaseLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ECED82662341A009A3A32 /* ReleaseLite.swift */; };
+		C01ECEDC26625B4F009A3A32 /* Chuck.html in Resources */ = {isa = PBXBuildFile; fileRef = C01ECEDB26625B4F009A3A32 /* Chuck.html */; };
+		C01ECEDE26625B5C009A3A32 /* ArtistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ECEDD26625B5C009A3A32 /* ArtistTests.swift */; };
 		C0250C1B265A385400BB6CD9 /* DiscographyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0250C1A265A385400BB6CD9 /* DiscographyTests.swift */; };
 		C0250C20265A391400BB6CD9 /* DiscographyLoggedIn.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C1F265A391400BB6CD9 /* DiscographyLoggedIn.html */; };
 		C0250C22265A39DB00BB6CD9 /* DiscographyPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */; };
@@ -54,6 +60,7 @@
 		C0250C30265A543500BB6CD9 /* BandSimilarsPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C2F265A543500BB6CD9 /* BandSimilarsPublic.html */; };
 		C0250C32265A545E00BB6CD9 /* BandSimilarsEmpty.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C31265A545E00BB6CD9 /* BandSimilarsEmpty.html */; };
 		C0250C34265A548F00BB6CD9 /* BandSimilarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0250C33265A548F00BB6CD9 /* BandSimilarTests.swift */; };
+		C0333DDA2662DE3600D73191 /* RickRozz.html in Resources */ = {isa = PBXBuildFile; fileRef = C0333DD92662DE3500D73191 /* RickRozz.html */; };
 		C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739A265996F000D2FD5E /* ReleaseType.swift */; };
 		C038739D2659A7E700D2FD5E /* BandLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739C2659A7E700D2FD5E /* BandLite.swift */; };
 		C03873A02659A92F00D2FD5E /* ArtistInBand.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739F2659A92F00D2FD5E /* ArtistInBand.swift */; };
@@ -137,6 +144,12 @@
 		C01ECECC26621F7B009A3A32 /* ReleaseOtherVersionsPublic.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ReleaseOtherVersionsPublic.html; sourceTree = "<group>"; };
 		C01ECECD26621F7B009A3A32 /* ReleaseOtherVersionsLoggedIn.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ReleaseOtherVersionsLoggedIn.html; sourceTree = "<group>"; };
 		C01ECED026621F9C009A3A32 /* ReleaseOtherVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseOtherVersionTests.swift; sourceTree = "<group>"; };
+		C01ECED226623273009A3A32 /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
+		C01ECED42662339F009A3A32 /* RoleInBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleInBand.swift; sourceTree = "<group>"; };
+		C01ECED6266233DF009A3A32 /* RoleInRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleInRelease.swift; sourceTree = "<group>"; };
+		C01ECED82662341A009A3A32 /* ReleaseLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseLite.swift; sourceTree = "<group>"; };
+		C01ECEDB26625B4F009A3A32 /* Chuck.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Chuck.html; sourceTree = "<group>"; };
+		C01ECEDD26625B5C009A3A32 /* ArtistTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArtistTests.swift; path = ../../../../../../../ArtistTests.swift; sourceTree = "<group>"; };
 		C0250C1A265A385400BB6CD9 /* DiscographyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyTests.swift; sourceTree = "<group>"; };
 		C0250C1F265A391400BB6CD9 /* DiscographyLoggedIn.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DiscographyLoggedIn.html; sourceTree = "<group>"; };
 		C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DiscographyPublic.html; sourceTree = "<group>"; };
@@ -146,6 +159,7 @@
 		C0250C2F265A543500BB6CD9 /* BandSimilarsPublic.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = BandSimilarsPublic.html; sourceTree = "<group>"; };
 		C0250C31265A545E00BB6CD9 /* BandSimilarsEmpty.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = BandSimilarsEmpty.html; sourceTree = "<group>"; };
 		C0250C33265A548F00BB6CD9 /* BandSimilarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilarTests.swift; sourceTree = "<group>"; };
+		C0333DD92662DE3500D73191 /* RickRozz.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RickRozz.html; sourceTree = "<group>"; };
 		C038739A265996F000D2FD5E /* ReleaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseType.swift; sourceTree = "<group>"; };
 		C038739C2659A7E700D2FD5E /* BandLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLite.swift; sourceTree = "<group>"; };
 		C038739F2659A92F00D2FD5E /* ArtistInBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInBand.swift; sourceTree = "<group>"; };
@@ -259,6 +273,7 @@
 				C004A2D2265916020071E12A /* Release.swift */,
 				C0056C55265C201700400A03 /* ReleaseElement.swift */,
 				C03873A52659AC0C00D2FD5E /* ReleaseInBand.swift */,
+				C01ECED82662341A009A3A32 /* ReleaseLite.swift */,
 				C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */,
 				C038739A265996F000D2FD5E /* ReleaseType.swift */,
 			);
@@ -278,6 +293,7 @@
 		C0063EBA265C3D2D005AB1E2 /* Artist */ = {
 			isa = PBXGroup;
 			children = (
+				C01ECEDD26625B5C009A3A32 /* ArtistTests.swift */,
 				C0063EC1265C4C2D005AB1E2 /* ArtistInBandTests.swift */,
 			);
 			path = Artist;
@@ -378,9 +394,19 @@
 			path = OtherVersion;
 			sourceTree = "<group>";
 		};
+		C01ECEDA26625B01009A3A32 /* Artist */ = {
+			isa = PBXGroup;
+			children = (
+				C01ECEDB26625B4F009A3A32 /* Chuck.html */,
+				C0333DD92662DE3500D73191 /* RickRozz.html */,
+			);
+			path = Artist;
+			sourceTree = "<group>";
+		};
 		C0250C1C265A386100BB6CD9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C01ECEDA26625B01009A3A32 /* Artist */,
 				C01B666D265B7FE300920A71 /* Band */,
 				C0250C2C265A53F500BB6CD9 /* BandSimilars */,
 				C0250C25265A3AD300BB6CD9 /* Discography */,
@@ -414,8 +440,11 @@
 		C038739E2659A90A00D2FD5E /* Artist */ = {
 			isa = PBXGroup;
 			children = (
+				C01ECED226623273009A3A32 /* Artist.swift */,
 				C038739F2659A92F00D2FD5E /* ArtistInBand.swift */,
 				C018C516265CE0C40022C8DD /* ArtistInRelease.swift */,
+				C01ECED42662339F009A3A32 /* RoleInBand.swift */,
+				C01ECED6266233DF009A3A32 /* RoleInRelease.swift */,
 			);
 			path = Artist;
 			sourceTree = "<group>";
@@ -656,11 +685,13 @@
 				C0250C22265A39DB00BB6CD9 /* DiscographyPublic.html in Resources */,
 				C0250C2E265A541400BB6CD9 /* BandSimilarsLoggedIn.html in Resources */,
 				C0250C24265A3AA700BB6CD9 /* DiscographyEmpty.html in Resources */,
+				C0333DDA2662DE3600D73191 /* RickRozz.html in Resources */,
 				C0977E20265EF12300C3E9A9 /* TheSoundOfPerseverance.html in Resources */,
 				C01B666F265B807700920A71 /* Death.html in Resources */,
 				C01ECECA26620E08009A3A32 /* Human_3CDs.html in Resources */,
 				C01ECECF26621F7B009A3A32 /* ReleaseOtherVersionsLoggedIn.html in Resources */,
 				C0250C32265A545E00BB6CD9 /* BandSimilarsEmpty.html in Resources */,
+				C01ECEDC26625B4F009A3A32 /* Chuck.html in Resources */,
 				C0150352265ADC810097D785 /* RelatedLinksLoggedIn.html in Resources */,
 				C0063EC0265C4B95005AB1E2 /* Dummy.html in Resources */,
 				C01809DC266190AD00295B32 /* LetargicaMortis.html in Resources */,
@@ -704,6 +735,7 @@
 				C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */,
 				C0063EBE265C4630005AB1E2 /* Logger.swift in Sources */,
 				C041C3122658EE74006B0F1F /* Band.swift in Sources */,
+				C01ECED326623273009A3A32 /* Artist.swift in Sources */,
 				C018C517265CE0C40022C8DD /* ArtistInRelease.swift in Sources */,
 				C03873A22659AAD000D2FD5E /* BandSimilar.swift in Sources */,
 				C038739D2659A7E700D2FD5E /* BandLite.swift in Sources */,
@@ -713,6 +745,8 @@
 				C004A2BB2658F3290071E12A /* UserLite.swift in Sources */,
 				C004A2C02658F4F40071E12A /* DateFormatterExtensions.swift in Sources */,
 				C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */,
+				C01ECED92662341A009A3A32 /* ReleaseLite.swift in Sources */,
+				C01ECED52662339F009A3A32 /* RoleInBand.swift in Sources */,
 				C0056C56265C201700400A03 /* ReleaseElement.swift in Sources */,
 				C004A2D3265916020071E12A /* Release.swift in Sources */,
 				C004A2B82658F2E70071E12A /* ModificationInfo.swift in Sources */,
@@ -726,6 +760,7 @@
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
 				C004A2B62658F17B0071E12A /* LabelLite.swift in Sources */,
+				C01ECED7266233DF009A3A32 /* RoleInRelease.swift in Sources */,
 				C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -736,6 +771,7 @@
 			files = (
 				C004A2CB26590D380071E12A /* IntExtensions.swift in Sources */,
 				C0250C34265A548F00BB6CD9 /* BandSimilarTests.swift in Sources */,
+				C01ECEDE26625B5C009A3A32 /* ArtistTests.swift in Sources */,
 				C0250C29265A432500BB6CD9 /* DataExtensions.swift in Sources */,
 				C0B5E1B8265B844200023219 /* ModelExtensions.swift in Sources */,
 				C0A37B7826585C4A0017A02F /* StringExtensions.swift in Sources */,

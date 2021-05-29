@@ -19,3 +19,17 @@ struct BandLite: Thumbnailable {
         self.name = name
     }
 }
+
+struct BandExtraLite: OptionalThumbnailable {
+    let thumbnailInfo: ThumbnailInfo?
+    let name: String
+
+    init(urlString: String?, name: String) {
+        if let urlString = urlString {
+            self.thumbnailInfo = ThumbnailInfo(urlString: urlString, type: .bandLogo)
+        } else {
+            self.thumbnailInfo = nil
+        }
+        self.name = name
+    }
+}

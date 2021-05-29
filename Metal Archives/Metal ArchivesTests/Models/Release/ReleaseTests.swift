@@ -385,22 +385,22 @@ class ReleaseTests: XCTestCase {
 
         // Guest
         XCTAssertEqual(sut.guestMembers.count, 2)
-        let originalGuestMembers = try XCTUnwrap(sut.guestMembers[0])
-        XCTAssertEqual(originalGuestMembers.name, "Original line-up")
+        let originalGuestMembers = try XCTUnwrap(sut.guestMembers
+                                                    .first { $0.name == "Original line-up" })
         XCTAssertEqual(originalGuestMembers.members.count, 1)
 
-        let additionalGuestMembers = try XCTUnwrap(sut.guestMembers[1])
-        XCTAssertEqual(additionalGuestMembers.name, "Additional line-up")
+        let additionalGuestMembers = try XCTUnwrap(sut.guestMembers
+                                                    .first { $0.name == "Additional line-up" })
         XCTAssertEqual(additionalGuestMembers.members.count, 2)
 
         // Other staff
         XCTAssertEqual(sut.otherStaff.count, 2)
-        let originalStaff = try XCTUnwrap(sut.otherStaff[0])
-        XCTAssertEqual(originalStaff.name, "Original line-up")
+        let originalStaff = try XCTUnwrap(sut.otherStaff
+                                            .first { $0.name == "Original line-up" })
         XCTAssertEqual(originalStaff.members.count, 7)
 
-        let additionalSatff = try XCTUnwrap(sut.otherStaff[1])
-        XCTAssertEqual(additionalSatff.name, "Additional line-up")
+        let additionalSatff = try XCTUnwrap(sut.otherStaff
+                                                .first { $0.name == "Additional line-up" })
         XCTAssertEqual(additionalSatff.members.count, 5)
 
         XCTAssertEqual(sut.reviews.count, 28)
