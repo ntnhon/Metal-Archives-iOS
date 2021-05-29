@@ -42,6 +42,9 @@
 		C01B666C265B7FBC00920A71 /* BandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01B666B265B7FBB00920A71 /* BandTests.swift */; };
 		C01B666F265B807700920A71 /* Death.html in Resources */ = {isa = PBXBuildFile; fileRef = C01B666E265B807700920A71 /* Death.html */; };
 		C01ECECA26620E08009A3A32 /* Human_3CDs.html in Resources */ = {isa = PBXBuildFile; fileRef = C01ECEC926620E08009A3A32 /* Human_3CDs.html */; };
+		C01ECECE26621F7B009A3A32 /* ReleaseOtherVersionsPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C01ECECC26621F7B009A3A32 /* ReleaseOtherVersionsPublic.html */; };
+		C01ECECF26621F7B009A3A32 /* ReleaseOtherVersionsLoggedIn.html in Resources */ = {isa = PBXBuildFile; fileRef = C01ECECD26621F7B009A3A32 /* ReleaseOtherVersionsLoggedIn.html */; };
+		C01ECED126621F9C009A3A32 /* ReleaseOtherVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ECED026621F9C009A3A32 /* ReleaseOtherVersionTests.swift */; };
 		C0250C1B265A385400BB6CD9 /* DiscographyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0250C1A265A385400BB6CD9 /* DiscographyTests.swift */; };
 		C0250C20265A391400BB6CD9 /* DiscographyLoggedIn.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C1F265A391400BB6CD9 /* DiscographyLoggedIn.html */; };
 		C0250C22265A39DB00BB6CD9 /* DiscographyPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */; };
@@ -131,6 +134,9 @@
 		C01B666B265B7FBB00920A71 /* BandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandTests.swift; sourceTree = "<group>"; };
 		C01B666E265B807700920A71 /* Death.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Death.html; sourceTree = "<group>"; };
 		C01ECEC926620E08009A3A32 /* Human_3CDs.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Human_3CDs.html; sourceTree = "<group>"; };
+		C01ECECC26621F7B009A3A32 /* ReleaseOtherVersionsPublic.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ReleaseOtherVersionsPublic.html; sourceTree = "<group>"; };
+		C01ECECD26621F7B009A3A32 /* ReleaseOtherVersionsLoggedIn.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ReleaseOtherVersionsLoggedIn.html; sourceTree = "<group>"; };
+		C01ECED026621F9C009A3A32 /* ReleaseOtherVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseOtherVersionTests.swift; sourceTree = "<group>"; };
 		C0250C1A265A385400BB6CD9 /* DiscographyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyTests.swift; sourceTree = "<group>"; };
 		C0250C1F265A391400BB6CD9 /* DiscographyLoggedIn.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DiscographyLoggedIn.html; sourceTree = "<group>"; };
 		C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DiscographyPublic.html; sourceTree = "<group>"; };
@@ -263,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				C0977E1D265EF0A200C3E9A9 /* ReleaseTests.swift */,
+				C01ECED026621F9C009A3A32 /* ReleaseOtherVersionTests.swift */,
 				C004A2D5265918170071E12A /* ReleaseTypeTests.swift */,
 			);
 			path = Release;
@@ -362,6 +369,15 @@
 			path = Band;
 			sourceTree = "<group>";
 		};
+		C01ECECB26621F36009A3A32 /* OtherVersion */ = {
+			isa = PBXGroup;
+			children = (
+				C01ECECD26621F7B009A3A32 /* ReleaseOtherVersionsLoggedIn.html */,
+				C01ECECC26621F7B009A3A32 /* ReleaseOtherVersionsPublic.html */,
+			);
+			path = OtherVersion;
+			sourceTree = "<group>";
+		};
 		C0250C1C265A386100BB6CD9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,6 +444,7 @@
 		C0977E1C265EF08F00C3E9A9 /* Release */ = {
 			isa = PBXGroup;
 			children = (
+				C01ECECB26621F36009A3A32 /* OtherVersion */,
 				C01809DB266190AD00295B32 /* LetargicaMortis.html */,
 				C01ECEC926620E08009A3A32 /* Human_3CDs.html */,
 				C0977E1F265EF12300C3E9A9 /* TheSoundOfPerseverance.html */,
@@ -635,12 +652,14 @@
 				C0250C30265A543500BB6CD9 /* BandSimilarsPublic.html in Resources */,
 				C015034E265ADB3F0097D785 /* RelatedLinksEmpty.html in Resources */,
 				C0150350265ADC5F0097D785 /* RelatedLinksPublic.html in Resources */,
+				C01ECECE26621F7B009A3A32 /* ReleaseOtherVersionsPublic.html in Resources */,
 				C0250C22265A39DB00BB6CD9 /* DiscographyPublic.html in Resources */,
 				C0250C2E265A541400BB6CD9 /* BandSimilarsLoggedIn.html in Resources */,
 				C0250C24265A3AA700BB6CD9 /* DiscographyEmpty.html in Resources */,
 				C0977E20265EF12300C3E9A9 /* TheSoundOfPerseverance.html in Resources */,
 				C01B666F265B807700920A71 /* Death.html in Resources */,
 				C01ECECA26620E08009A3A32 /* Human_3CDs.html in Resources */,
+				C01ECECF26621F7B009A3A32 /* ReleaseOtherVersionsLoggedIn.html in Resources */,
 				C0250C32265A545E00BB6CD9 /* BandSimilarsEmpty.html in Resources */,
 				C0150352265ADC810097D785 /* RelatedLinksLoggedIn.html in Resources */,
 				C0063EC0265C4B95005AB1E2 /* Dummy.html in Resources */,
@@ -730,6 +749,7 @@
 				C004A2C42658FBF00071E12A /* UserLiteTests.swift in Sources */,
 				C01B666C265B7FBC00920A71 /* BandTests.swift in Sources */,
 				C004A2C9265900B50071E12A /* LabelLiteTests.swift in Sources */,
+				C01ECED126621F9C009A3A32 /* ReleaseOtherVersionTests.swift in Sources */,
 				C0063EB7265C36D9005AB1E2 /* BandLiteTests.swift in Sources */,
 				C004A2D6265918170071E12A /* ReleaseTypeTests.swift in Sources */,
 				C0250C1B265A385400BB6CD9 /* DiscographyTests.swift in Sources */,
