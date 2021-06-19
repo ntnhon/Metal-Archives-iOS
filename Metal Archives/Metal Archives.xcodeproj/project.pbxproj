@@ -42,6 +42,7 @@
 		C017D421267E30D9008B6EE5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D420267E30D9008B6EE5 /* SettingsView.swift */; };
 		C017D424267E3115008B6EE5 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D423267E3115008B6EE5 /* RootView.swift */; };
 		C017D426267E8C8D008B6EE5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D425267E8C8D008B6EE5 /* SettingsViewModel.swift */; };
+		C017D42B267E901F008B6EE5 /* URLButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D42A267E901F008B6EE5 /* URLButton.swift */; };
 		C01809DC266190AD00295B32 /* LetargicaMortis.html in Resources */ = {isa = PBXBuildFile; fileRef = C01809DB266190AD00295B32 /* LetargicaMortis.html */; };
 		C018C515265CD6E30022C8DD /* BandStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018C514265CD6E30022C8DD /* BandStatus.swift */; };
 		C018C517265CE0C40022C8DD /* ArtistInRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018C516265CE0C40022C8DD /* ArtistInRelease.swift */; };
@@ -147,6 +148,7 @@
 		C017D420267E30D9008B6EE5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C017D423267E3115008B6EE5 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		C017D425267E8C8D008B6EE5 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		C017D42A267E901F008B6EE5 /* URLButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLButton.swift; sourceTree = "<group>"; };
 		C01809DB266190AD00295B32 /* LetargicaMortis.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = LetargicaMortis.html; sourceTree = "<group>"; };
 		C018C514265CD6E30022C8DD /* BandStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandStatus.swift; sourceTree = "<group>"; };
 		C018C516265CE0C40022C8DD /* ArtistInRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInRelease.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 				C0A37B6726584C2D0017A02F /* Modules */,
 				C0A37B6526584C100017A02F /* Networking */,
 				C0A37B6826584D990017A02F /* Resources */,
+				C017D427267E8FE4008B6EE5 /* Supporting Views */,
 				C004A2BC2658F3630071E12A /* Utilities */,
 				C00A79D52657024A004FA9D7 /* Assets.xcassets */,
 				C00A79DA2657024A004FA9D7 /* Info.plist */,
@@ -435,6 +438,14 @@
 				C017D423267E3115008B6EE5 /* RootView.swift */,
 			);
 			path = Root;
+			sourceTree = "<group>";
+		};
+		C017D427267E8FE4008B6EE5 /* Supporting Views */ = {
+			isa = PBXGroup;
+			children = (
+				C017D42A267E901F008B6EE5 /* URLButton.swift */,
+			);
+			path = "Supporting Views";
 			sourceTree = "<group>";
 		};
 		C01B666D265B7FE300920A71 /* Band */ = {
@@ -803,6 +814,7 @@
 				C0063EBE265C4630005AB1E2 /* Logger.swift in Sources */,
 				C041C3122658EE74006B0F1F /* Band.swift in Sources */,
 				C01ECED326623273009A3A32 /* Artist.swift in Sources */,
+				C017D42B267E901F008B6EE5 /* URLButton.swift in Sources */,
 				C017D41E267E30B6008B6EE5 /* MyAccountView.swift in Sources */,
 				C018C517265CE0C40022C8DD /* ArtistInRelease.swift in Sources */,
 				C03873A22659AAD000D2FD5E /* BandSimilar.swift in Sources */,
