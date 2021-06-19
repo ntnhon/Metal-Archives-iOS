@@ -29,13 +29,18 @@
 		C0063EC2265C4C2D005AB1E2 /* ArtistInBandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0063EC1265C4C2D005AB1E2 /* ArtistInBandTests.swift */; };
 		C0063EC4265C4D48005AB1E2 /* ThumbnailInfoExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0063EC3265C4D48005AB1E2 /* ThumbnailInfoExtensions.swift */; };
 		C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A79D126570245004FA9D7 /* Metal_ArchivesApp.swift */; };
-		C00A79D426570245004FA9D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A79D326570245004FA9D7 /* ContentView.swift */; };
 		C00A79D62657024A004FA9D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00A79D52657024A004FA9D7 /* Assets.xcassets */; };
 		C00A79D92657024A004FA9D7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00A79D82657024A004FA9D7 /* Preview Assets.xcassets */; };
 		C015034E265ADB3F0097D785 /* RelatedLinksEmpty.html in Resources */ = {isa = PBXBuildFile; fileRef = C015034D265ADB3F0097D785 /* RelatedLinksEmpty.html */; };
 		C0150350265ADC5F0097D785 /* RelatedLinksPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C015034F265ADC5F0097D785 /* RelatedLinksPublic.html */; };
 		C0150352265ADC810097D785 /* RelatedLinksLoggedIn.html in Resources */ = {isa = PBXBuildFile; fileRef = C0150351265ADC810097D785 /* RelatedLinksLoggedIn.html */; };
 		C0150354265ADCC50097D785 /* RelatedLinksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0150353265ADCC50097D785 /* RelatedLinksTests.swift */; };
+		C017D411267E2FF1008B6EE5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D410267E2FF1008B6EE5 /* HomeView.swift */; };
+		C017D414267E3034008B6EE5 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D413267E3034008B6EE5 /* SearchView.swift */; };
+		C017D419267E3088008B6EE5 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D418267E3088008B6EE5 /* BrowseView.swift */; };
+		C017D41E267E30B6008B6EE5 /* MyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D41D267E30B6008B6EE5 /* MyAccountView.swift */; };
+		C017D421267E30D9008B6EE5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D420267E30D9008B6EE5 /* SettingsView.swift */; };
+		C017D424267E3115008B6EE5 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D423267E3115008B6EE5 /* RootView.swift */; };
 		C01809DC266190AD00295B32 /* LetargicaMortis.html in Resources */ = {isa = PBXBuildFile; fileRef = C01809DB266190AD00295B32 /* LetargicaMortis.html */; };
 		C018C515265CD6E30022C8DD /* BandStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018C514265CD6E30022C8DD /* BandStatus.swift */; };
 		C018C517265CE0C40022C8DD /* ArtistInRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018C516265CE0C40022C8DD /* ArtistInRelease.swift */; };
@@ -123,7 +128,6 @@
 		C0063EC3265C4D48005AB1E2 /* ThumbnailInfoExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailInfoExtensions.swift; sourceTree = "<group>"; };
 		C00A79CE26570245004FA9D7 /* Metal Archives.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Metal Archives.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C00A79D126570245004FA9D7 /* Metal_ArchivesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metal_ArchivesApp.swift; sourceTree = "<group>"; };
-		C00A79D326570245004FA9D7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C00A79D52657024A004FA9D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C00A79D82657024A004FA9D7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C00A79DA2657024A004FA9D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -135,6 +139,12 @@
 		C015034F265ADC5F0097D785 /* RelatedLinksPublic.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RelatedLinksPublic.html; sourceTree = "<group>"; };
 		C0150351265ADC810097D785 /* RelatedLinksLoggedIn.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RelatedLinksLoggedIn.html; sourceTree = "<group>"; };
 		C0150353265ADCC50097D785 /* RelatedLinksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedLinksTests.swift; sourceTree = "<group>"; };
+		C017D410267E2FF1008B6EE5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		C017D413267E3034008B6EE5 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		C017D418267E3088008B6EE5 /* BrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
+		C017D41D267E30B6008B6EE5 /* MyAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountView.swift; sourceTree = "<group>"; };
+		C017D420267E30D9008B6EE5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C017D423267E3115008B6EE5 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		C01809DB266190AD00295B32 /* LetargicaMortis.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = LetargicaMortis.html; sourceTree = "<group>"; };
 		C018C514265CD6E30022C8DD /* BandStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandStatus.swift; sourceTree = "<group>"; };
 		C018C516265CE0C40022C8DD /* ArtistInRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInRelease.swift; sourceTree = "<group>"; };
@@ -324,7 +334,6 @@
 			children = (
 				C0A37B6426584A690017A02F /* Metal Archives.entitlements */,
 				C00A79D126570245004FA9D7 /* Metal_ArchivesApp.swift */,
-				C00A79D326570245004FA9D7 /* ContentView.swift */,
 				C0A37B6E26584F920017A02F /* Managers */,
 				C0A37B6626584C1B0017A02F /* Models */,
 				C0A37B6726584C2D0017A02F /* Modules */,
@@ -375,6 +384,54 @@
 				C0150351265ADC810097D785 /* RelatedLinksLoggedIn.html */,
 			);
 			path = RelatedLinks;
+			sourceTree = "<group>";
+		};
+		C017D40D267E2F53008B6EE5 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				C017D410267E2FF1008B6EE5 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		C017D412267E3006008B6EE5 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				C017D413267E3034008B6EE5 /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		C017D415267E3040008B6EE5 /* Browse */ = {
+			isa = PBXGroup;
+			children = (
+				C017D418267E3088008B6EE5 /* BrowseView.swift */,
+			);
+			path = Browse;
+			sourceTree = "<group>";
+		};
+		C017D41A267E308C008B6EE5 /* My Account */ = {
+			isa = PBXGroup;
+			children = (
+				C017D41D267E30B6008B6EE5 /* MyAccountView.swift */,
+			);
+			path = "My Account";
+			sourceTree = "<group>";
+		};
+		C017D41F267E30CB008B6EE5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C017D420267E30D9008B6EE5 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		C017D422267E30F0008B6EE5 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				C017D423267E3115008B6EE5 /* RootView.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 		C01B666D265B7FE300920A71 /* Band */ = {
@@ -508,6 +565,12 @@
 		C0A37B6726584C2D0017A02F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				C017D415267E3040008B6EE5 /* Browse */,
+				C017D40D267E2F53008B6EE5 /* Home */,
+				C017D41A267E308C008B6EE5 /* My Account */,
+				C017D422267E30F0008B6EE5 /* Root */,
+				C017D412267E3006008B6EE5 /* Search */,
+				C017D41F267E30CB008B6EE5 /* Settings */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -732,14 +795,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C017D421267E30D9008B6EE5 /* SettingsView.swift in Sources */,
 				C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */,
 				C0063EBE265C4630005AB1E2 /* Logger.swift in Sources */,
 				C041C3122658EE74006B0F1F /* Band.swift in Sources */,
 				C01ECED326623273009A3A32 /* Artist.swift in Sources */,
+				C017D41E267E30B6008B6EE5 /* MyAccountView.swift in Sources */,
 				C018C517265CE0C40022C8DD /* ArtistInRelease.swift in Sources */,
 				C03873A22659AAD000D2FD5E /* BandSimilar.swift in Sources */,
 				C038739D2659A7E700D2FD5E /* BandLite.swift in Sources */,
-				C00A79D426570245004FA9D7 /* ContentView.swift in Sources */,
+				C017D419267E3088008B6EE5 /* BrowseView.swift in Sources */,
 				C004A2BE2658F3760071E12A /* StringExtensions.swift in Sources */,
 				C03873A42659AB3600D2FD5E /* RelatedLink.swift in Sources */,
 				C004A2BB2658F3290071E12A /* UserLite.swift in Sources */,
@@ -748,6 +813,7 @@
 				C01ECED92662341A009A3A32 /* ReleaseLite.swift in Sources */,
 				C01ECED52662339F009A3A32 /* RoleInBand.swift in Sources */,
 				C0056C56265C201700400A03 /* ReleaseElement.swift in Sources */,
+				C017D411267E2FF1008B6EE5 /* HomeView.swift in Sources */,
 				C004A2D3265916020071E12A /* Release.swift in Sources */,
 				C004A2B82658F2E70071E12A /* ModificationInfo.swift in Sources */,
 				C0063EB9265C3A6E005AB1E2 /* ThumbnailInfo.swift in Sources */,
@@ -759,6 +825,8 @@
 				C03873A02659A92F00D2FD5E /* ArtistInBand.swift in Sources */,
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
+				C017D414267E3034008B6EE5 /* SearchView.swift in Sources */,
+				C017D424267E3115008B6EE5 /* RootView.swift in Sources */,
 				C004A2B62658F17B0071E12A /* LabelLite.swift in Sources */,
 				C01ECED7266233DF009A3A32 /* RoleInRelease.swift in Sources */,
 				C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */,

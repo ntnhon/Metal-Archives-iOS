@@ -11,7 +11,7 @@ import SwiftUI
 struct Metal_ArchivesApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
         }
     }
 }
