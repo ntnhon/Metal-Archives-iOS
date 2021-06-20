@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Theme: Int, CaseIterable {
-    case `default` = 0, green, red, blue, orange/*, purple, yellow*/
+    case `default` = 0, green, red, blue, orange, violet/*, yellow*/
 
     func primaryColor(for scheme: ColorScheme) -> Color {
         switch (scheme, self) {
@@ -32,6 +32,10 @@ enum Theme: Int, CaseIterable {
             return Color(.sRGB, red: 255 / 255, green: 123 / 255, blue: 0 / 255, opacity: 1)
         case (.dark, .orange):
             return Color(.sRGB, red: 255 / 255, green: 149 / 255, blue: 0 / 255, opacity: 1)
+        case (.light, .violet):
+            return Color(.sRGB, red: 98 / 255, green: 71 / 255, blue: 170 / 255, opacity: 1)
+        case (.dark, .violet):
+            return Color(.sRGB, red: 129 / 255, green: 90 / 255, blue: 192 / 255, opacity: 1)
         default: return .blue
         }
     }
@@ -58,6 +62,10 @@ enum Theme: Int, CaseIterable {
             return Color(.sRGB, red: 255 / 255, green: 170 / 255, blue: 0 / 255, opacity: 1)
         case (.dark, .orange):
             return Color(.sRGB, red: 255 / 255, green: 208 / 255, blue: 0 / 255, opacity: 1)
+        case (.light, .violet):
+            return Color(.sRGB, red: 160 / 255, green: 108 / 255, blue: 213 / 255, opacity: 1)
+        case (.dark, .violet):
+            return Color(.sRGB, red: 177 / 255, green: 133 / 255, blue: 219 / 255, opacity: 1)
         default: return .blue
         }
     }
