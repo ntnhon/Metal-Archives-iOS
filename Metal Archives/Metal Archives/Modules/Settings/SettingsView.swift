@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject private var settings: Settings
+    @EnvironmentObject private var preferences: Preferences
 
     @State private var showAboutSheet = false
     @State private var showSupportSheet = false
@@ -35,15 +35,15 @@ struct SettingsView: View {
 
                     Toggle("Show thumbnails", isOn: $showThumbnails)
                         .onChange(of: showThumbnails) { isOn in
-                            settings.showThumbnails = isOn
-                            settings.objectWillChange.send()
+                            preferences.showThumbnails = isOn
+                            preferences.objectWillChange.send()
                         }
 
                     NavigationLink(destination: DiscographyModeView()) {
                         HStack {
                             Text("Default discography mode")
                             Spacer()
-                            Text(settings.discographyMode.description)
+                            Text(preferences.discographyMode.description)
                                 .font(.body)
                                 .foregroundColor(.gray)
                         }
@@ -51,8 +51,8 @@ struct SettingsView: View {
 
                     Toggle("Haptic effect", isOn: $useHaptic)
                         .onChange(of: useHaptic) { isOn in
-                            settings.useHaptic = isOn
-                            settings.objectWillChange.send()
+                            preferences.useHaptic = isOn
+                            preferences.objectWillChange.send()
                         }
                 }
 
@@ -63,15 +63,15 @@ struct SettingsView: View {
                             ZStack {
                                 Circle()
                                     .frame(width: 28, height: 28)
-                                    .foregroundColor(theme == settings.theme ? .primary : .clear)
+                                    .foregroundColor(theme == preferences.theme ? .primary : .clear)
                                 theme.primaryColor(for: colorScheme)
                                     .frame(width: 24, height: 24)
                                     .clipShape(Circle())
                             }
                             .onTapGesture {
                                 withAnimation {
-                                    settings.theme = theme
-                                    settings.objectWillChange.send()
+                                    preferences.theme = theme
+                                    preferences.objectWillChange.send()
                                     showThemePreview = true
                                 }
                             }
@@ -204,8 +204,8 @@ struct SettingsView: View {
             .navigationTitle("Settings")
         }
         .onAppear {
-            self.showThumbnails = settings.showThumbnails
-            self.useHaptic = settings.useHaptic
+            self.showThumbnails = preferences.showThumbnails
+            self.useHaptic = preferences.useHaptic
         }
     }
 
@@ -249,11 +249,11 @@ struct SettingsView: View {
                 Text("The Sound of Perserverance")
                     .font(.body)
                     .fontWeight(.bold)
-                    .foregroundColor(settings.theme.primaryColor(for: colorScheme))
+                    .foregroundColor(preferences.theme.primaryColor(for: colorScheme))
                 Text("Death")
                     .font(.callout)
                     .fontWeight(.bold)
-                    .foregroundColor(settings.theme.secondaryColor(for: colorScheme))
+                    .foregroundColor(preferences.theme.secondaryColor(for: colorScheme))
                 Text("1998 • Full-length")
                     .font(.footnote)
                     .fontWeight(.medium)
@@ -265,10 +265,10 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
-            .environmentObject(Settings())
+            .environmentObject(Preferences())
         SettingsView()
             .environment(\.colorScheme, .dark)
-            .environmentObject(Settings())
+            .environmentObject(Preferences())
     }
 }
 

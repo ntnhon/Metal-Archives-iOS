@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject private var settings: Settings
+    @EnvironmentObject private var settings: Preferences
 
     var body: some View {
         Form {
@@ -32,6 +32,6 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-            .environmentObject(Settings())
+            .environmentObject(Preferences())
     }
 }

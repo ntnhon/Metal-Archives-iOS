@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct HomeSectionOrderView: View {
-    @EnvironmentObject private var settings: Settings
+    @EnvironmentObject private var preferences: Preferences
 
     var body: some View {
         Form {
             Section(footer: Text("Hold & drag ≡ icon to change order")) {
-                ForEach(settings.homeSectionOrder, id: \.self) {
+                ForEach(preferences.homeSectionOrder, id: \.self) {
                     Text($0.description)
                 }
                 .onMove(perform: handleMove)
@@ -24,8 +24,8 @@ struct HomeSectionOrderView: View {
     }
 
     private func handleMove(from source: IndexSet, to destination: Int) {
-        settings.$homeSectionOrder.wrappedValue.move(fromOffsets: source, toOffset: destination)
-        settings.objectWillChange.send()
+        preferences.$homeSectionOrder.wrappedValue.move(fromOffsets: source, toOffset: destination)
+        preferences.objectWillChange.send()
     }
 }
 
@@ -33,7 +33,7 @@ struct HomeSectionOrderView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             HomeSectionOrderView()
-                .environmentObject(Settings())
+                .environmentObject(Preferences())
         }
     }
 }

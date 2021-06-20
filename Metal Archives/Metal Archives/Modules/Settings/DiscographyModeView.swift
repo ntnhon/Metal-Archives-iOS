@@ -9,20 +9,20 @@ import SwiftUI
 
 struct DiscographyModeView: View {
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject private var settings: Settings
+    @EnvironmentObject private var preferences: Preferences
 
     var body: some View {
         Form {
             ForEach(DiscographyMode.allCases, id: \.self) { mode in
                 Button(action: {
-                    settings.$discographyMode.wrappedValue = mode
-                    settings.objectWillChange.send()
+                    preferences.$discographyMode.wrappedValue = mode
+                    preferences.objectWillChange.send()
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
                     HStack {
                         Text(mode.description)
                             .foregroundColor(.primary)
-                        if settings.discographyMode == mode {
+                        if preferences.discographyMode == mode {
                             Spacer()
                             Image(systemName: "checkmark")
                                 .foregroundColor(.accentColor)
@@ -39,7 +39,7 @@ struct DiscographyModeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             DiscographyModeView()
-                .environmentObject(Settings())
+                .environmentObject(Preferences())
         }
     }
 }
