@@ -12,6 +12,8 @@ private enum RootViewTab {
 }
 
 struct RootView: View {
+    @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject private var preferences: Preferences
     @State private var selectedTab: RootViewTab = .home
 
     var body: some View {
@@ -54,6 +56,7 @@ struct RootView: View {
                 }
                 .tag(RootViewTab.settings)
         }
+        .accentColor(preferences.theme.primaryColor(for: colorScheme))
     }
 }
 

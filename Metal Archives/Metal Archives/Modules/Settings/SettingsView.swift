@@ -22,7 +22,7 @@ struct SettingsView: View {
 
     @State private var showThumbnails = false
     @State private var useHaptic = false
-    @State private var showThemePreview = true
+    @State private var showThemePreview = false
 
     var body: some View {
         NavigationView {
@@ -58,7 +58,7 @@ struct SettingsView: View {
 
                 // Theme
                 Section(header: Text("Theme")) {
-                    HStack {
+                    HStack(spacing: 16) {
                         ForEach(Theme.allCases, id: \.self) { theme in
                             ZStack {
                                 Circle()
