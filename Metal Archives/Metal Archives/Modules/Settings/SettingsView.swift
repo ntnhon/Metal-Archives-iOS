@@ -51,9 +51,28 @@ struct SettingsView: View {
                     }
                 }
 
-                // Contact & support
-                Section(header: Text("Contact & support"),
-                        footer: bottomFooterView) {
+                // Official Links
+                Section(header: Text("Official Links")) {
+                    // Website
+                    URLButton(urlString: "https://www.metal-archives.com/") {
+                        HStack {
+                            SettingsIconView(image: Image(systemName: "link"))
+                            Text("Website")
+                        }
+                    }
+
+                    // Forum
+                    URLButton(urlString: "https://www.metal-archives.com/board/") {
+                        HStack {
+                            SettingsIconView(image: Image(systemName: "globe"))
+                            Text("Forum")
+                        }
+                    }
+                }
+
+                // Mobile Application Links
+                Section(header: Text("Mobile Application Links"),
+                        footer: Text("For crashes, bug reports & feature requests related to this iOS app")) {
                     // Twitter
                     URLButton(urlString: "https://twitter.com/ma_mobile_app") {
                         HStack {
@@ -63,7 +82,7 @@ struct SettingsView: View {
                     }
 
                     // Facebook
-                    URLButton(urlString: "https://www.facebook.com/MetalArchivesIOSApp") {
+                    URLButton(urlString: "https://www.facebook.com/MetalArchivesMobileApp") {
                         HStack {
                             SettingsIconView(image: Image("Facebook"))
                             Text("Facebook")
@@ -88,10 +107,13 @@ struct SettingsView: View {
                     URLButton(urlString: "mailto:hi@nguyenthanhnhon.info") {
                         HStack {
                             SettingsIconView(image: Image(systemName: "envelope.fill"))
-                            Text("Email")
+                            Text("Author's email")
                         }
                     }
                 }
+
+                // Empty section
+                Section(footer: bottomFooterView) {}
             }
             .navigationTitle("Settings")
         }

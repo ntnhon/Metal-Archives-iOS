@@ -13,7 +13,7 @@ private let kAboutString = """
 
     If you encounter any issue related to the content, you can contact the webmaster (see Official Links section).
 
-    If you encounter an issue related to this application's functionalities (crashes, bugs or feature requests), you can reach out the author (see Unofficial Links section).
+    If you encounter any issue related to this application's functionalities (crashes, bugs or feature requests), you can reach out the author (see Mobile Application Links section).
 
     This application is open source on Github, contributions are welcome 🤘.
     """
