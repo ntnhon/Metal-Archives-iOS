@@ -8,6 +8,11 @@
 import StoreKit
 import SwiftUI
 
+private let kVersionName =
+    (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?"
+private let kBuildNumber =
+    (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?"
+
 struct SettingsView: View {
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var preferences: Preferences
@@ -18,11 +23,6 @@ struct SettingsView: View {
     @State private var showThumbnails = false
     @State private var useHaptic = false
     @State private var showThemePreview = false
-
-    private let versionName =
-        (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?"
-    private let buildNumber =
-        (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?"
 
     var body: some View {
         NavigationView {
@@ -233,7 +233,7 @@ struct SettingsView: View {
 
             Spacer()
 
-            Text("Version \(versionName) (Build \(buildNumber))")
+            Text("Version \(kVersionName) (Build \(kBuildNumber))")
                 .fontWeight(.medium)
         }
         .frame(maxWidth: .infinity, alignment: .center)
