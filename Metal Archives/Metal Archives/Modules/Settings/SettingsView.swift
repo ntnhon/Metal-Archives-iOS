@@ -11,6 +11,7 @@ struct SettingsView: View {
     @Environment(\.colorScheme) private var colorScheme
     @State private var showThumbnail = true
     @State private var isHapticOn = false
+    @State private var showAboutSheet = false
     let viewModel: SettingsViewModel
 
     var body: some View {
@@ -37,8 +38,21 @@ struct SettingsView: View {
                     }
                 }
 
-                // Bug reports
-                Section(header: Text("Bug reports & feature request"),
+                // About
+                Section(header: Text("About")) {
+                    Button(action: {
+                        showAboutSheet = true
+                    }, label: {
+                        Text("About this app")
+                            .foregroundColor(.primary)
+                    })
+                    .sheet(isPresented: $showAboutSheet) {
+                        AboutView()
+                    }
+                }
+
+                // Contact & support
+                Section(header: Text("Contact & support"),
                         footer: bottomFooterView) {
                     // Twitter
                     URLButton(urlString: "https://twitter.com/ma_mobile_app") {

@@ -43,6 +43,7 @@
 		C017D424267E3115008B6EE5 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D423267E3115008B6EE5 /* RootView.swift */; };
 		C017D426267E8C8D008B6EE5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D425267E8C8D008B6EE5 /* SettingsViewModel.swift */; };
 		C017D42B267E901F008B6EE5 /* URLButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D42A267E901F008B6EE5 /* URLButton.swift */; };
+		C017D42D267E9B51008B6EE5 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D42C267E9B51008B6EE5 /* AboutView.swift */; };
 		C01809DC266190AD00295B32 /* LetargicaMortis.html in Resources */ = {isa = PBXBuildFile; fileRef = C01809DB266190AD00295B32 /* LetargicaMortis.html */; };
 		C018C515265CD6E30022C8DD /* BandStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018C514265CD6E30022C8DD /* BandStatus.swift */; };
 		C018C517265CE0C40022C8DD /* ArtistInRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018C516265CE0C40022C8DD /* ArtistInRelease.swift */; };
@@ -149,6 +150,7 @@
 		C017D423267E3115008B6EE5 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		C017D425267E8C8D008B6EE5 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		C017D42A267E901F008B6EE5 /* URLButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLButton.swift; sourceTree = "<group>"; };
+		C017D42C267E9B51008B6EE5 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		C01809DB266190AD00295B32 /* LetargicaMortis.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = LetargicaMortis.html; sourceTree = "<group>"; };
 		C018C514265CD6E30022C8DD /* BandStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandStatus.swift; sourceTree = "<group>"; };
 		C018C516265CE0C40022C8DD /* ArtistInRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInRelease.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 		C017D41F267E30CB008B6EE5 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C017D42C267E9B51008B6EE5 /* AboutView.swift */,
 				C017D420267E30D9008B6EE5 /* SettingsView.swift */,
 				C017D425267E8C8D008B6EE5 /* SettingsViewModel.swift */,
 			);
@@ -825,6 +828,7 @@
 				C004A2BB2658F3290071E12A /* UserLite.swift in Sources */,
 				C004A2C02658F4F40071E12A /* DateFormatterExtensions.swift in Sources */,
 				C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */,
+				C017D42D267E9B51008B6EE5 /* AboutView.swift in Sources */,
 				C01ECED92662341A009A3A32 /* ReleaseLite.swift in Sources */,
 				C01ECED52662339F009A3A32 /* RoleInBand.swift in Sources */,
 				C0056C56265C201700400A03 /* ReleaseElement.swift in Sources */,
