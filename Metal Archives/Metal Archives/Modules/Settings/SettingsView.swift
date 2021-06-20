@@ -10,11 +10,15 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.colorScheme) private var colorScheme
-    @State private var showThumbnail = true
-    @State private var isHapticOn = false
+    @EnvironmentObject private var settings: Settings
+
     @State private var showAboutSheet = false
     @State private var showSupportSheet = false
-    let viewModel: SettingsViewModel
+
+    private let versionName =
+        (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?"
+    private let buildNumber =
+        (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?"
 
     var body: some View {
         NavigationView {
@@ -23,7 +27,7 @@ struct SettingsView: View {
                 Section(header: Text("General")) {
                     Text("Home section order")
 
-                    Toggle(isOn: $showThumbnail) {
+                    Toggle(isOn: settings.$showThumbnails) {
                         Text("Display thumbnails")
                     }
 
@@ -35,7 +39,7 @@ struct SettingsView: View {
                             .foregroundColor(.gray)
                     }
 
-                    Toggle(isOn: $isHapticOn) {
+                    Toggle(isOn: settings.$useHaptic) {
                         Text("Haptic effect")
                     }
                 }
@@ -186,7 +190,7 @@ struct SettingsView: View {
 
             Spacer()
 
-            Text("Version \(viewModel.versionName) (Build \(viewModel.buildNumber))")
+            Text("Version \(versionName) (Build \(buildNumber))")
                 .fontWeight(.medium)
         }
         .frame(maxWidth: .infinity, alignment: .center)
@@ -195,8 +199,8 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(viewModel: .init())
-        SettingsView(viewModel: .init())
+        SettingsView()
+        SettingsView()
             .environment(\.colorScheme, .dark)
     }
 }
@@ -218,9 +222,4 @@ private struct SettingsIconView: View {
             .scaledToFit()
             .frame(width: 18, height: 18)
     }
-}
-
-// TODO: Use this when Swift 5.5 becomes official
-private extension ViewModifier where Self == SettingsIcon {
-    static var settingsIcon: SettingsIcon { .init() }
 }

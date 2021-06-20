@@ -12,6 +12,7 @@ struct Metal_ArchivesApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                .environmentObject(Settings())
         }
     }
 }

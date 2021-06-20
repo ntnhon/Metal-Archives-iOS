@@ -46,7 +46,7 @@ struct RootView: View {
                 }
                 .tag(RootViewTab.myAccount)
 
-            SettingsView(viewModel: .init())
+            SettingsView()
                 .tabItem {
                     Image(systemName: selectedTab == .settings ?
                             "gearshape.fill" : "gearshape")
