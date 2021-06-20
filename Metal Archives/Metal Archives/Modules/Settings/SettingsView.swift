@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 19/06/2021.
 //
 
+import StoreKit
 import SwiftUI
 
 struct SettingsView: View {
@@ -12,6 +13,7 @@ struct SettingsView: View {
     @State private var showThumbnail = true
     @State private var isHapticOn = false
     @State private var showAboutSheet = false
+    @State private var showSupportSheet = false
     let viewModel: SettingsViewModel
 
     var body: some View {
@@ -38,16 +40,57 @@ struct SettingsView: View {
                     }
                 }
 
-                // About
-                Section(header: Text("About")) {
+                // Information
+                Section(header: Text("Information")) {
+                    // About
                     Button(action: {
                         showAboutSheet = true
                     }, label: {
-                        Text("About this app")
-                            .foregroundColor(.primary)
+                        HStack {
+                            SettingsIconView(image: Image(systemName: "info.circle.fill"))
+                                .foregroundColor(.blue)
+                            Text("About")
+                                .foregroundColor(.primary)
+                        }
                     })
                     .sheet(isPresented: $showAboutSheet) {
                         AboutView()
+                    }
+
+                    // Share
+                    URLButton(urlString: "https://apps.apple.com/us/app/id1074038930") {
+                        HStack {
+                            SettingsIconView(image: Image(systemName: "square.and.arrow.up.fill"))
+                                .foregroundColor(.green)
+                            Text("Share")
+                        }
+                    }
+
+                    // Rate
+                    Button(action: {
+                        SKStoreReviewController.askForReview()
+                    }, label: {
+                        HStack {
+                            SettingsIconView(image: Image(systemName: "heart.circle.fill"))
+                                .foregroundColor(.red)
+                            Text("Rate & review")
+                                .foregroundColor(.primary)
+                        }
+                    })
+
+                    // Support
+                    Button(action: {
+                        showSupportSheet = true
+                    }, label: {
+                        HStack {
+                            SettingsIconView(image: Image(systemName: "hands.clap.fill"))
+                                .foregroundColor(.purple)
+                            Text("Support this effort")
+                                .foregroundColor(.primary)
+                        }
+                    })
+                    .sheet(isPresented: $showSupportSheet) {
+                        SupportView()
                     }
                 }
 

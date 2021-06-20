@@ -87,6 +87,8 @@
 		C0A37B7826585C4A0017A02F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B7726585C4A0017A02F /* StringExtensions.swift */; };
 		C0B5E1B8265B844200023219 /* ModelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B5E1B7265B844200023219 /* ModelExtensions.swift */; };
 		C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */; };
+		C0DD1377267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1376267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift */; };
+		C0DD1379267F5E6C009F0B81 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1378267F5E6C009F0B81 /* SupportView.swift */; };
 		C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F01433265D8F420032DAEE /* ReviewLite.swift */; };
 /* End PBXBuildFile section */
 
@@ -194,6 +196,8 @@
 		C0A37B7726585C4A0017A02F /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		C0B5E1B7265B844200023219 /* ModelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelExtensions.swift; sourceTree = "<group>"; };
 		C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseOtherVersion.swift; sourceTree = "<group>"; };
+		C0DD1376267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKStoreReviewControllerExtensions.swift; sourceTree = "<group>"; };
+		C0DD1378267F5E6C009F0B81 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
 		C0F01433265D8F420032DAEE /* ReviewLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLite.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -236,6 +240,7 @@
 			children = (
 				C004A2BF2658F4F40071E12A /* DateFormatterExtensions.swift */,
 				C0063EBD265C4630005AB1E2 /* Logger.swift */,
+				C0DD1376267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift */,
 				C004A2BD2658F3760071E12A /* StringExtensions.swift */,
 			);
 			path = Utilities;
@@ -431,6 +436,7 @@
 				C017D42C267E9B51008B6EE5 /* AboutView.swift */,
 				C017D420267E30D9008B6EE5 /* SettingsView.swift */,
 				C017D425267E8C8D008B6EE5 /* SettingsViewModel.swift */,
+				C0DD1378267F5E6C009F0B81 /* SupportView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -815,6 +821,7 @@
 				C017D421267E30D9008B6EE5 /* SettingsView.swift in Sources */,
 				C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */,
 				C0063EBE265C4630005AB1E2 /* Logger.swift in Sources */,
+				C0DD1377267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift in Sources */,
 				C041C3122658EE74006B0F1F /* Band.swift in Sources */,
 				C01ECED326623273009A3A32 /* Artist.swift in Sources */,
 				C017D42B267E901F008B6EE5 /* URLButton.swift in Sources */,
@@ -831,6 +838,7 @@
 				C017D42D267E9B51008B6EE5 /* AboutView.swift in Sources */,
 				C01ECED92662341A009A3A32 /* ReleaseLite.swift in Sources */,
 				C01ECED52662339F009A3A32 /* RoleInBand.swift in Sources */,
+				C0DD1379267F5E6C009F0B81 /* SupportView.swift in Sources */,
 				C0056C56265C201700400A03 /* ReleaseElement.swift in Sources */,
 				C017D411267E2FF1008B6EE5 /* HomeView.swift in Sources */,
 				C004A2D3265916020071E12A /* Release.swift in Sources */,
