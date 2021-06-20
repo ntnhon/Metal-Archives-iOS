@@ -13,4 +13,5 @@ final class Settings: ObservableObject {
         [.stats, .upcomingAlbums, .latestAdditions, .latestUpdates, .latestReviews, .news]
     @AppStorage("showThumbnails") var showThumbnails = true
     @AppStorage("useHaptic") var useHaptic = true
+    @AppStorage("theme") var theme: Theme = .default
 }

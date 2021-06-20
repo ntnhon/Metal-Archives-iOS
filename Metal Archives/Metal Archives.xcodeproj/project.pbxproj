@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C004556D267FA95500B47356 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004556C267FA95500B47356 /* Theme.swift */; };
 		C00473A8265E0BC200C66F45 /* BandInRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00473A7265E0BC200C66F45 /* BandInRelease.swift */; };
 		C004A2B62658F17B0071E12A /* LabelLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2B52658F17B0071E12A /* LabelLite.swift */; };
 		C004A2B82658F2E70071E12A /* ModificationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C004A2B72658F2E70071E12A /* ModificationInfo.swift */; };
@@ -115,6 +116,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C004556C267FA95500B47356 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		C00473A7265E0BC200C66F45 /* BandInRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInRelease.swift; sourceTree = "<group>"; };
 		C004A2B52658F17B0071E12A /* LabelLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLite.swift; sourceTree = "<group>"; };
 		C004A2B72658F2E70071E12A /* ModificationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModificationInfo.swift; sourceTree = "<group>"; };
@@ -625,6 +627,7 @@
 			children = (
 				C0A37B6F26584FB40017A02F /* CountryManager.swift */,
 				C0DD1380267F6BC2009F0B81 /* Settings.swift */,
+				C004556C267FA95500B47356 /* Theme.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -836,6 +839,7 @@
 				C017D421267E30D9008B6EE5 /* SettingsView.swift in Sources */,
 				C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */,
 				C0DD1383267F6C40009F0B81 /* DiscographyMode.swift in Sources */,
+				C004556D267FA95500B47356 /* Theme.swift in Sources */,
 				C0063EBE265C4630005AB1E2 /* Logger.swift in Sources */,
 				C0DD1377267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift in Sources */,
 				C0DD1381267F6BC2009F0B81 /* Settings.swift in Sources */,

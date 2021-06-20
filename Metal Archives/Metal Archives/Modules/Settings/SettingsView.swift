@@ -17,6 +17,7 @@ struct SettingsView: View {
 
     @State private var showThumbnails = false
     @State private var useHaptic = false
+    @State private var showThemePreview = false
 
     private let versionName =
         (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?"
@@ -53,6 +54,33 @@ struct SettingsView: View {
                             settings.useHaptic = isOn
                             settings.objectWillChange.send()
                         }
+                }
+
+                // Theme
+                Section(header: Text("Theme")) {
+                    HStack {
+                        ForEach(Theme.allCases, id: \.self) { theme in
+                            ZStack {
+                                Circle()
+                                    .frame(width: 28, height: 28)
+                                    .foregroundColor(theme == settings.theme ? .primary : .clear)
+                                theme.primaryColor(for: colorScheme)
+                                    .frame(width: 24, height: 24)
+                                    .clipShape(Circle())
+                            }
+                            .onTapGesture {
+                                withAnimation {
+                                    settings.theme = theme
+                                    settings.objectWillChange.send()
+                                    showThemePreview = true
+                                }
+                            }
+                        }
+                    }
+
+                    if showThemePreview {
+                        themePreview
+                    }
                 }
 
                 // Information
@@ -209,6 +237,28 @@ struct SettingsView: View {
                 .fontWeight(.medium)
         }
         .frame(maxWidth: .infinity, alignment: .center)
+    }
+
+    private var themePreview: some View {
+        HStack(spacing: 8) {
+            Image("TSOP")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 64)
+            VStack(alignment: .leading, spacing: 2) {
+                Text("The Sound of Perserverance")
+                    .font(.body)
+                    .fontWeight(.bold)
+                    .foregroundColor(settings.theme.primaryColor(for: colorScheme))
+                Text("Death")
+                    .font(.callout)
+                    .fontWeight(.bold)
+                    .foregroundColor(settings.theme.secondaryColor(for: colorScheme))
+                Text("1998 • Full-length")
+                    .font(.footnote)
+                    .fontWeight(.medium)
+            }
+        }
     }
 }
 

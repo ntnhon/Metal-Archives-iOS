@@ -7,7 +7,6 @@
 
 import Foundation
 
-// swiftlint:disable explicit_enum_raw_value
 enum DiscographyMode: Int, CustomStringConvertible, CaseIterable {
     case complete = 0, main, lives, demos, misc
 

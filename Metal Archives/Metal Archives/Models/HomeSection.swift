@@ -7,7 +7,6 @@
 
 import Foundation
 
-// swiftlint:disable explicit_enum_raw_value
 enum HomeSection: Int, CustomStringConvertible, Codable {
     case stats = 0, news, upcomingAlbums, latestAdditions, latestUpdates, latestReviews
 
