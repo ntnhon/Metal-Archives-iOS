@@ -93,6 +93,7 @@
 		C0DD1381267F6BC2009F0B81 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1380267F6BC2009F0B81 /* Settings.swift */; };
 		C0DD1383267F6C40009F0B81 /* DiscographyMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1382267F6C40009F0B81 /* DiscographyMode.swift */; };
 		C0DD1385267F6E1D009F0B81 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1384267F6E1D009F0B81 /* ArrayExtensions.swift */; };
+		C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1386267F798B009F0B81 /* DiscographyModeView.swift */; };
 		C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F01433265D8F420032DAEE /* ReviewLite.swift */; };
 /* End PBXBuildFile section */
 
@@ -206,6 +207,7 @@
 		C0DD1380267F6BC2009F0B81 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C0DD1382267F6C40009F0B81 /* DiscographyMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyMode.swift; sourceTree = "<group>"; };
 		C0DD1384267F6E1D009F0B81 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		C0DD1386267F798B009F0B81 /* DiscographyModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyModeView.swift; sourceTree = "<group>"; };
 		C0F01433265D8F420032DAEE /* ReviewLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLite.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -443,9 +445,10 @@
 			isa = PBXGroup;
 			children = (
 				C017D42C267E9B51008B6EE5 /* AboutView.swift */,
+				C0DD1386267F798B009F0B81 /* DiscographyModeView.swift */,
+				C0DD137E267F6B41009F0B81 /* HomeSectionOrderView.swift */,
 				C017D420267E30D9008B6EE5 /* SettingsView.swift */,
 				C0DD1378267F5E6C009F0B81 /* SupportView.swift */,
-				C0DD137E267F6B41009F0B81 /* HomeSectionOrderView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -868,6 +871,7 @@
 				C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */,
 				C03873A02659A92F00D2FD5E /* ArtistInBand.swift in Sources */,
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
+				C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
 				C017D414267E3034008B6EE5 /* SearchView.swift in Sources */,
 				C017D424267E3115008B6EE5 /* RootView.swift in Sources */,

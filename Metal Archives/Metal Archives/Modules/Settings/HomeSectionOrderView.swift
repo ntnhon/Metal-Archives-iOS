@@ -25,6 +25,7 @@ struct HomeSectionOrderView: View {
 
     private func handleMove(from source: IndexSet, to destination: Int) {
         settings.$homeSectionOrder.wrappedValue.move(fromOffsets: source, toOffset: destination)
+        settings.objectWillChange.send()
     }
 }
 

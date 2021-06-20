@@ -15,6 +15,9 @@ struct SettingsView: View {
     @State private var showAboutSheet = false
     @State private var showSupportSheet = false
 
+    @State private var showThumbnails = false
+    @State private var useHaptic = false
+
     private let versionName =
         (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?"
     private let buildNumber =
@@ -29,21 +32,27 @@ struct SettingsView: View {
                         Text("Home section order")
                     }
 
-                    Toggle(isOn: settings.$showThumbnails) {
-                        Text("Display thumbnails")
+                    Toggle("Show thumbnails", isOn: $showThumbnails)
+                        .onChange(of: showThumbnails) { isOn in
+                            settings.showThumbnails = isOn
+                            settings.objectWillChange.send()
+                        }
+
+                    NavigationLink(destination: DiscographyModeView()) {
+                        HStack {
+                            Text("Default discography mode")
+                            Spacer()
+                            Text(settings.discographyMode.description)
+                                .font(.body)
+                                .foregroundColor(.gray)
+                        }
                     }
 
-                    HStack {
-                        Text("Discography mode")
-                        Spacer()
-                        Text("Complete")
-                            .font(.body)
-                            .foregroundColor(.gray)
-                    }
-
-                    Toggle(isOn: settings.$useHaptic) {
-                        Text("Haptic effect")
-                    }
+                    Toggle("Haptic effect", isOn: $useHaptic)
+                        .onChange(of: useHaptic) { isOn in
+                            settings.useHaptic = isOn
+                            settings.objectWillChange.send()
+                        }
                 }
 
                 // Information
@@ -165,6 +174,10 @@ struct SettingsView: View {
                 Section(footer: bottomFooterView) {}
             }
             .navigationTitle("Settings")
+        }
+        .onAppear {
+            self.showThumbnails = settings.showThumbnails
+            self.useHaptic = settings.useHaptic
         }
     }
 
