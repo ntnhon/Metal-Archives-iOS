@@ -22,7 +22,7 @@ struct SettingsView: View {
 
     @State private var showThumbnails = false
     @State private var useHaptic = false
-    @State private var showThemePreview = false
+    @State private var showThemePreview = true
 
     var body: some View {
         NavigationView {
@@ -240,23 +240,28 @@ struct SettingsView: View {
     }
 
     private var themePreview: some View {
-        HStack(spacing: 8) {
-            Image("TSOP")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 64)
-            VStack(alignment: .leading, spacing: 2) {
-                Text("The Sound of Perserverance")
-                    .font(.body)
-                    .fontWeight(.bold)
-                    .foregroundColor(preferences.theme.primaryColor(for: colorScheme))
-                Text("Death")
-                    .font(.callout)
-                    .fontWeight(.bold)
-                    .foregroundColor(preferences.theme.secondaryColor(for: colorScheme))
-                Text("1998 • Full-length")
-                    .font(.footnote)
-                    .fontWeight(.medium)
+        VStack(alignment: .leading) {
+            Text("How it looks 👇")
+
+            HStack(spacing: 8) {
+                Image("TSOP")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 64)
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("The Sound of Perserverance")
+                        .font(.body)
+                        .fontWeight(.bold)
+                        .foregroundColor(preferences.theme.primaryColor(for: colorScheme))
+                    Text("Death")
+                        .font(.callout)
+                        .fontWeight(.bold)
+                        .foregroundColor(preferences.theme.secondaryColor(for: colorScheme))
+                    Text("1998 • Full-length")
+                        .font(.footnote)
+                        .fontWeight(.medium)
+                }
             }
         }
     }
