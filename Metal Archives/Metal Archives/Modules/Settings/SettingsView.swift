@@ -25,7 +25,9 @@ struct SettingsView: View {
             Form {
                 // General
                 Section(header: Text("General")) {
-                    Text("Home section order")
+                    NavigationLink(destination: HomeSectionOrderView()) {
+                        Text("Home section order")
+                    }
 
                     Toggle(isOn: settings.$showThumbnails) {
                         Text("Display thumbnails")
@@ -200,8 +202,10 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+            .environmentObject(Settings())
         SettingsView()
             .environment(\.colorScheme, .dark)
+            .environmentObject(Settings())
     }
 }
 
