@@ -10,7 +10,7 @@ import SwiftUI
 final class Preferences: ObservableObject {
     @AppStorage("discographyMode") var discographyMode: DiscographyMode = .complete
     @AppStorage("homeSectionOrder") var homeSectionOrder: [HomeSection] =
-        [.stats, .upcomingAlbums, .latestAdditions, .latestUpdates, .latestReviews, .news]
+        [.upcomingAlbums, .latestAdditions, .latestUpdates, .latestReviews]
     @AppStorage("showThumbnails") var showThumbnails = true
     @AppStorage("useHaptic") var useHaptic = true
     @AppStorage("theme") var theme: Theme = .default

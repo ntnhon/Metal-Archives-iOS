@@ -25,6 +25,14 @@ struct RootView: View {
                 }
                 .tag(RootViewTab.home)
 
+            BrowseView()
+                .tabItem {
+                    Image(systemName: selectedTab == .browse ?
+                            "circle.grid.cross.fill" : "circle.grid.cross")
+                    Text("Browse")
+                }
+                .tag(RootViewTab.browse)
+
             SearchView()
                 .tabItem {
                     Image(systemName: selectedTab == .search ?
@@ -32,13 +40,6 @@ struct RootView: View {
                     Text("Search")
                 }
                 .tag(RootViewTab.search)
-
-            BrowseView()
-                .tabItem {
-                    Image(systemName: "list.bullet.indent")
-                    Text("Browse")
-                }
-                .tag(RootViewTab.browse)
 
             MyAccountView()
                 .tabItem {

@@ -8,12 +8,10 @@
 import Foundation
 
 enum HomeSection: Int, CustomStringConvertible, Codable {
-    case stats = 0, news, upcomingAlbums, latestAdditions, latestUpdates, latestReviews
+    case upcomingAlbums, latestAdditions, latestUpdates, latestReviews
 
     var description: String {
         switch self {
-        case .stats: return "Statistics"
-        case .news: return "News Archives"
         case .upcomingAlbums: return "Upcoming Albums"
         case .latestAdditions: return "Latest Additions"
         case .latestUpdates: return "Latest Updates"
