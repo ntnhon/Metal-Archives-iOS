@@ -42,7 +42,7 @@ struct BrowseView: View {
                         }
                     }
 
-                    NavigationLink(destination: Text("Band by country")) {
+                    NavigationLink(destination: CountryListView(mode: .bands)) {
                         HStack {
                             Image(systemName: "globe")
                                 .foregroundColor(primaryColor)
@@ -68,7 +68,7 @@ struct BrowseView: View {
                         }
                     }
 
-                    NavigationLink(destination: Text("Label by country")) {
+                    NavigationLink(destination: CountryListView(mode: .labels)) {
                         HStack {
                             Image(systemName: "globe")
                                 .foregroundColor(primaryColor)

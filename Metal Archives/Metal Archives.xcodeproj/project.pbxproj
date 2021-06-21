@@ -68,6 +68,7 @@
 		C0250C30265A543500BB6CD9 /* BandSimilarsPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C2F265A543500BB6CD9 /* BandSimilarsPublic.html */; };
 		C0250C32265A545E00BB6CD9 /* BandSimilarsEmpty.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C31265A545E00BB6CD9 /* BandSimilarsEmpty.html */; };
 		C0250C34265A548F00BB6CD9 /* BandSimilarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0250C33265A548F00BB6CD9 /* BandSimilarTests.swift */; };
+		C027D26626807CAB00BD54AE /* CountryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027D26526807CAB00BD54AE /* CountryListView.swift */; };
 		C0333DDA2662DE3600D73191 /* RickRozz.html in Resources */ = {isa = PBXBuildFile; fileRef = C0333DD92662DE3500D73191 /* RickRozz.html */; };
 		C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739A265996F000D2FD5E /* ReleaseType.swift */; };
 		C038739D2659A7E700D2FD5E /* BandLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739C2659A7E700D2FD5E /* BandLite.swift */; };
@@ -183,6 +184,7 @@
 		C0250C2F265A543500BB6CD9 /* BandSimilarsPublic.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = BandSimilarsPublic.html; sourceTree = "<group>"; };
 		C0250C31265A545E00BB6CD9 /* BandSimilarsEmpty.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = BandSimilarsEmpty.html; sourceTree = "<group>"; };
 		C0250C33265A548F00BB6CD9 /* BandSimilarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilarTests.swift; sourceTree = "<group>"; };
+		C027D26526807CAB00BD54AE /* CountryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListView.swift; sourceTree = "<group>"; };
 		C0333DD92662DE3500D73191 /* RickRozz.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RickRozz.html; sourceTree = "<group>"; };
 		C038739A265996F000D2FD5E /* ReleaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseType.swift; sourceTree = "<group>"; };
 		C038739C2659A7E700D2FD5E /* BandLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLite.swift; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				C017D418267E3088008B6EE5 /* BrowseView.swift */,
+				C027D26526807CAB00BD54AE /* CountryListView.swift */,
 			);
 			path = Browse;
 			sourceTree = "<group>";
@@ -872,6 +875,7 @@
 				C00473A8265E0BC200C66F45 /* BandInRelease.swift in Sources */,
 				C0A37B6D26584E980017A02F /* Country.swift in Sources */,
 				C03873A62659AC0C00D2FD5E /* ReleaseInBand.swift in Sources */,
+				C027D26626807CAB00BD54AE /* CountryListView.swift in Sources */,
 				C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */,
 				C03873A02659A92F00D2FD5E /* ArtistInBand.swift in Sources */,
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
