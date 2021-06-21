@@ -25,6 +25,7 @@ struct SettingsView: View {
     @State private var showThemePreview = false
 
     var body: some View {
+        let primaryColor = preferences.theme.primaryColor(for: colorScheme)
         NavigationView {
             Form {
                 // General
@@ -98,6 +99,7 @@ struct SettingsView: View {
                     })
                     .sheet(isPresented: $showAboutSheet) {
                         AboutView()
+                            .accentColor(primaryColor)
                     }
 
                     // Share
@@ -134,6 +136,7 @@ struct SettingsView: View {
                     })
                     .sheet(isPresented: $showSupportSheet) {
                         SupportView()
+                            .accentColor(primaryColor)
                     }
                 }
 

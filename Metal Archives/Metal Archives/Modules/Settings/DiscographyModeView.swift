@@ -31,7 +31,7 @@ struct DiscographyModeView: View {
                 })
             }
         }
-        .navigationTitle("Default discography mode")
+        .navigationBarTitle("Default discography mode", displayMode: .inline)
     }
 }
 

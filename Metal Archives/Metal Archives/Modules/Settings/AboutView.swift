@@ -20,17 +20,12 @@ private let kAboutString = """
 // swiftlint:enable line_length
 
 struct AboutView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) private var presentationMode
 
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(spacing: 20) {
-                    Image("AppIcon512x512")
-                        .resizable()
-                        .frame(width: 100, height: 100, alignment: .center)
-                    Text(kAboutString)
-                }
+                Text(kAboutString)
                 .padding(.top, 20)
             }
             .padding([.horizontal])
