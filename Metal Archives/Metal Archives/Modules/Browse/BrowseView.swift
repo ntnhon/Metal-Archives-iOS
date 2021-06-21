@@ -15,6 +15,7 @@ struct BrowseView: View {
         let primaryColor = preferences.theme.primaryColor(for: colorScheme)
         NavigationView {
             Form {
+                // Stats & News
                 Section {
                     NavigationLink(destination: Text("News archives")) {
                         HStack {
@@ -33,6 +34,7 @@ struct BrowseView: View {
                     }
                 }
 
+                // Bands
                 Section(header: Text("Bands")) {
                     NavigationLink(destination: AlphabetView(mode: .bands)) {
                         HStack {
@@ -50,15 +52,16 @@ struct BrowseView: View {
                         }
                     }
 
-                    NavigationLink(destination: Text("Band by label")) {
+                    NavigationLink(destination: GenreListView()) {
                         HStack {
-                            Image(systemName: "tag")
+                            Image(systemName: "guitars")
                                 .foregroundColor(primaryColor)
-                            Text("Label")
+                            Text("Genre")
                         }
                     }
                 }
 
+                // Labels
                 Section(header: Text("Labels")) {
                     NavigationLink(destination: AlphabetView(mode: .labels)) {
                         HStack {
@@ -77,12 +80,14 @@ struct BrowseView: View {
                     }
                 }
 
+                // R.I.P
                 Section(header: Text("R.I.P")) {
                     NavigationLink(destination: Text("RIP")) {
                         Text("😇 Deceased artists")
                     }
                 }
 
+                // Random
                 Section(header: Text("Random")) {
                     NavigationLink(destination: Text("Random band")) {
                         HStack {
