@@ -34,7 +34,7 @@ struct BrowseView: View {
                 }
 
                 Section(header: Text("Bands")) {
-                    NavigationLink(destination: Text("Band alphabetical")) {
+                    NavigationLink(destination: AlphabetView(mode: .bands)) {
                         HStack {
                             Image(systemName: "abc")
                                 .foregroundColor(primaryColor)
@@ -60,7 +60,7 @@ struct BrowseView: View {
                 }
 
                 Section(header: Text("Labels")) {
-                    NavigationLink(destination: Text("Label alphabetical")) {
+                    NavigationLink(destination: AlphabetView(mode: .labels)) {
                         HStack {
                             Image(systemName: "abc")
                                 .foregroundColor(primaryColor)

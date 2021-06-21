@@ -69,6 +69,8 @@
 		C0250C32265A545E00BB6CD9 /* BandSimilarsEmpty.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C31265A545E00BB6CD9 /* BandSimilarsEmpty.html */; };
 		C0250C34265A548F00BB6CD9 /* BandSimilarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0250C33265A548F00BB6CD9 /* BandSimilarTests.swift */; };
 		C027D26626807CAB00BD54AE /* CountryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027D26526807CAB00BD54AE /* CountryListView.swift */; };
+		C02A8CAE2681258B001430D6 /* Letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02A8CAD2681258B001430D6 /* Letter.swift */; };
+		C02A8CB22681261E001430D6 /* AlphabetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02A8CB12681261E001430D6 /* AlphabetView.swift */; };
 		C0333DDA2662DE3600D73191 /* RickRozz.html in Resources */ = {isa = PBXBuildFile; fileRef = C0333DD92662DE3500D73191 /* RickRozz.html */; };
 		C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739A265996F000D2FD5E /* ReleaseType.swift */; };
 		C038739D2659A7E700D2FD5E /* BandLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038739C2659A7E700D2FD5E /* BandLite.swift */; };
@@ -185,6 +187,8 @@
 		C0250C31265A545E00BB6CD9 /* BandSimilarsEmpty.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = BandSimilarsEmpty.html; sourceTree = "<group>"; };
 		C0250C33265A548F00BB6CD9 /* BandSimilarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilarTests.swift; sourceTree = "<group>"; };
 		C027D26526807CAB00BD54AE /* CountryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListView.swift; sourceTree = "<group>"; };
+		C02A8CAD2681258B001430D6 /* Letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Letter.swift; sourceTree = "<group>"; };
+		C02A8CB12681261E001430D6 /* AlphabetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetView.swift; sourceTree = "<group>"; };
 		C0333DD92662DE3500D73191 /* RickRozz.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RickRozz.html; sourceTree = "<group>"; };
 		C038739A265996F000D2FD5E /* ReleaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseType.swift; sourceTree = "<group>"; };
 		C038739C2659A7E700D2FD5E /* BandLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLite.swift; sourceTree = "<group>"; };
@@ -432,6 +436,7 @@
 		C017D415267E3040008B6EE5 /* Browse */ = {
 			isa = PBXGroup;
 			children = (
+				C02A8CB12681261E001430D6 /* AlphabetView.swift */,
 				C017D418267E3088008B6EE5 /* BrowseView.swift */,
 				C027D26526807CAB00BD54AE /* CountryListView.swift */,
 			);
@@ -597,6 +602,7 @@
 				C0A37B6C26584E980017A02F /* Country.swift */,
 				C0DD1382267F6C40009F0B81 /* DiscographyMode.swift */,
 				C0DD137A267F6A23009F0B81 /* HomeSection.swift */,
+				C02A8CAD2681258B001430D6 /* Letter.swift */,
 				C004A2B72658F2E70071E12A /* ModificationInfo.swift */,
 				C03873A32659AB3600D2FD5E /* RelatedLink.swift */,
 				C0063EB8265C3A6E005AB1E2 /* ThumbnailInfo.swift */,
@@ -878,6 +884,8 @@
 				C027D26626807CAB00BD54AE /* CountryListView.swift in Sources */,
 				C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */,
 				C03873A02659A92F00D2FD5E /* ArtistInBand.swift in Sources */,
+				C02A8CAE2681258B001430D6 /* Letter.swift in Sources */,
+				C02A8CB22681261E001430D6 /* AlphabetView.swift in Sources */,
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
 				C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
