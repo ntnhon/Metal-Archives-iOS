@@ -83,6 +83,11 @@
 		C03873A92659AD6100D2FD5E /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = C03873A82659AD6100D2FD5E /* Kanna */; };
 		C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03873AA2659AE4B00D2FD5E /* Discography.swift */; };
 		C041C3122658EE74006B0F1F /* Band.swift in Sources */ = {isa = PBXBuildFile; fileRef = C041C3112658EE74006B0F1F /* Band.swift */; };
+		C060E6C826825D120006433A /* AdvancedSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6C726825D120006433A /* AdvancedSearchView.swift */; };
+		C060E6CC2682710F0006433A /* AdvancedSearchBandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6CB2682710F0006433A /* AdvancedSearchBandsView.swift */; };
+		C060E6CE268271330006433A /* AdvancedSearchAlbumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6CD268271330006433A /* AdvancedSearchAlbumsView.swift */; };
+		C060E6D02682714F0006433A /* AdvancedSearchSongsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6CF2682714F0006433A /* AdvancedSearchSongsView.swift */; };
+		C060E6D2268273920006433A /* AdvancedSearchTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6D1268273920006433A /* AdvancedSearchTipsView.swift */; };
 		C0977E1E265EF0A200C3E9A9 /* ReleaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0977E1D265EF0A200C3E9A9 /* ReleaseTests.swift */; };
 		C0977E20265EF12300C3E9A9 /* TheSoundOfPerseverance.html in Resources */ = {isa = PBXBuildFile; fileRef = C0977E1F265EF12300C3E9A9 /* TheSoundOfPerseverance.html */; };
 		C0A37B6A26584DDB0017A02F /* MACountries.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A37B6926584DDB0017A02F /* MACountries.json */; };
@@ -202,6 +207,11 @@
 		C03873A52659AC0C00D2FD5E /* ReleaseInBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInBand.swift; sourceTree = "<group>"; };
 		C03873AA2659AE4B00D2FD5E /* Discography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discography.swift; sourceTree = "<group>"; };
 		C041C3112658EE74006B0F1F /* Band.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Band.swift; sourceTree = "<group>"; };
+		C060E6C726825D120006433A /* AdvancedSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchView.swift; sourceTree = "<group>"; };
+		C060E6CB2682710F0006433A /* AdvancedSearchBandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchBandsView.swift; sourceTree = "<group>"; };
+		C060E6CD268271330006433A /* AdvancedSearchAlbumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchAlbumsView.swift; sourceTree = "<group>"; };
+		C060E6CF2682714F0006433A /* AdvancedSearchSongsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchSongsView.swift; sourceTree = "<group>"; };
+		C060E6D1268273920006433A /* AdvancedSearchTipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchTipsView.swift; sourceTree = "<group>"; };
 		C0977E1D265EF0A200C3E9A9 /* ReleaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTests.swift; sourceTree = "<group>"; };
 		C0977E1F265EF12300C3E9A9 /* TheSoundOfPerseverance.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TheSoundOfPerseverance.html; sourceTree = "<group>"; };
 		C0A37B6426584A690017A02F /* Metal Archives.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Metal Archives.entitlements"; sourceTree = "<group>"; };
@@ -432,6 +442,11 @@
 		C017D412267E3006008B6EE5 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				C060E6C726825D120006433A /* AdvancedSearchView.swift */,
+				C060E6CD268271330006433A /* AdvancedSearchAlbumsView.swift */,
+				C060E6CB2682710F0006433A /* AdvancedSearchBandsView.swift */,
+				C060E6CF2682714F0006433A /* AdvancedSearchSongsView.swift */,
+				C060E6D1268273920006433A /* AdvancedSearchTipsView.swift */,
 				C017D413267E3034008B6EE5 /* SearchView.swift */,
 			);
 			path = Search;
@@ -856,6 +871,7 @@
 				C0DD1383267F6C40009F0B81 /* DiscographyMode.swift in Sources */,
 				C004556D267FA95500B47356 /* Theme.swift in Sources */,
 				C0063EBE265C4630005AB1E2 /* Logger.swift in Sources */,
+				C060E6D2268273920006433A /* AdvancedSearchTipsView.swift in Sources */,
 				C0DD1377267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift in Sources */,
 				C0DD1381267F6BC2009F0B81 /* Preferences.swift in Sources */,
 				C041C3122658EE74006B0F1F /* Band.swift in Sources */,
@@ -863,8 +879,10 @@
 				C017D42B267E901F008B6EE5 /* URLButton.swift in Sources */,
 				C017D41E267E30B6008B6EE5 /* MyAccountView.swift in Sources */,
 				C018C517265CE0C40022C8DD /* ArtistInRelease.swift in Sources */,
+				C060E6CC2682710F0006433A /* AdvancedSearchBandsView.swift in Sources */,
 				C03873A22659AAD000D2FD5E /* BandSimilar.swift in Sources */,
 				C038739D2659A7E700D2FD5E /* BandLite.swift in Sources */,
+				C060E6C826825D120006433A /* AdvancedSearchView.swift in Sources */,
 				C017D419267E3088008B6EE5 /* BrowseView.swift in Sources */,
 				C004A2BE2658F3760071E12A /* StringExtensions.swift in Sources */,
 				C02A8CB826812F61001430D6 /* GenreListView.swift in Sources */,
@@ -889,12 +907,14 @@
 				C00473A8265E0BC200C66F45 /* BandInRelease.swift in Sources */,
 				C0A37B6D26584E980017A02F /* Country.swift in Sources */,
 				C03873A62659AC0C00D2FD5E /* ReleaseInBand.swift in Sources */,
+				C060E6D02682714F0006433A /* AdvancedSearchSongsView.swift in Sources */,
 				C027D26626807CAB00BD54AE /* CountryListView.swift in Sources */,
 				C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */,
 				C03873A02659A92F00D2FD5E /* ArtistInBand.swift in Sources */,
 				C02A8CAE2681258B001430D6 /* Letter.swift in Sources */,
 				C02A8CB22681261E001430D6 /* AlphabetView.swift in Sources */,
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
+				C060E6CE268271330006433A /* AdvancedSearchAlbumsView.swift in Sources */,
 				C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
 				C017D414267E3034008B6EE5 /* SearchView.swift in Sources */,
