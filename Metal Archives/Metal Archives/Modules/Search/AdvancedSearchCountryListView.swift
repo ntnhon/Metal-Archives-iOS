@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct AdvancedSearchCountryListView: View {
-    @State private var selectedCountries: [Country] = []
+    @ObservedObject var countrySet: CountrySet
     @State private var navigationTitle = "Any country"
-    var didSelectCountries: (([Country]) -> Void)?
 
     var body: some View {
         Form {
@@ -23,7 +22,7 @@ struct AdvancedSearchCountryListView: View {
                     })
                     .foregroundColor(.primary)
 
-                    if selectedCountries.contains(country) {
+                    if countrySet.countries.contains(country) {
                         Spacer()
 
                         Image(systemName: "checkmark")
@@ -33,25 +32,34 @@ struct AdvancedSearchCountryListView: View {
             }
         }
         .navigationBarTitle(navigationTitle, displayMode: .inline)
+        .navigationBarItems(trailing:
+                                Button(action: {
+                                    countrySet.countries.removeAll()
+                                    updateNavigationTitle()
+                                }, label: {
+                                    Text("Deselect all")
+                                }))
+        .onAppear {
+            updateNavigationTitle()
+        }
     }
 
     private func handleSelection(_ country: Country) {
-        if selectedCountries.contains(country) {
-            selectedCountries.removeAll { $0 == country }
+        if countrySet.countries.contains(country) {
+            countrySet.countries.removeAll { $0 == country }
         } else {
-            selectedCountries.append(country)
+            countrySet.countries.append(country)
         }
         updateNavigationTitle()
-        didSelectCountries?(selectedCountries)
     }
 
     private func updateNavigationTitle() {
-        if selectedCountries.isEmpty {
+        if countrySet.countries.isEmpty {
             navigationTitle = "Any country"
-        } else if selectedCountries.count == 1 {
+        } else if countrySet.countries.count == 1 {
             navigationTitle = "1 country selected"
         } else {
-            navigationTitle = "\(selectedCountries.count) countries selected"
+            navigationTitle = "\(countrySet.countries.count) countries selected"
         }
     }
 }
@@ -59,7 +67,7 @@ struct AdvancedSearchCountryListView: View {
 struct AdvancedSearchCountryListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AdvancedSearchCountryListView()
+            AdvancedSearchCountryListView(countrySet: .init())
         }
     }
 }

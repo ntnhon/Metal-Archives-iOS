@@ -5,7 +5,9 @@
 //  Created by Thanh-Nhon Nguyen on 25/05/2021.
 //
 
-enum BandStatus: String {
+import Combine
+
+enum BandStatus: String, CaseIterable {
     case active = "Active"
     case onHold = "On hold"
     case splitUp = "Split up"
@@ -23,4 +25,8 @@ enum BandStatus: String {
         default: self = .unknown
         }
     }
+}
+
+final class BandStatusSet: ObservableObject {
+    @Published var status: [BandStatus] = []
 }

@@ -24,3 +24,7 @@ extension Country: Comparable {
 extension Country: Equatable {
     static func == (lhs: Self, rhs: Self) -> Bool { lhs.isoCode == rhs.isoCode }
 }
+
+final class CountrySet: ObservableObject {
+    @Published var countries: [Country] = []
+}
