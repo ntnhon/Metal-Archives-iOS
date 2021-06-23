@@ -18,6 +18,12 @@ enum AlphabetMode {
     }
 }
 
+private let kFooterNote = """
+    For numbers, select #.
+    For non-Latin alphabets or for symbols, select ~.
+    Note: leading "The __" are ignored (e.g. "The Chasm" appears under C, not T)
+    """
+
 struct AlphabetView: View {
     @State private var showResults = false
     @State private var seletedLetter: Letter = .a
@@ -46,6 +52,11 @@ struct AlphabetView: View {
                 }
             }
             .padding()
+
+            Text(kFooterNote)
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .padding(.horizontal)
         }
         .navigationBarTitle(mode.navigationTitle, displayMode: .inline)
     }

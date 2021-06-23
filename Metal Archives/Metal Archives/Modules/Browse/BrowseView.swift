@@ -83,7 +83,11 @@ struct BrowseView: View {
                 // R.I.P
                 Section(header: Text("R.I.P")) {
                     NavigationLink(destination: Text("RIP")) {
-                        Text("😇 Deceased artists")
+                        HStack {
+                            Image(systemName: "staroflife")
+                                .foregroundColor(primaryColor)
+                            Text("Deceased artists")
+                        }
                     }
                 }
 

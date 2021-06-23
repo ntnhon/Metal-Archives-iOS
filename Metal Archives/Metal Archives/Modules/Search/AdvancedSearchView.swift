@@ -10,9 +10,9 @@ import SwiftUI
 // swiftlint:disable line_length
 private let kQuickTips = """
 
-    Tip 1️⃣: to search for part of a word, use * as wildcards (e.g. searching "hel*" will return results containing "hell" or "helm").
+    Tip #1: to search for part of a word, use * as wildcards (e.g. searching "hel*" will return results containing "hell" or "helm").
 
-    Tip 2️⃣: to exclude terms, use the - symbol (e.g. searching "death -melodic" will return results that do not contain the word "melodic").
+    Tip #2: to exclude terms, use the - symbol (e.g. searching "death -melodic" will return results that do not contain the word "melodic").
     """
 // swiftlint:enable line_length
 
@@ -42,7 +42,10 @@ struct AdvancedSearchView: View {
                                 Button(action: {
                                     showTips = true
                                 }, label: {
-                                    Text("More tips 💡")
+                                    HStack {
+                                        Text("More tips")
+                                        Image(systemName: "lightbulb")
+                                    }
                                 }))
     }
 }
