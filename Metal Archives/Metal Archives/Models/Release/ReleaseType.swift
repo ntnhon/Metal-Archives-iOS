@@ -5,7 +5,9 @@
 //  Created by Thanh-Nhon Nguyen on 22/05/2021.
 //
 
-enum ReleaseType: Int, CustomStringConvertible {
+import Combine
+
+enum ReleaseType: Int, CustomStringConvertible, CaseIterable {
     case fullLength = 1
     case liveAlbum = 2
     case demo = 3
@@ -50,4 +52,8 @@ enum ReleaseType: Int, CustomStringConvertible {
         default: return nil
         }
     }
+}
+
+final class ReleaseTypeSet: ObservableObject {
+    @Published var types: [ReleaseType] = []
 }

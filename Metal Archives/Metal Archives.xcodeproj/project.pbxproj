@@ -50,6 +50,9 @@
 		C01B666C265B7FBC00920A71 /* BandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01B666B265B7FBB00920A71 /* BandTests.swift */; };
 		C01B666F265B807700920A71 /* Death.html in Resources */ = {isa = PBXBuildFile; fileRef = C01B666E265B807700920A71 /* Death.html */; };
 		C01D2D652683CB9500957DE5 /* BandStatusListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D2D642683CB9500957DE5 /* BandStatusListView.swift */; };
+		C01D2D672683DB1A00957DE5 /* ReleaseTypeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D2D662683DB1A00957DE5 /* ReleaseTypeListView.swift */; };
+		C01D2D692683DC7D00957DE5 /* ReleaseFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D2D682683DC7D00957DE5 /* ReleaseFormat.swift */; };
+		C01D2D6B2683DD0D00957DE5 /* ReleaseFormatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D2D6A2683DD0D00957DE5 /* ReleaseFormatListView.swift */; };
 		C01ECECA26620E08009A3A32 /* Human_3CDs.html in Resources */ = {isa = PBXBuildFile; fileRef = C01ECEC926620E08009A3A32 /* Human_3CDs.html */; };
 		C01ECECE26621F7B009A3A32 /* ReleaseOtherVersionsPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C01ECECC26621F7B009A3A32 /* ReleaseOtherVersionsPublic.html */; };
 		C01ECECF26621F7B009A3A32 /* ReleaseOtherVersionsLoggedIn.html in Resources */ = {isa = PBXBuildFile; fileRef = C01ECECD26621F7B009A3A32 /* ReleaseOtherVersionsLoggedIn.html */; };
@@ -177,6 +180,9 @@
 		C01B666B265B7FBB00920A71 /* BandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandTests.swift; sourceTree = "<group>"; };
 		C01B666E265B807700920A71 /* Death.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Death.html; sourceTree = "<group>"; };
 		C01D2D642683CB9500957DE5 /* BandStatusListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandStatusListView.swift; sourceTree = "<group>"; };
+		C01D2D662683DB1A00957DE5 /* ReleaseTypeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTypeListView.swift; sourceTree = "<group>"; };
+		C01D2D682683DC7D00957DE5 /* ReleaseFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseFormat.swift; sourceTree = "<group>"; };
+		C01D2D6A2683DD0D00957DE5 /* ReleaseFormatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseFormatListView.swift; sourceTree = "<group>"; };
 		C01ECEC926620E08009A3A32 /* Human_3CDs.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Human_3CDs.html; sourceTree = "<group>"; };
 		C01ECECC26621F7B009A3A32 /* ReleaseOtherVersionsPublic.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ReleaseOtherVersionsPublic.html; sourceTree = "<group>"; };
 		C01ECECD26621F7B009A3A32 /* ReleaseOtherVersionsLoggedIn.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ReleaseOtherVersionsLoggedIn.html; sourceTree = "<group>"; };
@@ -331,6 +337,7 @@
 				C004A2D2265916020071E12A /* Release.swift */,
 				C0056C55265C201700400A03 /* ReleaseElement.swift */,
 				C03873A52659AC0C00D2FD5E /* ReleaseInBand.swift */,
+				C01D2D682683DC7D00957DE5 /* ReleaseFormat.swift */,
 				C01ECED82662341A009A3A32 /* ReleaseLite.swift */,
 				C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */,
 				C038739A265996F000D2FD5E /* ReleaseType.swift */,
@@ -453,6 +460,8 @@
 				C060E6CF2682714F0006433A /* AdvancedSearchSongsView.swift */,
 				C060E6D1268273920006433A /* AdvancedSearchTipsView.swift */,
 				C01D2D642683CB9500957DE5 /* BandStatusListView.swift */,
+				C01D2D6A2683DD0D00957DE5 /* ReleaseFormatListView.swift */,
+				C01D2D662683DB1A00957DE5 /* ReleaseTypeListView.swift */,
 				C017D413267E3034008B6EE5 /* SearchView.swift */,
 			);
 			path = Search;
@@ -872,11 +881,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C01D2D692683DC7D00957DE5 /* ReleaseFormat.swift in Sources */,
 				C017D421267E30D9008B6EE5 /* SettingsView.swift in Sources */,
 				C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */,
 				C0DD1383267F6C40009F0B81 /* DiscographyMode.swift in Sources */,
 				C004556D267FA95500B47356 /* Theme.swift in Sources */,
 				C060E6D426827DBB0006433A /* AdvancedSearchCountryListView.swift in Sources */,
+				C01D2D672683DB1A00957DE5 /* ReleaseTypeListView.swift in Sources */,
 				C0063EBE265C4630005AB1E2 /* Logger.swift in Sources */,
 				C060E6D2268273920006433A /* AdvancedSearchTipsView.swift in Sources */,
 				C0DD1377267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift in Sources */,
@@ -896,6 +907,7 @@
 				C03873A42659AB3600D2FD5E /* RelatedLink.swift in Sources */,
 				C0DD1385267F6E1D009F0B81 /* ArrayExtensions.swift in Sources */,
 				C004A2BB2658F3290071E12A /* UserLite.swift in Sources */,
+				C01D2D6B2683DD0D00957DE5 /* ReleaseFormatListView.swift in Sources */,
 				C02A8CB426812E78001430D6 /* Genre.swift in Sources */,
 				C004A2C02658F4F40071E12A /* DateFormatterExtensions.swift in Sources */,
 				C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */,
