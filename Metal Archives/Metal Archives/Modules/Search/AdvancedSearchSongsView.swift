@@ -20,31 +20,31 @@ struct AdvancedSearchSongsView: View {
 
     var body: some View {
         List {
-            TextField("Song title", text: $songTitle)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+            Section(header: Text("Song")) {
+                TextField("Song title", text: $songTitle)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
 
-            Toggle("Exact match song title", isOn: $exactMatchSongTitle)
+                Toggle("Exact match song title", isOn: $exactMatchSongTitle)
 
-            Section {
+                TextField("Lyrics", text: $lyrics)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            }
+
+            Section(header: Text("Band")) {
                 TextField("Band name", text: $bandName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
                 Toggle("Exact match band name", isOn: $exactMatchBandName)
+
+                TextField("Genre", text: $genre)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
             }
 
-            Section {
+            Section(header: Text("Release")) {
                 TextField("Release title", text: $releaseTitle)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
                 Toggle("Exact match release title", isOn: $exactMatchReleaseTitle)
-            }
-
-            Section {
-                TextField("Lyrics", text: $lyrics)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                TextField("Genre", text: $genre)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
 
                 NavigationLink(destination: ReleaseTypeListView(releaseTypeSet: releaseTypeSet)) {
                     HStack {

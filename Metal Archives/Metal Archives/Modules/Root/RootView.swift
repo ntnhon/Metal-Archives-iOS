@@ -28,7 +28,7 @@ struct RootView: View {
             BrowseView()
                 .tabItem {
                     Image(systemName: selectedTab == .browse ?
-                            "circle.grid.cross.fill" : "circle.grid.cross")
+                            "tray.2.fill" : "tray.2")
                     Text("Browse")
                 }
                 .tag(RootViewTab.browse)

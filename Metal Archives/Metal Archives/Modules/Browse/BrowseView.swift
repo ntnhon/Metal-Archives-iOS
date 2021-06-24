@@ -15,21 +15,37 @@ struct BrowseView: View {
         let primaryColor = preferences.theme.primaryColor(for: colorScheme)
         NavigationView {
             Form {
-                // Stats & News
-                Section {
-                    NavigationLink(destination: Text("News archives")) {
+                NavigationLink(destination: Text("News archives")) {
+                    HStack {
+                        Image(systemName: "newspaper")
+                            .foregroundColor(primaryColor)
+                        Text("News archives")
+                    }
+                }
+
+                // Stats
+                Section(header: Text("Statistic")) {
+                    NavigationLink(destination: Text("Stats")) {
                         HStack {
-                            Image(systemName: "newspaper")
+                            Image(systemName: "chart.pie")
                                 .foregroundColor(primaryColor)
-                            Text("News archives")
+                            Text("Statistic")
                         }
                     }
 
-                    NavigationLink(destination: Text("Stats")) {
+                    NavigationLink(destination: Text("Top 100 bands")) {
                         HStack {
-                            Image(systemName: "number")
+                            Image(systemName: "person.3")
                                 .foregroundColor(primaryColor)
-                            Text("Statistic")
+                            Text("Top 100 bands")
+                        }
+                    }
+
+                    NavigationLink(destination: Text("Top 100 albums")) {
+                        HStack {
+                            Image(systemName: "opticaldisc")
+                                .foregroundColor(primaryColor)
+                            Text("Top 100 albums")
                         }
                     }
                 }

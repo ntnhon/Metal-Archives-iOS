@@ -26,82 +26,102 @@ struct AdvancedSearchBandsView: View {
 
     var body: some View {
         List {
-            TextField("Band name", text: $bandName)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+            Section(header: Text("Band")) {
+                TextField("Band name", text: $bandName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
 
-            Toggle("Exact match band name", isOn: $exactMatch)
+                Toggle("Exact match band name", isOn: $exactMatch)
 
-            TextField("Genre", text: $genre)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-
-            NavigationLink(destination: AdvancedSearchCountryListView(countrySet: countrySet)) {
-                HStack {
-                    Text("Country")
-                    Spacer()
-                    Text(countrySet.detailString)
-                        .font(.callout)
-                        .foregroundColor(.gray)
-                }
-            }
-
-            HStack {
-                Text("Year of formation from ")
-
-                Picker(String(format: "%0d", fromYear), selection: $fromYear) {
-                    ForEach((1_960...kThisYear).reversed(), id: \.self) {
-                        Text(String(format: "%0d", $0))
-                            .tag($0)
+                NavigationLink(destination: AdvancedSearchCountryListView(countrySet: countrySet)) {
+                    HStack {
+                        Text("Country")
+                        Spacer()
+                        Text(countrySet.detailString)
+                            .font(.callout)
+                            .foregroundColor(.gray)
                     }
                 }
-                .pickerStyle(MenuPickerStyle())
 
-                Text("to")
+                HStack {
+                    Text("Year of formation from ")
 
-                Picker(String(format: "%0d", toYear), selection: $toYear) {
-                    ForEach((1_960...kThisYear).reversed(), id: \.self) {
-                        Text(String(format: "%0d", $0))
-                            .tag($0)
+                    Picker(selection: $fromYear,
+                           label: Text(String(format: "%0d", fromYear))
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .padding(4)
+                            .background(Color.accentColor)
+                            .clipShape(RoundedRectangle(cornerRadius: 4))) {
+                        ForEach((1_960...kThisYear).reversed(), id: \.self) {
+                            Text(String(format: "%0d", $0))
+                                .tag($0)
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+
+                    Text("to")
+
+                    Picker(selection: $toYear,
+                           label: Text(String(format: "%0d", toYear))
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .padding(4)
+                            .background(Color.accentColor)
+                            .clipShape(RoundedRectangle(cornerRadius: 4))) {
+                        ForEach((1_960...kThisYear).reversed(), id: \.self) {
+                            Text(String(format: "%0d", $0))
+                                .tag($0)
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                }
+
+                NavigationLink(destination: BandStatusListView(bandStatusSet: bandStatusSet)) {
+                    HStack {
+                        Text("Status")
+                        Spacer()
+                        Text(bandStatusSet.detailString)
+                            .font(.callout)
+                            .foregroundColor(.gray)
                     }
                 }
-                .pickerStyle(MenuPickerStyle())
             }
 
-            TextField("Additional note", text: $additionalNote)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+            Section(header: Text("Label")) {
+                TextField("Label name", text: $label)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
 
-            NavigationLink(destination: BandStatusListView(bandStatusSet: bandStatusSet)) {
-                HStack {
-                    Text("Status")
-                    Spacer()
-                    Text(bandStatusSet.detailString)
-                        .font(.callout)
-                        .foregroundColor(.gray)
-                }
+                Toggle("Indie label", isOn: $indieLabel)
             }
 
-            Group {
+            Section(header: Text("Additional information")) {
+                TextField("Genre", text: $genre)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                TextField("Additional note", text: $additionalNote)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+
                 TextField("Lyrical theme(s)", text: $lyricalThemes)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
                 TextField("City / state / province", text: $cityStateProvince)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+            }
 
-                TextField("Label", text: $label)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                Toggle("Indie label", isOn: $indieLabel)
-
+            Section {
                 HStack {
                     Spacer()
                     Button(action: {}, label: {
                         Text("SEARCH")
                             .fontWeight(.bold)
-                            .foregroundColor(.accentColor)
+                            .foregroundColor(.white)
                     })
                     Spacer()
                 }
             }
+            .listRowBackground(Color.accentColor)
         }
+        .listStyle(GroupedListStyle())
         .navigationBarTitle("Advanced search bands", displayMode: .inline)
     }
 }

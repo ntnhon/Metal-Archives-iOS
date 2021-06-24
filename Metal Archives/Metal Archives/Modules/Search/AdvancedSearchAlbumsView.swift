@@ -31,12 +31,27 @@ struct AdvancedSearchAlbumsView: View {
 
     var body: some View {
         List {
-            Group {
+            Section(header: Text("Band")) {
                 TextField("Band name", text: $bandName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
                 Toggle("Exact match band name", isOn: $exactMatchBandName)
 
+                NavigationLink(destination: AdvancedSearchCountryListView(countrySet: countrySet)) {
+                    HStack {
+                        Text("Band country")
+                        Spacer()
+                        Text(countrySet.detailString)
+                            .font(.callout)
+                            .foregroundColor(.gray)
+                    }
+                }
+
+                TextField("City / state / province", text: $cityStateProvince)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            }
+
+            Section(header: Text("Release")) {
                 TextField("Release title", text: $releaseTitle)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
@@ -64,46 +79,6 @@ struct AdvancedSearchAlbumsView: View {
                     }
                 }
 
-                NavigationLink(destination: AdvancedSearchCountryListView(countrySet: countrySet)) {
-                    HStack {
-                        Text("Band country")
-                        Spacer()
-                        Text(countrySet.detailString)
-                            .font(.callout)
-                            .foregroundColor(.gray)
-                    }
-                }
-            }
-
-            Group {
-                TextField("City / state / province", text: $cityStateProvince)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                TextField("Label", text: $label)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                Toggle("Indie label", isOn: $indieLabel)
-
-                TextField("Catalog number", text: $catalogNumber)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                TextField("Identifier (barcode, matrix, etc.)", text: $identifier)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                TextField("Recording information (studio, city, etc.)", text: $recordingInformation)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                TextField("Version description (country, digipak, etc.)", text: $versionDescription)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                TextField("Additional note", text: $additionalNote)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                TextField("Genre", text: $genre)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
-
-            Group {
                 NavigationLink(destination: ReleaseTypeListView(releaseTypeSet: releaseTypeSet)) {
                     HStack {
                         Text("Release type")
@@ -123,18 +98,49 @@ struct AdvancedSearchAlbumsView: View {
                             .foregroundColor(.gray)
                     }
                 }
+            }
 
+            Section(header: Text("Label")) {
+                TextField("Label name", text: $label)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                Toggle("Indie label", isOn: $indieLabel)
+            }
+
+            Section(header: Text("Additional information")) {
+                TextField("Catalog number", text: $catalogNumber)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                TextField("Identifier (barcode, matrix, etc.)", text: $identifier)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                TextField("Recording information (studio, city, etc.)", text: $recordingInformation)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                TextField("Version description (country, digipak, etc.)", text: $versionDescription)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                TextField("Additional note", text: $additionalNote)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                TextField("Genre", text: $genre)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            }
+
+            Section {
                 HStack {
                     Spacer()
                     Button(action: {}, label: {
                         Text("SEARCH")
                             .fontWeight(.bold)
-                            .foregroundColor(.accentColor)
+                            .foregroundColor(.white)
                     })
                     Spacer()
                 }
             }
+            .listRowBackground(Color.accentColor)
         }
+        .listStyle(GroupedListStyle())
         .navigationBarTitle("Advanced search albums", displayMode: .inline)
     }
 }
