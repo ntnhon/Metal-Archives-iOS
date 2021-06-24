@@ -12,7 +12,7 @@ struct ReleaseFormatListView: View {
     @State private var navigationTitle = "Any format"
 
     var body: some View {
-        Form {
+        List {
             ForEach(ReleaseFormat.allCases, id: \.self) { format in
                 HStack {
                     Button(action: {
@@ -31,6 +31,7 @@ struct ReleaseFormatListView: View {
                 }
             }
         }
+        .listStyle(InsetGroupedListStyle())
         .navigationBarTitle(navigationTitle, displayMode: .inline)
         .navigationBarItems(trailing:
                                 Button(action: {

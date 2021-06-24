@@ -12,7 +12,7 @@ struct ReleaseTypeListView: View {
     @State private var navigationTitle = "Any type"
 
     var body: some View {
-        Form {
+        List {
             ForEach(ReleaseType.allCases, id: \.self) { type in
                 HStack {
                     Button(action: {
@@ -31,6 +31,7 @@ struct ReleaseTypeListView: View {
                 }
             }
         }
+        .listStyle(InsetGroupedListStyle())
         .navigationBarTitle(navigationTitle, displayMode: .inline)
         .navigationBarItems(trailing:
                                 Button(action: {

@@ -56,4 +56,12 @@ enum ReleaseType: Int, CustomStringConvertible, CaseIterable {
 
 final class ReleaseTypeSet: ObservableObject {
     @Published var types: [ReleaseType] = []
+
+    var detailString: String {
+        if types.isEmpty {
+            return "Any type"
+        } else {
+            return types.map { $0.description }.joined(separator: ", ")
+        }
+    }
 }

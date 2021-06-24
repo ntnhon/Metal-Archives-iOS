@@ -12,7 +12,7 @@ struct BandStatusListView: View {
     @State private var navigationTitle = "Any status"
 
     var body: some View {
-        Form {
+        List {
             ForEach(BandStatus.allCases, id: \.self) { status in
                 HStack {
                     Button(action: {
@@ -31,6 +31,7 @@ struct BandStatusListView: View {
                 }
             }
         }
+        .listStyle(InsetGroupedListStyle())
         .navigationBarTitle(navigationTitle, displayMode: .inline)
         .navigationBarItems(trailing:
                                 Button(action: {

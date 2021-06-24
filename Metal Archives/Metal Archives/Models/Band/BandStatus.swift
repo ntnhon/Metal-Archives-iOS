@@ -29,4 +29,12 @@ enum BandStatus: String, CaseIterable {
 
 final class BandStatusSet: ObservableObject {
     @Published var status: [BandStatus] = []
+
+    var detailString: String {
+        if status.isEmpty {
+            return "Any status"
+        } else {
+            return status.map { $0.rawValue }.joined(separator: ", ")
+        }
+    }
 }

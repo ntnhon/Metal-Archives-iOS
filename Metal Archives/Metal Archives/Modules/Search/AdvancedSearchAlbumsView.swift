@@ -68,7 +68,7 @@ struct AdvancedSearchAlbumsView: View {
                     HStack {
                         Text("Band country")
                         Spacer()
-                        Text(countryDetailString())
+                        Text(countrySet.detailString)
                             .font(.callout)
                             .foregroundColor(.gray)
                     }
@@ -108,7 +108,7 @@ struct AdvancedSearchAlbumsView: View {
                     HStack {
                         Text("Release type")
                         Spacer()
-                        Text(releaseTypeDetailString())
+                        Text(releaseTypeSet.detailString)
                             .font(.callout)
                             .foregroundColor(.gray)
                     }
@@ -118,7 +118,7 @@ struct AdvancedSearchAlbumsView: View {
                     HStack {
                         Text("Release format")
                         Spacer()
-                        Text(releaseFormatDetailString())
+                        Text(releaseFormatSet.detailString)
                             .font(.callout)
                             .foregroundColor(.gray)
                     }
@@ -136,30 +136,6 @@ struct AdvancedSearchAlbumsView: View {
             }
         }
         .navigationBarTitle("Advanced search albums", displayMode: .inline)
-    }
-
-    private func countryDetailString() -> String {
-        if countrySet.countries.isEmpty {
-            return "Any country"
-        } else {
-            return countrySet.countries.map { $0.name }.joined(separator: ", ")
-        }
-    }
-
-    private func releaseTypeDetailString() -> String {
-        if releaseTypeSet.types.isEmpty {
-            return "Any type"
-        } else {
-            return releaseTypeSet.types.map { $0.description }.joined(separator: ", ")
-        }
-    }
-
-    private func releaseFormatDetailString() -> String {
-        if releaseFormatSet.formats.isEmpty {
-            return "Any type"
-        } else {
-            return releaseFormatSet.formats.map { $0.rawValue }.joined(separator: ", ")
-        }
     }
 }
 

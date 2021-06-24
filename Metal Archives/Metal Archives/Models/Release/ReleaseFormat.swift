@@ -20,4 +20,12 @@ enum ReleaseFormat: String, CaseIterable {
 
 final class ReleaseFormatSet: ObservableObject {
     @Published var formats: [ReleaseFormat] = []
+
+    var detailString: String {
+        if formats.isEmpty {
+            return "Any format"
+        } else {
+            return formats.map { $0.rawValue }.joined(separator: ", ")
+        }
+    }
 }

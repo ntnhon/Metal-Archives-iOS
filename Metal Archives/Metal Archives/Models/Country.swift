@@ -27,4 +27,12 @@ extension Country: Equatable {
 
 final class CountrySet: ObservableObject {
     @Published var countries: [Country] = []
+
+    var detailString: String {
+        if countries.isEmpty {
+            return "Any country"
+        } else {
+            return countries.map { $0.name }.joined(separator: ", ")
+        }
+    }
 }

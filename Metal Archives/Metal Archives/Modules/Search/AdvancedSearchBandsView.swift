@@ -38,7 +38,7 @@ struct AdvancedSearchBandsView: View {
                 HStack {
                     Text("Country")
                     Spacer()
-                    Text(countryDetailString())
+                    Text(countrySet.detailString)
                         .font(.callout)
                         .foregroundColor(.gray)
                 }
@@ -73,7 +73,7 @@ struct AdvancedSearchBandsView: View {
                 HStack {
                     Text("Status")
                     Spacer()
-                    Text(statusDetailString())
+                    Text(bandStatusSet.detailString)
                         .font(.callout)
                         .foregroundColor(.gray)
                 }
@@ -103,22 +103,6 @@ struct AdvancedSearchBandsView: View {
             }
         }
         .navigationBarTitle("Advanced search bands", displayMode: .inline)
-    }
-
-    private func countryDetailString() -> String {
-        if countrySet.countries.isEmpty {
-            return "Any country"
-        } else {
-            return countrySet.countries.map { $0.name }.joined(separator: ", ")
-        }
-    }
-
-    private func statusDetailString() -> String {
-        if bandStatusSet.status.isEmpty {
-            return "Any status"
-        } else {
-            return bandStatusSet.status.map { $0.rawValue }.joined(separator: ", ")
-        }
     }
 }
 

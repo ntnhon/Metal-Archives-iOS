@@ -12,7 +12,7 @@ struct AdvancedSearchCountryListView: View {
     @State private var navigationTitle = "Any country"
 
     var body: some View {
-        Form {
+        List {
             ForEach(CountryManager.shared.countries, id: \.isoCode) { country in
                 HStack {
                     Button(action: {
@@ -31,6 +31,7 @@ struct AdvancedSearchCountryListView: View {
                 }
             }
         }
+        .listStyle(InsetGroupedListStyle())
         .navigationBarTitle(navigationTitle, displayMode: .inline)
         .navigationBarItems(trailing:
                                 Button(action: {
