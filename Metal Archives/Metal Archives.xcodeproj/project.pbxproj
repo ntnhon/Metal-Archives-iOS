@@ -93,6 +93,8 @@
 		C060E6D02682714F0006433A /* AdvancedSearchSongsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6CF2682714F0006433A /* AdvancedSearchSongsView.swift */; };
 		C060E6D2268273920006433A /* AdvancedSearchTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6D1268273920006433A /* AdvancedSearchTipsView.swift */; };
 		C060E6D426827DBB0006433A /* AdvancedSearchCountryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6D326827DBA0006433A /* AdvancedSearchCountryListView.swift */; };
+		C07A254F26852001008478D7 /* SimpleSearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07A254E26852001008478D7 /* SimpleSearchType.swift */; };
+		C07A25512685208C008478D7 /* SimpleSearchTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07A25502685208C008478D7 /* SimpleSearchTypeView.swift */; };
 		C0977E1E265EF0A200C3E9A9 /* ReleaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0977E1D265EF0A200C3E9A9 /* ReleaseTests.swift */; };
 		C0977E20265EF12300C3E9A9 /* TheSoundOfPerseverance.html in Resources */ = {isa = PBXBuildFile; fileRef = C0977E1F265EF12300C3E9A9 /* TheSoundOfPerseverance.html */; };
 		C0A37B6A26584DDB0017A02F /* MACountries.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A37B6926584DDB0017A02F /* MACountries.json */; };
@@ -222,6 +224,8 @@
 		C060E6CF2682714F0006433A /* AdvancedSearchSongsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchSongsView.swift; sourceTree = "<group>"; };
 		C060E6D1268273920006433A /* AdvancedSearchTipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchTipsView.swift; sourceTree = "<group>"; };
 		C060E6D326827DBA0006433A /* AdvancedSearchCountryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchCountryListView.swift; sourceTree = "<group>"; };
+		C07A254E26852001008478D7 /* SimpleSearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchType.swift; sourceTree = "<group>"; };
+		C07A25502685208C008478D7 /* SimpleSearchTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchTypeView.swift; sourceTree = "<group>"; };
 		C0977E1D265EF0A200C3E9A9 /* ReleaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTests.swift; sourceTree = "<group>"; };
 		C0977E1F265EF12300C3E9A9 /* TheSoundOfPerseverance.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TheSoundOfPerseverance.html; sourceTree = "<group>"; };
 		C0A37B6426584A690017A02F /* Metal Archives.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Metal Archives.entitlements"; sourceTree = "<group>"; };
@@ -463,6 +467,7 @@
 				C01D2D6A2683DD0D00957DE5 /* ReleaseFormatListView.swift */,
 				C01D2D662683DB1A00957DE5 /* ReleaseTypeListView.swift */,
 				C017D413267E3034008B6EE5 /* SearchView.swift */,
+				C07A25502685208C008478D7 /* SimpleSearchTypeView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -641,6 +646,7 @@
 				C02A8CAD2681258B001430D6 /* Letter.swift */,
 				C004A2B72658F2E70071E12A /* ModificationInfo.swift */,
 				C03873A32659AB3600D2FD5E /* RelatedLink.swift */,
+				C07A254E26852001008478D7 /* SimpleSearchType.swift */,
 				C0063EB8265C3A6E005AB1E2 /* ThumbnailInfo.swift */,
 			);
 			path = Models;
@@ -917,7 +923,9 @@
 				C01ECED92662341A009A3A32 /* ReleaseLite.swift in Sources */,
 				C01ECED52662339F009A3A32 /* RoleInBand.swift in Sources */,
 				C0DD1379267F5E6C009F0B81 /* SupportView.swift in Sources */,
+				C07A25512685208C008478D7 /* SimpleSearchTypeView.swift in Sources */,
 				C0056C56265C201700400A03 /* ReleaseElement.swift in Sources */,
+				C07A254F26852001008478D7 /* SimpleSearchType.swift in Sources */,
 				C017D411267E2FF1008B6EE5 /* HomeView.swift in Sources */,
 				C004A2D3265916020071E12A /* Release.swift in Sources */,
 				C004A2B82658F2E70071E12A /* ModificationInfo.swift in Sources */,
