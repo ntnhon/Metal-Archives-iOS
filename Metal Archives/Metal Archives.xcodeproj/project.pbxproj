@@ -73,6 +73,9 @@
 		C0250C32265A545E00BB6CD9 /* BandSimilarsEmpty.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C31265A545E00BB6CD9 /* BandSimilarsEmpty.html */; };
 		C0250C34265A548F00BB6CD9 /* BandSimilarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0250C33265A548F00BB6CD9 /* BandSimilarTests.swift */; };
 		C027D26626807CAB00BD54AE /* CountryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027D26526807CAB00BD54AE /* CountryListView.swift */; };
+		C02A4CD826866D49001CF9D2 /* Top100BandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02A4CD726866D49001CF9D2 /* Top100BandsView.swift */; };
+		C02A4CDA26866F50001CF9D2 /* Top100AlbumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02A4CD926866F50001CF9D2 /* Top100AlbumsView.swift */; };
+		C02A4CDC268670AC001CF9D2 /* Top100MembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02A4CDB268670AC001CF9D2 /* Top100MembersView.swift */; };
 		C02A8CAE2681258B001430D6 /* Letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02A8CAD2681258B001430D6 /* Letter.swift */; };
 		C02A8CB22681261E001430D6 /* AlphabetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02A8CB12681261E001430D6 /* AlphabetView.swift */; };
 		C02A8CB426812E78001430D6 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02A8CB326812E78001430D6 /* Genre.swift */; };
@@ -205,6 +208,9 @@
 		C0250C31265A545E00BB6CD9 /* BandSimilarsEmpty.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = BandSimilarsEmpty.html; sourceTree = "<group>"; };
 		C0250C33265A548F00BB6CD9 /* BandSimilarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilarTests.swift; sourceTree = "<group>"; };
 		C027D26526807CAB00BD54AE /* CountryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListView.swift; sourceTree = "<group>"; };
+		C02A4CD726866D49001CF9D2 /* Top100BandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top100BandsView.swift; sourceTree = "<group>"; };
+		C02A4CD926866F50001CF9D2 /* Top100AlbumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top100AlbumsView.swift; sourceTree = "<group>"; };
+		C02A4CDB268670AC001CF9D2 /* Top100MembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top100MembersView.swift; sourceTree = "<group>"; };
 		C02A8CAD2681258B001430D6 /* Letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Letter.swift; sourceTree = "<group>"; };
 		C02A8CB12681261E001430D6 /* AlphabetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetView.swift; sourceTree = "<group>"; };
 		C02A8CB326812E78001430D6 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
@@ -479,6 +485,9 @@
 				C017D418267E3088008B6EE5 /* BrowseView.swift */,
 				C027D26526807CAB00BD54AE /* CountryListView.swift */,
 				C02A8CB726812F61001430D6 /* GenreListView.swift */,
+				C02A4CD926866F50001CF9D2 /* Top100AlbumsView.swift */,
+				C02A4CD726866D49001CF9D2 /* Top100BandsView.swift */,
+				C02A4CDB268670AC001CF9D2 /* Top100MembersView.swift */,
 			);
 			path = Browse;
 			sourceTree = "<group>";
@@ -913,6 +922,7 @@
 				C03873A42659AB3600D2FD5E /* RelatedLink.swift in Sources */,
 				C0DD1385267F6E1D009F0B81 /* ArrayExtensions.swift in Sources */,
 				C004A2BB2658F3290071E12A /* UserLite.swift in Sources */,
+				C02A4CDA26866F50001CF9D2 /* Top100AlbumsView.swift in Sources */,
 				C01D2D6B2683DD0D00957DE5 /* ReleaseFormatListView.swift in Sources */,
 				C02A8CB426812E78001430D6 /* Genre.swift in Sources */,
 				C004A2C02658F4F40071E12A /* DateFormatterExtensions.swift in Sources */,
@@ -924,6 +934,7 @@
 				C01ECED52662339F009A3A32 /* RoleInBand.swift in Sources */,
 				C0DD1379267F5E6C009F0B81 /* SupportView.swift in Sources */,
 				C07A25512685208C008478D7 /* SimpleSearchTypeView.swift in Sources */,
+				C02A4CDC268670AC001CF9D2 /* Top100MembersView.swift in Sources */,
 				C0056C56265C201700400A03 /* ReleaseElement.swift in Sources */,
 				C07A254F26852001008478D7 /* SimpleSearchType.swift in Sources */,
 				C017D411267E2FF1008B6EE5 /* HomeView.swift in Sources */,
@@ -942,6 +953,7 @@
 				C02A8CAE2681258B001430D6 /* Letter.swift in Sources */,
 				C02A8CB22681261E001430D6 /* AlphabetView.swift in Sources */,
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
+				C02A4CD826866D49001CF9D2 /* Top100BandsView.swift in Sources */,
 				C060E6CE268271330006433A /* AdvancedSearchAlbumsView.swift in Sources */,
 				C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,

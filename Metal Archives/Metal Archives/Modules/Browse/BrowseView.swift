@@ -15,25 +15,27 @@ struct BrowseView: View {
         let primaryColor = preferences.theme.primaryColor(for: colorScheme)
         NavigationView {
             Form {
-                NavigationLink(destination: Text("News archives")) {
-                    HStack {
-                        Image(systemName: "newspaper")
-                            .foregroundColor(primaryColor)
-                        Text("News archives")
+                Section(header: Text("News & statistics")) {
+                    NavigationLink(destination: Text("News archives")) {
+                        HStack {
+                            Image(systemName: "newspaper")
+                                .foregroundColor(primaryColor)
+                            Text("News archives")
+                        }
                     }
-                }
 
-                // Stats
-                Section(header: Text("Statistic")) {
                     NavigationLink(destination: Text("Stats")) {
                         HStack {
                             Image(systemName: "chart.pie")
                                 .foregroundColor(primaryColor)
-                            Text("Statistic")
+                            Text("Statistics")
                         }
                     }
+                }
 
-                    NavigationLink(destination: Text("Top 100 bands")) {
+                // Hall of fame
+                Section(header: Text("Hall of Fame")) {
+                    NavigationLink(destination: Top100BandsView()) {
                         HStack {
                             Image(systemName: "person.3")
                                 .foregroundColor(primaryColor)
@@ -41,11 +43,19 @@ struct BrowseView: View {
                         }
                     }
 
-                    NavigationLink(destination: Text("Top 100 albums")) {
+                    NavigationLink(destination: Top100AlbumsView()) {
                         HStack {
                             Image(systemName: "opticaldisc")
                                 .foregroundColor(primaryColor)
                             Text("Top 100 albums")
+                        }
+                    }
+
+                    NavigationLink(destination: Top100MembersView()) {
+                        HStack {
+                            Image(systemName: "person")
+                                .foregroundColor(primaryColor)
+                            Text("Top 100 members")
                         }
                     }
                 }
