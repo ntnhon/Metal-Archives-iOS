@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct SimpleSearchTypeView: View {
+    @EnvironmentObject private var preferences: Preferences
     @Binding var selectedType: SimpleSearchType
     let type: SimpleSearchType
 
     var body: some View {
         Button(action: {
             selectedType = type
+            if preferences.useHaptic {
+                Vibration.selection.vibrate()
+            }
         }, label: {
             Text(type.rawValue)
                 .font(.body)
@@ -31,6 +35,8 @@ struct SimpleSearchTypeView: View {
 struct SimpleSearchTypeView_Previews: PreviewProvider {
     static var previews: some View {
         SimpleSearchTypeView(selectedType: .constant(.bandName), type: .bandName)
+            .environmentObject(Preferences())
         SimpleSearchTypeView(selectedType: .constant(.songTitle), type: .bandName)
+            .environmentObject(Preferences())
     }
 }

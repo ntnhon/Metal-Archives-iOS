@@ -26,10 +26,20 @@ struct SearchView: View {
                     NavigationLink(destination: AdvancedSearchView(), isActive: $showAdvancedSearch) {
                         EmptyView()
                     }
+
                     LazyVStack(alignment: .leading) {
                         searchSection
                     }
                     .padding(20)
+                    .background(GeometryReader {
+                        Color.clear.preference(key: ViewOffsetKey.self,
+                                               value: -$0.frame(in: .named("scroll")).origin.y)
+                    })
+                    .onPreferenceChange(ViewOffsetKey.self) { _ in
+                        guard isEditing else { return }
+                        withAnimation { isEditing = false }
+                        hideKeyboard()
+                    }
                 }
             }
             .navigationBarHidden(true)
@@ -59,12 +69,13 @@ struct SearchView: View {
                         .font(.title.weight(.medium))
                         .foregroundColor(.secondary)
                         .opacity(searchTerm.isEmpty ? 1.0 : 0.0)
-                        .animation(.easeInOut(duration: 0.2))
 
                     TextField("",
                               text: $searchTerm,
                               onEditingChanged: { isBegin in
-                                isEditing = isBegin
+                                withAnimation {
+                                    isEditing = isBegin
+                                }
                               },
                               onCommit: {
                                 print(searchTerm)
@@ -88,7 +99,6 @@ struct SearchView: View {
             Rectangle()
                 .fill(isEditing ? Color.accentColor : Color.secondary)
                 .frame(height: isEditing ? CGFloat(3.0) : 2.0)
-                .animation(.easeInOut(duration: 0.2))
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
@@ -111,5 +121,16 @@ struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView()
             .environmentObject(Preferences())
+    }
+}
+
+// https://stackoverflow.com/a/62588295
+struct ViewOffsetKey: PreferenceKey {
+    typealias Value = CGFloat
+
+    static var defaultValue = CGFloat.zero
+
+    static func reduce(value: inout Value, nextValue: () -> Value) {
+        value += nextValue()
     }
 }
