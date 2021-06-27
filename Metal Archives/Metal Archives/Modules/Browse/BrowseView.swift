@@ -17,7 +17,7 @@ struct BrowseView: View {
                 Section(header: Text("News & statistics")) {
                     NavigationLink(destination: Text("News archives")) {
                         HStack {
-                            Image(systemName: "newspaper")
+                            Image(systemName: "newspaper.fill")
                                 .foregroundColor(primaryColor)
                             Text("News archives")
                         }
@@ -25,7 +25,7 @@ struct BrowseView: View {
 
                     NavigationLink(destination: Text("Stats")) {
                         HStack {
-                            Image(systemName: "chart.pie")
+                            Image(systemName: "chart.pie.fill")
                                 .foregroundColor(primaryColor)
                             Text("Statistics")
                         }
@@ -36,7 +36,7 @@ struct BrowseView: View {
                 Section(header: Text("Hall of Fame")) {
                     NavigationLink(destination: Top100BandsView()) {
                         HStack {
-                            Image(systemName: "person.3")
+                            Image(systemName: "person.3.fill")
                                 .foregroundColor(primaryColor)
                             Text("Top 100 bands")
                         }
@@ -52,7 +52,7 @@ struct BrowseView: View {
 
                     NavigationLink(destination: Top100MembersView()) {
                         HStack {
-                            Image(systemName: "person")
+                            Image(systemName: "person.fill")
                                 .foregroundColor(primaryColor)
                             Text("Top 100 members")
                         }
@@ -79,7 +79,7 @@ struct BrowseView: View {
 
                     NavigationLink(destination: GenreListView()) {
                         HStack {
-                            Image(systemName: "guitars")
+                            Image(systemName: "guitars.fill")
                                 .foregroundColor(primaryColor)
                             Text("Genre")
                         }
@@ -109,7 +109,7 @@ struct BrowseView: View {
                 Section(header: Text("R.I.P")) {
                     NavigationLink(destination: Text("RIP")) {
                         HStack {
-                            Image(systemName: "staroflife")
+                            Image(systemName: "staroflife.fill")
                                 .foregroundColor(primaryColor)
                             Text("Deceased artists")
                         }
