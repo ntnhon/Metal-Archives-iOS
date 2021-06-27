@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AdvancedSearchTipsView: View {
-    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var preferences: Preferences
     @Environment(\.presentationMode) var presentationMode
 
@@ -84,13 +83,14 @@ struct AdvancedSearchTipsView: View {
             )
             .navigationTitle("Search tips")
         }
-        .accentColor(preferences.theme.primaryColor(for: colorScheme))
+        .accentColor(preferences.theme.primaryColor)
     }
 }
 
 struct AdvancedSearchTipsView_Previews: PreviewProvider {
     static var previews: some View {
         AdvancedSearchTipsView()
+            .environment(\.colorScheme, .dark)
             .environmentObject(Preferences())
     }
 }

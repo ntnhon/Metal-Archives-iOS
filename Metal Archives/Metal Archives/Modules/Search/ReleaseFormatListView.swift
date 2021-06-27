@@ -73,5 +73,7 @@ struct ReleaseFormatListView_Previews: PreviewProvider {
         NavigationView {
             ReleaseFormatListView(releaseFormatSet: .init())
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

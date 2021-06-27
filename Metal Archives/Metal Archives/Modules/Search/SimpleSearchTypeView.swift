@@ -35,8 +35,10 @@ struct SimpleSearchTypeView: View {
 struct SimpleSearchTypeView_Previews: PreviewProvider {
     static var previews: some View {
         SimpleSearchTypeView(selectedType: .constant(.bandName), type: .bandName)
+            .environment(\.colorScheme, .dark)
             .environmentObject(Preferences())
         SimpleSearchTypeView(selectedType: .constant(.songTitle), type: .bandName)
+            .environment(\.colorScheme, .dark)
             .environmentObject(Preferences())
     }
 }

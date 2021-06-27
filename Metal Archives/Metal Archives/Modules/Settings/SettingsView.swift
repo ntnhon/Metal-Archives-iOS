@@ -14,7 +14,6 @@ private let kBuildNumber =
     (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?"
 
 struct SettingsView: View {
-    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var preferences: Preferences
 
     @State private var showAboutSheet = false
@@ -25,7 +24,7 @@ struct SettingsView: View {
     @State private var showThemePreview = false
 
     var body: some View {
-        let primaryColor = preferences.theme.primaryColor(for: colorScheme)
+        let primaryColor = preferences.theme.primaryColor
         NavigationView {
             Form {
                 // General
@@ -65,7 +64,7 @@ struct SettingsView: View {
                                 Circle()
                                     .frame(width: 28, height: 28)
                                     .foregroundColor(theme == preferences.theme ? .primary : .clear)
-                                theme.primaryColor(for: colorScheme)
+                                theme.primaryColor
                                     .frame(width: 24, height: 24)
                                     .clipShape(Circle())
                             }
@@ -181,13 +180,9 @@ struct SettingsView: View {
                     // Github
                     URLButton(urlString: "https://github.com/ntnhon/Metal-Archives-iOS") {
                         HStack {
-                            if colorScheme == .light {
-                                SettingsIconView(image: Image("Github"))
-                            } else {
-                                SettingsIconView(image: Image("Github")
-                                                    .renderingMode(.template))
-                                    .foregroundColor(.primary)
-                            }
+                            SettingsIconView(image: Image("Github")
+                                                .renderingMode(.template))
+                                .foregroundColor(.primary)
                             Text("Github")
                         }
                     }
@@ -256,11 +251,11 @@ struct SettingsView: View {
                     Text("The Sound of Perserverance")
                         .font(.body)
                         .fontWeight(.bold)
-                        .foregroundColor(preferences.theme.primaryColor(for: colorScheme))
+                        .foregroundColor(preferences.theme.primaryColor)
                     Text("Death")
                         .font(.callout)
                         .fontWeight(.bold)
-                        .foregroundColor(preferences.theme.secondaryColor(for: colorScheme))
+                        .foregroundColor(preferences.theme.secondaryColor)
                     Text("1998 • Full-length")
                         .font(.footnote)
                         .fontWeight(.medium)
@@ -272,8 +267,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
-            .environmentObject(Preferences())
         SettingsView()
             .environment(\.colorScheme, .dark)
             .environmentObject(Preferences())

@@ -55,5 +55,7 @@ struct AdvancedSearchView_Previews: PreviewProvider {
         NavigationView {
             AdvancedSearchView()
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

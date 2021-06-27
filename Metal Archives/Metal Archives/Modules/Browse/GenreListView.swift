@@ -25,5 +25,7 @@ struct GenreListView_Previews: PreviewProvider {
         NavigationView {
             GenreListView()
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

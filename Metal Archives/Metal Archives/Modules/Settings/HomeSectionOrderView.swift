@@ -33,7 +33,8 @@ struct HomeSectionOrderView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             HomeSectionOrderView()
-                .environmentObject(Preferences())
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

@@ -39,5 +39,7 @@ struct Top100BandsView_Previews: PreviewProvider {
         NavigationView {
             Top100BandsView()
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

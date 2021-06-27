@@ -38,5 +38,7 @@ struct CountryListView_Previews: PreviewProvider {
         NavigationView {
             CountryListView(mode: .bands)
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

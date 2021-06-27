@@ -132,5 +132,7 @@ struct AdvancedSearchBandsView_Previews: PreviewProvider {
             AdvancedSearchBandsView()
                 .environmentObject(Preferences())
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

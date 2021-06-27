@@ -39,5 +39,7 @@ struct Top100AlbumsView_Previews: PreviewProvider {
         NavigationView {
             Top100AlbumsView()
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

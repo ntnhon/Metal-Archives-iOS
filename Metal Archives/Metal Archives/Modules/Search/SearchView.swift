@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SearchView: View {
-    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var preferences: Preferences
     @State private var showAdvancedSearch = false
     @State private var placeHolderOpacity = 1.0
@@ -44,7 +43,7 @@ struct SearchView: View {
             }
             .navigationBarHidden(true)
         }
-        .accentColor(preferences.theme.primaryColor(for: colorScheme))
+        .accentColor(preferences.theme.primaryColor)
     }
 
     private var searchSection: some View {
@@ -120,6 +119,7 @@ struct SearchView: View {
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView()
+            .environment(\.colorScheme, .dark)
             .environmentObject(Preferences())
     }
 }

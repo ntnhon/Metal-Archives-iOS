@@ -67,5 +67,7 @@ struct AlphabetView_Previews: PreviewProvider {
         NavigationView {
             AlphabetView(mode: .bands)
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

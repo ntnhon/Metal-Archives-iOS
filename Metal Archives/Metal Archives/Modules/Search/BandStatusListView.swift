@@ -71,5 +71,7 @@ struct BandStatusListView_Previews: PreviewProvider {
         NavigationView {
             BandStatusListView(bandStatusSet: .init())
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

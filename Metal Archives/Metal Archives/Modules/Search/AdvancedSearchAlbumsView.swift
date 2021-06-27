@@ -150,5 +150,7 @@ struct AdvancedSearchAlbumsView_Previews: PreviewProvider {
         NavigationView {
             AdvancedSearchAlbumsView()
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

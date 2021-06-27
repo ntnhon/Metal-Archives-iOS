@@ -13,6 +13,7 @@ struct Metal_ArchivesApp: App {
         WindowGroup {
             RootView()
                 .environmentObject(Preferences())
+                .colorScheme(.dark)
         }
     }
 }

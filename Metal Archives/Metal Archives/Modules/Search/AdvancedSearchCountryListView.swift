@@ -70,5 +70,7 @@ struct AdvancedSearchCountryListView_Previews: PreviewProvider {
         NavigationView {
             AdvancedSearchCountryListView(countrySet: .init())
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

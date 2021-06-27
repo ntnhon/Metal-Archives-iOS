@@ -80,5 +80,7 @@ struct AdvancedSearchSongsView_Previews: PreviewProvider {
         NavigationView {
             AdvancedSearchSongsView()
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

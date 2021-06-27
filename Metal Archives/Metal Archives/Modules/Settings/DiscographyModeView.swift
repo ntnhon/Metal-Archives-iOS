@@ -39,7 +39,8 @@ struct DiscographyModeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             DiscographyModeView()
-                .environmentObject(Preferences())
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

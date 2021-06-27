@@ -38,5 +38,7 @@ struct Top100MembersView_Previews: PreviewProvider {
         NavigationView {
             Top100MembersView()
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

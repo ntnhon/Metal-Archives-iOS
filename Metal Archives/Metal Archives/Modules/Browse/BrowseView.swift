@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct BrowseView: View {
-    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var preferences: Preferences
 
     var body: some View {
-        let primaryColor = preferences.theme.primaryColor(for: colorScheme)
+        let primaryColor = preferences.theme.primaryColor
         NavigationView {
             Form {
                 Section(header: Text("News & statistics")) {
@@ -136,6 +135,7 @@ struct BrowseView: View {
 struct BrowseView_Previews: PreviewProvider {
     static var previews: some View {
         BrowseView()
+            .environment(\.colorScheme, .dark)
             .environmentObject(Preferences())
     }
 }

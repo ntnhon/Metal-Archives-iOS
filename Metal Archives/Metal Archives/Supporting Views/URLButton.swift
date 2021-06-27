@@ -34,5 +34,7 @@ struct URLButton_Previews: PreviewProvider {
         URLButton(urlString: "http://example.com") {
             Text("Example")
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }
