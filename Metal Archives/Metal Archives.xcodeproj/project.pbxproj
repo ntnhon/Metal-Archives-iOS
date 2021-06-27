@@ -109,6 +109,10 @@
 		C0A37B7826585C4A0017A02F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B7726585C4A0017A02F /* StringExtensions.swift */; };
 		C0B5E1B8265B844200023219 /* ModelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B5E1B7265B844200023219 /* ModelExtensions.swift */; };
 		C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */; };
+		C0D632BA2687CAF000348E29 /* Death.html in Resources */ = {isa = PBXBuildFile; fileRef = C01B666E265B807700920A71 /* Death.html */; };
+		C0D632BB2687CBEB00348E29 /* DiscographyPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */; };
+		C0D632BD2687CC9900348E29 /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D632BC2687CC9900348E29 /* DataExtensions.swift */; };
+		C0D632C02687CE1A00348E29 /* BandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D632BF2687CE1A00348E29 /* BandView.swift */; };
 		C0DD1377267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1376267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift */; };
 		C0DD1379267F5E6C009F0B81 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1378267F5E6C009F0B81 /* SupportView.swift */; };
 		C0DD137B267F6A23009F0B81 /* HomeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD137A267F6A23009F0B81 /* HomeSection.swift */; };
@@ -118,6 +122,8 @@
 		C0DD1385267F6E1D009F0B81 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1384267F6E1D009F0B81 /* ArrayExtensions.swift */; };
 		C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1386267F798B009F0B81 /* DiscographyModeView.swift */; };
 		C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F01433265D8F420032DAEE /* ReviewLite.swift */; };
+		C0F240F72688605D00ED546D /* BandInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F240F62688605D00ED546D /* BandInfoView.swift */; };
+		C0F240F92689052000ED546D /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F240F82689052000ED546D /* ColorExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -246,6 +252,8 @@
 		C0A37B7726585C4A0017A02F /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		C0B5E1B7265B844200023219 /* ModelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelExtensions.swift; sourceTree = "<group>"; };
 		C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseOtherVersion.swift; sourceTree = "<group>"; };
+		C0D632BC2687CC9900348E29 /* DataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
+		C0D632BF2687CE1A00348E29 /* BandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandView.swift; sourceTree = "<group>"; };
 		C0DD1376267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKStoreReviewControllerExtensions.swift; sourceTree = "<group>"; };
 		C0DD1378267F5E6C009F0B81 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
 		C0DD137A267F6A23009F0B81 /* HomeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSection.swift; sourceTree = "<group>"; };
@@ -255,6 +263,8 @@
 		C0DD1384267F6E1D009F0B81 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		C0DD1386267F798B009F0B81 /* DiscographyModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyModeView.swift; sourceTree = "<group>"; };
 		C0F01433265D8F420032DAEE /* ReviewLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLite.swift; sourceTree = "<group>"; };
+		C0F240F62688605D00ED546D /* BandInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInfoView.swift; sourceTree = "<group>"; };
+		C0F240F82689052000ED546D /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,6 +305,8 @@
 			isa = PBXGroup;
 			children = (
 				C0DD1384267F6E1D009F0B81 /* ArrayExtensions.swift */,
+				C0F240F82689052000ED546D /* ColorExtensions.swift */,
+				C0D632BC2687CC9900348E29 /* DataExtensions.swift */,
 				C004A2BF2658F4F40071E12A /* DateFormatterExtensions.swift */,
 				C0063EBD265C4630005AB1E2 /* Logger.swift */,
 				C0DD1376267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift */,
@@ -670,6 +682,7 @@
 		C0A37B6726584C2D0017A02F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				C0D632BE2687CE0600348E29 /* Band */,
 				C017D415267E3040008B6EE5 /* Browse */,
 				C017D40D267E2F53008B6EE5 /* Home */,
 				C017D41A267E308C008B6EE5 /* My Account */,
@@ -724,6 +737,15 @@
 				C0F01433265D8F420032DAEE /* ReviewLite.swift */,
 			);
 			path = Review;
+			sourceTree = "<group>";
+		};
+		C0D632BE2687CE0600348E29 /* Band */ = {
+			isa = PBXGroup;
+			children = (
+				C0D632BF2687CE1A00348E29 /* BandView.swift */,
+				C0F240F62688605D00ED546D /* BandInfoView.swift */,
+			);
+			path = Band;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -840,6 +862,8 @@
 				C00A79D92657024A004FA9D7 /* Preview Assets.xcassets in Resources */,
 				C0A37B6A26584DDB0017A02F /* MACountries.json in Resources */,
 				C00A79D62657024A004FA9D7 /* Assets.xcassets in Resources */,
+				C0D632BB2687CBEB00348E29 /* DiscographyPublic.html in Resources */,
+				C0D632BA2687CAF000348E29 /* Death.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -925,12 +949,15 @@
 				C017D419267E3088008B6EE5 /* BrowseView.swift in Sources */,
 				C004A2BE2658F3760071E12A /* StringExtensions.swift in Sources */,
 				C02A8CB826812F61001430D6 /* GenreListView.swift in Sources */,
+				C0F240F92689052000ED546D /* ColorExtensions.swift in Sources */,
 				C03873A42659AB3600D2FD5E /* RelatedLink.swift in Sources */,
 				C0DD1385267F6E1D009F0B81 /* ArrayExtensions.swift in Sources */,
+				C0D632C02687CE1A00348E29 /* BandView.swift in Sources */,
 				C004A2BB2658F3290071E12A /* UserLite.swift in Sources */,
 				C02A4CDA26866F50001CF9D2 /* Top100AlbumsView.swift in Sources */,
 				C01D2D6B2683DD0D00957DE5 /* ReleaseFormatListView.swift in Sources */,
 				C02A8CB426812E78001430D6 /* Genre.swift in Sources */,
+				C0D632BD2687CC9900348E29 /* DataExtensions.swift in Sources */,
 				C004A2C02658F4F40071E12A /* DateFormatterExtensions.swift in Sources */,
 				C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */,
 				C01D2D652683CB9500957DE5 /* BandStatusListView.swift in Sources */,
@@ -961,6 +988,7 @@
 				C02A8CAE2681258B001430D6 /* Letter.swift in Sources */,
 				C02A8CB22681261E001430D6 /* AlphabetView.swift in Sources */,
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
+				C0F240F72688605D00ED546D /* BandInfoView.swift in Sources */,
 				C02A4CD826866D49001CF9D2 /* Top100BandsView.swift in Sources */,
 				C060E6CE268271330006433A /* AdvancedSearchAlbumsView.swift in Sources */,
 				C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */,

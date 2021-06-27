@@ -13,6 +13,7 @@ struct ReleaseInBand: Thumbnailable {
     let reviewCount: Int?
     let rating: Int?
     let reviewsUrlString: String?
+    let isPlatinium: Bool
 }
 
 extension ReleaseInBand {
@@ -51,13 +52,16 @@ extension ReleaseInBand {
                 return nil
             }
 
+            let isPlatinium = (reviewCount ?? 0) >= 10 && (rating ?? 0) >= 75
+
             return ReleaseInBand(thumbnailInfo: thumbnailInfo,
                                  title: title,
                                  type: type,
                                  year: year,
                                  reviewCount: reviewCount,
                                  rating: rating,
-                                 reviewsUrlString: reviewsUrlString)
+                                 reviewsUrlString: reviewsUrlString,
+                                 isPlatinium: isPlatinium)
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Combine
+import SwiftUI
 
 enum BandStatus: String, CaseIterable {
     case active = "Active"
@@ -23,6 +24,17 @@ enum BandStatus: String, CaseIterable {
         case "changed name": self = .changedName
         case "disputed": self = .disputed
         default: self = .unknown
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .active: return .green
+        case .onHold: return .yellow
+        case .splitUp: return .red
+        case .changedName: return .blue
+        case .unknown: return .orange
+        case .disputed: return .purple
         }
     }
 }
