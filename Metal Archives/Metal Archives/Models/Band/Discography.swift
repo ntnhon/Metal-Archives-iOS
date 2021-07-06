@@ -8,7 +8,7 @@
 import Foundation
 import Kanna
 
-struct Discography {
+struct Discography: HTMLParsable {
     let releases: [ReleaseInBand]
 
     // Sample: https://www.metal-archives.com/band/discography/id/141/tab/all

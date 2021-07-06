@@ -144,7 +144,11 @@ final class BandInfoViewModel {
 
         self.reviewCount = discography.releases.compactMap { $0.reviewCount }.reduce(0, +)
         let ratings = discography.releases.compactMap { $0.rating }
-        self.averageRating = ratings.reduce(0, +) / ratings.count
+        if ratings.isEmpty {
+            self.averageRating = 0
+        } else {
+            self.averageRating = ratings.reduce(0, +) / ratings.count
+        }
         self.platiniumCount = discography.releases.filter { $0.isPlatinium }.count
     }
 }

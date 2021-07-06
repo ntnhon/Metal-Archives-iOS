@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BrowseView: View {
     @EnvironmentObject private var preferences: Preferences
+    @State private var randomBandUrlString = "https://www.metal-archives.com/band/random"
 
     var body: some View {
         let primaryColor = preferences.theme.primaryColor
@@ -118,7 +119,8 @@ struct BrowseView: View {
 
                 // Random
                 Section(header: Text("Random")) {
-                    NavigationLink(destination: Text("Random band")) {
+                    let bandView = BandView(bandUrlString: randomBandUrlString)
+                    NavigationLink(destination: bandView) {
                         HStack {
                             Image(systemName: "questionmark")
                                 .foregroundColor(primaryColor)

@@ -64,7 +64,7 @@ extension BandSimilar {
     }
 }
 
-extension Array where Element == BandSimilar {
+extension Array: HTMLParsable where Element == BandSimilar {
     // Sample: https://www.metal-archives.com/band/ajax-recommendations/id/141/showMoreSimilar/1
     init(data: Data) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),

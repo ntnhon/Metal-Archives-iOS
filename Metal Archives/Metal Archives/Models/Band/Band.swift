@@ -26,7 +26,7 @@ struct Band {
     let modificationInfo: ModificationInfo
     var isBookmarked: Bool
     let isLastKnownLineUp: Bool
-    let currentLineUp: [ArtistInBand]
+    let currentLineUp: [ArtistInBand] // or last known
     let pastMembers: [ArtistInBand]
     let liveMusicians: [ArtistInBand]
 }
@@ -50,9 +50,9 @@ extension Band {
         var modificationInfo: ModificationInfo?
         var isBookmarked = false
         var isLastKnownLineUp = false
-        var currentLineUp: [ArtistInBand]?
-        var pastMembers: [ArtistInBand]?
-        var liveMusicians: [ArtistInBand]?
+        var currentLineUp: [ArtistInBand] = []
+        var pastMembers: [ArtistInBand] = []
+        var liveMusicians: [ArtistInBand] = []
 
         func build() -> Band? {
             guard let id = id else {
@@ -120,21 +120,6 @@ extension Band {
                 return nil
             }
 
-            guard let currentLineUp = currentLineUp else {
-                Logger.log("[Building Band] currentLineUp can not be nil.")
-                return nil
-            }
-
-            guard let pastMembers = pastMembers else {
-                Logger.log("[Building Band] pastMembers can not be nil.")
-                return nil
-            }
-
-            guard let liveMusicians = liveMusicians else {
-                Logger.log("[Building Band] liveMusicians can not be nil.")
-                return nil
-            }
-
             return Band(id: id,
                         urlString: urlString,
                         name: name,
@@ -163,7 +148,7 @@ fileprivate enum BandMemberType {
     case current, past, live
 }
 
-extension Band {
+extension Band: HTMLParsable {
     // swiftlint:disable identifier_name
     // Declare extra init in an extension in order to preserve the default initializer
     init?(data: Data) {
@@ -256,6 +241,8 @@ extension Band {
                         if let a = dd.at_css("a"), let labelName = a.text, let labelUrlString = a["href"],
                            let thumbnailInfo = ThumbnailInfo(urlString: labelUrlString, type: .label) {
                             builder.lastLabel = .init(thumbnailInfo: thumbnailInfo, name: labelName)
+                        } else if let labelName = dd.text {
+                            builder.lastLabel = .init(thumbnailInfo: nil, name: labelName)
                         }
                     default: break
                     }

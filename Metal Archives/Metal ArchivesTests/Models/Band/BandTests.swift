@@ -70,4 +70,13 @@ class BandTests: XCTestCase {
         XCTAssertEqual(sut.pastMembers.count, 19)
         XCTAssertEqual(sut.liveMusicians.count, 7)
     }
+
+    func testMysterium() throws {
+        let sut = try XCTUnwrap(Band(data: Data.fromHtml(fileName: "Mysterium")))
+
+        XCTAssertNotNil(sut)
+        XCTAssertTrue(sut.isLastKnownLineUp)
+        XCTAssertEqual(sut.currentLineUp.count, 7)
+        XCTAssertEqual(sut.pastMembers.count, 5)
+    }
 }
