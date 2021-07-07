@@ -18,7 +18,7 @@ struct BandView: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
-                VStack(spacing: 0) {
+                LazyVStack(spacing: 0) {
                     switch viewModel.bandAndDiscographyFetchable {
                     case .error(let error):
                         Text(error.description)
@@ -33,11 +33,12 @@ struct BandView: View {
                         BandInfoView(viewModel: .init(band: band, discography: discography),
                                      onSelectLabel: { _ in },
                                      onSelectBand: { _ in })
+                            .padding(.horizontal)
                     }
                 } // End of root LazyVStack
             } // End of root ScrollView
         }
-        .ignoresSafeArea()
+        .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
         .onAppear {
             viewModel.refreshBandAndDiscography()

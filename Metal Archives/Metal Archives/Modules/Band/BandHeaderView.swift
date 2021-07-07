@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 29/06/2021.
 //
 
+import Kingfisher
 import SwiftUI
 
 struct BandHeaderView: View {
@@ -13,30 +14,51 @@ struct BandHeaderView: View {
         VStack(spacing: 0) {
             // Logo
             let logoHeight = min(UIScreen.main.bounds.height / 4, 150)
-            Image("death_logo")
-                .resizable()
-                .scaledToFill()
-                .frame(height: logoHeight)
-                .clipped()
+            if let logoUrlString = band.logoUrlString,
+               let logoUrl = URL(string: logoUrlString) {
+                KFImage(logoUrl)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: logoHeight)
+                    .clipped()
+            } else {
+                Spacer()
+            }
 
-            // Photo
-            let photoHeight = min(UIScreen.main.bounds.width / 2, 150)
-            Image("death_photo")
-                .resizable()
-                .scaledToFill()
-                .frame(width: photoHeight)
-                .clipShape(Circle())
-                .overlay(
-                    Circle()
-                        .stroke(Color(.systemBackground), lineWidth: 6)
-                )
-                .padding(.top, -photoHeight / 3)
+            bandPhotoView
 
             // Name
             Text(band.name)
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.vertical)
+        }
+    }
+
+    @ViewBuilder
+    private var bandPhotoView: some View {
+        let photoHeight = min(UIScreen.main.bounds.width / 2, 150)
+        if let photoUrlString = band.photoUrlString,
+           let photoUrl = URL(string: photoUrlString) {
+            KFImage(photoUrl)
+                .placeholder {
+                    ProgressView()
+                        .frame(width: photoHeight, height: photoHeight)
+                }
+                .resizable()
+                .scaledToFit()
+                .frame(width: photoHeight, height: photoHeight)
+                .overlay(
+                    Circle()
+                        .stroke(Color.primary,
+                                style: .init(lineWidth: 4,
+                                             lineCap: .round))
+                )
+                .background(Color(.systemBackground))
+                .clipShape(Circle())
+                .padding(.top, band.logoUrlString != nil ? -photoHeight / 3 : 0)
+        } else {
+            Spacer()
         }
     }
 }

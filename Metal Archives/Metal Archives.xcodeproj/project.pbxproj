@@ -113,6 +113,7 @@
 		C0A37B7826585C4A0017A02F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B7726585C4A0017A02F /* StringExtensions.swift */; };
 		C0B5E1B8265B844200023219 /* ModelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B5E1B7265B844200023219 /* ModelExtensions.swift */; };
 		C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */; };
+		C0CC030526963B420043A728 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C0CC030426963B420043A728 /* Kingfisher */; };
 		C0D632BA2687CAF000348E29 /* Death.html in Resources */ = {isa = PBXBuildFile; fileRef = C01B666E265B807700920A71 /* Death.html */; };
 		C0D632BB2687CBEB00348E29 /* DiscographyPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */; };
 		C0D632BD2687CC9900348E29 /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D632BC2687CC9900348E29 /* DataExtensions.swift */; };
@@ -288,6 +289,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0CC030526963B420043A728 /* Kingfisher in Frameworks */,
 				C03873A92659AD6100D2FD5E /* Kanna in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -791,6 +793,7 @@
 			name = "Metal Archives";
 			packageProductDependencies = (
 				C03873A82659AD6100D2FD5E /* Kanna */,
+				C0CC030426963B420043A728 /* Kingfisher */,
 			);
 			productName = "Metal Archives";
 			productReference = C00A79CE26570245004FA9D7 /* Metal Archives.app */;
@@ -866,6 +869,7 @@
 			mainGroup = C00A79C526570245004FA9D7;
 			packageReferences = (
 				C03873A72659AD6100D2FD5E /* XCRemoteSwiftPackageReference "Kanna" */,
+				C0CC030326963B420043A728 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = C00A79CF26570245004FA9D7 /* Products */;
 			projectDirPath = "";
@@ -1387,6 +1391,14 @@
 				minimumVersion = 5.2.4;
 			};
 		};
+		C0CC030326963B420043A728 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1394,6 +1406,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C03873A72659AD6100D2FD5E /* XCRemoteSwiftPackageReference "Kanna" */;
 			productName = Kanna;
+		};
+		C0CC030426963B420043A728 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0CC030326963B420043A728 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
