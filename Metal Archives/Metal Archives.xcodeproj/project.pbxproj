@@ -96,6 +96,7 @@
 		C041C3122658EE74006B0F1F /* Band.swift in Sources */ = {isa = PBXBuildFile; fileRef = C041C3112658EE74006B0F1F /* Band.swift */; };
 		C0451EF92694F6780028AE1A /* Mysterium.html in Resources */ = {isa = PBXBuildFile; fileRef = C0451EF82694F6780028AE1A /* Mysterium.html */; };
 		C0451EFB269503A90028AE1A /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0451EFA269503A90028AE1A /* UINavigationController.swift */; };
+		C051862E269793DC006BB7D5 /* BandSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C051862D269793DC006BB7D5 /* BandSectionView.swift */; };
 		C060E6C826825D120006433A /* AdvancedSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6C726825D120006433A /* AdvancedSearchView.swift */; };
 		C060E6CC2682710F0006433A /* AdvancedSearchBandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6CB2682710F0006433A /* AdvancedSearchBandsView.swift */; };
 		C060E6CE268271330006433A /* AdvancedSearchAlbumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6CD268271330006433A /* AdvancedSearchAlbumsView.swift */; };
@@ -247,6 +248,7 @@
 		C041C3112658EE74006B0F1F /* Band.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Band.swift; sourceTree = "<group>"; };
 		C0451EF82694F6780028AE1A /* Mysterium.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Mysterium.html; sourceTree = "<group>"; };
 		C0451EFA269503A90028AE1A /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
+		C051862D269793DC006BB7D5 /* BandSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSectionView.swift; sourceTree = "<group>"; };
 		C060E6C726825D120006433A /* AdvancedSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchView.swift; sourceTree = "<group>"; };
 		C060E6CB2682710F0006433A /* AdvancedSearchBandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchBandsView.swift; sourceTree = "<group>"; };
 		C060E6CD268271330006433A /* AdvancedSearchAlbumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchAlbumsView.swift; sourceTree = "<group>"; };
@@ -770,6 +772,7 @@
 				C0F240FA26891AB500ED546D /* BandViewModel.swift */,
 				C0378CE5268BB5F200E24B28 /* BandHeaderView.swift */,
 				C0F240F62688605D00ED546D /* BandInfoView.swift */,
+				C051862D269793DC006BB7D5 /* BandSectionView.swift */,
 			);
 			path = Band;
 			sourceTree = "<group>";
@@ -1008,6 +1011,7 @@
 				C004A2D3265916020071E12A /* Release.swift in Sources */,
 				C004A2B82658F2E70071E12A /* ModificationInfo.swift in Sources */,
 				C0063EB9265C3A6E005AB1E2 /* ThumbnailInfo.swift in Sources */,
+				C051862E269793DC006BB7D5 /* BandSectionView.swift in Sources */,
 				C018C515265CD6E30022C8DD /* BandStatus.swift in Sources */,
 				C02A4CE026867D84001CF9D2 /* ViewExtensions.swift in Sources */,
 				C0DD137F267F6B41009F0B81 /* HomeSectionOrderView.swift in Sources */,

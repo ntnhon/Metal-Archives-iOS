@@ -8,6 +8,7 @@
 import Kingfisher
 import SwiftUI
 
+// swiftlint:disable let_var_whitespace
 struct BandHeaderView: View {
     let band: Band
     var body: some View {

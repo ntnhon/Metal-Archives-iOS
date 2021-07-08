@@ -10,46 +10,59 @@ import SwiftUI
 struct BandView: View {
     @EnvironmentObject private var preferences: Preferences
     @ObservedObject private var viewModel: BandViewModel
+    @State private var selectedSection: BandSection = .discography
 
     init(bandUrlString: String) {
         self.viewModel = .init(bandUrlString: bandUrlString)
     }
 
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView {
-                LazyVStack(spacing: 0) {
-                    switch viewModel.bandAndDiscographyFetchable {
-                    case .error(let error):
-                        Text(error.description)
-                            .frame(maxWidth: .infinity)
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                switch viewModel.bandAndDiscographyFetchable {
+                case .error(let error):
+                    Text(error.description)
+                        .frame(maxWidth: .infinity)
 
-                    case .fetching, .waiting:
-                        Text("Fetching band")
-                            .frame(maxWidth: .infinity)
+                case .fetching, .waiting:
+                    Text("Fetching band")
+                        .frame(maxWidth: .infinity)
 
-                    case .fetched(let (band, discography)):
-                        BandHeaderView(band: band)
-                        BandInfoView(viewModel: .init(band: band, discography: discography),
-                                     onSelectLabel: { _ in },
-                                     onSelectBand: { _ in })
-                            .padding(.horizontal)
-                    }
-                } // End of root LazyVStack
-            } // End of root ScrollView
-        }
+                case .fetched(let (band, discography)):
+                    primaryContent(band: band,
+                                   discography: discography )
+                }
+            } // End of root LazyVStack
+        } // End of root ScrollView
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
         .onAppear {
             viewModel.refreshBandAndDiscography()
         }
     }
+
+    @ViewBuilder
+    private func primaryContent(band: Band,
+                                discography: Discography) -> some View {
+        BandHeaderView(band: band)
+
+        BandInfoView(viewModel: .init(band: band, discography: discography),
+                     onSelectLabel: { _ in },
+                     onSelectBand: { _ in })
+            .padding(.horizontal)
+
+        Color(.systemGray6)
+            .frame(height: 10)
+            .padding(.vertical)
+
+        BandSectionView(selectedSection: $selectedSection)
+    }
 }
 
 struct BandView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            BandView(bandUrlString: "https://www.metal-archives.com/band/random")
+            BandView(bandUrlString: "https://www.metal-archives.com/bands/Death/141")
         }
         .environment(\.colorScheme, .dark)
         .environmentObject(Preferences())
