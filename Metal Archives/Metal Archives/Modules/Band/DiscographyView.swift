@@ -11,20 +11,41 @@ struct DiscographyView: View {
     @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: DiscographyViewModel
     @State private var selectedMode: DiscographyMode = .complete
+    @State private var releaseYearOrder: Order = .ascending
 
     init(discography: Discography) {
         _viewModel = StateObject(wrappedValue: .init(discography: discography))
     }
 
     var body: some View {
-        DiscographyModePicker(viewModel: viewModel, selectedMode: $selectedMode)
+        Group {
+            options
+            ForEach(viewModel.releases(for: selectedMode,
+                                       order: releaseYearOrder),
+                    id: \.title) {
+                Text($0.title)
+            }
+        }
+    }
+
+    private var options: some View {
+        HStack {
+            DiscographyModePicker(viewModel: viewModel,
+                                  selectedMode: $selectedMode)
+            Spacer()
+            OrderView(order: $releaseYearOrder, title: "Release year")
+        }
     }
 }
 
 struct DiscographyView_Previews: PreviewProvider {
     static var previews: some View {
-        DiscographyView(discography: .death)
-            .environmentObject(Preferences())
+        ScrollView {
+            VStack {
+                DiscographyView(discography: .death)
+                    .environmentObject(Preferences())
+            }
+        }
     }
 }
 
@@ -46,7 +67,7 @@ private struct DiscographyModePicker: View {
 
     private var selectedModeView: some View {
         Text(viewModel.title(for: selectedMode) + " ≡ ")
-            .padding(10)
+            .padding(6)
             .background(preferences.theme.primaryColor)
             .foregroundColor(.white)
             .clipShape(RoundedRectangle(cornerRadius: 8))

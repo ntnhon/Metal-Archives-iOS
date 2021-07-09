@@ -18,7 +18,7 @@ struct BandView: View {
 
     var body: some View {
         ScrollView {
-            LazyVStack(spacing: 0) {
+            VStack(spacing: 0) {
                 switch viewModel.bandAndDiscographyFetchable {
                 case .error(let error):
                     Text(error.description)
@@ -46,16 +46,21 @@ struct BandView: View {
                                 discography: Discography) -> some View {
         BandHeaderView(band: band)
 
-        BandInfoView(viewModel: .init(band: band, discography: discography),
-                     onSelectLabel: { _ in },
-                     onSelectBand: { _ in })
-            .padding(.horizontal)
+        Group {
+            BandInfoView(viewModel: .init(band: band, discography: discography),
+                         onSelectLabel: { _ in },
+                         onSelectBand: { _ in })
 
-        Color(.systemGray6)
-            .frame(height: 10)
-            .padding(.vertical)
+            Color(.systemGray6)
+                .frame(height: 10)
+                .padding(.vertical)
 
-        BandSectionView(selectedSection: $selectedSection)
+            BandSectionView(selectedSection: $selectedSection)
+                .padding(.bottom)
+
+            DiscographyView(discography: discography)
+        }
+        .padding(.horizontal)
     }
 }
 

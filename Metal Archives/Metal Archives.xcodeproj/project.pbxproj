@@ -116,6 +116,8 @@
 		C0A37B7826585C4A0017A02F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B7726585C4A0017A02F /* StringExtensions.swift */; };
 		C0B5E1B8265B844200023219 /* ModelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B5E1B7265B844200023219 /* ModelExtensions.swift */; };
 		C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */; };
+		C0C65A1426982A0B0062FF9C /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C65A1326982A0B0062FF9C /* Order.swift */; };
+		C0C65A1626982E250062FF9C /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C65A1526982E250062FF9C /* OrderView.swift */; };
 		C0CC030526963B420043A728 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C0CC030426963B420043A728 /* Kingfisher */; };
 		C0D632BA2687CAF000348E29 /* Death.html in Resources */ = {isa = PBXBuildFile; fileRef = C01B666E265B807700920A71 /* Death.html */; };
 		C0D632BB2687CBEB00348E29 /* DiscographyPublic.html in Resources */ = {isa = PBXBuildFile; fileRef = C0250C21265A39DB00BB6CD9 /* DiscographyPublic.html */; };
@@ -271,6 +273,8 @@
 		C0A37B7726585C4A0017A02F /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		C0B5E1B7265B844200023219 /* ModelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelExtensions.swift; sourceTree = "<group>"; };
 		C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseOtherVersion.swift; sourceTree = "<group>"; };
+		C0C65A1326982A0B0062FF9C /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		C0C65A1526982E250062FF9C /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		C0D632BC2687CC9900348E29 /* DataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
 		C0D632BF2687CE1A00348E29 /* BandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandView.swift; sourceTree = "<group>"; };
 		C0DD1376267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKStoreReviewControllerExtensions.swift; sourceTree = "<group>"; };
@@ -568,6 +572,7 @@
 		C017D427267E8FE4008B6EE5 /* Supporting Views */ = {
 			isa = PBXGroup;
 			children = (
+				C0C65A1526982E250062FF9C /* OrderView.swift */,
 				C017D42A267E901F008B6EE5 /* URLButton.swift */,
 			);
 			path = "Supporting Views";
@@ -702,6 +707,7 @@
 				C02A8CAD2681258B001430D6 /* Letter.swift */,
 				C0F2410026891F1100ED546D /* MAError.swift */,
 				C004A2B72658F2E70071E12A /* ModificationInfo.swift */,
+				C0C65A1326982A0B0062FF9C /* Order.swift */,
 				C03873A32659AB3600D2FD5E /* RelatedLink.swift */,
 				C07A254E26852001008478D7 /* SimpleSearchType.swift */,
 				C0063EB8265C3A6E005AB1E2 /* ThumbnailInfo.swift */,
@@ -965,6 +971,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C01D2D692683DC7D00957DE5 /* ReleaseFormat.swift in Sources */,
+				C0C65A1426982A0B0062FF9C /* Order.swift in Sources */,
 				C017D421267E30D9008B6EE5 /* SettingsView.swift in Sources */,
 				C0F240FB26891AB500ED546D /* BandViewModel.swift in Sources */,
 				C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */,
@@ -1044,6 +1051,7 @@
 				C017D414267E3034008B6EE5 /* SearchView.swift in Sources */,
 				C017D424267E3115008B6EE5 /* RootView.swift in Sources */,
 				C004A2B62658F17B0071E12A /* LabelLite.swift in Sources */,
+				C0C65A1626982E250062FF9C /* OrderView.swift in Sources */,
 				C01ECED7266233DF009A3A32 /* RoleInRelease.swift in Sources */,
 				C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */,
 			);

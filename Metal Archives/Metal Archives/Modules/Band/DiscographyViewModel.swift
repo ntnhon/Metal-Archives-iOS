@@ -18,10 +18,11 @@ final class DiscographyViewModel: ObservableObject {
     init(discography: Discography) {
         self.discography = discography
         self.main = discography.releases.filter { $0.type == .fullLength }
-        self.lives = discography.releases.filter { $0.type == .liveAlbum }
+        let livesTypes: [ReleaseType] = [.liveAlbum, .video, .splitVideo]
+        self.lives = discography.releases.filter { livesTypes.contains($0.type) }
         self.demos = discography.releases.filter { $0.type == .demo }
-        let notMiscTypes: [ReleaseType] = [.fullLength, .liveAlbum, .demo]
-        self.misc = discography.releases.filter { notMiscTypes.contains($0.type) }
+        let notMiscTypes: [ReleaseType] = [.fullLength, .liveAlbum, .video, .splitVideo, .demo]
+        self.misc = discography.releases.filter { !notMiscTypes.contains($0.type) }
 
         var modes: [DiscographyMode] = []
         let nonEmptyModeCount = [main, lives, demos, misc].reduce(0) { $0 + (!$1.isEmpty ? 1 : 0) }
@@ -42,8 +43,25 @@ final class DiscographyViewModel: ObservableObject {
         case .demos: count = demos.count
         case .misc: count = misc.count
         }
+        return "\(mode.description ) (\(count))"
+    }
 
-        let releaseCountString = "(\(count) release\(count > 1 ? "s" : ""))"
-        return mode.description + " " + releaseCountString
+    func releases(for mode: DiscographyMode, order: Order) -> [ReleaseInBand] {
+        switch mode {
+        case .complete: return discography.releases.sorted(by: order)
+        case .main: return main.sorted(by: order)
+        case .lives: return lives.sorted(by: order)
+        case .demos: return demos.sorted(by: order)
+        case .misc: return misc.sorted(by: order)
+        }
+    }
+}
+
+extension Array where Element == ReleaseInBand {
+    func sorted(by order: Order) -> [ReleaseInBand] {
+        switch order {
+        case .ascending: return sorted { $0.year < $1.year }
+        case .descending: return sorted { $0.year > $1.year }
+        }
     }
 }
