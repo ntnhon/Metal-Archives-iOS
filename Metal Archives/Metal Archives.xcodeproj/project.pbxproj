@@ -97,6 +97,8 @@
 		C0451EF92694F6780028AE1A /* Mysterium.html in Resources */ = {isa = PBXBuildFile; fileRef = C0451EF82694F6780028AE1A /* Mysterium.html */; };
 		C0451EFB269503A90028AE1A /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0451EFA269503A90028AE1A /* UINavigationController.swift */; };
 		C051862E269793DC006BB7D5 /* BandSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C051862D269793DC006BB7D5 /* BandSectionView.swift */; };
+		C051863026979FBE006BB7D5 /* DiscographyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C051862F26979FBE006BB7D5 /* DiscographyView.swift */; };
+		C05186322697A0BF006BB7D5 /* DiscographyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05186312697A0BF006BB7D5 /* DiscographyViewModel.swift */; };
 		C060E6C826825D120006433A /* AdvancedSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6C726825D120006433A /* AdvancedSearchView.swift */; };
 		C060E6CC2682710F0006433A /* AdvancedSearchBandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6CB2682710F0006433A /* AdvancedSearchBandsView.swift */; };
 		C060E6CE268271330006433A /* AdvancedSearchAlbumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6CD268271330006433A /* AdvancedSearchAlbumsView.swift */; };
@@ -249,6 +251,8 @@
 		C0451EF82694F6780028AE1A /* Mysterium.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Mysterium.html; sourceTree = "<group>"; };
 		C0451EFA269503A90028AE1A /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		C051862D269793DC006BB7D5 /* BandSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSectionView.swift; sourceTree = "<group>"; };
+		C051862F26979FBE006BB7D5 /* DiscographyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyView.swift; sourceTree = "<group>"; };
+		C05186312697A0BF006BB7D5 /* DiscographyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyViewModel.swift; sourceTree = "<group>"; };
 		C060E6C726825D120006433A /* AdvancedSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchView.swift; sourceTree = "<group>"; };
 		C060E6CB2682710F0006433A /* AdvancedSearchBandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchBandsView.swift; sourceTree = "<group>"; };
 		C060E6CD268271330006433A /* AdvancedSearchAlbumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchAlbumsView.swift; sourceTree = "<group>"; };
@@ -773,6 +777,8 @@
 				C0378CE5268BB5F200E24B28 /* BandHeaderView.swift */,
 				C0F240F62688605D00ED546D /* BandInfoView.swift */,
 				C051862D269793DC006BB7D5 /* BandSectionView.swift */,
+				C051862F26979FBE006BB7D5 /* DiscographyView.swift */,
+				C05186312697A0BF006BB7D5 /* DiscographyViewModel.swift */,
 			);
 			path = Band;
 			sourceTree = "<group>";
@@ -988,6 +994,7 @@
 				C0F240F92689052000ED546D /* ColorExtensions.swift in Sources */,
 				C03873A42659AB3600D2FD5E /* RelatedLink.swift in Sources */,
 				C0F240FD26891D9D00ED546D /* HTMLParsable.swift in Sources */,
+				C05186322697A0BF006BB7D5 /* DiscographyViewModel.swift in Sources */,
 				C0DD1385267F6E1D009F0B81 /* ArrayExtensions.swift in Sources */,
 				C0D632C02687CE1A00348E29 /* BandView.swift in Sources */,
 				C004A2BB2658F3290071E12A /* UserLite.swift in Sources */,
@@ -1022,6 +1029,7 @@
 				C060E6D02682714F0006433A /* AdvancedSearchSongsView.swift in Sources */,
 				C027D26626807CAB00BD54AE /* CountryListView.swift in Sources */,
 				C02A4CDE268678C6001CF9D2 /* Vibration.swift in Sources */,
+				C051863026979FBE006BB7D5 /* DiscographyView.swift in Sources */,
 				C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */,
 				C03873A02659A92F00D2FD5E /* ArtistInBand.swift in Sources */,
 				C02A8CAE2681258B001430D6 /* Letter.swift in Sources */,
