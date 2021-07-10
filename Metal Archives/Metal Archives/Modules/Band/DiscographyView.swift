@@ -23,7 +23,7 @@ struct DiscographyView: View {
             ForEach(viewModel.releases(for: selectedMode,
                                        order: releaseYearOrder),
                     id: \.title) {
-                Text($0.title)
+                ReleaseInBandView(release: $0)
             }
         }
     }
@@ -40,12 +40,18 @@ struct DiscographyView: View {
 
 struct DiscographyView_Previews: PreviewProvider {
     static var previews: some View {
-        ScrollView {
-            VStack {
-                DiscographyView(discography: .death)
-                    .environmentObject(Preferences())
+        ZStack {
+            Color(.systemBackground).ignoresSafeArea()
+            ScrollView {
+                VStack {
+                    DiscographyView(discography: .death)
+                }
             }
+            .padding(.horizontal)
+            .background(Color(.systemBackground))
         }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }
 

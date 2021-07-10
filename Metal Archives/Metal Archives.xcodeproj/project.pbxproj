@@ -99,6 +99,7 @@
 		C051862E269793DC006BB7D5 /* BandSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C051862D269793DC006BB7D5 /* BandSectionView.swift */; };
 		C051863026979FBE006BB7D5 /* DiscographyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C051862F26979FBE006BB7D5 /* DiscographyView.swift */; };
 		C05186322697A0BF006BB7D5 /* DiscographyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05186312697A0BF006BB7D5 /* DiscographyViewModel.swift */; };
+		C05FDD3726996E1000EE2AB3 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05FDD3626996E1000EE2AB3 /* UIColorExtensions.swift */; };
 		C060E6C826825D120006433A /* AdvancedSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6C726825D120006433A /* AdvancedSearchView.swift */; };
 		C060E6CC2682710F0006433A /* AdvancedSearchBandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6CB2682710F0006433A /* AdvancedSearchBandsView.swift */; };
 		C060E6CE268271330006433A /* AdvancedSearchAlbumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6CD268271330006433A /* AdvancedSearchAlbumsView.swift */; };
@@ -131,6 +132,7 @@
 		C0DD1383267F6C40009F0B81 /* DiscographyMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1382267F6C40009F0B81 /* DiscographyMode.swift */; };
 		C0DD1385267F6E1D009F0B81 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1384267F6E1D009F0B81 /* ArrayExtensions.swift */; };
 		C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1386267F798B009F0B81 /* DiscographyModeView.swift */; };
+		C0E006A12698EDC100B5D503 /* ReleaseInBandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E006A02698EDC100B5D503 /* ReleaseInBandView.swift */; };
 		C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F01433265D8F420032DAEE /* ReviewLite.swift */; };
 		C0F240F72688605D00ED546D /* BandInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F240F62688605D00ED546D /* BandInfoView.swift */; };
 		C0F240F92689052000ED546D /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F240F82689052000ED546D /* ColorExtensions.swift */; };
@@ -255,6 +257,7 @@
 		C051862D269793DC006BB7D5 /* BandSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSectionView.swift; sourceTree = "<group>"; };
 		C051862F26979FBE006BB7D5 /* DiscographyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyView.swift; sourceTree = "<group>"; };
 		C05186312697A0BF006BB7D5 /* DiscographyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyViewModel.swift; sourceTree = "<group>"; };
+		C05FDD3626996E1000EE2AB3 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		C060E6C726825D120006433A /* AdvancedSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchView.swift; sourceTree = "<group>"; };
 		C060E6CB2682710F0006433A /* AdvancedSearchBandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchBandsView.swift; sourceTree = "<group>"; };
 		C060E6CD268271330006433A /* AdvancedSearchAlbumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchAlbumsView.swift; sourceTree = "<group>"; };
@@ -285,6 +288,7 @@
 		C0DD1382267F6C40009F0B81 /* DiscographyMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyMode.swift; sourceTree = "<group>"; };
 		C0DD1384267F6E1D009F0B81 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		C0DD1386267F798B009F0B81 /* DiscographyModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyModeView.swift; sourceTree = "<group>"; };
+		C0E006A02698EDC100B5D503 /* ReleaseInBandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInBandView.swift; sourceTree = "<group>"; };
 		C0F01433265D8F420032DAEE /* ReviewLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLite.swift; sourceTree = "<group>"; };
 		C0F240F62688605D00ED546D /* BandInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInfoView.swift; sourceTree = "<group>"; };
 		C0F240F82689052000ED546D /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
@@ -343,6 +347,7 @@
 				C004A2BD2658F3760071E12A /* StringExtensions.swift */,
 				C02A4CDD268678C6001CF9D2 /* Vibration.swift */,
 				C02A4CDF26867D84001CF9D2 /* ViewExtensions.swift */,
+				C05FDD3626996E1000EE2AB3 /* UIColorExtensions.swift */,
 				C0451EFA269503A90028AE1A /* UINavigationController.swift */,
 			);
 			path = Utilities;
@@ -785,6 +790,7 @@
 				C051862D269793DC006BB7D5 /* BandSectionView.swift */,
 				C051862F26979FBE006BB7D5 /* DiscographyView.swift */,
 				C05186312697A0BF006BB7D5 /* DiscographyViewModel.swift */,
+				C0E006A02698EDC100B5D503 /* ReleaseInBandView.swift */,
 			);
 			path = Band;
 			sourceTree = "<group>";
@@ -993,6 +999,7 @@
 				C060E6CC2682710F0006433A /* AdvancedSearchBandsView.swift in Sources */,
 				C03873A22659AAD000D2FD5E /* BandSimilar.swift in Sources */,
 				C038739D2659A7E700D2FD5E /* BandLite.swift in Sources */,
+				C0E006A12698EDC100B5D503 /* ReleaseInBandView.swift in Sources */,
 				C0451EFB269503A90028AE1A /* UINavigationController.swift in Sources */,
 				C060E6C826825D120006433A /* AdvancedSearchView.swift in Sources */,
 				C017D419267E3088008B6EE5 /* BrowseView.swift in Sources */,
@@ -1048,6 +1055,7 @@
 				C060E6CE268271330006433A /* AdvancedSearchAlbumsView.swift in Sources */,
 				C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
+				C05FDD3726996E1000EE2AB3 /* UIColorExtensions.swift in Sources */,
 				C017D414267E3034008B6EE5 /* SearchView.swift in Sources */,
 				C017D424267E3115008B6EE5 /* RootView.swift in Sources */,
 				C004A2B62658F17B0071E12A /* LabelLite.swift in Sources */,

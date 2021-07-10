@@ -29,6 +29,10 @@ enum Theme: Int, CaseIterable {
         }
     }
 
+    var lighterPrimaryColor: Color { primaryColor.lighter(by: 0.4) }
+
+    var darkerPrimaryColor: Color { primaryColor.darker(by: 0.15) }
+
     var secondaryColor: Color {
         switch self {
         case .default:

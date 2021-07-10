@@ -16,4 +16,7 @@ extension Color {
         default: return BandStatus.active.color
         }
     }
+
+    func lighter(by amount: CGFloat = 0.2) -> Self { Self(UIColor(self).lighter(by: amount)) }
+    func darker(by amount: CGFloat = 0.2) -> Self { Self(UIColor(self).darker(by: amount)) }
 }

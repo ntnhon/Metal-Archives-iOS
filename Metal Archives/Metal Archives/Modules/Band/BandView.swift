@@ -46,21 +46,20 @@ struct BandView: View {
                                 discography: Discography) -> some View {
         BandHeaderView(band: band)
 
-        Group {
-            BandInfoView(viewModel: .init(band: band, discography: discography),
-                         onSelectLabel: { _ in },
-                         onSelectBand: { _ in })
+        BandInfoView(viewModel: .init(band: band, discography: discography),
+                     onSelectLabel: { _ in },
+                     onSelectBand: { _ in })
+            .padding(.horizontal)
 
-            Color(.systemGray6)
-                .frame(height: 10)
-                .padding(.vertical)
+        Color(.systemGray6)
+            .frame(height: 10)
+            .padding(.vertical)
 
-            BandSectionView(selectedSection: $selectedSection)
-                .padding(.bottom)
+        BandSectionView(selectedSection: $selectedSection)
+            .padding([.horizontal, .bottom])
 
-            DiscographyView(discography: discography)
-        }
-        .padding(.horizontal)
+        DiscographyView(discography: discography)
+            .padding(.horizontal)
     }
 }
 

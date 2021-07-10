@@ -50,6 +50,8 @@ struct BandInfoView: View {
                 Image(systemName: "guitars.fill")
                     .foregroundColor(primaryColor)
                 Text(band.genre)
+                    .fixedSize(horizontal: false,
+                               vertical: true)
                 Spacer()
             }
 
@@ -57,6 +59,8 @@ struct BandInfoView: View {
                 Image(systemName: "music.quarternote.3")
                     .foregroundColor(primaryColor)
                 Text(band.lyricalTheme)
+                    .fixedSize(horizontal: false,
+                               vertical: true)
                 Spacer()
             }
 
@@ -86,6 +90,7 @@ struct BandInfoView: View {
             }
         }
         .frame(maxWidth: .infinity)
+        .font(.callout)
     }
 
     private var reviewView: some View {
@@ -97,15 +102,16 @@ struct BandInfoView: View {
             } else {
                 Text("\(viewModel.reviewCount)")
                     .fontWeight(.bold)
-                    + Text(" review\(viewModel.reviewCount > 0 ? "s" : "") in total • ")
+                    + Text(" review\(viewModel.reviewCount > 0 ? "s" : "") • ")
                     + Text("\(viewModel.averageRating)%")
                     .fontWeight(.bold)
                     .foregroundColor(Color.byRating(viewModel.averageRating))
-                    + Text(" on average")
-                    + Text(viewModel.platiniumCount == 0 ? "" : " • \(viewModel.platiniumCount) 🏅")
+                    + Text(" on average" + (viewModel.platiniumCount == 0 ? "" : " • "))
+                    + Text(viewModel.platiniumCount == 0 ? "" : "\(viewModel.platiniumCount)🏅")
                     .fontWeight(.bold)
             }
         }
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
 
