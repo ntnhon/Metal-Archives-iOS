@@ -3415,6 +3415,7 @@
 				C0BE338A21E68CDC001ED000 /* Resources */,
 				AF03F062A4116166EBD8E7BE /* [CP] Embed Pods Frameworks */,
 				C06B62932242815000A3FE6B /* Embed App Extensions */,
+				C023F82726077DF400BE4EEA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -3785,6 +3786,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Metal Archives/Pods-Metal Archives-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		C023F82726077DF400BE4EEA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint --config \"$SRCROOT/.swiftlint.yml\"\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
