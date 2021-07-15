@@ -13,6 +13,7 @@ struct ReleaseInBandView: View {
 
     var body: some View {
         let primaryColor = preferences.theme.primaryColor
+        let secondaryColor = preferences.theme.secondaryColor
 
         let titleFont: Font
         let titleForegroundColor: Color
@@ -20,22 +21,22 @@ struct ReleaseInBandView: View {
         switch release.type {
         case .demo:
             titleFont = .callout.italic()
-            titleForegroundColor = preferences.theme.lighterPrimaryColor
+            titleForegroundColor = secondaryColor
             subtitleFont = .caption
         case .fullLength:
             titleFont = .title3.weight(.bold)
-            titleForegroundColor = preferences.theme.darkerPrimaryColor
+            titleForegroundColor = primaryColor
             subtitleFont = .body.weight(.medium)
         default:
             titleFont = .body
-            titleForegroundColor = primaryColor
+            titleForegroundColor = secondaryColor
             subtitleFont = .caption
         }
 
         return HStack {
             Image(systemName: "opticaldisc")
                 .font(.largeTitle)
-                .foregroundColor(primaryColor)
+                .foregroundColor(secondaryColor)
                 .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {

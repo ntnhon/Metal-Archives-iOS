@@ -15,25 +15,24 @@ struct BandInfoView: View {
 
     var body: some View {
         let band = viewModel.band
-        let primaryColor = preferences.theme.primaryColor
         VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Image(systemName: "house.fill")
-                    .foregroundColor(primaryColor)
+                    .foregroundColor(.secondary)
                 Text(viewModel.band.country.nameAndFlag)
                 Spacer()
             }
 
             HStack {
                 Image(systemName: "location.fill")
-                    .foregroundColor(primaryColor)
+                    .foregroundColor(.secondary)
                 Text(band.location)
                 Spacer()
             }
 
             HStack {
                 Image(systemName: "waveform.path")
-                    .foregroundColor(primaryColor)
+                    .foregroundColor(.secondary)
                 Text(band.status.rawValue)
                     .foregroundColor(band.status.color)
                 Spacer()
@@ -41,14 +40,14 @@ struct BandInfoView: View {
 
             HStack {
                 Image(systemName: "calendar")
-                    .foregroundColor(primaryColor)
+                    .foregroundColor(.secondary)
                 Text(viewModel.yearOfCreationString)
                 Spacer()
             }
 
             HStack {
                 Image(systemName: "guitars.fill")
-                    .foregroundColor(primaryColor)
+                    .foregroundColor(.secondary)
                 Text(band.genre)
                     .fixedSize(horizontal: false,
                                vertical: true)
@@ -57,7 +56,7 @@ struct BandInfoView: View {
 
             HStack {
                 Image(systemName: "music.quarternote.3")
-                    .foregroundColor(primaryColor)
+                    .foregroundColor(.secondary)
                 Text(band.lyricalTheme)
                     .fixedSize(horizontal: false,
                                vertical: true)
@@ -68,7 +67,7 @@ struct BandInfoView: View {
 
             HStack {
                 Image(systemName: "tag.fill")
-                    .foregroundColor(primaryColor)
+                    .foregroundColor(.secondary)
                 Button(action: {
                     if let labelUrlString = band.lastLabel.thumbnailInfo?.urlString {
                         onSelectLabel(labelUrlString)
@@ -77,14 +76,14 @@ struct BandInfoView: View {
                 label: {
                     Text(band.lastLabel.name)
                         .fontWeight(band.lastLabel.thumbnailInfo == nil ? .regular : .bold)
-                        .foregroundColor(band.lastLabel.thumbnailInfo == nil ? .primary : primaryColor)
+                        .foregroundColor(band.lastLabel.thumbnailInfo == nil ? .primary : preferences.theme.primaryColor)
                 })
                 Spacer()
             }
 
             HStack {
                 Image(systemName: "clock.fill")
-                    .foregroundColor(primaryColor)
+                    .foregroundColor(.secondary)
                 Text(DateFormatter.default.string(from: band.modificationInfo.modifiedOnDate!))
                 Spacer()
             }
@@ -96,7 +95,7 @@ struct BandInfoView: View {
     private var reviewView: some View {
         HStack {
             Image(systemName: "quote.bubble.fill")
-                .foregroundColor(preferences.theme.primaryColor)
+                .foregroundColor(.secondary)
             if viewModel.reviewCount == 0 {
                 Text("No review yet")
             } else {

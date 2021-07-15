@@ -51,8 +51,8 @@ struct BandHeaderView: View {
                 .frame(width: photoHeight, height: photoHeight)
                 .overlay(
                     Circle()
-                        .stroke(Color.primary,
-                                style: .init(lineWidth: 4,
+                        .stroke(band.status.color,
+                                style: .init(lineWidth: 6,
                                              lineCap: .round))
                 )
                 .background(Color(.systemBackground))

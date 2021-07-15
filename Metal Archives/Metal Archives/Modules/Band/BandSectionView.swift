@@ -40,6 +40,7 @@ struct BandSectionView: View {
                                     proxy: scrollViewReader)
                     }
                 }
+                .padding(.leading)
             }
         }
     }

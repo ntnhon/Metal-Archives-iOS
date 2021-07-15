@@ -56,7 +56,7 @@ struct BandView: View {
             .padding(.vertical)
 
         BandSectionView(selectedSection: $selectedSection)
-            .padding([.horizontal, .bottom])
+            .padding(.bottom)
 
         DiscographyView(discography: discography)
             .padding(.horizontal)
