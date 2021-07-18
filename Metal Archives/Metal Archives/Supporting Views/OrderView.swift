@@ -16,7 +16,7 @@ struct OrderView: View {
         HStack {
             Text(title)
             Image(systemName: "arrow.down")
-                .rotationEffect(.degrees(order == .ascending ? 0 : 180))
+                .rotationEffect(.degrees(order == .descending ? 0 : 180))
                 .animation(.default)
         }
         .padding(6)

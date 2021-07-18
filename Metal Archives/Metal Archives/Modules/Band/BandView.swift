@@ -58,7 +58,7 @@ struct BandView: View {
         BandSectionView(selectedSection: $selectedSection)
             .padding(.bottom)
 
-        DiscographyView(discography: discography)
+        DiscographyView(discography: discography, releaseYearOrder: preferences.dateOrder)
             .padding(.horizontal)
     }
 }

@@ -11,10 +11,11 @@ struct DiscographyView: View {
     @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: DiscographyViewModel
     @State private var selectedMode: DiscographyMode = .complete
-    @State private var releaseYearOrder: Order = .ascending
+    @State private var releaseYearOrder: Order
 
-    init(discography: Discography) {
+    init(discography: Discography, releaseYearOrder: Order) {
         _viewModel = StateObject(wrappedValue: .init(discography: discography))
+        _releaseYearOrder = State(initialValue: releaseYearOrder)
     }
 
     var body: some View {
@@ -44,7 +45,7 @@ struct DiscographyView_Previews: PreviewProvider {
             Color(.systemBackground).ignoresSafeArea()
             ScrollView {
                 VStack {
-                    DiscographyView(discography: .death)
+                    DiscographyView(discography: .death, releaseYearOrder: .ascending)
                 }
             }
             .padding(.horizontal)

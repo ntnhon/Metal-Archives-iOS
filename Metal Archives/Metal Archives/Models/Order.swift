@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Order {
+enum Order: Int {
     case ascending
     case descending
 

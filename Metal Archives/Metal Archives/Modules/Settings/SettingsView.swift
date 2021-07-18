@@ -49,6 +49,19 @@ struct SettingsView: View {
                         }
                     }
 
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Default order by date")
+                            Picker("", selection: preferences.$dateOrder) {
+                                Text("Ascending ↑")
+                                    .tag(Order.ascending)
+                                Text("Descending ↓")
+                                    .tag(Order.descending)
+                            }
+                            .pickerStyle(SegmentedPickerStyle())
+                        }
+                    }
+
                     Toggle("Haptic effect", isOn: $useHaptic)
                         .onChange(of: useHaptic) { isOn in
                             preferences.useHaptic = isOn

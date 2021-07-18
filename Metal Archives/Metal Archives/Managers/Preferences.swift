@@ -9,6 +9,7 @@ import SwiftUI
 
 final class Preferences: ObservableObject {
     @AppStorage("discographyMode") var discographyMode: DiscographyMode = .complete
+    @AppStorage("dateOrder") var dateOrder: Order = .ascending
     @AppStorage("homeSectionOrder") var homeSectionOrder: [HomeSection] =
         [.upcomingAlbums, .latestAdditions, .latestUpdates, .latestReviews]
     @AppStorage("showThumbnails") var showThumbnails = true
