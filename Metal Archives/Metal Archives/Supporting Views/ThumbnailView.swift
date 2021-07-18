@@ -105,7 +105,6 @@ final class ThumbnailViewModel: ObservableObject {
                   receiveValue: { [weak self] data, response in
                 guard let self = self,
                       let httpResponse = response as? HTTPURLResponse else { return }
-                print("\(httpResponse.statusCode): \(imageUrlString)")
                 switch httpResponse.statusCode {
                 case 200:
                     self.isLoading = false
@@ -132,28 +131,23 @@ final class ThumbnailViewModel: ObservableObject {
     }
 
     private func newImageUrlString(id: Int) -> String? {
-        print("new url: \(id)")
         if !triedJPG {
-            print("try jpg: \(id)")
             triedJPG = true
             return kImagesBaseUrlString + id.toImagePath(type: imageType, extension: .jpg)
         }
 
         if !triedPNG {
             triedPNG = true
-            print("try png: \(id)")
             return kImagesBaseUrlString + id.toImagePath(type: imageType, extension: .png)
         }
 
         if !triedJPEG {
             triedJPEG = true
-            print("try jpeg: \(id)")
             return kImagesBaseUrlString + id.toImagePath(type: imageType, extension: .jpeg)
         }
 
         if !triedGIF {
             triedGIF = true
-            print("try gif: \(id)")
             return kImagesBaseUrlString + id.toImagePath(type: imageType, extension: .gif)
         }
 

@@ -18,8 +18,7 @@ struct RootView: View {
     var body: some View {
         NavigationView {
             TabView(selection: $selectedTab) {
-    //            HomeView()
-                BandView(bandUrlString: "https://www.metal-archives.com/bands/Death/141")
+                HomeView()
                     .tabItem {
                         Image(systemName: selectedTab == .home ? "house.fill" : "house")
                         Text("Home")

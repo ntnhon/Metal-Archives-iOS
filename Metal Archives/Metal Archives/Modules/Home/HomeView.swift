@@ -12,18 +12,9 @@ struct HomeView: View {
 
     var body: some View {
         Form {
-            Section {
-                ForEach(settings.homeSectionOrder, id: \.self) {
-                    Text($0.description)
-                }
-            }
-
-            Section {
-                Text("Thumbnail \(settings.showThumbnails.description)")
-            }
-
-            Section {
-                Text("Haptic \(settings.useHaptic.description)")
+            NavigationLink(
+                destination: BandView(bandUrlString: "https://www.metal-archives.com/bands/Death/141")) {
+                Text("Death")
             }
         }
     }
