@@ -32,6 +32,11 @@ extension String {
 
     func removeAll(string: String) -> String { replacingOccurrences(of: string, with: "") }
 
+    // swiftlint:disable:next identifier_name
+    subscript(i: Int) -> Character {
+        self[index(startIndex, offsetBy: i)]
+    }
+
     func removeHtmlTagsAndNoisySpaces() -> String {
         // From
         /*

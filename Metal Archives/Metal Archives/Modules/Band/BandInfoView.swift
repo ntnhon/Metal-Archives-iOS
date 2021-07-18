@@ -76,7 +76,8 @@ struct BandInfoView: View {
                 label: {
                     Text(band.lastLabel.name)
                         .fontWeight(band.lastLabel.thumbnailInfo == nil ? .regular : .bold)
-                        .foregroundColor(band.lastLabel.thumbnailInfo == nil ? .primary : preferences.theme.primaryColor)
+                        .foregroundColor(
+                            band.lastLabel.thumbnailInfo == nil ? .primary : preferences.theme.primaryColor)
                 })
                 Spacer()
             }

@@ -34,7 +34,7 @@ struct ReleaseInBandView: View {
         }
 
         return HStack {
-            Image(systemName: "opticaldisc")
+            ThumbnailView(urlString: release.thumbnailInfo.urlString, imageType: .release)
                 .font(.largeTitle)
                 .foregroundColor(secondaryColor)
                 .frame(width: 64, height: 64)
