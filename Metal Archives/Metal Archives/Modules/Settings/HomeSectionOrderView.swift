@@ -19,7 +19,7 @@ struct HomeSectionOrderView: View {
                 .onMove(perform: handleMove)
             }
         }
-        .navigationTitle("Home section order")
+        .navigationBarTitle("Home section order", displayMode: .inline)
         .environment(\.editMode, .constant(.active))
     }
 

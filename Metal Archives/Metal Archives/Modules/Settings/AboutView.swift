@@ -38,6 +38,7 @@ struct AboutView: View {
             )
             .navigationBarTitle("About this app")
         }
+        .colorScheme(.dark)
     }
 }
 

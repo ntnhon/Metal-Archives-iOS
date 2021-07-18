@@ -16,48 +16,61 @@ struct RootView: View {
     @State private var selectedTab: RootViewTab = .home
 
     var body: some View {
-        TabView(selection: $selectedTab) {
-//            HomeView()
-            BandView(bandUrlString: "https://www.metal-archives.com/bands/Death/141")
-                .tabItem {
-                    Image(systemName: selectedTab == .home ? "house.fill" : "house")
-                    Text("Home")
-                }
-                .tag(RootViewTab.home)
+        NavigationView {
+            TabView(selection: $selectedTab) {
+    //            HomeView()
+                BandView(bandUrlString: "https://www.metal-archives.com/bands/Death/141")
+                    .tabItem {
+                        Image(systemName: selectedTab == .home ? "house.fill" : "house")
+                        Text("Home")
+                    }
+                    .tag(RootViewTab.home)
 
-            BrowseView()
-                .tabItem {
-                    Image(systemName: selectedTab == .browse ?
-                            "tray.2.fill" : "tray.2")
-                    Text("Browse")
-                }
-                .tag(RootViewTab.browse)
+                BrowseView()
+                    .tabItem {
+                        Image(systemName: selectedTab == .browse ?
+                                "tray.2.fill" : "tray.2")
+                        Text("Browse")
+                    }
+                    .tag(RootViewTab.browse)
 
-            SearchView()
-                .tabItem {
-                    Image(systemName: selectedTab == .search ?
-                            "magnifyingglass.circle.fill" : "magnifyingglass.circle")
-                    Text("Search")
-                }
-                .tag(RootViewTab.search)
+                SearchView()
+                    .tabItem {
+                        Image(systemName: selectedTab == .search ?
+                                "magnifyingglass.circle.fill" : "magnifyingglass.circle")
+                        Text("Search")
+                    }
+                    .tag(RootViewTab.search)
 
-            MyAccountView()
-                .tabItem {
-                    Image(systemName: selectedTab == .myAccount ?
-                            "person.fill" : "person")
-                    Text("My account")
-                }
-                .tag(RootViewTab.myAccount)
+                MyAccountView()
+                    .tabItem {
+                        Image(systemName: selectedTab == .myAccount ?
+                                "person.fill" : "person")
+                        Text("My account")
+                    }
+                    .tag(RootViewTab.myAccount)
 
-            SettingsView()
-                .tabItem {
-                    Image(systemName: selectedTab == .settings ?
-                            "gearshape.fill" : "gearshape")
-                    Text("Settings")
-                }
-                .tag(RootViewTab.settings)
+                SettingsView()
+                    .tabItem {
+                        Image(systemName: selectedTab == .settings ?
+                                "gearshape.fill" : "gearshape")
+                        Text("Settings")
+                    }
+                    .tag(RootViewTab.settings)
+            }
+            .navigationTitle(navigationTitle())
         }
         .accentColor(preferences.theme.primaryColor)
+    }
+
+    private func navigationTitle() -> String {
+        switch selectedTab {
+        case .home: return ""
+        case .browse: return "Browse"
+        case .search: return ""
+        case .myAccount: return ""
+        case .settings: return "Settings"
+        }
     }
 }
 

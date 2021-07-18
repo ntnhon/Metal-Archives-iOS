@@ -53,6 +53,7 @@ struct SupportView: View {
             )
             .navigationBarTitle("Support this effort")
         }
+        .colorScheme(.dark)
     }
 }
 

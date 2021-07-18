@@ -16,33 +16,31 @@ struct SearchView: View {
     @State private var simpleSearchType: SimpleSearchType = .bandName
 
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color(UIColor.systemGroupedBackground)
-                    .ignoresSafeArea()
+        ZStack {
+            Color(UIColor.systemGroupedBackground)
+                .ignoresSafeArea()
 
-                ScrollView {
-                    NavigationLink(destination: AdvancedSearchView(), isActive: $showAdvancedSearch) {
-                        EmptyView()
-                    }
+            ScrollView {
+                NavigationLink(destination: AdvancedSearchView(), isActive: $showAdvancedSearch) {
+                    EmptyView()
+                }
 
-                    LazyVStack(alignment: .leading) {
-                        searchSection
-                    }
-                    .padding(20)
-                    .background(GeometryReader {
-                        Color.clear.preference(key: ViewOffsetKey.self,
-                                               value: -$0.frame(in: .named("scroll")).origin.y)
-                    })
-                    .onPreferenceChange(ViewOffsetKey.self) { _ in
-                        guard isEditing else { return }
-                        withAnimation { isEditing = false }
-                        hideKeyboard()
-                    }
+                LazyVStack(alignment: .leading) {
+                    searchSection
+                }
+                .padding(20)
+                .background(GeometryReader {
+                    Color.clear.preference(key: ViewOffsetKey.self,
+                                           value: -$0.frame(in: .named("scroll")).origin.y)
+                })
+                .onPreferenceChange(ViewOffsetKey.self) { _ in
+                    guard isEditing else { return }
+                    withAnimation { isEditing = false }
+                    hideKeyboard()
                 }
             }
-            .navigationBarHidden(true)
         }
+        .navigationBarHidden(true)
         .accentColor(preferences.theme.primaryColor)
     }
 
