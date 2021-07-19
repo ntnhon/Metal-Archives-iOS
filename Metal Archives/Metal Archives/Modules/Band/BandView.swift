@@ -8,32 +8,42 @@
 import SwiftUI
 
 struct BandView: View {
+    @Environment(\.rootPresentationMode) private var rootPresentationMode
     @EnvironmentObject private var preferences: Preferences
     @ObservedObject private var viewModel: BandViewModel
     @State private var selectedSection: BandSection = .discography
+    @State private var bottomPadding: CGFloat = 0
 
     init(bandUrlString: String) {
         self.viewModel = .init(bandUrlString: bandUrlString)
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                switch viewModel.bandAndDiscographyFetchable {
-                case .error(let error):
-                    Text(error.description)
-                        .frame(maxWidth: .infinity)
+        ZStack(alignment: .bottom) {
+            ScrollView {
+                VStack(spacing: 0) {
+                    switch viewModel.bandAndDiscographyFetchable {
+                    case .error(let error):
+                        Text(error.description)
+                            .frame(maxWidth: .infinity)
 
-                case .fetching, .waiting:
-                    Text("Fetching band")
-                        .frame(maxWidth: .infinity)
+                    case .fetching, .waiting:
+                        Text("Fetching band")
+                            .frame(maxWidth: .infinity)
 
-                case .fetched(let (band, discography)):
-                    primaryContent(band: band,
-                                   discography: discography )
+                    case .fetched(let (band, discography)):
+                        primaryContent(band: band,
+                                       discography: discography )
+                    }
                 }
-            } // End of root LazyVStack
-        } // End of root ScrollView
+                .padding(.bottom, bottomPadding)
+            }
+            switch viewModel.bandAndDiscographyFetchable {
+            case .fetched: bottomToolbar
+            default: EmptyView()
+            }
+        }
+        .ignoresSafeArea(.all, edges: .bottom)
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
         .onAppear {
@@ -60,6 +70,68 @@ struct BandView: View {
 
         DiscographyView(discography: discography, releaseYearOrder: preferences.dateOrder)
             .padding(.horizontal)
+    }
+
+    // swiftlint:disable:next let_var_whitespace
+    @ViewBuilder
+    private var bottomToolbar: some View {
+        let bottomInset = UIApplication.shared.windows.first { $0.isKeyWindow }?.safeAreaInsets.bottom ?? 0
+        VStack(spacing: 0) {
+            Color(.separator)
+                .frame(height: 0.5)
+                .opacity(0.5)
+            toolbarButtons
+                .padding(.horizontal)
+                .modifier(SizeModifier())
+                .onPreferenceChange(SizePreferenceKey.self) {
+                    bottomPadding = $0.height + bottomInset
+                }
+            Spacer()
+                .frame(height: bottomInset)
+        }
+        .background(Blur())
+    }
+
+    private var toolbarButtons: some View {
+        HStack {
+            actionButton(imageSystemName: "star") {
+                print("star")
+            }
+
+            Spacer()
+
+            actionButton(imageSystemName: "house") {
+                rootPresentationMode.wrappedValue.dismiss()
+            }
+
+            Spacer()
+
+            actionButton(imageSystemName: "magnifyingglass.circle") {
+                print("search")
+            }
+
+            Spacer()
+
+            actionButton(imageSystemName: "play") {
+                print("play")
+            }
+
+            Spacer()
+
+            actionButton(imageSystemName: "square.and.arrow.up") {
+                print("share")
+            }
+        }
+        .font(.title2)
+    }
+
+    private func actionButton(imageSystemName: String,
+                              action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: imageSystemName)
+                .padding(.horizontal)
+                .padding(.vertical, 10)
+        }
     }
 }
 

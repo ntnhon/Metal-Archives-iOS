@@ -14,6 +14,7 @@ private enum RootViewTab {
 struct RootView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var selectedTab: RootViewTab = .home
+    @State private var isRootActive = false
 
     var body: some View {
         NavigationView {
@@ -59,6 +60,8 @@ struct RootView: View {
             }
             .navigationTitle(navigationTitle())
         }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .environment(\.rootPresentationMode, $isRootActive)
         .accentColor(preferences.theme.primaryColor)
     }
 

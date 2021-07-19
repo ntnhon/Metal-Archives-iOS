@@ -16,6 +16,26 @@ struct HomeView: View {
                 destination: BandView(bandUrlString: "https://www.metal-archives.com/bands/Death/141")) {
                 Text("Death")
             }
+
+            NavigationLink(
+                destination: BandView(bandUrlString: "https://www.metal-archives.com/bands/Testament/70")) {
+                Text("Testament")
+            }
+
+            NavigationLink(
+                destination: BandView(bandUrlString: "https://www.metal-archives.com/bands/Lamb_of_God/59")) {
+                Text("Lamb of God")
+            }
+
+            NavigationLink(
+                destination: BandView(bandUrlString: "https://www.metal-archives.com/bands/Nile/139")) {
+                Text("Nile")
+            }
+
+            NavigationLink(
+                destination: BandView(bandUrlString: "https://www.metal-archives.com/bands/Fleshgod_Apocalypse/113185")) {
+                Text("Fleshgod Apocalypse")
+            }
         }
     }
 }
