@@ -112,7 +112,6 @@
 		C08DF5CF26A62108002E73EB /* SizePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DF5CE26A62108002E73EB /* SizePreferenceKey.swift */; };
 		C0977E1E265EF0A200C3E9A9 /* ReleaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0977E1D265EF0A200C3E9A9 /* ReleaseTests.swift */; };
 		C0977E20265EF12300C3E9A9 /* TheSoundOfPerseverance.html in Resources */ = {isa = PBXBuildFile; fileRef = C0977E1F265EF12300C3E9A9 /* TheSoundOfPerseverance.html */; };
-		C0A0184B26A4CEBF00C0C5E1 /* RootPresentationModeKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A0184A26A4CEBF00C0C5E1 /* RootPresentationModeKey.swift */; };
 		C0A37B6A26584DDB0017A02F /* MACountries.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A37B6926584DDB0017A02F /* MACountries.json */; };
 		C0A37B6D26584E980017A02F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B6C26584E980017A02F /* Country.swift */; };
 		C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B6F26584FB40017A02F /* CountryManager.swift */; };
@@ -275,7 +274,6 @@
 		C08DF5CE26A62108002E73EB /* SizePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizePreferenceKey.swift; sourceTree = "<group>"; };
 		C0977E1D265EF0A200C3E9A9 /* ReleaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTests.swift; sourceTree = "<group>"; };
 		C0977E1F265EF12300C3E9A9 /* TheSoundOfPerseverance.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TheSoundOfPerseverance.html; sourceTree = "<group>"; };
-		C0A0184A26A4CEBF00C0C5E1 /* RootPresentationModeKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresentationModeKey.swift; sourceTree = "<group>"; };
 		C0A37B6426584A690017A02F /* Metal Archives.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Metal Archives.entitlements"; sourceTree = "<group>"; };
 		C0A37B6926584DDB0017A02F /* MACountries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MACountries.json; sourceTree = "<group>"; };
 		C0A37B6C26584E980017A02F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
@@ -354,7 +352,6 @@
 				C0378CE3268BAC7700E24B28 /* FetchableObject.swift */,
 				C0F240FC26891D9D00ED546D /* HTMLParsable.swift */,
 				C0063EBD265C4630005AB1E2 /* Logger.swift */,
-				C0A0184A26A4CEBF00C0C5E1 /* RootPresentationModeKey.swift */,
 				C08DF5CE26A62108002E73EB /* SizePreferenceKey.swift */,
 				C0DD1376267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift */,
 				C004A2BD2658F3760071E12A /* StringExtensions.swift */,
@@ -1007,7 +1004,6 @@
 				C0DD1381267F6BC2009F0B81 /* Preferences.swift in Sources */,
 				C041C3122658EE74006B0F1F /* Band.swift in Sources */,
 				C0F240FF26891ED300ED546D /* RequestService.swift in Sources */,
-				C0A0184B26A4CEBF00C0C5E1 /* RootPresentationModeKey.swift in Sources */,
 				C01ECED326623273009A3A32 /* Artist.swift in Sources */,
 				C017D42B267E901F008B6EE5 /* URLButton.swift in Sources */,
 				C017D41E267E30B6008B6EE5 /* MyAccountView.swift in Sources */,

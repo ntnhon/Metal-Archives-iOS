@@ -9,7 +9,6 @@ import SwiftUI
 
 // swiftlint:disable let_var_whitespace
 struct BandView: View {
-    @Environment(\.rootPresentationMode) private var rootPresentationMode
     @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: BandViewModel
     @State private var selectedSection: BandSection = .discography
@@ -106,7 +105,7 @@ struct BandView: View {
             Spacer()
 
             actionButton(imageSystemName: "house") {
-                rootPresentationMode.wrappedValue.dismiss()
+                ApplicationUtils.popToRootView()
             }
 
             Spacer()
