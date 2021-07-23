@@ -17,11 +17,16 @@ struct BandHeaderView: View {
             let logoHeight = min(UIScreen.main.bounds.height / 4, 150)
             if let logoUrlString = band.logoUrlString,
                let logoUrl = URL(string: logoUrlString) {
-                KFImage(logoUrl)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: logoHeight)
-                    .clipped()
+                GeometryReader { proxy in
+                    KFImage(logoUrl)
+                        .resizable()
+                        .scaledToFit()
+                        .clipped()
+                        .offset(y: min(-proxy.frame(in: .global).minY, 0))
+                        .frame(width: UIScreen.main.bounds.width,
+                               height: max(proxy.frame(in: .global).minY + logoHeight, logoHeight))
+                }
+                .frame(height: logoHeight)
             } else {
                 Spacer()
             }
