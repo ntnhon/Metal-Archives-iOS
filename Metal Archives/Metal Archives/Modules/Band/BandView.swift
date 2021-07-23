@@ -9,6 +9,7 @@ import SwiftUI
 
 // swiftlint:disable let_var_whitespace
 struct BandView: View {
+    @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: BandViewModel
     @State private var selectedSection: BandSection = .discography
@@ -25,27 +26,38 @@ struct BandView: View {
                 EmptyView()
             }
 
-            ScrollView {
-                VStack(spacing: 0) {
-                    switch viewModel.bandAndDiscographyFetchable {
-                    case .error(let error):
-                        Text(error.description)
-                            .frame(maxWidth: .infinity)
-
-                    case .fetching, .waiting:
-                        Text("Fetching band")
-                            .frame(maxWidth: .infinity)
-
-                    case .fetched(let (band, discography)):
-                        primaryContent(band: band,
-                                       discography: discography )
-                    }
-                }
-                .padding(.bottom, bottomPadding)
-            }
             switch viewModel.bandAndDiscographyFetchable {
-            case .fetched: bottomToolbar
-            default: EmptyView()
+            case .error(let error):
+                VStack(alignment: .center, spacing: 20) {
+                    Text(error.description)
+                        .frame(maxWidth: .infinity)
+                        .font(.caption)
+
+                    Button(action: {
+                        viewModel.refreshBandAndDiscography()
+                    }, label: {
+                        Label("Retry", systemImage: "arrow.clockwise")
+                    })
+
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Label("Go back", systemImage: "arrowshape.turn.up.backward")
+                    })
+                }
+
+            case .fetching, .waiting:
+                ProgressView()
+
+            case .fetched(let (band, discography)):
+                ScrollView {
+                    VStack(spacing: 0) {
+                        primaryContent(band: band, discography: discography)
+                    }
+                    .padding(.bottom, bottomPadding)
+                }
+
+                bottomToolbar
             }
         }
         .ignoresSafeArea(.all, edges: .bottom)
