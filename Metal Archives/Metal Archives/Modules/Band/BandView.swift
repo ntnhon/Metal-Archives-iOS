@@ -7,19 +7,25 @@
 
 import SwiftUI
 
+// swiftlint:disable let_var_whitespace
 struct BandView: View {
     @Environment(\.rootPresentationMode) private var rootPresentationMode
     @EnvironmentObject private var preferences: Preferences
-    @ObservedObject private var viewModel: BandViewModel
+    @StateObject private var viewModel: BandViewModel
     @State private var selectedSection: BandSection = .discography
     @State private var bottomPadding: CGFloat = 0
+    @State private var showSearch = false
 
     init(bandUrlString: String) {
-        self.viewModel = .init(bandUrlString: bandUrlString)
+        self._viewModel = StateObject(wrappedValue: .init(bandUrlString: bandUrlString))
     }
 
     var body: some View {
         ZStack(alignment: .bottom) {
+            NavigationLink(destination: SearchView(), isActive: $showSearch) {
+                EmptyView()
+            }
+
             ScrollView {
                 VStack(spacing: 0) {
                     switch viewModel.bandAndDiscographyFetchable {
@@ -47,7 +53,7 @@ struct BandView: View {
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
         .onAppear {
-            viewModel.refreshBandAndDiscography()
+            viewModel.fetchBandAndDiscography()
         }
     }
 
@@ -72,7 +78,6 @@ struct BandView: View {
             .padding(.horizontal)
     }
 
-    // swiftlint:disable:next let_var_whitespace
     @ViewBuilder
     private var bottomToolbar: some View {
         let bottomInset = UIApplication.shared.windows.first { $0.isKeyWindow }?.safeAreaInsets.bottom ?? 0
@@ -84,7 +89,7 @@ struct BandView: View {
                 .padding(.horizontal)
                 .modifier(SizeModifier())
                 .onPreferenceChange(SizePreferenceKey.self) {
-                    bottomPadding = $0.height + bottomInset
+                    bottomPadding = $0.height + bottomInset + 10
                 }
             Spacer()
                 .frame(height: bottomInset)
@@ -107,7 +112,7 @@ struct BandView: View {
             Spacer()
 
             actionButton(imageSystemName: "magnifyingglass.circle") {
-                print("search")
+                showSearch = true
             }
 
             Spacer()
@@ -119,7 +124,10 @@ struct BandView: View {
             Spacer()
 
             actionButton(imageSystemName: "square.and.arrow.up") {
-                print("share")
+                switch viewModel.bandAndDiscographyFetchable {
+                case .fetched(let (band, _)): ApplicationUtils.share(urlString: band.urlString)
+                default: break
+                }
             }
         }
         .font(.title2)

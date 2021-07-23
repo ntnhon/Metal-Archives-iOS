@@ -138,6 +138,7 @@
 		C0DF7D1926A44C850049C98D /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF7D1826A44C850049C98D /* ThumbnailView.swift */; };
 		C0E006A12698EDC100B5D503 /* ReleaseInBandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E006A02698EDC100B5D503 /* ReleaseInBandView.swift */; };
 		C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F01433265D8F420032DAEE /* ReviewLite.swift */; };
+		C0F1BF3526AAEA4600934CCE /* ApplicationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1BF3426AAEA4600934CCE /* ApplicationUtils.swift */; };
 		C0F240F72688605D00ED546D /* BandInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F240F62688605D00ED546D /* BandInfoView.swift */; };
 		C0F240F92689052000ED546D /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F240F82689052000ED546D /* ColorExtensions.swift */; };
 		C0F240FB26891AB500ED546D /* BandViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F240FA26891AB500ED546D /* BandViewModel.swift */; };
@@ -298,6 +299,7 @@
 		C0DF7D1826A44C850049C98D /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
 		C0E006A02698EDC100B5D503 /* ReleaseInBandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInBandView.swift; sourceTree = "<group>"; };
 		C0F01433265D8F420032DAEE /* ReviewLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLite.swift; sourceTree = "<group>"; };
+		C0F1BF3426AAEA4600934CCE /* ApplicationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationUtils.swift; sourceTree = "<group>"; };
 		C0F240F62688605D00ED546D /* BandInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInfoView.swift; sourceTree = "<group>"; };
 		C0F240F82689052000ED546D /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		C0F240FA26891AB500ED546D /* BandViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandViewModel.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 		C004A2BC2658F3630071E12A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C0F1BF3426AAEA4600934CCE /* ApplicationUtils.swift */,
 				C0DD1384267F6E1D009F0B81 /* ArrayExtensions.swift */,
 				C0F240F82689052000ED546D /* ColorExtensions.swift */,
 				C0D632BC2687CC9900348E29 /* DataExtensions.swift */,
@@ -1045,6 +1048,7 @@
 				C07A254F26852001008478D7 /* SimpleSearchType.swift in Sources */,
 				C017D411267E2FF1008B6EE5 /* HomeView.swift in Sources */,
 				C004A2D3265916020071E12A /* Release.swift in Sources */,
+				C0F1BF3526AAEA4600934CCE /* ApplicationUtils.swift in Sources */,
 				C0DF7D1926A44C850049C98D /* ThumbnailView.swift in Sources */,
 				C004A2B82658F2E70071E12A /* ModificationInfo.swift in Sources */,
 				C0063EB9265C3A6E005AB1E2 /* ThumbnailInfo.swift in Sources */,
