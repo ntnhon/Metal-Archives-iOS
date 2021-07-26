@@ -10,6 +10,7 @@ import Foundation
 
 final class BandViewModel: ObservableObject {
     @Published private(set) var bandAndDiscographyFetchable: FetchableObject<(Band, Discography)> = .waiting
+    @Published var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .waiting
     private var cancellables = Set<AnyCancellable>()
     private let bandUrlString: String
 
@@ -54,5 +55,33 @@ final class BandViewModel: ObservableObject {
     func refreshBandAndDiscography() {
         self.bandAndDiscographyFetchable = .waiting
         fetchBandAndDiscography()
+    }
+}
+
+// MARK: - Related links
+extension BandViewModel {
+    func fetchRelatedLinks(for band: Band) {
+        let urlString = "https://www.metal-archives.com/link/ajax-list/type/band/id/\(band.id)"
+        switch relatedLinksFetchable {
+        case .waiting: break
+        default: return
+        }
+        relatedLinksFetchable = .fetching
+        RequestService.request(type: RelatedLinkArray.self, from: urlString)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure(let error): self?.relatedLinksFetchable = .error(error)
+                case .finished: break
+                }
+            }, receiveValue: { [weak self] array in
+                self?.relatedLinksFetchable = .fetched(array.content)
+            })
+            .store(in: &cancellables)
+    }
+
+    func refreshRelatedLinks(for band: Band) {
+        relatedLinksFetchable = .waiting
+        fetchRelatedLinks(for: band)
     }
 }

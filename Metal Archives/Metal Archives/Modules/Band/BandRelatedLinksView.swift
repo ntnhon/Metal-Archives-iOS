@@ -8,13 +8,31 @@
 import SwiftUI
 
 struct BandRelatedLinksView: View {
-    var body: some View {
-        Text("Band related links")
-    }
-}
+    @Binding var relatedLinksFetchable: FetchableObject<[RelatedLink]>
+    var onRetry: () -> Void
 
-struct BandRelatedLinksView_Previews: PreviewProvider {
-    static var previews: some View {
-        BandRelatedLinksView()
+    var body: some View {
+        Group {
+            switch relatedLinksFetchable {
+            case .error(let error):
+                VStack(alignment: .center, spacing: 20) {
+                    Text(error.description)
+                        .frame(maxWidth: .infinity)
+                        .font(.caption)
+
+                    Button(action: {
+                        onRetry()
+                    }, label: {
+                        Label("Retry", systemImage: "arrow.clockwise")
+                    })
+                }
+
+            case .fetching, .waiting:
+                ProgressView()
+
+            case .fetched(let relatedLinks):
+                Text("\(relatedLinks.count)")
+            }
+        }
     }
 }

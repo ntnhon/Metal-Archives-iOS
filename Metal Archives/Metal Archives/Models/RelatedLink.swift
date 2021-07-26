@@ -26,12 +26,14 @@ struct RelatedLink {
     }
 }
 
-extension Array where Element == RelatedLink {
+struct RelatedLinkArray: HTMLParsable {
+    let content: [RelatedLink]
+
     init(data: Data) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
               !htmlString.contains("No links have been added yet"),
               let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
-            self = []
+            content = []
             return
         }
 
@@ -44,6 +46,6 @@ extension Array where Element == RelatedLink {
                 links.append(.init(urlString: urlString, title: title))
             }
         }
-        self = links
+        content = links
     }
 }
