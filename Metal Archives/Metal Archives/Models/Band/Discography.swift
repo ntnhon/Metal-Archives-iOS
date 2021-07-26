@@ -70,10 +70,8 @@ struct Discography: HTMLParsable {
     }
 }
 
-#if DEBUG
 extension Discography {
     // swiftlint:disable force_try
     // swiftlint:disable force_unwrapping
     static let death = Discography(data: try! Data.fromHtml(fileName: "DiscographyPublic")!)
 }
-#endif

@@ -85,8 +85,22 @@ struct BandView: View {
         BandSectionView(selectedSection: $selectedSection)
             .padding(.bottom)
 
-        DiscographyView(discography: discography, releaseYearOrder: preferences.dateOrder)
-            .padding(.horizontal)
+        switch selectedSection {
+        case .discography:
+            DiscographyView(discography: discography,
+                            releaseYearOrder: preferences.dateOrder)
+                .padding(.horizontal)
+        case .members:
+            BandLineUpView()
+        case .reviews:
+            BandReviewsView()
+        case .similarArtists:
+            SimilarArtistsView()
+        case .about:
+            BandAboutView()
+        case .relatedLinks:
+            BandRelatedLinksView()
+        }
     }
 
     @ViewBuilder

@@ -334,10 +334,8 @@ extension Band: HTMLParsable {
     }
 }
 
-#if DEBUG
 extension Band {
     // swiftlint:disable force_try
     // swiftlint:disable force_unwrapping
     static let death = Band(data: try! Data.fromHtml(fileName: "Death")!)!
 }
-#endif
