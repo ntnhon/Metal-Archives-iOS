@@ -149,6 +149,7 @@
 		C0F240FD26891D9D00ED546D /* HTMLParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F240FC26891D9D00ED546D /* HTMLParsable.swift */; };
 		C0F240FF26891ED300ED546D /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F240FE26891ED300ED546D /* RequestService.swift */; };
 		C0F2410126891F1100ED546D /* MAError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F2410026891F1100ED546D /* MAError.swift */; };
+		C0FA708526B0789500B618E6 /* RelatedLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708426B0789500B618E6 /* RelatedLinkView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -314,6 +315,7 @@
 		C0F240FC26891D9D00ED546D /* HTMLParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParsable.swift; sourceTree = "<group>"; };
 		C0F240FE26891ED300ED546D /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
 		C0F2410026891F1100ED546D /* MAError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAError.swift; sourceTree = "<group>"; };
+		C0FA708426B0789500B618E6 /* RelatedLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedLinkView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -599,6 +601,7 @@
 			children = (
 				C021535326A6155F006F6A33 /* Blur.swift */,
 				C0C65A1526982E250062FF9C /* OrderView.swift */,
+				C0FA708426B0789500B618E6 /* RelatedLinkView.swift */,
 				C0DF7D1826A44C850049C98D /* ThumbnailView.swift */,
 				C017D42A267E901F008B6EE5 /* URLButton.swift */,
 			);
@@ -1093,6 +1096,7 @@
 				C05FDD3726996E1000EE2AB3 /* UIColorExtensions.swift in Sources */,
 				C017D414267E3034008B6EE5 /* SearchView.swift in Sources */,
 				C017D424267E3115008B6EE5 /* RootView.swift in Sources */,
+				C0FA708526B0789500B618E6 /* RelatedLinkView.swift in Sources */,
 				C004A2B62658F17B0071E12A /* LabelLite.swift in Sources */,
 				C0C65A1626982E250062FF9C /* OrderView.swift in Sources */,
 				C01ECED7266233DF009A3A32 /* RoleInRelease.swift in Sources */,

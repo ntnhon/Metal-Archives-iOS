@@ -30,7 +30,11 @@ struct BandRelatedLinksView: View {
                 ProgressView()
 
             case .fetched(let relatedLinks):
-                Text("\(relatedLinks.count)")
+                ForEach(relatedLinks, id: \.urlString) {
+                    RelatedLinkView(relatedLink: $0)
+                        .padding(.horizontal)
+                        .padding(.vertical, 10)
+                }
             }
         }
         .onAppear {

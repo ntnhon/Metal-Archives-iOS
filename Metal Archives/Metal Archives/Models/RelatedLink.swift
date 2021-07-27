@@ -19,7 +19,7 @@ struct RelatedLink {
         if let components = URLComponents(string: urlString),
            let scheme = components.scheme,
            let host = components.host {
-            self.favIconUrlString = "http://www.google.com/s2/favicons?domain=\(scheme)://\(host)"
+            self.favIconUrlString = "https://www.google.com/s2/favicons?domain=\(scheme)://\(host)"
         } else {
             self.favIconUrlString = nil
         }

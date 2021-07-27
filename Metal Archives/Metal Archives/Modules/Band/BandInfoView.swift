@@ -15,7 +15,7 @@ struct BandInfoView: View {
 
     var body: some View {
         let band = viewModel.band
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Image(systemName: "house.fill")
                     .foregroundColor(.secondary)
