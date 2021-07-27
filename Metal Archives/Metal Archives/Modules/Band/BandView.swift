@@ -99,12 +99,8 @@ struct BandView: View {
         case .about:
             BandAboutView()
         case .relatedLinks:
-            BandRelatedLinksView(relatedLinksFetchable: $viewModel.relatedLinksFetchable) {
-                viewModel.refreshRelatedLinks(for: band)
-            }
-            .onAppear {
-                viewModel.fetchRelatedLinks(for: band)
-            }
+            BandRelatedLinksView()
+                .environmentObject(viewModel)
         }
     }
 

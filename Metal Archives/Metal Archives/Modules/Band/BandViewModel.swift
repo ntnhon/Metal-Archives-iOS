@@ -10,9 +10,10 @@ import Foundation
 
 final class BandViewModel: ObservableObject {
     @Published private(set) var bandAndDiscographyFetchable: FetchableObject<(Band, Discography)> = .waiting
-    @Published var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .waiting
+    @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .waiting
     private var cancellables = Set<AnyCancellable>()
     private let bandUrlString: String
+    private var band: Band?
 
     deinit {
         print("\(Self.self) of \(bandUrlString) is deallocated")
@@ -36,6 +37,7 @@ final class BandViewModel: ObservableObject {
                 }
             }, receiveValue: { [weak self] band in
                 guard let self = self else { return }
+                self.band = band
                 let discographyUrlString = "https://www.metal-archives.com/band/discography/id/\(band.id)/tab/all"
                 RequestService.request(type: Discography.self, from: discographyUrlString)
                     .receive(on: DispatchQueue.main)
@@ -60,7 +62,11 @@ final class BandViewModel: ObservableObject {
 
 // MARK: - Related links
 extension BandViewModel {
-    func fetchRelatedLinks(for band: Band) {
+    func fetchRelatedLinks() {
+        guard let band = band else {
+            relatedLinksFetchable = .error(.nullBand)
+            return
+        }
         let urlString = "https://www.metal-archives.com/link/ajax-list/type/band/id/\(band.id)"
         switch relatedLinksFetchable {
         case .waiting: break
@@ -80,8 +86,8 @@ extension BandViewModel {
             .store(in: &cancellables)
     }
 
-    func refreshRelatedLinks(for band: Band) {
+    func refreshRelatedLinks() {
         relatedLinksFetchable = .waiting
-        fetchRelatedLinks(for: band)
+        fetchRelatedLinks()
     }
 }

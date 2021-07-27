@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct BandRelatedLinksView: View {
-    @Binding var relatedLinksFetchable: FetchableObject<[RelatedLink]>
-    var onRetry: () -> Void
+    @EnvironmentObject private var viewModel: BandViewModel
 
     var body: some View {
         Group {
-            switch relatedLinksFetchable {
+            switch viewModel.relatedLinksFetchable {
             case .error(let error):
                 VStack(alignment: .center, spacing: 20) {
                     Text(error.description)
@@ -21,7 +20,7 @@ struct BandRelatedLinksView: View {
                         .font(.caption)
 
                     Button(action: {
-                        onRetry()
+                        viewModel.refreshRelatedLinks()
                     }, label: {
                         Label("Retry", systemImage: "arrow.clockwise")
                     })
@@ -33,6 +32,9 @@ struct BandRelatedLinksView: View {
             case .fetched(let relatedLinks):
                 Text("\(relatedLinks.count)")
             }
+        }
+        .onAppear {
+            viewModel.fetchRelatedLinks()
         }
     }
 }
