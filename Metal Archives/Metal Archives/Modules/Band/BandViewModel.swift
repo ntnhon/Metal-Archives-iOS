@@ -11,6 +11,7 @@ import Foundation
 final class BandViewModel: ObservableObject {
     @Published private(set) var bandAndDiscographyFetchable: FetchableObject<(Band, Discography)> = .waiting
     @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .waiting
+    @Published private(set) var readMoreFetchable: FetchableObject<HtmlBodyText> = .waiting
     private var cancellables = Set<AnyCancellable>()
     private let bandUrlString: String
     private var band: Band?
@@ -57,6 +58,38 @@ final class BandViewModel: ObservableObject {
     func refreshBandAndDiscography() {
         self.bandAndDiscographyFetchable = .waiting
         fetchBandAndDiscography()
+    }
+}
+
+// MARK: - Read more
+extension BandViewModel {
+    func fetchReadMore() {
+        guard let band = band else {
+            readMoreFetchable = .error(.nullBand)
+            return
+        }
+        let urlString = "https://www.metal-archives.com/band/read-more/id/\(band.id)"
+        switch readMoreFetchable {
+        case .waiting: break
+        default: return
+        }
+        readMoreFetchable = .fetching
+        RequestService.request(type: HtmlBodyText.self, from: urlString)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure(let error): self?.readMoreFetchable = .error(error)
+                case .finished: break
+                }
+            }, receiveValue: { [weak self] result in
+                self?.readMoreFetchable = .fetched(result)
+            })
+            .store(in: &cancellables)
+    }
+
+    func refreshReadMore() {
+        readMoreFetchable = .waiting
+        fetchReadMore()
     }
 }
 

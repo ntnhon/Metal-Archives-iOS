@@ -78,6 +78,9 @@ struct BandView: View {
                      onSelectBand: { _ in })
             .padding(.horizontal)
 
+        BandReadMoreView()
+            .environmentObject(viewModel)
+
         Color(.systemGray6)
             .frame(height: 10)
             .padding(.vertical)
@@ -96,8 +99,6 @@ struct BandView: View {
             BandReviewsView()
         case .similarArtists:
             SimilarArtistsView()
-        case .about:
-            BandAboutView()
         case .relatedLinks:
             BandRelatedLinksView()
                 .environmentObject(viewModel)

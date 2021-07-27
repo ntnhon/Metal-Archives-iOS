@@ -12,7 +12,6 @@ enum BandSection: Int, CaseIterable {
     case members
     case reviews
     case similarArtists
-    case about
     case relatedLinks
 
     var description: String {
@@ -21,7 +20,6 @@ enum BandSection: Int, CaseIterable {
         case .members: return "Members"
         case .reviews: return "Reviews"
         case .similarArtists: return "Similar Artists"
-        case .about: return "About"
         case .relatedLinks: return "Related Links"
         }
     }

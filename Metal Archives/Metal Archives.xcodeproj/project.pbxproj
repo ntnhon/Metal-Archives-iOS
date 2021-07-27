@@ -32,7 +32,6 @@
 		C007887626AF599E0080AC93 /* BandLineUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007887526AF599E0080AC93 /* BandLineUpView.swift */; };
 		C007887826AF5B200080AC93 /* BandReviewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007887726AF5B200080AC93 /* BandReviewsView.swift */; };
 		C007887A26AF5B750080AC93 /* SimilarArtistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007887926AF5B750080AC93 /* SimilarArtistsView.swift */; };
-		C007887C26AF5B9D0080AC93 /* BandAboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007887B26AF5B9D0080AC93 /* BandAboutView.swift */; };
 		C007887E26AF5C020080AC93 /* BandRelatedLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007887D26AF5C020080AC93 /* BandRelatedLinksView.swift */; };
 		C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A79D126570245004FA9D7 /* Metal_ArchivesApp.swift */; };
 		C00A79D62657024A004FA9D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00A79D52657024A004FA9D7 /* Assets.xcassets */; };
@@ -150,6 +149,9 @@
 		C0F240FF26891ED300ED546D /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F240FE26891ED300ED546D /* RequestService.swift */; };
 		C0F2410126891F1100ED546D /* MAError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F2410026891F1100ED546D /* MAError.swift */; };
 		C0FA708526B0789500B618E6 /* RelatedLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708426B0789500B618E6 /* RelatedLinkView.swift */; };
+		C0FA708726B081D000B618E6 /* HtmlBodyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708626B081D000B618E6 /* HtmlBodyText.swift */; };
+		C0FA708926B084BA00B618E6 /* BandReadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */; };
+		C0FA708B26B094E000B618E6 /* ExpandableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708A26B094E000B618E6 /* ExpandableText.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,7 +197,6 @@
 		C007887526AF599E0080AC93 /* BandLineUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLineUpView.swift; sourceTree = "<group>"; };
 		C007887726AF5B200080AC93 /* BandReviewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReviewsView.swift; sourceTree = "<group>"; };
 		C007887926AF5B750080AC93 /* SimilarArtistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarArtistsView.swift; sourceTree = "<group>"; };
-		C007887B26AF5B9D0080AC93 /* BandAboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandAboutView.swift; sourceTree = "<group>"; };
 		C007887D26AF5C020080AC93 /* BandRelatedLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandRelatedLinksView.swift; sourceTree = "<group>"; };
 		C00A79CE26570245004FA9D7 /* Metal Archives.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Metal Archives.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C00A79D126570245004FA9D7 /* Metal_ArchivesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metal_ArchivesApp.swift; sourceTree = "<group>"; };
@@ -316,6 +317,9 @@
 		C0F240FE26891ED300ED546D /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
 		C0F2410026891F1100ED546D /* MAError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAError.swift; sourceTree = "<group>"; };
 		C0FA708426B0789500B618E6 /* RelatedLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedLinkView.swift; sourceTree = "<group>"; };
+		C0FA708626B081D000B618E6 /* HtmlBodyText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlBodyText.swift; sourceTree = "<group>"; };
+		C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReadMoreView.swift; sourceTree = "<group>"; };
+		C0FA708A26B094E000B618E6 /* ExpandableText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -600,6 +604,7 @@
 			isa = PBXGroup;
 			children = (
 				C021535326A6155F006F6A33 /* Blur.swift */,
+				C0FA708A26B094E000B618E6 /* ExpandableText.swift */,
 				C0C65A1526982E250062FF9C /* OrderView.swift */,
 				C0FA708426B0789500B618E6 /* RelatedLinkView.swift */,
 				C0DF7D1826A44C850049C98D /* ThumbnailView.swift */,
@@ -734,6 +739,7 @@
 				C0DD1382267F6C40009F0B81 /* DiscographyMode.swift */,
 				C02A8CB326812E78001430D6 /* Genre.swift */,
 				C0DD137A267F6A23009F0B81 /* HomeSection.swift */,
+				C0FA708626B081D000B618E6 /* HtmlBodyText.swift */,
 				C02A8CAD2681258B001430D6 /* Letter.swift */,
 				C0F2410026891F1100ED546D /* MAError.swift */,
 				C004A2B72658F2E70071E12A /* ModificationInfo.swift */,
@@ -810,10 +816,10 @@
 			children = (
 				C0D632BF2687CE1A00348E29 /* BandView.swift */,
 				C0F240FA26891AB500ED546D /* BandViewModel.swift */,
-				C007887B26AF5B9D0080AC93 /* BandAboutView.swift */,
 				C0378CE5268BB5F200E24B28 /* BandHeaderView.swift */,
 				C0F240F62688605D00ED546D /* BandInfoView.swift */,
 				C007887526AF599E0080AC93 /* BandLineUpView.swift */,
+				C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */,
 				C007887D26AF5C020080AC93 /* BandRelatedLinksView.swift */,
 				C007887726AF5B200080AC93 /* BandReviewsView.swift */,
 				C051862D269793DC006BB7D5 /* BandSectionView.swift */,
@@ -1044,6 +1050,7 @@
 				C0DD1385267F6E1D009F0B81 /* ArrayExtensions.swift in Sources */,
 				C0D632C02687CE1A00348E29 /* BandView.swift in Sources */,
 				C004A2BB2658F3290071E12A /* UserLite.swift in Sources */,
+				C0FA708926B084BA00B618E6 /* BandReadMoreView.swift in Sources */,
 				C02A4CDA26866F50001CF9D2 /* Top100AlbumsView.swift in Sources */,
 				C01D2D6B2683DD0D00957DE5 /* ReleaseFormatListView.swift in Sources */,
 				C02A8CB426812E78001430D6 /* Genre.swift in Sources */,
@@ -1086,10 +1093,12 @@
 				C03873A02659A92F00D2FD5E /* ArtistInBand.swift in Sources */,
 				C02A8CAE2681258B001430D6 /* Letter.swift in Sources */,
 				C02A8CB22681261E001430D6 /* AlphabetView.swift in Sources */,
+				C0FA708726B081D000B618E6 /* HtmlBodyText.swift in Sources */,
 				C0378CE4268BAC7700E24B28 /* FetchableObject.swift in Sources */,
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
 				C0F240F72688605D00ED546D /* BandInfoView.swift in Sources */,
 				C02A4CD826866D49001CF9D2 /* Top100BandsView.swift in Sources */,
+				C0FA708B26B094E000B618E6 /* ExpandableText.swift in Sources */,
 				C060E6CE268271330006433A /* AdvancedSearchAlbumsView.swift in Sources */,
 				C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
@@ -1101,7 +1110,6 @@
 				C0C65A1626982E250062FF9C /* OrderView.swift in Sources */,
 				C01ECED7266233DF009A3A32 /* RoleInRelease.swift in Sources */,
 				C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */,
-				C007887C26AF5B9D0080AC93 /* BandAboutView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
