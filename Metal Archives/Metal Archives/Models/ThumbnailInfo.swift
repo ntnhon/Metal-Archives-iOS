@@ -34,13 +34,23 @@ protocol OptionalThumbnailable {
 enum ThumbnailType: CaseIterable {
     case bandLogo, bandPhoto, artist, release, label
 
-    var additionalString: String {
+    var suffix: String {
         switch self {
         case .bandLogo: return "_logo"
         case .bandPhoto: return "_photo"
         case .artist: return "_artist"
         case .release: return ""
         case .label: return "_label"
+        }
+    }
+
+    var placeholderSystemImageName: String {
+        switch self {
+        case .bandLogo: return "photo.fill"
+        case .bandPhoto: return "person.3.fill"
+        case .artist: return "person.fill"
+        case .release: return "opticaldisc"
+        case .label: return "tag.fill"
         }
     }
 }

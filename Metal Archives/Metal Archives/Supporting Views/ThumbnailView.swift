@@ -12,8 +12,8 @@ struct ThumbnailView: View {
     @EnvironmentObject private var preferences: Preferences
     @ObservedObject private var viewModel: ThumbnailViewModel
 
-    init(urlString: String?, imageType: ImageType) {
-        viewModel = .init(urlString: urlString, imageType: imageType)
+    init(thumbnailInfo: ThumbnailInfo) {
+        viewModel = .init(thumbnailInfo: thumbnailInfo)
     }
 
     var body: some View {
@@ -24,7 +24,7 @@ struct ThumbnailView: View {
                 .resizable()
                 .scaledToFit()
         } else {
-            Image(systemName: viewModel.imageType.placeholderSystemImageName)
+            Image(systemName: viewModel.thumbnailInfo.type.placeholderSystemImageName)
                 .resizable()
                 .scaledToFit()
                 .onAppear {
@@ -38,32 +38,7 @@ struct ThumbnailView: View {
 
 struct ThumbnailView_Previews: PreviewProvider {
     static var previews: some View {
-        ThumbnailView(urlString: "https://www.metal-archives.com/bands/Death/141",
-                      imageType: .bandLogo)
-    }
-}
-
-enum ImageType {
-    case bandLogo, bandPhoto, artist, release, label
-
-    var suffix: String {
-        switch self {
-        case .bandLogo: return "_logo"
-        case .bandPhoto: return "_photo"
-        case .artist: return "_artist"
-        case .release: return ""
-        case .label: return "_label"
-        }
-    }
-
-    var placeholderSystemImageName: String {
-        switch self {
-        case .bandLogo: return "photo.fill"
-        case .bandPhoto: return "person.3.fill"
-        case .artist: return "person.fill"
-        case .release: return "opticaldisc"
-        case .label: return "tag.fill"
-        }
+        ThumbnailView(thumbnailInfo: .init(urlString: "https://www.metal-archives.com/bands/Death/141", type: .bandLogo)!)
     }
 }
 
@@ -74,8 +49,7 @@ enum ImageExtension: String {
 fileprivate let kImagesBaseUrlString = "https://www.metal-archives.com/images/"
 
 final class ThumbnailViewModel: ObservableObject {
-    private let id: Int?
-    let imageType: ImageType
+    let thumbnailInfo: ThumbnailInfo
 
     @Published private(set) var isLoading = false
     @Published private(set) var uiImage: UIImage?
@@ -85,15 +59,13 @@ final class ThumbnailViewModel: ObservableObject {
     private var triedGIF = false
     private var cancellable: AnyCancellable?
 
-    init(urlString: String?, imageType: ImageType) {
-        self.id = urlString?.components(separatedBy: "/").last?.toInt()
-        self.imageType = imageType
+    init(thumbnailInfo: ThumbnailInfo) {
+        self.thumbnailInfo = thumbnailInfo
     }
 
     func tryLoadingNewImage() {
-        guard let id = id,
-              uiImage == nil,
-              let imageUrlString = newImageUrlString(id: id),
+        guard uiImage == nil,
+              let imageUrlString = newImageUrlString(id: thumbnailInfo.id),
               let imageUrl = URL(string: imageUrlString) else {
             return
         }
@@ -133,22 +105,22 @@ final class ThumbnailViewModel: ObservableObject {
     private func newImageUrlString(id: Int) -> String? {
         if !triedJPG {
             triedJPG = true
-            return kImagesBaseUrlString + id.toImagePath(type: imageType, extension: .jpg)
+            return kImagesBaseUrlString + id.toImagePath(type: thumbnailInfo.type, extension: .jpg)
         }
 
         if !triedPNG {
             triedPNG = true
-            return kImagesBaseUrlString + id.toImagePath(type: imageType, extension: .png)
+            return kImagesBaseUrlString + id.toImagePath(type: thumbnailInfo.type, extension: .png)
         }
 
         if !triedJPEG {
             triedJPEG = true
-            return kImagesBaseUrlString + id.toImagePath(type: imageType, extension: .jpeg)
+            return kImagesBaseUrlString + id.toImagePath(type: thumbnailInfo.type, extension: .jpeg)
         }
 
         if !triedGIF {
             triedGIF = true
-            return kImagesBaseUrlString + id.toImagePath(type: imageType, extension: .gif)
+            return kImagesBaseUrlString + id.toImagePath(type: thumbnailInfo.type, extension: .gif)
         }
 
         return nil
@@ -156,7 +128,7 @@ final class ThumbnailViewModel: ObservableObject {
 }
 
 private extension Int {
-    func toImagePath(type: ImageType, extension: ImageExtension) -> String {
+    func toImagePath(type: ThumbnailType, extension: ImageExtension) -> String {
         let idString = "\(self)"
 
         var imagePath = ""

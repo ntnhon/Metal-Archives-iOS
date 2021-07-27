@@ -14,10 +14,10 @@ class RelatedLinksTests: XCTestCase {
         let data = try XCTUnwrap(Data.fromHtml(fileName: "RelatedLinksEmpty"))
 
         // when
-        let sut = [RelatedLink](data: data)
+        let sut = RelatedLinkArray(data: data)
 
         // then
-        XCTAssertTrue(sut.isEmpty)
+        XCTAssertTrue(sut.content.isEmpty)
     }
 
     func testPublicRelatedLinks() throws {
@@ -25,10 +25,10 @@ class RelatedLinksTests: XCTestCase {
         let data = try XCTUnwrap(Data.fromHtml(fileName: "RelatedLinksPublic"))
 
         // when
-        let sut = [RelatedLink](data: data)
+        let sut = RelatedLinkArray(data: data)
 
         // then
-        try testNonEmptySut(sut)
+        try testNonEmptySut(sut.content)
     }
 
     func testLoggedInSimilarBands() throws {
@@ -36,10 +36,10 @@ class RelatedLinksTests: XCTestCase {
         let data = try XCTUnwrap(Data.fromHtml(fileName: "RelatedLinksLoggedIn"))
 
         // when
-        let sut = [RelatedLink](data: data)
+        let sut = RelatedLinkArray(data: data)
 
         // then
-        try testNonEmptySut(sut)
+        try testNonEmptySut(sut.content)
     }
 
     func testNonEmptySut(_ sut: [RelatedLink]) throws {

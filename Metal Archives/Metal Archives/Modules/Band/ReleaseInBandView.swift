@@ -34,7 +34,7 @@ struct ReleaseInBandView: View {
         }
 
         return HStack {
-            ThumbnailView(urlString: release.thumbnailInfo.urlString, imageType: .release)
+            ThumbnailView(thumbnailInfo: release.thumbnailInfo)
                 .font(.largeTitle)
                 .foregroundColor(secondaryColor)
                 .frame(width: 64, height: 64)

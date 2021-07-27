@@ -64,14 +64,16 @@ extension BandSimilar {
     }
 }
 
-extension Array: HTMLParsable where Element == BandSimilar {
+struct BandSimilarArray: HTMLParsable {
+    let content: [BandSimilar]
+
     // Sample: https://www.metal-archives.com/band/ajax-recommendations/id/141/showMoreSimilar/1
     init(data: Data) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
               let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8),
               let tbody = html.at_css("tbody") else {
             Logger.log("Error parsing html for list of similar artist")
-            self = []
+            content = []
             return
         }
 
@@ -117,6 +119,6 @@ extension Array: HTMLParsable where Element == BandSimilar {
                 bands.append(band)
             }
         }
-        self = bands
+        content = bands
     }
 }

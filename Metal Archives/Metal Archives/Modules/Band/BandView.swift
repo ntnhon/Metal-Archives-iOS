@@ -99,6 +99,7 @@ struct BandView: View {
             BandReviewsView()
         case .similarArtists:
             SimilarArtistsView()
+                .environmentObject(viewModel)
         case .relatedLinks:
             BandRelatedLinksView()
                 .environmentObject(viewModel)

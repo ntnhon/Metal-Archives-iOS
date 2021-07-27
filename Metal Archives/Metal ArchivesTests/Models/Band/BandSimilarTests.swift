@@ -14,10 +14,10 @@ class SimilarBandsTests: XCTestCase {
         let data = try XCTUnwrap(Data.fromHtml(fileName: "Dummy"))
 
         // when
-        let sut = [BandSimilar](data: data)
+        let sut = BandSimilarArray(data: data)
 
         // then
-        XCTAssertTrue(sut.isEmpty)
+        XCTAssertTrue(sut.content.isEmpty)
     }
 
     func testEmptySimilarBands() throws {
@@ -25,10 +25,10 @@ class SimilarBandsTests: XCTestCase {
         let data = try XCTUnwrap(Data.fromHtml(fileName: "BandSimilarsEmpty"))
 
         // when
-        let sut = [BandSimilar](data: data)
+        let sut = BandSimilarArray(data: data)
 
         // then
-        XCTAssertTrue(sut.isEmpty)
+        XCTAssertTrue(sut.content.isEmpty)
     }
 
     func testPublicSimilarBands() throws {
@@ -36,10 +36,10 @@ class SimilarBandsTests: XCTestCase {
         let data = try XCTUnwrap(Data.fromHtml(fileName: "BandSimilarsPublic"))
 
         // when
-        let sut = [BandSimilar](data: data)
+        let sut = BandSimilarArray(data: data)
 
         // then
-        try testNonEmptySut(sut)
+        try testNonEmptySut(sut.content)
     }
 
     func testLoggedInSimilarBands() throws {
@@ -47,10 +47,10 @@ class SimilarBandsTests: XCTestCase {
         let data = try XCTUnwrap(Data.fromHtml(fileName: "BandSimilarsLoggedIn"))
 
         // when
-        let sut = [BandSimilar](data: data)
+        let sut = BandSimilarArray(data: data)
 
         // then
-        try testNonEmptySut(sut)
+        try testNonEmptySut(sut.content)
     }
 
     func testNonEmptySut(_ sut: [BandSimilar]) throws {

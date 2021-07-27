@@ -12,6 +12,7 @@ final class BandViewModel: ObservableObject {
     @Published private(set) var bandAndDiscographyFetchable: FetchableObject<(Band, Discography)> = .waiting
     @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .waiting
     @Published private(set) var readMoreFetchable: FetchableObject<HtmlBodyText> = .waiting
+    @Published private(set) var similarArtistsFetchable: FetchableObject<[BandSimilar]> = .waiting
     private var cancellables = Set<AnyCancellable>()
     private let bandUrlString: String
     private var band: Band?
@@ -64,15 +65,17 @@ final class BandViewModel: ObservableObject {
 // MARK: - Read more
 extension BandViewModel {
     func fetchReadMore() {
-        guard let band = band else {
-            readMoreFetchable = .error(.nullBand)
-            return
-        }
-        let urlString = "https://www.metal-archives.com/band/read-more/id/\(band.id)"
         switch readMoreFetchable {
         case .waiting: break
         default: return
         }
+
+        guard let band = band else {
+            readMoreFetchable = .error(.nullBand)
+            return
+        }
+
+        let urlString = "https://www.metal-archives.com/band/read-more/id/\(band.id)"
         readMoreFetchable = .fetching
         RequestService.request(type: HtmlBodyText.self, from: urlString)
             .receive(on: DispatchQueue.main)
@@ -93,18 +96,54 @@ extension BandViewModel {
     }
 }
 
+// MARK: - Similar artists
+extension BandViewModel {
+    func fetchSimilarArtists() {
+        switch similarArtistsFetchable {
+        case .waiting: break
+        default: return
+        }
+
+        guard let band = band else {
+            similarArtistsFetchable = .error(.nullBand)
+            return
+        }
+
+        let urlString = "https://www.metal-archives.com/band/ajax-recommendations/id/\(band.id)/showMoreSimilar/1"
+        similarArtistsFetchable = .fetching
+        RequestService.request(type: BandSimilarArray.self, from: urlString)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure(let error): self?.similarArtistsFetchable = .error(error)
+                case .finished: break
+                }
+            }, receiveValue: { [weak self] array in
+                self?.similarArtistsFetchable = .fetched(Array(array.content.prefix(50)))
+            })
+            .store(in: &cancellables)
+    }
+
+    func refreshSimilarArtists() {
+        similarArtistsFetchable = .waiting
+        fetchSimilarArtists()
+    }
+}
+
 // MARK: - Related links
 extension BandViewModel {
     func fetchRelatedLinks() {
-        guard let band = band else {
-            relatedLinksFetchable = .error(.nullBand)
-            return
-        }
-        let urlString = "https://www.metal-archives.com/link/ajax-list/type/band/id/\(band.id)"
         switch relatedLinksFetchable {
         case .waiting: break
         default: return
         }
+
+        guard let band = band else {
+            relatedLinksFetchable = .error(.nullBand)
+            return
+        }
+
+        let urlString = "https://www.metal-archives.com/link/ajax-list/type/band/id/\(band.id)"
         relatedLinksFetchable = .fetching
         RequestService.request(type: RelatedLinkArray.self, from: urlString)
             .receive(on: DispatchQueue.main)

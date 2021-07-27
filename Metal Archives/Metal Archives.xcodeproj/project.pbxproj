@@ -152,6 +152,7 @@
 		C0FA708726B081D000B618E6 /* HtmlBodyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708626B081D000B618E6 /* HtmlBodyText.swift */; };
 		C0FA708926B084BA00B618E6 /* BandReadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */; };
 		C0FA708B26B094E000B618E6 /* ExpandableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708A26B094E000B618E6 /* ExpandableText.swift */; };
+		C0FA708D26B0AAC700B618E6 /* BandSimilarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -320,6 +321,7 @@
 		C0FA708626B081D000B618E6 /* HtmlBodyText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlBodyText.swift; sourceTree = "<group>"; };
 		C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReadMoreView.swift; sourceTree = "<group>"; };
 		C0FA708A26B094E000B618E6 /* ExpandableText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableText.swift; sourceTree = "<group>"; };
+		C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -823,6 +825,7 @@
 				C007887D26AF5C020080AC93 /* BandRelatedLinksView.swift */,
 				C007887726AF5B200080AC93 /* BandReviewsView.swift */,
 				C051862D269793DC006BB7D5 /* BandSectionView.swift */,
+				C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */,
 				C051862F26979FBE006BB7D5 /* DiscographyView.swift */,
 				C05186312697A0BF006BB7D5 /* DiscographyViewModel.swift */,
 				C0E006A02698EDC100B5D503 /* ReleaseInBandView.swift */,
@@ -1062,6 +1065,7 @@
 				C017D42D267E9B51008B6EE5 /* AboutView.swift in Sources */,
 				C01ECED92662341A009A3A32 /* ReleaseLite.swift in Sources */,
 				C021535426A6155F006F6A33 /* Blur.swift in Sources */,
+				C0FA708D26B0AAC700B618E6 /* BandSimilarView.swift in Sources */,
 				C01ECED52662339F009A3A32 /* RoleInBand.swift in Sources */,
 				C0DD1379267F5E6C009F0B81 /* SupportView.swift in Sources */,
 				C07A25512685208C008478D7 /* SimpleSearchTypeView.swift in Sources */,
