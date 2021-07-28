@@ -32,16 +32,14 @@ struct SimilarArtistsView: View {
             case .fetched(let similarArtists):
                 ForEach(Array(similarArtists.prefix(20)), id: \.name) {
                     BandSimilarView(bandSimilar: $0)
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
                 }
 
                 if similarArtists.count > 20 {
                     NavigationLink(
-                        destination: AllSimilarArtistsView(similarArtists: similarArtists)) {
-                        HStack {
-                            Text("View all similar artists")
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                        }
+                        destination: AllSimilarArtistsView(band: viewModel.band, similarArtists: similarArtists)) {
+                        seeAll(similarArtists: similarArtists)
                     }
                 }
             }
@@ -49,6 +47,21 @@ struct SimilarArtistsView: View {
         .onAppear {
             viewModel.fetchSimilarArtists()
         }
+    }
+
+    private func seeAll(similarArtists: [BandSimilar]) -> some View {
+        HStack {
+            Spacer()
+            Text("See all \(similarArtists.count) similar artists")
+                .font(.callout)
+                .padding(.horizontal)
+                .padding(.vertical, 6)
+                .overlay(Capsule()
+                            .stroke(Color.secondary, lineWidth: 1.0))
+            Spacer()
+        }
+        .padding()
+        .foregroundColor(.primary)
     }
 }
 
@@ -59,6 +72,7 @@ struct SimilarArtistsView_Previews: PreviewProvider {
 }
 
 struct AllSimilarArtistsView: View {
+    let band: Band?
     let similarArtists: [BandSimilar]
 
     var body: some View {
@@ -66,8 +80,18 @@ struct AllSimilarArtistsView: View {
             LazyVStack {
                 ForEach(similarArtists, id: \.name) {
                     BandSimilarView(bandSimilar: $0)
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
                 }
             }
         }
+        .navigationBarTitle(navigationTitle, displayMode: .large)
+    }
+
+    private var navigationTitle: String {
+        guard let band = band else {
+            return ""
+        }
+        return "Similar to \(band.name)"
     }
 }

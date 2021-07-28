@@ -61,7 +61,6 @@ struct BandView: View {
             }
         }
         .ignoresSafeArea(.all, edges: .bottom)
-        .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
         .onAppear {
             viewModel.fetchBandAndDiscography()

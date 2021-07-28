@@ -23,6 +23,13 @@ struct ThumbnailInfo {
     }
 }
 
+extension ThumbnailInfo {
+    static var death: ThumbnailInfo {
+        // swiftlint:disable:next force_unwrapping
+        .init(urlString: "https://www.metal-archives.com/bands/Death/141", type: .bandLogo)!
+    }
+}
+
 protocol Thumbnailable {
     var thumbnailInfo: ThumbnailInfo { get }
 }

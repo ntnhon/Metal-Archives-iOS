@@ -13,9 +13,9 @@ final class BandViewModel: ObservableObject {
     @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .waiting
     @Published private(set) var readMoreFetchable: FetchableObject<HtmlBodyText> = .waiting
     @Published private(set) var similarArtistsFetchable: FetchableObject<[BandSimilar]> = .waiting
+    private(set) var band: Band?
     private var cancellables = Set<AnyCancellable>()
     private let bandUrlString: String
-    private var band: Band?
 
     deinit {
         print("\(Self.self) of \(bandUrlString) is deallocated")
@@ -119,7 +119,7 @@ extension BandViewModel {
                 case .finished: break
                 }
             }, receiveValue: { [weak self] array in
-                self?.similarArtistsFetchable = .fetched(Array(array.content.prefix(50)))
+                self?.similarArtistsFetchable = .fetched(array.content)
             })
             .store(in: &cancellables)
     }

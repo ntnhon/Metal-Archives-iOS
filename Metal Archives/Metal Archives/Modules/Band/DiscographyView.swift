@@ -25,6 +25,7 @@ struct DiscographyView: View {
                                        order: releaseYearOrder),
                     id: \.title) {
                 ReleaseInBandView(release: $0)
+                    .padding(.vertical, 8)
             }
         }
     }

@@ -18,7 +18,10 @@ struct ThumbnailView: View {
 
     var body: some View {
         if viewModel.isLoading {
-            ProgressView()
+            ZStack {
+                Color.clear
+                ProgressView()
+            }
         } else if let uiImage = viewModel.uiImage {
             Image(uiImage: uiImage)
                 .resizable()
@@ -38,7 +41,7 @@ struct ThumbnailView: View {
 
 struct ThumbnailView_Previews: PreviewProvider {
     static var previews: some View {
-        ThumbnailView(thumbnailInfo: .init(urlString: "https://www.metal-archives.com/bands/Death/141", type: .bandLogo)!)
+        ThumbnailView(thumbnailInfo: .death)
     }
 }
 

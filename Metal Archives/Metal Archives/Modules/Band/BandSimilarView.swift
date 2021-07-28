@@ -29,8 +29,8 @@ struct BandSimilarView: View {
                     Text(bandSimilar.genre)
                         .font(.callout)
                         .foregroundColor(.primary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
-                .padding(.vertical)
 
                 Spacer()
 
