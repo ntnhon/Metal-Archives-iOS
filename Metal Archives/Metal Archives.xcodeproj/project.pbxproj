@@ -111,6 +111,7 @@
 		C060E6D02682714F0006433A /* AdvancedSearchSongsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6CF2682714F0006433A /* AdvancedSearchSongsView.swift */; };
 		C060E6D2268273920006433A /* AdvancedSearchTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6D1268273920006433A /* AdvancedSearchTipsView.swift */; };
 		C060E6D426827DBB0006433A /* AdvancedSearchCountryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060E6D326827DBA0006433A /* AdvancedSearchCountryListView.swift */; };
+		C071578326E6AA280075C012 /* HighlightableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C071578226E6AA280075C012 /* HighlightableText.swift */; };
 		C07A254F26852001008478D7 /* SimpleSearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07A254E26852001008478D7 /* SimpleSearchType.swift */; };
 		C07A25512685208C008478D7 /* SimpleSearchTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07A25502685208C008478D7 /* SimpleSearchTypeView.swift */; };
 		C08DF5CF26A62108002E73EB /* SizePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DF5CE26A62108002E73EB /* SizePreferenceKey.swift */; };
@@ -282,6 +283,7 @@
 		C060E6CF2682714F0006433A /* AdvancedSearchSongsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchSongsView.swift; sourceTree = "<group>"; };
 		C060E6D1268273920006433A /* AdvancedSearchTipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchTipsView.swift; sourceTree = "<group>"; };
 		C060E6D326827DBA0006433A /* AdvancedSearchCountryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchCountryListView.swift; sourceTree = "<group>"; };
+		C071578226E6AA280075C012 /* HighlightableText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightableText.swift; sourceTree = "<group>"; };
 		C07A254E26852001008478D7 /* SimpleSearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchType.swift; sourceTree = "<group>"; };
 		C07A25502685208C008478D7 /* SimpleSearchTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchTypeView.swift; sourceTree = "<group>"; };
 		C08DF5CE26A62108002E73EB /* SizePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizePreferenceKey.swift; sourceTree = "<group>"; };
@@ -607,6 +609,7 @@
 			children = (
 				C021535326A6155F006F6A33 /* Blur.swift */,
 				C0FA708A26B094E000B618E6 /* ExpandableText.swift */,
+				C071578226E6AA280075C012 /* HighlightableText.swift */,
 				C0C65A1526982E250062FF9C /* OrderView.swift */,
 				C0FA708426B0789500B618E6 /* RelatedLinkView.swift */,
 				C0DF7D1826A44C850049C98D /* ThumbnailView.swift */,
@@ -1073,6 +1076,7 @@
 				C0056C56265C201700400A03 /* ReleaseElement.swift in Sources */,
 				C07A254F26852001008478D7 /* SimpleSearchType.swift in Sources */,
 				C017D411267E2FF1008B6EE5 /* HomeView.swift in Sources */,
+				C071578326E6AA280075C012 /* HighlightableText.swift in Sources */,
 				C004A2D3265916020071E12A /* Release.swift in Sources */,
 				C0F1BF3526AAEA4600934CCE /* ApplicationUtils.swift in Sources */,
 				C007887826AF5B200080AC93 /* BandReviewsView.swift in Sources */,
