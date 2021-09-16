@@ -14,6 +14,16 @@ struct ArtistInBand: Thumbnailable {
 }
 
 extension ArtistInBand {
+    static var chuck: ArtistInBand {
+        .init(thumbnailInfo: .death,
+              name: "Chuck Schuldiner",
+              instruments: "Guitars, Vocals (1984-2001)",
+              bands: [.controlDenied, .mantas, .slaughter, .voodoocult],
+              seeAlso: "(R.I.P. 2001) See also: ex-Control Denied, ex-Mantas, ex-Slaughter, ex-Voodoocult")
+    }
+}
+
+extension ArtistInBand {
     final class Builder {
         var thumbnailInfo: ThumbnailInfo?
         var name: String?

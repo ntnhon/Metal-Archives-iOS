@@ -93,7 +93,8 @@ struct BandView: View {
                             releaseYearOrder: preferences.dateOrder)
                 .padding(.horizontal)
         case .members:
-            BandLineUpView()
+            BandLineUpView(band: band)
+                .padding(.horizontal)
         case .reviews:
             BandReviewsView()
         case .similarArtists:
