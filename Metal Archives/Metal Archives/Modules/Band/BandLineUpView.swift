@@ -28,6 +28,10 @@ private struct MemberLineUpDetail {
 
 struct BandLineUpView: View {
     @State private var lineUpType: MemberLineUpType
+    @State private var selectedArtist: ArtistInBand?
+    @State private var shouldShowArtist = false
+    @State private var selectedBand: BandLite?
+    @State private var shouldShowBand = false
     private let viewModel: BandLineUpViewModel!
 
     init(band: Band) {
@@ -36,6 +40,12 @@ struct BandLineUpView: View {
     }
 
     var body: some View {
+        let shouldShowSelectedArtistSheet = Binding<Bool> {
+            selectedArtist != nil
+        } set: { _ in
+            selectedArtist = nil
+        }
+
         Group {
             HStack {
                 MemberLineUpTypePicker(viewModel: viewModel,
@@ -43,11 +53,51 @@ struct BandLineUpView: View {
                 Spacer()
             }
 
-            ForEach(viewModel.artists(for: lineUpType), id: \.name) {
-                ArtistInBandView(artist: $0)
+            NavigationLink(
+                destination: ArtistView(),
+                isActive: $shouldShowArtist) { EmptyView() }
+
+            NavigationLink(
+                destination: BandView(bandUrlString: selectedBand?.thumbnailInfo.urlString ?? ""),
+                isActive: $shouldShowBand) { EmptyView() }
+
+            ForEach(viewModel.artists(for: lineUpType), id: \.name) { artist in
+                ArtistInBandView(artist: artist)
                     .padding(.vertical)
+                    .onTapGesture {
+                        selectedArtist = artist
+                    }
+                    .actionSheet(isPresented: shouldShowSelectedArtistSheet) {
+                        selectedArtistSheet()
+                    }
             }
         }
+    }
+
+    private func selectedArtistSheet() -> ActionSheet {
+        guard let selectedArtist = selectedArtist else {
+            return ActionSheet(title: Text("Error"),
+                               message: Text("Selected artist is null"),
+                               buttons: [.cancel()])
+        }
+
+        var buttons = [ActionSheet.Button]()
+        let artistButton = ActionSheet.Button.default(Text("👤  \(selectedArtist.name)")) {
+            shouldShowArtist = true
+        }
+        buttons.append(artistButton)
+
+        let bandButtons = selectedArtist.bands.map { band in
+            ActionSheet.Button.default(Text(band.name)) {
+                selectedBand = band
+                shouldShowBand = true
+            }
+        }
+        buttons.append(contentsOf: bandButtons)
+
+        buttons.append(.cancel())
+
+        return ActionSheet(title: Text(selectedArtist.name), buttons: buttons)
     }
 }
 

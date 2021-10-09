@@ -123,6 +123,7 @@
 		C0A37B742658591E0017A02F /* CountryManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B732658591E0017A02F /* CountryManagerTests.swift */; };
 		C0A37B7826585C4A0017A02F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A37B7726585C4A0017A02F /* StringExtensions.swift */; };
 		C0A644B226E805C90004413A /* ArtistInBandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A644B126E805C90004413A /* ArtistInBandView.swift */; };
+		C0A993462712396800121BA3 /* ArtistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A993452712396800121BA3 /* ArtistView.swift */; };
 		C0B5E1B8265B844200023219 /* ModelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B5E1B7265B844200023219 /* ModelExtensions.swift */; };
 		C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */; };
 		C0C65A1426982A0B0062FF9C /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C65A1326982A0B0062FF9C /* Order.swift */; };
@@ -297,6 +298,7 @@
 		C0A37B732658591E0017A02F /* CountryManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryManagerTests.swift; sourceTree = "<group>"; };
 		C0A37B7726585C4A0017A02F /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		C0A644B126E805C90004413A /* ArtistInBandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInBandView.swift; sourceTree = "<group>"; };
+		C0A993452712396800121BA3 /* ArtistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistView.swift; sourceTree = "<group>"; };
 		C0B5E1B7265B844200023219 /* ModelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelExtensions.swift; sourceTree = "<group>"; };
 		C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseOtherVersion.swift; sourceTree = "<group>"; };
 		C0C65A1326982A0B0062FF9C /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
@@ -761,6 +763,7 @@
 		C0A37B6726584C2D0017A02F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				C0A993442712395800121BA3 /* Artist */,
 				C0D632BE2687CE0600348E29 /* Band */,
 				C017D415267E3040008B6EE5 /* Browse */,
 				C017D40D267E2F53008B6EE5 /* Home */,
@@ -816,6 +819,14 @@
 				C0F01433265D8F420032DAEE /* ReviewLite.swift */,
 			);
 			path = Review;
+			sourceTree = "<group>";
+		};
+		C0A993442712395800121BA3 /* Artist */ = {
+			isa = PBXGroup;
+			children = (
+				C0A993452712396800121BA3 /* ArtistView.swift */,
+			);
+			path = Artist;
 			sourceTree = "<group>";
 		};
 		C0D632BE2687CE0600348E29 /* Band */ = {
@@ -1074,6 +1085,7 @@
 				C0FA708D26B0AAC700B618E6 /* BandSimilarView.swift in Sources */,
 				C01ECED52662339F009A3A32 /* RoleInBand.swift in Sources */,
 				C0DD1379267F5E6C009F0B81 /* SupportView.swift in Sources */,
+				C0A993462712396800121BA3 /* ArtistView.swift in Sources */,
 				C07A25512685208C008478D7 /* SimpleSearchTypeView.swift in Sources */,
 				C02A4CDC268670AC001CF9D2 /* Top100MembersView.swift in Sources */,
 				C0056C56265C201700400A03 /* ReleaseElement.swift in Sources */,

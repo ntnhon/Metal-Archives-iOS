@@ -14,5 +14,19 @@ final class Preferences: ObservableObject {
         [.upcomingAlbums, .latestAdditions, .latestUpdates, .latestReviews]
     @AppStorage("showThumbnails") var showThumbnails = true
     @AppStorage("useHaptic") var useHaptic = true
-    @AppStorage("theme") var theme: Theme = .default
+    @AppStorage("theme") var theme: Theme = .default {
+        didSet {
+            updateUIAlertControllerAppearance()
+        }
+    }
+
+    init() {
+        updateUIAlertControllerAppearance()
+    }
+
+    private func updateUIAlertControllerAppearance() {
+        guard let cgColor = theme.primaryColor.cgColor else { return }
+        // swiftlint:disable:next line_length
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor(cgColor: cgColor)
+    }
 }
