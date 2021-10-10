@@ -11,6 +11,7 @@ import SwiftUI
 struct ThumbnailView: View {
     @EnvironmentObject private var preferences: Preferences
     @ObservedObject private var viewModel: ThumbnailViewModel
+    @Environment(\.selectedPhoto) private var selectedPhoto
 
     init(thumbnailInfo: ThumbnailInfo) {
         viewModel = .init(thumbnailInfo: thumbnailInfo)
@@ -26,6 +27,10 @@ struct ThumbnailView: View {
             Image(uiImage: uiImage)
                 .resizable()
                 .scaledToFit()
+                .onTapGesture {
+                    selectedPhoto.wrappedValue =
+                        Photo(image: uiImage, description: "description")
+                }
         } else {
             Image(systemName: viewModel.thumbnailInfo.type.placeholderSystemImageName)
                 .resizable()
