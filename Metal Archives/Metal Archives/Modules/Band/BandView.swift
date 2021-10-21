@@ -10,6 +10,7 @@ import SwiftUI
 // swiftlint:disable let_var_whitespace
 struct BandView: View {
     @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.selectedPhoto) private var selectedPhoto
     @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: BandViewModel
     @State private var selectedSection: BandSection = .discography
@@ -70,7 +71,10 @@ struct BandView: View {
     @ViewBuilder
     private func primaryContent(band: Band,
                                 discography: Discography) -> some View {
-        BandHeaderView(band: band)
+        BandHeaderView(band: band) { selectedImage in
+            selectedPhoto.wrappedValue = .init(image: selectedImage,
+                                               description: band.name)
+        }
 
         BandInfoView(viewModel: .init(band: band, discography: discography),
                      onSelectLabel: { _ in },
