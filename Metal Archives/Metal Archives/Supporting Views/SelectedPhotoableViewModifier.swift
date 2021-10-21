@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SelectedPhotoableViewModifier: ViewModifier {
+    @EnvironmentObject private var preferences: Preferences
     @State private var selectedPhoto: Photo?
 
     func body(content: Content) -> some View {
@@ -17,6 +18,8 @@ struct SelectedPhotoableViewModifier: ViewModifier {
         content
             .fullScreenCover(isPresented: photoBinding) {
                 SelectedPhotoView()
+                    .colorScheme(.dark)
+                    .environmentObject(preferences)
             }
             .environment(\.selectedPhoto, $selectedPhoto)
     }

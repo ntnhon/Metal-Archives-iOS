@@ -12,9 +12,9 @@ struct Metal_ArchivesApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                .modifier(SelectedPhotoableViewModifier())
                 .environmentObject(Preferences())
                 .colorScheme(.dark)
-                .modifier(SelectedPhotoableViewModifier())
         }
     }
 }
