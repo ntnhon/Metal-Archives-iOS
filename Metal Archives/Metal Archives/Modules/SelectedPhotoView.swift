@@ -12,10 +12,13 @@ struct SelectedPhotoView: View {
     @Environment(\.selectedPhoto) private var selectedPhoto
     @State private var showPhotoOnly = false
     @State private var scaleFactor: CGFloat = 1.0
+    @State private var imageSize: CGSize = .zero
+    @State private var offset: CGSize = .zero
 
     var body: some View {
         ZStack {
-            let tapGesture = TapGesture(count: 1)
+            let gestures =
+                TapGesture(count: 1)
                 .onEnded {
                     showPhotoOnly.toggle()
                 }
@@ -26,31 +29,52 @@ struct SelectedPhotoView: View {
                                 scaleFactor = 2.2
                             } else {
                                 scaleFactor = 1.0
+                                offset = .zero
                             }
                         }
                 )
-
-            let magnificationGesture = MagnificationGesture()
-                .onChanged { value in
-                    showPhotoOnly = true
-                    scaleFactor = value.magnitude
-                }
-                .onEnded { _ in
-                    scaleFactor = max(1, scaleFactor)
-                }
+                .simultaneously(
+                    with: MagnificationGesture()
+                        .onChanged { value in
+                            showPhotoOnly = true
+                            scaleFactor = value.magnitude
+                        }
+                        .onEnded { _ in
+                            scaleFactor = max(1, scaleFactor)
+                        }
+                )
+                .simultaneously(
+                    with: DragGesture()
+                        .onChanged { value in
+                            offset += value.translation
+                        }
+                        .onEnded { _ in
+                            if scaleFactor == 1.0 {
+                                offset = .zero
+                            }
+//                            else if offset.width > 0 {
+//                                offset.width = 0
+//                            } else if imageSize.width * scaleFactor - imageSize.width + offset.width < 0 {
+//                                offset.width = -(imageSize.width * scaleFactor - imageSize.width)
+//                            }
+                        }
+                )
 
             Color(.systemBackground)
                 .ignoresSafeArea()
-                .gesture(tapGesture)
-                .gesture(magnificationGesture)
+                .gesture(gestures)
 
             Image(uiImage: selectedPhoto.wrappedValue?.image ?? .add)
                 .resizable()
                 .scaledToFit()
-                .scaleEffect(scaleFactor)
+                .scaleEffect(scaleFactor, anchor: .center)
                 .animation(.default)
-                .gesture(tapGesture)
-                .gesture(magnificationGesture)
+                .gesture(gestures)
+                .offset(offset)
+                .modifier(SizeModifier())
+                .onPreferenceChange(SizePreferenceKey.self) {
+                    imageSize = $0
+                }
 
             VStack {
                 HStack {
@@ -85,5 +109,11 @@ struct SelectedPhotoView: View {
 struct SelectedPhotoView_Previews: PreviewProvider {
     static var previews: some View {
         SelectedPhotoView()
+    }
+}
+
+private extension CGSize {
+    static func += (lhs: inout Self, rhs: Self) {
+        lhs = CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
     }
 }
