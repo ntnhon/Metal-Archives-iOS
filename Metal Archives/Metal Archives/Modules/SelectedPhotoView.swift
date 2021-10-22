@@ -85,10 +85,11 @@ struct SelectedPhotoView: View {
                             .resizable()
                             .frame(width: 24, height: 24)
                             .foregroundColor(preferences.theme.primaryColor)
+                            .background(Color(.systemBackground))
+                            .clipShape(Circle())
                             .padding()
                     })
                     .disabled(showPhotoOnly)
-                    .padding(.leading, -12)
 
                     Spacer()
                 }
@@ -98,10 +99,11 @@ struct SelectedPhotoView: View {
                 Text(selectedPhoto.wrappedValue?.description ?? "")
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .multilineTextAlignment(.center)
+                    .padding(.horizontal)
             }
-            .padding()
             .opacity(showPhotoOnly ? 0 : 1)
             .animation(Animation.linear(duration: 0.15))
+            .padding(.vertical)
         }
     }
 }
