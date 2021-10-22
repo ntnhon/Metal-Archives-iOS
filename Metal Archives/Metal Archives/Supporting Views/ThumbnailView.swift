@@ -12,9 +12,11 @@ struct ThumbnailView: View {
     @EnvironmentObject private var preferences: Preferences
     @ObservedObject private var viewModel: ThumbnailViewModel
     @Environment(\.selectedPhoto) private var selectedPhoto
+    private let photoDescription: String
 
-    init(thumbnailInfo: ThumbnailInfo) {
-        viewModel = .init(thumbnailInfo: thumbnailInfo)
+    init(thumbnailInfo: ThumbnailInfo, photoDescription: String) {
+        self.viewModel = .init(thumbnailInfo: thumbnailInfo)
+        self.photoDescription = photoDescription
     }
 
     var body: some View {
@@ -29,7 +31,8 @@ struct ThumbnailView: View {
                 .scaledToFit()
                 .onTapGesture {
                     selectedPhoto.wrappedValue =
-                        Photo(image: uiImage, description: "description")
+                        Photo(image: uiImage,
+                              description: photoDescription)
                 }
         } else {
             Image(systemName: viewModel.thumbnailInfo.type.placeholderSystemImageName)
@@ -46,7 +49,7 @@ struct ThumbnailView: View {
 
 struct ThumbnailView_Previews: PreviewProvider {
     static var previews: some View {
-        ThumbnailView(thumbnailInfo: .death)
+        ThumbnailView(thumbnailInfo: .death, photoDescription: "")
     }
 }
 

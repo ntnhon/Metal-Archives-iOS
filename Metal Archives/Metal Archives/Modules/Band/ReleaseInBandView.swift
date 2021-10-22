@@ -34,7 +34,8 @@ struct ReleaseInBandView: View {
         }
 
         return HStack {
-            ThumbnailView(thumbnailInfo: release.thumbnailInfo)
+            ThumbnailView(thumbnailInfo: release.thumbnailInfo,
+                          photoDescription: release.photoDescription)
                 .font(.largeTitle)
                 .foregroundColor(secondaryColor)
                 .frame(width: 64, height: 64)
@@ -53,6 +54,9 @@ struct ReleaseInBandView: View {
                         Text(" • ")
                         Text("\(reviewCount) (\(rating)%)")
                             .foregroundColor(Color.byRating(rating))
+                    }
+                    if release.isPlatinium {
+                        Text(" 🏅")
                     }
                 }
                 .font(subtitleFont)

@@ -14,6 +14,10 @@ struct ReleaseInBand: Thumbnailable {
     let rating: Int?
     let reviewsUrlString: String?
     let isPlatinium: Bool
+
+    var photoDescription: String {
+        "\(title)\n\(year) • \(type.description)"
+    }
 }
 
 extension ReleaseInBand {

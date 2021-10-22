@@ -15,7 +15,8 @@ struct BandSimilarView: View {
         NavigationLink(
             destination: BandView(bandUrlString: bandSimilar.thumbnailInfo.urlString)) {
             HStack {
-                ThumbnailView(thumbnailInfo: bandSimilar.thumbnailInfo)
+                ThumbnailView(thumbnailInfo: bandSimilar.thumbnailInfo,
+                              photoDescription: bandSimilar.name)
                     .font(.largeTitle)
                     .foregroundColor(preferences.theme.secondaryColor)
                     .frame(width: 64, height: 64)

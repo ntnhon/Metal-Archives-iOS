@@ -13,7 +13,8 @@ struct ArtistInBandView: View {
 
     var body: some View {
         HStack(alignment: .top) {
-            ThumbnailView(thumbnailInfo: artist.thumbnailInfo)
+            ThumbnailView(thumbnailInfo: artist.thumbnailInfo,
+                          photoDescription: artist.name)
                 .font(.largeTitle)
                 .foregroundColor(preferences.theme.secondaryColor)
                 .frame(width: 64)
