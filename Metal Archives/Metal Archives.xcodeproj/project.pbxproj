@@ -115,6 +115,7 @@
 		C07A254F26852001008478D7 /* SimpleSearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07A254E26852001008478D7 /* SimpleSearchType.swift */; };
 		C07A25512685208C008478D7 /* SimpleSearchTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07A25502685208C008478D7 /* SimpleSearchTypeView.swift */; };
 		C08DF5CF26A62108002E73EB /* SizePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DF5CE26A62108002E73EB /* SizePreferenceKey.swift */; };
+		C0964F492723FAB100100972 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0964F482723FAB100100972 /* ActivityView.swift */; };
 		C0977E1E265EF0A200C3E9A9 /* ReleaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0977E1D265EF0A200C3E9A9 /* ReleaseTests.swift */; };
 		C0977E20265EF12300C3E9A9 /* TheSoundOfPerseverance.html in Resources */ = {isa = PBXBuildFile; fileRef = C0977E1F265EF12300C3E9A9 /* TheSoundOfPerseverance.html */; };
 		C0A37B6A26584DDB0017A02F /* MACountries.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A37B6926584DDB0017A02F /* MACountries.json */; };
@@ -292,6 +293,7 @@
 		C07A254E26852001008478D7 /* SimpleSearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchType.swift; sourceTree = "<group>"; };
 		C07A25502685208C008478D7 /* SimpleSearchTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchTypeView.swift; sourceTree = "<group>"; };
 		C08DF5CE26A62108002E73EB /* SizePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizePreferenceKey.swift; sourceTree = "<group>"; };
+		C0964F482723FAB100100972 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		C0977E1D265EF0A200C3E9A9 /* ReleaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTests.swift; sourceTree = "<group>"; };
 		C0977E1F265EF12300C3E9A9 /* TheSoundOfPerseverance.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TheSoundOfPerseverance.html; sourceTree = "<group>"; };
 		C0A37B6426584A690017A02F /* Metal Archives.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Metal Archives.entitlements"; sourceTree = "<group>"; };
@@ -617,6 +619,7 @@
 		C017D427267E8FE4008B6EE5 /* Supporting Views */ = {
 			isa = PBXGroup;
 			children = (
+				C0964F482723FAB100100972 /* ActivityView.swift */,
 				C021535326A6155F006F6A33 /* Blur.swift */,
 				C0FA708A26B094E000B618E6 /* ExpandableText.swift */,
 				C071578226E6AA280075C012 /* HighlightableText.swift */,
@@ -1146,6 +1149,7 @@
 				C0A993492712407600121BA3 /* SelectedPhotoView.swift in Sources */,
 				C01ECED7266233DF009A3A32 /* RoleInRelease.swift in Sources */,
 				C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */,
+				C0964F492723FAB100100972 /* ActivityView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

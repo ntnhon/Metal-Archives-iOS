@@ -52,5 +52,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Allow to save photos to your device (band&apos;s photo, logo, release&apos;s artwork...)</string>
 </dict>
 </plist>

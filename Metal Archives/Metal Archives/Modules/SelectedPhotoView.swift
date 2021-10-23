@@ -14,6 +14,8 @@ struct SelectedPhotoView: View {
     @State private var scaleFactor: CGFloat = 1.0
     @State private var imageSize: CGSize = .zero
     @State private var offset: CGSize = .zero
+    @State private var showActionSheet = false
+    @State private var showShareActivityView = false
 
     var body: some View {
         ZStack {
@@ -46,10 +48,12 @@ struct SelectedPhotoView: View {
                 .simultaneously(
                     with: DragGesture()
                         .onChanged { value in
+                            showPhotoOnly = true
                             offset += value.translation
                         }
                         .onEnded { _ in
                             if scaleFactor == 1.0 {
+                                showPhotoOnly = false
                                 offset = .zero
                             }
 //                            else if offset.width > 0 {
@@ -57,6 +61,12 @@ struct SelectedPhotoView: View {
 //                            } else if imageSize.width * scaleFactor - imageSize.width + offset.width < 0 {
 //                                offset.width = -(imageSize.width * scaleFactor - imageSize.width)
 //                            }
+                        }
+                )
+                .simultaneously(
+                    with: LongPressGesture()
+                        .onEnded { _ in
+                            showActionSheet = true
                         }
                 )
 
@@ -78,20 +88,16 @@ struct SelectedPhotoView: View {
 
             VStack {
                 HStack {
-                    Button(action: {
+                    actionButton(imageSystemName: "xmark") {
                         selectedPhoto.wrappedValue = nil
-                    }, label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                            .foregroundColor(preferences.theme.primaryColor)
-                            .background(Color(.systemBackground))
-                            .clipShape(Circle())
-                            .padding()
-                    })
+                    }
                     .disabled(showPhotoOnly)
 
                     Spacer()
+
+                    actionButton(imageSystemName: "square.and.arrow.up") {
+                        showActionSheet = true
+                    }
                 }
 
                 Spacer()
@@ -105,6 +111,40 @@ struct SelectedPhotoView: View {
             .animation(Animation.linear(duration: 0.15))
             .padding(.vertical)
         }
+        .actionSheet(isPresented: $showActionSheet) {
+            savePhotoActionSheet
+        }
+        .sheet(isPresented: $showShareActivityView) {
+            ActivityView(items: [selectedPhoto.wrappedValue?.image ?? .add])
+        }
+    }
+
+    private func actionButton(imageSystemName: String,
+                              action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: imageSystemName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 18, height: 24)
+                .foregroundColor(preferences.theme.primaryColor)
+                .padding()
+        }
+    }
+
+    private var savePhotoActionSheet: ActionSheet {
+        let shareButton = ActionSheet.Button.default(Text("Share")) {
+            guard selectedPhoto.wrappedValue?.image != nil else {
+                return
+            }
+            showShareActivityView = true
+        }
+
+        let saveButton = ActionSheet.Button.default(Text("Save to Photos")) {
+
+        }
+        let titleText = Text(selectedPhoto.wrappedValue?.description ?? "")
+        return ActionSheet(title: titleText,
+                           buttons: [shareButton, saveButton, .cancel()])
     }
 }
 
