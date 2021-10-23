@@ -14,8 +14,7 @@ struct SelectedPhotoView: View {
     @State private var scaleFactor: CGFloat = 1.0
     @State private var imageSize: CGSize = .zero
     @State private var offset: CGSize = .zero
-    @State private var showActionSheet = false
-    @State private var showShareActivityView = false
+    @State private var showShareSheet = false
 
     var body: some View {
         ZStack {
@@ -66,7 +65,7 @@ struct SelectedPhotoView: View {
                 .simultaneously(
                     with: LongPressGesture()
                         .onEnded { _ in
-                            showActionSheet = true
+                            showShareSheet = true
                         }
                 )
 
@@ -96,7 +95,7 @@ struct SelectedPhotoView: View {
                     Spacer()
 
                     actionButton(imageSystemName: "square.and.arrow.up") {
-                        showActionSheet = true
+                        showShareSheet = true
                     }
                 }
 
@@ -111,10 +110,7 @@ struct SelectedPhotoView: View {
             .animation(Animation.linear(duration: 0.15))
             .padding(.vertical)
         }
-        .actionSheet(isPresented: $showActionSheet) {
-            savePhotoActionSheet
-        }
-        .sheet(isPresented: $showShareActivityView) {
+        .sheet(isPresented: $showShareSheet) {
             ActivityView(items: [selectedPhoto.wrappedValue?.image ?? .add])
         }
     }
@@ -129,22 +125,6 @@ struct SelectedPhotoView: View {
                 .foregroundColor(preferences.theme.primaryColor)
                 .padding()
         }
-    }
-
-    private var savePhotoActionSheet: ActionSheet {
-        let shareButton = ActionSheet.Button.default(Text("Share")) {
-            guard selectedPhoto.wrappedValue?.image != nil else {
-                return
-            }
-            showShareActivityView = true
-        }
-
-        let saveButton = ActionSheet.Button.default(Text("Save to Photos")) {
-
-        }
-        let titleText = Text(selectedPhoto.wrappedValue?.description ?? "")
-        return ActionSheet(title: titleText,
-                           buttons: [shareButton, saveButton, .cancel()])
     }
 }
 
