@@ -4,6 +4,14 @@
 <array>
 	<dict>
 		<key>number</key>
+		<string>4.6</string>
+		<key>date</key>
+		<string>Jan 2022</string>
+		<key>features</key>
+		<string>Fix a bug that makes upcoming album section empty</string>
+	</dict>
+	<dict>
+		<key>number</key>
 		<string>4.5</string>
 		<key>date</key>
 		<string>March 2021</string>
