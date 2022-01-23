@@ -73,7 +73,7 @@ final class UpcomingAlbum: NSObject, Pagable {
      */
     
     init?(from array: [String]) {
-        guard array.count == 5 else { return nil }
+        guard array.count == 6 else { return nil }
         
         guard let release = ReleaseExtraLite(from: array[1]) else { return nil }
         

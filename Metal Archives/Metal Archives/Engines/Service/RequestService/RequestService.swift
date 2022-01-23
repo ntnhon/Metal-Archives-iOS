@@ -13,7 +13,7 @@ final class RequestService {
     static let shared = RequestService()
     let alamofireSession:  Alamofire.Session = {
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 10
+        configuration.timeoutIntervalForRequest = 30
         configuration.httpMaximumConnectionsPerHost = 10
         return Alamofire.Session(configuration: configuration)
     }()

@@ -41,15 +41,8 @@ extension Pagable {
         guard let (totalRecords, array) = parseTotalRecordsAndArrayOfRawValues(data) else {
             return nil
         }
-        var list: [Self] = []
-        
-        array.forEach { (details) in
-            if let object = Self(from: details) {
-                list.append(object)
-            }
-        }
-        
-        if list.count == 0 {
+        let list = array.compactMap({ Self(from: $0) })
+        if list.isEmpty {
             return (nil, nil)
         }
         return (list, totalRecords)
