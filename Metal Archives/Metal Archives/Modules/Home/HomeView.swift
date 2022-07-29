@@ -33,6 +33,7 @@ struct HomeView: View {
             }
 
             NavigationLink(
+                // swiftlint:disable:next line_length
                 destination: BandView(bandUrlString: "https://www.metal-archives.com/bands/Fleshgod_Apocalypse/113185")) {
                 Text("Fleshgod Apocalypse")
             }

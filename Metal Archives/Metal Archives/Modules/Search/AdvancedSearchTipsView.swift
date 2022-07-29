@@ -84,6 +84,7 @@ struct AdvancedSearchTipsView: View {
             }
         }
         .accentColor(preferences.theme.primaryColor)
+        .colorScheme(.dark)
     }
 }
 

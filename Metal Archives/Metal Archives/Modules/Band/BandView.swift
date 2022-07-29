@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// swiftlint:disable let_var_whitespace
 struct BandView: View {
     @Environment(\.presentationMode) private var presentationMode
     @Environment(\.selectedPhoto) private var selectedPhoto

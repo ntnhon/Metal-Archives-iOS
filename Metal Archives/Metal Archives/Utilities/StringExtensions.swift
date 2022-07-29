@@ -38,9 +38,9 @@ extension String {
     }
 
     func removeHtmlTagsAndNoisySpaces() -> String {
+        // swiftlint:disable line_length
         // From
         /*
-         // swiftlint:disable:next line_length
         1983-1984                               (as <a href="https://www.metal-archives.com/bands/Mantas/35328">Mantas</a>),
         1984-2001
         */
@@ -48,6 +48,7 @@ extension String {
        /*
        1983-1984 (as Mantas), 1984-2001
         */
+        // swiftlint:enable line_length
         var newString = ""
         var isInATag = false
 

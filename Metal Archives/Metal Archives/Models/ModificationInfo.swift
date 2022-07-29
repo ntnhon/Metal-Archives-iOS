@@ -18,6 +18,13 @@ struct ModificationInfo {
 }
 
 extension ModificationInfo {
+    var modifiedOnDateString: String? {
+        guard let modifiedOnDate = modifiedOnDate else { return nil }
+        return DateFormatter.default.string(from: modifiedOnDate)
+    }
+}
+
+extension ModificationInfo {
     // swiftlint:disable line_length
     /*
      Sample data:

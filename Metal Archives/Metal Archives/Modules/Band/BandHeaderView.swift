@@ -8,7 +8,6 @@
 import Kingfisher
 import SwiftUI
 
-// swiftlint:disable let_var_whitespace
 struct BandHeaderView: View {
     @State private var bandPhotoImage: UIImage?
     @State private var bandLogoImage: UIImage?
