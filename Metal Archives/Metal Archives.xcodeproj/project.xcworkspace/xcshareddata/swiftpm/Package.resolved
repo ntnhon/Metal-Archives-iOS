@@ -1,25 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Kanna",
-        "repositoryURL": "https://github.com/tid-kijyun/Kanna.git",
-        "state": {
-          "branch": null,
-          "revision": "f9e4922223dd0d3dfbf02ca70812cf5531fc0593",
-          "version": "5.2.7"
-        }
-      },
-      {
-        "package": "Kingfisher",
-        "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
-        "state": {
-          "branch": null,
-          "revision": "318e319998bf555c3e914d5c3adb6da05af86a32",
-          "version": "7.1.1"
-        }
+  "pins" : [
+    {
+      "identity" : "kanna",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tid-kijyun/Kanna.git",
+      "state" : {
+        "revision" : "f9e4922223dd0d3dfbf02ca70812cf5531fc0593",
+        "version" : "5.2.7"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
+      "state" : {
+        "revision" : "2235a22ca249199cb736237f4bb9cc12b6ed416a",
+        "version" : "7.3.0"
+      }
+    }
+  ],
+  "version" : 2
 }
