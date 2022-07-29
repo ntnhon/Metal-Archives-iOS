@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DiscographyModeView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var preferences: Preferences
 
     var body: some View {
@@ -17,7 +17,7 @@ struct DiscographyModeView: View {
                 Button(action: {
                     preferences.$discographyMode.wrappedValue = mode
                     preferences.objectWillChange.send()
-                    presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 }, label: {
                     HStack {
                         Text(mode.description)

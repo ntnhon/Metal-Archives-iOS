@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AdvancedSearchTipsView: View {
     @EnvironmentObject private var preferences: Preferences
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationView {
@@ -73,15 +73,15 @@ struct AdvancedSearchTipsView: View {
                         .padding(.top, 2)
                 }
             }
-            .padding([.horizontal])
-            .navigationBarItems(trailing:
-                                    Button(action: {
-                                        presentationMode.wrappedValue.dismiss()
-                                    }, label: {
-                                        Image(systemName: "xmark")
-                                    })
-            )
+            .padding(.horizontal)
             .navigationTitle("Search tips")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: dismiss.callAsFunction) {
+                        Image(systemName: "xmark")
+                    }
+                }
+            }
         }
         .accentColor(preferences.theme.primaryColor)
     }

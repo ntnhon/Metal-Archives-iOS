@@ -21,7 +21,7 @@ private let kSupportAuthorString = """
 // swiftlint:enable line_length
 
 struct SupportView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationView {
@@ -43,15 +43,15 @@ struct SupportView: View {
                 }
                 .padding(.top, 20)
             }
-            .padding([.horizontal])
-            .navigationBarItems(trailing:
-                                    Button(action: {
-                                        presentationMode.wrappedValue.dismiss()
-                                    }, label: {
-                                        Image(systemName: "xmark")
-                                    })
-            )
+            .padding(.horizontal)
             .navigationBarTitle("Support this effort")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: dismiss.callAsFunction) {
+                        Image(systemName: "xmark")
+                    }
+                }
+            }
         }
         .colorScheme(.dark)
     }
