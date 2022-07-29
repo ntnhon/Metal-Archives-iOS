@@ -20,7 +20,7 @@ private let kAboutString = """
 // swiftlint:enable line_length
 
 struct AboutView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationView {
@@ -28,15 +28,15 @@ struct AboutView: View {
                 Text(kAboutString)
                 .padding(.top, 20)
             }
-            .padding([.horizontal])
-            .navigationBarItems(trailing:
-                                    Button(action: {
-                                        presentationMode.wrappedValue.dismiss()
-                                    }, label: {
-                                        Image(systemName: "xmark")
-                                    })
-            )
+            .padding(.horizontal)
             .navigationBarTitle("About this app")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: dismiss.callAsFunction) {
+                        Image(systemName: "xmark")
+                    }
+                }
+            }
         }
         .colorScheme(.dark)
     }

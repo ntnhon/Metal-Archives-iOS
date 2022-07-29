@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BandView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.selectedPhoto) private var selectedPhoto
     @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: BandViewModel
@@ -39,11 +39,9 @@ struct BandView: View {
                         Label("Retry", systemImage: "arrow.clockwise")
                     })
 
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }, label: {
+                    Button(action: dismiss.callAsFunction) {
                         Label("Go back", systemImage: "arrowshape.turn.up.backward")
-                    })
+                    }
                 }
 
             case .fetching, .waiting:

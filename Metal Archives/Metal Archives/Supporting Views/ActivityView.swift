@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ActivityView: UIViewControllerRepresentable {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     var items: [Any]
     var activities: [UIActivity]?
 
     func makeUIViewController(context: Context) -> UIActivityViewController {
         let controller = UIActivityViewController(activityItems: items, applicationActivities: activities)
         controller.completionWithItemsHandler = { _, _, _, _ in
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
         return controller
     }
