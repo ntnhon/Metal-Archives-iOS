@@ -9,23 +9,15 @@ import SwiftUI
 
 struct BandView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.selectedPhoto) private var selectedPhoto
-    @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: BandViewModel
-    @State private var selectedSection: BandSection = .discography
-    @State private var bottomPadding: CGFloat = 0
-    @State private var showSearch = false
 
     init(bandUrlString: String) {
-        self._viewModel = StateObject(wrappedValue: .init(bandUrlString: bandUrlString))
+        let viewModel = BandViewModel(bandUrlString: bandUrlString)
+        self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
     var body: some View {
-        ZStack(alignment: .bottom) {
-            NavigationLink(destination: SearchView(), isActive: $showSearch) {
-                EmptyView()
-            }
-
+        Group {
             switch viewModel.bandAndDiscographyFetchable {
             case .error(let error):
                 VStack(alignment: .center, spacing: 20) {
@@ -48,126 +40,71 @@ struct BandView: View {
                 ProgressView()
 
             case .fetched(let (band, discography)):
-                ScrollView {
-                    VStack(spacing: 0) {
-                        primaryContent(band: band, discography: discography)
-                    }
-                    .padding(.bottom, bottomPadding)
-                }
-
-                bottomToolbar
+                BandContentView(band: band, discography: discography)
+                    .environmentObject(viewModel)
             }
         }
-        .ignoresSafeArea(.all, edges: .bottom)
-        .navigationBarHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             viewModel.fetchBandAndDiscography()
         }
     }
+}
 
-    @ViewBuilder
-    private func primaryContent(band: Band,
-                                discography: Discography) -> some View {
-        BandHeaderView(band: band) { selectedImage in
-            selectedPhoto.wrappedValue = .init(image: selectedImage,
-                                               description: band.name)
-        }
+private struct BandContentView: View {
+    @EnvironmentObject private var preferences: Preferences
+    @Environment(\.selectedPhoto) private var selectedPhoto
+    @State private var selectedSection: BandSection = .discography
+    let band: Band
+    let discography: Discography
 
-        BandInfoView(viewModel: .init(band: band, discography: discography),
-                     onSelectLabel: { _ in },
-                     onSelectBand: { _ in })
-            .padding(.horizontal)
-
-        BandReadMoreView()
-            .environmentObject(viewModel)
-
-        Color(.systemGray6)
-            .frame(height: 10)
-            .padding(.vertical)
-
-        BandSectionView(selectedSection: $selectedSection)
-            .padding(.bottom)
-
-        switch selectedSection {
-        case .discography:
-            DiscographyView(discography: discography,
-                            releaseYearOrder: preferences.dateOrder)
-                .padding(.horizontal)
-        case .members:
-            BandLineUpView(band: band)
-                .padding(.horizontal)
-        case .reviews:
-            BandReviewsView()
-        case .similarArtists:
-            SimilarArtistsView()
-                .environmentObject(viewModel)
-        case .relatedLinks:
-            BandRelatedLinksView()
-                .environmentObject(viewModel)
-        }
-    }
-
-    @ViewBuilder
-    private var bottomToolbar: some View {
-        let bottomInset = UIApplication.shared.windows.first { $0.isKeyWindow }?.safeAreaInsets.bottom ?? 0
-        VStack(spacing: 0) {
-            Color(.separator)
-                .frame(height: 0.5)
-                .opacity(0.5)
-            toolbarButtons
-                .padding(.horizontal)
-                .modifier(SizeModifier())
-                .onPreferenceChange(SizePreferenceKey.self) {
-                    bottomPadding = $0.height + bottomInset + 10
+    var body: some View {
+        ScrollView {
+            VStack {
+                BandHeaderView(band: band) { selectedImage in
+                    selectedPhoto.wrappedValue = .init(image: selectedImage,
+                                                       description: band.name)
                 }
-            Spacer()
-                .frame(height: bottomInset)
-        }
-        .background(Blur())
-    }
 
-    private var toolbarButtons: some View {
-        HStack {
-            actionButton(imageSystemName: "star") {
-                print("star")
-            }
+                BandInfoView(viewModel: .init(band: band, discography: discography),
+                             onSelectLabel: { _ in },
+                             onSelectBand: { _ in })
+                    .padding(.horizontal)
 
-            Spacer()
+                BandReadMoreView()
 
-            actionButton(imageSystemName: "house") {
-                ApplicationUtils.popToRootView()
-            }
+                Color(.systemGray6)
+                    .frame(height: 10)
+                    .padding(.vertical)
 
-            Spacer()
+                BandSectionView(selectedSection: $selectedSection)
+                    .padding(.bottom)
 
-            actionButton(imageSystemName: "magnifyingglass.circle") {
-                showSearch = true
-            }
+                switch selectedSection {
+                case .discography:
+                    DiscographyView(discography: discography,
+                                    releaseYearOrder: preferences.dateOrder)
+                        .padding(.horizontal)
 
-            Spacer()
+                case .members:
+                    BandLineUpView(band: band)
+                        .padding(.horizontal)
 
-            actionButton(imageSystemName: "play") {
-                print("play")
-            }
+                case .reviews:
+                    BandReviewsView()
 
-            Spacer()
+                case .similarArtists:
+                    SimilarArtistsView()
 
-            actionButton(imageSystemName: "square.and.arrow.up") {
-                switch viewModel.bandAndDiscographyFetchable {
-                case .fetched(let (band, _)): ApplicationUtils.share(urlString: band.urlString)
-                default: break
+                case .relatedLinks:
+                    BandRelatedLinksView()
                 }
             }
         }
-        .font(.title2)
-    }
-
-    private func actionButton(imageSystemName: String,
-                              action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Image(systemName: imageSystemName)
-                .padding(.horizontal)
-                .padding(.vertical, 10)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(band.name)
+            }
         }
     }
 }
