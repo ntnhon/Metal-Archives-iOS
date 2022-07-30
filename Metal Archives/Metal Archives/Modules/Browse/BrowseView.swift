@@ -12,119 +12,133 @@ struct BrowseView: View {
     @State private var randomBandUrlString = "https://www.metal-archives.com/band/random"
 
     var body: some View {
-        let primaryColor = preferences.theme.primaryColor
         Form {
-            Section(header: Text("News & statistics")) {
-                NavigationLink(destination: Text("News archives")) {
-                    HStack {
-                        Image(systemName: "newspaper.fill")
-                            .foregroundColor(primaryColor)
-                        Text("News archives")
-                    }
-                }
+            newsStatisticSection
+            hallOfFameSection
+            bandsSection
+            labelsSection
+            ripSection
+            randomSection
+        }
+        .navigationTitle("Browse")
+    }
 
-                NavigationLink(destination: Text("Stats")) {
-                    HStack {
-                        Image(systemName: "chart.pie.fill")
-                            .foregroundColor(primaryColor)
-                        Text("Statistics")
-                    }
-                }
-            }
-
-            // Hall of fame
-            Section(header: Text("Hall of Fame")) {
-                NavigationLink(destination: Top100BandsView()) {
-                    HStack {
-                        Image(systemName: "person.3.fill")
-                            .foregroundColor(primaryColor)
-                        Text("Top 100 bands")
-                    }
-                }
-
-                NavigationLink(destination: Top100AlbumsView()) {
-                    HStack {
-                        Image(systemName: "opticaldisc")
-                            .foregroundColor(primaryColor)
-                        Text("Top 100 albums")
-                    }
-                }
-
-                NavigationLink(destination: Top100MembersView()) {
-                    HStack {
-                        Image(systemName: "person.fill")
-                            .foregroundColor(primaryColor)
-                        Text("Top 100 members")
-                    }
+    private var newsStatisticSection: some View {
+        Section(header: Text("News & statistics")) {
+            NavigationLink(destination: Text("News archives")) {
+                HStack {
+                    Image(systemName: "newspaper.fill")
+                        .foregroundColor(preferences.theme.primaryColor)
+                    Text("News archives")
                 }
             }
 
-            // Bands
-            Section(header: Text("Bands")) {
-                NavigationLink(destination: AlphabetView(mode: .bands)) {
-                    HStack {
-                        Image(systemName: "abc")
-                            .foregroundColor(primaryColor)
-                        Text("Alphabetical")
-                    }
+            NavigationLink(destination: Text("Stats")) {
+                HStack {
+                    Image(systemName: "chart.pie.fill")
+                        .foregroundColor(preferences.theme.primaryColor)
+                    Text("Statistics")
                 }
+            }
+        }
+    }
 
-                NavigationLink(destination: CountryListView(mode: .bands)) {
-                    HStack {
-                        Image(systemName: "globe")
-                            .foregroundColor(primaryColor)
-                        Text("Country")
-                    }
-                }
-
-                NavigationLink(destination: GenreListView()) {
-                    HStack {
-                        Image(systemName: "guitars.fill")
-                            .foregroundColor(primaryColor)
-                        Text("Genre")
-                    }
+    private var hallOfFameSection: some View {
+        Section(header: Text("Hall of Fame")) {
+            NavigationLink(destination: Top100BandsView()) {
+                HStack {
+                    Image(systemName: "person.3.fill")
+                        .foregroundColor(preferences.theme.primaryColor)
+                    Text("Top 100 bands")
                 }
             }
 
-            // Labels
-            Section(header: Text("Labels")) {
-                NavigationLink(destination: AlphabetView(mode: .labels)) {
-                    HStack {
-                        Image(systemName: "abc")
-                            .foregroundColor(primaryColor)
-                        Text("Alphabetical")
-                    }
-                }
-
-                NavigationLink(destination: CountryListView(mode: .labels)) {
-                    HStack {
-                        Image(systemName: "globe")
-                            .foregroundColor(primaryColor)
-                        Text("Country")
-                    }
+            NavigationLink(destination: Top100AlbumsView()) {
+                HStack {
+                    Image(systemName: "opticaldisc")
+                        .foregroundColor(preferences.theme.primaryColor)
+                    Text("Top 100 albums")
                 }
             }
 
-            // R.I.P
-            Section(header: Text("R.I.P")) {
-                NavigationLink(destination: Text("RIP")) {
-                    HStack {
-                        Image(systemName: "staroflife.fill")
-                            .foregroundColor(primaryColor)
-                        Text("Deceased artists")
-                    }
+            NavigationLink(destination: Top100MembersView()) {
+                HStack {
+                    Image(systemName: "person.fill")
+                        .foregroundColor(preferences.theme.primaryColor)
+                    Text("Top 100 members")
+                }
+            }
+        }
+    }
+
+    private var bandsSection: some View {
+        Section(header: Text("Bands")) {
+            NavigationLink(destination: AlphabetView(mode: .bands)) {
+                HStack {
+                    Image(systemName: "abc")
+                        .foregroundColor(preferences.theme.primaryColor)
+                    Text("Alphabetical")
                 }
             }
 
-            // Random
-            Section(header: Text("Random")) {
-                let bandView = BandView(bandUrlString: randomBandUrlString)
-                NavigationLink(destination: bandView) {
-                    HStack {
-                        Image(systemName: "questionmark")
-                            .foregroundColor(primaryColor)
-                        Text("Random band")
-                    }
+            NavigationLink(destination: CountryListView(mode: .bands)) {
+                HStack {
+                    Image(systemName: "globe")
+                        .foregroundColor(preferences.theme.primaryColor)
+                    Text("Country")
+                }
+            }
+
+            NavigationLink(destination: GenreListView()) {
+                HStack {
+                    Image(systemName: "guitars.fill")
+                        .foregroundColor(preferences.theme.primaryColor)
+                    Text("Genre")
+                }
+            }
+        }
+    }
+
+    private var labelsSection: some View {
+        Section(header: Text("Labels")) {
+            NavigationLink(destination: AlphabetView(mode: .labels)) {
+                HStack {
+                    Image(systemName: "abc")
+                        .foregroundColor(preferences.theme.primaryColor)
+                    Text("Alphabetical")
+                }
+            }
+
+            NavigationLink(destination: CountryListView(mode: .labels)) {
+                HStack {
+                    Image(systemName: "globe")
+                        .foregroundColor(preferences.theme.primaryColor)
+                    Text("Country")
+                }
+            }
+        }
+    }
+
+    private var ripSection: some View {
+        Section(header: Text("R.I.P")) {
+            NavigationLink(destination: Text("RIP")) {
+                HStack {
+                    Image(systemName: "staroflife.fill")
+                        .foregroundColor(preferences.theme.primaryColor)
+                    Text("Deceased artists")
+                }
+            }
+        }
+    }
+
+    private var randomSection: some View {
+        Section(header: Text("Random")) {
+            let bandView = BandView(bandUrlString: randomBandUrlString)
+            NavigationLink(destination: bandView) {
+                HStack {
+                    Image(systemName: "questionmark")
+                        .foregroundColor(preferences.theme.primaryColor)
+                    Text("Random band")
                 }
             }
         }
