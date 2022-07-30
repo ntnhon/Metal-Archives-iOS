@@ -159,6 +159,9 @@
 		C0FA708926B084BA00B618E6 /* BandReadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */; };
 		C0FA708D26B0AAC700B618E6 /* BandSimilarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */; };
 		EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */; };
+		EF48E6C72895BBA900B52EF2 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = EF48E6C62895BBA900B52EF2 /* AlertToast */; };
+		EF48E6C92895BBFB00B52EF2 /* AlertToastModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6C82895BBFB00B52EF2 /* AlertToastModifiers.swift */; };
+		EF48E6CB2895BC2900B52EF2 /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6CA2895BC2900B52EF2 /* ErrorExtensions.swift */; };
 		EFE028F12894852E004F2328 /* SearchTips.md in Resources */ = {isa = PBXBuildFile; fileRef = EFE028F02894852E004F2328 /* SearchTips.md */; };
 /* End PBXBuildFile section */
 
@@ -335,6 +338,8 @@
 		C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReadMoreView.swift; sourceTree = "<group>"; };
 		C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilarView.swift; sourceTree = "<group>"; };
 		EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
+		EF48E6C82895BBFB00B52EF2 /* AlertToastModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastModifiers.swift; sourceTree = "<group>"; };
+		EF48E6CA2895BC2900B52EF2 /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		EFE028F02894852E004F2328 /* SearchTips.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SearchTips.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -343,6 +348,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF48E6C72895BBA900B52EF2 /* AlertToast in Frameworks */,
 				C0CC030526963B420043A728 /* Kingfisher in Frameworks */,
 				C03873A92659AD6100D2FD5E /* Kanna in Frameworks */,
 			);
@@ -380,6 +386,7 @@
 				C0F240F82689052000ED546D /* ColorExtensions.swift */,
 				C0D632BC2687CC9900348E29 /* DataExtensions.swift */,
 				C004A2BF2658F4F40071E12A /* DateFormatterExtensions.swift */,
+				EF48E6CA2895BC2900B52EF2 /* ErrorExtensions.swift */,
 				C0378CE3268BAC7700E24B28 /* FetchableObject.swift */,
 				C0F240FC26891D9D00ED546D /* HTMLParsable.swift */,
 				C0063EBD265C4630005AB1E2 /* Logger.swift */,
@@ -619,6 +626,7 @@
 			isa = PBXGroup;
 			children = (
 				C0964F482723FAB100100972 /* ActivityView.swift */,
+				EF48E6C82895BBFB00B52EF2 /* AlertToastModifiers.swift */,
 				C021535326A6155F006F6A33 /* Blur.swift */,
 				C071578226E6AA280075C012 /* HighlightableText.swift */,
 				EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */,
@@ -883,6 +891,7 @@
 			packageProductDependencies = (
 				C03873A82659AD6100D2FD5E /* Kanna */,
 				C0CC030426963B420043A728 /* Kingfisher */,
+				EF48E6C62895BBA900B52EF2 /* AlertToast */,
 			);
 			productName = "Metal Archives";
 			productReference = C00A79CE26570245004FA9D7 /* Metal Archives.app */;
@@ -959,6 +968,7 @@
 			packageReferences = (
 				C03873A72659AD6100D2FD5E /* XCRemoteSwiftPackageReference "Kanna" */,
 				C0CC030326963B420043A728 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				EF48E6C52895BBA900B52EF2 /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = C00A79CF26570245004FA9D7 /* Products */;
 			projectDirPath = "";
@@ -1125,6 +1135,7 @@
 				C027D26626807CAB00BD54AE /* CountryListView.swift in Sources */,
 				C02A4CDE268678C6001CF9D2 /* Vibration.swift in Sources */,
 				EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */,
+				EF48E6CB2895BC2900B52EF2 /* ErrorExtensions.swift in Sources */,
 				C051863026979FBE006BB7D5 /* DiscographyView.swift in Sources */,
 				C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */,
 				C007887626AF599E0080AC93 /* BandLineUpView.swift in Sources */,
@@ -1136,6 +1147,7 @@
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
 				C0F240F72688605D00ED546D /* BandInfoView.swift in Sources */,
 				C02A4CD826866D49001CF9D2 /* Top100BandsView.swift in Sources */,
+				EF48E6C92895BBFB00B52EF2 /* AlertToastModifiers.swift in Sources */,
 				C060E6CE268271330006433A /* AdvancedSearchAlbumsView.swift in Sources */,
 				C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
@@ -1515,6 +1527,14 @@
 				minimumVersion = 7.3.0;
 			};
 		};
+		EF48E6C52895BBA900B52EF2 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1527,6 +1547,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C0CC030326963B420043A728 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		EF48E6C62895BBA900B52EF2 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF48E6C52895BBA900B52EF2 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

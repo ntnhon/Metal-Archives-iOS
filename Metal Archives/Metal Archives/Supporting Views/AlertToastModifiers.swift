@@ -1,0 +1,111 @@
+//
+//  AlertToastModifiers.swift
+//  Metal Archives
+//
+//  Created by Nhon Nguyen on 30/07/2022.
+//
+
+import AlertToast
+import SwiftUI
+
+struct AlertToastLoadingModifier: ViewModifier {
+    let isPresenting: Binding<Bool>
+
+    func body(content: Content) -> some View {
+        content
+            .toast(isPresenting: isPresenting) {
+                AlertToast(type: .loading)
+            }
+    }
+}
+
+struct AlertToastCompletionMessage: ViewModifier {
+    let isPresenting: Binding<Bool>
+    let title: String
+    let subTitle: String?
+
+    func body(content: Content) -> some View {
+        content
+            .toast(isPresenting: isPresenting, duration: 3.5) {
+                AlertToast(displayMode: .alert,
+                           type: .complete(.green),
+                           title: title,
+                           subTitle: subTitle)
+            }
+    }
+}
+
+struct AlertToastCopyMessage: ViewModifier {
+    let isPresenting: Binding<Bool>
+    let message: String?
+
+    func body(content: Content) -> some View {
+        content
+            .toast(isPresenting: isPresenting, duration: 3.5) {
+                AlertToast(displayMode: .alert,
+                           type: .systemImage("doc.on.doc", .secondary),
+                           title: "Copied",
+                           subTitle: message ?? "")
+            }
+    }
+}
+
+extension View {
+    func alertToastLoading(isPresenting: Binding<Bool>) -> some View {
+        modifier(AlertToastLoadingModifier(isPresenting: isPresenting))
+    }
+
+    func alertToastError(_ error: Binding<Error?>) -> some View {
+        let binding = Binding<Bool>(get: {
+            error.wrappedValue != nil
+        }, set: { isPresenting in
+            if !isPresenting {
+                error.wrappedValue = nil
+            }
+        })
+        return toast(isPresenting: binding, duration: 3.5) {
+            AlertToast(displayMode: .banner(.pop),
+                       type: .error(.red),
+                       title: error.wrappedValue?.userFacingMessage)
+        }
+    }
+
+    func alertToastMessage(_ message: Binding<String?>) -> some View {
+        let binding = Binding<Bool>(get: {
+            message.wrappedValue != nil
+        }, set: { isPresenting in
+            if !isPresenting {
+                message.wrappedValue = nil
+            }
+        })
+        return toast(isPresenting: binding, duration: 3.5) {
+            AlertToast(displayMode: .banner(.pop),
+                       type: .regular,
+                       title: message.wrappedValue)
+        }
+    }
+
+    func alertToastCopyMessage(_ message: Binding<String?>) -> some View {
+        let binding = Binding<Bool>(get: {
+            message.wrappedValue != nil
+        }, set: { isPresenting in
+            if !isPresenting {
+                message.wrappedValue = nil
+            }
+        })
+        return toast(isPresenting: binding, duration: 3.5) {
+            AlertToast(displayMode: .alert,
+                       type: .systemImage("doc.on.doc", .secondary),
+                       title: "Copied",
+                       subTitle: message.wrappedValue)
+        }
+    }
+
+    func alertToastCompletionMessage(isPresenting: Binding<Bool>, title: String, subTitle: String?) -> some View {
+        modifier(AlertToastCompletionMessage(isPresenting: isPresenting, title: title, subTitle: subTitle))
+    }
+
+    func alertToastCopyMessage(isPresenting: Binding<Bool>, message: String?) -> some View {
+        modifier(AlertToastCopyMessage(isPresenting: isPresenting, message: message))
+    }
+}
