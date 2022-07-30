@@ -19,7 +19,7 @@ struct DiscographyView: View {
     }
 
     var body: some View {
-        Group {
+        VStack {
             options
             ForEach(viewModel.releases(for: selectedMode,
                                        order: releaseYearOrder),

@@ -46,7 +46,7 @@ struct BandLineUpView: View {
             selectedArtist = nil
         }
 
-        Group {
+        VStack {
             HStack {
                 MemberLineUpTypePicker(viewModel: viewModel,
                                        lineUpType: $lineUpType)

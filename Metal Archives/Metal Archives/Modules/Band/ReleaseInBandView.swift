@@ -62,7 +62,8 @@ struct ReleaseInBandView: View {
                 .font(subtitleFont)
             }
             .padding(.vertical)
+
+            Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
     }
 }

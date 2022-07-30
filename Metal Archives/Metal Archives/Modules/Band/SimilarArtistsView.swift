@@ -11,7 +11,7 @@ struct SimilarArtistsView: View {
     @EnvironmentObject private var viewModel: BandViewModel
 
     var body: some View {
-        Group {
+        VStack {
             switch viewModel.similarArtistsFetchable {
             case .error(let error):
                 VStack(alignment: .center, spacing: 20) {

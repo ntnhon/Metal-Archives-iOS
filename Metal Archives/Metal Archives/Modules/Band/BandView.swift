@@ -58,6 +58,7 @@ private struct BandContentView: View {
     @State private var selectedSection: BandSection = .discography
     @State private var titleViewAlpha = 0.0
     @State private var showingShareSheet = false
+    @State private var topSectionSize: CGSize = .zero
     let band: Band
     let discography: Discography
 
@@ -76,44 +77,60 @@ private struct BandContentView: View {
             },
             content: {
                 VStack {
-                    BandHeaderView(band: band) { selectedImage in
-                        selectedPhoto.wrappedValue = .init(image: selectedImage,
-                                                           description: band.name)
+                    VStack {
+                        BandHeaderView(band: band) { selectedImage in
+                            let photo = Photo(image: selectedImage,
+                                              description: band.name)
+                            selectedPhoto.wrappedValue = photo
+                        }
+
+                        BandInfoView(viewModel: .init(band: band, discography: discography),
+                                     onSelectLabel: { _ in },
+                                     onSelectBand: { _ in })
+                        .padding(.horizontal)
+
+                        BandReadMoreView()
+
+                        Color(.systemGray6)
+                            .frame(height: 10)
+                            .padding(.vertical)
                     }
-
-                    BandInfoView(viewModel: .init(band: band, discography: discography),
-                                 onSelectLabel: { _ in },
-                                 onSelectBand: { _ in })
-                    .padding(.horizontal)
-
-                    BandReadMoreView()
-
-                    Color(.systemGray6)
-                        .frame(height: 10)
-                        .padding(.vertical)
+                    .modifier(SizeModifier())
+                    .onPreferenceChange(SizePreferenceKey.self) {
+                        topSectionSize = $0
+                    }
 
                     BandSectionView(selectedSection: $selectedSection)
                         .padding(.bottom)
 
-                    switch selectedSection {
-                    case .discography:
-                        DiscographyView(discography: discography,
-                                        releaseYearOrder: preferences.dateOrder)
-                        .padding(.horizontal)
-
-                    case .members:
-                        BandLineUpView(band: band)
+                    let screenBounds = UIScreen.main.bounds
+                    let maxSize = max(screenBounds.height, screenBounds.width)
+                    let bottomSectionMinHeight = maxSize - topSectionSize.height - 250 // 🪄✨
+                    Group {
+                        switch selectedSection {
+                        case .discography:
+                            DiscographyView(
+                                discography: discography,
+                                releaseYearOrder: preferences.dateOrder
+                            )
                             .padding(.horizontal)
 
-                    case .reviews:
-                        BandReviewsView()
+                        case .members:
+                            BandLineUpView(band: band)
+                                .padding(.horizontal)
 
-                    case .similarArtists:
-                        SimilarArtistsView()
+                        case .reviews:
+                            BandReviewsView()
 
-                    case .relatedLinks:
-                        BandRelatedLinksView()
+                        case .similarArtists:
+                            SimilarArtistsView()
+
+                        case .relatedLinks:
+                            BandRelatedLinksView()
+                        }
                     }
+                    .frame(minHeight: bottomSectionMinHeight,
+                           alignment: .top)
                 }
             })
         .toolbar {
