@@ -29,10 +29,8 @@ private struct MemberLineUpDetail {
 struct BandLineUpView: View {
     @State private var lineUpType: MemberLineUpType
     @State private var selectedArtist: ArtistInBand?
-    @State private var shouldShowArtist = false
     @State private var selectedBand: BandLite?
-    @State private var shouldShowBand = false
-    private let viewModel: BandLineUpViewModel!
+    private let viewModel: BandLineUpViewModel
 
     init(band: Band) {
         viewModel = .init(band: band)
@@ -40,12 +38,21 @@ struct BandLineUpView: View {
     }
 
     var body: some View {
-        let shouldShowSelectedArtistSheet = Binding<Bool> {
+        let showingArtist = Binding<Bool>(get: {
             selectedArtist != nil
-        } set: { _ in
-            selectedArtist = nil
-        }
+        }, set: { newValue in
+            if !newValue {
+                selectedArtist = nil
+            }
+        })
 
+        let showingBand = Binding<Bool>(get: {
+            selectedBand != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedBand = nil
+            }
+        })
         VStack {
             HStack {
                 MemberLineUpTypePicker(viewModel: viewModel,
@@ -54,50 +61,41 @@ struct BandLineUpView: View {
             }
 
             NavigationLink(
-                destination: ArtistView(),
-                isActive: $shouldShowArtist) { EmptyView() }
+                isActive: showingArtist,
+                destination: {
+                    if let urlString = selectedArtist?.thumbnailInfo.urlString {
+                        ArtistView(artistUrlString: urlString)
+                    } else {
+                        Text("???")
+                    }
+                },
+                label: {
+                    EmptyView()
+                }
+            )
 
             NavigationLink(
-                destination: BandView(bandUrlString: selectedBand?.thumbnailInfo.urlString ?? ""),
-                isActive: $shouldShowBand) { EmptyView() }
+                isActive: showingBand,
+                destination: {
+                    if let urlString = selectedBand?.thumbnailInfo.urlString {
+                        BandView(bandUrlString: urlString)
+                    } else {
+                        Text("???")
+                    }
+                },
+                label: {
+                    EmptyView()
+                }
+            )
 
             ForEach(viewModel.artists(for: lineUpType), id: \.name) { artist in
-                ArtistInBandView(artist: artist)
-                    .padding(.vertical)
-                    .onTapGesture {
-                        selectedArtist = artist
-                    }
-                    .actionSheet(isPresented: shouldShowSelectedArtistSheet) {
-                        selectedArtistSheet()
-                    }
+                ArtistInBandView(
+                    selectedBand: $selectedBand,
+                    selectedArtist: $selectedArtist,
+                    artist: artist)
+                .padding(.vertical)
             }
         }
-    }
-
-    private func selectedArtistSheet() -> ActionSheet {
-        guard let selectedArtist = selectedArtist else {
-            return ActionSheet(title: Text("Error"),
-                               message: Text("Selected artist is null"),
-                               buttons: [.cancel()])
-        }
-
-        var buttons = [ActionSheet.Button]()
-        let artistButton = ActionSheet.Button.default(Text("👤  \(selectedArtist.name)")) {
-            shouldShowArtist = true
-        }
-        buttons.append(artistButton)
-
-        let bandButtons = selectedArtist.bands.map { band in
-            ActionSheet.Button.default(Text(band.name)) {
-                selectedBand = band
-                shouldShowBand = true
-            }
-        }
-        buttons.append(contentsOf: bandButtons)
-
-        buttons.append(.cancel())
-
-        return ActionSheet(title: Text(selectedArtist.name), buttons: buttons)
     }
 }
 

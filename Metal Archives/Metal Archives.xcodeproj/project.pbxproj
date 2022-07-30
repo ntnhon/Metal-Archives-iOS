@@ -164,6 +164,7 @@
 		EF48E6CB2895BC2900B52EF2 /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6CA2895BC2900B52EF2 /* ErrorExtensions.swift */; };
 		EF48E6D02895BD8100B52EF2 /* ReleaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6CF2895BD8100B52EF2 /* ReleaseView.swift */; };
 		EF48E6D22895BDAB00B52EF2 /* ReleaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6D12895BDAB00B52EF2 /* ReleaseViewModel.swift */; };
+		EF48E6D42895CB5600B52EF2 /* ArtistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6D32895CB5600B52EF2 /* ArtistViewModel.swift */; };
 		EFE028F12894852E004F2328 /* SearchTips.md in Resources */ = {isa = PBXBuildFile; fileRef = EFE028F02894852E004F2328 /* SearchTips.md */; };
 /* End PBXBuildFile section */
 
@@ -344,6 +345,7 @@
 		EF48E6CA2895BC2900B52EF2 /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		EF48E6CF2895BD8100B52EF2 /* ReleaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseView.swift; sourceTree = "<group>"; };
 		EF48E6D12895BDAB00B52EF2 /* ReleaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseViewModel.swift; sourceTree = "<group>"; };
+		EF48E6D32895CB5600B52EF2 /* ArtistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewModel.swift; sourceTree = "<group>"; };
 		EFE028F02894852E004F2328 /* SearchTips.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SearchTips.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -850,6 +852,7 @@
 			isa = PBXGroup;
 			children = (
 				C0A993452712396800121BA3 /* ArtistView.swift */,
+				EF48E6D32895CB5600B52EF2 /* ArtistViewModel.swift */,
 			);
 			path = Artist;
 			sourceTree = "<group>";
@@ -1094,6 +1097,7 @@
 				C060E6CC2682710F0006433A /* AdvancedSearchBandsView.swift in Sources */,
 				C03873A22659AAD000D2FD5E /* BandSimilar.swift in Sources */,
 				C038739D2659A7E700D2FD5E /* BandLite.swift in Sources */,
+				EF48E6D42895CB5600B52EF2 /* ArtistViewModel.swift in Sources */,
 				C0E006A12698EDC100B5D503 /* ReleaseInBandView.swift in Sources */,
 				C0451EFB269503A90028AE1A /* UINavigationController.swift in Sources */,
 				C060E6C826825D120006433A /* AdvancedSearchView.swift in Sources */,
