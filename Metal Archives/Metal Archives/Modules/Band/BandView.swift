@@ -122,6 +122,40 @@ private struct BandContentView: View {
                     .fontWeight(.medium)
                     .opacity(titleViewAlpha)
             }
+
+            ToolbarItem(placement: .navigationBarTrailing) {
+                HStack {
+                    Button(action: {
+
+                    }, label: {
+                        Image(systemName: "star")
+                    })
+
+                    Menu(content: {
+                        if #available(iOS 16, *) {
+                            Button(action: {
+                                // TODO: Use ShareLink
+                            }, label: {
+                                Label("Share", systemImage: "square.and.arrow.up")
+                            })
+                        } else {
+                            Button(action: {
+                                UIPasteboard.general.string = band.urlString
+                            }, label: {
+                                Label("Copy link", systemImage: "link")
+                            })
+                        }
+
+                        Button(action: {
+                            print("Deezer")
+                        }, label: {
+                            Label("Deezer this band", image: "Deezer")
+                        })
+                    }, label: {
+                        Image(systemName: "ellipsis")
+                    })
+                }
+            }
         }
     }
 }
