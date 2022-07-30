@@ -65,5 +65,6 @@ struct ReleaseInBandView: View {
 
             Spacer()
         }
+        .contentShape(Rectangle())
     }
 }

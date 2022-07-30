@@ -12,6 +12,8 @@ struct DiscographyView: View {
     @StateObject private var viewModel: DiscographyViewModel
     @State private var selectedMode: DiscographyMode = .complete
     @State private var releaseYearOrder: Order
+    @State private var showingRelease = false
+    @State private var selectedRelease: ReleaseInBand?
 
     init(discography: Discography, releaseYearOrder: Order) {
         _viewModel = StateObject(wrappedValue: .init(discography: discography))
@@ -19,13 +21,50 @@ struct DiscographyView: View {
     }
 
     var body: some View {
+        let showingShareSheet = Binding<Bool>(get: {
+            selectedRelease != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedRelease = nil
+            }
+        })
+
         VStack {
             options
             ForEach(viewModel.releases(for: selectedMode,
                                        order: releaseYearOrder),
-                    id: \.title) {
-                ReleaseInBandView(release: $0)
-                    .padding(.vertical, 8)
+                    id: \.thumbnailInfo.id) { release in
+                NavigationLink(
+                    isActive: $showingRelease,
+                    destination: {
+                        ReleaseView(releaseUrlString: release.thumbnailInfo.urlString)
+                    },
+                    label: {
+                        ReleaseInBandView(release: release)
+                            .padding(.vertical, 8)
+                            .contextMenu {
+                                Button(action: {
+                                    showingRelease.toggle()
+                                }, label: {
+                                    Label("View release detail", systemImage: "opticaldisc")
+                                })
+
+                                Button(action: {
+                                    selectedRelease = release
+                                }, label: {
+                                    Label("Share", systemImage: "square.and.arrow.up")
+                                })
+                            }
+                    })
+                .buttonStyle(.plain)
+            }
+        }
+        .sheet(isPresented: showingShareSheet) {
+            if let selectedRelease = selectedRelease,
+               let url = URL(string: selectedRelease.thumbnailInfo.urlString) {
+                ActivityView(items: [url])
+            } else {
+                ActivityView(items: [selectedRelease?.thumbnailInfo.urlString ?? ""])
             }
         }
     }
