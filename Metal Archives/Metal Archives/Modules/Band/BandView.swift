@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 26/06/2021.
 //
 
+import Kingfisher
 import SwiftUI
 
 struct BandView: View {
@@ -55,55 +56,71 @@ private struct BandContentView: View {
     @EnvironmentObject private var preferences: Preferences
     @Environment(\.selectedPhoto) private var selectedPhoto
     @State private var selectedSection: BandSection = .discography
+    @State private var titleViewAlpha = 0.0
     let band: Band
     let discography: Discography
 
     var body: some View {
-        ScrollView {
-            VStack {
-                BandHeaderView(band: band) { selectedImage in
-                    selectedPhoto.wrappedValue = .init(image: selectedImage,
-                                                       description: band.name)
+        OffsetAwareScrollView(
+            axes: .vertical,
+            showsIndicator: true,
+            onOffsetChanged: { point in
+                let screenBounds = UIScreen.main.bounds
+                if point.y < 0,
+                   abs(point.y) > (min(screenBounds.width, screenBounds.height) * 2 / 3) {
+                    titleViewAlpha = abs(point.y) / min(screenBounds.width, screenBounds.height)
+                } else {
+                    titleViewAlpha = 0.0
                 }
+            },
+            content: {
+                VStack {
+                    BandHeaderView(band: band) { selectedImage in
+                        selectedPhoto.wrappedValue = .init(image: selectedImage,
+                                                           description: band.name)
+                    }
 
-                BandInfoView(viewModel: .init(band: band, discography: discography),
-                             onSelectLabel: { _ in },
-                             onSelectBand: { _ in })
+                    BandInfoView(viewModel: .init(band: band, discography: discography),
+                                 onSelectLabel: { _ in },
+                                 onSelectBand: { _ in })
                     .padding(.horizontal)
 
-                BandReadMoreView()
+                    BandReadMoreView()
 
-                Color(.systemGray6)
-                    .frame(height: 10)
-                    .padding(.vertical)
+                    Color(.systemGray6)
+                        .frame(height: 10)
+                        .padding(.vertical)
 
-                BandSectionView(selectedSection: $selectedSection)
-                    .padding(.bottom)
+                    BandSectionView(selectedSection: $selectedSection)
+                        .padding(.bottom)
 
-                switch selectedSection {
-                case .discography:
-                    DiscographyView(discography: discography,
-                                    releaseYearOrder: preferences.dateOrder)
+                    switch selectedSection {
+                    case .discography:
+                        DiscographyView(discography: discography,
+                                        releaseYearOrder: preferences.dateOrder)
                         .padding(.horizontal)
 
-                case .members:
-                    BandLineUpView(band: band)
-                        .padding(.horizontal)
+                    case .members:
+                        BandLineUpView(band: band)
+                            .padding(.horizontal)
 
-                case .reviews:
-                    BandReviewsView()
+                    case .reviews:
+                        BandReviewsView()
 
-                case .similarArtists:
-                    SimilarArtistsView()
+                    case .similarArtists:
+                        SimilarArtistsView()
 
-                case .relatedLinks:
-                    BandRelatedLinksView()
+                    case .relatedLinks:
+                        BandRelatedLinksView()
+                    }
                 }
-            }
-        }
+            })
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(band.name)
+                    .font(.title2)
+                    .fontWeight(.medium)
+                    .opacity(titleViewAlpha)
             }
         }
     }

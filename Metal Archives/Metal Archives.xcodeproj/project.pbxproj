@@ -159,6 +159,7 @@
 		C0FA708926B084BA00B618E6 /* BandReadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */; };
 		C0FA708B26B094E000B618E6 /* ExpandableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708A26B094E000B618E6 /* ExpandableText.swift */; };
 		C0FA708D26B0AAC700B618E6 /* BandSimilarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */; };
+		EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */; };
 		EFE028F12894852E004F2328 /* SearchTips.md in Resources */ = {isa = PBXBuildFile; fileRef = EFE028F02894852E004F2328 /* SearchTips.md */; };
 /* End PBXBuildFile section */
 
@@ -335,6 +336,7 @@
 		C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReadMoreView.swift; sourceTree = "<group>"; };
 		C0FA708A26B094E000B618E6 /* ExpandableText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableText.swift; sourceTree = "<group>"; };
 		C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilarView.swift; sourceTree = "<group>"; };
+		EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
 		EFE028F02894852E004F2328 /* SearchTips.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SearchTips.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -622,6 +624,7 @@
 				C021535326A6155F006F6A33 /* Blur.swift */,
 				C0FA708A26B094E000B618E6 /* ExpandableText.swift */,
 				C071578226E6AA280075C012 /* HighlightableText.swift */,
+				EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */,
 				C0C65A1526982E250062FF9C /* OrderView.swift */,
 				C0A9934C2712411700121BA3 /* SelectedPhotoableViewModifier.swift */,
 				C0FA708426B0789500B618E6 /* RelatedLinkView.swift */,
@@ -1124,6 +1127,7 @@
 				C060E6D02682714F0006433A /* AdvancedSearchSongsView.swift in Sources */,
 				C027D26626807CAB00BD54AE /* CountryListView.swift in Sources */,
 				C02A4CDE268678C6001CF9D2 /* Vibration.swift in Sources */,
+				EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */,
 				C051863026979FBE006BB7D5 /* DiscographyView.swift in Sources */,
 				C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */,
 				C007887626AF599E0080AC93 /* BandLineUpView.swift in Sources */,
