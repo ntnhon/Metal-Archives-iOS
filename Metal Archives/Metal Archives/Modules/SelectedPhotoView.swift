@@ -77,7 +77,8 @@ struct SelectedPhotoView: View {
                 .resizable()
                 .scaledToFit()
                 .scaleEffect(scaleFactor, anchor: .center)
-                .animation(.default)
+                .animation(.default, value: scaleFactor)
+                .animation(.default, value: offset)
                 .gesture(gestures)
                 .offset(offset)
                 .modifier(SizeModifier())
@@ -107,7 +108,7 @@ struct SelectedPhotoView: View {
                     .padding(.horizontal)
             }
             .opacity(showPhotoOnly ? 0 : 1)
-            .animation(Animation.linear(duration: 0.15))
+            .animation(Animation.linear(duration: 0.15), value: scaleFactor)
             .padding(.vertical)
         }
         .sheet(isPresented: $showShareSheet) {

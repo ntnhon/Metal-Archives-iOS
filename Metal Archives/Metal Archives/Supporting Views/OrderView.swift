@@ -17,7 +17,7 @@ struct OrderView: View {
             Text(title)
             Image(systemName: "arrow.down")
                 .rotationEffect(.degrees(order == .descending ? 0 : 180))
-                .animation(.default)
+                .animation(.default, value: order)
         }
         .padding(6)
         .background(preferences.theme.primaryColor)
