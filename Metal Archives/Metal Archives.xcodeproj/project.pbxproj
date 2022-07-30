@@ -160,6 +160,7 @@
 		C0FA708926B084BA00B618E6 /* BandReadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */; };
 		C0FA708B26B094E000B618E6 /* ExpandableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708A26B094E000B618E6 /* ExpandableText.swift */; };
 		C0FA708D26B0AAC700B618E6 /* BandSimilarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */; };
+		EFE028F12894852E004F2328 /* SearchTips.md in Resources */ = {isa = PBXBuildFile; fileRef = EFE028F02894852E004F2328 /* SearchTips.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -336,6 +337,7 @@
 		C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReadMoreView.swift; sourceTree = "<group>"; };
 		C0FA708A26B094E000B618E6 /* ExpandableText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableText.swift; sourceTree = "<group>"; };
 		C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilarView.swift; sourceTree = "<group>"; };
+		EFE028F02894852E004F2328 /* SearchTips.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SearchTips.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -791,6 +793,7 @@
 			isa = PBXGroup;
 			children = (
 				C0A37B6926584DDB0017A02F /* MACountries.json */,
+				EFE028F02894852E004F2328 /* SearchTips.md */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -978,6 +981,7 @@
 			files = (
 				C00A79D92657024A004FA9D7 /* Preview Assets.xcassets in Resources */,
 				C0A37B6A26584DDB0017A02F /* MACountries.json in Resources */,
+				EFE028F12894852E004F2328 /* SearchTips.md in Resources */,
 				C00A79D62657024A004FA9D7 /* Assets.xcassets in Resources */,
 				C0D632BB2687CBEB00348E29 /* DiscographyPublic.html in Resources */,
 				C0D632BA2687CAF000348E29 /* Death.html in Resources */,
