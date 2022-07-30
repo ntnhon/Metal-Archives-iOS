@@ -56,6 +56,7 @@ struct BandHeaderView: View {
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.vertical)
+                .textSelection(.enabled)
         }
     }
 

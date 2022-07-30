@@ -5,10 +5,13 @@
 //  Created by Thanh-Nhon Nguyen on 27/07/2021.
 //
 
+import Combine
 import SwiftUI
 
 struct BandReadMoreView: View {
+    @EnvironmentObject private var preferences: Preferences
     @EnvironmentObject private var viewModel: BandViewModel
+    @State private var showingSheet = false
 
     var body: some View {
         Group {
@@ -31,11 +34,39 @@ struct BandReadMoreView: View {
 
             case .fetched(let readMore):
                 if let content = readMore.content {
-                    ExpandableText(content: content)
+                    Text(content)
+                        .font(.callout)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .lineLimit(6)
                         .padding()
+                        .onTapGesture {
+                            showingSheet.toggle()
+                        }
                 } else {
                     EmptyView()
                 }
+            }
+        }
+        .sheet(isPresented: $showingSheet) {
+            if case .fetched(let readMore) = viewModel.readMoreFetchable {
+                NavigationView {
+                    ScrollView {
+                        Text(readMore.content ?? "")
+                            .padding()
+                    }
+                    .navigationTitle(viewModel.band?.name ?? "")
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button(action: {
+                                showingSheet.toggle()
+                            }, label: {
+                                Image(systemName: "xmark")
+                            })
+                        }
+                    }
+                }
+                .tint(preferences.theme.primaryColor)
+                .preferredColorScheme(.dark)
             }
         }
         .onAppear {
