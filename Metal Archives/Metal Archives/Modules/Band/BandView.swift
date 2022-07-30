@@ -57,6 +57,7 @@ private struct BandContentView: View {
     @Environment(\.selectedPhoto) private var selectedPhoto
     @State private var selectedSection: BandSection = .discography
     @State private var titleViewAlpha = 0.0
+    @State private var showingShareSheet = false
     let band: Band
     let discography: Discography
 
@@ -126,25 +127,17 @@ private struct BandContentView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
                     Button(action: {
-
+                        print("Bookmark band")
                     }, label: {
                         Image(systemName: "star")
                     })
 
                     Menu(content: {
-                        if #available(iOS 16, *) {
-                            Button(action: {
-                                // TODO: Use ShareLink
-                            }, label: {
-                                Label("Share", systemImage: "square.and.arrow.up")
-                            })
-                        } else {
-                            Button(action: {
-                                UIPasteboard.general.string = band.urlString
-                            }, label: {
-                                Label("Copy link", systemImage: "link")
-                            })
-                        }
+                        Button(action: {
+                            showingShareSheet.toggle()
+                        }, label: {
+                            Label("Share", systemImage: "square.and.arrow.up")
+                        })
 
                         Button(action: {
                             print("Deezer")
@@ -155,6 +148,13 @@ private struct BandContentView: View {
                         Image(systemName: "ellipsis")
                     })
                 }
+            }
+        }
+        .sheet(isPresented: $showingShareSheet) {
+            if let url = URL(string: band.urlString) {
+                ActivityView(items: [url])
+            } else {
+                ActivityView(items: [band.urlString])
             }
         }
     }

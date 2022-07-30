@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// swiftlint:disable:next todo
+// TODO: iOS 16 - Use ShareLink
 struct ActivityView: UIViewControllerRepresentable {
     @Environment(\.dismiss) private var dismiss
     var items: [Any]
