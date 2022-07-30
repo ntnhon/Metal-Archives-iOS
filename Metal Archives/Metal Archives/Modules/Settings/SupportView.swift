@@ -53,7 +53,7 @@ struct SupportView: View {
                 }
             }
         }
-        .colorScheme(.dark)
+        .preferredColorScheme(.dark)
     }
 }
 

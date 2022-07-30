@@ -18,7 +18,7 @@ struct SelectedPhotoableViewModifier: ViewModifier {
         content
             .fullScreenCover(isPresented: photoBinding) {
                 SelectedPhotoView()
-                    .colorScheme(.dark)
+                    .preferredColorScheme(.dark)
                     .environmentObject(preferences)
             }
             .environment(\.selectedPhoto, $selectedPhoto)

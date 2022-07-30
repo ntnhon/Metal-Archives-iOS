@@ -14,7 +14,7 @@ struct Metal_ArchivesApp: App {
             RootView()
                 .modifier(SelectedPhotoableViewModifier())
                 .environmentObject(Preferences())
-                .colorScheme(.dark)
+                .preferredColorScheme(.dark)
         }
     }
 }

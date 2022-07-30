@@ -27,7 +27,7 @@ struct AdvancedSearchTipsView: View {
             }
             .accentColor(preferences.theme.primaryColor)
         }
-        .colorScheme(.dark)
+        .preferredColorScheme(.dark)
     }
 
     private func tips() -> AttributedString {
