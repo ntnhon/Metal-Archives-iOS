@@ -9,90 +9,96 @@ import Kingfisher
 import SwiftUI
 
 struct BandHeaderView: View {
-    @State private var bandPhotoImage: UIImage?
-    @State private var bandLogoImage: UIImage?
-    let band: Band
+    @EnvironmentObject private var preferences: Preferences
+    @StateObject private var viewModel: BandHeaderViewModel
     let onSelectImage: (UIImage) -> Void
+
+    init(band: Band,
+         onSelectImage: @escaping (UIImage) -> Void) {
+        _viewModel = .init(wrappedValue: .init(band: band))
+        self.onSelectImage = onSelectImage
+    }
 
     var body: some View {
         VStack(spacing: 0) {
-            // Logo
-            let logoHeight = min(UIScreen.main.bounds.height / 4, 150)
-            if let logoUrlString = band.logoUrlString,
-               let logoUrl = URL(string: logoUrlString) {
-                GeometryReader { proxy in
-                    KFImage
-                        .url(logoUrl)
-                        .resizable()
-                        .placeholder {
-                            ProgressView()
-                                .frame(width: logoHeight, height: logoHeight)
-                        }
-                        .onSuccess { result in
-                            if let cgImage = result.image.cgImage {
-                                self.bandLogoImage = UIImage(cgImage: cgImage)
-                            }
-                        }
-                        .scaledToFit()
-                        .clipped()
-                        .offset(y: min(-proxy.frame(in: .global).minY, 0))
-                        .frame(width: UIScreen.main.bounds.width,
-                               height: max(proxy.frame(in: .global).minY + logoHeight, logoHeight))
-                        .onTapGesture {
-                            if let bandLogoImage = bandLogoImage {
-                                onSelectImage(bandLogoImage)
-                            }
-                        }
-                }
-                .frame(height: logoHeight)
-            } else {
-                Spacer()
-            }
-
-            bandPhotoView
-
-            // Name
-            Text(band.name)
+            logoView
+            photoView
+            Text(viewModel.band.name)
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.vertical)
                 .textSelection(.enabled)
         }
+        .onAppear(perform: viewModel.fetchImages)
     }
 
     @ViewBuilder
-    private var bandPhotoView: some View {
+    private var logoView: some View {
+        let logoHeight = min(UIScreen.main.bounds.height / 4, 150)
+        if viewModel.band.logoUrlString != nil {
+            GeometryReader { proxy in
+                ZStack {
+                    if viewModel.isLoadingLogo {
+                        ProgressView()
+                            .frame(width: logoHeight, height: logoHeight)
+                    }
+
+                    if let logo = viewModel.logo {
+                        Image(uiImage: logo)
+                            .resizable()
+                            .scaledToFit()
+                    }
+                }
+                .clipped()
+                .offset(y: min(-proxy.frame(in: .global).minY, 0))
+                .frame(width: UIScreen.main.bounds.width,
+                       height: max(proxy.frame(in: .global).minY + logoHeight, logoHeight))
+                .onTapGesture {
+                    if let logo = viewModel.logo {
+                        onSelectImage(logo)
+                    }
+                }
+            }
+            .frame(height: logoHeight)
+        } else {
+            Spacer()
+        }
+    }
+
+    @ViewBuilder
+    private var photoView: some View {
+        let band = viewModel.band
         let photoHeight = min(UIScreen.main.bounds.width / 2, 150)
-        if let photoUrlString = band.photoUrlString,
-           let photoUrl = URL(string: photoUrlString) {
-            KFImage
-                .url(photoUrl)
-                .resizable()
-                .placeholder {
+        if band.photoUrlString != nil {
+            ZStack {
+                if viewModel.isLoadingPhoto {
                     ProgressView()
                         .frame(width: photoHeight, height: photoHeight)
                 }
-                .onSuccess { result in
-                    if let cgImage = result.image.cgImage {
-                        self.bandPhotoImage = UIImage(cgImage: cgImage)
+
+                if let photo = viewModel.photo {
+                    ZStack {
+                        Image(uiImage: photo)
+                            .resizable()
+                            .scaledToFill()
+                            .blur(radius: 4)
+                            .frame(width: photoHeight, height: photoHeight)
+
+                        Image(uiImage: photo)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: photoHeight, height: photoHeight)
                     }
                 }
-                .scaledToFit()
-                .frame(width: photoHeight, height: photoHeight)
-                .overlay(
-                    Circle()
-                        .stroke(band.status.color,
-                                style: .init(lineWidth: 6,
-                                             lineCap: .round))
-                )
-                .background(Color(.systemBackground))
-                .clipShape(Circle())
-                .padding(.top, band.logoUrlString != nil ? -photoHeight / 3 : 0)
-                .onTapGesture {
-                    if let bandPhotoImage = bandPhotoImage {
-                        onSelectImage(bandPhotoImage)
-                    }
+            }
+            .clipShape(Rectangle())
+            .border(Color(.label), width: 2)
+            .padding(.top, band.logoUrlString != nil ? -photoHeight / 3 : 0)
+            .onTapGesture {
+                if let photo = viewModel.photo {
+                    onSelectImage(photo)
                 }
+            }
         } else {
             Spacer()
         }

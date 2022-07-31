@@ -165,6 +165,7 @@
 		EF48E6D02895BD8100B52EF2 /* ReleaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6CF2895BD8100B52EF2 /* ReleaseView.swift */; };
 		EF48E6D22895BDAB00B52EF2 /* ReleaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6D12895BDAB00B52EF2 /* ReleaseViewModel.swift */; };
 		EF48E6D42895CB5600B52EF2 /* ArtistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6D32895CB5600B52EF2 /* ArtistViewModel.swift */; };
+		EF50D1C42896FC070081D6AA /* BandHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF50D1C32896FC070081D6AA /* BandHeaderViewModel.swift */; };
 		EFE028F12894852E004F2328 /* SearchTips.md in Resources */ = {isa = PBXBuildFile; fileRef = EFE028F02894852E004F2328 /* SearchTips.md */; };
 /* End PBXBuildFile section */
 
@@ -346,6 +347,7 @@
 		EF48E6CF2895BD8100B52EF2 /* ReleaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseView.swift; sourceTree = "<group>"; };
 		EF48E6D12895BDAB00B52EF2 /* ReleaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseViewModel.swift; sourceTree = "<group>"; };
 		EF48E6D32895CB5600B52EF2 /* ArtistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewModel.swift; sourceTree = "<group>"; };
+		EF50D1C32896FC070081D6AA /* BandHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandHeaderViewModel.swift; sourceTree = "<group>"; };
 		EFE028F02894852E004F2328 /* SearchTips.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SearchTips.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -864,6 +866,7 @@
 				C0D632BF2687CE1A00348E29 /* BandView.swift */,
 				C0F240FA26891AB500ED546D /* BandViewModel.swift */,
 				C0378CE5268BB5F200E24B28 /* BandHeaderView.swift */,
+				EF50D1C32896FC070081D6AA /* BandHeaderViewModel.swift */,
 				C0F240F62688605D00ED546D /* BandInfoView.swift */,
 				C007887526AF599E0080AC93 /* BandLineUpView.swift */,
 				C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */,
@@ -1181,6 +1184,7 @@
 				C0A993492712407600121BA3 /* SelectedPhotoView.swift in Sources */,
 				C01ECED7266233DF009A3A32 /* RoleInRelease.swift in Sources */,
 				C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */,
+				EF50D1C42896FC070081D6AA /* BandHeaderViewModel.swift in Sources */,
 				C0964F492723FAB100100972 /* ActivityView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

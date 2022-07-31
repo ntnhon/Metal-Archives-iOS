@@ -51,6 +51,7 @@ struct ArtistInBandView: View {
                     }
                 }
             }
+            Spacer()
         }
         .contentShape(Rectangle())
         .contextMenu {

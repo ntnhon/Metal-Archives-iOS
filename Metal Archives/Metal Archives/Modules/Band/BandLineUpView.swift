@@ -94,6 +94,7 @@ struct BandLineUpView: View {
                     selectedArtist: $selectedArtist,
                     artist: artist)
                 .padding(.vertical)
+                Divider()
             }
         }
     }
