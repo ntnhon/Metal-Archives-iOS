@@ -106,14 +106,31 @@ private struct MemberLineUpTypePicker: View {
     @Binding var lineUpType: MemberLineUpType
 
     var body: some View {
-        Picker(selection: $lineUpType,
-               label: lineUpTypeView) {
+        Menu(content: {
             ForEach(viewModel.lineUpDetails, id: \.type) { lineUpDetail in
-                Text(viewModel.title(for: lineUpDetail.type))
-                    .tag(lineUpDetail.type)
+                Button(action: {
+                    lineUpType = lineUpDetail.type
+                }, label: {
+                    HStack {
+                        Text(viewModel.title(for: lineUpDetail.type))
+                        if lineUpType == lineUpDetail.type {
+                            Spacer()
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                })
             }
+        }, label: {
+            Label(viewModel.title(for: lineUpType),
+                  systemImage: "line.3.horizontal")
+                .padding(8)
+                .background(preferences.theme.primaryColor)
+                .foregroundColor(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+        })
+        .transaction { transaction in
+            transaction.animation = nil
         }
-        .pickerStyle(MenuPickerStyle())
     }
 
     private var lineUpTypeView: some View {

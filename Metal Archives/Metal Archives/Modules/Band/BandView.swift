@@ -111,7 +111,8 @@ private struct BandContentView: View {
                         case .discography:
                             DiscographyView(
                                 discography: discography,
-                                releaseYearOrder: preferences.dateOrder
+                                releaseYearOrder: preferences.dateOrder,
+                                defaultDiscographyMode: preferences.discographyMode
                             )
                             .padding(.horizontal)
 

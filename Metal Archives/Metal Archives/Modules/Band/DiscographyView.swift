@@ -15,9 +15,12 @@ struct DiscographyView: View {
     @State private var showingRelease = false
     @State private var selectedRelease: ReleaseInBand?
 
-    init(discography: Discography, releaseYearOrder: Order) {
-        _viewModel = StateObject(wrappedValue: .init(discography: discography))
-        _releaseYearOrder = State(initialValue: releaseYearOrder)
+    init(discography: Discography,
+         releaseYearOrder: Order,
+         defaultDiscographyMode: DiscographyMode) {
+        _viewModel = .init(wrappedValue: .init(discography: discography))
+        _releaseYearOrder = .init(initialValue: releaseYearOrder)
+        _selectedMode = .init(initialValue: defaultDiscographyMode)
     }
 
     var body: some View {
@@ -93,7 +96,9 @@ struct DiscographyView_Previews: PreviewProvider {
             Color(.systemBackground).ignoresSafeArea()
             ScrollView {
                 VStack {
-                    DiscographyView(discography: .death, releaseYearOrder: .ascending)
+                    DiscographyView(discography: .death,
+                                    releaseYearOrder: .ascending,
+                                    defaultDiscographyMode: .complete)
                 }
             }
             .padding(.horizontal)
