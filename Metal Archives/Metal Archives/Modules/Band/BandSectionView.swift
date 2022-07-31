@@ -23,6 +23,26 @@ enum BandSection: Int, CaseIterable {
         case .relatedLinks: return "Related Links"
         }
     }
+
+    var iconName: String {
+        switch self {
+        case .discography: return "circle.grid.3x3"
+        case .members: return "person.3"
+        case .reviews: return "star.bubble"
+        case .similarArtists: return "dot.radiowaves.up.forward"
+        case .relatedLinks: return "link"
+        }
+    }
+
+    var selectedIconName: String {
+        switch self {
+        case .discography: return "circle.grid.3x3.fill"
+        case .members: return "person.3.fill"
+        case .reviews: return "star.bubble.fill"
+        case .similarArtists: return "dot.radiowaves.up.forward"
+        case .relatedLinks: return "link"
+        }
+    }
 }
 
 struct BandSectionView: View {
@@ -46,9 +66,18 @@ struct BandSectionView: View {
     private func sectionView(for section: BandSection,
                              proxy: ScrollViewProxy) -> some View {
         HStack(spacing: 0) {
-            Text(section.description)
-                .fontWeight(.medium)
-                .foregroundColor(section == selectedSection ? preferences.theme.primaryColor : .secondary)
+            Label(title: {
+                Text(section.description)
+                    .fontWeight(.medium)
+                    .font(.headline)
+            }, icon: {
+                Image(systemName: section == selectedSection ?
+                      section.selectedIconName : section.iconName)
+                .transaction { transaction in
+                    transaction.animation = nil
+                }
+            })
+            .foregroundColor(section == selectedSection ? preferences.theme.primaryColor : .secondary)
             Color(.separator)
                 .frame(width: 1, height: 16)
                 .padding(.horizontal)
