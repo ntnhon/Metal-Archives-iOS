@@ -19,7 +19,7 @@ struct OrderView: View {
                 .rotationEffect(.degrees(order == .descending ? 0 : 180))
                 .animation(.default, value: order)
         }
-        .padding(6)
+        .padding(8)
         .background(preferences.theme.primaryColor)
         .foregroundColor(.white)
         .clipShape(RoundedRectangle(cornerRadius: 8))

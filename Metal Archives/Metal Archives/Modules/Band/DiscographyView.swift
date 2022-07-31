@@ -31,6 +31,7 @@ struct DiscographyView: View {
 
         VStack {
             options
+            Divider()
             ForEach(viewModel.releases(for: selectedMode,
                                        order: releaseYearOrder),
                     id: \.thumbnailInfo.id) { release in
@@ -102,21 +103,30 @@ private struct DiscographyModePicker: View {
     @Binding var selectedMode: DiscographyMode
 
     var body: some View {
-        Picker(selection: $selectedMode,
-               label: selectedModeView) {
+        Menu(content: {
             ForEach(viewModel.modes, id: \.self) { mode in
-                Text(viewModel.title(for: mode))
-                    .tag(mode.rawValue)
+                Button(action: {
+                    selectedMode = mode
+                }, label: {
+                    HStack {
+                        Text(viewModel.title(for: mode))
+                        if mode == selectedMode {
+                            Spacer()
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                })
             }
+        }, label: {
+            Label(viewModel.title(for: selectedMode),
+                  systemImage: "line.3.horizontal")
+                .padding(8)
+                .background(preferences.theme.primaryColor)
+                .foregroundColor(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+        })
+        .transaction { transaction in
+            transaction.animation = nil
         }
-        .pickerStyle(MenuPickerStyle())
-    }
-
-    private var selectedModeView: some View {
-        Text(viewModel.title(for: selectedMode) + " ≡ ")
-            .padding(6)
-            .background(preferences.theme.primaryColor)
-            .foregroundColor(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }

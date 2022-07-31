@@ -68,14 +68,11 @@ struct BandSectionView: View {
         HStack(spacing: 0) {
             Label(title: {
                 Text(section.description)
-                    .fontWeight(.medium)
+                    .fontWeight(.bold)
                     .font(.headline)
             }, icon: {
                 Image(systemName: section == selectedSection ?
                       section.selectedIconName : section.iconName)
-                .transaction { transaction in
-                    transaction.animation = nil
-                }
             })
             .foregroundColor(section == selectedSection ? preferences.theme.primaryColor : .secondary)
             Color(.separator)
@@ -85,8 +82,8 @@ struct BandSectionView: View {
         .id(section.rawValue)
         .contentShape(Rectangle())
         .onTapGesture {
+            selectedSection = section
             withAnimation {
-                selectedSection = section
                 proxy.scrollTo(section.rawValue, anchor: .center)
             }
         }
