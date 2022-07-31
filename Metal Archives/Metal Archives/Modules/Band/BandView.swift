@@ -135,10 +135,16 @@ private struct BandContentView: View {
             })
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(band.name)
-                    .font(.title2)
-                    .fontWeight(.medium)
-                    .opacity(titleViewAlpha)
+                HStack {
+                    band.status.color
+                        .frame(width: 8, height: 8)
+                        .clipShape(Circle())
+                    Text(band.name)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .textSelection(.enabled)
+                }
+                .opacity(titleViewAlpha)
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {

@@ -51,6 +51,13 @@ struct DiscographyView: View {
                                 })
 
                                 Button(action: {
+                                    let text = "\(release.title) (\(release.year)) (\(release.type.description))"
+                                    UIPasteboard.general.string = text
+                                }, label: {
+                                    Label("Copy release name", systemImage: "doc.on.doc")
+                                })
+
+                                Button(action: {
                                     selectedRelease = release
                                 }, label: {
                                     Label("Share", systemImage: "square.and.arrow.up")
