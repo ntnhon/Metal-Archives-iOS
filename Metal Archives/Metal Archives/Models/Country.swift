@@ -36,3 +36,9 @@ final class CountrySet: ObservableObject {
         }
     }
 }
+
+extension Country {
+    static var usa: Country {
+        .init(isoCode: "US", flag: "🇺🇸", name: "United States")
+    }
+}
