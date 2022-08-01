@@ -5,8 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 27/06/2021.
 //
 
-import Combine
-import Foundation
+import SwiftUI
 
 final class BandViewModel: ObservableObject {
     @Published private(set) var bandAndDiscographyFetchable: FetchableObject<(Band, Discography)> = .waiting
@@ -14,14 +13,15 @@ final class BandViewModel: ObservableObject {
     @Published private(set) var readMoreFetchable: FetchableObject<HtmlBodyText> = .waiting
     @Published private(set) var similarArtistsFetchable: FetchableObject<[BandSimilar]> = .waiting
     private(set) var band: Band?
-    private var cancellables = Set<AnyCancellable>()
     private let bandUrlString: String
+    private let apiService: APIServiceProtocol
 
     deinit {
         print("\(Self.self) of \(bandUrlString) is deallocated")
     }
 
-    init(bandUrlString: String) {
+    init(apiService: APIServiceProtocol, bandUrlString: String) {
+        self.apiService = apiService
         self.bandUrlString = bandUrlString
     }
 
@@ -30,34 +30,23 @@ final class BandViewModel: ObservableObject {
         case .waiting: break
         default: return
         }
-        RequestService.request(type: Band.self, from: bandUrlString)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                switch completion {
-                case .failure(let error): self?.bandAndDiscographyFetchable = .error(error)
-                case .finished: break
-                }
-            }, receiveValue: { [weak self] band in
-                guard let self = self else { return }
-                self.band = band
+        Task { @MainActor in
+            do {
+                bandAndDiscographyFetchable = .fetching
+                let band = try await apiService.request(forType: Band.self, urlString: bandUrlString)
                 let discographyUrlString = "https://www.metal-archives.com/band/discography/id/\(band.id)/tab/all"
-                RequestService.request(type: Discography.self, from: discographyUrlString)
-                    .receive(on: DispatchQueue.main)
-                    .sink { [weak self] completion in
-                        switch completion {
-                        case .failure(let error): self?.bandAndDiscographyFetchable = .error(error)
-                        case .finished: break
-                        }
-                    } receiveValue: { [weak self]  discography in
-                        self?.bandAndDiscographyFetchable = .fetched((band, discography))
-                    }
-                    .store(in: &self.cancellables)
-            })
-            .store(in: &cancellables)
+                let discography = try await apiService.request(forType: Discography.self,
+                                                               urlString: discographyUrlString)
+                self.band = band
+                self.bandAndDiscographyFetchable = .fetched((band, discography))
+            } catch {
+                self.bandAndDiscographyFetchable = .error(error)
+            }
+        }
     }
 
     func refreshBandAndDiscography() {
-        self.bandAndDiscographyFetchable = .waiting
+        bandAndDiscographyFetchable = .waiting
         fetchBandAndDiscography()
     }
 }
@@ -71,23 +60,21 @@ extension BandViewModel {
         }
 
         guard let band = band else {
-            readMoreFetchable = .error(MAError.nullBand)
+            readMoreFetchable = .error(MAError.missingBand)
             return
         }
 
         let urlString = "https://www.metal-archives.com/band/read-more/id/\(band.id)"
         readMoreFetchable = .fetching
-        RequestService.request(type: HtmlBodyText.self, from: urlString)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                switch completion {
-                case .failure(let error): self?.readMoreFetchable = .error(error)
-                case .finished: break
-                }
-            }, receiveValue: { [weak self] result in
-                self?.readMoreFetchable = .fetched(result)
-            })
-            .store(in: &cancellables)
+        Task { @MainActor in
+            do {
+                let readMore = try await apiService.request(forType: HtmlBodyText.self,
+                                                            urlString: urlString)
+                readMoreFetchable = .fetched(readMore)
+            } catch {
+                readMoreFetchable = .error(error)
+            }
+        }
     }
 
     func refreshReadMore() {
@@ -105,23 +92,21 @@ extension BandViewModel {
         }
 
         guard let band = band else {
-            similarArtistsFetchable = .error(MAError.nullBand)
+            similarArtistsFetchable = .error(MAError.missingBand)
             return
         }
 
         let urlString = "https://www.metal-archives.com/band/ajax-recommendations/id/\(band.id)/showMoreSimilar/1"
         similarArtistsFetchable = .fetching
-        RequestService.request(type: BandSimilarArray.self, from: urlString)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                switch completion {
-                case .failure(let error): self?.similarArtistsFetchable = .error(error)
-                case .finished: break
-                }
-            }, receiveValue: { [weak self] array in
-                self?.similarArtistsFetchable = .fetched(array.content)
-            })
-            .store(in: &cancellables)
+        Task { @MainActor in
+            do {
+                let similarArtists = try await apiService.request(forType: BandSimilarArray.self,
+                                                                  urlString: urlString)
+                similarArtistsFetchable = .fetched(similarArtists.content)
+            } catch {
+                similarArtistsFetchable = .error(error)
+            }
+        }
     }
 
     func refreshSimilarArtists() {
@@ -139,23 +124,21 @@ extension BandViewModel {
         }
 
         guard let band = band else {
-            relatedLinksFetchable = .error(MAError.nullBand)
+            relatedLinksFetchable = .error(MAError.missingBand)
             return
         }
 
         let urlString = "https://www.metal-archives.com/link/ajax-list/type/band/id/\(band.id)"
         relatedLinksFetchable = .fetching
-        RequestService.request(type: RelatedLinkArray.self, from: urlString)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                switch completion {
-                case .failure(let error): self?.relatedLinksFetchable = .error(error)
-                case .finished: break
-                }
-            }, receiveValue: { [weak self] array in
-                self?.relatedLinksFetchable = .fetched(array.content)
-            })
-            .store(in: &cancellables)
+        Task { @MainActor in
+            do {
+                let links = try await apiService.request(forType: RelatedLinkArray.self,
+                                                         urlString: urlString)
+                relatedLinksFetchable = .fetched(links.content)
+            } catch {
+                relatedLinksFetchable = .error(error)
+            }
+        }
     }
 
     func refreshRelatedLinks() {

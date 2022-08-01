@@ -11,10 +11,14 @@ import SwiftUI
 struct BandView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: BandViewModel
+    let apiService: APIServiceProtocol
 
-    init(bandUrlString: String) {
-        let viewModel = BandViewModel(bandUrlString: bandUrlString)
-        self._viewModel = StateObject(wrappedValue: viewModel)
+    init(apiService: APIServiceProtocol,
+         bandUrlString: String) {
+        self.apiService = apiService
+        let vm = BandViewModel(apiService: apiService,
+                               bandUrlString: bandUrlString)
+        _viewModel = .init(wrappedValue: vm)
     }
 
     var body: some View {
@@ -41,7 +45,9 @@ struct BandView: View {
                 ProgressView()
 
             case .fetched(let (band, discography)):
-                BandContentView(band: band, discography: discography)
+                BandContentView(apiService: apiService,
+                                band: band,
+                                discography: discography)
                     .environmentObject(viewModel)
             }
         }
@@ -59,6 +65,7 @@ private struct BandContentView: View {
     @State private var titleViewAlpha = 0.0
     @State private var showingShareSheet = false
     @State private var topSectionSize: CGSize = .zero
+    let apiService: APIServiceProtocol
     let band: Band
     let discography: Discography
 
@@ -117,14 +124,14 @@ private struct BandContentView: View {
                             .padding(.horizontal)
 
                         case .members:
-                            BandLineUpView(band: band)
+                            BandLineUpView(apiService: apiService, band: band)
                                 .padding(.horizontal)
 
                         case .reviews:
                             BandReviewsView()
 
                         case .similarArtists:
-                            SimilarArtistsView()
+                            SimilarArtistsView(apiService: apiService)
 
                         case .relatedLinks:
                             BandRelatedLinksView()
@@ -187,7 +194,8 @@ private struct BandContentView: View {
 struct BandView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            BandView(bandUrlString: "https://www.metal-archives.com/bands/Death/141")
+            BandView(apiService: APIService(),
+                     bandUrlString: "https://www.metal-archives.com/bands/Death/141")
         }
         .environment(\.colorScheme, .dark)
         .environmentObject(Preferences())

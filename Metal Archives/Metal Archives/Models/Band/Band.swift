@@ -151,10 +151,10 @@ fileprivate enum BandMemberType {
 extension Band: HTMLParsable {
     // swiftlint:disable identifier_name
     // Declare extra init in an extension in order to preserve the default initializer
-    init?(data: Data) {
+    init(data: Data) throws {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
               let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
-            return nil
+            throw MAError.parseFailure(String(describing: Self.self))
         }
 
         let builder = Band.Builder()
@@ -197,7 +197,9 @@ extension Band: HTMLParsable {
             }
         }
 
-        guard let band = builder.build() else { return nil }
+        guard let band = builder.build() else {
+            throw MAError.parseFailure(String(describing: Self.self))
+        }
         self = band
     }
 
@@ -337,5 +339,5 @@ extension Band: HTMLParsable {
 extension Band {
     // swiftlint:disable force_try
     // swiftlint:disable force_unwrapping
-    static let death = Band(data: try! Data.fromHtml(fileName: "Death")!)!
+    static let death = try! Band(data: try! Data.fromHtml(fileName: "Death")!)
 }

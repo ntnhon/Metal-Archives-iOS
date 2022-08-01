@@ -10,7 +10,7 @@ import Foundation
 enum MAError: Error, CustomStringConvertible {
     case badUrlString(String)
     case invalidServerResponse
-    case nullBand
+    case missingBand
     case parseFailure(String)
     case requestFailure(Int)
     case other(Error)
@@ -21,7 +21,7 @@ enum MAError: Error, CustomStringConvertible {
             return "Bad url (\(urlString))"
         case .invalidServerResponse:
             return "Invalid server response"
-        case .nullBand:
+        case .missingBand:
             return "Band is null"
         case .parseFailure(let description):
             return "Failed to parse \(description)"

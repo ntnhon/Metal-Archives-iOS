@@ -10,6 +10,7 @@ import SwiftUI
 struct BrowseView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var randomBandUrlString = "https://www.metal-archives.com/band/random"
+    let apiService: APIServiceProtocol
 
     var body: some View {
         Form {
@@ -133,7 +134,8 @@ struct BrowseView: View {
 
     private var randomSection: some View {
         Section(header: Text("Random")) {
-            let bandView = BandView(bandUrlString: randomBandUrlString)
+            let bandView = BandView(apiService: apiService,
+                                    bandUrlString: randomBandUrlString)
             NavigationLink(destination: bandView) {
                 HStack {
                     Image(systemName: "questionmark")
@@ -147,7 +149,7 @@ struct BrowseView: View {
 
 struct BrowseView_Previews: PreviewProvider {
     static var previews: some View {
-        BrowseView()
+        BrowseView(apiService: APIService())
             .environment(\.colorScheme, .dark)
             .environmentObject(Preferences())
     }

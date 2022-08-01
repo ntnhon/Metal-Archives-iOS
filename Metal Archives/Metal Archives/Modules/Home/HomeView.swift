@@ -9,41 +9,51 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject private var settings: Preferences
+    let apiService: APIServiceProtocol
 
     var body: some View {
         Form {
-            NavigationLink(
-                destination: BandView(bandUrlString: "https://www.metal-archives.com/bands/Death/141")) {
+            NavigationLink(destination: {
+                BandView(apiService: apiService,
+                         bandUrlString: "https://www.metal-archives.com/bands/Death/141")
+            }, label: {
                 Text("Death")
-            }
+            })
 
-            NavigationLink(
-                destination: BandView(bandUrlString: "https://www.metal-archives.com/bands/Testament/70")) {
+            NavigationLink(destination: {
+                BandView(apiService: apiService,
+                         bandUrlString: "https://www.metal-archives.com/bands/Testament/70")
+            }, label: {
                 Text("Testament")
-            }
+            })
 
-            NavigationLink(
-                destination: BandView(bandUrlString: "https://www.metal-archives.com/bands/Lamb_of_God/59")) {
+            NavigationLink(destination: {
+                BandView(apiService: apiService,
+                         bandUrlString: "https://www.metal-archives.com/bands/Lamb_of_God/59")
+            }, label: {
                 Text("Lamb of God")
-            }
+            })
 
-            NavigationLink(
-                destination: BandView(bandUrlString: "https://www.metal-archives.com/bands/Nile/139")) {
+            NavigationLink(destination: {
+                BandView(apiService: apiService,
+                         bandUrlString: "https://www.metal-archives.com/bands/Nile/139")
+            }, label: {
                 Text("Nile")
-            }
+            })
 
-            NavigationLink(
-                // swiftlint:disable:next line_length
-                destination: BandView(bandUrlString: "https://www.metal-archives.com/bands/Fleshgod_Apocalypse/113185")) {
+            NavigationLink(destination: {
+                BandView(apiService: apiService,
+                         bandUrlString: "https://www.metal-archives.com/bands/Fleshgod_Apocalypse/113185")
+            }, label: {
                 Text("Fleshgod Apocalypse")
-            }
+            })
         }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(apiService: APIService())
             .environment(\.colorScheme, .dark)
             .environmentObject(Preferences())
     }

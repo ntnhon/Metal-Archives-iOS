@@ -14,17 +14,18 @@ private enum RootViewTab {
 struct RootView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var selectedTab: RootViewTab = .home
+    let apiService: APIServiceProtocol
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            NavigationView { HomeView() }
+            NavigationView { HomeView(apiService: apiService) }
                 .tabItem {
                     Image(systemName: selectedTab == .home ? "house.fill" : "house")
                     Text("Home")
                 }
                 .tag(RootViewTab.home)
 
-            NavigationView { BrowseView() }
+            NavigationView { BrowseView(apiService: apiService) }
                 .tabItem {
                     Image(systemName: selectedTab == .browse ?
                             "tray.2.fill" : "tray.2")
@@ -62,7 +63,7 @@ struct RootView: View {
 
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView()
+        RootView(apiService: APIService())
             .environment(\.colorScheme, .dark)
             .environmentObject(Preferences())
     }

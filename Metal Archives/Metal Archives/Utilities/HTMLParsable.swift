@@ -8,5 +8,5 @@
 import Foundation
 
 protocol HTMLParsable {
-    init?(data: Data)
+    init(data: Data) throws
 }

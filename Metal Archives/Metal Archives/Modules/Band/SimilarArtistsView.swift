@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SimilarArtistsView: View {
     @EnvironmentObject private var viewModel: BandViewModel
+    let apiService: APIServiceProtocol
 
     var body: some View {
         VStack {
@@ -31,16 +32,30 @@ struct SimilarArtistsView: View {
 
             case .fetched(let similarArtists):
                 ForEach(Array(similarArtists.prefix(20)), id: \.name) {
-                    BandSimilarView(bandSimilar: $0)
+                    BandSimilarView(apiService: apiService, bandSimilar: $0)
                         .padding(.horizontal)
                         .padding(.vertical, 8)
                 }
 
                 if similarArtists.count > 20 {
-                    NavigationLink(
-                        destination: AllSimilarArtistsView(band: viewModel.band, similarArtists: similarArtists)) {
-                        seeAll(similarArtists: similarArtists)
-                    }
+                    NavigationLink(destination: {
+                        AllSimilarArtistsView(apiService: apiService,
+                                              band: viewModel.band,
+                                              similarArtists: similarArtists)
+                    }, label: {
+                        HStack {
+                            Spacer()
+                            Text("See all \(similarArtists.count) similar artists")
+                                .font(.callout)
+                                .padding(.horizontal)
+                                .padding(.vertical, 6)
+                                .overlay(Capsule()
+                                    .stroke(Color.secondary, lineWidth: 1.0))
+                            Spacer()
+                        }
+                        .padding()
+                        .foregroundColor(.primary)
+                    })
                 }
             }
         }
@@ -48,30 +63,16 @@ struct SimilarArtistsView: View {
             viewModel.fetchSimilarArtists()
         }
     }
-
-    private func seeAll(similarArtists: [BandSimilar]) -> some View {
-        HStack {
-            Spacer()
-            Text("See all \(similarArtists.count) similar artists")
-                .font(.callout)
-                .padding(.horizontal)
-                .padding(.vertical, 6)
-                .overlay(Capsule()
-                            .stroke(Color.secondary, lineWidth: 1.0))
-            Spacer()
-        }
-        .padding()
-        .foregroundColor(.primary)
-    }
 }
 
 struct SimilarArtistsView_Previews: PreviewProvider {
     static var previews: some View {
-        SimilarArtistsView()
+        SimilarArtistsView(apiService: APIService())
     }
 }
 
 struct AllSimilarArtistsView: View {
+    let apiService: APIServiceProtocol
     let band: Band?
     let similarArtists: [BandSimilar]
 
@@ -79,7 +80,7 @@ struct AllSimilarArtistsView: View {
         ScrollView {
             LazyVStack {
                 ForEach(similarArtists, id: \.name) {
-                    BandSimilarView(bandSimilar: $0)
+                    BandSimilarView(apiService: apiService, bandSimilar: $0)
                         .padding(.horizontal)
                         .padding(.vertical, 8)
                 }

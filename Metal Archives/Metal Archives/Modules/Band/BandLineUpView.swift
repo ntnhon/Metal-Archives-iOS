@@ -31,8 +31,10 @@ struct BandLineUpView: View {
     @State private var selectedArtist: ArtistInBand?
     @State private var selectedBand: BandLite?
     private let viewModel: BandLineUpViewModel
+    private let apiService: APIServiceProtocol
 
-    init(band: Band) {
+    init(apiService: APIServiceProtocol, band: Band) {
+        self.apiService = apiService
         viewModel = .init(band: band)
         _lineUpType = State(initialValue: viewModel.defaultLineUpType)
     }
@@ -78,7 +80,8 @@ struct BandLineUpView: View {
                 isActive: showingBand,
                 destination: {
                     if let urlString = selectedBand?.thumbnailInfo.urlString {
-                        BandView(bandUrlString: urlString)
+                        BandView(apiService: apiService,
+                                 bandUrlString: urlString)
                     } else {
                         Text("???")
                     }
@@ -144,7 +147,7 @@ private struct MemberLineUpTypePicker: View {
 
 struct BandLineUpView_Previews: PreviewProvider {
     static var previews: some View {
-        BandLineUpView(band: .death)
+        BandLineUpView(apiService: APIService(), band: .death)
     }
 }
 

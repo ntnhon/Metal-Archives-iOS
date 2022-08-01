@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct Metal_ArchivesApp: App {
+    let apiService = APIService()
     var body: some Scene {
         WindowGroup {
-            RootView()
+            RootView(apiService: apiService)
                 .modifier(SelectedPhotoableViewModifier())
                 .environmentObject(Preferences())
                 .preferredColorScheme(.dark)
