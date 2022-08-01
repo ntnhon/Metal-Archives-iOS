@@ -158,6 +158,8 @@
 		C0FA708926B084BA00B618E6 /* BandReadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */; };
 		C0FA708D26B0AAC700B618E6 /* BandSimilarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */; };
 		EF31834728984BC500B6C8DD /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF31834628984BC500B6C8DD /* APIService.swift */; };
+		EF31834A2898627C00B6C8DD /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = EF3183492898627C00B6C8DD /* BetterSafariView */; };
+		EF31834C289862D000B6C8DD /* BetterSafariViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF31834B289862D000B6C8DD /* BetterSafariViewModifier.swift */; };
 		EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */; };
 		EF48E6C72895BBA900B52EF2 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = EF48E6C62895BBA900B52EF2 /* AlertToast */; };
 		EF48E6C92895BBFB00B52EF2 /* AlertToastModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6C82895BBFB00B52EF2 /* AlertToastModifiers.swift */; };
@@ -341,6 +343,7 @@
 		C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReadMoreView.swift; sourceTree = "<group>"; };
 		C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilarView.swift; sourceTree = "<group>"; };
 		EF31834628984BC500B6C8DD /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		EF31834B289862D000B6C8DD /* BetterSafariViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewModifier.swift; sourceTree = "<group>"; };
 		EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
 		EF48E6C82895BBFB00B52EF2 /* AlertToastModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastModifiers.swift; sourceTree = "<group>"; };
 		EF48E6CA2895BC2900B52EF2 /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
@@ -359,6 +362,7 @@
 				EF48E6C72895BBA900B52EF2 /* AlertToast in Frameworks */,
 				C0CC030526963B420043A728 /* Kingfisher in Frameworks */,
 				C03873A92659AD6100D2FD5E /* Kanna in Frameworks */,
+				EF31834A2898627C00B6C8DD /* BetterSafariView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,6 +647,7 @@
 				C0FA708426B0789500B618E6 /* RelatedLinkView.swift */,
 				C0DF7D1826A44C850049C98D /* ThumbnailView.swift */,
 				C017D42A267E901F008B6EE5 /* URLButton.swift */,
+				EF31834B289862D000B6C8DD /* BetterSafariViewModifier.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -912,6 +917,7 @@
 				C03873A82659AD6100D2FD5E /* Kanna */,
 				C0CC030426963B420043A728 /* Kingfisher */,
 				EF48E6C62895BBA900B52EF2 /* AlertToast */,
+				EF3183492898627C00B6C8DD /* BetterSafariView */,
 			);
 			productName = "Metal Archives";
 			productReference = C00A79CE26570245004FA9D7 /* Metal Archives.app */;
@@ -989,6 +995,7 @@
 				C03873A72659AD6100D2FD5E /* XCRemoteSwiftPackageReference "Kanna" */,
 				C0CC030326963B420043A728 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				EF48E6C52895BBA900B52EF2 /* XCRemoteSwiftPackageReference "AlertToast" */,
+				EF3183482898627C00B6C8DD /* XCRemoteSwiftPackageReference "BetterSafariView" */,
 			);
 			productRefGroup = C00A79CF26570245004FA9D7 /* Products */;
 			projectDirPath = "";
@@ -1106,6 +1113,7 @@
 				C017D419267E3088008B6EE5 /* BrowseView.swift in Sources */,
 				C004A2BE2658F3760071E12A /* StringExtensions.swift in Sources */,
 				C08DF5CF26A62108002E73EB /* SizePreferenceKey.swift in Sources */,
+				EF31834C289862D000B6C8DD /* BetterSafariViewModifier.swift in Sources */,
 				C02A8CB826812F61001430D6 /* GenreListView.swift in Sources */,
 				C0F240F92689052000ED546D /* ColorExtensions.swift in Sources */,
 				C0A9934B271240A100121BA3 /* Photo.swift in Sources */,
@@ -1551,6 +1559,14 @@
 				minimumVersion = 7.3.0;
 			};
 		};
+		EF3183482898627C00B6C8DD /* XCRemoteSwiftPackageReference "BetterSafariView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stleamist/BetterSafariView";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		EF48E6C52895BBA900B52EF2 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elai950/AlertToast";
@@ -1571,6 +1587,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C0CC030326963B420043A728 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		EF3183492898627C00B6C8DD /* BetterSafariView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF3183482898627C00B6C8DD /* XCRemoteSwiftPackageReference "BetterSafariView" */;
+			productName = BetterSafariView;
 		};
 		EF48E6C62895BBA900B52EF2 /* AlertToast */ = {
 			isa = XCSwiftPackageProductDependency;

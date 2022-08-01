@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "bettersafariview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stleamist/BetterSafariView",
+      "state" : {
+        "branch" : "main",
+        "revision" : "9c051d20dbb50fa61d014d87b4ab6c5504408a73"
+      }
+    },
+    {
       "identity" : "kanna",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tid-kijyun/Kanna.git",
