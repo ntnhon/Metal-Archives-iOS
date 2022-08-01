@@ -15,7 +15,7 @@ struct SimilarArtistsView: View {
             switch viewModel.similarArtistsFetchable {
             case .error(let error):
                 VStack(alignment: .center, spacing: 20) {
-                    Text(error.description)
+                    Text(error.userFacingMessage)
                         .frame(maxWidth: .infinity)
                         .font(.caption)
 

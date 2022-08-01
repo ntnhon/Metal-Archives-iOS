@@ -15,7 +15,7 @@ struct BandRelatedLinksView: View {
             switch viewModel.relatedLinksFetchable {
             case .error(let error):
                 VStack(alignment: .center, spacing: 20) {
-                    Text(error.description)
+                    Text(error.userFacingMessage)
                         .frame(maxWidth: .infinity)
                         .font(.caption)
 

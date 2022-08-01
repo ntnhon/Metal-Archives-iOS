@@ -71,7 +71,7 @@ extension BandViewModel {
         }
 
         guard let band = band else {
-            readMoreFetchable = .error(.nullBand)
+            readMoreFetchable = .error(MAError.nullBand)
             return
         }
 
@@ -105,7 +105,7 @@ extension BandViewModel {
         }
 
         guard let band = band else {
-            similarArtistsFetchable = .error(.nullBand)
+            similarArtistsFetchable = .error(MAError.nullBand)
             return
         }
 
@@ -139,7 +139,7 @@ extension BandViewModel {
         }
 
         guard let band = band else {
-            relatedLinksFetchable = .error(.nullBand)
+            relatedLinksFetchable = .error(MAError.nullBand)
             return
         }
 
