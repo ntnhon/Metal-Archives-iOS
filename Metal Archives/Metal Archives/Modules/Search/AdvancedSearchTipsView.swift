@@ -31,18 +31,7 @@ struct AdvancedSearchTipsView: View {
     }
 
     private func tips() -> AttributedString {
-        typealias Options = AttributedString.MarkdownParsingOptions
-        let options = Options(allowsExtendedAttributes: true,
-                              interpretedSyntax: .inlineOnlyPreservingWhitespace,
-                              failurePolicy: .returnPartiallyParsedIfPossible,
-                              languageCode: nil)
-        guard let path = Bundle.main.url(forResource: "SearchTips", withExtension: "md"),
-              let string = try? String(contentsOf: path),
-              var attributedString = try? AttributedString(markdown: string,
-                                                           options: options) else {
-            return .init(stringLiteral: "???")
-        }
-
+        var attributedString = AttributedString(markdownFileName: "SearchTips")
         let primaryColor = preferences.theme.primaryColor
 
         let headlines = ["Keyword matching",
