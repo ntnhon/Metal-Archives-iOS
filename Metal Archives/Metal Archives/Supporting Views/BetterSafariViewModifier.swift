@@ -10,6 +10,7 @@ import SwiftUI
 
 struct BetterSafariViewModifier: ViewModifier {
     @Binding var urlString: String?
+    let tintColor: Color?
 
     func body(content: Content) -> some View {
         let showingSafariView = Binding<Bool>(get: {
@@ -27,12 +28,13 @@ struct BetterSafariViewModifier: ViewModifier {
             .safariView(isPresented: showingSafariView) {
                 // swiftlint:disable:next force_unwrapping
                 SafariView(url: URL(string: urlString ?? "")!)
+                    .preferredControlAccentColor(tintColor)
             }
     }
 }
 
 extension View {
-    func betterSafariView(urlString: Binding<String?>) -> some View {
-        modifier(BetterSafariViewModifier(urlString: urlString))
+    func betterSafariView(urlString: Binding<String?>, tintColor: Color? = nil) -> some View {
+        modifier(BetterSafariViewModifier(urlString: urlString, tintColor: tintColor))
     }
 }

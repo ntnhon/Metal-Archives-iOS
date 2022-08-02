@@ -46,7 +46,6 @@
 		C017D41E267E30B6008B6EE5 /* MyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D41D267E30B6008B6EE5 /* MyAccountView.swift */; };
 		C017D421267E30D9008B6EE5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D420267E30D9008B6EE5 /* SettingsView.swift */; };
 		C017D424267E3115008B6EE5 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D423267E3115008B6EE5 /* RootView.swift */; };
-		C017D42B267E901F008B6EE5 /* URLButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D42A267E901F008B6EE5 /* URLButton.swift */; };
 		C017D42D267E9B51008B6EE5 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017D42C267E9B51008B6EE5 /* AboutView.swift */; };
 		C01809DC266190AD00295B32 /* LetargicaMortis.html in Resources */ = {isa = PBXBuildFile; fileRef = C01809DB266190AD00295B32 /* LetargicaMortis.html */; };
 		C018C515265CD6E30022C8DD /* BandStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018C514265CD6E30022C8DD /* BandStatus.swift */; };
@@ -236,7 +235,6 @@
 		C017D41D267E30B6008B6EE5 /* MyAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountView.swift; sourceTree = "<group>"; };
 		C017D420267E30D9008B6EE5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C017D423267E3115008B6EE5 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		C017D42A267E901F008B6EE5 /* URLButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLButton.swift; sourceTree = "<group>"; };
 		C017D42C267E9B51008B6EE5 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		C01809DB266190AD00295B32 /* LetargicaMortis.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = LetargicaMortis.html; sourceTree = "<group>"; };
 		C018C514265CD6E30022C8DD /* BandStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandStatus.swift; sourceTree = "<group>"; };
@@ -651,7 +649,6 @@
 				C0A9934C2712411700121BA3 /* SelectedPhotoableViewModifier.swift */,
 				C0FA708426B0789500B618E6 /* RelatedLinkView.swift */,
 				C0DF7D1826A44C850049C98D /* ThumbnailView.swift */,
-				C017D42A267E901F008B6EE5 /* URLButton.swift */,
 				EF31834B289862D000B6C8DD /* BetterSafariViewModifier.swift */,
 			);
 			path = "Supporting Views";
@@ -1106,7 +1103,6 @@
 				C0DD1381267F6BC2009F0B81 /* Preferences.swift in Sources */,
 				C041C3122658EE74006B0F1F /* Band.swift in Sources */,
 				C01ECED326623273009A3A32 /* Artist.swift in Sources */,
-				C017D42B267E901F008B6EE5 /* URLButton.swift in Sources */,
 				C017D41E267E30B6008B6EE5 /* MyAccountView.swift in Sources */,
 				C018C517265CE0C40022C8DD /* ArtistInRelease.swift in Sources */,
 				C007887E26AF5C020080AC93 /* BandRelatedLinksView.swift in Sources */,

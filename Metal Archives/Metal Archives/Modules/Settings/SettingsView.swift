@@ -35,7 +35,8 @@ struct SettingsView: View {
             bottomSection
         }
         .navigationTitle("Settings")
-        .betterSafariView(urlString: $selectedUrlString)
+        .betterSafariView(urlString: $selectedUrlString,
+                          tintColor: preferences.theme.primaryColor)
         .onAppear {
             self.showThumbnails = preferences.showThumbnails
             self.useHaptic = preferences.useHaptic
