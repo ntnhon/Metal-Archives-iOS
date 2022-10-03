@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct BandReviewsView: View {
+    @StateObject private var viewModel: BandReviewsViewModel
+
+    init(bandId: String, apiService: APIServiceProtocol) {
+        _viewModel = .init(wrappedValue: .init(bandId: bandId,
+                                               apiService: apiService))
+    }
+
     var body: some View {
         Text("Band reviews")
-    }
-}
-
-struct BandReviewsView_Previews: PreviewProvider {
-    static var previews: some View {
-        BandReviewsView()
+            .task {
+               await viewModel.getReviews()
+            }
     }
 }

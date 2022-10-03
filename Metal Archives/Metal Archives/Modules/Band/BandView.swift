@@ -128,7 +128,7 @@ private struct BandContentView: View {
                                 .padding(.horizontal)
 
                         case .reviews:
-                            BandReviewsView()
+                            BandReviewsView(bandId: band.id, apiService: apiService)
 
                         case .similarArtists:
                             SimilarArtistsView(apiService: apiService)

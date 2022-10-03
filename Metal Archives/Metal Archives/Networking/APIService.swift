@@ -10,11 +10,12 @@ import Foundation
 protocol APIServiceProtocol {
     var session: URLSession { get }
 
+    func getData(for urlString: String) async throws -> Data
     func request<T: HTMLParsable>(forType type: T.Type, urlString: String) async throws -> T
 }
 
 extension APIServiceProtocol {
-    func request<T: HTMLParsable>(forType type: T.Type, urlString: String) async throws -> T {
+    func getData(for urlString: String) async throws -> Data {
         guard let url = URL(string: urlString) else {
             throw MAError.badUrlString(urlString)
         }
@@ -27,11 +28,15 @@ extension APIServiceProtocol {
 
         switch httpResponse.statusCode {
         case 200...299:
-            return try T(data: data)
-
+            return data
         default:
             throw MAError.requestFailure(httpResponse.statusCode)
         }
+    }
+
+    func request<T: HTMLParsable>(forType type: T.Type, urlString: String) async throws -> T {
+        let data = try await getData(for: urlString)
+        return try T(data: data)
     }
 }
 
