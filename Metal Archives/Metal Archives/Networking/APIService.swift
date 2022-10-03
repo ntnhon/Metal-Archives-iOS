@@ -8,16 +8,12 @@
 import Foundation
 
 protocol APIServiceProtocol {
+    var session: URLSession { get }
+
     func request<T: HTMLParsable>(forType type: T.Type, urlString: String) async throws -> T
 }
 
-struct APIService: APIServiceProtocol {
-    let session: URLSession
-
-    init(session: URLSession = .shared) {
-        self.session = session
-    }
-
+extension APIServiceProtocol {
     func request<T: HTMLParsable>(forType type: T.Type, urlString: String) async throws -> T {
         guard let url = URL(string: urlString) else {
             throw MAError.badUrlString(urlString)
@@ -36,5 +32,13 @@ struct APIService: APIServiceProtocol {
         default:
             throw MAError.requestFailure(httpResponse.statusCode)
         }
+    }
+}
+
+final class APIService: APIServiceProtocol {
+    let session: URLSession
+
+    init(session: URLSession = .shared) {
+        self.session = session
     }
 }
