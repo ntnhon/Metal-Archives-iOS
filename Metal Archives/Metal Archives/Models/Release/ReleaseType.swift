@@ -6,6 +6,7 @@
 //
 
 import Combine
+import SwiftUI
 
 enum ReleaseType: Int, CustomStringConvertible, CaseIterable {
     case fullLength = 1
@@ -50,6 +51,37 @@ enum ReleaseType: Int, CustomStringConvertible, CaseIterable {
         case "split video": self = .splitVideo
         case "collaboration": self = .collaboration
         default: return nil
+        }
+    }
+
+    var titleFont: Font {
+        switch self {
+        case .demo:
+            return .callout.italic()
+        case .fullLength:
+            return .title3.weight(.bold)
+        default:
+            return .body
+        }
+    }
+
+    func titleForegroundColor(_ theme: Theme) -> Color {
+        switch self {
+        case .fullLength:
+            return theme.primaryColor
+        default:
+            return theme.secondaryColor
+        }
+    }
+
+    var subtitleFont: Font {
+        switch self {
+        case .demo:
+            return .caption
+        case .fullLength:
+            return .body.weight(.medium)
+        default:
+            return .caption
         }
     }
 }

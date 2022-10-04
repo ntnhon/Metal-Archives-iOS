@@ -82,7 +82,7 @@ struct PageResult<Element: PageElement>: Decodable {
     }
 }
 
-protocol PageManager {
+protocol PageManagerProtocol {
     associatedtype Element: PageElement
 
     var configs: PageConfigs { get }
@@ -91,10 +91,34 @@ protocol PageManager {
     func getElements(page: Int, options: [String: String]) async throws -> PageResult<Element>
 }
 
-extension PageManager {
+extension PageManagerProtocol {
     func getElements(page: Int, options: [String: String]) async throws -> PageResult<Element> {
         let urlString = try configs.urlString(page: page, options: options)
         let data = try await apiService.getData(for: urlString)
         return try JSONDecoder().decode(PageResult<Element>.self, from: data)
+    }
+}
+
+class PageManager<Element: PageElement>: PageManagerProtocol {
+    @Published private(set) var elements = [Element]()
+    @Published private(set) var isLoading = false
+    private var currentPage = 0
+    private var moreToLoad = true
+    let configs: PageConfigs
+    let apiService: APIServiceProtocol
+
+    init(configs: PageConfigs, apiService: APIServiceProtocol) {
+        self.configs = configs
+        self.apiService = apiService
+    }
+
+    func getMoreElements(options: [String: String] = [:]) async throws {
+        guard moreToLoad else { return }
+        isLoading = true
+        let results = try await getElements(page: currentPage, options: options)
+        elements.append(contentsOf: results.elements)
+        isLoading = false
+        currentPage += 1
+        moreToLoad = elements.count < results.total
     }
 }

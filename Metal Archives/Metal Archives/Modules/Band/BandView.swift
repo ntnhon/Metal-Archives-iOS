@@ -45,10 +45,10 @@ struct BandView: View {
                 ProgressView()
 
             case .fetched(let (band, discography)):
-                BandContentView(apiService: apiService,
-                                band: band,
+                BandContentView(band: band,
+                                apiService: apiService,
                                 discography: discography)
-                    .environmentObject(viewModel)
+                .environmentObject(viewModel)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -61,6 +61,7 @@ struct BandView: View {
 private struct BandContentView: View {
     @EnvironmentObject private var preferences: Preferences
     @Environment(\.selectedPhoto) private var selectedPhoto
+    @StateObject private var reviewsViewModel: BandReviewsViewModel
     @State private var selectedSection: BandSection = .discography
     @State private var titleViewAlpha = 0.0
     @State private var showingShareSheet = false
@@ -68,6 +69,15 @@ private struct BandContentView: View {
     let apiService: APIServiceProtocol
     let band: Band
     let discography: Discography
+
+    init(band: Band, apiService: APIServiceProtocol, discography: Discography) {
+        self.band = band
+        self.apiService = apiService
+        self.discography = discography
+        _reviewsViewModel = .init(wrappedValue: .init(bandId: band.id,
+                                                      apiService: apiService,
+                                                      releases: discography.releases))
+    }
 
     var body: some View {
         OffsetAwareScrollView(
@@ -128,7 +138,7 @@ private struct BandContentView: View {
                                 .padding(.horizontal)
 
                         case .reviews:
-                            BandReviewsView(bandId: band.id, apiService: apiService)
+                            BandReviewsView(viewModel: reviewsViewModel)
 
                         case .similarArtists:
                             SimilarArtistsView(apiService: apiService)

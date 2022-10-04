@@ -156,7 +156,7 @@
 		C0FA708726B081D000B618E6 /* HtmlBodyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708626B081D000B618E6 /* HtmlBodyText.swift */; };
 		C0FA708926B084BA00B618E6 /* BandReadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */; };
 		C0FA708D26B0AAC700B618E6 /* BandSimilarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */; };
-		EF2862D328EB5EB700E2C131 /* PageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2862D228EB5EB700E2C131 /* PageManager.swift */; };
+		EF2862D328EB5EB700E2C131 /* PageManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2862D228EB5EB700E2C131 /* PageManagerProtocol.swift */; };
 		EF2862D628EB70CB00E2C131 /* BandReviewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2862D528EB70CB00E2C131 /* BandReviewsViewModel.swift */; };
 		EF31834728984BC500B6C8DD /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF31834628984BC500B6C8DD /* APIService.swift */; };
 		EF31834A2898627C00B6C8DD /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = EF3183492898627C00B6C8DD /* BetterSafariView */; };
@@ -171,6 +171,7 @@
 		EF4B6BA6289900DA008DBCF6 /* Support.md in Resources */ = {isa = PBXBuildFile; fileRef = EF4B6BA52898FFF8008DBCF6 /* Support.md */; };
 		EF4B6BA82899015F008DBCF6 /* AttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B6BA72899015F008DBCF6 /* AttributedStringExtensions.swift */; };
 		EF50D1C42896FC070081D6AA /* BandHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF50D1C32896FC070081D6AA /* BandHeaderViewModel.swift */; };
+		EF53A29D28ECA96D00EF0318 /* ReviewLiteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF53A29C28ECA96D00EF0318 /* ReviewLiteView.swift */; };
 		EFE028F12894852E004F2328 /* SearchTips.md in Resources */ = {isa = PBXBuildFile; fileRef = EFE028F02894852E004F2328 /* SearchTips.md */; };
 /* End PBXBuildFile section */
 
@@ -344,7 +345,7 @@
 		C0FA708626B081D000B618E6 /* HtmlBodyText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlBodyText.swift; sourceTree = "<group>"; };
 		C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReadMoreView.swift; sourceTree = "<group>"; };
 		C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilarView.swift; sourceTree = "<group>"; };
-		EF2862D228EB5EB700E2C131 /* PageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageManager.swift; sourceTree = "<group>"; };
+		EF2862D228EB5EB700E2C131 /* PageManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageManagerProtocol.swift; sourceTree = "<group>"; };
 		EF2862D528EB70CB00E2C131 /* BandReviewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReviewsViewModel.swift; sourceTree = "<group>"; };
 		EF31834628984BC500B6C8DD /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		EF31834B289862D000B6C8DD /* BetterSafariViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewModifier.swift; sourceTree = "<group>"; };
@@ -357,6 +358,7 @@
 		EF4B6BA52898FFF8008DBCF6 /* Support.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Support.md; sourceTree = "<group>"; };
 		EF4B6BA72899015F008DBCF6 /* AttributedStringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringExtensions.swift; sourceTree = "<group>"; };
 		EF50D1C32896FC070081D6AA /* BandHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandHeaderViewModel.swift; sourceTree = "<group>"; };
+		EF53A29C28ECA96D00EF0318 /* ReviewLiteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLiteView.swift; sourceTree = "<group>"; };
 		EFE028F02894852E004F2328 /* SearchTips.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SearchTips.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -409,7 +411,7 @@
 				C0378CE3268BAC7700E24B28 /* FetchableObject.swift */,
 				C0F240FC26891D9D00ED546D /* HTMLParsable.swift */,
 				C0063EBD265C4630005AB1E2 /* Logger.swift */,
-				EF2862D228EB5EB700E2C131 /* PageManager.swift */,
+				EF2862D228EB5EB700E2C131 /* PageManagerProtocol.swift */,
 				C08DF5CE26A62108002E73EB /* SizePreferenceKey.swift */,
 				C0DD1376267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift */,
 				C004A2BD2658F3760071E12A /* StringExtensions.swift */,
@@ -891,6 +893,7 @@
 				C051862F26979FBE006BB7D5 /* DiscographyView.swift */,
 				C05186312697A0BF006BB7D5 /* DiscographyViewModel.swift */,
 				C0E006A02698EDC100B5D503 /* ReleaseInBandView.swift */,
+				EF53A29C28ECA96D00EF0318 /* ReviewLiteView.swift */,
 				C007887926AF5B750080AC93 /* SimilarArtistsView.swift */,
 			);
 			path = Band;
@@ -1143,6 +1146,7 @@
 				C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */,
 				C01D2D652683CB9500957DE5 /* BandStatusListView.swift in Sources */,
 				C0DD137B267F6A23009F0B81 /* HomeSection.swift in Sources */,
+				EF53A29D28ECA96D00EF0318 /* ReviewLiteView.swift in Sources */,
 				C017D42D267E9B51008B6EE5 /* AboutView.swift in Sources */,
 				C01ECED92662341A009A3A32 /* ReleaseLite.swift in Sources */,
 				C021535426A6155F006F6A33 /* Blur.swift in Sources */,
@@ -1178,7 +1182,7 @@
 				C02A4CDE268678C6001CF9D2 /* Vibration.swift in Sources */,
 				EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */,
 				EF48E6CB2895BC2900B52EF2 /* ErrorExtensions.swift in Sources */,
-				EF2862D328EB5EB700E2C131 /* PageManager.swift in Sources */,
+				EF2862D328EB5EB700E2C131 /* PageManagerProtocol.swift in Sources */,
 				C051863026979FBE006BB7D5 /* DiscographyView.swift in Sources */,
 				C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */,
 				C007887626AF599E0080AC93 /* BandLineUpView.swift in Sources */,

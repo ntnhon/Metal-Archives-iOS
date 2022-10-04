@@ -1,14 +1,15 @@
 //
-//  ReleaseInBandView.swift
+//  ReviewLiteView.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 09/07/2021.
+//  Created by Nhon Nguyen on 04/10/2022.
 //
 
 import SwiftUI
 
-struct ReleaseInBandView: View {
+struct ReviewLiteView: View {
     @EnvironmentObject private var preferences: Preferences
+    let review: ReviewLite
     let release: ReleaseInBand
 
     var body: some View {

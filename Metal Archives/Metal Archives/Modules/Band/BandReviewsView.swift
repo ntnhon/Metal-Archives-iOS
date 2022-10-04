@@ -10,15 +10,29 @@ import SwiftUI
 struct BandReviewsView: View {
     @StateObject private var viewModel: BandReviewsViewModel
 
-    init(bandId: String, apiService: APIServiceProtocol) {
-        _viewModel = .init(wrappedValue: .init(bandId: bandId,
-                                               apiService: apiService))
+    init(viewModel: BandReviewsViewModel) {
+        _viewModel = .init(wrappedValue: viewModel)
     }
 
     var body: some View {
-        Text("Band reviews")
-            .task {
-               await viewModel.getReviews()
+        LazyVStack {
+            ForEach(viewModel.reviews, id: \.urlString) { review in
+                ReviewLiteView(review: review,
+                               release: viewModel.release(for: review))
+                .task {
+                    if review.urlString == viewModel.reviews.last?.urlString {
+                        await viewModel.getMoreReviews()
+                    }
+                }
+                Divider()
             }
+
+            if viewModel.isLoading {
+                ProgressView()
+            }
+        }
+        .task {
+            await viewModel.getMoreReviews()
+        }
     }
 }

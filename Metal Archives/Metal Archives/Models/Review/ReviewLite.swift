@@ -111,15 +111,10 @@ extension ReviewLite: PageElement {
     }
 }
 
-struct ReviewLitePageManager: PageManager {
-    typealias Element = ReviewLite
-
-    let configs: PageConfigs
-    let apiService: APIServiceProtocol
-
+final class ReviewLitePageManager: PageManager<ReviewLite> {
     init(bandId: String, apiService: APIServiceProtocol) {
         // swiftlint:disable:next line_length
-        self.configs = .init(baseUrlString: "https://www.metal-archives.com/review/ajax-list-band/id/\(bandId)/json/1?sEcho=1&iColumns=4&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=3&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true&_=1664820838499")
-        self.apiService = apiService
+        let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/review/ajax-list-band/id/\(bandId)/json/1?sEcho=1&iColumns=4&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=3&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true&_=1664820838499")
+        super.init(configs: configs, apiService: apiService)
     }
 }
