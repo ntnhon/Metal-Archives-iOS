@@ -70,9 +70,9 @@ private struct BandContentView: View {
         self.band = band
         self.apiService = apiService
         self.discography = discography
-        _reviewsViewModel = .init(wrappedValue: .init(bandId: band.id,
+        _reviewsViewModel = .init(wrappedValue: .init(band: band,
                                                       apiService: apiService,
-                                                      releases: discography.releases))
+                                                      discography: discography))
     }
 
     var body: some View {

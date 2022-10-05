@@ -10,6 +10,7 @@ import Kanna
 
 struct Discography: HTMLParsable {
     let releases: [ReleaseInBand]
+    let reviewCount: Int
 
     // Sample: https://www.metal-archives.com/band/discography/id/141/tab/all
     init(data: Data) {
@@ -18,6 +19,7 @@ struct Discography: HTMLParsable {
               let tbody = html.at_css("tbody") else {
             Logger.log("Error parsing html for discography")
             self.releases = []
+            self.reviewCount = 0
             return
         }
 
@@ -35,6 +37,7 @@ struct Discography: HTMLParsable {
             // This band has no release yet
             if tr.css("td").count == 1 {
                 self.releases = []
+                self.reviewCount = 0
                 return
             }
 
@@ -67,6 +70,7 @@ struct Discography: HTMLParsable {
             }
         }
         self.releases = releases
+        self.reviewCount = releases.compactMap { $0.reviewCount }.reduce(0, +)
     }
 }
 

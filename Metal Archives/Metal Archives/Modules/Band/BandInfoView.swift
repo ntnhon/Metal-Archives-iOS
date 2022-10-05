@@ -151,7 +151,7 @@ final class BandInfoViewModel {
         }
         self.yearOfCreationString = yearOfCreationString
 
-        self.reviewCount = discography.releases.compactMap { $0.reviewCount }.reduce(0, +)
+        self.reviewCount = discography.reviewCount
         let ratings = discography.releases.compactMap { $0.rating }
         if ratings.isEmpty {
             self.averageRating = 0

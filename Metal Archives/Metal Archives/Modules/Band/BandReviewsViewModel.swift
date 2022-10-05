@@ -13,16 +13,23 @@ final class BandReviewsViewModel: ObservableObject {
     @Published private(set) var error: Error?
     @Published private(set) var reviews: [ReviewLite] = []
 
-    private let releases: [ReleaseInBand]
+    @Published var albumOrder: Order? { didSet { refreshReviews() } }
+    @Published var ratingOrder: Order? { didSet { refreshReviews() } }
+    @Published var authorOrder: Order? { didSet { refreshReviews() } }
+    @Published var dateOrder: Order? { didSet { refreshReviews() } }
+
+    private let discography: Discography
     private let manager: ReviewLitePageManager
     private var cancellables = Set<AnyCancellable>()
 
-    init(bandId: String,
+    var reviewCount: Int { discography.reviewCount }
+
+    init(band: Band,
          apiService: APIServiceProtocol,
-         releases: [ReleaseInBand]) {
-        let manager = ReviewLitePageManager(bandId: bandId, apiService: apiService)
+         discography: Discography) {
+        let manager = ReviewLitePageManager(bandId: band.id, apiService: apiService)
         self.manager = manager
-        self.releases = releases
+        self.discography = discography
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)
@@ -49,14 +56,53 @@ final class BandReviewsViewModel: ObservableObject {
         }
     }
 
+    private func refreshReviews() {
+        print(#function)
+        switch albumOrder {
+        case .ascending:
+            print("Album asc")
+        case .descending:
+            print("Album desc")
+        case .none:
+            print("Album none")
+        }
+
+        switch ratingOrder {
+        case .ascending:
+            print("Rating asc")
+        case .descending:
+            print("Rating desc")
+        case .none:
+            print("Rating none")
+        }
+
+        switch authorOrder {
+        case .ascending:
+            print("Author asc")
+        case .descending:
+            print("Author desc")
+        case .none:
+            print("Author none")
+        }
+
+        switch dateOrder {
+        case .ascending:
+            print("Date asc")
+        case .descending:
+            print("Date desc")
+        case .none:
+            print("Date none")
+        }
+    }
+
     func release(for review: ReviewLite) -> ReleaseInBand {
-        releases.first { $0.title == review.title } ?? .init(thumbnailInfo: .death,
-                                                             title: "",
-                                                             type: .demo,
-                                                             year: 0,
-                                                             reviewCount: nil,
-                                                             rating: nil,
-                                                             reviewsUrlString: nil,
-                                                             isPlatinium: false)
+        discography.releases.first { $0.title == review.title } ?? .init(thumbnailInfo: .death,
+                                                                         title: "",
+                                                                         type: .demo,
+                                                                         year: 0,
+                                                                         reviewCount: nil,
+                                                                         rating: nil,
+                                                                         reviewsUrlString: nil,
+                                                                         isPlatinium: false)
     }
 }
