@@ -42,6 +42,7 @@ final class BandReviewsViewModel: ObservableObject {
     @MainActor
     func getMoreReviews() async {
         do {
+            error = nil
             try await manager.getMoreElements()
         } catch {
             self.error = error

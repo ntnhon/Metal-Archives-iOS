@@ -20,11 +20,7 @@ struct SimilarArtistsView: View {
                         .frame(maxWidth: .infinity)
                         .font(.caption)
 
-                    Button(action: {
-                        viewModel.refreshSimilarArtists()
-                    }, label: {
-                        Label("Retry", systemImage: "arrow.clockwise")
-                    })
+                    RetryButton(onRetry: viewModel.refreshSimilarArtists)
                 }
 
             case .fetching, .waiting:
@@ -56,6 +52,11 @@ struct SimilarArtistsView: View {
                         .padding()
                         .foregroundColor(.primary)
                     })
+                }
+
+                if similarArtists.isEmpty {
+                    Text("No similar artists yet")
+                        .font(.callout.italic())
                 }
             }
         }

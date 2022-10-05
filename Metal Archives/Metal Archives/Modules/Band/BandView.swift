@@ -30,11 +30,7 @@ struct BandView: View {
                         .frame(maxWidth: .infinity)
                         .font(.caption)
 
-                    Button(action: {
-                        viewModel.refreshBandAndDiscography()
-                    }, label: {
-                        Label("Retry", systemImage: "arrow.clockwise")
-                    })
+                    RetryButton(onRetry: viewModel.refreshBandAndDiscography)
 
                     Button(action: dismiss.callAsFunction) {
                         Label("Go back", systemImage: "arrowshape.turn.up.backward")
@@ -161,6 +157,7 @@ private struct BandContentView: View {
                         .font(.title2)
                         .fontWeight(.bold)
                         .textSelection(.enabled)
+                        .minimumScaleFactor(0.5)
                 }
                 .opacity(titleViewAlpha)
             }

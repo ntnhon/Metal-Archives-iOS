@@ -101,7 +101,7 @@ struct BandInfoView: View {
             Image(systemName: "quote.bubble.fill")
                 .foregroundColor(.secondary)
             if viewModel.reviewCount == 0 {
-                Text("No review yet")
+                Text("No reviews yet")
             } else {
                 Text("\(viewModel.reviewCount)")
                     .fontWeight(.bold)

@@ -19,21 +19,22 @@ struct BandRelatedLinksView: View {
                         .frame(maxWidth: .infinity)
                         .font(.caption)
 
-                    Button(action: {
-                        viewModel.refreshRelatedLinks()
-                    }, label: {
-                        Label("Retry", systemImage: "arrow.clockwise")
-                    })
+                    RetryButton(onRetry: viewModel.refreshRelatedLinks)
                 }
 
             case .fetching, .waiting:
                 ProgressView()
 
             case .fetched(let relatedLinks):
-                ForEach(relatedLinks, id: \.urlString) {
-                    RelatedLinkView(relatedLink: $0)
-                        .padding(.horizontal)
-                        .padding(.vertical, 10)
+                if relatedLinks.isEmpty {
+                    Text("No related links yet")
+                        .font(.callout.italic())
+                } else {
+                    ForEach(relatedLinks, id: \.urlString) {
+                        RelatedLinkView(relatedLink: $0)
+                            .padding(.horizontal)
+                            .padding(.vertical, 10)
+                    }
                 }
             }
         }

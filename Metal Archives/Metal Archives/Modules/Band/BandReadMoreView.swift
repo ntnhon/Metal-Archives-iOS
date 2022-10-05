@@ -22,11 +22,7 @@ struct BandReadMoreView: View {
                         .frame(maxWidth: .infinity)
                         .font(.caption)
 
-                    Button(action: {
-                        viewModel.refreshReadMore()
-                    }, label: {
-                        Label("Retry", systemImage: "arrow.clockwise")
-                    })
+                    RetryButton(onRetry: viewModel.refreshReadMore)
                 }
 
             case .fetching, .waiting:
