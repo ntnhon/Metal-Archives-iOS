@@ -147,52 +147,55 @@ private struct BandContentView: View {
                            alignment: .top)
                 }
             })
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                HStack {
-                    band.status.color
-                        .frame(width: 8, height: 8)
-                        .clipShape(Circle())
-                    Text(band.name)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .textSelection(.enabled)
-                        .minimumScaleFactor(0.5)
-                }
-                .opacity(titleViewAlpha)
-            }
-
-            ToolbarItem(placement: .navigationBarTrailing) {
-                HStack {
-                    Button(action: {
-                        print("Bookmark band")
-                    }, label: {
-                        Image(systemName: "star")
-                    })
-
-                    Menu(content: {
-                        Button(action: {
-                            showingShareSheet.toggle()
-                        }, label: {
-                            Label("Share", systemImage: "square.and.arrow.up")
-                        })
-
-                        Button(action: {
-                            print("Deezer")
-                        }, label: {
-                            Label("Deezer this band", image: "Deezer")
-                        })
-                    }, label: {
-                        Image(systemName: "ellipsis")
-                    })
-                }
-            }
-        }
+        .toolbar { toolbarContent }
         .sheet(isPresented: $showingShareSheet) {
             if let url = URL(string: band.urlString) {
                 ActivityView(items: [url])
             } else {
                 ActivityView(items: [band.urlString])
+            }
+        }
+    }
+
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            HStack {
+                band.status.color
+                    .frame(width: 8, height: 8)
+                    .clipShape(Circle())
+                Text(band.name)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .textSelection(.enabled)
+                    .minimumScaleFactor(0.5)
+            }
+            .opacity(titleViewAlpha)
+        }
+
+        ToolbarItem(placement: .navigationBarTrailing) {
+            HStack {
+//                Button(action: {
+//                    print("Bookmark band")
+//                }, label: {
+//                    Image(systemName: "star")
+//                })
+
+                Menu(content: {
+                    Button(action: {
+                        showingShareSheet.toggle()
+                    }, label: {
+                        Label("Share", systemImage: "square.and.arrow.up")
+                    })
+
+                    Button(action: {
+                        print("Deezer")
+                    }, label: {
+                        Label("Deezer this band", image: "Deezer")
+                    })
+                }, label: {
+                    Image(systemName: "ellipsis")
+                })
             }
         }
     }
