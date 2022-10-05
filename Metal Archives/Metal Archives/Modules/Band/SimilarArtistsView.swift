@@ -31,6 +31,8 @@ struct SimilarArtistsView: View {
                     BandSimilarView(apiService: apiService, bandSimilar: $0)
                         .padding(.horizontal)
                         .padding(.vertical, 8)
+
+                    Divider()
                 }
 
                 if similarArtists.count > 20 {

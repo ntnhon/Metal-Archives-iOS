@@ -9,6 +9,8 @@ import Kingfisher
 import SwiftUI
 
 struct RelatedLinkView: View {
+    @EnvironmentObject private var preferences: Preferences
+    @State private var selectedUrlString: String?
     let relatedLink: RelatedLink
 
     var body: some View {
@@ -27,10 +29,10 @@ struct RelatedLinkView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity)
+        .betterSafariView(urlString: $selectedUrlString,
+                          tintColor: preferences.theme.primaryColor)
         .onTapGesture {
-            if let url = URL(string: relatedLink.urlString) {
-                UIApplication.shared.open(url, options: [:])
-            }
+            selectedUrlString = relatedLink.urlString
         }
     }
 }

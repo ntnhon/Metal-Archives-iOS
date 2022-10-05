@@ -68,6 +68,8 @@ struct DiscographyView: View {
                             }
                     })
                 .buttonStyle(.plain)
+
+                Divider()
             }
         }
         .sheet(isPresented: showingShareSheet) {

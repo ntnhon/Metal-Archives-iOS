@@ -34,6 +34,7 @@ struct BandRelatedLinksView: View {
                         RelatedLinkView(relatedLink: $0)
                             .padding(.horizontal)
                             .padding(.vertical, 10)
+                        Divider()
                     }
                 }
             }
