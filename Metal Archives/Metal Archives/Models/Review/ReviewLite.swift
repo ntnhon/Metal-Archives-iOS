@@ -112,9 +112,72 @@ extension ReviewLite: PageElement {
 }
 
 final class ReviewLitePageManager: PageManager<ReviewLite> {
-    init(bandId: String, apiService: APIServiceProtocol) {
+    init(bandId: String, apiService: APIServiceProtocol, sortOptions: SortOption) {
         // swiftlint:disable:next line_length
-        let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/review/ajax-list-band/id/\(bandId)/json/1?sEcho=1&iColumns=4&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=3&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true&_=1664820838499")
-        super.init(configs: configs, apiService: apiService)
+        let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/review/ajax-list-band/id/\(bandId)/json/1?sEcho=1&iColumns=4&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=\(kSortColumnPlaceholder)&sSortDir_0=\(kSortDirectionPlaceholder)&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true")
+        super.init(configs: configs, apiService: apiService, options: sortOptions.options)
+    }
+}
+
+extension ReviewLitePageManager {
+    enum SortOption: Equatable {
+        case album(Order)
+        case rating(Order)
+        case author(Order)
+        case date(Order)
+
+        var title: String {
+            switch self {
+            case .album(.ascending): return "Album ↑"
+            case .album(.descending): return "Album ↓"
+            case .rating(.ascending): return "Rating ↑"
+            case .rating(.descending): return "Rating ↓"
+            case .author(.ascending): return "Author ↑"
+            case .author(.descending): return "Author ↓"
+            case .date(.ascending): return "Date ↑"
+            case .date(.descending): return "Date ↓"
+            }
+        }
+
+        var column: Int {
+            switch self {
+            case .album: return 0
+            case .rating: return 1
+            case .author: return 2
+            case .date: return 3
+            }
+        }
+
+        var order: Order {
+            switch self {
+            case .album(.ascending),
+                    .rating(.ascending),
+                    .author(.ascending),
+                    .date(.ascending):
+                return .ascending
+            default:
+                return .descending
+            }
+        }
+
+        var options: [String: String] {
+            [kSortColumnPlaceholder: "\(column)", kSortDirectionPlaceholder: order.queryValue]
+        }
+
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            switch (lhs, rhs) {
+            case (.album(.ascending), .album(.ascending)),
+                (.album(.descending), .album(.descending)),
+                (.rating(.ascending), .rating(.ascending)),
+                (.rating(.descending), .rating(.descending)),
+                (.author(.ascending), .author(.ascending)),
+                (.author(.descending), .author(.descending)),
+                (.date(.ascending), .date(.ascending)),
+                (.date(.descending), .date(.descending)):
+                return true
+            default:
+                return false
+            }
+        }
     }
 }

@@ -10,6 +10,8 @@ import Foundation
 let kDefaultPageSize = 200
 let kDisplayStartPlaceholder = "<DISPLAY_START>"
 let kDisplayLengthPlaceholder = "<DISPLAY_LENGTH>"
+let kSortColumnPlaceholder = "<SORT_COLUMN>"
+let kSortDirectionPlaceholder = "<SORT_DIRECTION>"
 let kMaUrlQueryAllowedCharacterSet: CharacterSet = {
     let characterSet = NSMutableCharacterSet()
     characterSet.formUnion(with: CharacterSet.urlQueryAllowed)
@@ -104,15 +106,19 @@ class PageManager<Element: PageElement>: PageManagerProtocol {
     @Published private(set) var isLoading = false
     private var currentPage = 0
     private var moreToLoad = true
+    private var options: [String: String]
     let configs: PageConfigs
     let apiService: APIServiceProtocol
 
-    init(configs: PageConfigs, apiService: APIServiceProtocol) {
+    init(configs: PageConfigs,
+         apiService: APIServiceProtocol,
+         options: [String: String] = [:]) {
         self.configs = configs
         self.apiService = apiService
+        self.options = options
     }
 
-    func getMoreElements(options: [String: String] = [:]) async throws {
+    func getMoreElements() async throws {
         guard moreToLoad else { return }
         isLoading = true
         let results = try await getElements(page: currentPage, options: options)
@@ -120,5 +126,18 @@ class PageManager<Element: PageElement>: PageManagerProtocol {
         isLoading = false
         currentPage += 1
         moreToLoad = elements.count < results.total
+    }
+
+    func updateOptionsAndRefresh(_ options: [String: String]) async throws {
+        self.options = options
+        reset()
+        try await getMoreElements()
+    }
+
+    private func reset() {
+        currentPage = 0
+        moreToLoad = true
+        elements = []
+        isLoading = false
     }
 }

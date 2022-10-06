@@ -13,10 +13,9 @@ final class BandReviewsViewModel: ObservableObject {
     @Published private(set) var error: Error?
     @Published private(set) var reviews: [ReviewLite] = []
 
-    @Published var albumOrder: Order? { didSet { refreshReviews() } }
-    @Published var ratingOrder: Order? { didSet { refreshReviews() } }
-    @Published var authorOrder: Order? { didSet { refreshReviews() } }
-    @Published var dateOrder: Order? { didSet { refreshReviews() } }
+    @Published var sortOption: ReviewLitePageManager.SortOption = .date(.descending) {
+        didSet { refreshReviews() }
+    }
 
     private let discography: Discography
     private let manager: ReviewLitePageManager
@@ -27,9 +26,13 @@ final class BandReviewsViewModel: ObservableObject {
     init(band: Band,
          apiService: APIServiceProtocol,
          discography: Discography) {
-        let manager = ReviewLitePageManager(bandId: band.id, apiService: apiService)
+        let defaultSortOption = ReviewLitePageManager.SortOption.date(.descending)
+        let manager = ReviewLitePageManager(bandId: band.id,
+                                            apiService: apiService,
+                                            sortOptions: defaultSortOption)
         self.manager = manager
         self.discography = discography
+        self.sortOption = defaultSortOption
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)
@@ -57,41 +60,13 @@ final class BandReviewsViewModel: ObservableObject {
     }
 
     private func refreshReviews() {
-        print(#function)
-        switch albumOrder {
-        case .ascending:
-            print("Album asc")
-        case .descending:
-            print("Album desc")
-        case .none:
-            print("Album none")
-        }
-
-        switch ratingOrder {
-        case .ascending:
-            print("Rating asc")
-        case .descending:
-            print("Rating desc")
-        case .none:
-            print("Rating none")
-        }
-
-        switch authorOrder {
-        case .ascending:
-            print("Author asc")
-        case .descending:
-            print("Author desc")
-        case .none:
-            print("Author none")
-        }
-
-        switch dateOrder {
-        case .ascending:
-            print("Date asc")
-        case .descending:
-            print("Date desc")
-        case .none:
-            print("Date none")
+        Task { @MainActor in
+            do {
+                error = nil
+                try await manager.updateOptionsAndRefresh(sortOption.options)
+            } catch {
+                self.error = error
+            }
         }
     }
 

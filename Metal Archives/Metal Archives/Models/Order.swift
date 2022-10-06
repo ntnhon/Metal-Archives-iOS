@@ -17,4 +17,11 @@ enum Order: Int {
         case .descending: return .ascending
         }
     }
+
+    var queryValue: String {
+        switch self {
+        case .ascending: return "asc"
+        case .descending: return "desc"
+        }
+    }
 }

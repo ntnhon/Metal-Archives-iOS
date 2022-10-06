@@ -112,100 +112,69 @@ private struct ReviewOrderPicker: View {
         Menu(content: {
             Section {
                 Button(action: {
-                    viewModel.albumOrder = nil
+                    viewModel.sortOption = .album(.ascending)
                 }, label: {
-                    Label("Album ↑↓",
-                          systemImage: viewModel.albumOrder == nil ? "checkmark" : "")
+                    label(text: "Album ↑",
+                          showCheckmark: viewModel.sortOption == .album(.ascending))
                 })
 
                 Button(action: {
-                    viewModel.albumOrder = .ascending
+                    viewModel.sortOption = .album(.descending)
                 }, label: {
-                    Label("Album ↑",
-                          systemImage: viewModel.albumOrder == .ascending ? "checkmark" : "")
-                })
-
-                Button(action: {
-                    viewModel.albumOrder = .descending
-                }, label: {
-                    Label("Album ↓",
-                          systemImage: viewModel.albumOrder == .descending ? "checkmark" : "")
+                    label(text: "Album ↓",
+                          showCheckmark: viewModel.sortOption == .album(.descending))
                 })
             }
 
             Section {
                 Button(action: {
-                    viewModel.ratingOrder = nil
+                    viewModel.sortOption = .rating(.ascending)
                 }, label: {
-                    Label("Rating ↑↓",
-                          systemImage: viewModel.ratingOrder == nil ? "checkmark" : "")
+                    label(text: "Rating ↑",
+                          showCheckmark: viewModel.sortOption == .rating(.ascending))
                 })
 
                 Button(action: {
-                    viewModel.ratingOrder = .ascending
+                    viewModel.sortOption = .rating(.descending)
                 }, label: {
-                    Label("Rating ↑",
-                          systemImage: viewModel.ratingOrder == .ascending ? "checkmark" : "")
-                })
-
-                Button(action: {
-                    viewModel.ratingOrder = .descending
-                }, label: {
-                    Label("Rating ↓",
-                          systemImage: viewModel.ratingOrder == .descending ? "checkmark" : "")
+                    label(text: "Rating ↓",
+                          showCheckmark: viewModel.sortOption == .rating(.descending))
                 })
             }
 
             Section {
                 Button(action: {
-                    viewModel.authorOrder = nil
+                    viewModel.sortOption = .author(.ascending)
                 }, label: {
-                    Label("Author ↑↓",
-                          systemImage: viewModel.authorOrder == nil ? "checkmark" : "")
+                    label(text: "Author ↑",
+                          showCheckmark: viewModel.sortOption == .author(.ascending))
                 })
 
                 Button(action: {
-                    viewModel.authorOrder = .ascending
+                    viewModel.sortOption = .author(.descending)
                 }, label: {
-                    Label("Author ↑",
-                          systemImage: viewModel.authorOrder == .ascending ? "checkmark" : "")
-                })
-
-                Button(action: {
-                    viewModel.authorOrder = .descending
-                }, label: {
-                    Label("Author ↓",
-                          systemImage: viewModel.authorOrder == .descending ? "checkmark" : "")
+                    label(text: "Author ↓",
+                          showCheckmark: viewModel.sortOption == .author(.descending))
                 })
             }
 
             Section {
                 Button(action: {
-                    viewModel.dateOrder = nil
+                    viewModel.sortOption = .date(.ascending)
                 }, label: {
-                    Label("Date ↑↓",
-                          systemImage: viewModel.dateOrder == nil ? "checkmark" : "")
+                    label(text: "Date ↑",
+                          showCheckmark: viewModel.sortOption == .date(.ascending))
                 })
 
                 Button(action: {
-                    viewModel.dateOrder = .ascending
+                    viewModel.sortOption = .date(.descending)
                 }, label: {
-                    Label("Date ↑",
-                          systemImage: viewModel.dateOrder == .ascending ? "checkmark" : "")
-                })
-
-                Button(action: {
-                    viewModel.dateOrder = .descending
-                }, label: {
-                    Label("Date ↓",
-                          systemImage: viewModel.dateOrder == .descending ? "checkmark" : "")
+                    label(text: "Date ↓",
+                          showCheckmark: viewModel.sortOption == .date(.descending))
                 })
             }
         }, label: {
-            HStack {
-                Text("Order")
-                Image(systemName: "arrow.up.arrow.down")
-            }
+            Text(viewModel.sortOption.title)
             .padding(8)
             .background(preferences.theme.primaryColor)
             .foregroundColor(.white)
@@ -214,5 +183,15 @@ private struct ReviewOrderPicker: View {
         .transaction { transaction in
             transaction.animation = nil
         }
+    }
+
+    private func label(text: String, showCheckmark: Bool) -> some View {
+        Label(title: {
+            Text(text)
+        }, icon: {
+            if showCheckmark {
+                Image(systemName: "checkmark")
+            }
+        })
     }
 }
