@@ -6,8 +6,12 @@
 //
 
 import Combine
+import SwiftUI
 
 final class DiscographyViewModel: ObservableObject {
+    @Published var selectedMode: DiscographyMode = .complete { didSet { updateReleases() } }
+    @Published var selectedOrder: Order = .ascending { didSet { updateReleases() } }
+    @Published private(set) var releases = [ReleaseInBand]()
     private let discography: Discography
     private let main: [ReleaseInBand]
     private let lives: [ReleaseInBand]
@@ -34,6 +38,11 @@ final class DiscographyViewModel: ObservableObject {
         self.modes = modes.reversed()
     }
 
+    func setPreferences(_ preferences: Preferences) {
+        selectedMode = preferences.discographyMode
+        selectedOrder = preferences.dateOrder
+    }
+
     func title(for mode: DiscographyMode) -> String {
         let count: Int
         switch mode {
@@ -46,13 +55,18 @@ final class DiscographyViewModel: ObservableObject {
         return "\(mode.description ) (\(count))"
     }
 
-    func releases(for mode: DiscographyMode, order: Order) -> [ReleaseInBand] {
-        switch mode {
-        case .complete: return discography.releases.sorted(by: order)
-        case .main: return main.sorted(by: order)
-        case .lives: return lives.sorted(by: order)
-        case .demos: return demos.sorted(by: order)
-        case .misc: return misc.sorted(by: order)
+    private func updateReleases() {
+        switch selectedMode {
+        case .complete:
+            releases = discography.releases.sorted(by: selectedOrder)
+        case .main:
+            releases = main.sorted(by: selectedOrder)
+        case .lives:
+            releases = lives.sorted(by: selectedOrder)
+        case .demos:
+            releases = demos.sorted(by: selectedOrder)
+        case .misc:
+            releases = misc.sorted(by: selectedOrder)
         }
     }
 }

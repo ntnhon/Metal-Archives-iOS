@@ -10,17 +10,15 @@ import SwiftUI
 struct DiscographyView: View {
     @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: DiscographyViewModel
-    @State private var selectedMode: DiscographyMode = .complete
-    @State private var releaseYearOrder: Order
+    @State private var viewDidLoad = false
     @State private var showingRelease = false
     @State private var selectedRelease: ReleaseInBand?
+    private let apiService: APIServiceProtocol
 
-    init(discography: Discography,
-         releaseYearOrder: Order,
-         defaultDiscographyMode: DiscographyMode) {
+    init(apiService: APIServiceProtocol,
+         discography: Discography) {
+        self.apiService = apiService
         _viewModel = .init(wrappedValue: .init(discography: discography))
-        _releaseYearOrder = .init(initialValue: releaseYearOrder)
-        _selectedMode = .init(initialValue: defaultDiscographyMode)
     }
 
     var body: some View {
@@ -35,24 +33,16 @@ struct DiscographyView: View {
         VStack {
             options
             Divider()
-            ForEach(viewModel.releases(for: selectedMode,
-                                       order: releaseYearOrder),
-                    id: \.thumbnailInfo.id) { release in
+            ForEach(viewModel.releases, id: \.thumbnailInfo.id) { release in
                 NavigationLink(
-                    isActive: $showingRelease,
                     destination: {
-                        ReleaseView(releaseUrlString: release.thumbnailInfo.urlString)
+                        ReleaseView(apiService: apiService,
+                                    releaseUrlString: release.thumbnailInfo.urlString)
                     },
                     label: {
                         ReleaseInBandView(release: release)
                             .padding(.vertical, 8)
                             .contextMenu {
-                                Button(action: {
-                                    showingRelease.toggle()
-                                }, label: {
-                                    Label("View release detail", systemImage: "opticaldisc")
-                                })
-
                                 Button(action: {
                                     let text = "\(release.title) (\(release.year)) (\(release.type.description))"
                                     UIPasteboard.general.string = text
@@ -80,14 +70,19 @@ struct DiscographyView: View {
                 ActivityView(items: [selectedRelease?.thumbnailInfo.urlString ?? ""])
             }
         }
+        .onAppear {
+            if !viewDidLoad {
+                viewDidLoad = true
+                viewModel.setPreferences(preferences)
+            }
+        }
     }
 
     private var options: some View {
         HStack {
-            DiscographyModePicker(viewModel: viewModel,
-                                  selectedMode: $selectedMode)
+            DiscographyModePicker(viewModel: viewModel)
             Spacer()
-            OrderView(order: $releaseYearOrder, title: "Release year")
+            OrderView(order: $viewModel.selectedOrder, title: "Release year")
         }
     }
 }
@@ -98,9 +93,8 @@ struct DiscographyView_Previews: PreviewProvider {
             Color(.systemBackground).ignoresSafeArea()
             ScrollView {
                 VStack {
-                    DiscographyView(discography: .death,
-                                    releaseYearOrder: .ascending,
-                                    defaultDiscographyMode: .complete)
+                    DiscographyView(apiService: APIService(),
+                                    discography: .death)
                 }
             }
             .padding(.horizontal)
@@ -114,17 +108,16 @@ struct DiscographyView_Previews: PreviewProvider {
 private struct DiscographyModePicker: View {
     @EnvironmentObject private var preferences: Preferences
     @ObservedObject var viewModel: DiscographyViewModel
-    @Binding var selectedMode: DiscographyMode
 
     var body: some View {
         Menu(content: {
             ForEach(viewModel.modes, id: \.self) { mode in
                 Button(action: {
-                    selectedMode = mode
+                    viewModel.selectedMode = mode
                 }, label: {
                     HStack {
                         Text(viewModel.title(for: mode))
-                        if mode == selectedMode {
+                        if mode == viewModel.selectedMode {
                             Spacer()
                             Image(systemName: "checkmark")
                         }
@@ -132,7 +125,7 @@ private struct DiscographyModePicker: View {
                 })
             }
         }, label: {
-            Label(viewModel.title(for: selectedMode),
+            Label(viewModel.title(for: viewModel.selectedMode),
                   systemImage: "line.3.horizontal")
                 .padding(8)
                 .background(preferences.theme.primaryColor)

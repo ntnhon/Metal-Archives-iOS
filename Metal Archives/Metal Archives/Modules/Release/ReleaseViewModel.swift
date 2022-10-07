@@ -8,15 +8,26 @@
 import Combine
 
 final class ReleaseViewModel: ObservableObject {
-    private(set) var release: Release?
-    private var cancellables = Set<AnyCancellable>()
+    deinit { print("\(Self.self) of \(releaseUrlString) is deallocated") }
+
+    @Published private(set) var releaseFetchable: FetchableObject<Release> = .waiting
+    private let apiService: APIServiceProtocol
     private let releaseUrlString: String
 
-    deinit {
-        print("\(Self.self) of \(releaseUrlString) is deallocated")
+    init(apiService: APIServiceProtocol, releaseUrlString: String) {
+        self.apiService = apiService
+        self.releaseUrlString = releaseUrlString
     }
 
-    init(releaseUrlString: String) {
-        self.releaseUrlString = releaseUrlString
+    @MainActor
+    func fetchRelease() async {
+        do {
+            releaseFetchable = .fetching
+            let release = try await apiService.request(forType: Release.self,
+                                                       urlString: releaseUrlString)
+            releaseFetchable = .fetched(release)
+        } catch {
+            releaseFetchable = .error(error)
+        }
     }
 }

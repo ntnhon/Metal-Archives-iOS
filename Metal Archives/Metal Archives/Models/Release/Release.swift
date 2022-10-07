@@ -169,12 +169,12 @@ fileprivate enum ReleaseMemberType {
     case bandMember, guest, misc
 }
 
-extension Release {
+extension Release: HTMLParsable {
     // swiftlint:disable identifier_name
-    init?(data: Data) {
+    init(data: Data) throws {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
               let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
-            return nil
+            throw MAError.parseFailure(String(describing: Self.self))
         }
 
         let builder = Builder()
@@ -296,7 +296,9 @@ extension Release {
             }
         }
 
-        guard let release = builder.build() else { return nil }
+        guard let release = builder.build() else {
+            throw MAError.parseFailure(String(describing: Self.self))
+        }
         self = release
     }
 

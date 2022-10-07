@@ -122,11 +122,8 @@ private struct BandContentView: View {
                     Group {
                         switch selectedSection {
                         case .discography:
-                            DiscographyView(
-                                discography: discography,
-                                releaseYearOrder: preferences.dateOrder,
-                                defaultDiscographyMode: preferences.discographyMode
-                            )
+                            DiscographyView(apiService: apiService,
+                                            discography: discography)
                             .padding(.horizontal)
 
                         case .members:
