@@ -29,6 +29,9 @@ struct Band {
     let currentLineUp: [ArtistInBand] // or last known
     let pastMembers: [ArtistInBand]
     let liveMusicians: [ArtistInBand]
+
+    var hasPhoto: Bool { photoUrlString != nil }
+    var hasLogo: Bool { logoUrlString != nil }
 }
 
 extension Band {

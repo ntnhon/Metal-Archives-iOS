@@ -35,18 +35,25 @@ struct BandHeaderView: View {
     @ViewBuilder
     private var logoView: some View {
         let logoHeight = min(UIScreen.main.bounds.height / 4, 150)
-        if viewModel.band.logoUrlString != nil {
+        if viewModel.band.hasLogo {
             GeometryReader { proxy in
                 ZStack {
-                    if viewModel.isLoadingLogo {
+                    switch viewModel.logoFetchable {
+                    case .waiting, .fetching:
                         ProgressView()
                             .frame(width: logoHeight, height: logoHeight)
-                    }
 
-                    if let logo = viewModel.logo {
-                        Image(uiImage: logo)
-                            .resizable()
-                            .scaledToFit()
+                    case .fetched(let logo):
+                        if let logo = logo {
+                            Image(uiImage: logo)
+                                .resizable()
+                                .scaledToFit()
+                        } else {
+                            EmptyView()
+                        }
+
+                    case .error:
+                        RetryButton(onRetry: viewModel.fetchImages)
                     }
                 }
                 .clipped()
@@ -69,31 +76,38 @@ struct BandHeaderView: View {
     private var photoView: some View {
         let band = viewModel.band
         let photoHeight = min(UIScreen.main.bounds.width / 2, 150)
-        if band.photoUrlString != nil {
+        if band.hasPhoto {
             ZStack {
-                if viewModel.isLoadingPhoto {
+                switch viewModel.photoFetchable {
+                case .waiting, .fetching:
                     ProgressView()
                         .frame(width: photoHeight, height: photoHeight)
-                }
 
-                if let photo = viewModel.photo {
-                    ZStack {
-                        Image(uiImage: photo)
-                            .resizable()
-                            .scaledToFill()
-                            .blur(radius: 4)
-                            .frame(width: photoHeight, height: photoHeight)
+                case .fetched(let photo):
+                    if let photo = photo {
+                        ZStack {
+                            Image(uiImage: photo)
+                                .resizable()
+                                .scaledToFill()
+                                .blur(radius: 4)
+                                .frame(width: photoHeight, height: photoHeight)
 
-                        Image(uiImage: photo)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: photoHeight, height: photoHeight)
+                            Image(uiImage: photo)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: photoHeight, height: photoHeight)
+                        }
+                    } else {
+                        EmptyView()
                     }
+
+                case .error:
+                    RetryButton(onRetry: viewModel.fetchImages)
                 }
             }
             .clipShape(Rectangle())
             .border(Color(.label), width: 2)
-            .padding(.top, band.logoUrlString != nil ? -photoHeight / 3 : 0)
+            .padding(.top, band.hasLogo ? -photoHeight / 3 : 0)
             .onTapGesture {
                 if let photo = viewModel.photo {
                     onSelectImage(photo)
