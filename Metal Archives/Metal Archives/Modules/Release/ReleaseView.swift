@@ -27,6 +27,7 @@ struct ReleaseView: View {
             case .fetched(let release):
                 ReleaseContentView(apiService: apiService,
                                    release: release)
+                .environmentObject(viewModel)
             case .error(let error):
                 VStack {
                     Text(error.userFacingMessage)
@@ -46,6 +47,7 @@ struct ReleaseView: View {
 
 private struct ReleaseContentView: View {
     @EnvironmentObject private var preferences: Preferences
+    @EnvironmentObject private var viewModel: ReleaseViewModel
     @Environment(\.selectedPhoto) private var selectedPhoto
     @State private var titleViewAlpha = 0.0
     @State private var topSectionSize: CGSize = .zero
@@ -53,8 +55,47 @@ private struct ReleaseContentView: View {
     let release: Release
 
     var body: some View {
-        Text(release.title)
-            .foregroundColor(preferences.theme.primaryColor)
+        OffsetAwareScrollView(
+            axes: .vertical,
+            showsIndicator: true,
+            onOffsetChanged: { point in
+                let screenBounds = UIScreen.main.bounds
+                if point.y < 0,
+                   abs(point.y) > (min(screenBounds.width, screenBounds.height) * 2 / 3) {
+                    titleViewAlpha = abs(point.y) / min(screenBounds.width, screenBounds.height)
+                } else {
+                    titleViewAlpha = 0.0
+                }
+            },
+            content: {
+                Text(release.title)
+            })
+        .toolbar { toolbarContent }
+    }
+
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarLeading) {
+            HStack {
+                switch viewModel.coverFetchable {
+                case .fetched(let image):
+                    if let image = image {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50)
+                    }
+                default:
+                    EmptyView()
+                }
+                Text(release.title)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .textSelection(.enabled)
+                    .minimumScaleFactor(0.5)
+            }
+//            .opacity(titleViewAlpha)
+        }
     }
 }
 
