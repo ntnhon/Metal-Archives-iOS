@@ -9,9 +9,11 @@ import SwiftUI
 
 struct ReleaseView: View {
     @StateObject private var viewModel: ReleaseViewModel
+    private let apiService: APIServiceProtocol
 
     init(apiService: APIServiceProtocol,
          releaseUrlString: String) {
+        self.apiService = apiService
         let vm = ReleaseViewModel(apiService: apiService,
                                   releaseUrlString: releaseUrlString)
         _viewModel = .init(wrappedValue: vm)
@@ -25,7 +27,8 @@ struct ReleaseView: View {
             case .fetching:
                 ProgressView()
             case .fetched(let release):
-                Text(release.title)
+                ReleaseContentView(apiService: apiService,
+                                   release: release)
             case .error(let error):
                 VStack {
                     Text(error.userFacingMessage)
@@ -43,9 +46,27 @@ struct ReleaseView: View {
     }
 }
 
+private struct ReleaseContentView: View {
+    @EnvironmentObject private var preferences: Preferences
+    @Environment(\.selectedPhoto) private var selectedPhoto
+    @State private var titleViewAlpha = 0.0
+    @State private var topSectionSize: CGSize = .zero
+    let apiService: APIServiceProtocol
+    let release: Release
+
+    var body: some View {
+        Text(release.title)
+            .foregroundColor(preferences.theme.primaryColor)
+    }
+}
+
 struct ReleaseView_Previews: PreviewProvider {
     static var previews: some View {
-        ReleaseView(apiService: APIService(),
-                    releaseUrlString: "https://www.metal-archives.com/albums/Death/Human/606")
+        NavigationView {
+            ReleaseView(apiService: APIService(),
+                        releaseUrlString: "https://www.metal-archives.com/albums/Death/Human/606")
+        }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
     }
 }

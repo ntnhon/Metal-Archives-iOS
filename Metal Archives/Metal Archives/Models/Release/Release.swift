@@ -323,6 +323,8 @@ extension Release: HTMLParsable {
                        let labelUrlString = a["href"]?.components(separatedBy: "#").first {
                         let thumbnailInfo = ThumbnailInfo(urlString: labelUrlString, type: .label)
                         builder.label = LabelLite(thumbnailInfo: thumbnailInfo, name: labelName)
+                    } else {
+                        builder.label = .init(thumbnailInfo: nil, name: dd.text ?? "")
                     }
                 case .format: builder.format = ddText
                 case .reviews:
