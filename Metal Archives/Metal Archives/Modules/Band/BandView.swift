@@ -38,7 +38,7 @@ struct BandView: View {
                 }
 
             case .fetching, .waiting:
-                ProgressView()
+                HornCircularLoader()
 
             case .fetched(let (band, discography)):
                 BandContentView(band: band,

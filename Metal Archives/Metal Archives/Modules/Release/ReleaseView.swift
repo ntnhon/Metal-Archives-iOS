@@ -22,10 +22,8 @@ struct ReleaseView: View {
     var body: some View {
         ZStack {
             switch viewModel.releaseFetchable {
-            case .waiting:
-                EmptyView()
-            case .fetching:
-                ProgressView()
+            case .fetching, .waiting:
+                HornCircularLoader()
             case .fetched(let release):
                 ReleaseContentView(apiService: apiService,
                                    release: release)
