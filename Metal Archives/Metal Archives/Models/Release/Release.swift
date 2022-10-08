@@ -135,11 +135,6 @@ extension Release {
                 return nil
             }
 
-            guard let bandMembers = bandMembers else {
-                Logger.log("[Building Release] bandMembers can not be nil.")
-                return nil
-            }
-
             return Release(id: id,
                            urlString: urlString,
                            bands: bands,
@@ -157,7 +152,7 @@ extension Release {
                            modificationInfo: modificationInfo,
                            isBookmarked: isBookmarked,
                            elements: elements,
-                           bandMembers: bandMembers,
+                           bandMembers: bandMembers ?? [],
                            guestMembers: guestMembers ?? [],
                            otherStaff: otherStaff ?? [],
                            reviews: reviews ?? [])

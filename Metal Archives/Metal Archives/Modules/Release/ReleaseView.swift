@@ -76,7 +76,7 @@ private struct ReleaseContentView: View {
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
-            HStack {
+            Group {
                 switch viewModel.coverFetchable {
                 case .fetched(let image):
                     if let image = image {
@@ -88,13 +88,17 @@ private struct ReleaseContentView: View {
                 default:
                     EmptyView()
                 }
-                Text(release.title)
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .textSelection(.enabled)
-                    .minimumScaleFactor(0.5)
             }
 //            .opacity(titleViewAlpha)
+        }
+
+        ToolbarItem(placement: .principal) {
+            Text(release.title)
+                .font(.title2)
+                .fontWeight(.bold)
+                .textSelection(.enabled)
+                .minimumScaleFactor(0.5)
+            //            .opacity(titleViewAlpha)
         }
     }
 }
