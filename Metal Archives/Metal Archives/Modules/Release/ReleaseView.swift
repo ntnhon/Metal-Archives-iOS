@@ -50,26 +50,78 @@ private struct ReleaseContentView: View {
     @EnvironmentObject private var viewModel: ReleaseViewModel
     @Environment(\.selectedPhoto) private var selectedPhoto
     @State private var titleViewAlpha = 0.0
-    @State private var topSectionSize: CGSize = .zero
+    @State private var coverViewHeight: CGFloat = 300
+    @State private var coverScaleFactor: CGFloat = 1.0
+    @State private var coverOpacity: Double = 1.0
+    private let minCoverScaleFactor: CGFloat = 0.5
     let apiService: APIServiceProtocol
     let release: Release
 
     var body: some View {
-        OffsetAwareScrollView(
-            axes: .vertical,
-            showsIndicator: true,
-            onOffsetChanged: { point in
-                let screenBounds = UIScreen.main.bounds
-                if point.y < 0,
-                   abs(point.y) > (min(screenBounds.width, screenBounds.height) * 2 / 3) {
-                    titleViewAlpha = abs(point.y) / min(screenBounds.width, screenBounds.height)
-                } else {
-                    titleViewAlpha = 0.0
-                }
-            },
-            content: {
-                Text(release.title)
-            })
+        ZStack(alignment: .top) {
+            ReleaseCoverView(scaleFactor: $coverScaleFactor,
+                             opacity: $coverOpacity)
+                .environmentObject(viewModel)
+                .frame(height: coverViewHeight)
+                .frame(maxWidth: .infinity)
+
+            OffsetAwareScrollView(
+                axes: .vertical,
+                showsIndicator: true,
+                onOffsetChanged: { point in
+                    let screenBounds = UIScreen.main.bounds
+                    if point.y < 0,
+                       abs(point.y) > (min(screenBounds.width, screenBounds.height) * 2 / 3) {
+                        titleViewAlpha = abs(point.y) / min(screenBounds.width, screenBounds.height)
+                    } else {
+                        titleViewAlpha = 0.0
+                    }
+
+                    if point.y < 0 {
+                        var factor = min(1.0, 50 / abs(point.y))
+                        factor = factor < minCoverScaleFactor ? minCoverScaleFactor : factor
+                        coverScaleFactor = factor
+                        coverOpacity = (factor - minCoverScaleFactor) / minCoverScaleFactor
+                        print(coverOpacity)
+                    }
+                },
+                content: {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Color.clear
+                            .frame(height: coverViewHeight)
+
+                        Text(release.title)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding()
+                            .textSelection(.enabled)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(
+                                LinearGradient(
+                                    gradient: .init(colors: [Color(.systemBackground),
+                                                             Color(.systemBackground.withAlphaComponent(0.9)),
+                                                             Color(.systemBackground.withAlphaComponent(0.7)),
+                                                             Color(.systemBackground.withAlphaComponent(0.5)),
+                                                             Color(.systemBackground.withAlphaComponent(0.3)),
+                                                             Color(.systemBackground.withAlphaComponent(0.1)),
+                                                             Color.clear]),
+                                    startPoint: .bottom,
+                                    endPoint: .top)
+                            )
+
+                        VStack {
+                            ForEach(0...100, id: \.self) { _ in
+                                Text("")
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color(.systemBackground))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .fixedSize(horizontal: false, vertical: true)
+                })
+        }
+        .edgesIgnoringSafeArea(.top)
         .toolbar { toolbarContent }
     }
 
@@ -84,12 +136,13 @@ private struct ReleaseContentView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 50)
+                            .padding(.vertical, 4)
                     }
                 default:
                     EmptyView()
                 }
             }
-//            .opacity(titleViewAlpha)
+            .opacity(titleViewAlpha)
         }
 
         ToolbarItem(placement: .principal) {
@@ -98,11 +151,12 @@ private struct ReleaseContentView: View {
                 .fontWeight(.bold)
                 .textSelection(.enabled)
                 .minimumScaleFactor(0.5)
-            //            .opacity(titleViewAlpha)
+                .opacity(titleViewAlpha)
         }
     }
 }
 
+/*
 struct ReleaseView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
@@ -113,3 +167,4 @@ struct ReleaseView_Previews: PreviewProvider {
         .environmentObject(Preferences())
     }
 }
+*/

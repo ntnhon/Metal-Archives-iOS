@@ -198,6 +198,7 @@ private struct BandContentView: View {
     }
 }
 
+/*
 struct BandView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
@@ -208,3 +209,4 @@ struct BandView_Previews: PreviewProvider {
         .environmentObject(Preferences())
     }
 }
+*/

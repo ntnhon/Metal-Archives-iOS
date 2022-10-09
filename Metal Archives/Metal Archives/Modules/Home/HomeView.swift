@@ -47,6 +47,13 @@ struct HomeView: View {
             }, label: {
                 Text("Fleshgod Apocalypse")
             })
+
+            NavigationLink(destination: {
+                ReleaseView(apiService: apiService,
+                            releaseUrlString: "https://www.metal-archives.com/albums/Death/Scream_Bloody_Gore/598")
+            }, label: {
+                Text("Scream Bloody Gore")
+            })
         }
     }
 }

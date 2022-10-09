@@ -18,6 +18,33 @@ final class ReleaseViewModel: ObservableObject {
     private let apiService: APIServiceProtocol
     private let releaseUrlString: String
 
+    private var release: Release? {
+        switch releaseFetchable {
+        case .fetched(let release):
+            return release
+        default:
+            return nil
+        }
+    }
+
+    var isFetchingCover: Bool {
+        switch coverFetchable {
+        case .fetching:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var cover: UIImage? {
+        switch coverFetchable {
+        case .fetched(let cover):
+            return cover
+        default:
+            return nil
+        }
+    }
+
     init(apiService: APIServiceProtocol, releaseUrlString: String) {
         self.apiService = apiService
         self.releaseUrlString = releaseUrlString
@@ -31,15 +58,16 @@ final class ReleaseViewModel: ObservableObject {
             let release = try await apiService.request(forType: Release.self,
                                                        urlString: releaseUrlString)
             releaseFetchable = .fetched(release)
-            await fetchCoverImage(urlString: release.coverUrlString)
+            await fetchCoverImage()
         } catch {
             releaseFetchable = .error(error)
         }
     }
 
     @MainActor
-    private func fetchCoverImage(urlString: String?) async {
-        guard let urlString = urlString, let url = URL(string: urlString) else {
+    func fetchCoverImage() async {
+        guard let urlString = release?.coverUrlString,
+              let url = URL(string: urlString) else {
             noCover = true
             return
         }
@@ -50,5 +78,9 @@ final class ReleaseViewModel: ObservableObject {
         } catch {
             coverFetchable = .error(error)
         }
+    }
+
+    func fetchCoverImage() {
+        Task { await fetchCoverImage() }
     }
 }
