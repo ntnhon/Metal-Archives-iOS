@@ -54,6 +54,7 @@ private struct ReleaseContentView: View {
     @State private var coverScaleFactor: CGFloat = 1.0
     @State private var coverOpacity: Double = 1.0
     private let minCoverScaleFactor: CGFloat = 0.5
+    private let maxCoverScaleFactor: CGFloat = 1.2
     let apiService: APIServiceProtocol
     let release: Release
 
@@ -69,6 +70,7 @@ private struct ReleaseContentView: View {
                 axes: .vertical,
                 showsIndicator: true,
                 onOffsetChanged: { point in
+                    /// Calculate `titleViewAlpha`
                     let screenBounds = UIScreen.main.bounds
                     if point.y < 0,
                        abs(point.y) > (min(screenBounds.width, screenBounds.height) * 2 / 3) {
@@ -77,12 +79,16 @@ private struct ReleaseContentView: View {
                         titleViewAlpha = 0.0
                     }
 
+                    /// Calculate `coverScaleFactor` & `coverOpacity`
                     if point.y < 0 {
-                        var factor = min(1.0, 50 / abs(point.y))
+                        var factor = min(1.0, 70 / abs(point.y))
                         factor = factor < minCoverScaleFactor ? minCoverScaleFactor : factor
                         coverScaleFactor = factor
                         coverOpacity = (factor - minCoverScaleFactor) / minCoverScaleFactor
-                        print(coverOpacity)
+                    } else {
+                        var factor = max(1.0, point.y / 70)
+                        factor = factor > maxCoverScaleFactor ? maxCoverScaleFactor : factor
+                        coverScaleFactor = factor
                     }
                 },
                 content: {

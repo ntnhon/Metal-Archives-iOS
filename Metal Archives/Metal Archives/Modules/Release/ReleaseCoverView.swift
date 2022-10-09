@@ -29,6 +29,7 @@ struct ReleaseCoverView: View {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFit()
+                        .padding(.top, 50)
                         .padding(50)
                         .scaleEffect(scaleFactor)
                         .opacity(opacity)
