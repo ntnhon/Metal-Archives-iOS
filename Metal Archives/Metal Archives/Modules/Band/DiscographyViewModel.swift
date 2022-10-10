@@ -9,8 +9,8 @@ import Combine
 import SwiftUI
 
 final class DiscographyViewModel: ObservableObject {
-    @Published var selectedMode: DiscographyMode = .complete { didSet { updateReleases() } }
-    @Published var selectedOrder: Order = .ascending { didSet { updateReleases() } }
+    @Published var selectedMode: DiscographyMode { didSet { updateReleases() } }
+    @Published var selectedOrder: Order { didSet { updateReleases() } }
     @Published private(set) var releases = [ReleaseInBand]()
     private let discography: Discography
     private let main: [ReleaseInBand]
@@ -19,8 +19,12 @@ final class DiscographyViewModel: ObservableObject {
     private let misc: [ReleaseInBand]
     let modes: [DiscographyMode]
 
-    init(discography: Discography) {
+    init(discography: Discography,
+         discographyMode: DiscographyMode,
+         order: Order) {
         self.discography = discography
+        self.selectedMode = discographyMode
+        self.selectedOrder = order
         self.main = discography.releases.filter { $0.type == .fullLength }
         let livesTypes: [ReleaseType] = [.liveAlbum, .video, .splitVideo]
         self.lives = discography.releases.filter { livesTypes.contains($0.type) }
@@ -36,11 +40,7 @@ final class DiscographyViewModel: ObservableObject {
         if !demos.isEmpty { modes.append(.demos) }
         if !misc.isEmpty { modes.append(.misc) }
         self.modes = modes.reversed()
-    }
-
-    func setPreferences(_ preferences: Preferences) {
-        selectedMode = preferences.discographyMode
-        selectedOrder = preferences.dateOrder
+        updateReleases()
     }
 
     func title(for mode: DiscographyMode) -> String {

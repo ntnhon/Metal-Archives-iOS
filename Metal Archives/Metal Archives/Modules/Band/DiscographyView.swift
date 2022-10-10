@@ -10,15 +10,14 @@ import SwiftUI
 struct DiscographyView: View {
     @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: DiscographyViewModel
-    @State private var viewDidLoad = false
     @State private var showingRelease = false
     @State private var selectedRelease: ReleaseInBand?
     private let apiService: APIServiceProtocol
 
     init(apiService: APIServiceProtocol,
-         discography: Discography) {
+         viewModel: DiscographyViewModel) {
         self.apiService = apiService
-        _viewModel = .init(wrappedValue: .init(discography: discography))
+        _viewModel = .init(wrappedValue: viewModel)
     }
 
     var body: some View {
@@ -70,12 +69,6 @@ struct DiscographyView: View {
                 ActivityView(items: [selectedRelease?.thumbnailInfo.urlString ?? ""])
             }
         }
-        .onAppear {
-            if !viewDidLoad {
-                viewDidLoad = true
-                viewModel.setPreferences(preferences)
-            }
-        }
     }
 
     private var options: some View {
@@ -94,7 +87,9 @@ struct DiscographyView_Previews: PreviewProvider {
             ScrollView {
                 VStack {
                     DiscographyView(apiService: APIService(),
-                                    discography: .death)
+                                    viewModel: .init(discography: .death,
+                                                     discographyMode: .complete,
+                                                     order: .ascending))
                 }
             }
             .padding(.horizontal)

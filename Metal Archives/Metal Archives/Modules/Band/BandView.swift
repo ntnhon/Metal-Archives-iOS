@@ -9,6 +9,7 @@ import Kingfisher
 import SwiftUI
 
 struct BandView: View {
+    @EnvironmentObject private var preferences: Preferences
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: BandViewModel
     let apiService: APIServiceProtocol
@@ -43,7 +44,8 @@ struct BandView: View {
             case .fetched(let (band, discography)):
                 BandContentView(band: band,
                                 apiService: apiService,
-                                discography: discography)
+                                discography: discography,
+                                preferences: preferences)
                 .environmentObject(viewModel)
             }
         }
@@ -55,10 +57,10 @@ struct BandView: View {
 }
 
 private struct BandContentView: View {
-    @EnvironmentObject private var preferences: Preferences
     @Environment(\.selectedPhoto) private var selectedPhoto
     @StateObject private var reviewsViewModel: BandReviewsViewModel
-    @State private var selectedSection: BandSection = .discography
+    @StateObject private var discographyViewModel: DiscographyViewModel
+    @ObservedObject private var tabsDatasource = BandTabsDatasource()
     @State private var titleViewAlpha = 0.0
     @State private var showingShareSheet = false
     @State private var topSectionSize: CGSize = .zero
@@ -66,10 +68,16 @@ private struct BandContentView: View {
     let band: Band
     let discography: Discography
 
-    init(band: Band, apiService: APIServiceProtocol, discography: Discography) {
+    init(band: Band,
+         apiService: APIServiceProtocol,
+         discography: Discography,
+         preferences: Preferences) {
         self.band = band
         self.apiService = apiService
         self.discography = discography
+        self._discographyViewModel = .init(wrappedValue: .init(discography: discography,
+                                                               discographyMode: preferences.discographyMode,
+                                                               order: preferences.dateOrder))
         _reviewsViewModel = .init(wrappedValue: .init(band: band,
                                                       apiService: apiService,
                                                       discography: discography))
@@ -113,17 +121,17 @@ private struct BandContentView: View {
                         topSectionSize = $0
                     }
 
-                    BandSectionView(selectedSection: $selectedSection)
+                    HorizontalTabs(datasource: tabsDatasource)
                         .padding(.bottom)
 
                     let screenBounds = UIScreen.main.bounds
                     let maxSize = max(screenBounds.height, screenBounds.width)
                     let bottomSectionMinHeight = maxSize - topSectionSize.height - 250 // 🪄✨
                     Group {
-                        switch selectedSection {
+                        switch tabsDatasource.selectedTab {
                         case .discography:
                             DiscographyView(apiService: apiService,
-                                            discography: discography)
+                                            viewModel: discographyViewModel)
                             .padding(.horizontal)
 
                         case .members:
