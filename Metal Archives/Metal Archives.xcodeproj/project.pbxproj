@@ -416,16 +416,16 @@
 				EF48E6CA2895BC2900B52EF2 /* ErrorExtensions.swift */,
 				C0378CE3268BAC7700E24B28 /* FetchableObject.swift */,
 				C0F240FC26891D9D00ED546D /* HTMLParsable.swift */,
+				EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */,
 				C0063EBD265C4630005AB1E2 /* Logger.swift */,
 				EF2862D228EB5EB700E2C131 /* PageManagerProtocol.swift */,
 				C08DF5CE26A62108002E73EB /* SizePreferenceKey.swift */,
 				C0DD1376267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift */,
 				C004A2BD2658F3760071E12A /* StringExtensions.swift */,
-				C02A4CDD268678C6001CF9D2 /* Vibration.swift */,
-				C02A4CDF26867D84001CF9D2 /* ViewExtensions.swift */,
 				C05FDD3626996E1000EE2AB3 /* UIColorExtensions.swift */,
 				C0451EFA269503A90028AE1A /* UINavigationController.swift */,
-				EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */,
+				C02A4CDD268678C6001CF9D2 /* Vibration.swift */,
+				C02A4CDF26867D84001CF9D2 /* ViewExtensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -656,16 +656,16 @@
 			children = (
 				C0964F482723FAB100100972 /* ActivityView.swift */,
 				EF48E6C82895BBFB00B52EF2 /* AlertToastModifiers.swift */,
+				EF31834B289862D000B6C8DD /* BetterSafariViewModifier.swift */,
 				C021535326A6155F006F6A33 /* Blur.swift */,
 				C071578226E6AA280075C012 /* HighlightableText.swift */,
 				EF62240928F15FDF00845430 /* HornCircularLoader.swift */,
 				EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */,
 				C0C65A1526982E250062FF9C /* OrderView.swift */,
-				C0A9934C2712411700121BA3 /* SelectedPhotoableViewModifier.swift */,
 				C0FA708426B0789500B618E6 /* RelatedLinkView.swift */,
-				C0DF7D1826A44C850049C98D /* ThumbnailView.swift */,
-				EF31834B289862D000B6C8DD /* BetterSafariViewModifier.swift */,
 				EFC98B3B28EE0BD000154C30 /* RetryButton.swift */,
+				C0A9934C2712411700121BA3 /* SelectedPhotoableViewModifier.swift */,
+				C0DF7D1826A44C850049C98D /* ThumbnailView.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
