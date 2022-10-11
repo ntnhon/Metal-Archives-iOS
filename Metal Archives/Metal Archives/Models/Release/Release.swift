@@ -235,32 +235,32 @@ extension Release: HTMLParsable {
                     guard let trText = tr.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { continue }
                     switch tr["class"] {
                     case "sideRow":
-                        elements.append(.side(value: trText.replacingOccurrences(of: "\n", with: " ")))
+                        elements.append(.side(trText.replacingOccurrences(of: "\n", with: " ")))
 
                     case "discRow":
-                        elements.append(.disc(value: trText.replacingOccurrences(of: "\n", with: " ")))
+                        elements.append(.disc(trText.replacingOccurrences(of: "\n", with: " ")))
 
                     case "even", "odd":
-                        let trackBuilder = ReleaseElement.TrackBuilder()
+                        let songBuilder = Song.Builder()
                         for (index, td) in tr.css("td").enumerated() {
                             guard let tdText = td.text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
                                 continue
                             }
                             switch index {
-                            case 0: trackBuilder.number = tdText
-                            case 1: trackBuilder.title = tdText
-                            case 2: trackBuilder.length = tdText
+                            case 0: songBuilder.number = tdText
+                            case 1: songBuilder.title = tdText.replacingOccurrences(of: "\n", with: " ")
+                            case 2: songBuilder.length = tdText
                             case 3:
-                                trackBuilder.isInstrumental = tdText.contains("instrumental") == true
-                                trackBuilder.lyricId = td.at_css("a")?["href"]?.removeAll(string: "#")
+                                songBuilder.isInstrumental = tdText.contains("instrumental") == true
+                                songBuilder.lyricId = td.at_css("a")?["href"]?.removeAll(string: "#")
                             default: break
                             }
                         }
-                        if let track = trackBuilder.build() {
-                            elements.append(track)
+                        if let song = songBuilder.build() {
+                            elements.append(.song(song))
                         }
 
-                    case nil: elements.append(.length(value: trText))
+                    case nil: elements.append(.length(trText))
 
                     default: break
                     }

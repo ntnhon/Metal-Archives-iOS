@@ -25,6 +25,7 @@ struct ReleaseCoverView: View {
                         .resizable()
                         .scaledToFill()
                         .blur(radius: 20)
+                        .fixedSize(horizontal: false, vertical: true)
 
                     Image(uiImage: image)
                         .resizable()

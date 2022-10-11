@@ -65,7 +65,6 @@ private struct ReleaseContentView: View {
                              opacity: $coverOpacity)
                 .environmentObject(viewModel)
                 .frame(height: coverViewHeight)
-                .frame(maxWidth: .infinity)
 
             OffsetAwareScrollView(
                 axes: .vertical,
@@ -74,8 +73,8 @@ private struct ReleaseContentView: View {
                     /// Calculate `titleViewAlpha`
                     let screenBounds = UIScreen.main.bounds
                     if point.y < 0,
-                       abs(point.y) > (min(screenBounds.width, screenBounds.height) * 2 / 3) {
-                        titleViewAlpha = abs(point.y) / min(screenBounds.width, screenBounds.height)
+                       abs(point.y) > (min(screenBounds.width, screenBounds.height) / 4) {
+                        titleViewAlpha = (abs(point.y) + 300) / min(screenBounds.width, screenBounds.height)
                     } else {
                         titleViewAlpha = 0.0
                     }
@@ -122,11 +121,11 @@ private struct ReleaseContentView: View {
 
                         let screenBounds = UIScreen.main.bounds
                         let maxSize = max(screenBounds.height, screenBounds.width)
-                        let bottomSectionMinHeight = maxSize - coverViewHeight - 250 // 🪄✨
+                        let bottomSectionMinHeight = maxSize - coverViewHeight // 🪄✨
                         Group {
                             switch tabsDatasource.selectedTab {
                             case .songs:
-                                TracklistView()
+                                TracklistView(elements: release.elements)
                                     .padding(.horizontal)
 
                             case .lineUp:
@@ -143,12 +142,9 @@ private struct ReleaseContentView: View {
                                 ReleaseNoteView()
                             }
                         }
-                        .frame(minHeight: bottomSectionMinHeight,
-                               alignment: .top)
+                        .frame(minHeight: bottomSectionMinHeight, alignment: .top)
                         .background(Color(.systemBackground))
                     }
-                    .frame(maxWidth: .infinity)
-                    .fixedSize(horizontal: false, vertical: true)
                 })
         }
         .edgesIgnoringSafeArea(.top)

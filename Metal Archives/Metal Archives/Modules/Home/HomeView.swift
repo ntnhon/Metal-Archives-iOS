@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// swiftlint:disable line_length
 struct HomeView: View {
     @EnvironmentObject private var settings: Preferences
     let apiService: APIServiceProtocol
@@ -53,6 +54,13 @@ struct HomeView: View {
                             releaseUrlString: "https://www.metal-archives.com/albums/Death/Scream_Bloody_Gore/598")
             }, label: {
                 Text("Scream Bloody Gore")
+            })
+
+            NavigationLink(destination: {
+                ReleaseView(apiService: apiService,
+                            releaseUrlString: "https://www.metal-archives.com/albums/Death/Victims_of_Death_-_The_Best_of_Decade_of_Chaos/665400")
+            }, label: {
+                Text("Victims of Death - The Best of Decade of Chaos")
             })
         }
     }
