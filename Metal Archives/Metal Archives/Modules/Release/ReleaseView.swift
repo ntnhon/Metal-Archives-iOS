@@ -120,12 +120,31 @@ private struct ReleaseContentView: View {
                             .padding(.bottom)
                             .background(Color(.systemBackground))
 
-                        VStack {
-                            ForEach(0...100, id: \.self) { _ in
-                                Text("")
+                        let screenBounds = UIScreen.main.bounds
+                        let maxSize = max(screenBounds.height, screenBounds.width)
+                        let bottomSectionMinHeight = maxSize - coverViewHeight - 250 // 🪄✨
+                        Group {
+                            switch tabsDatasource.selectedTab {
+                            case .songs:
+                                TracklistView()
+                                    .padding(.horizontal)
+
+                            case .lineUp:
+                                ReleaseLineUpView()
+                                    .padding(.horizontal)
+
+                            case .otherVersions:
+                                OtherVersionsView()
+
+                            case .reviews:
+                                ReleaseReviewsView()
+
+                            case .additionalNotes:
+                                ReleaseNoteView()
                             }
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(minHeight: bottomSectionMinHeight,
+                               alignment: .top)
                         .background(Color(.systemBackground))
                     }
                     .frame(maxWidth: .infinity)
