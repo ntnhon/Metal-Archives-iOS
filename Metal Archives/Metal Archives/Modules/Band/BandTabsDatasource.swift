@@ -75,6 +75,5 @@ final class BandTabsDatasource: HorizontalTabsDatasource {
 
     override func onSelectTab(index: Int) {
         selectedTab = BandTab.allCases[index]
-//        objectWillChange.send()
     }
 }

@@ -45,7 +45,7 @@ struct HorizontalTabs: View {
                         datasource.normalSystemIconNameForTab(index: index))
             })
             .foregroundColor(datasource.isSelectedTab(index: index) ? preferences.theme.primaryColor : .secondary)
-            Color(.separator)
+            Color(index != datasource.numberOfTabs() - 1 ? .separator : .clear)
                 .frame(width: 1, height: 16)
                 .padding(.horizontal)
         }
