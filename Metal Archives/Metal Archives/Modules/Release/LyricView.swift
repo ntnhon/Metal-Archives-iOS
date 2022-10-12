@@ -62,11 +62,11 @@ struct LyricView: View {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: {
                 if let lyric = viewModel.fetchedLyric {
-                    UIPasteboard.general.string = lyric
+                    UIPasteboard.general.string = "\(viewModel.song.title)\n\(lyric)"
                     copiedMessage = "Lyric copied"
                 }
             }, label: {
-                Text("Copy")
+                Label("Copy", systemImage: "doc.on.doc")
             })
             .opacity(viewModel.fetchedLyric != nil ? 1 : 0)
             .disabled(viewModel.fetchedLyric == nil)

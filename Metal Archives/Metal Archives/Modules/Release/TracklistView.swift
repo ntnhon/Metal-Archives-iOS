@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TracklistView: View {
+    @State private var noLyricMessage: String?
     @State private var selectedSongWithLyric: Song?
     let apiService: APIServiceProtocol
     let elements: [ReleaseElement]
@@ -30,6 +31,8 @@ struct TracklistView: View {
                         .onTapGesture {
                             if song.lyricId != nil {
                                 selectedSongWithLyric = song
+                            } else {
+                                noLyricMessage = "This is an instrumental song"
                             }
                         }
                     Divider()
@@ -60,6 +63,7 @@ struct TracklistView: View {
                 LyricView(apiService: apiService, song: song)
             }
         }
+        .alertToastMessage($noLyricMessage)
     }
 
     private func discOrSideView(title: String, isFirstElement: Bool) -> some View {
