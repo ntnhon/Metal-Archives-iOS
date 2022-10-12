@@ -160,6 +160,8 @@
 		EF31834728984BC500B6C8DD /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF31834628984BC500B6C8DD /* APIService.swift */; };
 		EF31834A2898627C00B6C8DD /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = EF3183492898627C00B6C8DD /* BetterSafariView */; };
 		EF31834C289862D000B6C8DD /* BetterSafariViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF31834B289862D000B6C8DD /* BetterSafariViewModifier.swift */; };
+		EF488C7028F741E6007191A6 /* LyricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF488C6F28F741E6007191A6 /* LyricView.swift */; };
+		EF488C7228F74309007191A6 /* LyricViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF488C7128F74309007191A6 /* LyricViewModel.swift */; };
 		EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */; };
 		EF48E6C72895BBA900B52EF2 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = EF48E6C62895BBA900B52EF2 /* AlertToast */; };
 		EF48E6C92895BBFB00B52EF2 /* AlertToastModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6C82895BBFB00B52EF2 /* AlertToastModifiers.swift */; };
@@ -358,6 +360,8 @@
 		EF2862D528EB70CB00E2C131 /* BandReviewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReviewsViewModel.swift; sourceTree = "<group>"; };
 		EF31834628984BC500B6C8DD /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		EF31834B289862D000B6C8DD /* BetterSafariViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewModifier.swift; sourceTree = "<group>"; };
+		EF488C6F28F741E6007191A6 /* LyricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricView.swift; sourceTree = "<group>"; };
+		EF488C7128F74309007191A6 /* LyricViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricViewModel.swift; sourceTree = "<group>"; };
 		EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
 		EF48E6C82895BBFB00B52EF2 /* AlertToastModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastModifiers.swift; sourceTree = "<group>"; };
 		EF48E6CA2895BC2900B52EF2 /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
@@ -925,6 +929,8 @@
 		EF48E6CC2895BD4A00B52EF2 /* Release */ = {
 			isa = PBXGroup;
 			children = (
+				EF488C6F28F741E6007191A6 /* LyricView.swift */,
+				EF488C7128F74309007191A6 /* LyricViewModel.swift */,
 				EFA48C4328F5EA010012B349 /* OtherVersionsView.swift */,
 				EF48E6CF2895BD8100B52EF2 /* ReleaseView.swift */,
 				EF48E6D12895BDAB00B52EF2 /* ReleaseViewModel.swift */,
@@ -1135,6 +1141,7 @@
 				C0DD1383267F6C40009F0B81 /* DiscographyMode.swift in Sources */,
 				C004556D267FA95500B47356 /* Theme.swift in Sources */,
 				C060E6D426827DBB0006433A /* AdvancedSearchCountryListView.swift in Sources */,
+				EF488C7028F741E6007191A6 /* LyricView.swift in Sources */,
 				EFC0C6BD28F49D0A0092497A /* HorizontalTabs.swift in Sources */,
 				C01D2D672683DB1A00957DE5 /* ReleaseTypeListView.swift in Sources */,
 				C0F2410126891F1100ED546D /* MAError.swift in Sources */,
@@ -1175,6 +1182,7 @@
 				C0FA708926B084BA00B618E6 /* BandReadMoreView.swift in Sources */,
 				C02A4CDA26866F50001CF9D2 /* Top100AlbumsView.swift in Sources */,
 				C01D2D6B2683DD0D00957DE5 /* ReleaseFormatListView.swift in Sources */,
+				EF488C7228F74309007191A6 /* LyricViewModel.swift in Sources */,
 				C02A8CB426812E78001430D6 /* Genre.swift in Sources */,
 				C0D632BD2687CC9900348E29 /* DataExtensions.swift in Sources */,
 				C004A2C02658F4F40071E12A /* DateFormatterExtensions.swift in Sources */,

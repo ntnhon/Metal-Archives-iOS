@@ -8,14 +8,30 @@
 import SwiftUI
 
 struct TracklistView: View {
+    @State private var selectedSongWithLyric: Song?
+    let apiService: APIServiceProtocol
     let elements: [ReleaseElement]
 
     var body: some View {
+        let showingLyric = Binding<Bool>(get: {
+            selectedSongWithLyric != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedSongWithLyric = nil
+            }
+        })
+
         VStack(alignment: .leading, spacing: 8) {
             ForEach(0...elements.count - 1, id: \.self) { index in
                 switch elements[index] {
                 case .song(let song):
                     SongView(song: song)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            if song.lyricId != nil {
+                                selectedSongWithLyric = song
+                            }
+                        }
                     Divider()
 
                 case .disc(let title):
@@ -39,6 +55,11 @@ struct TracklistView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical)
+        .sheet(isPresented: showingLyric) {
+            if let song = selectedSongWithLyric {
+                LyricView(apiService: apiService, song: song)
+            }
+        }
     }
 
     private func discOrSideView(title: String, isFirstElement: Bool) -> some View {

@@ -125,7 +125,8 @@ private struct ReleaseContentView: View {
                         Group {
                             switch tabsDatasource.selectedTab {
                             case .songs:
-                                TracklistView(elements: release.elements)
+                                TracklistView(apiService: apiService,
+                                              elements: release.elements)
                                     .padding(.horizontal)
 
                             case .lineUp:

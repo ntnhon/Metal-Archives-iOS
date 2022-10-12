@@ -26,7 +26,7 @@ struct AlertToastCompletionMessage: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .toast(isPresenting: isPresenting, duration: 3.5) {
+            .toast(isPresenting: isPresenting) {
                 AlertToast(displayMode: .alert,
                            type: .complete(.green),
                            title: title,
@@ -41,7 +41,7 @@ struct AlertToastCopyMessage: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .toast(isPresenting: isPresenting, duration: 3.5) {
+            .toast(isPresenting: isPresenting) {
                 AlertToast(displayMode: .alert,
                            type: .systemImage("doc.on.doc", .secondary),
                            title: "Copied",
@@ -63,7 +63,7 @@ extension View {
                 error.wrappedValue = nil
             }
         })
-        return toast(isPresenting: binding, duration: 3.5) {
+        return toast(isPresenting: binding) {
             AlertToast(displayMode: .banner(.pop),
                        type: .error(.red),
                        title: error.wrappedValue?.userFacingMessage)
@@ -78,7 +78,7 @@ extension View {
                 message.wrappedValue = nil
             }
         })
-        return toast(isPresenting: binding, duration: 3.5) {
+        return toast(isPresenting: binding) {
             AlertToast(displayMode: .banner(.pop),
                        type: .regular,
                        title: message.wrappedValue)
@@ -93,7 +93,7 @@ extension View {
                 message.wrappedValue = nil
             }
         })
-        return toast(isPresenting: binding, duration: 3.5) {
+        return toast(isPresenting: binding) {
             AlertToast(displayMode: .alert,
                        type: .systemImage("doc.on.doc", .secondary),
                        title: "Copied",

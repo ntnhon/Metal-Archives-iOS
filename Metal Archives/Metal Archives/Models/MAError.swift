@@ -9,6 +9,7 @@ import Foundation
 
 enum MAError: Error, CustomStringConvertible {
     case badUrlString(String)
+    case failedToUtf8DecodeString
     case invalidServerResponse
     case missingBand
     case parseFailure(String)
@@ -19,6 +20,8 @@ enum MAError: Error, CustomStringConvertible {
         switch self {
         case .badUrlString(let urlString):
             return "Bad url (\(urlString))"
+        case .failedToUtf8DecodeString:
+            return "Failed to UTF8 decode"
         case .invalidServerResponse:
             return "Invalid server response"
         case .missingBand:

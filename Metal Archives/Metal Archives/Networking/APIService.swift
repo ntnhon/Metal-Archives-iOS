@@ -11,6 +11,7 @@ protocol APIServiceProtocol {
     var session: URLSession { get }
 
     func getData(for urlString: String) async throws -> Data
+    func getString(for urlString: String) async throws -> String
     func request<T: HTMLParsable>(forType type: T.Type, urlString: String) async throws -> T
 }
 
@@ -32,6 +33,14 @@ extension APIServiceProtocol {
         default:
             throw MAError.requestFailure(httpResponse.statusCode)
         }
+    }
+
+    func getString(for urlString: String) async throws -> String {
+        let data = try await getData(for: urlString)
+        guard let string = String(data: data, encoding: .utf8) else {
+            throw MAError.failedToUtf8DecodeString
+        }
+        return string
     }
 
     func request<T: HTMLParsable>(forType type: T.Type, urlString: String) async throws -> T {
