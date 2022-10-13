@@ -96,27 +96,10 @@ private struct ReleaseContentView: View {
                         Color.clear
                             .frame(height: coverViewHeight)
 
-                        Text(release.title)
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .padding()
-                            .textSelection(.enabled)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(
-                                LinearGradient(
-                                    gradient: .init(colors: [Color(.systemBackground),
-                                                             Color(.systemBackground.withAlphaComponent(0.9)),
-                                                             Color(.systemBackground.withAlphaComponent(0.7)),
-                                                             Color(.systemBackground.withAlphaComponent(0.5)),
-                                                             Color(.systemBackground.withAlphaComponent(0.3)),
-                                                             Color(.systemBackground.withAlphaComponent(0.1)),
-                                                             Color.clear]),
-                                    startPoint: .bottom,
-                                    endPoint: .top)
-                            )
+                        ReleaseInfoView(release: release)
 
                         HorizontalTabs(datasource: tabsDatasource)
-                            .padding(.bottom)
+                            .padding(.vertical)
                             .background(Color(.systemBackground))
 
                         let screenBounds = UIScreen.main.bounds

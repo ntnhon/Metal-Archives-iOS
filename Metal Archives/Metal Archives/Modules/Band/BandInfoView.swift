@@ -105,7 +105,7 @@ struct BandInfoView: View {
             } else {
                 Text("\(viewModel.reviewCount)")
                     .fontWeight(.bold)
-                    + Text(" review\(viewModel.reviewCount > 0 ? "s" : "") • ")
+                    + Text(" review\(viewModel.reviewCount > 1 ? "s" : "") • ")
                     + Text("\(viewModel.averageRating)%")
                     .fontWeight(.bold)
                     .foregroundColor(Color.byRating(viewModel.averageRating))

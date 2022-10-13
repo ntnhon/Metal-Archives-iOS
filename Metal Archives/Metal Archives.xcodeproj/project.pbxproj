@@ -185,6 +185,7 @@
 		EFC0C6BF28F49F8C0092497A /* BandTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0C6BE28F49F8C0092497A /* BandTabsDatasource.swift */; };
 		EFC98B3C28EE0BD000154C30 /* RetryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC98B3B28EE0BD000154C30 /* RetryButton.swift */; };
 		EFE028F12894852E004F2328 /* SearchTips.md in Resources */ = {isa = PBXBuildFile; fileRef = EFE028F02894852E004F2328 /* SearchTips.md */; };
+		EFE80F5028F8A1F3008445DD /* ReleaseInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE80F4F28F8A1F3008445DD /* ReleaseInfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -384,6 +385,7 @@
 		EFC0C6BE28F49F8C0092497A /* BandTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandTabsDatasource.swift; sourceTree = "<group>"; };
 		EFC98B3B28EE0BD000154C30 /* RetryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryButton.swift; sourceTree = "<group>"; };
 		EFE028F02894852E004F2328 /* SearchTips.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SearchTips.md; sourceTree = "<group>"; };
+		EFE80F4F28F8A1F3008445DD /* ReleaseInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -935,6 +937,7 @@
 				EF48E6CF2895BD8100B52EF2 /* ReleaseView.swift */,
 				EF48E6D12895BDAB00B52EF2 /* ReleaseViewModel.swift */,
 				EF62240D28F1C94300845430 /* ReleaseCoverView.swift */,
+				EFE80F4F28F8A1F3008445DD /* ReleaseInfoView.swift */,
 				EFA48C4128F5E9E00012B349 /* ReleaseLineUpView.swift */,
 				EFA48C4728F5EA3A0012B349 /* ReleaseNoteView.swift */,
 				EFA48C4528F5EA1E0012B349 /* ReleaseReviewsView.swift */,
@@ -1219,6 +1222,7 @@
 				C0DD137F267F6B41009F0B81 /* HomeSectionOrderView.swift in Sources */,
 				C00473A8265E0BC200C66F45 /* BandInRelease.swift in Sources */,
 				C0378CE6268BB5F200E24B28 /* BandHeaderView.swift in Sources */,
+				EFE80F5028F8A1F3008445DD /* ReleaseInfoView.swift in Sources */,
 				C007887A26AF5B750080AC93 /* SimilarArtistsView.swift in Sources */,
 				C0A37B6D26584E980017A02F /* Country.swift in Sources */,
 				C03873A62659AC0C00D2FD5E /* ReleaseInBand.swift in Sources */,
