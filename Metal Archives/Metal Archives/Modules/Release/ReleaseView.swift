@@ -147,7 +147,7 @@ private struct ReleaseContentView: View {
                                 OtherVersionsView()
 
                             case .reviews:
-                                ReleaseReviewsView()
+                                ReleaseReviewsView(reviews: release.reviews)
 
                             case .additionalNotes:
                                 ReleaseNoteView()

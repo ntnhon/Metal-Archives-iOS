@@ -10,16 +10,16 @@ import Foundation
 enum ReleaseTab: CaseIterable {
     case songs
     case lineUp
-    case otherVersions
     case reviews
+    case otherVersions
     case additionalNotes
 
     var title: String {
         switch self {
         case .songs: return "Songs"
         case .lineUp: return "Line-up"
-        case .otherVersions: return "Other Versions"
         case .reviews: return "Reviews"
+        case .otherVersions: return "Other Versions"
         case .additionalNotes: return "Additional Notes"
         }
     }
@@ -28,8 +28,8 @@ enum ReleaseTab: CaseIterable {
         switch self {
         case .songs: return "music.note.list"
         case .lineUp: return "person.3"
-        case .otherVersions: return "circle.grid.cross"
         case .reviews: return "star.bubble"
+        case .otherVersions: return "circle.grid.cross"
         case .additionalNotes: return "info.circle"
         }
     }
@@ -38,8 +38,8 @@ enum ReleaseTab: CaseIterable {
         switch self {
         case .songs: return "music.note.list"
         case .lineUp: return "person.3.fill"
-        case .otherVersions: return "circle.grid.cross.fill"
         case .reviews: return "star.bubble.fill"
+        case .otherVersions: return "circle.grid.cross.fill"
         case .additionalNotes: return "info.circle.fill"
         }
     }
