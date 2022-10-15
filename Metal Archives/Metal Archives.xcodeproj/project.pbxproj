@@ -161,6 +161,8 @@
 		EF31834A2898627C00B6C8DD /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = EF3183492898627C00B6C8DD /* BetterSafariView */; };
 		EF31834C289862D000B6C8DD /* BetterSafariViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF31834B289862D000B6C8DD /* BetterSafariViewModifier.swift */; };
 		EF3CAEED28FAA3710092D80E /* LabelLiteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3CAEEC28FAA3710092D80E /* LabelLiteButton.swift */; };
+		EF3CAEF028FADD3D0092D80E /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3CAEEF28FADD3D0092D80E /* LabelView.swift */; };
+		EF3CAEF228FADD5A0092D80E /* LabelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3CAEF128FADD5A0092D80E /* LabelViewModel.swift */; };
 		EF488C7028F741E6007191A6 /* LyricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF488C6F28F741E6007191A6 /* LyricView.swift */; };
 		EF488C7228F74309007191A6 /* LyricViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF488C7128F74309007191A6 /* LyricViewModel.swift */; };
 		EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */; };
@@ -363,6 +365,8 @@
 		EF31834628984BC500B6C8DD /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		EF31834B289862D000B6C8DD /* BetterSafariViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewModifier.swift; sourceTree = "<group>"; };
 		EF3CAEEC28FAA3710092D80E /* LabelLiteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLiteButton.swift; sourceTree = "<group>"; };
+		EF3CAEEF28FADD3D0092D80E /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
+		EF3CAEF128FADD5A0092D80E /* LabelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewModel.swift; sourceTree = "<group>"; };
 		EF488C6F28F741E6007191A6 /* LyricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricView.swift; sourceTree = "<group>"; };
 		EF488C7128F74309007191A6 /* LyricViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricViewModel.swift; sourceTree = "<group>"; };
 		EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
@@ -840,6 +844,7 @@
 				C0D632BE2687CE0600348E29 /* Band */,
 				C017D415267E3040008B6EE5 /* Browse */,
 				C017D40D267E2F53008B6EE5 /* Home */,
+				EF3CAEEE28FADD2F0092D80E /* Label */,
 				C017D41A267E308C008B6EE5 /* My Account */,
 				EF48E6CC2895BD4A00B52EF2 /* Release */,
 				C017D422267E30F0008B6EE5 /* Root */,
@@ -929,6 +934,15 @@
 				C007887926AF5B750080AC93 /* SimilarArtistsView.swift */,
 			);
 			path = Band;
+			sourceTree = "<group>";
+		};
+		EF3CAEEE28FADD2F0092D80E /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				EF3CAEEF28FADD3D0092D80E /* LabelView.swift */,
+				EF3CAEF128FADD5A0092D80E /* LabelViewModel.swift */,
+			);
+			path = Label;
 			sourceTree = "<group>";
 		};
 		EF48E6CC2895BD4A00B52EF2 /* Release */ = {
@@ -1146,6 +1160,7 @@
 				C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */,
 				C0DD1383267F6C40009F0B81 /* DiscographyMode.swift in Sources */,
 				C004556D267FA95500B47356 /* Theme.swift in Sources */,
+				EF3CAEF028FADD3D0092D80E /* LabelView.swift in Sources */,
 				C060E6D426827DBB0006433A /* AdvancedSearchCountryListView.swift in Sources */,
 				EF488C7028F741E6007191A6 /* LyricView.swift in Sources */,
 				EFC0C6BD28F49D0A0092497A /* HorizontalTabs.swift in Sources */,
@@ -1169,6 +1184,7 @@
 				C0E006A12698EDC100B5D503 /* ReleaseInBandView.swift in Sources */,
 				EFA48C4628F5EA1E0012B349 /* ReleaseReviewsView.swift in Sources */,
 				C0451EFB269503A90028AE1A /* UINavigationController.swift in Sources */,
+				EF3CAEF228FADD5A0092D80E /* LabelViewModel.swift in Sources */,
 				C060E6C826825D120006433A /* AdvancedSearchView.swift in Sources */,
 				C017D419267E3088008B6EE5 /* BrowseView.swift in Sources */,
 				C004A2BE2658F3760071E12A /* StringExtensions.swift in Sources */,

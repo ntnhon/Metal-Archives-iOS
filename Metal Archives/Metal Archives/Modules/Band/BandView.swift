@@ -64,6 +64,8 @@ private struct BandContentView: View {
     @State private var titleViewAlpha = 0.0
     @State private var showingShareSheet = false
     @State private var topSectionSize: CGSize = .zero
+    @State private var selectedBandUrl: String?
+    @State private var selectedLabelUrl: String?
     let apiService: APIServiceProtocol
     let band: Band
     let discography: Discography
@@ -84,6 +86,9 @@ private struct BandContentView: View {
     }
 
     var body: some View {
+        let isShowingBand = makeIsShowingBandDetailBinding()
+        let isShowingLabel = makeIsShowingLabelDetailBinding()
+
         OffsetAwareScrollView(
             axes: .vertical,
             showsIndicator: true,
@@ -98,6 +103,30 @@ private struct BandContentView: View {
             },
             content: {
                 VStack {
+                    NavigationLink(
+                        isActive: isShowingBand,
+                        destination: {
+                            if let selectedBandUrl = selectedBandUrl {
+                                BandView(apiService: apiService, bandUrlString: selectedBandUrl)
+                            } else {
+                                EmptyView()
+                            }
+                        }, label: {
+                            EmptyView()
+                        })
+
+                    NavigationLink(
+                        isActive: isShowingLabel,
+                        destination: {
+                            if let selectedLabelUrl = selectedLabelUrl {
+                                LabelView(apiService: apiService, urlString: selectedLabelUrl)
+                            } else {
+                                EmptyView()
+                            }
+                        }, label: {
+                            EmptyView()
+                        })
+
                     VStack {
                         BandHeaderView(band: band) { selectedImage in
                             let photo = Photo(image: selectedImage,
@@ -106,8 +135,8 @@ private struct BandContentView: View {
                         }
 
                         BandInfoView(viewModel: .init(band: band, discography: discography),
-                                     onSelectLabel: { _ in },
-                                     onSelectBand: { _ in })
+                                     onSelectLabel: { url in selectedLabelUrl = url },
+                                     onSelectBand: { url in selectedBandUrl = url })
                         .padding(.horizontal)
 
                         BandReadMoreView()
@@ -160,6 +189,26 @@ private struct BandContentView: View {
                 ActivityView(items: [band.urlString])
             }
         }
+    }
+
+    private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedBandUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedBandUrl = nil
+            }
+        })
+    }
+
+    private func makeIsShowingLabelDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedLabelUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedLabelUrl = nil
+            }
+        })
     }
 
     @ToolbarContentBuilder

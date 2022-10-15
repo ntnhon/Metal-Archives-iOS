@@ -55,6 +55,7 @@ private struct ReleaseContentView: View {
     @State private var coverScaleFactor: CGFloat = 1.0
     @State private var coverOpacity: Double = 1.0
     @State private var selectedBandUrl: String?
+    @State private var selectedLabelUrl: String?
     private let minCoverScaleFactor: CGFloat = 0.5
     private let maxCoverScaleFactor: CGFloat = 1.2
     let apiService: APIServiceProtocol
@@ -62,13 +63,24 @@ private struct ReleaseContentView: View {
 
     var body: some View {
         let isShowingBandDetail = makeIsShowingBandDetailBinding()
+        let isShowingLabelDetail = makeIsShowingLabelDetailBinding()
+
         ZStack(alignment: .top) {
             NavigationLink(
                 isActive: isShowingBandDetail,
                 destination: {
                     if let selectedBandUrl = selectedBandUrl {
-                        BandView(apiService: apiService,
-                                 bandUrlString: selectedBandUrl)
+                        BandView(apiService: apiService, bandUrlString: selectedBandUrl)
+                    } else {
+                        EmptyView()
+                    }},
+                label: { EmptyView() })
+
+            NavigationLink(
+                isActive: isShowingLabelDetail,
+                destination: {
+                    if let selectedLabelUrl = selectedLabelUrl {
+                        LabelView(apiService: apiService, urlString: selectedLabelUrl)
                     } else {
                         EmptyView()
                     }},
@@ -111,7 +123,7 @@ private struct ReleaseContentView: View {
 
                         ReleaseInfoView(release: release,
                                         onSelectBand: { url in selectedBandUrl = url },
-                                        onSelectLabel: { _ in })
+                                        onSelectLabel: { url in selectedLabelUrl = url })
 
                         HorizontalTabs(datasource: tabsDatasource)
                             .padding(.vertical)
@@ -152,10 +164,20 @@ private struct ReleaseContentView: View {
 
     private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
         .init(get: {
-            self.selectedBandUrl != nil
+            selectedBandUrl != nil
         }, set: { newValue in
             if !newValue {
                 selectedBandUrl = nil
+            }
+        })
+    }
+
+    private func makeIsShowingLabelDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedLabelUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedLabelUrl = nil
             }
         })
     }
