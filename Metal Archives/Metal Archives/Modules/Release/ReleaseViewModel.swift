@@ -52,6 +52,7 @@ final class ReleaseViewModel: ObservableObject {
 
     @MainActor
     func fetchRelease() async {
+        if case .fetched = releaseFetchable { return }
         do {
             noCover = false
             releaseFetchable = .fetching

@@ -54,13 +54,26 @@ private struct ReleaseContentView: View {
     @State private var coverViewHeight: CGFloat = 300
     @State private var coverScaleFactor: CGFloat = 1.0
     @State private var coverOpacity: Double = 1.0
+    @State private var selectedBandUrl: String?
     private let minCoverScaleFactor: CGFloat = 0.5
     private let maxCoverScaleFactor: CGFloat = 1.2
     let apiService: APIServiceProtocol
     let release: Release
 
     var body: some View {
+        let isShowingBandDetail = makeIsShowingBandDetailBinding()
         ZStack(alignment: .top) {
+            NavigationLink(
+                isActive: isShowingBandDetail,
+                destination: {
+                    if let selectedBandUrl = selectedBandUrl {
+                        BandView(apiService: apiService,
+                                 bandUrlString: selectedBandUrl)
+                    } else {
+                        EmptyView()
+                    }},
+                label: { EmptyView() })
+
             ReleaseCoverView(scaleFactor: $coverScaleFactor,
                              opacity: $coverOpacity)
                 .environmentObject(viewModel)
@@ -97,7 +110,7 @@ private struct ReleaseContentView: View {
                             .frame(height: coverViewHeight)
 
                         ReleaseInfoView(release: release,
-                                        onSelectBand: { _ in },
+                                        onSelectBand: { url in selectedBandUrl = url },
                                         onSelectLabel: { _ in })
 
                         HorizontalTabs(datasource: tabsDatasource)
@@ -135,6 +148,16 @@ private struct ReleaseContentView: View {
         }
         .edgesIgnoringSafeArea(.top)
         .toolbar { toolbarContent }
+    }
+
+    private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            self.selectedBandUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedBandUrl = nil
+            }
+        })
     }
 
     @ToolbarContentBuilder

@@ -47,37 +47,61 @@ struct ReleaseInfoView: View {
             )
 
             VStack(alignment: .leading, spacing: 10) {
-                bandsView
+                if release.bands.count == 1, let band = release.bands.first {
+                    singleBandView(band: band)
+                } else {
+                    bandsView
+                }
+
                 HStack {
                     Image(systemName: "calendar")
                         .foregroundColor(.secondary)
                     Text(release.date)
                     Spacer()
                 }
+
                 HStack {
                     Image(systemName: "books.vertical")
                         .foregroundColor(.secondary)
                     Text(release.catalogId)
                     Spacer()
                 }
+
                 HStack {
                     Image(systemName: "tag.fill")
                         .foregroundColor(.secondary)
                     LabelLiteButton(label: release.label, onSelect: onSelectLabel)
                     Spacer()
                 }
+
                 HStack {
                     Image(systemName: "opticaldisc")
                         .foregroundColor(.secondary)
                     Text(release.format)
                     Spacer()
                 }
+
                 reviewView
             }
             .padding(.horizontal)
             .frame(maxWidth: .infinity, alignment: .leading)
             .fixedSize(horizontal: false, vertical: true)
             .background(Color(.systemBackground))
+        }
+    }
+
+    private func singleBandView(band: BandLite) -> some View {
+        HStack {
+            Image(systemName: "person.3.fill")
+                .foregroundColor(.secondary)
+            Button(action: {
+                onSelectBand(band.thumbnailInfo.urlString)
+            }, label: {
+                Text(band.name)
+                    .fontWeight(.bold)
+                    .foregroundColor( preferences.theme.primaryColor)
+            })
+            Spacer()
         }
     }
 
@@ -91,6 +115,19 @@ struct ReleaseInfoView: View {
                 // swiftlint:disable:next shorthand_operator
                 partialResult = partialResult + text
             }
+            .overlay(
+                Menu(content: {
+                    ForEach(release.bands, id: \.name) { band in
+                        Button(action: {
+                            onSelectBand(band.thumbnailInfo.urlString)
+                        }, label: {
+                            Text(band.name)
+                        })
+                    }
+                }, label: {
+                    Color.clear
+                })
+            )
             Spacer()
         }
     }
