@@ -8,6 +8,8 @@
 import SwiftUI
 
 final class LabelViewModel: ObservableObject {
+    deinit { print("\(Self.self) of \(urlString) is deallocated") }
+
     private let apiService: APIServiceProtocol
     private let urlString: String
 

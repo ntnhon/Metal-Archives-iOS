@@ -8,15 +8,13 @@
 import Combine
 
 final class ArtistViewModel: ObservableObject {
-    private(set) var artist: Artist?
-    private var cancellables = Set<AnyCancellable>()
-    private let artistUrlString: String
+    deinit { print("\(Self.self) of \(urlString) is deallocated") }
 
-    deinit {
-        print("\(Self.self) of \(artistUrlString) is deallocated")
-    }
+    private let apiService: APIServiceProtocol
+    private let urlString: String
 
-    init(artistUrlString: String) {
-        self.artistUrlString = artistUrlString
+    init(apiService: APIServiceProtocol, urlString: String) {
+        self.apiService = apiService
+        self.urlString = urlString
     }
 }

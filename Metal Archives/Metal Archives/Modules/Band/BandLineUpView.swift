@@ -40,21 +40,9 @@ struct BandLineUpView: View {
     }
 
     var body: some View {
-        let showingArtist = Binding<Bool>(get: {
-            selectedArtist != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedArtist = nil
-            }
-        })
+        let isShowingArtist = makeIsShowingArtistBinding()
+        let isShowingBand = makeIsShowingBandBinding()
 
-        let showingBand = Binding<Bool>(get: {
-            selectedBand != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedBand = nil
-            }
-        })
         VStack {
             HStack {
                 MemberLineUpTypePicker(viewModel: viewModel,
@@ -63,12 +51,12 @@ struct BandLineUpView: View {
             }
 
             NavigationLink(
-                isActive: showingArtist,
+                isActive: isShowingArtist,
                 destination: {
                     if let urlString = selectedArtist?.thumbnailInfo.urlString {
-                        ArtistView(artistUrlString: urlString)
+                        ArtistView(apiService: apiService, urlString: urlString)
                     } else {
-                        Text("???")
+                        EmptyView()
                     }
                 },
                 label: {
@@ -77,13 +65,12 @@ struct BandLineUpView: View {
             )
 
             NavigationLink(
-                isActive: showingBand,
+                isActive: isShowingBand,
                 destination: {
                     if let urlString = selectedBand?.thumbnailInfo.urlString {
-                        BandView(apiService: apiService,
-                                 bandUrlString: urlString)
+                        BandView(apiService: apiService, bandUrlString: urlString)
                     } else {
-                        Text("???")
+                        EmptyView()
                     }
                 },
                 label: {
@@ -100,6 +87,26 @@ struct BandLineUpView: View {
                 Divider()
             }
         }
+    }
+
+    private func makeIsShowingBandBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedBand != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedBand = nil
+            }
+        })
+    }
+
+    private func makeIsShowingArtistBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedArtist != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedArtist = nil
+            }
+        })
     }
 }
 
