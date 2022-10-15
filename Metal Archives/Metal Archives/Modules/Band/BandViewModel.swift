@@ -25,29 +25,27 @@ final class BandViewModel: ObservableObject {
         self.bandUrlString = bandUrlString
     }
 
-    func fetchBandAndDiscography() {
-        switch bandAndDiscographyFetchable {
-        case .waiting: break
-        default: return
-        }
-        Task { @MainActor in
-            do {
-                bandAndDiscographyFetchable = .fetching
-                let band = try await apiService.request(forType: Band.self, urlString: bandUrlString)
-                let discographyUrlString = "https://www.metal-archives.com/band/discography/id/\(band.id)/tab/all"
-                let discography = try await apiService.request(forType: Discography.self,
-                                                               urlString: discographyUrlString)
-                self.band = band
-                self.bandAndDiscographyFetchable = .fetched((band, discography))
-            } catch {
-                self.bandAndDiscographyFetchable = .error(error)
-            }
+    @MainActor
+    func fetchBandAndDiscography() async {
+        if case .fetched = bandAndDiscographyFetchable { return }
+        do {
+            bandAndDiscographyFetchable = .fetching
+            let band = try await apiService.request(forType: Band.self, urlString: bandUrlString)
+            let discographyUrlString = "https://www.metal-archives.com/band/discography/id/\(band.id)/tab/all"
+            let discography = try await apiService.request(forType: Discography.self,
+                                                           urlString: discographyUrlString)
+            self.band = band
+            self.bandAndDiscographyFetchable = .fetched((band, discography))
+        } catch {
+            self.bandAndDiscographyFetchable = .error(error)
         }
     }
 
     func refreshBandAndDiscography() {
         bandAndDiscographyFetchable = .waiting
-        fetchBandAndDiscography()
+        Task { @MainActor in
+            await fetchBandAndDiscography()
+        }
     }
 }
 

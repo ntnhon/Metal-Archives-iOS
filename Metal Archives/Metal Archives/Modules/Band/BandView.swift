@@ -50,8 +50,8 @@ struct BandView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            viewModel.fetchBandAndDiscography()
+        .task {
+            await viewModel.fetchBandAndDiscography()
         }
     }
 }
