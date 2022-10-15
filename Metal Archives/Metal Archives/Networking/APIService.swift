@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import Kanna
 
 protocol APIServiceProtocol {
     var session: URLSession { get }
 
     func getData(for urlString: String) async throws -> Data
-    func getString(for urlString: String) async throws -> String
+    func getString(for urlString: String, inHtmlFormat: Bool) async throws -> String?
     func request<T: HTMLParsable>(forType type: T.Type, urlString: String) async throws -> T
 }
 
@@ -35,8 +36,14 @@ extension APIServiceProtocol {
         }
     }
 
-    func getString(for urlString: String) async throws -> String {
+    func getString(for urlString: String, inHtmlFormat: Bool) async throws -> String? {
         let data = try await getData(for: urlString)
+
+        if !inHtmlFormat {
+            let htmlDoc = try Kanna.HTML(html: data, encoding: .utf8)
+            return htmlDoc.text
+        }
+
         guard let string = String(data: data, encoding: .utf8) else {
             throw MAError.failedToUtf8DecodeString
         }

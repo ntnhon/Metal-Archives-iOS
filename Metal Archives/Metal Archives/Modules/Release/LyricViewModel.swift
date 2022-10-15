@@ -6,7 +6,6 @@
 //
 
 import Combine
-import Kanna
 
 final class LyricViewModel: ObservableObject {
     @Published private(set) var lyricFetchable = FetchableObject<String>.waiting
@@ -28,11 +27,15 @@ final class LyricViewModel: ObservableObject {
     @MainActor
     func fetchLyric() async {
         do {
+            guard let lyricId = song.lyricId else {
+                throw MAError.songHasNoLyric(title: song.title)
+            }
             lyricFetchable = .fetching
-            let urlString = "https://www.metal-archives.com/release/ajax-view-lyrics/id/\(song.lyricId ?? "")"
-            let lyric = try await apiService.getString(for: urlString)
-            let htmlDoc = try Kanna.HTML(html: lyric, encoding: .utf8)
-            lyricFetchable = .fetched(htmlDoc.text ?? "")
+            let urlString = "https://www.metal-archives.com/release/ajax-view-lyrics/id/\(lyricId)"
+            guard let lyric = try await apiService.getString(for: urlString, inHtmlFormat: false) else {
+                throw MAError.failedToFetchLyric(lyricId: lyricId)
+            }
+            lyricFetchable = .fetched(lyric)
         } catch {
             lyricFetchable = .error(error)
         }
