@@ -96,7 +96,9 @@ private struct ReleaseContentView: View {
                         Color.clear
                             .frame(height: coverViewHeight)
 
-                        ReleaseInfoView(release: release)
+                        ReleaseInfoView(release: release,
+                                        onSelectBand: { _ in },
+                                        onSelectLabel: { _ in })
 
                         HorizontalTabs(datasource: tabsDatasource)
                             .padding(.vertical)

@@ -160,6 +160,7 @@
 		EF31834728984BC500B6C8DD /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF31834628984BC500B6C8DD /* APIService.swift */; };
 		EF31834A2898627C00B6C8DD /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = EF3183492898627C00B6C8DD /* BetterSafariView */; };
 		EF31834C289862D000B6C8DD /* BetterSafariViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF31834B289862D000B6C8DD /* BetterSafariViewModifier.swift */; };
+		EF3CAEED28FAA3710092D80E /* LabelLiteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3CAEEC28FAA3710092D80E /* LabelLiteButton.swift */; };
 		EF488C7028F741E6007191A6 /* LyricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF488C6F28F741E6007191A6 /* LyricView.swift */; };
 		EF488C7228F74309007191A6 /* LyricViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF488C7128F74309007191A6 /* LyricViewModel.swift */; };
 		EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */; };
@@ -361,6 +362,7 @@
 		EF2862D528EB70CB00E2C131 /* BandReviewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReviewsViewModel.swift; sourceTree = "<group>"; };
 		EF31834628984BC500B6C8DD /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		EF31834B289862D000B6C8DD /* BetterSafariViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewModifier.swift; sourceTree = "<group>"; };
+		EF3CAEEC28FAA3710092D80E /* LabelLiteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLiteButton.swift; sourceTree = "<group>"; };
 		EF488C6F28F741E6007191A6 /* LyricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricView.swift; sourceTree = "<group>"; };
 		EF488C7128F74309007191A6 /* LyricViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricViewModel.swift; sourceTree = "<group>"; };
 		EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
@@ -681,6 +683,7 @@
 				C071578226E6AA280075C012 /* HighlightableText.swift */,
 				EFC0C6BC28F49D0A0092497A /* HorizontalTabs.swift */,
 				EF62240928F15FDF00845430 /* HornCircularLoader.swift */,
+				EF3CAEEC28FAA3710092D80E /* LabelLiteButton.swift */,
 				EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */,
 				C0C65A1526982E250062FF9C /* OrderView.swift */,
 				C0FA708426B0789500B618E6 /* RelatedLinkView.swift */,
@@ -1233,6 +1236,7 @@
 				C02A4CDE268678C6001CF9D2 /* Vibration.swift in Sources */,
 				EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */,
 				EF48E6CB2895BC2900B52EF2 /* ErrorExtensions.swift in Sources */,
+				EF3CAEED28FAA3710092D80E /* LabelLiteButton.swift in Sources */,
 				EF2862D328EB5EB700E2C131 /* PageManagerProtocol.swift in Sources */,
 				C051863026979FBE006BB7D5 /* DiscographyView.swift in Sources */,
 				C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */,

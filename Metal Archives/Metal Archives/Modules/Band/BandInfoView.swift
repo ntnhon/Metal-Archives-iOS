@@ -10,8 +10,8 @@ import SwiftUI
 struct BandInfoView: View {
     @EnvironmentObject private var preferences: Preferences
     let viewModel: BandInfoViewModel
-    var onSelectLabel: (String) -> Void
-    var onSelectBand: (String) -> Void
+    let onSelectLabel: (String) -> Void
+    let onSelectBand: (String) -> Void
 
     var body: some View {
         let band = viewModel.band
@@ -68,17 +68,7 @@ struct BandInfoView: View {
             HStack {
                 Image(systemName: "tag.fill")
                     .foregroundColor(.secondary)
-                Button(action: {
-                    if let labelUrlString = band.lastLabel.thumbnailInfo?.urlString {
-                        onSelectLabel(labelUrlString)
-                    }
-                },
-                label: {
-                    Text(band.lastLabel.name)
-                        .fontWeight(band.lastLabel.thumbnailInfo == nil ? .regular : .bold)
-                        .foregroundColor(
-                            band.lastLabel.thumbnailInfo == nil ? .primary : preferences.theme.primaryColor)
-                })
+                LabelLiteButton(label: band.lastLabel, onSelect: onSelectLabel)
                 Spacer()
             }
 
@@ -118,6 +108,7 @@ struct BandInfoView: View {
     }
 }
 
+/*
 struct BandInfoView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
@@ -129,6 +120,7 @@ struct BandInfoView_Previews: PreviewProvider {
         .environmentObject(Preferences())
     }
 }
+ */
 
 final class BandInfoViewModel {
     let band: Band

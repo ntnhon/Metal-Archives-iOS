@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct ReleaseInfoView: View {
+    @EnvironmentObject private var preferences: Preferences
     let release: Release
+    let onSelectBand: (String) -> Void
+    let onSelectLabel: (String) -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -43,7 +46,32 @@ struct ReleaseInfoView: View {
                     endPoint: .top)
             )
 
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 10) {
+                bandsView
+                HStack {
+                    Image(systemName: "calendar")
+                        .foregroundColor(.secondary)
+                    Text(release.date)
+                    Spacer()
+                }
+                HStack {
+                    Image(systemName: "books.vertical")
+                        .foregroundColor(.secondary)
+                    Text(release.catalogId)
+                    Spacer()
+                }
+                HStack {
+                    Image(systemName: "tag.fill")
+                        .foregroundColor(.secondary)
+                    LabelLiteButton(label: release.label, onSelect: onSelectLabel)
+                    Spacer()
+                }
+                HStack {
+                    Image(systemName: "opticaldisc")
+                        .foregroundColor(.secondary)
+                    Text(release.format)
+                    Spacer()
+                }
                 reviewView
             }
             .padding(.horizontal)
@@ -51,6 +79,34 @@ struct ReleaseInfoView: View {
             .fixedSize(horizontal: false, vertical: true)
             .background(Color(.systemBackground))
         }
+    }
+
+    @ViewBuilder
+    private var bandsView: some View {
+        let texts = generateBandsText()
+        HStack {
+            Image(systemName: "person.3.fill")
+                .foregroundColor(.secondary)
+            texts.reduce(into: Text("")) { partialResult, text in
+                // swiftlint:disable:next shorthand_operator
+                partialResult = partialResult + text
+            }
+            Spacer()
+        }
+    }
+
+    private func generateBandsText() -> [Text] {
+        var texts = [Text]()
+        for (index, band) in release.bands.enumerated() {
+            texts.append(
+                Text(band.name)
+                    .fontWeight(.medium)
+                    .foregroundColor(preferences.theme.primaryColor))
+            if index != release.bands.count - 1 {
+                texts.append(Text(" / "))
+            }
+        }
+        return texts
     }
 
     private var reviewView: some View {
