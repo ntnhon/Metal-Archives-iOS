@@ -139,7 +139,7 @@ private struct BandContentView: View {
                                      onSelectBand: { url in selectedBandUrl = url })
                         .padding(.horizontal)
 
-                        BandReadMoreView()
+                        BandReadMoreView(apiService: apiService, band: band)
 
                         Color(.systemGray6)
                             .frame(height: 10)

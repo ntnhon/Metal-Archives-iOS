@@ -49,38 +49,6 @@ final class BandViewModel: ObservableObject {
     }
 }
 
-// MARK: - Read more
-extension BandViewModel {
-    func fetchReadMore() {
-        switch readMoreFetchable {
-        case .waiting: break
-        default: return
-        }
-
-        guard let band = band else {
-            readMoreFetchable = .error(MAError.missingBand)
-            return
-        }
-
-        let urlString = "https://www.metal-archives.com/band/read-more/id/\(band.id)"
-        readMoreFetchable = .fetching
-        Task { @MainActor in
-            do {
-                let readMore = try await apiService.request(forType: HtmlBodyText.self,
-                                                            urlString: urlString)
-                readMoreFetchable = .fetched(readMore)
-            } catch {
-                readMoreFetchable = .error(error)
-            }
-        }
-    }
-
-    func refreshReadMore() {
-        readMoreFetchable = .waiting
-        fetchReadMore()
-    }
-}
-
 // MARK: - Similar artists
 extension BandViewModel {
     func fetchSimilarArtists() {

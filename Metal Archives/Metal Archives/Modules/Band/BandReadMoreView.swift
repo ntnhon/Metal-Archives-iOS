@@ -10,8 +10,12 @@ import SwiftUI
 
 struct BandReadMoreView: View {
     @EnvironmentObject private var preferences: Preferences
-    @EnvironmentObject private var viewModel: BandViewModel
+    @StateObject private var viewModel: BandReadMoreViewModel
     @State private var showingSheet = false
+
+    init(apiService: APIServiceProtocol, band: Band) {
+        _viewModel = .init(wrappedValue: .init(apiService: apiService, band: band))
+    }
 
     var body: some View {
         Group {
@@ -22,35 +26,32 @@ struct BandReadMoreView: View {
                         .frame(maxWidth: .infinity)
                         .font(.caption)
 
-                    RetryButton(onRetry: viewModel.refreshReadMore)
+                    RetryButton(onRetry: viewModel.retry)
                 }
 
             case .fetching, .waiting:
                 ProgressView()
 
             case .fetched(let readMore):
-                if let content = readMore.content {
-                    Text(content)
-                        .font(.callout)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .lineLimit(6)
-                        .padding()
-                        .onTapGesture {
-                            showingSheet.toggle()
-                        }
-                } else {
-                    EmptyView()
-                }
+                Text(readMore)
+                    .font(.callout)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .lineLimit(6)
+                    .padding()
+                    .onTapGesture {
+                        showingSheet.toggle()
+                    }
             }
         }
         .sheet(isPresented: $showingSheet) {
             if case .fetched(let readMore) = viewModel.readMoreFetchable {
                 NavigationView {
                     ScrollView {
-                        Text(readMore.content ?? "")
+                        Text(readMore)
                             .padding()
+                            .textSelection(.enabled)
                     }
-                    .navigationTitle(viewModel.band?.name ?? "")
+                    .navigationTitle(viewModel.band.name)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button(action: {
@@ -65,14 +66,8 @@ struct BandReadMoreView: View {
                 .preferredColorScheme(.dark)
             }
         }
-        .onAppear {
-            viewModel.fetchReadMore()
+        .task {
+            await viewModel.fetchReadMore()
         }
-    }
-}
-
-struct BandReadMoreView_Previews: PreviewProvider {
-    static var previews: some View {
-        BandReadMoreView()
     }
 }

@@ -55,7 +55,7 @@ struct LyricView: View {
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
             Button(action: dismiss.callAsFunction) {
-                Text("Close")
+                Image(systemName: "xmark")
             }
         }
 
