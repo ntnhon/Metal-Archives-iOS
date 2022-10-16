@@ -301,7 +301,7 @@ extension Band: HTMLParsable {
                         }
                     case 1:
                         // Get instruments
-                        lastArtistBuilder?.instruments = td.text?.removeHtmlTagsAndNoisySpaces()
+                        lastArtistBuilder?.instruments = td.text?.strippedHtmlString()
                     default:
                         break
                     }
@@ -311,7 +311,7 @@ extension Band: HTMLParsable {
                 // Get ex-bands
                 var exBands = [BandLite]()
                 if let td = tr.at_css("td") {
-                    lastArtistBuilder?.seeAlso = td.text?.removeHtmlTagsAndNoisySpaces()
+                    lastArtistBuilder?.seeAlso = td.text?.strippedHtmlString()
                     for a in td.css("a") {
                         if let bandName = a.text, let bandUrlString = a["href"],
                            let band = BandLite(urlString: bandUrlString, name: bandName) {

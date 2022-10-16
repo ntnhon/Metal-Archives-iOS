@@ -8,7 +8,19 @@
 import SwiftUI
 
 struct ReleaseNoteView: View {
+    let note: String?
+
+    init(release: Release) {
+        self.note = release.additionalHtmlNote?.strippedHtmlString()
+    }
+
     var body: some View {
-        Text("Note")
+        if let note = note {
+            Text(note)
+                .textSelection(.enabled)
+        } else {
+            Text("No additional notes")
+                .font(.callout.italic())
+        }
     }
 }
