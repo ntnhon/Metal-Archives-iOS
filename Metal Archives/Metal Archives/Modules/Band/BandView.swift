@@ -10,7 +10,6 @@ import SwiftUI
 
 struct BandView: View {
     @EnvironmentObject private var preferences: Preferences
-    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: BandViewModel
     let apiService: APIServiceProtocol
 
@@ -23,7 +22,7 @@ struct BandView: View {
     }
 
     var body: some View {
-        Group {
+        ZStack {
             switch viewModel.bandAndDiscographyFetchable {
             case .error(let error):
                 VStack(alignment: .center, spacing: 20) {
@@ -32,10 +31,6 @@ struct BandView: View {
                         .font(.caption)
 
                     RetryButton(onRetry: viewModel.refreshBandAndDiscography)
-
-                    Button(action: dismiss.callAsFunction) {
-                        Label("Go back", systemImage: "arrowshape.turn.up.backward")
-                    }
                 }
 
             case .fetching:
@@ -46,7 +41,6 @@ struct BandView: View {
                                 apiService: apiService,
                                 discography: discography,
                                 preferences: preferences)
-                .environmentObject(viewModel)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -67,6 +61,8 @@ private struct BandContentView: View {
     @State private var topSectionSize: CGSize = .zero
     @State private var selectedBandUrl: String?
     @State private var selectedLabelUrl: String?
+    @State private var selectedReviewUrl: String?
+    @State private var selectedUserUrl: String?
     let apiService: APIServiceProtocol
     let band: Band
     let discography: Discography
@@ -90,6 +86,8 @@ private struct BandContentView: View {
     var body: some View {
         let isShowingBand = makeIsShowingBandDetailBinding()
         let isShowingLabel = makeIsShowingLabelDetailBinding()
+        let isShowingReview = makeIsShowingReviewDetailBinding()
+        let isShowingUser = makeIsShowingUserDetailBinding()
 
         OffsetAwareScrollView(
             axes: .vertical,
@@ -122,6 +120,30 @@ private struct BandContentView: View {
                         destination: {
                             if let selectedLabelUrl = selectedLabelUrl {
                                 LabelView(apiService: apiService, urlString: selectedLabelUrl)
+                            } else {
+                                EmptyView()
+                            }
+                        }, label: {
+                            EmptyView()
+                        })
+
+                    NavigationLink(
+                        isActive: isShowingReview,
+                        destination: {
+                            if let selectedReviewUrl = selectedReviewUrl {
+                                ReviewView(apiService: apiService, urlString: selectedReviewUrl)
+                            } else {
+                                EmptyView()
+                            }
+                        }, label: {
+                            EmptyView()
+                        })
+
+                    NavigationLink(
+                        isActive: isShowingUser,
+                        destination: {
+                            if let selectedUserUrl = selectedUserUrl {
+                                UserView(apiService: apiService, urlString: selectedUserUrl)
                             } else {
                                 EmptyView()
                             }
@@ -170,7 +192,9 @@ private struct BandContentView: View {
                                 .padding(.horizontal)
 
                         case .reviews:
-                            BandReviewsView(viewModel: reviewsViewModel)
+                            BandReviewsView(viewModel: reviewsViewModel,
+                                            onSelectReview: { url in selectedReviewUrl = url },
+                                            onSelectUser: { url in selectedUserUrl = url })
 
                         case .similarArtists:
                             SimilarArtistsView(viewModel: similarArtistsViewModel)
@@ -209,6 +233,26 @@ private struct BandContentView: View {
         }, set: { newValue in
             if !newValue {
                 selectedLabelUrl = nil
+            }
+        })
+    }
+
+    private func makeIsShowingReviewDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedReviewUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedReviewUrl = nil
+            }
+        })
+    }
+
+    private func makeIsShowingUserDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedUserUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedUserUrl = nil
             }
         })
     }

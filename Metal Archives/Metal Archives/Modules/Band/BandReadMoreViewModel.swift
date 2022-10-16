@@ -26,6 +26,7 @@ final class BandReadMoreViewModel: ObservableObject {
 
     @MainActor
     func fetchReadMore() async {
+        if case .fetched = readMoreFetchable { return }
         do {
             readMoreFetchable = .fetching
             let urlString = "https://www.metal-archives.com/band/read-more/id/\(band.id)"

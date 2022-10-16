@@ -9,8 +9,12 @@ import SwiftUI
 
 struct BandReviewsView: View {
     @ObservedObject var viewModel: BandReviewsViewModel
+    @State private var selectedReview: ReviewLite?
+    let onSelectReview: (String) -> Void
+    let onSelectUser: (String) -> Void
 
     var body: some View {
+        let isShowingConfirmationDialog = makeIsShowingConfirmationDialogBinding()
         LazyVStack {
             if let error = viewModel.error {
                 Text(error.userFacingMessage)
@@ -23,6 +27,23 @@ struct BandReviewsView: View {
                 reviewList
             }
         }
+        .confirmationDialog(
+            "",
+            isPresented: isShowingConfirmationDialog,
+            actions: {
+                if let selectedReview = selectedReview {
+                    Button("💬 Read review") {
+                        onSelectReview(selectedReview.urlString)
+                    }
+
+                    Button("View \(selectedReview.author.name)'s profile") {
+                        onSelectUser(selectedReview.author.urlString)
+                    }
+                }
+            },
+            message: {
+                Text("\"\(selectedReview?.title ?? "")\" reviewed by \(selectedReview?.author.name ?? "")")
+            })
         .task {
             await viewModel.getMoreReviews()
         }
@@ -41,6 +62,9 @@ struct BandReviewsView: View {
         ForEach(viewModel.reviews, id: \.urlString) { review in
             ReviewLiteView(review: review,
                            release: viewModel.release(for: review))
+            .onTapGesture {
+                selectedReview = review
+            }
             .task {
                 if review.urlString == viewModel.reviews.last?.urlString {
                     await viewModel.getMoreReviews()
@@ -55,6 +79,16 @@ struct BandReviewsView: View {
             Text("No reviews yet")
                 .font(.callout.italic())
         }
+    }
+
+    private func makeIsShowingConfirmationDialogBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedReview != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedReview = nil
+            }
+        })
     }
 }
 

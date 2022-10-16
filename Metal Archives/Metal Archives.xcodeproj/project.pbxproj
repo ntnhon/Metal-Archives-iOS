@@ -180,6 +180,10 @@
 		EF62240A28F15FDF00845430 /* HornCircularLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240928F15FDF00845430 /* HornCircularLoader.swift */; };
 		EF62240C28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */; };
 		EF62240E28F1C94300845430 /* ReleaseCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240D28F1C94300845430 /* ReleaseCoverView.swift */; };
+		EF7A2C9928FC18860046B136 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9828FC18860046B136 /* ReviewView.swift */; };
+		EF7A2C9B28FC18A60046B136 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9A28FC18A60046B136 /* ReviewViewModel.swift */; };
+		EF7A2C9E28FC19210046B136 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9D28FC19210046B136 /* UserView.swift */; };
+		EF7A2CA028FC19340046B136 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9F28FC19340046B136 /* UserViewModel.swift */; };
 		EFA48C3E28F5E5890012B349 /* ReleaseTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA48C3D28F5E5890012B349 /* ReleaseTabsDatasource.swift */; };
 		EFA48C4028F5E9AC0012B349 /* TracklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA48C3F28F5E9AC0012B349 /* TracklistView.swift */; };
 		EFA48C4228F5E9E00012B349 /* ReleaseLineUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA48C4128F5E9E00012B349 /* ReleaseLineUpView.swift */; };
@@ -385,6 +389,10 @@
 		EF62240928F15FDF00845430 /* HornCircularLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HornCircularLoader.swift; sourceTree = "<group>"; };
 		EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+retrieveImageAsync.swift"; sourceTree = "<group>"; };
 		EF62240D28F1C94300845430 /* ReleaseCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseCoverView.swift; sourceTree = "<group>"; };
+		EF7A2C9828FC18860046B136 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+		EF7A2C9A28FC18A60046B136 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
+		EF7A2C9D28FC19210046B136 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		EF7A2C9F28FC19340046B136 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		EFA48C3D28F5E5890012B349 /* ReleaseTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTabsDatasource.swift; sourceTree = "<group>"; };
 		EFA48C3F28F5E9AC0012B349 /* TracklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracklistView.swift; sourceTree = "<group>"; };
 		EFA48C4128F5E9E00012B349 /* ReleaseLineUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseLineUpView.swift; sourceTree = "<group>"; };
@@ -851,9 +859,11 @@
 				EF3CAEEE28FADD2F0092D80E /* Label */,
 				C017D41A267E308C008B6EE5 /* My Account */,
 				EF48E6CC2895BD4A00B52EF2 /* Release */,
+				EF7A2C9728FC18740046B136 /* Review */,
 				C017D422267E30F0008B6EE5 /* Root */,
 				C017D412267E3006008B6EE5 /* Search */,
 				C017D41F267E30CB008B6EE5 /* Settings */,
+				EF7A2C9C28FC19130046B136 /* User */,
 				C0A993482712407600121BA3 /* SelectedPhotoView.swift */,
 			);
 			path = Modules;
@@ -968,6 +978,24 @@
 				EFA48C3F28F5E9AC0012B349 /* TracklistView.swift */,
 			);
 			path = Release;
+			sourceTree = "<group>";
+		};
+		EF7A2C9728FC18740046B136 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				EF7A2C9828FC18860046B136 /* ReviewView.swift */,
+				EF7A2C9A28FC18A60046B136 /* ReviewViewModel.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		EF7A2C9C28FC19130046B136 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				EF7A2C9D28FC19210046B136 /* UserView.swift */,
+				EF7A2C9F28FC19340046B136 /* UserViewModel.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1233,6 +1261,7 @@
 				C02A4CDC268670AC001CF9D2 /* Top100MembersView.swift in Sources */,
 				C0056C56265C201700400A03 /* ReleaseElement.swift in Sources */,
 				C07A254F26852001008478D7 /* SimpleSearchType.swift in Sources */,
+				EF7A2C9928FC18860046B136 /* ReviewView.swift in Sources */,
 				C017D411267E2FF1008B6EE5 /* HomeView.swift in Sources */,
 				EFA48C4428F5EA010012B349 /* OtherVersionsView.swift in Sources */,
 				EFA48C3E28F5E5890012B349 /* ReleaseTabsDatasource.swift in Sources */,
@@ -1260,16 +1289,19 @@
 				C02A4CDE268678C6001CF9D2 /* Vibration.swift in Sources */,
 				EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */,
 				EF48E6CB2895BC2900B52EF2 /* ErrorExtensions.swift in Sources */,
+				EF7A2CA028FC19340046B136 /* UserViewModel.swift in Sources */,
 				EF3CAEED28FAA3710092D80E /* LabelLiteButton.swift in Sources */,
 				EF2862D328EB5EB700E2C131 /* PageManagerProtocol.swift in Sources */,
 				C051863026979FBE006BB7D5 /* DiscographyView.swift in Sources */,
 				C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */,
 				C007887626AF599E0080AC93 /* BandLineUpView.swift in Sources */,
+				EF7A2C9B28FC18A60046B136 /* ReviewViewModel.swift in Sources */,
 				C03873A02659A92F00D2FD5E /* ArtistInBand.swift in Sources */,
 				C02A8CAE2681258B001430D6 /* Letter.swift in Sources */,
 				C02A8CB22681261E001430D6 /* AlphabetView.swift in Sources */,
 				C0FA708726B081D000B618E6 /* HtmlBodyText.swift in Sources */,
 				C0378CE4268BAC7700E24B28 /* FetchableObject.swift in Sources */,
+				EF7A2C9E28FC19210046B136 /* UserView.swift in Sources */,
 				C0A37B7026584FB40017A02F /* CountryManager.swift in Sources */,
 				C0F240F72688605D00ED546D /* BandInfoView.swift in Sources */,
 				C02A4CD826866D49001CF9D2 /* Top100BandsView.swift in Sources */,

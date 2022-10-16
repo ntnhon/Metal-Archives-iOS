@@ -8,15 +8,13 @@
 import SwiftUI
 
 final class BandViewModel: ObservableObject {
+    deinit { print("\(Self.self) of \(bandUrlString) is deallocated") }
+
     @Published private(set) var bandAndDiscographyFetchable: FetchableObject<(Band, Discography)> = .fetching
     @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .fetching
     private(set) var band: Band?
     private let bandUrlString: String
     private let apiService: APIServiceProtocol
-
-    deinit {
-        print("\(Self.self) of \(bandUrlString) is deallocated")
-    }
 
     init(apiService: APIServiceProtocol, bandUrlString: String) {
         self.apiService = apiService
