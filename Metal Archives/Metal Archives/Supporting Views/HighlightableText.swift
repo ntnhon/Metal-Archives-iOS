@@ -15,10 +15,14 @@ private extension HighlightableText {
 }
 
 struct HighlightableText: View {
-    @EnvironmentObject private var preferences: Preferences
     private let contents: [Content]
+    private let highlightFontWeight: Font.Weight
+    private let highlightColor: Color
 
-    init(text: String, highlights: [String]) {
+    init(text: String,
+         highlights: [String],
+         highlightFontWeight: Font.Weight,
+         highlightColor: Color) {
         let separator = UUID().uuidString
         var text = text
         highlights.forEach {
@@ -31,6 +35,8 @@ struct HighlightableText: View {
             }
             return Content.normal($0)
         }
+        self.highlightFontWeight = highlightFontWeight
+        self.highlightColor = highlightColor
     }
 
     var body: some View {
@@ -40,7 +46,8 @@ struct HighlightableText: View {
                 return Text(content)
             case .highlight(let content):
                 return Text(content)
-                    .foregroundColor(preferences.theme.primaryColor)
+                    .fontWeight(highlightFontWeight)
+                    .foregroundColor(highlightColor)
             }
         }.reduce(Text(""), +)
     }
@@ -50,7 +57,8 @@ struct HighlightTextView_Previews: PreviewProvider {
     static var previews: some View {
         // swiftlint:disable:next line_length
         HighlightableText(text: "(R.I.P. 2001) See also: ex-Control Denied, ex-Mantas, ex-Slaughter, ex-Voodoocult",
-                          highlights: ["Control Denied", "Mantas", "Slaughter", "Voodoocult"])
-            .environmentObject(Preferences())
+                          highlights: ["Control Denied", "Mantas", "Slaughter", "Voodoocult"],
+                          highlightFontWeight: .bold,
+                          highlightColor: .accentColor)
     }
 }

@@ -256,7 +256,9 @@ extension Band: HTMLParsable {
             case "clear":
                 // Years active
                 if let dd = dl.at_css("dd") {
-                    builder.yearsActive = dd.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+                    builder.yearsActive = dd.text?
+                        .replacingOccurrences(of: "\n", with: " ")
+                        .trimmingCharacters(in: .whitespacesAndNewlines)
                     // Parse old bands
                     var oldBands = [BandLite]()
                     for a in dd.css("a") {

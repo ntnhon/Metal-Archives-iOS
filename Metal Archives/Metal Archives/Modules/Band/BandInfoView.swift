@@ -45,6 +45,30 @@ struct BandInfoView: View {
                 Spacer()
             }
 
+            if viewModel.band.oldBands.count <= 1 {
+                yearsActiveView
+                    .onTapGesture {
+                        if let bandLite = viewModel.band.oldBands.first {
+                            onSelectBand(bandLite.thumbnailInfo.urlString)
+                        }
+                    }
+            } else {
+                yearsActiveView
+                    .overlay(
+                        Menu(content: {
+                            ForEach(viewModel.band.oldBands, id: \.name) { bandLite in
+                                Button(action: {
+                                    onSelectBand(bandLite.thumbnailInfo.urlString)
+                                }, label: {
+                                    Text(bandLite.name)
+                                })
+                            }
+                        }, label: {
+                            Color.clear
+                        })
+                    )
+            }
+
             HStack {
                 Image(systemName: "guitars.fill")
                     .foregroundColor(.secondary)
@@ -84,6 +108,19 @@ struct BandInfoView: View {
         }
         .frame(maxWidth: .infinity)
         .font(.callout)
+    }
+
+    private var yearsActiveView: some View {
+        HStack {
+            Image(systemName: "waveform.path")
+                .foregroundColor(.secondary)
+
+            HighlightableText(text: viewModel.band.yearsActive,
+                              highlights: viewModel.band.oldBands.map { $0.name },
+                              highlightFontWeight: .bold,
+                              highlightColor: preferences.theme.primaryColor)
+        }
+        .fixedSize(horizontal: false, vertical: true)
     }
 
     private var reviewView: some View {
