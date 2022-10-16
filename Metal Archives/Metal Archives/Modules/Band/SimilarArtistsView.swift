@@ -22,7 +22,7 @@ struct SimilarArtistsView: View {
                     RetryButton(onRetry: viewModel.retry)
                 }
 
-            case .fetching, .waiting:
+            case .fetching:
                 ProgressView()
 
             case .fetched(let similarArtists):

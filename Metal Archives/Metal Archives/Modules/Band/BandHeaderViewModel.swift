@@ -9,8 +9,8 @@ import Kingfisher
 import SwiftUI
 
 final class BandHeaderViewModel: ObservableObject {
-    @Published private(set) var logoFetchable = FetchableObject<UIImage?>.waiting
-    @Published private(set) var photoFetchable = FetchableObject<UIImage?>.waiting
+    @Published private(set) var logoFetchable = FetchableObject<UIImage?>.fetching
+    @Published private(set) var photoFetchable = FetchableObject<UIImage?>.fetching
 
     var logo: UIImage? {
         switch logoFetchable {

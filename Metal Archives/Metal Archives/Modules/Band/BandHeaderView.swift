@@ -39,7 +39,7 @@ struct BandHeaderView: View {
             GeometryReader { proxy in
                 ZStack {
                     switch viewModel.logoFetchable {
-                    case .waiting, .fetching:
+                    case .fetching:
                         ProgressView()
                             .frame(width: logoHeight, height: logoHeight)
 
@@ -79,7 +79,7 @@ struct BandHeaderView: View {
         if band.hasPhoto {
             ZStack {
                 switch viewModel.photoFetchable {
-                case .waiting, .fetching:
+                case .fetching:
                     ProgressView()
                         .frame(width: photoHeight, height: photoHeight)
 

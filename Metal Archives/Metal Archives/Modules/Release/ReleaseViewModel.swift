@@ -12,8 +12,8 @@ import UIKit
 final class ReleaseViewModel: ObservableObject {
     deinit { print("\(Self.self) of \(releaseUrlString) is deallocated") }
 
-    @Published private(set) var releaseFetchable: FetchableObject<Release> = .waiting
-    @Published private(set) var coverFetchable: FetchableObject<UIImage?> = .waiting
+    @Published private(set) var releaseFetchable: FetchableObject<Release> = .fetching
+    @Published private(set) var coverFetchable: FetchableObject<UIImage?> = .fetching
     @Published private(set) var noCover = false
     private let apiService: APIServiceProtocol
     private let releaseUrlString: String

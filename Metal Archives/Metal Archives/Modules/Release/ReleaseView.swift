@@ -22,7 +22,7 @@ struct ReleaseView: View {
     var body: some View {
         ZStack {
             switch viewModel.releaseFetchable {
-            case .fetching, .waiting:
+            case .fetching:
                 HornCircularLoader()
             case .fetched(let release):
                 ReleaseContentView(apiService: apiService,

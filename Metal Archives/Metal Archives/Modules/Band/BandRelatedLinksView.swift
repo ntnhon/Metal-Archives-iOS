@@ -22,7 +22,7 @@ struct BandRelatedLinksView: View {
                     RetryButton(onRetry: viewModel.refreshRelatedLinks)
                 }
 
-            case .fetching, .waiting:
+            case .fetching:
                 ProgressView()
 
             case .fetched(let relatedLinks):

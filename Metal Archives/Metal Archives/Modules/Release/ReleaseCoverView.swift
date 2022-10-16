@@ -16,7 +16,7 @@ struct ReleaseCoverView: View {
     var body: some View {
         ZStack {
             switch viewModel.coverFetchable {
-            case .waiting, .fetching:
+            case .fetching:
                 ProgressView()
 
             case .fetched(let image):

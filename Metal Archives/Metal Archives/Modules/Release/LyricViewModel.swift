@@ -8,7 +8,7 @@
 import Combine
 
 final class LyricViewModel: ObservableObject {
-    @Published private(set) var lyricFetchable = FetchableObject<String>.waiting
+    @Published private(set) var lyricFetchable = FetchableObject<String>.fetching
     private let apiService: APIServiceProtocol
     let song: Song
 

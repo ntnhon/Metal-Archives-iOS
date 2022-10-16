@@ -11,5 +11,4 @@ enum FetchableObject<T> {
     case error(Error)
     case fetching
     case fetched(T)
-    case waiting
 }

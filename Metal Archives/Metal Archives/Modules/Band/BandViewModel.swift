@@ -8,8 +8,8 @@
 import SwiftUI
 
 final class BandViewModel: ObservableObject {
-    @Published private(set) var bandAndDiscographyFetchable: FetchableObject<(Band, Discography)> = .waiting
-    @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .waiting
+    @Published private(set) var bandAndDiscographyFetchable: FetchableObject<(Band, Discography)> = .fetching
+    @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .fetching
     private(set) var band: Band?
     private let bandUrlString: String
     private let apiService: APIServiceProtocol
@@ -40,7 +40,7 @@ final class BandViewModel: ObservableObject {
     }
 
     func refreshBandAndDiscography() {
-        bandAndDiscographyFetchable = .waiting
+        bandAndDiscographyFetchable = .fetching
         Task { @MainActor in
             await fetchBandAndDiscography()
         }
@@ -50,15 +50,12 @@ final class BandViewModel: ObservableObject {
 // MARK: - Related links
 extension BandViewModel {
     func fetchRelatedLinks() {
-        switch relatedLinksFetchable {
-        case .waiting: break
-        default: return
-        }
-
         guard let band = band else {
             relatedLinksFetchable = .error(MAError.missingBand)
             return
         }
+
+        if case .fetched = relatedLinksFetchable { return }
 
         let urlString = "https://www.metal-archives.com/link/ajax-list/type/band/id/\(band.id)"
         relatedLinksFetchable = .fetching
@@ -74,7 +71,7 @@ extension BandViewModel {
     }
 
     func refreshRelatedLinks() {
-        relatedLinksFetchable = .waiting
+        relatedLinksFetchable = .fetching
         fetchRelatedLinks()
     }
 }
