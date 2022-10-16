@@ -191,6 +191,7 @@ private struct ReleaseContentView: View {
                             case .additionalNotes:
                                 ReleaseNoteView(release: release)
                                     .padding(.horizontal)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
                         .frame(minHeight: bottomSectionMinHeight, alignment: .top)

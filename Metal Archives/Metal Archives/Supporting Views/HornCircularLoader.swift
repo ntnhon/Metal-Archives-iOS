@@ -20,10 +20,6 @@ struct HornCircularLoader: View {
                            value: isAnimating)
 
             Circle()
-                .stroke(Color(uiColor: .systemGray6),
-                        style: .init(lineWidth: 2))
-
-            Circle()
                 .trim(from: 0, to: 0.75)
                 .stroke(preferences.theme.primaryColor,
                         style: .init(lineWidth: 4,
