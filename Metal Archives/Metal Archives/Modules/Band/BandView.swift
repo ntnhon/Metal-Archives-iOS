@@ -60,6 +60,7 @@ private struct BandContentView: View {
     @Environment(\.selectedPhoto) private var selectedPhoto
     @StateObject private var reviewsViewModel: BandReviewsViewModel
     @StateObject private var discographyViewModel: DiscographyViewModel
+    @StateObject private var similarArtistsViewModel: SimilarArtistsViewModel
     @ObservedObject private var tabsDatasource = BandTabsDatasource()
     @State private var titleViewAlpha = 0.0
     @State private var showingShareSheet = false
@@ -80,6 +81,7 @@ private struct BandContentView: View {
         self._discographyViewModel = .init(wrappedValue: .init(discography: discography,
                                                                discographyMode: preferences.discographyMode,
                                                                order: preferences.dateOrder))
+        self._similarArtistsViewModel = .init(wrappedValue: .init(apiService: apiService, band: band))
         _reviewsViewModel = .init(wrappedValue: .init(band: band,
                                                       apiService: apiService,
                                                       discography: discography))
@@ -171,7 +173,7 @@ private struct BandContentView: View {
                             BandReviewsView(viewModel: reviewsViewModel)
 
                         case .similarArtists:
-                            SimilarArtistsView(apiService: apiService)
+                            SimilarArtistsView(viewModel: similarArtistsViewModel)
 
                         case .relatedLinks:
                             BandRelatedLinksView()

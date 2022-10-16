@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct BandReviewsView: View {
-    @StateObject private var viewModel: BandReviewsViewModel
-
-    init(viewModel: BandReviewsViewModel) {
-        _viewModel = .init(wrappedValue: viewModel)
-    }
+    @ObservedObject var viewModel: BandReviewsViewModel
 
     var body: some View {
         LazyVStack {

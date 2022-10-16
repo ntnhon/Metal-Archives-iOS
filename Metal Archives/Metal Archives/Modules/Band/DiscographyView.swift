@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DiscographyView: View {
     @EnvironmentObject private var preferences: Preferences
-    @StateObject private var viewModel: DiscographyViewModel
+    @ObservedObject private var viewModel: DiscographyViewModel
     @State private var showingRelease = false
     @State private var selectedRelease: ReleaseInBand?
     private let apiService: APIServiceProtocol
@@ -17,7 +17,7 @@ struct DiscographyView: View {
     init(apiService: APIServiceProtocol,
          viewModel: DiscographyViewModel) {
         self.apiService = apiService
-        _viewModel = .init(wrappedValue: viewModel)
+        self._viewModel = .init(wrappedValue: viewModel)
     }
 
     var body: some View {

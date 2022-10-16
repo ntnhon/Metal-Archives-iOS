@@ -8,7 +8,7 @@
 import Foundation
 
 final class BandReadMoreViewModel: ObservableObject {
-    @Published private(set) var readMoreFetchable = FetchableObject<String>.waiting
+    @Published private(set) var readMoreFetchable = FetchableObject<String>.fetching
 
     let apiService: APIServiceProtocol
     let band: Band
@@ -27,6 +27,7 @@ final class BandReadMoreViewModel: ObservableObject {
     @MainActor
     func fetchReadMore() async {
         do {
+            readMoreFetchable = .fetching
             let urlString = "https://www.metal-archives.com/band/read-more/id/\(band.id)"
             let readMore = try await apiService.getString(for: urlString, inHtmlFormat: false)
             guard let readMore = readMore else {

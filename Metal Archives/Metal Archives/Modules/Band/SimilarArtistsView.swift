@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct SimilarArtistsView: View {
-    @EnvironmentObject private var viewModel: BandViewModel
-    let apiService: APIServiceProtocol
+    @ObservedObject var viewModel: SimilarArtistsViewModel
 
     var body: some View {
         VStack {
@@ -20,7 +19,7 @@ struct SimilarArtistsView: View {
                         .frame(maxWidth: .infinity)
                         .font(.caption)
 
-                    RetryButton(onRetry: viewModel.refreshSimilarArtists)
+                    RetryButton(onRetry: viewModel.retry)
                 }
 
             case .fetching, .waiting:
@@ -28,7 +27,7 @@ struct SimilarArtistsView: View {
 
             case .fetched(let similarArtists):
                 ForEach(Array(similarArtists.prefix(20)), id: \.name) {
-                    BandSimilarView(apiService: apiService, bandSimilar: $0)
+                    BandSimilarView(apiService: viewModel.apiService, bandSimilar: $0)
                         .padding(.horizontal)
                         .padding(.vertical, 8)
 
@@ -37,7 +36,7 @@ struct SimilarArtistsView: View {
 
                 if similarArtists.count > 20 {
                     NavigationLink(destination: {
-                        AllSimilarArtistsView(apiService: apiService,
+                        AllSimilarArtistsView(apiService: viewModel.apiService,
                                               band: viewModel.band,
                                               similarArtists: similarArtists)
                     }, label: {
@@ -62,15 +61,9 @@ struct SimilarArtistsView: View {
                 }
             }
         }
-        .onAppear {
-            viewModel.fetchSimilarArtists()
+        .task {
+            await viewModel.fetchSimilarArtists()
         }
-    }
-}
-
-struct SimilarArtistsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SimilarArtistsView(apiService: APIService())
     }
 }
 

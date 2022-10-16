@@ -80,8 +80,8 @@ struct BandSimilarView: View {
     }
 }
 
+/*
 struct BandSimilarView_Previews: PreviewProvider {
-    // swiftlint:disable force_unwrapping
     static var previews: some View {
         let urlString = "https://www.metal-archives.com/bands/Possessed/914"
         let thumbnailInfo = ThumbnailInfo(urlString: urlString, type: .bandLogo)!
@@ -94,3 +94,4 @@ struct BandSimilarView_Previews: PreviewProvider {
             .environmentObject(Preferences())
     }
 }
+*/

@@ -10,8 +10,6 @@ import SwiftUI
 final class BandViewModel: ObservableObject {
     @Published private(set) var bandAndDiscographyFetchable: FetchableObject<(Band, Discography)> = .waiting
     @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .waiting
-    @Published private(set) var readMoreFetchable: FetchableObject<HtmlBodyText> = .waiting
-    @Published private(set) var similarArtistsFetchable: FetchableObject<[BandSimilar]> = .waiting
     private(set) var band: Band?
     private let bandUrlString: String
     private let apiService: APIServiceProtocol
@@ -46,38 +44,6 @@ final class BandViewModel: ObservableObject {
         Task { @MainActor in
             await fetchBandAndDiscography()
         }
-    }
-}
-
-// MARK: - Similar artists
-extension BandViewModel {
-    func fetchSimilarArtists() {
-        switch similarArtistsFetchable {
-        case .waiting: break
-        default: return
-        }
-
-        guard let band = band else {
-            similarArtistsFetchable = .error(MAError.missingBand)
-            return
-        }
-
-        let urlString = "https://www.metal-archives.com/band/ajax-recommendations/id/\(band.id)/showMoreSimilar/1"
-        similarArtistsFetchable = .fetching
-        Task { @MainActor in
-            do {
-                let similarArtists = try await apiService.request(forType: BandSimilarArray.self,
-                                                                  urlString: urlString)
-                similarArtistsFetchable = .fetched(similarArtists.content)
-            } catch {
-                similarArtistsFetchable = .error(error)
-            }
-        }
-    }
-
-    func refreshSimilarArtists() {
-        similarArtistsFetchable = .waiting
-        fetchSimilarArtists()
     }
 }
 
