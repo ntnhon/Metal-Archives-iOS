@@ -13,7 +13,7 @@ struct Metal_ArchivesApp: App {
     var body: some Scene {
         WindowGroup {
             RootView(apiService: apiService)
-                .modifier(SelectedPhotoableViewModifier())
+                .modifier(PhotoSelectableViewModifier())
                 .environmentObject(Preferences())
                 .preferredColorScheme(.dark)
         }

@@ -1,5 +1,5 @@
 //
-//  PhotoableViewModifier.swift
+//  PhotoSelectableViewModifier.swift
 //  Metal Archives
 //
 //  Created by Thanh-Nhon Nguyen on 09/10/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SelectedPhotoableViewModifier: ViewModifier {
+struct PhotoSelectableViewModifier: ViewModifier {
     @EnvironmentObject private var preferences: Preferences
     @State private var selectedPhoto: Photo?
 
