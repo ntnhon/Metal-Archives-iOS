@@ -9,19 +9,23 @@ import SwiftUI
 
 struct BrowseView: View {
     @EnvironmentObject private var preferences: Preferences
-    @State private var randomBandUrlString = "https://www.metal-archives.com/band/random"
+    @State private var randomBandUrlString: String?
     let apiService: APIServiceProtocol
 
     var body: some View {
         Form {
             newsStatisticSection
-            hallOfFameSection
+            topOfSection
             bandsSection
             labelsSection
             ripSection
             randomSection
         }
         .navigationTitle("Browse")
+        .onAppear {
+            randomBandUrlString = nil
+            randomBandUrlString = "https://www.metal-archives.com/band/random"
+        }
     }
 
     private var newsStatisticSection: some View {
@@ -44,31 +48,65 @@ struct BrowseView: View {
         }
     }
 
-    private var hallOfFameSection: some View {
-        Section(header: Text("Hall of Fame")) {
-            NavigationLink(destination: Top100BandsView()) {
-                HStack {
-                    Image(systemName: "person.3.fill")
-                        .foregroundColor(preferences.theme.primaryColor)
-                    Text("Top 100 bands")
-                }
-            }
+    private var topOfSection: some View {
+        Section(content: {
+            view(for: GroupedTopCategory.bands)
+            view(for: GroupedTopCategory.albums)
+            view(for: GroupedTopCategory.members)
+        }, header: {
+            Text("Top of Metal Archives")
+        })
+    }
 
-            NavigationLink(destination: Top100AlbumsView()) {
-                HStack {
-                    Image(systemName: "opticaldisc")
-                        .foregroundColor(preferences.theme.primaryColor)
-                    Text("Top 100 albums")
-                }
+    @ViewBuilder
+    private func view(for groupedCategory: GroupedTopCategory) -> some View {
+        List([groupedCategory], children: \.subCategories) { category in
+            if category.subCategories == nil {
+                NavigationLink(destination: {
+                    destination(for: category.category)
+                }, label: {
+                    view(for: category.category)
+                })
+            } else {
+                view(for: category.category)
             }
+        }
+    }
 
-            NavigationLink(destination: Top100MembersView()) {
-                HStack {
-                    Image(systemName: "person.fill")
-                        .foregroundColor(preferences.theme.primaryColor)
-                    Text("Top 100 members")
-                }
-            }
+    @ViewBuilder
+    private func view(for category: TopCategory) -> some View {
+        if let icon = category.icon {
+            Label(category.title, systemImage: icon)
+        } else {
+            Text(category.title)
+        }
+    }
+
+    @ViewBuilder
+    private func destination(for category: TopCategory) -> some View {
+        switch category {
+        case .bandsByReleases:
+            TopBandsView(apiService: apiService, category: .releases)
+        case .bandsByFullLengths:
+            TopBandsView(apiService: apiService, category: .fullLengths)
+        case .bandsByReviews:
+            TopBandsView(apiService: apiService, category: .reviews)
+        case .albumsByReviews:
+            TopAlbumsView(apiService: apiService, category: .reviews)
+        case .albumsByMostOwned:
+            TopAlbumsView(apiService: apiService, category: .mostOwned)
+        case .albumsByMostWanted:
+            TopAlbumsView(apiService: apiService, category: .mostWanted)
+        case .membersBySubmittedBands:
+            TopMembersView(apiService: apiService, category: .submittedBands)
+        case .membersByWrittenReviews:
+            TopMembersView(apiService: apiService, category: .writtenReviews)
+        case .membersBySubmittedAlbums:
+            TopMembersView(apiService: apiService, category: .submittedAlbums)
+        case .membersByArtistsAdded:
+            TopMembersView(apiService: apiService, category: .artistsAdded)
+        default:
+            EmptyView()
         }
     }
 
@@ -135,7 +173,7 @@ struct BrowseView: View {
     private var randomSection: some View {
         Section(header: Text("Random")) {
             let bandView = BandView(apiService: apiService,
-                                    bandUrlString: randomBandUrlString)
+                                    bandUrlString: randomBandUrlString ?? "")
             NavigationLink(destination: bandView) {
                 HStack {
                     Image(systemName: "questionmark")
