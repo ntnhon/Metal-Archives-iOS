@@ -56,6 +56,8 @@ private struct ReleaseContentView: View {
     @State private var coverOpacity: Double = 1.0
     @State private var selectedBandUrl: String?
     @State private var selectedLabelUrl: String?
+    @State private var selectedReviewUrl: String?
+    @State private var selectedUserUrl: String?
     private let minCoverScaleFactor: CGFloat = 0.5
     private let maxCoverScaleFactor: CGFloat = 1.2
     let apiService: APIServiceProtocol
@@ -64,6 +66,8 @@ private struct ReleaseContentView: View {
     var body: some View {
         let isShowingBandDetail = makeIsShowingBandDetailBinding()
         let isShowingLabelDetail = makeIsShowingLabelDetailBinding()
+        let isShowingReviewDetail = makeIsShowingReviewDetailBinding()
+        let isShowingUserDetail = makeIsShowingUserDetailBinding()
 
         ZStack(alignment: .top) {
             NavigationLink(
@@ -81,6 +85,26 @@ private struct ReleaseContentView: View {
                 destination: {
                     if let selectedLabelUrl = selectedLabelUrl {
                         LabelView(apiService: apiService, urlString: selectedLabelUrl)
+                    } else {
+                        EmptyView()
+                    }},
+                label: { EmptyView() })
+
+            NavigationLink(
+                isActive: isShowingReviewDetail,
+                destination: {
+                    if let selectedReviewUrl = selectedReviewUrl {
+                        ReviewView(apiService: apiService, urlString: selectedReviewUrl)
+                    } else {
+                        EmptyView()
+                    }},
+                label: { EmptyView() })
+
+            NavigationLink(
+                isActive: isShowingUserDetail,
+                destination: {
+                    if let selectedUserUrl = selectedUserUrl {
+                        UserView(apiService: apiService, urlString: selectedUserUrl)
                     } else {
                         EmptyView()
                     }},
@@ -154,7 +178,9 @@ private struct ReleaseContentView: View {
                                 OtherVersionsView()
 
                             case .reviews:
-                                ReleaseReviewsView(reviews: release.reviews)
+                                ReleaseReviewsView(reviews: release.reviews,
+                                                   onSelectReview: { url in selectedReviewUrl = url },
+                                                   onSelectUser: { url in selectedUserUrl = url })
 
                             case .additionalNotes:
                                 ReleaseNoteView(release: release)
@@ -186,6 +212,26 @@ private struct ReleaseContentView: View {
         }, set: { newValue in
             if !newValue {
                 selectedLabelUrl = nil
+            }
+        })
+    }
+
+    private func makeIsShowingReviewDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedReviewUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedReviewUrl = nil
+            }
+        })
+    }
+
+    private func makeIsShowingUserDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedUserUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedUserUrl = nil
             }
         })
     }
