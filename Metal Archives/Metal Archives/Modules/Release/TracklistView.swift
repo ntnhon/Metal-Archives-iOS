@@ -31,8 +31,10 @@ struct TracklistView: View {
                         .onTapGesture {
                             if song.lyricId != nil {
                                 selectedSongWithLyric = song
-                            } else {
+                            } else if song.isInstrumental {
                                 noLyricMessage = "This is an instrumental song"
+                            } else {
+                                noLyricMessage = "This song has no lyric yet"
                             }
                         }
                     Divider()

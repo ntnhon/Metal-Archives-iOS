@@ -178,9 +178,15 @@ private struct ReleaseContentView: View {
                                 OtherVersionsView()
 
                             case .reviews:
-                                ReleaseReviewsView(reviews: release.reviews,
-                                                   onSelectReview: { url in selectedReviewUrl = url },
-                                                   onSelectUser: { url in selectedUserUrl = url })
+                                if release.reviews.isEmpty {
+                                    Text("No reviews yet")
+                                        .font(.callout.italic())
+                                        .padding(.horizontal)
+                                } else {
+                                    ReleaseReviewsView(reviews: release.reviews,
+                                                       onSelectReview: { url in selectedReviewUrl = url },
+                                                       onSelectUser: { url in selectedUserUrl = url })
+                                }
 
                             case .additionalNotes:
                                 ReleaseNoteView(release: release)
