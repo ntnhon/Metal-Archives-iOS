@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TracklistView: View {
-    @State private var noLyricMessage: String?
+    @Environment(\.toastMessage) private var toastMessage
     @State private var selectedSongWithLyric: Song?
     let apiService: APIServiceProtocol
     let elements: [ReleaseElement]
@@ -32,9 +32,9 @@ struct TracklistView: View {
                             if song.lyricId != nil {
                                 selectedSongWithLyric = song
                             } else if song.isInstrumental {
-                                noLyricMessage = "This is an instrumental song"
+                                toastMessage.wrappedValue = "This is an instrumental song"
                             } else {
-                                noLyricMessage = "This song has no lyric yet"
+                                toastMessage.wrappedValue = "This song has no lyric yet"
                             }
                         }
                     Divider()
@@ -65,7 +65,6 @@ struct TracklistView: View {
                 LyricView(apiService: apiService, song: selectedSongWithLyric)
             }
         }
-        .alertToastMessage($noLyricMessage)
     }
 
     private func discOrSideView(title: String, isFirstElement: Bool) -> some View {

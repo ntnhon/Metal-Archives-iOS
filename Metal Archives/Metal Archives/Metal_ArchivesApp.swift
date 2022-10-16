@@ -15,6 +15,7 @@ struct Metal_ArchivesApp: App {
             RootView(apiService: apiService)
                 .modifier(PhotoSelectableViewModifier())
                 .modifier(UrlSelectableViewModifier())
+                .modifier(ToastViewModifier())
                 .environmentObject(Preferences())
                 .preferredColorScheme(.dark)
         }
