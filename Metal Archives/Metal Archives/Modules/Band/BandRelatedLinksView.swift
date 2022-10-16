@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BandRelatedLinksView: View {
-    @EnvironmentObject private var viewModel: BandViewModel
+    @ObservedObject var viewModel: BandViewModel
 
     var body: some View {
         VStack {
