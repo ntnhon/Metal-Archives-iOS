@@ -15,6 +15,7 @@ private let kBuildNumber =
 
 struct SettingsView: View {
     @EnvironmentObject private var preferences: Preferences
+    @Environment(\.selectedUrl) private var selectedUrl
 
     @State private var showAboutSheet = false
     @State private var showSupportSheet = false
@@ -22,8 +23,6 @@ struct SettingsView: View {
     @State private var showThumbnails = false
     @State private var useHaptic = false
     @State private var showThemePreview = false
-
-    @State private var selectedUrlString: String?
 
     var body: some View {
         Form {
@@ -35,8 +34,6 @@ struct SettingsView: View {
             bottomSection
         }
         .navigationTitle("Settings")
-        .betterSafariView(urlString: $selectedUrlString,
-                          tintColor: preferences.theme.primaryColor)
         .onAppear {
             self.showThumbnails = preferences.showThumbnails
             self.useHaptic = preferences.useHaptic
@@ -172,14 +169,14 @@ struct SettingsView: View {
     private var officiaLinksSection: some View {
         Section(header: Text("Official Links")) {
             Button(action: {
-                selectedUrlString = "https://www.metal-archives.com/"
+                selectedUrl.wrappedValue = "https://www.metal-archives.com/"
             }, label: {
                 Label("Website", systemImage: "link")
                     .foregroundColor(.primary)
             })
 
             Button(action: {
-                selectedUrlString = "https://www.metal-archives.com/board/"
+                selectedUrl.wrappedValue = "https://www.metal-archives.com/board/"
             }, label: {
                 Label("Forum", systemImage: "globe")
                     .foregroundColor(.primary)
@@ -192,7 +189,7 @@ struct SettingsView: View {
                 footer: Text("For crashes, bug reports & feature requests related to this iOS app")) {
             // Twitter
             Button(action: {
-                selectedUrlString = "https://twitter.com/ma_mobile_app"
+                selectedUrl.wrappedValue = "https://twitter.com/ma_mobile_app"
             }, label: {
                 Label(title: {
                     Text("Twitter")
@@ -206,7 +203,7 @@ struct SettingsView: View {
 
             // Facebook
             Button(action: {
-                selectedUrlString = "https://www.facebook.com/MetalArchivesMobileApp"
+                selectedUrl.wrappedValue = "https://www.facebook.com/MetalArchivesMobileApp"
             }, label: {
                 Label(title: {
                     Text("Facebook")
@@ -220,7 +217,7 @@ struct SettingsView: View {
 
             // Github
             Button(action: {
-                selectedUrlString = "https://github.com/ntnhon/Metal-Archives-iOS"
+                selectedUrl.wrappedValue = "https://github.com/ntnhon/Metal-Archives-iOS"
             }, label: {
                 Label(title: {
                     Text("Github")
@@ -236,7 +233,10 @@ struct SettingsView: View {
 
             // Email
             Button(action: {
-                selectedUrlString = "mailto:hi@nguyenthanhnhon.info"
+                if let url = URL(string: "mailto:hi@nguyenthanhnhon.info"),
+                   UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url)
+                }
             }, label: {
                 Label("Author's email", systemImage: "envelope.fill")
                     .foregroundColor(.primary)

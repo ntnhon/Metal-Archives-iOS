@@ -9,8 +9,7 @@ import Kingfisher
 import SwiftUI
 
 struct RelatedLinkView: View {
-    @EnvironmentObject private var preferences: Preferences
-    @State private var selectedUrlString: String?
+    @Environment(\.selectedUrl) private var selectedUrl
     let relatedLink: RelatedLink
 
     var body: some View {
@@ -28,11 +27,10 @@ struct RelatedLinkView: View {
 
             Spacer()
         }
+        .contentShape(Rectangle())
         .frame(maxWidth: .infinity)
-        .betterSafariView(urlString: $selectedUrlString,
-                          tintColor: preferences.theme.primaryColor)
         .onTapGesture {
-            selectedUrlString = relatedLink.urlString
+            selectedUrl.wrappedValue = relatedLink.urlString
         }
     }
 }
