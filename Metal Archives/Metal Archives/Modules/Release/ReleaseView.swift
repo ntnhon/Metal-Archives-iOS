@@ -118,8 +118,15 @@ private struct ReleaseContentView: View {
                 },
                 content: {
                     VStack(alignment: .leading, spacing: 0) {
-                        Color.clear
+                        Color.gray
+                            .opacity(0.001)
                             .frame(height: coverViewHeight)
+                            .onTapGesture {
+                                if let coverImage = viewModel.cover {
+                                    selectedPhoto.wrappedValue = .init(image: coverImage,
+                                                                       description: viewModel.release?.title ?? "")
+                                }
+                            }
 
                         ReleaseInfoView(release: release,
                                         onSelectBand: { url in selectedBandUrl = url },

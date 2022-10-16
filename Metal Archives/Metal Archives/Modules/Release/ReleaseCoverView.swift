@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ReleaseCoverView: View {
-    @Environment(\.selectedPhoto) private var selectedPhoto
     @EnvironmentObject private var viewModel: ReleaseViewModel
     @Binding var scaleFactor: CGFloat
     @Binding var opacity: Double

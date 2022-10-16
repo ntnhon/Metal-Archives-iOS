@@ -14,11 +14,12 @@ final class ReleaseViewModel: ObservableObject {
 
     @Published private(set) var releaseFetchable: FetchableObject<Release> = .fetching
     @Published private(set) var coverFetchable: FetchableObject<UIImage?> = .fetching
+    @Published private(set) var noteFetchable: FetchableObject<String?> = .fetching
     @Published private(set) var noCover = false
     private let apiService: APIServiceProtocol
     private let releaseUrlString: String
 
-    private var release: Release? {
+    var release: Release? {
         switch releaseFetchable {
         case .fetched(let release):
             return release
