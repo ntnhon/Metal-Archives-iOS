@@ -86,9 +86,7 @@ struct AllSimilarArtistsView: View {
     }
 
     private var navigationTitle: String {
-        guard let band = band else {
-            return ""
-        }
+        guard let band  else { return "" }
         return "Similar to \(band.name)"
     }
 }

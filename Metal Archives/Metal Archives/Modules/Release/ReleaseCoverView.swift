@@ -19,7 +19,7 @@ struct ReleaseCoverView: View {
                 ProgressView()
 
             case .fetched(let image):
-                if let image = image {
+                if let image {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFill()

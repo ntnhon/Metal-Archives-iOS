@@ -32,7 +32,7 @@ extension ArtistInBand {
         var seeAlso: String?
 
         func build() -> ArtistInBand? {
-            guard let thumbnailInfo = thumbnailInfo else {
+            guard let thumbnailInfo else {
                 Logger.log("[Building ArtistInBand] thumbnailInfo can not be nil.")
                 return nil
             }
@@ -42,17 +42,17 @@ extension ArtistInBand {
                 return nil
             }
 
-            guard let name = name else {
+            guard let name else {
                 Logger.log("[Building ArtistInBand] name can not be nil.")
                 return nil
             }
 
-            guard let instruments = instruments else {
+            guard let instruments else {
                 Logger.log("[Building ArtistInBand] instruments can not be nil.")
                 return nil
             }
 
-            guard let bands = bands else {
+            guard let bands else {
                 Logger.log("[Building ArtistInBand] bands can not be nil.")
                 return nil
             }

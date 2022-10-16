@@ -31,7 +31,7 @@ extension ReleaseInBand {
         var reviewsUrlString: String?
 
         func build() -> ReleaseInBand? {
-            guard let thumbnailInfo = thumbnailInfo else {
+            guard let thumbnailInfo else {
                 Logger.log("[Building ReleaseInBand] thumbnailInfo can not be nil.")
                 return nil
             }
@@ -41,17 +41,17 @@ extension ReleaseInBand {
                 return nil
             }
 
-            guard let title = title else {
+            guard let title else {
                 Logger.log("[Building ReleaseInBand] title can not be nil.")
                 return nil
             }
 
-            guard let type = type else {
+            guard let type else {
                 Logger.log("[Building ReleaseInBand] type can not be nil.")
                 return nil
             }
 
-            guard let year = year else {
+            guard let year else {
                 Logger.log("[Building ReleaseInBand] year can not be nil.")
                 return nil
             }

@@ -58,67 +58,67 @@ extension Band {
         var liveMusicians: [ArtistInBand] = []
 
         func build() -> Band? {
-            guard let id = id else {
+            guard let id else {
                 Logger.log("[Building Band] id can not be nil.")
                 return nil
             }
 
-            guard let urlString = urlString else {
+            guard let urlString else {
                 Logger.log("[Building Band] urlString can not be nil.")
                 return nil
             }
 
-            guard let name = name else {
+            guard let name else {
                 Logger.log("[Building Band] name can not be nil.")
                 return nil
             }
 
-            guard let country = country else {
+            guard let country else {
                 Logger.log("[Building Band] country can not be nil.")
                 return nil
             }
 
-            guard let genre = genre else {
+            guard let genre else {
                 Logger.log("[Building Band] genre can not be nil.")
                 return nil
             }
 
-            guard let status = status else {
+            guard let status else {
                 Logger.log("[Building Band] status can not be nil.")
                 return nil
             }
 
-            guard let location = location else {
+            guard let location else {
                 Logger.log("[Building Band] location can not be nil.")
                 return nil
             }
 
-            guard let yearOfCreation = yearOfCreation else {
+            guard let yearOfCreation else {
                 Logger.log("[Building Band] yearOfCreation can not be nil.")
                 return nil
             }
 
-            guard let yearsActive = yearsActive else {
+            guard let yearsActive else {
                 Logger.log("[Building Band] yearsActive can not be nil.")
                 return nil
             }
 
-            guard let oldBands = oldBands else {
+            guard let oldBands else {
                 Logger.log("[Building Band] oldBands can not be nil.")
                 return nil
             }
 
-            guard let lyricalTheme = lyricalTheme else {
+            guard let lyricalTheme else {
                 Logger.log("[Building Band] lyricalTheme can not be nil.")
                 return nil
             }
 
-            guard let lastLabel = lastLabel else {
+            guard let lastLabel else {
                 Logger.log("[Building Band] lastLabel can not be nil.")
                 return nil
             }
 
-            guard let modificationInfo = modificationInfo else {
+            guard let modificationInfo else {
                 Logger.log("[Building Band] modificationInfo can not be nil.")
                 return nil
             }

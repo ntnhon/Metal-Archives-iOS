@@ -30,22 +30,22 @@ extension ArtistInRelease {
         var bandName: String?
 
         func build() -> ArtistInRelease? {
-            guard let thumbnailInfo = thumbnailInfo else {
+            guard let thumbnailInfo else {
                 Logger.log("[Building ArtistInRelease] thumbnailInfo can not be nil.")
                 return nil
             }
 
-            guard let name = name else {
+            guard let name else {
                 Logger.log("[Building ArtistInRelease] name can not be nil.")
                 return nil
             }
 
-            guard let lineUpType = lineUpType else {
+            guard let lineUpType else {
                 Logger.log("[Building ArtistInRelease] lineUpType can not be nil.")
                 return nil
             }
 
-            guard let instruments = instruments else {
+            guard let instruments else {
                 Logger.log("[Building ArtistInRelease] instruments can not be nil.")
                 return nil
             }

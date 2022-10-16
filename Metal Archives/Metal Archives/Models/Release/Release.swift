@@ -75,62 +75,62 @@ extension Release {
         var reviews: [ReviewLite]?
 
         func build() -> Release? {
-            guard let id = id else {
+            guard let id else {
                 Logger.log("[Building Release] id can not be nil.")
                 return nil
             }
 
-            guard let urlString = urlString else {
+            guard let urlString else {
                 Logger.log("[Building Release] urlString can not be nil.")
                 return nil
             }
 
-            guard let bands = bands else {
+            guard let bands else {
                 Logger.log("[Building Release] bands can not be nil.")
                 return nil
             }
 
-            guard let title = title else {
+            guard let title else {
                 Logger.log("[Building Release] title can not be nil.")
                 return nil
             }
 
-            guard let type = type else {
+            guard let type else {
                 Logger.log("[Building Release] type can not be nil.")
                 return nil
             }
 
-            guard let date = date else {
+            guard let date else {
                 Logger.log("[Building Release] date can not be nil.")
                 return nil
             }
 
-            guard let catalogId = catalogId else {
+            guard let catalogId else {
                 Logger.log("[Building Release] catalogId can not be nil.")
                 return nil
             }
 
-            guard let label = label else {
+            guard let label else {
                 Logger.log("[Building Release] label can not be nil.")
                 return nil
             }
 
-            guard let format = format else {
+            guard let format else {
                 Logger.log("[Building Release] format can not be nil.")
                 return nil
             }
 
-            guard let otherInfo = otherInfo else {
+            guard let otherInfo else {
                 Logger.log("[Building Release] otherInfo can not be nil.")
                 return nil
             }
 
-            guard let modificationInfo = modificationInfo else {
+            guard let modificationInfo else {
                 Logger.log("[Building Release] modificationInfo can not be nil.")
                 return nil
             }
 
-            guard let elements = elements else {
+            guard let elements else {
                 Logger.log("[Building Release] elements can not be nil.")
                 return nil
             }

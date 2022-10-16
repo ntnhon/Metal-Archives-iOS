@@ -74,32 +74,32 @@ extension Artist {
         var miscStaffRoles: [RoleInBand]?
 
         func build() -> Artist? {
-            guard let artistName = artistName else {
+            guard let artistName else {
                 Logger.log("[Building Artist] artistName can not be nil")
                 return nil
             }
 
-            guard let realFullName = realFullName else {
+            guard let realFullName else {
                 Logger.log("[Building Artist] realFullName can not be nil")
                 return nil
             }
 
-            guard let age = age else {
+            guard let age else {
                 Logger.log("[Building Artist] age can not be nil")
                 return nil
             }
 
-            guard let origin = origin else {
+            guard let origin else {
                 Logger.log("[Building Artist] origin can not be nil")
                 return nil
             }
 
-            guard let gender = gender else {
+            guard let gender else {
                 Logger.log("[Building Artist] gender can not be nil")
                 return nil
             }
 
-            guard let modificationInfo = modificationInfo else {
+            guard let modificationInfo else {
                 Logger.log("[Building Artist] modificationInfo can not be nil")
                 return nil
             }

@@ -44,7 +44,7 @@ struct BandHeaderView: View {
                             .frame(width: logoHeight, height: logoHeight)
 
                     case .fetched(let logo):
-                        if let logo = logo {
+                        if let logo {
                             Image(uiImage: logo)
                                 .resizable()
                                 .scaledToFit()
@@ -84,7 +84,7 @@ struct BandHeaderView: View {
                         .frame(width: photoHeight, height: photoHeight)
 
                 case .fetched(let photo):
-                    if let photo = photo {
+                    if let photo {
                         ZStack {
                             Image(uiImage: photo)
                                 .resizable()

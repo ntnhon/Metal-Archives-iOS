@@ -15,7 +15,7 @@ struct ReleaseNoteView: View {
     }
 
     var body: some View {
-        if let note = note {
+        if let note {
             Text(note)
                 .textSelection(.enabled)
         } else {

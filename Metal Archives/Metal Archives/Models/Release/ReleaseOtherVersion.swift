@@ -31,32 +31,32 @@ extension ReleaseOtherVersion {
         var description: String?
 
         func build() -> ReleaseOtherVersion? {
-            guard let urlString = urlString else {
+            guard let urlString else {
                 Logger.log("[Building ReleaseOtherVersion] urlString can not be nil.")
                 return nil
             }
 
-            guard let date = date else {
+            guard let date else {
                 Logger.log("[Building ReleaseOtherVersion] date can not be nil.")
                 return nil
             }
 
-            guard let labelName = labelName else {
+            guard let labelName else {
                 Logger.log("[Building ReleaseOtherVersion] labelName can not be nil.")
                 return nil
             }
 
-            guard let catalogId = catalogId else {
+            guard let catalogId else {
                 Logger.log("[Building ReleaseOtherVersion] catalogId can not be nil.")
                 return nil
             }
 
-            guard let format = format else {
+            guard let format else {
                 Logger.log("[Building ReleaseOtherVersion] format can not be nil.")
                 return nil
             }
 
-            guard let description = description else {
+            guard let description else {
                 Logger.log("[Building ReleaseOtherVersion] description can not be nil.")
                 return nil
             }

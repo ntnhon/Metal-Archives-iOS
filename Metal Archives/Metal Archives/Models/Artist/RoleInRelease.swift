@@ -22,17 +22,17 @@ extension RoleInRelease {
         var description: String?
 
         func build() -> RoleInRelease? {
-            guard let year = year else {
+            guard let year else {
                 Logger.log("[Building RoleInRelease] year can not be nil.")
                 return nil
             }
 
-            guard let release = release else {
+            guard let release else {
                 Logger.log("[Building RoleInRelease] release can not be nil.")
                 return nil
             }
 
-            guard let description = description else {
+            guard let description else {
                 Logger.log("[Building RoleInRelease] description can not be nil.")
                 return nil
             }

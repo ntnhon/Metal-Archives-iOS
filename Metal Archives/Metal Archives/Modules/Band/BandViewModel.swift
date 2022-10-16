@@ -48,7 +48,7 @@ final class BandViewModel: ObservableObject {
 // MARK: - Related links
 extension BandViewModel {
     func fetchRelatedLinks() {
-        guard let band = band else {
+        guard let band else {
             relatedLinksFetchable = .error(MAError.missingBand)
             return
         }

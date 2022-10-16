@@ -47,7 +47,7 @@ struct ReleaseReviewsView: View {
             "",
             isPresented: isShowingConfirmationDialog,
             actions: {
-                if let selectedReview = selectedReview {
+                if let selectedReview {
                     Button("💬 Read review") {
                         onSelectReview(selectedReview.urlString)
                     }

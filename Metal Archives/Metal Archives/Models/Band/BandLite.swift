@@ -49,7 +49,7 @@ struct BandExtraLite: OptionalThumbnailable {
     let name: String
 
     init(urlString: String?, name: String) {
-        if let urlString = urlString {
+        if let urlString {
             self.thumbnailInfo = ThumbnailInfo(urlString: urlString, type: .bandLogo)
         } else {
             self.thumbnailInfo = nil

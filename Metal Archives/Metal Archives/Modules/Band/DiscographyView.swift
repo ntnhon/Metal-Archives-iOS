@@ -62,7 +62,7 @@ struct DiscographyView: View {
             }
         }
         .sheet(isPresented: showingShareSheet) {
-            if let selectedRelease = selectedRelease,
+            if let selectedRelease,
                let url = URL(string: selectedRelease.thumbnailInfo.urlString) {
                 ActivityView(items: [url])
             } else {

@@ -27,17 +27,17 @@ struct Song {
         var isInstrumental = false
 
         func build() -> Song? {
-            guard let number = number else {
+            guard let number else {
                 Logger.log("[Building Song] number can not be nil")
                 return nil
             }
 
-            guard let title = title else {
+            guard let title else {
                 Logger.log("[Building Song] title can not be nil")
                 return nil
             }
 
-            guard let length = length else {
+            guard let length else {
                 Logger.log("[Building Song] length can not be nil")
                 return nil
             }

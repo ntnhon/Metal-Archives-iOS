@@ -31,7 +31,7 @@ final class BandReadMoreViewModel: ObservableObject {
             readMoreFetchable = .fetching
             let urlString = "https://www.metal-archives.com/band/read-more/id/\(band.id)"
             let readMore = try await apiService.getString(for: urlString, inHtmlFormat: false)
-            guard let readMore = readMore else {
+            guard let readMore else {
                 throw MAError.failedToFetchReadMore(bandName: band.name)
             }
             readMoreFetchable = .fetched(readMore)

@@ -20,17 +20,17 @@ extension RoleInBand {
         var roleInReleases: [RoleInRelease]?
 
         func build() -> RoleInBand? {
-            guard let band = band else {
+            guard let band else {
                 Logger.log("[Building RoleInBand] band can not be nil.")
                 return nil
             }
 
-            guard let description = description else {
+            guard let description else {
                 Logger.log("[Building RoleInBand] description can not be nil.")
                 return nil
             }
 
-            guard let roleInReleases = roleInReleases else {
+            guard let roleInReleases else {
                 Logger.log("[Building RoleInBand] roleInReleases can not be nil.")
                 return nil
             }

@@ -19,7 +19,7 @@ struct ModificationInfo {
 
 extension ModificationInfo {
     var modifiedOnDateString: String? {
-        guard let modifiedOnDate = modifiedOnDate else { return nil }
+        guard let modifiedOnDate else { return nil }
         return DateFormatter.default.string(from: modifiedOnDate)
     }
 }

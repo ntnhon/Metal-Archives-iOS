@@ -106,7 +106,7 @@ private struct BandContentView: View {
                     NavigationLink(
                         isActive: isShowingBand,
                         destination: {
-                            if let selectedBandUrl = selectedBandUrl {
+                            if let selectedBandUrl {
                                 BandView(apiService: apiService, bandUrlString: selectedBandUrl)
                             } else {
                                 EmptyView()
@@ -118,7 +118,7 @@ private struct BandContentView: View {
                     NavigationLink(
                         isActive: isShowingLabel,
                         destination: {
-                            if let selectedLabelUrl = selectedLabelUrl {
+                            if let selectedLabelUrl {
                                 LabelView(apiService: apiService, urlString: selectedLabelUrl)
                             } else {
                                 EmptyView()
@@ -130,7 +130,7 @@ private struct BandContentView: View {
                     NavigationLink(
                         isActive: isShowingReview,
                         destination: {
-                            if let selectedReviewUrl = selectedReviewUrl {
+                            if let selectedReviewUrl {
                                 ReviewView(apiService: apiService, urlString: selectedReviewUrl)
                             } else {
                                 EmptyView()
@@ -142,7 +142,7 @@ private struct BandContentView: View {
                     NavigationLink(
                         isActive: isShowingUser,
                         destination: {
-                            if let selectedUserUrl = selectedUserUrl {
+                            if let selectedUserUrl {
                                 UserView(apiService: apiService, urlString: selectedUserUrl)
                             } else {
                                 EmptyView()

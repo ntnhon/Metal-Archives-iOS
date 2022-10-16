@@ -25,7 +25,7 @@ extension BandSimilar {
         var score: Int?
 
         func build() -> BandSimilar? {
-            guard let thumbnailInfo = thumbnailInfo else {
+            guard let thumbnailInfo else {
                 Logger.log("[Building BandSimilar] thumbnailInfo can not be nil.")
                 return nil
             }
@@ -35,22 +35,22 @@ extension BandSimilar {
                 return nil
             }
 
-            guard let name = name else {
+            guard let name else {
                 Logger.log("[Building BandSimilar] name can not be nil.")
                 return nil
             }
 
-            guard let country = country else {
+            guard let country else {
                 Logger.log("[Building BandSimilar] country can not be nil.")
                 return nil
             }
 
-            guard let genre = genre else {
+            guard let genre else {
                 Logger.log("[Building BandSimilar] genre can not be nil.")
                 return nil
             }
 
-            guard let score = score else {
+            guard let score else {
                 Logger.log("[Building BandSimilar] score can not be nil.")
                 return nil
             }

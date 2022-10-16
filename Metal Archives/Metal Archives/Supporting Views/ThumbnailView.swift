@@ -86,7 +86,7 @@ final class ThumbnailViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in },
                   receiveValue: { [weak self] data, response in
-                guard let self = self,
+                guard let self,
                       let httpResponse = response as? HTTPURLResponse else { return }
                 switch httpResponse.statusCode {
                 case 200:

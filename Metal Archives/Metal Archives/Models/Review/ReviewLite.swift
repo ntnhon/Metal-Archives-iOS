@@ -24,27 +24,27 @@ extension ReviewLite {
         var date: String?
 
         func build() -> ReviewLite? {
-            guard let urlString = urlString else {
+            guard let urlString else {
                 Logger.log("[Building ReviewLite] urlString can not be nil.")
                 return nil
             }
 
-            guard let title = title else {
+            guard let title else {
                 Logger.log("[Building ReviewLite] title can not be nil.")
                 return nil
             }
 
-            guard let rating = rating else {
+            guard let rating else {
                 Logger.log("[Building ReviewLite] rating can not be nil.")
                 return nil
             }
 
-            guard let author = author else {
+            guard let author else {
                 Logger.log("[Building ReviewLite] author can not be nil.")
                 return nil
             }
 
-            guard let date = date else {
+            guard let date else {
                 Logger.log("[Building ReviewLite] date can not be nil.")
                 return nil
             }

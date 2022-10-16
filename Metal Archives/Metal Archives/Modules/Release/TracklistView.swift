@@ -61,8 +61,8 @@ struct TracklistView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical)
         .sheet(isPresented: showingLyric) {
-            if let song = selectedSongWithLyric {
-                LyricView(apiService: apiService, song: song)
+            if let selectedSongWithLyric {
+                LyricView(apiService: apiService, song: selectedSongWithLyric)
             }
         }
         .alertToastMessage($noLyricMessage)
