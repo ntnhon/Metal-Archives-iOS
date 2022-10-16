@@ -39,15 +39,14 @@ extension APIServiceProtocol {
     func getString(for urlString: String, inHtmlFormat: Bool) async throws -> String? {
         let data = try await getData(for: urlString)
 
-        if !inHtmlFormat {
-            let htmlDoc = try Kanna.HTML(html: data, encoding: .utf8)
-            return htmlDoc.text
+        if !inHtmlFormat, let htmlDoc = try? Kanna.HTML(html: data, encoding: .utf8) {
+            return htmlDoc.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         }
 
         guard let string = String(data: data, encoding: .utf8) else {
             throw MAError.failedToUtf8DecodeString
         }
-        return string
+        return string.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     func request<T: HTMLParsable>(forType type: T.Type, urlString: String) async throws -> T {

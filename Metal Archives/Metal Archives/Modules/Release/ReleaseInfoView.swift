@@ -82,6 +82,13 @@ struct ReleaseInfoView: View {
                 }
 
                 reviewView
+
+                HStack {
+                    Image(systemName: "clock.fill")
+                        .foregroundColor(.secondary)
+                    Text(release.modificationInfo.summary)
+                    Spacer()
+                }
             }
             .padding(.horizontal)
             .frame(maxWidth: .infinity, alignment: .leading)

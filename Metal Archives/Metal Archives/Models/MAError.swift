@@ -11,7 +11,6 @@ enum MAError: Error, CustomStringConvertible {
     case badUrlString(String)
     case failedToUtf8DecodeString
     case failedToFetchLyric(lyricId: String)
-    case failedToFetchReadMore(bandName: String)
     case invalidServerResponse
     case missingBand
     case parseFailure(String)
@@ -27,8 +26,6 @@ enum MAError: Error, CustomStringConvertible {
             return "Failed to UTF8 decode"
         case .failedToFetchLyric(let lyricId):
             return "Failed to fetch lyric \(lyricId)"
-        case .failedToFetchReadMore(let bandName):
-            return "Failed to fetch read more for band \"\(bandName)\""
         case .invalidServerResponse:
             return "Invalid server response"
         case .missingBand:

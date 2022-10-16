@@ -18,9 +18,41 @@ struct ModificationInfo {
 }
 
 extension ModificationInfo {
+    var summary: String {
+        var summary = ""
+        if let addedOnDateString, let addedOnRelativeDateString {
+            summary += "Added on \(addedOnDateString) (\(addedOnRelativeDateString))"
+        }
+
+        if let modifiedOnDateString, let modifiedOnRelativeDateString {
+            if !summary.isEmpty {
+                summary += "\n"
+            }
+            summary += "Modified on \(modifiedOnDateString) (\(modifiedOnRelativeDateString))"
+        }
+        return summary
+    }
+}
+
+private extension ModificationInfo {
+    var addedOnDateString: String? {
+        guard let addedOnDate else { return nil }
+        return DateFormatter.dateOnly.string(for: addedOnDate)
+    }
+
+    var addedOnRelativeDateString: String? {
+        guard let addedOnDate else { return nil }
+        return RelativeDateTimeFormatter.default.string(for: addedOnDate)
+    }
+
     var modifiedOnDateString: String? {
         guard let modifiedOnDate else { return nil }
-        return DateFormatter.default.string(from: modifiedOnDate)
+        return DateFormatter.dateOnly.string(for: modifiedOnDate)
+    }
+
+    var modifiedOnRelativeDateString: String? {
+        guard let modifiedOnDate else { return nil }
+        return RelativeDateTimeFormatter.default.string(for: modifiedOnDate)
     }
 }
 

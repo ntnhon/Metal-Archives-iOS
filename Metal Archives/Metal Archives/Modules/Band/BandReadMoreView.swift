@@ -33,21 +33,26 @@ struct BandReadMoreView: View {
                 ProgressView()
 
             case .fetched(let readMore):
-                Text(readMore)
-                    .font(.callout)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .lineLimit(6)
-                    .padding()
-                    .onTapGesture {
-                        showingSheet.toggle()
-                    }
+                if let readMore {
+                    Text(readMore)
+                        .font(.callout)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .lineLimit(6)
+                        .padding()
+                        .onTapGesture {
+                            showingSheet.toggle()
+                        }
+                } else {
+                    EmptyView()
+                }
             }
         }
         .sheet(isPresented: $showingSheet) {
             if case .fetched(let readMore) = viewModel.readMoreFetchable {
                 NavigationView {
                     ScrollView {
-                        Text(readMore)
+                        Text(readMore ?? "")
                             .padding()
                             .textSelection(.enabled)
                     }

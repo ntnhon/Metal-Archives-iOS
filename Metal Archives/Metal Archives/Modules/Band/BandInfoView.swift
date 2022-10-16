@@ -99,10 +99,7 @@ struct BandInfoView: View {
             HStack {
                 Image(systemName: "clock.fill")
                     .foregroundColor(.secondary)
-                if let modifiedOnDateString = band.modificationInfo.modifiedOnDateString {
-                    Text(modifiedOnDateString)
-                }
-
+                Text(viewModel.band.modificationInfo.summary)
                 Spacer()
             }
         }
