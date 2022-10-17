@@ -15,6 +15,26 @@ struct TopBandsView: View {
     }
 
     var body: some View {
-        Text("Top bands")
+        ZStack {
+            switch viewModel.topBandsFetchable {
+            case .fetching:
+                HornCircularLoader()
+            case .fetched(let topBands):
+                List {
+                    ForEach(topBands.byReviews, id: \.name) { band in
+                        Text(band.name)
+                    }
+                }
+            case .error(let error):
+                HStack {
+                    Text(error.userFacingMessage)
+                    RetryButton(onRetry: viewModel.retry)
+                }
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .task {
+            await viewModel.fetchTopBands()
+        }
     }
 }

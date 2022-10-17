@@ -180,6 +180,7 @@
 		EF5A058728FDDDA7001BF230 /* TopAlbumsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058628FDDDA7001BF230 /* TopAlbumsViewModel.swift */; };
 		EF5A058928FDDDE5001BF230 /* TopBandsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058828FDDDE5001BF230 /* TopBandsViewModel.swift */; };
 		EF5A058B28FDDE02001BF230 /* TopMembersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058A28FDDE02001BF230 /* TopMembersViewModel.swift */; };
+		EF5A058D28FDDF71001BF230 /* TopBands.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058C28FDDF71001BF230 /* TopBands.swift */; };
 		EF60FFFD28FB0DB800F96735 /* BandReadMoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF60FFFC28FB0DB800F96735 /* BandReadMoreViewModel.swift */; };
 		EF60FFFF28FB122F00F96735 /* SimilarArtistsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */; };
 		EF62240A28F15FDF00845430 /* HornCircularLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240928F15FDF00845430 /* HornCircularLoader.swift */; };
@@ -394,6 +395,7 @@
 		EF5A058628FDDDA7001BF230 /* TopAlbumsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAlbumsViewModel.swift; sourceTree = "<group>"; };
 		EF5A058828FDDDE5001BF230 /* TopBandsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBandsViewModel.swift; sourceTree = "<group>"; };
 		EF5A058A28FDDE02001BF230 /* TopMembersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMembersViewModel.swift; sourceTree = "<group>"; };
+		EF5A058C28FDDF71001BF230 /* TopBands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBands.swift; sourceTree = "<group>"; };
 		EF60FFFC28FB0DB800F96735 /* BandReadMoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReadMoreViewModel.swift; sourceTree = "<group>"; };
 		EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarArtistsViewModel.swift; sourceTree = "<group>"; };
 		EF62240928F15FDF00845430 /* HornCircularLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HornCircularLoader.swift; sourceTree = "<group>"; };
@@ -807,6 +809,7 @@
 				C03873A12659AAD000D2FD5E /* BandSimilar.swift */,
 				C018C514265CD6E30022C8DD /* BandStatus.swift */,
 				C03873AA2659AE4B00D2FD5E /* Discography.swift */,
+				EF5A058C28FDDF71001BF230 /* TopBands.swift */,
 			);
 			path = Band;
 			sourceTree = "<group>";
@@ -1292,6 +1295,7 @@
 				C0DF7D1926A44C850049C98D /* ThumbnailView.swift in Sources */,
 				C004A2B82658F2E70071E12A /* ModificationInfo.swift in Sources */,
 				EF62240A28F15FDF00845430 /* HornCircularLoader.swift in Sources */,
+				EF5A058D28FDDF71001BF230 /* TopBands.swift in Sources */,
 				C0063EB9265C3A6E005AB1E2 /* ThumbnailInfo.swift in Sources */,
 				C018C515265CD6E30022C8DD /* BandStatus.swift in Sources */,
 				C02A4CE026867D84001CF9D2 /* ViewExtensions.swift in Sources */,
