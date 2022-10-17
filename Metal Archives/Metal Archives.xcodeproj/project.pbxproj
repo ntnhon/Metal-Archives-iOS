@@ -181,6 +181,7 @@
 		EF5A058928FDDDE5001BF230 /* TopBandsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058828FDDDE5001BF230 /* TopBandsViewModel.swift */; };
 		EF5A058B28FDDE02001BF230 /* TopMembersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058A28FDDE02001BF230 /* TopMembersViewModel.swift */; };
 		EF5A058D28FDDF71001BF230 /* TopBands.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058C28FDDF71001BF230 /* TopBands.swift */; };
+		EF5A058F28FDE7C8001BF230 /* TopReleases.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058E28FDE7C8001BF230 /* TopReleases.swift */; };
 		EF60FFFD28FB0DB800F96735 /* BandReadMoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF60FFFC28FB0DB800F96735 /* BandReadMoreViewModel.swift */; };
 		EF60FFFF28FB122F00F96735 /* SimilarArtistsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */; };
 		EF62240A28F15FDF00845430 /* HornCircularLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240928F15FDF00845430 /* HornCircularLoader.swift */; };
@@ -396,6 +397,7 @@
 		EF5A058828FDDDE5001BF230 /* TopBandsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBandsViewModel.swift; sourceTree = "<group>"; };
 		EF5A058A28FDDE02001BF230 /* TopMembersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMembersViewModel.swift; sourceTree = "<group>"; };
 		EF5A058C28FDDF71001BF230 /* TopBands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBands.swift; sourceTree = "<group>"; };
+		EF5A058E28FDE7C8001BF230 /* TopReleases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopReleases.swift; sourceTree = "<group>"; };
 		EF60FFFC28FB0DB800F96735 /* BandReadMoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReadMoreViewModel.swift; sourceTree = "<group>"; };
 		EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarArtistsViewModel.swift; sourceTree = "<group>"; };
 		EF62240928F15FDF00845430 /* HornCircularLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HornCircularLoader.swift; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 				C01ECED82662341A009A3A32 /* ReleaseLite.swift */,
 				C0C22335265D914B00BA6ACB /* ReleaseOtherVersion.swift */,
 				C038739A265996F000D2FD5E /* ReleaseType.swift */,
+				EF5A058E28FDE7C8001BF230 /* TopReleases.swift */,
 			);
 			path = Release;
 			sourceTree = "<group>";
@@ -1346,6 +1349,7 @@
 				C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */,
 				EF50D1C42896FC070081D6AA /* BandHeaderViewModel.swift in Sources */,
 				C0964F492723FAB100100972 /* ActivityView.swift in Sources */,
+				EF5A058F28FDE7C8001BF230 /* TopReleases.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

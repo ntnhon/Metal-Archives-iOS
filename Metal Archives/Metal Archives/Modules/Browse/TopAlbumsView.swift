@@ -15,6 +15,26 @@ struct TopAlbumsView: View {
     }
 
     var body: some View {
-        Text("Top albums")
+        ZStack {
+            switch viewModel.topReleasesFetchable {
+            case .fetching:
+                HornCircularLoader()
+            case .fetched(let topReleases):
+                List {
+                    ForEach(topReleases.byReviews, id: \.release.thumbnailInfo.id) { topRelease in
+                        Text("\(topRelease.band.name) - \(topRelease.release.title)")
+                    }
+                }
+            case .error(let error):
+                HStack {
+                    Text(error.userFacingMessage)
+                    RetryButton(onRetry: viewModel.retry)
+                }
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .task {
+            await viewModel.fetchTopReleases()
+        }
     }
 }

@@ -228,10 +228,8 @@ extension Artist {
                     case 0: roleInReleaseBuilder.year = tdText
                     case 1:
                         if let a = td.at_css("a"), let releaseTitle = a.text,
-                           let releaseUrlString = a["href"],
-                           let thumbnailInfo = ThumbnailInfo(urlString: releaseUrlString,
-                                                             type: .release) {
-                            roleInReleaseBuilder.release = .init(thumbnailInfo: thumbnailInfo,
+                           let releaseUrlString = a["href"] {
+                            roleInReleaseBuilder.release = .init(urlString: releaseUrlString,
                                                                  title: releaseTitle)
                             roleInReleaseBuilder.releaseAdditionalInfo =
                                 tdText.subString(after: "(", before: ")")
