@@ -62,6 +62,13 @@ struct HomeView: View {
             }, label: {
                 Text("Victims of Death - The Best of Decade of Chaos")
             })
+
+            NavigationLink(destination: {
+                ReleaseView(apiService: apiService,
+                            releaseUrlString: "https://www.metal-archives.com/albums/At_Radogost%27s_Gates/Dyau/57765")
+            }, label: {
+                Text("Dyau")
+            })
         }
     }
 }

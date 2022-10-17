@@ -50,64 +50,26 @@ struct BrowseView: View {
 
     private var topOfSection: some View {
         Section(content: {
-            view(for: GroupedTopCategory.bands)
-            view(for: GroupedTopCategory.albums)
-            view(for: GroupedTopCategory.members)
+            NavigationLink(destination: {
+                TopBandsView(apiService: apiService)
+            }, label: {
+                Label("Top 100 bands", systemImage: "person.3.fill")
+            })
+
+            NavigationLink(destination: {
+                TopAlbumsView(apiService: apiService)
+            }, label: {
+                Label("Top 100 albums", systemImage: "opticaldisc")
+            })
+
+            NavigationLink(destination: {
+                TopMembersView(apiService: apiService)
+            }, label: {
+                Label("Top 100 members", systemImage: "person.fill")
+            })
         }, header: {
             Text("Top of Metal Archives")
         })
-    }
-
-    @ViewBuilder
-    private func view(for groupedCategory: GroupedTopCategory) -> some View {
-        List([groupedCategory], children: \.subCategories) { category in
-            if category.subCategories == nil {
-                NavigationLink(destination: {
-                    destination(for: category.category)
-                }, label: {
-                    view(for: category.category)
-                })
-            } else {
-                view(for: category.category)
-            }
-        }
-    }
-
-    @ViewBuilder
-    private func view(for category: TopCategory) -> some View {
-        if let icon = category.icon {
-            Label(category.title, systemImage: icon)
-        } else {
-            Text(category.title)
-        }
-    }
-
-    @ViewBuilder
-    private func destination(for category: TopCategory) -> some View {
-        switch category {
-        case .bandsByReleases:
-            TopBandsView(apiService: apiService, category: .releases)
-        case .bandsByFullLengths:
-            TopBandsView(apiService: apiService, category: .fullLengths)
-        case .bandsByReviews:
-            TopBandsView(apiService: apiService, category: .reviews)
-        case .albumsByReviews:
-            TopAlbumsView(apiService: apiService, category: .reviews)
-        case .albumsByMostOwned:
-            TopAlbumsView(apiService: apiService, category: .mostOwned)
-        case .albumsByMostWanted:
-            TopAlbumsView(apiService: apiService, category: .mostWanted)
-        case .membersBySubmittedBands:
-            TopMembersView(apiService: apiService, category: .submittedBands)
-        case .membersByWrittenReviews:
-            TopMembersView(apiService: apiService, category: .writtenReviews)
-        case .membersBySubmittedAlbums:
-            TopMembersView(apiService: apiService, category: .submittedAlbums)
-        case .membersByArtistsAdded:
-            TopMembersView(apiService: apiService, category: .artistsAdded)
-        default:
-            EmptyView()
-        }
     }
 
     private var bandsSection: some View {
