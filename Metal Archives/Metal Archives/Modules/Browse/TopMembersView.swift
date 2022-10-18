@@ -15,6 +15,26 @@ struct TopMembersView: View {
     }
 
     var body: some View {
-        Text("Top members view")
+        ZStack {
+            switch viewModel.topUsersFetchable {
+            case .fetching:
+                HornCircularLoader()
+            case .fetched(let topUsers):
+                List {
+                    ForEach(topUsers.bySubmittedBands, id: \.user.urlString) { user in
+                        Text(user.user.name)
+                    }
+                }
+            case .error(let error):
+                HStack {
+                    Text(error.userFacingMessage)
+                    RetryButton(onRetry: viewModel.retry)
+                }
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .task {
+            await viewModel.fetchTopUsers()
+        }
     }
 }
