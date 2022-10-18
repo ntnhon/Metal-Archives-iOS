@@ -23,6 +23,7 @@ final class TopBandsViewModel: ObservableObject {
 
     @MainActor
     func fetchTopBands() async {
+        if case .fetched = topBandsFetchable { return }
         do {
             topBandsFetchable = .fetching
             let urlString = "https://www.metal-archives.com/stats/bands"

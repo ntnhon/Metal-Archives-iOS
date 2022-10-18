@@ -23,6 +23,7 @@ final class TopAlbumsViewModel: ObservableObject {
 
     @MainActor
     func fetchTopReleases() async {
+        if case .fetched = topReleasesFetchable { return }
         do {
             topReleasesFetchable = .fetching
             let urlString = "https://www.metal-archives.com/stats/albums"
