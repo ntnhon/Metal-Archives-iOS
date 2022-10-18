@@ -8,6 +8,8 @@
 import Combine
 import SwiftUI
 
+private typealias ReleaseTitle = String
+
 final class BandReviewsViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error?
@@ -20,6 +22,7 @@ final class BandReviewsViewModel: ObservableObject {
     private let discography: Discography
     private let manager: ReviewLitePageManager
     private var cancellables = Set<AnyCancellable>()
+    private var dictionary = [ReleaseTitle: ReleaseInBand]()
 
     var reviewCount: Int { discography.reviewCount }
 
@@ -71,13 +74,22 @@ final class BandReviewsViewModel: ObservableObject {
     }
 
     func release(for review: ReviewLite) -> ReleaseInBand {
-        discography.releases.first { $0.title == review.title } ?? .init(thumbnailInfo: .death,
-                                                                         title: "",
-                                                                         type: .demo,
-                                                                         year: 0,
-                                                                         reviewCount: nil,
-                                                                         rating: nil,
-                                                                         reviewsUrlString: nil,
-                                                                         isPlatinium: false)
+        if let release = dictionary[review.title] {
+            return release
+        }
+
+        if let release = discography.releases.first { $0.title == review.title } {
+            dictionary[review.title] = release
+            return release
+        }
+
+        return .init(thumbnailInfo: .death,
+                     title: "",
+                     type: .demo,
+                     year: 0,
+                     reviewCount: nil,
+                     rating: nil,
+                     reviewsUrlString: nil,
+                     isPlatinium: false)
     }
 }

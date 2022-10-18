@@ -32,33 +32,34 @@ struct DiscographyView: View {
         VStack {
             options
             Divider()
-            ForEach(viewModel.releases, id: \.thumbnailInfo.id) { release in
-                NavigationLink(
-                    destination: {
-                        ReleaseView(apiService: apiService,
-                                    releaseUrlString: release.thumbnailInfo.urlString)
-                    },
-                    label: {
-                        ReleaseInBandView(release: release)
-                            .padding(.vertical, 8)
-                            .contextMenu {
-                                Button(action: {
-                                    let text = "\(release.title) (\(release.year)) (\(release.type.description))"
-                                    UIPasteboard.general.string = text
-                                }, label: {
-                                    Label("Copy release name", systemImage: "doc.on.doc")
-                                })
+            LazyVStack {
+                ForEach(viewModel.releases, id: \.thumbnailInfo.id) { release in
+                    NavigationLink(
+                        destination: {
+                            ReleaseView(apiService: apiService,
+                                        releaseUrlString: release.thumbnailInfo.urlString)
+                        },
+                        label: {
+                            let text = "\(release.title) (\(release.year)) (\(release.type.description))"
+                            ReleaseInBandView(release: release)
+                                .padding(.vertical, 8)
+                                .contextMenu {
+                                    Button(action: {
+                                        UIPasteboard.general.string = text
+                                    }, label: {
+                                        Label("Copy release name", systemImage: "doc.on.doc")
+                                    })
 
-                                Button(action: {
-                                    selectedRelease = release
-                                }, label: {
-                                    Label("Share", systemImage: "square.and.arrow.up")
-                                })
-                            }
-                    })
-                .buttonStyle(.plain)
-
-                Divider()
+                                    Button(action: {
+                                        selectedRelease = release
+                                    }, label: {
+                                        Label("Share", systemImage: "square.and.arrow.up")
+                                    })
+                                }
+                        })
+                    .buttonStyle(.plain)
+                    Divider()
+                }
             }
         }
         .sheet(isPresented: showingShareSheet) {

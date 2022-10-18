@@ -11,7 +11,7 @@ struct SimilarArtistsView: View {
     @ObservedObject var viewModel: SimilarArtistsViewModel
 
     var body: some View {
-        VStack {
+        LazyVStack {
             switch viewModel.similarArtistsFetchable {
             case .error(let error):
                 VStack(alignment: .center, spacing: 20) {

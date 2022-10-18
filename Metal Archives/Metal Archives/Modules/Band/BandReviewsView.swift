@@ -15,7 +15,7 @@ struct BandReviewsView: View {
 
     var body: some View {
         let isShowingConfirmationDialog = makeIsShowingConfirmationDialogBinding()
-        LazyVStack {
+        VStack {
             if let error = viewModel.error {
                 Text(error.userFacingMessage)
                 RetryButton {
@@ -27,6 +27,7 @@ struct BandReviewsView: View {
                 reviewList
             }
         }
+        .padding(.horizontal)
         .confirmationDialog(
             "",
             isPresented: isShowingConfirmationDialog,
@@ -59,18 +60,20 @@ struct BandReviewsView: View {
             }
         }
 
-        ForEach(viewModel.reviews, id: \.urlString) { review in
-            ReviewLiteView(review: review,
-                           release: viewModel.release(for: review))
-            .onTapGesture {
-                selectedReview = review
-            }
-            .task {
-                if review.urlString == viewModel.reviews.last?.urlString {
-                    await viewModel.getMoreReviews()
+        LazyVStack {
+            ForEach(viewModel.reviews, id: \.urlString) { review in
+                ReviewLiteView(review: review,
+                               release: viewModel.release(for: review))
+                .onTapGesture {
+                    selectedReview = review
                 }
+                .task {
+                    if review.urlString == viewModel.reviews.last?.urlString {
+                        await viewModel.getMoreReviews()
+                    }
+                }
+                Divider()
             }
-            Divider()
         }
 
         if viewModel.isLoading {
