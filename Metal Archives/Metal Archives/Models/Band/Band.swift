@@ -182,7 +182,7 @@ extension Band: HTMLParsable {
             if let divId = div["id"] {
                 switch divId {
                 case "band_stats": Self.parseBandStatsDiv(div, to: builder)
-                case "auditTrail": builder.modificationInfo = ModificationInfo(from: div.innerHTML ?? "")
+                case "auditTrail": builder.modificationInfo = ModificationInfo(element: div)
                 case "band_tab_members_current": Self.parseMembersDiv(div, to: builder, ofType: .current)
                 case "band_tab_members_past": Self.parseMembersDiv(div, to: builder, ofType: .past)
                 case "band_tab_members_live": Self.parseMembersDiv(div, to: builder, ofType: .live)

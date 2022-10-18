@@ -216,9 +216,7 @@ extension Release: HTMLParsable {
                     builder.additionalHtmlNote = div.innerHTML?.trimmingCharacters(in: .whitespacesAndNewlines)
 
                 case "auditTrail":
-                    if let htmlString = div.innerHTML {
-                        builder.modificationInfo = ModificationInfo(from: htmlString)
-                    }
+                    builder.modificationInfo = ModificationInfo(element: div)
 
                 default: break
                 }
@@ -278,7 +276,12 @@ extension Release: HTMLParsable {
                         case 0: reviewBuilder.urlString = td.at_css("a")?["href"]
                         case 1: reviewBuilder.title = td.text
                         case 2: reviewBuilder.rating = td.text?.removeAll(string: "%").toInt()
-                        case 3: reviewBuilder.author = UserLite(from: td.innerHTML ?? "")
+                        case 3:
+                            if let aTag = td.at_css("a"),
+                               let username = aTag.text,
+                               let urlString = aTag["href"] {
+                                reviewBuilder.author = .init(name: username, urlString: urlString)
+                            }
                         case 4: reviewBuilder.date = td.text
                         default: break
                         }

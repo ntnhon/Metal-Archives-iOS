@@ -11,16 +11,3 @@ struct UserLite {
     let name: String
     let urlString: String
 }
-
-extension UserLite {
-    // Example:
-    // "<a href="https://www.metal-archives.com/users/Euthanasiast" class="profileMenu">Euthanasiast</a>"
-    init?(from string: String) {
-        guard let urlString = string.subString(after: #"href=""#, before: #"" "#, options: .caseInsensitive),
-              let name = string.subString(after: #"">"#, before: "</a>", options: .caseInsensitive) else {
-            return nil
-        }
-        self.name = name
-        self.urlString = urlString
-    }
-}

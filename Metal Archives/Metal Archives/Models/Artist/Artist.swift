@@ -140,7 +140,7 @@ extension Artist {
             if let divId = div["id"] {
                 switch divId {
                 case "member_info": Self.parseMemberInfo(from: div, builder: builder)
-                case "auditTrail": builder.modificationInfo = ModificationInfo(from: div.innerHTML ?? "")
+                case "auditTrail": builder.modificationInfo = ModificationInfo(element: div)
                 case "artist_tab_active": Self.parseRoles(from: div, builder: builder, type: .active)
                 case "artist_tab_past": Self.parseRoles(from: div, builder: builder, type: .past)
                 case "artist_tab_live": Self.parseRoles(from: div, builder: builder, type: .live)

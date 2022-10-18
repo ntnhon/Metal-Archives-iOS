@@ -57,6 +57,19 @@ private extension ModificationInfo {
 }
 
 extension ModificationInfo {
+    final class Builder {
+        var addedOnDate: Date?
+        var modifiedOnDate: Date?
+        var addedByUser: UserLite?
+        var modifiedByUser: UserLite?
+
+        func build() -> ModificationInfo {
+            .init(addedOnDate: addedOnDate,
+                  modifiedOnDate: modifiedOnDate,
+                  addedByUser: addedByUser,
+                  modifiedByUser: modifiedByUser)
+        }
+    }
     // swiftlint:disable line_length
     /*
      Sample data:
@@ -79,30 +92,32 @@ extension ModificationInfo {
      </table>
      */
     // swiftlint:enable line_length
-    init(from string: String) {
-        let dateFormatter = DateFormatter.default
-        if let addedOnString = string.subString(after: "Added on: ", before: "</td>") {
-            self.addedOnDate = dateFormatter.date(from: addedOnString)
-        } else {
-            self.addedOnDate = nil
+    init(element: XMLElement) {
+        let builder = Builder()
+        let extractTextAndUrlString: (XMLElement) -> (String, String)? = { element in
+            if let aTag = element.at_css("a"),
+               let text = aTag.text,
+               let urlString = aTag["href"] {
+                return (text, urlString)
+            }
+            return nil
         }
-
-        if let modifiedOnString = string.subString(after: "Last modified on: ", before: "</td>") {
-            self.modifiedOnDate = dateFormatter.date(from: modifiedOnString)
-        } else {
-            self.modifiedOnDate = nil
+        for td in element.css("td") {
+            guard let htmlText = td.innerHTML else { continue }
+            if htmlText.contains("Added by"),
+               let (username, urlString) = extractTextAndUrlString(td) {
+                builder.addedByUser = .init(name: username, urlString: urlString)
+            } else if htmlText.contains("Modified by"),
+                      let (username, urlString) = extractTextAndUrlString(td) {
+                builder.modifiedByUser = .init(name: username, urlString: urlString)
+            } else if htmlText.contains("Added on"),
+                      let addedOnString = htmlText.subString(after: "Added on: ", before: "</td>") {
+                builder.addedOnDate = DateFormatter.default.date(from: addedOnString)
+            } else if htmlText.contains("Last modified on"),
+                      let modifiedOnString = htmlText.subString(after: "Last modified on: ", before: "</td>") {
+                builder.modifiedOnDate = DateFormatter.default.date(from: modifiedOnString)
+            }
         }
-
-        if let addedByString = string.subString(after: "Added by", before: "</td>") {
-            self.addedByUser = UserLite(from: addedByString)
-        } else {
-            self.addedByUser = nil
-        }
-
-        if let modifiedByString = string.subString(after: "Modified by", before: "</td>") {
-            self.modifiedByUser = UserLite(from: modifiedByString)
-        } else {
-            self.modifiedByUser = nil
-        }
+        self = builder.build()
     }
 }
