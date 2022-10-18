@@ -78,7 +78,7 @@ final class BandReviewsViewModel: ObservableObject {
             return release
         }
 
-        if let release = discography.releases.first { $0.title == review.title } {
+        if let release = discography.releases.first(where: { $0.title == review.title }) {
             dictionary[review.title] = release
             return release
         }

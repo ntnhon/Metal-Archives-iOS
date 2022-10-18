@@ -5,7 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 18/07/2021.
 //
 
-import Combine
+import Kingfisher
 import SwiftUI
 
 struct ThumbnailView: View {
@@ -68,7 +68,6 @@ final class ThumbnailViewModel: ObservableObject {
     private var triedPNG = false
     private var triedJPEG = false
     private var triedGIF = false
-    private var cancellable: AnyCancellable?
 
     init(thumbnailInfo: ThumbnailInfo) {
         self.thumbnailInfo = thumbnailInfo
@@ -80,28 +79,43 @@ final class ThumbnailViewModel: ObservableObject {
               let imageUrl = URL(string: imageUrlString) else {
             return
         }
-        isLoading = true
-        cancellable = URLSession.shared
-            .dataTaskPublisher(for: imageUrl)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: { [weak self] data, response in
-                guard let self,
-                      let httpResponse = response as? HTTPURLResponse else { return }
+        let cache = ImageCache.default
+        Task { @MainActor in
+            isLoading = true
+            do {
+                if let image = cache.retrieveImageInMemoryCache(forKey: imageUrlString) {
+                    isLoading = false
+                    self.uiImage = image
+                    return
+                }
+
+                let (data, response) = try await URLSession.shared.data(for: .init(url: imageUrl))
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    tryLoadingNewImage()
+                    return
+                }
+
                 switch httpResponse.statusCode {
                 case 200:
-                    self.isLoading = false
-                    self.uiImage = .init(data: data)
+                    isLoading = false
+                    if let image = UIImage(data: data) {
+                        self.uiImage = image
+                        cache.store(image, forKey: imageUrlString)
+                    }
                 case 404:
-                    self.isLoading = false
-                    self.tryLoadingNewImage()
+                    isLoading = false
+                    tryLoadingNewImage()
                 case 520:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                         self.resetStates()
                     }
-                default: break
+                default:
+                    break
                 }
-            })
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 
     func resetStates() {
