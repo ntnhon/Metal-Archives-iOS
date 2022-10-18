@@ -122,6 +122,8 @@ struct TopAlbumsView: View {
             .transaction { transaction in
                 transaction.animation = nil
             }
+            .opacity(viewModel.isFetched ? 1 : 0)
+            .disabled(!viewModel.isFetched)
         }
     }
 }

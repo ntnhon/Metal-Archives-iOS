@@ -17,6 +17,13 @@ final class TopAlbumsViewModel: ObservableObject {
     }
     let apiService: APIServiceProtocol
 
+    var isFetched: Bool {
+        if case .fetched = topReleasesFetchable {
+            return true
+        }
+        return false
+    }
+
     init(apiService: APIServiceProtocol) {
         self.apiService = apiService
     }

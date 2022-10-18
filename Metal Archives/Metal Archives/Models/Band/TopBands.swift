@@ -9,27 +9,43 @@ import Foundation
 import Kanna
 
 struct TopBands {
-    let byReleases: [BandLite]
-    let byReviews: [BandLite]
-    let byFullLength: [BandLite]
+    let byReleases: [TopBand]
+    let byReviews: [TopBand]
+    let byFullLength: [TopBand]
+}
+
+struct TopBand {
+    let band: BandLite
+    let count: Int
 }
 
 extension TopBands: HTMLParsable {
     init(data: Data) throws {
         let html = try Kanna.HTML(html: data, encoding: .utf8)
-        var byReleases = [BandLite]()
-        var byReviews = [BandLite]()
-        var byFullLength = [BandLite]()
+        var byReleases = [TopBand]()
+        var byReviews = [TopBand]()
+        var byFullLength = [TopBand]()
 
-        let parseBands: (XMLElement?) -> [BandLite] = { element in
-            var bands = [BandLite]()
-            guard let element else { return bands }
+        let parseBands: (XMLElement?) -> [TopBand] = { element in
+            guard let element else { return [] }
+            var bands = [TopBand]()
             for tr in element.css("tr") {
-                let aTag = tr.at_css("a")
-                if let bandName = aTag?.text,
-                   let bandUrlString = aTag?["href"],
+                var bandName: String?
+                var bandUrlString: String?
+                var count: Int?
+
+                for td in tr.css("td") {
+                    if let aTag = td.at_css("a") {
+                        bandName = aTag.text
+                        bandUrlString = aTag["href"]
+                    } else if let text = td.text, !text.contains("") {
+                        count = Int(text)
+                    }
+                }
+
+                if let bandName, let bandUrlString, let count,
                    let band = BandLite(urlString: bandUrlString, name: bandName) {
-                    bands.append(band)
+                    bands.append(.init(band: band, count: count))
                 }
             }
             return bands

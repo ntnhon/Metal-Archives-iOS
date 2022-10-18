@@ -9,7 +9,20 @@ import Foundation
 
 final class TopBandsViewModel: ObservableObject {
     @Published private(set) var topBandsFetchable = FetchableObject<TopBands>.fetching
+    @Published private(set) var topBands = [TopBand]()
+    @Published var category = TopBandsCategory.numberOfReleases {
+        didSet {
+            refilter()
+        }
+    }
     let apiService: APIServiceProtocol
+
+    var isFetched: Bool {
+        if case .fetched = topBandsFetchable {
+            return true
+        }
+        return false
+    }
 
     init(apiService: APIServiceProtocol) {
         self.apiService = apiService
@@ -29,8 +42,33 @@ final class TopBandsViewModel: ObservableObject {
             let urlString = "https://www.metal-archives.com/stats/bands"
             let topBands = try await apiService.request(forType: TopBands.self, urlString: urlString)
             topBandsFetchable = .fetched(topBands)
+            refilter()
         } catch {
             topBandsFetchable = .error(error)
+        }
+    }
+
+    private func refilter() {
+        guard case .fetched(let topBands) = topBandsFetchable else { return }
+        switch category {
+        case .numberOfReleases:
+            self.topBands = topBands.byReleases
+        case .numberOfFullLengths:
+            self.topBands = topBands.byFullLength
+        case .numberOfReviews:
+            self.topBands = topBands.byReviews
+        }
+    }
+}
+
+enum TopBandsCategory: CaseIterable {
+    case numberOfReleases, numberOfFullLengths, numberOfReviews
+
+    var description: String {
+        switch self {
+        case .numberOfReleases: return "Number of releases"
+        case .numberOfFullLengths: return "Number of full-lengths"
+        case .numberOfReviews: return "Number of reviews"
         }
     }
 }
