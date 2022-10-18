@@ -129,8 +129,7 @@ struct TopAlbumsView: View {
 private struct TopAlbumView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var isShowingDialog = false
-    let release: ReleaseLite
-    let band: BandLite
+    let topRelease: TopRelease
     let index: Int
     let onSelectRelease: () -> Void
     let onSelectBand: () -> Void
@@ -139,14 +138,15 @@ private struct TopAlbumView: View {
          index: Int,
          onSelectRelease: @escaping () -> Void,
          onSelectBand: @escaping () -> Void) {
-        self.release = topRelease.release
-        self.band = topRelease.band
+        self.topRelease = topRelease
         self.index = index
         self.onSelectRelease = onSelectRelease
         self.onSelectBand = onSelectBand
     }
 
     var body: some View {
+        let release = topRelease.release
+        let band = topRelease.band
         HStack {
             Text("\(index + 1). ")
 
@@ -169,6 +169,8 @@ private struct TopAlbumView: View {
             .padding(.vertical)
 
             Spacer()
+
+            Text("\(topRelease.count)")
         }
         .contentShape(Rectangle())
         .onTapGesture {

@@ -11,6 +11,7 @@ import Kanna
 struct TopRelease {
     let release: ReleaseLite
     let band: BandLite
+    let count: Int
 }
 
 struct TopReleases {
@@ -33,19 +34,24 @@ extension TopReleases: HTMLParsable {
             for tr in element.css("tr") {
                 var band: BandLite?
                 var release: ReleaseLite?
+                var count: Int?
 
-                for aTag in tr.css("a") {
-                    guard let text = aTag.text,
-                          let urlString = aTag["href"] else { continue }
-                    if urlString.contains("bands/") {
-                        band = .init(urlString: urlString, name: text)
-                    } else {
-                        release = .init(urlString: urlString, title: text)
+                for td in tr.css("td") {
+                    if let aTag = td.at_css("a"),
+                       let text = aTag.text,
+                       let urlString = aTag["href"] {
+                        if urlString.contains("bands/") {
+                            band = .init(urlString: urlString, name: text)
+                        } else {
+                            release = .init(urlString: urlString, title: text)
+                        }
+                    } else if let text = td.text, !text.contains(".") {
+                        count = Int(text)
                     }
                 }
 
-                if let band, let release {
-                    releases.append(.init(release: release, band: band))
+                if let band, let release, let count {
+                    releases.append(.init(release: release, band: band, count: count))
                 }
             }
             return releases
