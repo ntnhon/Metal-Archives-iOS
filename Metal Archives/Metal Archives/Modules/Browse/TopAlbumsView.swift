@@ -50,10 +50,10 @@ struct TopAlbumsView: View {
             switch viewModel.topReleasesFetchable {
             case .fetching:
                 HornCircularLoader()
-            case .fetched(let topReleases):
+            case .fetched:
                 List {
-                    ForEach(0..<topReleases.byReviews.count, id: \.self) { index in
-                        let topRelease = topReleases.byReviews[index]
+                    ForEach(0..<viewModel.releases.count, id: \.self) { index in
+                        let topRelease = viewModel.releases[index]
                         TopAlbumView(
                             topRelease: topRelease,
                             index: index,
@@ -75,6 +75,7 @@ struct TopAlbumsView: View {
         }
         .navigationTitle("Top 100 albums")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar { toolbarContent }
         .task {
             await viewModel.fetchTopReleases()
         }
@@ -98,6 +99,30 @@ struct TopAlbumsView: View {
                 selectedReleaseUrl = nil
             }
         })
+    }
+
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
+            Menu(content: {
+                ForEach(TopAlbumsCategory.allCases, id: \.self) { category in
+                    Button(action: {
+                        viewModel.category = category
+                    }, label: {
+                        if viewModel.category == category {
+                            Label(category.description, systemImage: "checkmark")
+                        } else {
+                            Text(category.description)
+                        }
+                    })
+                }
+            }, label: {
+                Text(viewModel.category.description)
+            })
+            .transaction { transaction in
+                transaction.animation = nil
+            }
+        }
     }
 }
 
