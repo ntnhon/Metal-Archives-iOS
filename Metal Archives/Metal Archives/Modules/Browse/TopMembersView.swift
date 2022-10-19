@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TopMembersView: View {
+    @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: TopMembersViewModel
 
     init(apiService: APIServiceProtocol) {
@@ -19,12 +20,24 @@ struct TopMembersView: View {
             switch viewModel.topUsersFetchable {
             case .fetching:
                 HornCircularLoader()
-            case .fetched(let topUsers):
+            case .fetched:
                 List {
-                    ForEach(topUsers.bySubmittedBands, id: \.user.urlString) { user in
-                        Text(user.user.name)
+                    ForEach(0..<viewModel.topUsers.count, id: \.self) { index in
+                        let user = viewModel.topUsers[index]
+                        NavigationLink(destination: {
+                            UserView(apiService: viewModel.apiService, urlString: user.user.urlString)
+                        }, label: {
+                            HStack {
+                                Text("\(index + 1). ")
+                                Text(user.user.name)
+                                    .foregroundColor(preferences.theme.primaryColor)
+                                Spacer()
+                                Text("\(user.count)")
+                            }
+                        })
                     }
                 }
+                .listStyle(.plain)
             case .error(let error):
                 HStack {
                     Text(error.userFacingMessage)
@@ -32,9 +45,37 @@ struct TopMembersView: View {
                 }
             }
         }
+        .navigationTitle("Top 100 members")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar { toolbarContent }
         .task {
             await viewModel.fetchTopUsers()
+        }
+    }
+
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
+            Menu(content: {
+                ForEach(TopMembersCategory.allCases, id: \.self) { category in
+                    Button(action: {
+                        viewModel.category = category
+                    }, label: {
+                        if viewModel.category == category {
+                            Label(category.description, systemImage: "checkmark")
+                        } else {
+                            Text(category.description)
+                        }
+                    })
+                }
+            }, label: {
+                Text(viewModel.category.description)
+            })
+            .transaction { transaction in
+                transaction.animation = nil
+            }
+            .opacity(viewModel.isFetched ? 1 : 0)
+            .disabled(!viewModel.isFetched)
         }
     }
 }
