@@ -23,6 +23,11 @@ struct BandReviewsView: View {
                         await viewModel.getMoreReviews()
                     }
                 }
+            } else if viewModel.isLoading {
+                ProgressView()
+            } else if viewModel.reviews.isEmpty {
+                Text("No reviews yet")
+                    .font(.callout.italic())
             } else {
                 reviewList
             }
@@ -52,12 +57,10 @@ struct BandReviewsView: View {
 
     @ViewBuilder
     private var reviewList: some View {
-        if !viewModel.reviews.isEmpty {
-            HStack {
-                Text("\(viewModel.reviewCount) review\(viewModel.reviewCount > 1 ? "s" : "")")
-                Spacer()
-                ReviewOrderPicker(viewModel: viewModel)
-            }
+        HStack {
+            Text("\(viewModel.reviewCount) review\(viewModel.reviewCount > 1 ? "s" : "")")
+            Spacer()
+            ReviewOrderPicker(viewModel: viewModel)
         }
 
         LazyVStack {
@@ -74,13 +77,6 @@ struct BandReviewsView: View {
                 }
                 Divider()
             }
-        }
-
-        if viewModel.isLoading {
-            ProgressView()
-        } else if viewModel.reviews.isEmpty {
-            Text("No reviews yet")
-                .font(.callout.italic())
         }
     }
 

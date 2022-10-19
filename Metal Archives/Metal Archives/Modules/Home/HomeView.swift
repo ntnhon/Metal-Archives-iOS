@@ -50,6 +50,13 @@ struct HomeView: View {
             })
 
             NavigationLink(destination: {
+                BandView(apiService: apiService,
+                         bandUrlString: "https://www.metal-archives.com/bands/Cephalic_Destruction/3540495596")
+            }, label: {
+                Text("Cephalic Destruction")
+            })
+
+            NavigationLink(destination: {
                 ReleaseView(apiService: apiService,
                             releaseUrlString: "https://www.metal-archives.com/albums/Death/Scream_Bloody_Gore/598")
             }, label: {

@@ -40,10 +40,20 @@ struct BandLineUpView: View {
     }
 
     var body: some View {
+        if viewModel.band.noMembers {
+            Text("No members added")
+                .font(.callout.italic())
+        } else {
+            memberList
+        }
+    }
+
+    @ViewBuilder
+    private var memberList: some View {
         let isShowingArtist = makeIsShowingArtistBinding()
         let isShowingBand = makeIsShowingBandBinding()
 
-        VStack {
+        LazyVStack {
             HStack {
                 MemberLineUpTypePicker(viewModel: viewModel,
                                        lineUpType: $lineUpType)
@@ -84,7 +94,6 @@ struct BandLineUpView: View {
                     selectedArtist: $selectedArtist,
                     artist: artist)
                 .padding(.vertical)
-                Divider()
             }
         }
     }

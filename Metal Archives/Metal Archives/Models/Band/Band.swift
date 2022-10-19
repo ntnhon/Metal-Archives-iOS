@@ -32,6 +32,9 @@ struct Band {
 
     var hasPhoto: Bool { photoUrlString != nil }
     var hasLogo: Bool { logoUrlString != nil }
+    var noMembers: Bool {
+        currentLineUp.isEmpty && pastMembers.isEmpty && liveMusicians.isEmpty
+    }
 }
 
 extension Band {
