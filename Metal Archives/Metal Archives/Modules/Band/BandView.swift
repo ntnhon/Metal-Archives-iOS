@@ -62,6 +62,7 @@ private struct BandContentView: View {
     @State private var showingShareSheet = false
     @State private var topSectionSize: CGSize = .zero
     @State private var selectedBandUrl: String?
+    @State private var selectedReleaseUrl: String?
     @State private var selectedLabelUrl: String?
     @State private var selectedReviewUrl: String?
     @State private var selectedUserUrl: String?
@@ -89,6 +90,7 @@ private struct BandContentView: View {
 
     var body: some View {
         let isShowingBand = makeIsShowingBandDetailBinding()
+        let isShowingRelease = makeIsShowingReleaseDetailBinding()
         let isShowingLabel = makeIsShowingLabelDetailBinding()
         let isShowingReview = makeIsShowingReviewDetailBinding()
         let isShowingUser = makeIsShowingUserDetailBinding()
@@ -112,6 +114,18 @@ private struct BandContentView: View {
                         destination: {
                             if let selectedBandUrl {
                                 BandView(apiService: apiService, bandUrlString: selectedBandUrl)
+                            } else {
+                                EmptyView()
+                            }
+                        }, label: {
+                            EmptyView()
+                        })
+
+                    NavigationLink(
+                        isActive: isShowingRelease,
+                        destination: {
+                            if let selectedReleaseUrl {
+                                ReleaseView(apiService: apiService, releaseUrlString: selectedReleaseUrl)
                             } else {
                                 EmptyView()
                             }
@@ -198,6 +212,7 @@ private struct BandContentView: View {
                         case .reviews:
                             BandReviewsView(viewModel: reviewsViewModel,
                                             onSelectReview: { url in selectedReviewUrl = url },
+                                            onSelectRelease: { url in selectedReleaseUrl = url },
                                             onSelectUser: { url in selectedUserUrl = url })
 
                         case .similarArtists:
@@ -227,6 +242,16 @@ private struct BandContentView: View {
         }, set: { newValue in
             if !newValue {
                 selectedBandUrl = nil
+            }
+        })
+    }
+
+    private func makeIsShowingReleaseDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedReleaseUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedReleaseUrl = nil
             }
         })
     }

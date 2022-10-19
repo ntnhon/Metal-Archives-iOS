@@ -11,6 +11,7 @@ struct BandReviewsView: View {
     @ObservedObject var viewModel: BandReviewsViewModel
     @State private var selectedReview: ReviewLite?
     let onSelectReview: (String) -> Void
+    let onSelectRelease: (String) -> Void
     let onSelectUser: (String) -> Void
 
     var body: some View {
@@ -40,6 +41,10 @@ struct BandReviewsView: View {
                 if let selectedReview {
                     Button("💬 Read review") {
                         onSelectReview(selectedReview.urlString)
+                    }
+
+                    Button("View album") {
+                        onSelectRelease(viewModel.release(for: selectedReview).thumbnailInfo.urlString)
                     }
 
                     Button("View \(selectedReview.author.name)'s profile") {
