@@ -57,6 +57,13 @@ struct HomeView: View {
             })
 
             NavigationLink(destination: {
+                BandView(apiService: apiService,
+                         bandUrlString: "https://www.metal-archives.com/bands/Earthwhore/110516")
+            }, label: {
+                Text("Earthwhore")
+            })
+
+            NavigationLink(destination: {
                 ReleaseView(apiService: apiService,
                             releaseUrlString: "https://www.metal-archives.com/albums/Death/Scream_Bloody_Gore/598")
             }, label: {

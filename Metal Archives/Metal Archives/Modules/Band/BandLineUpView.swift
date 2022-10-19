@@ -170,7 +170,7 @@ struct BandLineUpView_Previews: PreviewProvider {
 private final class BandLineUpViewModel {
     let band: Band
     let lineUpDetails: [MemberLineUpDetail]
-    let defaultLineUpType: MemberLineUpType
+    private(set) var defaultLineUpType: MemberLineUpType
 
     init(band: Band) {
         self.band = band
@@ -194,9 +194,14 @@ private final class BandLineUpViewModel {
             lineUpDetails.insert(.init(type: .complete, memberCount: completeMemberCount), at: 0)
         }
 
-        defaultLineUpType = band.isLastKnownLineUp ? .lastKnown : .current
-
+        self.defaultLineUpType = band.isLastKnownLineUp ? .lastKnown : .current
         self.lineUpDetails = lineUpDetails
+
+        if artists(for: defaultLineUpType).isEmpty {
+            self.defaultLineUpType = .past
+        } else if self.artists(for: defaultLineUpType).isEmpty {
+            self.defaultLineUpType = .live
+        }
     }
 
     func artists(for type: MemberLineUpType) -> [ArtistInBand] {
