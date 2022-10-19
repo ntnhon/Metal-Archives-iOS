@@ -17,6 +17,7 @@ struct Metal_ArchivesApp: App {
                 .modifier(UrlSelectableViewModifier())
                 .modifier(ToastViewModifier())
                 .environmentObject(Preferences())
+                .environmentObject(MAImageCache())
                 .preferredColorScheme(.dark)
         }
     }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ArtistInBandView: View {
     @EnvironmentObject private var preferences: Preferences
+    @EnvironmentObject private var cache: MAImageCache
     @State private var showingShareSheet = false
     @Binding var selectedBand: BandLite?
     @Binding var selectedArtist: ArtistInBand?
@@ -17,7 +18,8 @@ struct ArtistInBandView: View {
     var body: some View {
         HStack(alignment: .top) {
             ThumbnailView(thumbnailInfo: artist.thumbnailInfo,
-                          photoDescription: artist.name)
+                          photoDescription: artist.name,
+                          cache: cache)
             .font(.largeTitle)
             .foregroundColor(preferences.theme.secondaryColor)
             .frame(width: 64)

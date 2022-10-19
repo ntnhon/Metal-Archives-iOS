@@ -76,6 +76,7 @@ struct TopBandsView: View {
 
 private struct TopBandView: View {
     @EnvironmentObject private var preferences: Preferences
+    @EnvironmentObject private var cache: MAImageCache
     let topBand: TopBand
     let index: Int
 
@@ -90,7 +91,8 @@ private struct TopBandView: View {
             Text("\(index + 1). ")
 
             ThumbnailView(thumbnailInfo: topBand.band.thumbnailInfo,
-                          photoDescription: topBand.band.name)
+                          photoDescription: topBand.band.name,
+                          cache: cache)
             .font(.largeTitle)
             .foregroundColor(preferences.theme.secondaryColor)
             .frame(width: 64, height: 64)

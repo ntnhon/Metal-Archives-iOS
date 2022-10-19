@@ -5,17 +5,19 @@
 //  Created by Thanh-Nhon Nguyen on 18/07/2021.
 //
 
-import Kingfisher
 import SwiftUI
 
 struct ThumbnailView: View {
     @EnvironmentObject private var preferences: Preferences
+    @EnvironmentObject private var cache: MAImageCache
     @ObservedObject private var viewModel: ThumbnailViewModel
     @Environment(\.selectedPhoto) private var selectedPhoto
     private let photoDescription: String
 
-    init(thumbnailInfo: ThumbnailInfo, photoDescription: String) {
-        self.viewModel = .init(thumbnailInfo: thumbnailInfo)
+    init(thumbnailInfo: ThumbnailInfo,
+         photoDescription: String,
+         cache: MAImageCache) {
+        self.viewModel = .init(thumbnailInfo: thumbnailInfo, cache: cache)
         self.photoDescription = photoDescription
     }
 
@@ -31,16 +33,18 @@ struct ThumbnailView: View {
                 .scaledToFit()
                 .onTapGesture {
                     selectedPhoto.wrappedValue =
-                        Photo(image: uiImage,
-                              description: photoDescription)
+                    Photo(image: uiImage,
+                          description: photoDescription)
                 }
         } else {
             Image(systemName: viewModel.thumbnailInfo.type.placeholderSystemImageName)
                 .resizable()
                 .scaledToFit()
                 .onAppear {
-                    if preferences.showThumbnails {
-                        viewModel.tryLoadingNewImage()
+                    Task {
+                        if preferences.showThumbnails {
+                            await viewModel.tryLoadingNewImage()
+                        }
                     }
                 }
         }
@@ -49,7 +53,7 @@ struct ThumbnailView: View {
 
 struct ThumbnailView_Previews: PreviewProvider {
     static var previews: some View {
-        ThumbnailView(thumbnailInfo: .death, photoDescription: "")
+        ThumbnailView(thumbnailInfo: .death, photoDescription: "", cache: .init())
     }
 }
 
@@ -60,6 +64,7 @@ enum ImageExtension: String {
 fileprivate let kImagesBaseUrlString = "https://www.metal-archives.com/images/"
 
 final class ThumbnailViewModel: ObservableObject {
+    private let cache: MAImageCache
     let thumbnailInfo: ThumbnailInfo
 
     @Published private(set) var isLoading = false
@@ -69,62 +74,56 @@ final class ThumbnailViewModel: ObservableObject {
     private var triedJPEG = false
     private var triedGIF = false
 
-    init(thumbnailInfo: ThumbnailInfo) {
+    init(thumbnailInfo: ThumbnailInfo, cache: MAImageCache) {
         self.thumbnailInfo = thumbnailInfo
+        self.cache = cache
     }
 
-    func tryLoadingNewImage() {
+    @MainActor
+    func tryLoadingNewImage() async {
         guard uiImage == nil,
               let imageUrlString = newImageUrlString(id: thumbnailInfo.id),
               let imageUrl = URL(string: imageUrlString) else {
             return
         }
-        let cache = ImageCache.default
-        Task { @MainActor in
-            isLoading = true
-            do {
-                if let image = cache.retrieveImageInMemoryCache(forKey: imageUrlString) {
-                    isLoading = false
-                    self.uiImage = image
-                    return
-                }
-
-                let (data, response) = try await URLSession.shared.data(for: .init(url: imageUrl))
-                guard let httpResponse = response as? HTTPURLResponse else {
-                    tryLoadingNewImage()
-                    return
-                }
-
-                switch httpResponse.statusCode {
-                case 200:
-                    isLoading = false
-                    if let image = UIImage(data: data) {
-                        self.uiImage = image
-                        cache.store(image, forKey: imageUrlString)
-                    }
-                case 404:
-                    isLoading = false
-                    tryLoadingNewImage()
-                case 520:
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                        self.resetStates()
-                    }
-                default:
-                    break
-                }
-            } catch {
-                print(error.localizedDescription)
+        isLoading = true
+        do {
+            if let image = try await cache.retrieveImage(forKey: imageUrlString) {
+                isLoading = false
+                self.uiImage = image
+                return
             }
-        }
-    }
 
-    func resetStates() {
-        isLoading = false
-        triedJPG = false
-        triedPNG = false
-        triedJPEG = false
-        triedJPG = false
-        tryLoadingNewImage()
+            let (data, response) = try await URLSession.shared.data(for: .init(url: imageUrl))
+            guard let httpResponse = response as? HTTPURLResponse else {
+                await tryLoadingNewImage()
+                return
+            }
+
+            switch httpResponse.statusCode {
+            case 200:
+                isLoading = false
+                if let image = UIImage(data: data) {
+                    self.uiImage = image
+                    try await cache.storeImage(image, forKey: imageUrlString)
+                }
+            case 404:
+                isLoading = false
+                await tryLoadingNewImage()
+            case 520:
+                try await Task.sleep(nanoseconds: 5_000_000_000)
+                isLoading = false
+                triedJPG = false
+                triedPNG = false
+                triedJPEG = false
+                triedJPG = false
+                await tryLoadingNewImage()
+            default:
+                break
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 
     private func newImageUrlString(id: Int) -> String? {

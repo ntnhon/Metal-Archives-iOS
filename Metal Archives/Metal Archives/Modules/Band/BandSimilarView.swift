@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BandSimilarView: View {
     @EnvironmentObject private var preferences: Preferences
+    @EnvironmentObject private var cache: MAImageCache
     @State private var showingDetail = false
     @State private var showingShareSheet = false
     let apiService: APIServiceProtocol
@@ -24,7 +25,8 @@ struct BandSimilarView: View {
             label: {
                 HStack {
                     ThumbnailView(thumbnailInfo: bandSimilar.thumbnailInfo,
-                                  photoDescription: bandSimilar.name)
+                                  photoDescription: bandSimilar.name,
+                                  cache: cache)
                     .font(.largeTitle)
                     .foregroundColor(preferences.theme.secondaryColor)
                     .frame(width: 64, height: 64)

@@ -9,12 +9,14 @@ import SwiftUI
 
 struct ReleaseInBandView: View {
     @EnvironmentObject private var preferences: Preferences
+    @EnvironmentObject private var cache: MAImageCache
     let release: ReleaseInBand
 
     var body: some View {
         HStack {
             ThumbnailView(thumbnailInfo: release.thumbnailInfo,
-                          photoDescription: release.photoDescription)
+                          photoDescription: release.photoDescription,
+                          cache: cache)
             .font(.largeTitle)
             .foregroundColor(preferences.theme.secondaryColor)
             .frame(width: 64, height: 64)

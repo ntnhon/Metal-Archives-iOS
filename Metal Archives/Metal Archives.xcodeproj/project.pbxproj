@@ -162,6 +162,7 @@
 		EF3CAEF228FADD5A0092D80E /* LabelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3CAEF128FADD5A0092D80E /* LabelViewModel.swift */; };
 		EF3FCC1E28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */; };
 		EF3FCC2028FC2E1C004CBB97 /* ToastViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */; };
+		EF42EE7A290071E700362E39 /* MAImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF42EE79290071E700362E39 /* MAImageCache.swift */; };
 		EF488C7028F741E6007191A6 /* LyricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF488C6F28F741E6007191A6 /* LyricView.swift */; };
 		EF488C7228F74309007191A6 /* LyricViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF488C7128F74309007191A6 /* LyricViewModel.swift */; };
 		EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */; };
@@ -380,6 +381,7 @@
 		EF3CAEF128FADD5A0092D80E /* LabelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewModel.swift; sourceTree = "<group>"; };
 		EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSelectableViewModifier.swift; sourceTree = "<group>"; };
 		EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastViewModifier.swift; sourceTree = "<group>"; };
+		EF42EE79290071E700362E39 /* MAImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAImageCache.swift; sourceTree = "<group>"; };
 		EF488C6F28F741E6007191A6 /* LyricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricView.swift; sourceTree = "<group>"; };
 		EF488C7128F74309007191A6 /* LyricViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricViewModel.swift; sourceTree = "<group>"; };
 		EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 				C0F240FC26891D9D00ED546D /* HTMLParsable.swift */,
 				EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */,
 				C0063EBD265C4630005AB1E2 /* Logger.swift */,
+				EF42EE79290071E700362E39 /* MAImageCache.swift */,
 				EF2862D228EB5EB700E2C131 /* PageManagerProtocol.swift */,
 				C08DF5CE26A62108002E73EB /* SizePreferenceKey.swift */,
 				C0DD1376267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift */,
@@ -1245,6 +1248,7 @@
 				EFA48C4628F5EA1E0012B349 /* ReleaseReviewsView.swift in Sources */,
 				C0451EFB269503A90028AE1A /* UINavigationController.swift in Sources */,
 				EF3CAEF228FADD5A0092D80E /* LabelViewModel.swift in Sources */,
+				EF42EE7A290071E700362E39 /* MAImageCache.swift in Sources */,
 				C060E6C826825D120006433A /* AdvancedSearchView.swift in Sources */,
 				C017D419267E3088008B6EE5 /* BrowseView.swift in Sources */,
 				C004A2BE2658F3760071E12A /* StringExtensions.swift in Sources */,
