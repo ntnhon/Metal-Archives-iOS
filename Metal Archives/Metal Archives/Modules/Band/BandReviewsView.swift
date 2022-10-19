@@ -97,15 +97,13 @@ struct BandReviewsView: View {
 
 private struct ReviewLiteView: View {
     @EnvironmentObject private var preferences: Preferences
-    @EnvironmentObject private var cache: MAImageCache
     let review: ReviewLite
     let release: ReleaseInBand
 
     var body: some View {
         HStack {
             ThumbnailView(thumbnailInfo: release.thumbnailInfo,
-                          photoDescription: release.photoDescription,
-                          cache: cache)
+                          photoDescription: release.photoDescription)
             .font(.largeTitle)
             .foregroundColor(preferences.theme.secondaryColor)
             .frame(width: 64, height: 64)

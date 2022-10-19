@@ -130,7 +130,6 @@ struct TopAlbumsView: View {
 
 private struct TopAlbumView: View {
     @EnvironmentObject private var preferences: Preferences
-    @EnvironmentObject private var cache: MAImageCache
     @State private var isShowingDialog = false
     let topRelease: TopRelease
     let index: Int
@@ -154,8 +153,7 @@ private struct TopAlbumView: View {
             Text("\(index + 1). ")
 
             ThumbnailView(thumbnailInfo: release.thumbnailInfo,
-                          photoDescription: release.title,
-                          cache: cache)
+                          photoDescription: release.title)
             .font(.largeTitle)
             .foregroundColor(preferences.theme.secondaryColor)
             .frame(width: 64, height: 64)

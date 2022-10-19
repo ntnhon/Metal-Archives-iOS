@@ -14,6 +14,9 @@ extension KingfisherManager {
             retrieveImage(with: url) { result in
                 switch result {
                 case .success(let imageResult):
+                    #if DEBUG
+                    print("\(imageResult.cacheType): \(url.absoluteString)")
+                    #endif
                     if let cgImage = imageResult.image.cgImage {
                         let image = UIImage(cgImage: cgImage)
                         continuation.resume(returning: image)
