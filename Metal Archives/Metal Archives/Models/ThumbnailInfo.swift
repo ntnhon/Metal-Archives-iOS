@@ -23,6 +23,13 @@ struct ThumbnailInfo {
     }
 }
 
+extension ThumbnailInfo: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(type)
+    }
+}
+
 extension ThumbnailInfo {
     static var death: ThumbnailInfo {
         // swiftlint:disable:next force_unwrapping

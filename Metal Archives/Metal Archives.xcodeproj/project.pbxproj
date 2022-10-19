@@ -162,6 +162,7 @@
 		EF3CAEF228FADD5A0092D80E /* LabelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3CAEF128FADD5A0092D80E /* LabelViewModel.swift */; };
 		EF3FCC1E28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */; };
 		EF3FCC2028FC2E1C004CBB97 /* ToastViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */; };
+		EF42EE7C2900807B00362E39 /* ThumbnailInfoMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF42EE7B2900807B00362E39 /* ThumbnailInfoMatcher.swift */; };
 		EF488C7028F741E6007191A6 /* LyricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF488C6F28F741E6007191A6 /* LyricView.swift */; };
 		EF488C7228F74309007191A6 /* LyricViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF488C7128F74309007191A6 /* LyricViewModel.swift */; };
 		EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */; };
@@ -380,6 +381,7 @@
 		EF3CAEF128FADD5A0092D80E /* LabelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewModel.swift; sourceTree = "<group>"; };
 		EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSelectableViewModifier.swift; sourceTree = "<group>"; };
 		EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastViewModifier.swift; sourceTree = "<group>"; };
+		EF42EE7B2900807B00362E39 /* ThumbnailInfoMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailInfoMatcher.swift; sourceTree = "<group>"; };
 		EF488C6F28F741E6007191A6 /* LyricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricView.swift; sourceTree = "<group>"; };
 		EF488C7128F74309007191A6 /* LyricViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricViewModel.swift; sourceTree = "<group>"; };
 		EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 				C08DF5CE26A62108002E73EB /* SizePreferenceKey.swift */,
 				C0DD1376267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift */,
 				C004A2BD2658F3760071E12A /* StringExtensions.swift */,
+				EF42EE7B2900807B00362E39 /* ThumbnailInfoMatcher.swift */,
 				C05FDD3626996E1000EE2AB3 /* UIColorExtensions.swift */,
 				C0451EFA269503A90028AE1A /* UINavigationController.swift */,
 				C02A4CDD268678C6001CF9D2 /* Vibration.swift */,
@@ -1214,6 +1217,7 @@
 				EF2862D628EB70CB00E2C131 /* BandReviewsViewModel.swift in Sources */,
 				EF48E6D22895BDAB00B52EF2 /* ReleaseViewModel.swift in Sources */,
 				C0C65A1426982A0B0062FF9C /* Order.swift in Sources */,
+				EF42EE7C2900807B00362E39 /* ThumbnailInfoMatcher.swift in Sources */,
 				C017D421267E30D9008B6EE5 /* SettingsView.swift in Sources */,
 				C0F240FB26891AB500ED546D /* BandViewModel.swift in Sources */,
 				EF5A058728FDDDA7001BF230 /* TopAlbumsViewModel.swift in Sources */,

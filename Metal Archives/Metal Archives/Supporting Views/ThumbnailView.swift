@@ -78,14 +78,17 @@ final class ThumbnailViewModel: ObservableObject {
     @MainActor
     func tryLoadingNewImage() async {
         defer { isLoading = false }
+        let matcher = ThumbnailInfoMatcher.shared
         guard uiImage == nil,
-              let imageUrlString = newImageUrlString(id: thumbnailInfo.id),
+              let imageUrlString =
+                matcher.getMatchedUrlString(for: thumbnailInfo) ?? newImageUrlString(id: thumbnailInfo.id),
               let imageUrl = URL(string: imageUrlString) else {
             return
         }
         isLoading = true
         do {
             uiImage = try await KingfisherManager.shared.retrieveImage(with: imageUrl)
+            ThumbnailInfoMatcher.shared.setMatched(thumbnailInfo: thumbnailInfo, urlString: imageUrlString)
         } catch {
             if let kingfisherError = error as? KingfisherError,
                case .responseError(let reason) = kingfisherError,
