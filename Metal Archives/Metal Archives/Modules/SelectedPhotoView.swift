@@ -10,6 +10,7 @@ import SwiftUI
 struct SelectedPhotoView: View {
     @EnvironmentObject private var preferences: Preferences
     @Environment(\.selectedPhoto) private var selectedPhoto
+    @Environment(\.dismiss) private var dismiss
     @State private var showPhotoOnly = false
     @State private var scaleFactor: CGFloat = 1.0
     @State private var imageSize: CGSize = .zero
@@ -50,10 +51,13 @@ struct SelectedPhotoView: View {
                             showPhotoOnly = true
                             offset += value.translation
                         }
-                        .onEnded { _ in
+                        .onEnded { value in
                             if scaleFactor == 1.0 {
                                 showPhotoOnly = false
                                 offset = .zero
+                            }
+                            if value.location.y - value.startLocation.y > 5 {
+                                selectedPhoto.wrappedValue = nil
                             }
 //                            else if offset.width > 0 {
 //                                offset.width = 0
