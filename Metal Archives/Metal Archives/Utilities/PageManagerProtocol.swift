@@ -21,9 +21,7 @@ let kMaUrlQueryAllowedCharacterSet: CharacterSet = {
 
 enum PageElementError: Error {
     case badCount(count: Int, expectedCount: Int)
-    case aTagNotFound(String)
-    case hrefNotFound(String)
-    case textNotFound(String)
+    case failedToParse(String)
 }
 
 protocol PageElement {
@@ -38,6 +36,7 @@ enum PageConfigsError: Error {
 
 struct PageConfigs {
     let baseUrlString: String
+    var pageSize = kDefaultPageSize
 
     func urlString(page: Int, options: [String: String]) throws -> String {
         guard baseUrlString.contains(kDisplayStartPlaceholder) else {
@@ -49,7 +48,7 @@ struct PageConfigs {
         }
 
         var urlString = baseUrlString
-        let displayStart = page * kDefaultPageSize
+        let displayStart = page * pageSize
 
         urlString = urlString.replacingOccurrences(of: kDisplayStartPlaceholder, with: "\(displayStart)")
         urlString = urlString.replacingOccurrences(of: kDisplayLengthPlaceholder, with: "\(kDefaultPageSize)")
@@ -107,6 +106,7 @@ class PageManager<Element: PageElement>: PageManagerProtocol {
     private var currentPage = 0
     private var moreToLoad = true
     private var options: [String: String]
+    private(set) var total = 0
     let configs: PageConfigs
     let apiService: APIServiceProtocol
 
@@ -119,13 +119,14 @@ class PageManager<Element: PageElement>: PageManagerProtocol {
     }
 
     func getMoreElements() async throws {
-        guard moreToLoad else { return }
+        guard !isLoading, moreToLoad else { return }
         isLoading = true
         let results = try await getElements(page: currentPage, options: options)
         elements.append(contentsOf: results.elements)
-        isLoading = false
+        total = results.total
         currentPage += 1
         moreToLoad = elements.count < results.total
+        isLoading = false
     }
 
     func updateOptionsAndRefresh(_ options: [String: String]) async throws {

@@ -74,7 +74,7 @@ struct BrowseView: View {
 
     private var bandsSection: some View {
         Section(header: Text("Bands")) {
-            NavigationLink(destination: AlphabetView(mode: .bands)) {
+            NavigationLink(destination: AlphabetView(apiService: apiService, mode: .bands)) {
                 HStack {
                     Image(systemName: "abc")
                         .foregroundColor(preferences.theme.primaryColor)
@@ -102,7 +102,7 @@ struct BrowseView: View {
 
     private var labelsSection: some View {
         Section(header: Text("Labels")) {
-            NavigationLink(destination: AlphabetView(mode: .labels)) {
+            NavigationLink(destination: AlphabetView(apiService: apiService, mode: .labels)) {
                 HStack {
                     Image(systemName: "abc")
                         .foregroundColor(preferences.theme.primaryColor)

@@ -25,30 +25,31 @@ private let kFooterNote = """
     """
 
 struct AlphabetView: View {
-    @State private var showResults = false
-    @State private var seletedLetter: Letter = .a
+    let apiService: APIServiceProtocol
     let mode: AlphabetMode
 
     var body: some View {
         ScrollView {
-            NavigationLink(destination: Text(seletedLetter.description), isActive: $showResults) {
-                EmptyView()
-            }
-
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))], spacing: 10) {
                 ForEach(Letter.allCases, id: \.self) { letter in
-                    Text(letter.description)
-                        .font(.title)
-                        .fontWeight(.medium)
-                        .frame(width: 50, height: 50)
-                        .background(Color.secondary
-                                        .opacity(0.15)
-                                        .clipShape(RoundedRectangle(cornerRadius: 2))
-                        )
-                        .onTapGesture {
-                            seletedLetter = letter
-                            showResults = true
+                    NavigationLink(destination: {
+                        switch mode {
+                        case .bands:
+                            BandsByAlphabetView(apiService: apiService, letter: letter)
+                        case .labels:
+                            Text(letter.parameterString)
                         }
+                    }, label: {
+                        Text(letter.description)
+                            .font(.title)
+                            .fontWeight(.medium)
+                            .frame(width: 50, height: 50)
+                            .background(Color.secondary
+                                            .opacity(0.15)
+                                            .clipShape(RoundedRectangle(cornerRadius: 2))
+                            )
+                    })
+                    .buttonStyle(.plain)
                 }
             }
             .padding()
@@ -65,7 +66,7 @@ struct AlphabetView: View {
 struct AlphabetView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AlphabetView(mode: .bands)
+            AlphabetView(apiService: APIService(session: .shared), mode: .bands)
         }
         .environment(\.colorScheme, .dark)
         .environmentObject(Preferences())

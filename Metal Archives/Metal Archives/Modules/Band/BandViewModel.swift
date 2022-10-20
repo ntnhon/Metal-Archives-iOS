@@ -8,7 +8,7 @@
 import SwiftUI
 
 final class BandViewModel: ObservableObject {
-    deinit { print("\(Self.self) of \(bandUrlString) is deallocated") }
+//    deinit { print("\(Self.self) of \(bandUrlString) is deallocated") }
 
     @Published private(set) var bandAndDiscographyFetchable: FetchableObject<(Band, Discography)> = .fetching
     @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .fetching

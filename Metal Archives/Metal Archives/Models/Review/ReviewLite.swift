@@ -74,38 +74,20 @@ extension ReviewLite: PageElement {
             throw PageElementError.badCount(count: strings.count, expectedCount: 4)
         }
 
-        let stringAndTitle = strings[0]
-        let stringAndTitleHTML = try Kanna.HTML(html: stringAndTitle, encoding: .utf8)
-        guard let stringAndTitleHTMLATag = stringAndTitleHTML.at_css("a") else {
-            throw PageElementError.aTagNotFound(stringAndTitle)
+        guard let stringAndTitleATag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
+              let title = stringAndTitleATag.text,
+              let urlString = stringAndTitleATag["href"] else {
+            throw PageElementError.failedToParse("title & urlString")
         }
-
-        guard let urlString = stringAndTitleHTMLATag["href"] else {
-            throw PageElementError.hrefNotFound(stringAndTitle)
-        }
-
-        guard let title = stringAndTitleHTMLATag.text else {
-            throw PageElementError.textNotFound(stringAndTitle)
-        }
-
         self.urlString = urlString
         self.title = title
         self.rating = Int(strings[1].replacingOccurrences(of: "%", with: "")) ?? -1
 
-        let author = strings[2]
-        let authorHTML = try Kanna.HTML(html: author, encoding: .utf8)
-        guard let authorATag = authorHTML.at_css("a") else {
-            throw PageElementError.aTagNotFound(author)
+        guard let authorATag = try Kanna.HTML(html: strings[2], encoding: .utf8).at_css("a"),
+              let authorName = authorATag.text,
+              let authorUrlString = authorATag["href"] else {
+            throw PageElementError.failedToParse("\(UserLite.self)")
         }
-
-        guard let authorName = authorATag.text else {
-            throw PageElementError.textNotFound(author)
-        }
-
-        guard let authorUrlString = authorATag["href"] else {
-            throw PageElementError.hrefNotFound(author)
-        }
-
         self.author = .init(name: authorName, urlString: authorUrlString)
         self.date = strings[3]
     }

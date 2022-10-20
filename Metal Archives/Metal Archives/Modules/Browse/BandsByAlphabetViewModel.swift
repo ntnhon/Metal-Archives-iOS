@@ -1,0 +1,67 @@
+//
+//  BandsByAlphabetViewModel.swift
+//  Metal Archives
+//
+//  Created by Nhon Nguyen on 20/10/2022.
+//
+
+import Combine
+import SwiftUI
+
+final class BandsByAlphabetViewModel: ObservableObject {
+    @Published private(set) var isLoading = false
+    @Published private(set) var error: Error?
+    @Published private(set) var bands: [BandByAlphabet] = []
+
+    @Published var sortOption: BandByAlphabetPageManager.SortOption = .band(.ascending) {
+        didSet { refresh() }
+    }
+
+    let apiService: APIServiceProtocol
+    let letter: Letter
+    let manager: BandByAlphabetPageManager
+    private var cancellables = Set<AnyCancellable>()
+
+    init(apiService: APIServiceProtocol, letter: Letter) {
+        self.apiService = apiService
+        self.letter = letter
+        let defaultSortOption: BandByAlphabetPageManager.SortOption = .band(.ascending)
+        self.manager = .init(letter: letter, apiService: apiService, sortOptions: defaultSortOption)
+
+        manager.$isLoading
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isLoading in
+                self?.isLoading = isLoading
+            }
+            .store(in: &cancellables)
+
+        manager.$elements
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] bands in
+                self?.bands = bands
+            }
+            .store(in: &cancellables)
+    }
+
+    @MainActor
+    func getMoreBands(force: Bool) async {
+        if !force, !bands.isEmpty { return }
+        do {
+            error = nil
+            try await manager.getMoreElements()
+        } catch {
+            self.error = error
+        }
+    }
+
+    private func refresh() {
+        Task { @MainActor in
+            do {
+                error = nil
+                try await manager.updateOptionsAndRefresh(sortOption.options)
+            } catch {
+                self.error = error
+            }
+        }
+    }
+}
