@@ -69,7 +69,6 @@ extension BandByAlphabetPageManager {
         case band(Order)
         case country(Order)
         case genre(Order)
-        case status(Order)
 
         var title: String {
             switch self {
@@ -79,8 +78,6 @@ extension BandByAlphabetPageManager {
             case .country(.descending): return "Country ↓"
             case .genre(.ascending): return "Genre ↑"
             case .genre(.descending): return "Genre ↓"
-            case .status(.ascending): return "Status ↑"
-            case .status(.descending): return "Status ↓"
             }
         }
 
@@ -89,16 +86,12 @@ extension BandByAlphabetPageManager {
             case .band: return 0
             case .country: return 1
             case .genre: return 2
-            case .status: return 3
             }
         }
 
         var order: Order {
             switch self {
-            case .band(.ascending),
-                    .country(.ascending),
-                    .genre(.ascending),
-                    .status(.ascending):
+            case .band(.ascending), .country(.ascending), .genre(.ascending):
                 return .ascending
             default:
                 return .descending
@@ -116,9 +109,7 @@ extension BandByAlphabetPageManager {
                 (.country(.ascending), .country(.ascending)),
                 (.country(.descending), .country(.descending)),
                 (.genre(.ascending), .genre(.ascending)),
-                (.genre(.descending), .genre(.descending)),
-                (.status(.ascending), .status(.ascending)),
-                (.status(.descending), .status(.descending)):
+                (.genre(.descending), .genre(.descending)):
                 return true
             default:
                 return false

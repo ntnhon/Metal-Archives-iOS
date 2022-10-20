@@ -33,7 +33,7 @@ struct BandReadMoreView: View {
                 ProgressView()
 
             case .fetched(let readMore):
-                if let readMore {
+                if let readMore, !readMore.isEmpty {
                     Text(readMore)
                         .font(.callout)
                         .frame(maxWidth: .infinity, alignment: .leading)

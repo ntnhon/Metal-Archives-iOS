@@ -229,6 +229,11 @@
         "flag": "🇵🇫",
         "name": "French Polynesia"
     },
+    "PS":
+    {
+        "flag": "🇵🇸",
+        "name": "Palestine"
+    },
     "GE":
     {
         "flag": "🇬🇪",
@@ -559,6 +564,11 @@
         "flag": "🇵🇱",
         "name": "Poland"
     },
+    "PM":
+    {
+        "flag": "🇫🇷",
+        "name": "Saint Pierre and Miquelon"
+    },
     "PT":
     {
         "flag": "🇵🇹",
@@ -723,6 +733,11 @@
     {
         "flag": "🏳️",
         "name": "Unknown"
+    },
+    "ZW":
+    {
+        "flag": "🇿🇼",
+        "name": "Zimbabwe"
     },
     "UY":
     {
