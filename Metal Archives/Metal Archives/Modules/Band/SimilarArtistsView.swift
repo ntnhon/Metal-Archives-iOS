@@ -19,7 +19,11 @@ struct SimilarArtistsView: View {
                         .frame(maxWidth: .infinity)
                         .font(.caption)
 
-                    RetryButton(onRetry: viewModel.retry)
+                    RetryButton {
+                        Task {
+                            await viewModel.refresh(force: true)
+                        }
+                    }
                 }
 
             case .fetching:
@@ -62,7 +66,7 @@ struct SimilarArtistsView: View {
             }
         }
         .task {
-            await viewModel.fetchSimilarArtists()
+            await viewModel.refresh(force: false)
         }
     }
 }

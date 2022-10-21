@@ -18,15 +18,9 @@ final class SimilarArtistsViewModel: ObservableObject {
         self.band = band
     }
 
-    func retry() {
-        Task { @MainActor in
-            await fetchSimilarArtists()
-        }
-    }
-
     @MainActor
-    func fetchSimilarArtists() async {
-        if case .fetched = similarArtistsFetchable { return }
+    func refresh(force: Bool) async {
+        if !force, case .fetched = similarArtistsFetchable { return }
         do {
             similarArtistsFetchable = .fetching
             // swiftlint:disable:next line_length

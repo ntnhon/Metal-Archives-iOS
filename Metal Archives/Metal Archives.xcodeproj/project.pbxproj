@@ -187,7 +187,6 @@
 		EF5A058D28FDDF71001BF230 /* TopBands.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058C28FDDF71001BF230 /* TopBands.swift */; };
 		EF5A058F28FDE7C8001BF230 /* TopReleases.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058E28FDE7C8001BF230 /* TopReleases.swift */; };
 		EF5D011C28FF19BE008833C5 /* TopUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D011B28FF19BE008833C5 /* TopUsers.swift */; };
-		EF60FFFD28FB0DB800F96735 /* BandReadMoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF60FFFC28FB0DB800F96735 /* BandReadMoreViewModel.swift */; };
 		EF60FFFF28FB122F00F96735 /* SimilarArtistsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */; };
 		EF62240A28F15FDF00845430 /* HornCircularLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240928F15FDF00845430 /* HornCircularLoader.swift */; };
 		EF62240C28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */; };
@@ -408,7 +407,6 @@
 		EF5A058C28FDDF71001BF230 /* TopBands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBands.swift; sourceTree = "<group>"; };
 		EF5A058E28FDE7C8001BF230 /* TopReleases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopReleases.swift; sourceTree = "<group>"; };
 		EF5D011B28FF19BE008833C5 /* TopUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUsers.swift; sourceTree = "<group>"; };
-		EF60FFFC28FB0DB800F96735 /* BandReadMoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReadMoreViewModel.swift; sourceTree = "<group>"; };
 		EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarArtistsViewModel.swift; sourceTree = "<group>"; };
 		EF62240928F15FDF00845430 /* HornCircularLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HornCircularLoader.swift; sourceTree = "<group>"; };
 		EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+retrieveImageAsync.swift"; sourceTree = "<group>"; };
@@ -973,7 +971,6 @@
 				C0F240F62688605D00ED546D /* BandInfoView.swift */,
 				C007887526AF599E0080AC93 /* BandLineUpView.swift */,
 				C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */,
-				EF60FFFC28FB0DB800F96735 /* BandReadMoreViewModel.swift */,
 				C007887D26AF5C020080AC93 /* BandRelatedLinksView.swift */,
 				C007887726AF5B200080AC93 /* BandReviewsView.swift */,
 				EF2862D528EB70CB00E2C131 /* BandReviewsViewModel.swift */,
@@ -1263,7 +1260,6 @@
 				C017D419267E3088008B6EE5 /* BrowseView.swift in Sources */,
 				C004A2BE2658F3760071E12A /* StringExtensions.swift in Sources */,
 				C08DF5CF26A62108002E73EB /* SizePreferenceKey.swift in Sources */,
-				EF60FFFD28FB0DB800F96735 /* BandReadMoreViewModel.swift in Sources */,
 				EF31834C289862D000B6C8DD /* BetterSafariViewModifier.swift in Sources */,
 				EF60FFFF28FB122F00F96735 /* SimilarArtistsViewModel.swift in Sources */,
 				C02A8CB826812F61001430D6 /* GenreListView.swift in Sources */,

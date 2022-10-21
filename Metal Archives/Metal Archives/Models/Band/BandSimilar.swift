@@ -88,6 +88,7 @@ struct BandSimilarArray: HTMLParsable {
 
         var bands = [BandSimilar]()
         for tr in tbody.css("tr") {
+            if tr.text?.contains("(show top 20 only)") == true { continue }
             let builder = BandSimilar.Builder()
             for (column, td) in tr.css("td").enumerated() {
                 if td["id"] == "no_artists" || td["id"] == "show_more" {

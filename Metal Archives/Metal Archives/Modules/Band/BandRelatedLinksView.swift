@@ -19,7 +19,9 @@ struct BandRelatedLinksView: View {
                         .frame(maxWidth: .infinity)
                         .font(.caption)
 
-                    RetryButton(onRetry: viewModel.refreshRelatedLinks)
+                    RetryButton {
+                        Task { await viewModel.refreshRelatedLinks(force: true) }
+                    }
                 }
 
             case .fetching:
@@ -40,7 +42,9 @@ struct BandRelatedLinksView: View {
             }
         }
         .onAppear {
-            viewModel.fetchRelatedLinks()
+            Task {
+                await viewModel.refreshRelatedLinks(force: false)
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ extension KingfisherManager {
                 switch result {
                 case .success(let imageResult):
                     #if DEBUG
-                    print("\(imageResult.cacheType): \(url.absoluteString)")
+//                    print("\(imageResult.cacheType): \(url.absoluteString)")
                     #endif
                     if let cgImage = imageResult.image.cgImage {
                         let image = UIImage(cgImage: cgImage)

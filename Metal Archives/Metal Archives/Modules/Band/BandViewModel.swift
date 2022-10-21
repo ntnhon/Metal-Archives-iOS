@@ -7,10 +7,16 @@
 
 import SwiftUI
 
+struct BandMetadata {
+    let band: Band
+    let discography: Discography
+    let readMore: String?
+}
+
 final class BandViewModel: ObservableObject {
 //    deinit { print("\(Self.self) of \(bandUrlString) is deallocated") }
 
-    @Published private(set) var bandAndDiscographyFetchable: FetchableObject<(Band, Discography)> = .fetching
+    @Published private(set) var bandMetadataFetchable: FetchableObject<BandMetadata> = .fetching
     @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .fetching
     private(set) var band: Band?
     private let bandUrlString: String
@@ -22,54 +28,71 @@ final class BandViewModel: ObservableObject {
     }
 
     @MainActor
-    func fetchBandAndDiscography() async {
-        if case .fetched = bandAndDiscographyFetchable { return }
+    func refresh(force: Bool) async {
+        if !force, case .fetched = bandMetadataFetchable { return }
         do {
-            bandAndDiscographyFetchable = .fetching
-            let band = try await apiService.request(forType: Band.self, urlString: bandUrlString)
-            let discographyUrlString = "https://www.metal-archives.com/band/discography/id/\(band.id)/tab/all"
-            let discography = try await apiService.request(forType: Discography.self,
-                                                           urlString: discographyUrlString)
-            self.band = band
-            self.bandAndDiscographyFetchable = .fetched((band, discography))
+            bandMetadataFetchable = .fetching
+            if let bandId = bandUrlString.components(separatedBy: "/").last, Int(bandId) != nil {
+                // View band from a normal URL
+                async let band = fetchBand()
+                async let discopgrahy = fetchDiscography(bandId: bandId)
+                async let readMore = fetchReadMore(bandId: bandId)
+                bandMetadataFetchable = .fetched(.init(band: try await band,
+                                                       discography: try await discopgrahy,
+                                                       readMore: try await readMore))
+            } else {
+                // Random band
+                let band = try await fetchBand()
+                async let discopgrahy = fetchDiscography(bandId: band.id)
+                async let readMore = fetchReadMore(bandId: band.id)
+                bandMetadataFetchable = .fetched(.init(band: band,
+                                                       discography: try await discopgrahy,
+                                                       readMore: try await readMore))
+            }
         } catch {
-            self.bandAndDiscographyFetchable = .error(error)
+            bandMetadataFetchable = .error(error)
         }
     }
 
-    func refreshBandAndDiscography() {
-        bandAndDiscographyFetchable = .fetching
-        Task { @MainActor in
-            await fetchBandAndDiscography()
+    private func fetchBand() async throws -> Band {
+        try await apiService.request(forType: Band.self, urlString: bandUrlString)
+    }
+
+    private func fetchDiscography(bandId: String) async throws -> Discography {
+        let urlString = "https://www.metal-archives.com/band/discography/id/\(bandId)/tab/all"
+        return try await apiService.request(forType: Discography.self, urlString: urlString)
+    }
+
+    private func fetchReadMore(bandId: String) async throws -> String? {
+        let urlString = "https://www.metal-archives.com/band/read-more/id/\(bandId)"
+        var readMore = try await apiService.getString(for: urlString, inHtmlFormat: false)
+        readMore = readMore?.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let readMore, !readMore.isEmpty {
+            return readMore
         }
+        return nil
     }
 }
 
 // MARK: - Related links
 extension BandViewModel {
-    func fetchRelatedLinks() {
-        guard let band else {
+    @MainActor
+    func refreshRelatedLinks(force: Bool) async {
+        guard case let .fetched(metadata) = bandMetadataFetchable else {
             relatedLinksFetchable = .error(MAError.missingBand)
             return
         }
 
-        if case .fetched = relatedLinksFetchable { return }
+        if !force, case .fetched = relatedLinksFetchable { return }
 
-        let urlString = "https://www.metal-archives.com/link/ajax-list/type/band/id/\(band.id)"
+        let urlString = "https://www.metal-archives.com/link/ajax-list/type/band/id/\(metadata.band.id)"
         relatedLinksFetchable = .fetching
-        Task { @MainActor in
-            do {
-                let links = try await apiService.request(forType: RelatedLinkArray.self,
-                                                         urlString: urlString)
-                relatedLinksFetchable = .fetched(links.content)
-            } catch {
-                relatedLinksFetchable = .error(error)
-            }
+        do {
+            let links = try await apiService.request(forType: RelatedLinkArray.self,
+                                                     urlString: urlString)
+            relatedLinksFetchable = .fetched(links.content)
+        } catch {
+            relatedLinksFetchable = .error(error)
         }
-    }
-
-    func refreshRelatedLinks() {
-        relatedLinksFetchable = .fetching
-        fetchRelatedLinks()
     }
 }

@@ -23,30 +23,33 @@ struct BandView: View {
 
     var body: some View {
         ZStack {
-            switch viewModel.bandAndDiscographyFetchable {
+            switch viewModel.bandMetadataFetchable {
             case .error(let error):
                 VStack(alignment: .center, spacing: 20) {
                     Text(error.userFacingMessage)
                         .frame(maxWidth: .infinity)
                         .font(.caption)
 
-                    RetryButton(onRetry: viewModel.refreshBandAndDiscography)
+                    RetryButton {
+                        Task {
+                            await viewModel.refresh(force: true)
+                        }
+                    }
                 }
 
             case .fetching:
                 HornCircularLoader()
 
-            case .fetched(let (band, discography)):
-                BandContentView(band: band,
+            case .fetched(let metadata):
+                BandContentView(metadata: metadata,
                                 apiService: apiService,
-                                discography: discography,
                                 preferences: preferences,
                                 viewModel: viewModel)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
         .task {
-            await viewModel.fetchBandAndDiscography()
+            await viewModel.refresh(force: false)
         }
     }
 }
@@ -67,28 +70,27 @@ private struct BandContentView: View {
     @State private var selectedReviewUrl: String?
     @State private var selectedUserUrl: String?
     let apiService: APIServiceProtocol
-    let band: Band
-    let discography: Discography
+    let metadata: BandMetadata
 
-    init(band: Band,
+    init(metadata: BandMetadata,
          apiService: APIServiceProtocol,
-         discography: Discography,
          preferences: Preferences,
          viewModel: BandViewModel) {
-        self.band = band
+        self.metadata = metadata
         self.apiService = apiService
-        self.discography = discography
-        self._discographyViewModel = .init(wrappedValue: .init(discography: discography,
+        self._discographyViewModel = .init(wrappedValue: .init(discography: metadata.discography,
                                                                discographyMode: preferences.discographyMode,
                                                                order: preferences.dateOrder))
-        self._similarArtistsViewModel = .init(wrappedValue: .init(apiService: apiService, band: band))
-        self._reviewsViewModel = .init(wrappedValue: .init(band: band,
+        self._similarArtistsViewModel = .init(wrappedValue: .init(apiService: apiService,
+                                                                  band: metadata.band))
+        self._reviewsViewModel = .init(wrappedValue: .init(band: metadata.band,
                                                            apiService: apiService,
-                                                           discography: discography))
+                                                           discography: metadata.discography))
         self._viewModel = .init(wrappedValue: viewModel)
     }
 
     var body: some View {
+        let band = metadata.band
         let isShowingBand = makeIsShowingBandDetailBinding()
         let isShowingRelease = makeIsShowingReleaseDetailBinding()
         let isShowingLabel = makeIsShowingLabelDetailBinding()
@@ -176,12 +178,14 @@ private struct BandContentView: View {
                             selectedPhoto.wrappedValue = photo
                         }
 
-                        BandInfoView(viewModel: .init(band: band, discography: discography),
+                        BandInfoView(viewModel: .init(band: band, discography: metadata.discography),
                                      onSelectLabel: { url in selectedLabelUrl = url },
                                      onSelectBand: { url in selectedBandUrl = url })
                         .padding(.horizontal)
 
-                        BandReadMoreView(apiService: apiService, band: band)
+                        if let readMore = metadata.readMore {
+                            BandReadMoreView(band: band, readMore: readMore)
+                        }
 
                         Color(.systemGray6)
                             .frame(height: 10)
@@ -288,6 +292,7 @@ private struct BandContentView: View {
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
+        let band = metadata.band
         ToolbarItem(placement: .principal) {
             HStack {
                 band.status.color

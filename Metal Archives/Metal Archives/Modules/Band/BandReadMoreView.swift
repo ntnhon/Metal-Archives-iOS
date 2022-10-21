@@ -10,69 +10,42 @@ import SwiftUI
 
 struct BandReadMoreView: View {
     @EnvironmentObject private var preferences: Preferences
-    @StateObject private var viewModel: BandReadMoreViewModel
     @State private var showingSheet = false
-
-    init(apiService: APIServiceProtocol, band: Band) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService, band: band))
-    }
+    let band: Band
+    let readMore: String
 
     var body: some View {
-        Group {
-            switch viewModel.readMoreFetchable {
-            case .error(let error):
-                VStack(alignment: .center, spacing: 20) {
-                    Text(error.userFacingMessage)
-                        .frame(maxWidth: .infinity)
-                        .font(.caption)
-
-                    RetryButton(onRetry: viewModel.retry)
-                }
-
-            case .fetching:
-                ProgressView()
-
-            case .fetched(let readMore):
-                if let readMore, !readMore.isEmpty {
+        Text(readMore)
+            .font(.callout)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .fixedSize(horizontal: false, vertical: true)
+            .lineLimit(6)
+            .padding()
+            .onTapGesture {
+                showingSheet.toggle()
+            }
+        .sheet(isPresented: $showingSheet) {
+            NavigationView {
+                ScrollView {
                     Text(readMore)
-                        .font(.callout)
+                        .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true)
-                        .lineLimit(6)
-                        .padding()
-                        .onTapGesture {
+                        .textSelection(.enabled)
+                }
+                .navigationTitle(band.name)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
                             showingSheet.toggle()
-                        }
-                } else {
-                    EmptyView()
-                }
-            }
-        }
-        .sheet(isPresented: $showingSheet) {
-            if case .fetched(let readMore) = viewModel.readMoreFetchable {
-                NavigationView {
-                    ScrollView {
-                        Text(readMore ?? "")
-                            .padding()
-                            .textSelection(.enabled)
-                    }
-                    .navigationTitle(viewModel.band.name)
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Button(action: {
-                                showingSheet.toggle()
-                            }, label: {
-                                Image(systemName: "xmark")
-                            })
-                        }
+                        }, label: {
+                            Image(systemName: "xmark")
+                        })
                     }
                 }
-                .tint(preferences.theme.primaryColor)
-                .preferredColorScheme(.dark)
             }
-        }
-        .task {
-            await viewModel.fetchReadMore()
+            .tint(preferences.theme.primaryColor)
+            .preferredColorScheme(.dark)
         }
     }
 }
