@@ -80,8 +80,4 @@ final class ReleaseViewModel: ObservableObject {
             coverFetchable = .error(error)
         }
     }
-
-    func fetchCoverImage() {
-        Task { await fetchCoverImage() }
-    }
 }

@@ -40,7 +40,11 @@ struct ReleaseCoverView: View {
             case .error(let error):
                 VStack {
                     Text(error.userFacingMessage)
-                    RetryButton(onRetry: viewModel.fetchCoverImage)
+                    RetryButton {
+                        Task {
+                            await viewModel.fetchCoverImage()
+                        }
+                    }
                 }
             }
         }

@@ -114,6 +114,7 @@ private struct ReleaseContentView: View {
                              opacity: $coverOpacity)
                 .environmentObject(viewModel)
                 .frame(height: coverViewHeight)
+                .opacity(viewModel.noCover ? 0 : 1)
 
             OffsetAwareScrollView(
                 axes: .vertical,
@@ -199,8 +200,13 @@ private struct ReleaseContentView: View {
                     }
                 })
         }
-        .edgesIgnoringSafeArea(.top)
+        .modifier(IgnoreTopSafeArea(shouldIgnore: !viewModel.noCover))
         .toolbar { toolbarContent }
+        .onReceive(viewModel.$noCover) { noCover in
+            if noCover {
+                coverViewHeight = 0
+            }
+        }
     }
 
     private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
@@ -286,3 +292,16 @@ struct ReleaseView_Previews: PreviewProvider {
     }
 }
 */
+
+private struct IgnoreTopSafeArea: ViewModifier {
+    let shouldIgnore: Bool
+
+    func body(content: Content) -> some View {
+        if shouldIgnore {
+            content
+                .ignoresSafeArea(edges: .top)
+        } else {
+            content
+        }
+    }
+}
