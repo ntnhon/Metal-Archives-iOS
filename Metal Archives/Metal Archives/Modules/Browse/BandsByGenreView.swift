@@ -1,17 +1,17 @@
 //
-//  BandsByAlphabetView.swift
+//  BandsByGenreView.swift
 //  Metal Archives
 //
-//  Created by Nhon Nguyen on 20/10/2022.
+//  Created by Nhon Nguyen on 22/10/2022.
 //
 
 import SwiftUI
 
-struct BandsByAlphabetView: View {
-    @StateObject private var viewModel: BandsByAlphabetViewModel
+struct BandsByGenreView: View {
+    @StateObject private var viewModel: BandsByGenreViewModel
 
-    init(apiService: APIServiceProtocol, letter: Letter) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService, letter: letter))
+    init(apiService: APIServiceProtocol, genre: Genre) {
+        _viewModel = .init(wrappedValue: .init(apiService: apiService, genre: genre))
     }
 
     var body: some View {
@@ -62,7 +62,7 @@ struct BandsByAlphabetView: View {
             }
         }
         .listStyle(.plain)
-        .navigationTitle("\(viewModel.manager.total) bands by \"\(viewModel.letter.description)\"")
+        .navigationTitle("\(viewModel.manager.total) bands by \"\(viewModel.genre.rawValue)\"")
         .navigationBarTitleDisplayMode(.large)
         .toolbar { toolbarContent }
     }
@@ -118,43 +118,11 @@ struct BandsByAlphabetView: View {
     }
 
     @ViewBuilder
-    private func view(for option: BandByAlphabetPageManager.SortOption) -> some View {
+    private func view(for option: BandsByGenrePageManager.SortOption) -> some View {
         if option == viewModel.sortOption {
             Label(option.title, systemImage: "checkmark")
         } else {
             Text(option.title)
-        }
-    }
-}
-
-struct BandByAlphabetView: View {
-    @EnvironmentObject private var preferences: Preferences
-    let band: BandByAlphabet
-
-    var body: some View {
-        HStack {
-            ThumbnailView(thumbnailInfo: band.band.thumbnailInfo,
-                          photoDescription: band.band.name)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
-
-            VStack(alignment: .leading) {
-                Text(band.band.name)
-                    .fontWeight(.bold)
-                    .foregroundColor(preferences.theme.primaryColor)
-
-                Text(band.country.nameAndFlag)
-                    .foregroundColor(preferences.theme.secondaryColor) +
-                Text(" • ") +
-                Text(band.status.rawValue)
-                    .foregroundColor(band.status.color)
-
-                Text(band.genre)
-                    .font(.callout)
-            }
-
-            Spacer()
         }
     }
 }

@@ -8,13 +8,21 @@
 import SwiftUI
 
 struct GenreListView: View {
+    let apiService: APIServiceProtocol
+
     var body: some View {
         Form {
-            ForEach(Genre.allCases, id: \.self) { genre in
-                NavigationLink(destination: Text(genre.rawValue)) {
-                    Text(genre.rawValue)
+            Section(content: {
+                ForEach(Genre.allCases, id: \.self) { genre in
+                    NavigationLink(destination: {
+                        BandsByGenreView(apiService: apiService, genre: genre)
+                    }, label: {
+                        Text(genre.rawValue)
+                    })
                 }
-            }
+            }, footer: {
+                Text("For genre fine-tuning, use the advanced search")
+            })
         }
         .navigationTitle("Bands by genre")
     }
@@ -23,7 +31,7 @@ struct GenreListView: View {
 struct GenreListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            GenreListView()
+            GenreListView(apiService: APIService())
         }
         .environment(\.colorScheme, .dark)
         .environmentObject(Preferences())

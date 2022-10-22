@@ -90,7 +90,7 @@ struct BrowseView: View {
                 }
             }
 
-            NavigationLink(destination: GenreListView()) {
+            NavigationLink(destination: GenreListView(apiService: apiService)) {
                 HStack {
                     Image(systemName: "guitars.fill")
                         .foregroundColor(preferences.theme.primaryColor)
