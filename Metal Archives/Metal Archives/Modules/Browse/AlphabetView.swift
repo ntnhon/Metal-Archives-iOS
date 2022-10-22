@@ -37,7 +37,7 @@ struct AlphabetView: View {
                         case .bands:
                             BandsByAlphabetView(apiService: apiService, letter: letter)
                         case .labels:
-                            Text(letter.parameterString)
+                            LabelsByAlphabetView(apiService: apiService, letter: letter)
                         }
                     }, label: {
                         Text(letter.description)
