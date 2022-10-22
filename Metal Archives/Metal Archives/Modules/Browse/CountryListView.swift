@@ -19,14 +19,22 @@ enum CountryListMode {
 }
 
 struct CountryListView: View {
+    let apiService: APIServiceProtocol
     let mode: CountryListMode
 
     var body: some View {
         Form {
             ForEach(CountryManager.shared.countries, id: \.isoCode) { country in
-                NavigationLink(destination: Text(country.nameAndFlag)) {
+                NavigationLink(destination: {
+                    switch mode {
+                    case .bands:
+                        BandsByCountryView(apiService: apiService, country: country)
+                    case .labels:
+                        Text("Label")
+                    }
+                }, label: {
                     Text(country.nameAndFlag)
-                }
+                })
             }
         }
         .navigationTitle(mode.navigationTitle)
@@ -36,7 +44,7 @@ struct CountryListView: View {
 struct CountryListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CountryListView(mode: .bands)
+            CountryListView(apiService: APIService(), mode: .bands)
         }
         .environment(\.colorScheme, .dark)
         .environmentObject(Preferences())

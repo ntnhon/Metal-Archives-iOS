@@ -1,17 +1,17 @@
 //
-//  BandsByAlphabetView.swift
+//  BandsByCountryView.swift
 //  Metal Archives
 //
-//  Created by Nhon Nguyen on 20/10/2022.
+//  Created by Nhon Nguyen on 22/10/2022.
 //
 
 import SwiftUI
 
-struct BandsByAlphabetView: View {
-    @StateObject private var viewModel: BandsByAlphabetViewModel
+struct BandsByCountryView: View {
+    @StateObject private var viewModel: BandsByCountryViewModel
 
-    init(apiService: APIServiceProtocol, letter: Letter) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService, letter: letter))
+    init(apiService: APIServiceProtocol, country: Country) {
+        _viewModel = .init(wrappedValue: .init(apiService: apiService, country: country))
     }
 
     var body: some View {
@@ -47,7 +47,7 @@ struct BandsByAlphabetView: View {
                     BandView(apiService: viewModel.apiService,
                              bandUrlString: band.band.thumbnailInfo.urlString)
                 }, label: {
-                    BandByAlphabetView(band: band)
+                    BandByCountryView(band: band)
                 })
                 .task {
                     if band == viewModel.bands.last {
@@ -62,7 +62,7 @@ struct BandsByAlphabetView: View {
             }
         }
         .listStyle(.plain)
-        .navigationTitle("\(viewModel.manager.total) bands by \"\(viewModel.letter.description)\"")
+        .navigationTitle("\(viewModel.manager.total) bands in \(viewModel.country.nameAndFlag)")
         .navigationBarTitleDisplayMode(.large)
         .toolbar { toolbarContent }
     }
@@ -84,18 +84,6 @@ struct BandsByAlphabetView: View {
                 })
 
                 Button(action: {
-                    viewModel.sortOption = .country(.ascending)
-                }, label: {
-                    view(for: .country(.ascending))
-                })
-
-                Button(action: {
-                    viewModel.sortOption = .country(.descending)
-                }, label: {
-                    view(for: .country(.descending))
-                })
-
-                Button(action: {
                     viewModel.sortOption = .genre(.ascending)
                 }, label: {
                     view(for: .genre(.ascending))
@@ -105,6 +93,18 @@ struct BandsByAlphabetView: View {
                     viewModel.sortOption = .genre(.descending)
                 }, label: {
                     view(for: .genre(.descending))
+                })
+
+                Button(action: {
+                    viewModel.sortOption = .location(.ascending)
+                }, label: {
+                    view(for: .location(.ascending))
+                })
+
+                Button(action: {
+                    viewModel.sortOption = .location(.descending)
+                }, label: {
+                    view(for: .location(.descending))
                 })
             }, label: {
                 Text(viewModel.sortOption.title)
@@ -118,7 +118,7 @@ struct BandsByAlphabetView: View {
     }
 
     @ViewBuilder
-    private func view(for option: BandByAlphabetPageManager.SortOption) -> some View {
+    private func view(for option: BandByCountryPageManager.SortOption) -> some View {
         if option == viewModel.sortOption {
             Label(option.title, systemImage: "checkmark")
         } else {
@@ -127,9 +127,9 @@ struct BandsByAlphabetView: View {
     }
 }
 
-private struct BandByAlphabetView: View {
+private struct BandByCountryView: View {
     @EnvironmentObject private var preferences: Preferences
-    let band: BandByAlphabet
+    let band: BandByCountry
 
     var body: some View {
         HStack {
@@ -144,9 +144,10 @@ private struct BandByAlphabetView: View {
                     .fontWeight(.bold)
                     .foregroundColor(preferences.theme.primaryColor)
 
-                Text(band.country.nameAndFlag)
-                    .foregroundColor(preferences.theme.secondaryColor) +
-                Text(" • ") +
+                if !band.location.isEmpty {
+                    Text(band.location)
+                }
+
                 Text(band.status.rawValue)
                     .foregroundColor(band.status.color)
 

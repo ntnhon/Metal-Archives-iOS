@@ -20,6 +20,12 @@ struct BandLite: Thumbnailable {
     }
 }
 
+extension BandLite: Equatable {
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.thumbnailInfo.id == rhs.thumbnailInfo.id
+    }
+}
+
 // swiftlint:disable force_unwrapping
 extension BandLite {
     static var controlDenied: BandLite {

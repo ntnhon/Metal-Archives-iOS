@@ -82,7 +82,7 @@ struct BrowseView: View {
                 }
             }
 
-            NavigationLink(destination: CountryListView(mode: .bands)) {
+            NavigationLink(destination: CountryListView(apiService: apiService, mode: .bands)) {
                 HStack {
                     Image(systemName: "globe")
                         .foregroundColor(preferences.theme.primaryColor)
@@ -110,7 +110,7 @@ struct BrowseView: View {
                 }
             }
 
-            NavigationLink(destination: CountryListView(mode: .labels)) {
+            NavigationLink(destination: CountryListView(apiService: apiService, mode: .labels)) {
                 HStack {
                     Image(systemName: "globe")
                         .foregroundColor(preferences.theme.primaryColor)
