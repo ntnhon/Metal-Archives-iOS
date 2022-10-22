@@ -194,7 +194,7 @@
 		EF6A89F72903CE4D00DA2D67 /* BandByCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A89F62903CE4D00DA2D67 /* BandByCountry.swift */; };
 		EF6A89F92903D01C00DA2D67 /* BandsByCountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A89F82903D01C00DA2D67 /* BandsByCountryView.swift */; };
 		EF6A89FB2903D03600DA2D67 /* BandsByCountryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A89FA2903D03600DA2D67 /* BandsByCountryViewModel.swift */; };
-		EF6A89FD2903D4F100DA2D67 /* BandsByGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A89FC2903D4F100DA2D67 /* BandsByGenre.swift */; };
+		EF6A89FD2903D4F100DA2D67 /* BandByGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A89FC2903D4F100DA2D67 /* BandByGenre.swift */; };
 		EF6A89FF2903D7A000DA2D67 /* BandsByGenreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A89FE2903D7A000DA2D67 /* BandsByGenreView.swift */; };
 		EF6A8A012903D7BE00DA2D67 /* BandsByGenreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A8A002903D7BE00DA2D67 /* BandsByGenreViewModel.swift */; };
 		EF7A2C9928FC18860046B136 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9828FC18860046B136 /* ReviewView.swift */; };
@@ -420,7 +420,7 @@
 		EF6A89F62903CE4D00DA2D67 /* BandByCountry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandByCountry.swift; sourceTree = "<group>"; };
 		EF6A89F82903D01C00DA2D67 /* BandsByCountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandsByCountryView.swift; sourceTree = "<group>"; };
 		EF6A89FA2903D03600DA2D67 /* BandsByCountryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandsByCountryViewModel.swift; sourceTree = "<group>"; };
-		EF6A89FC2903D4F100DA2D67 /* BandsByGenre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandsByGenre.swift; sourceTree = "<group>"; };
+		EF6A89FC2903D4F100DA2D67 /* BandByGenre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandByGenre.swift; sourceTree = "<group>"; };
 		EF6A89FE2903D7A000DA2D67 /* BandsByGenreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandsByGenreView.swift; sourceTree = "<group>"; };
 		EF6A8A002903D7BE00DA2D67 /* BandsByGenreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandsByGenreViewModel.swift; sourceTree = "<group>"; };
 		EF7A2C9828FC18860046B136 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
@@ -837,7 +837,7 @@
 				C041C3112658EE74006B0F1F /* Band.swift */,
 				EF3C56A72901C5480010D568 /* BandByAlphabet.swift */,
 				EF6A89F62903CE4D00DA2D67 /* BandByCountry.swift */,
-				EF6A89FC2903D4F100DA2D67 /* BandsByGenre.swift */,
+				EF6A89FC2903D4F100DA2D67 /* BandByGenre.swift */,
 				C00473A7265E0BC200C66F45 /* BandInRelease.swift */,
 				C038739C2659A7E700D2FD5E /* BandLite.swift */,
 				C03873A12659AAD000D2FD5E /* BandSimilar.swift */,
@@ -1277,7 +1277,7 @@
 				EF3CAEF228FADD5A0092D80E /* LabelViewModel.swift in Sources */,
 				C060E6C826825D120006433A /* AdvancedSearchView.swift in Sources */,
 				C017D419267E3088008B6EE5 /* BrowseView.swift in Sources */,
-				EF6A89FD2903D4F100DA2D67 /* BandsByGenre.swift in Sources */,
+				EF6A89FD2903D4F100DA2D67 /* BandByGenre.swift in Sources */,
 				C004A2BE2658F3760071E12A /* StringExtensions.swift in Sources */,
 				C08DF5CF26A62108002E73EB /* SizePreferenceKey.swift in Sources */,
 				EF31834C289862D000B6C8DD /* BetterSafariViewModifier.swift in Sources */,
