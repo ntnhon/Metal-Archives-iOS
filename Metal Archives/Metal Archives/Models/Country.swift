@@ -41,4 +41,8 @@ extension Country {
     static var usa: Country {
         .init(isoCode: "US", flag: "🇺🇸", name: "United States")
     }
+
+    static var unknown: Country {
+        .init(isoCode: "ZZ", flag: "🏳️", name: "Unknown")
+    }
 }

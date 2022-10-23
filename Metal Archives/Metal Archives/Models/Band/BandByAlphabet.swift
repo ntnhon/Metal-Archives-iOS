@@ -38,10 +38,7 @@ extension BandByAlphabet: PageElement {
         }
         self.band = band
 
-        guard let country = CountryManager.shared.country(by: \.name, value: strings[1]) else {
-            throw PageElementError.failedToParse("\(Country.self): \(strings[1])")
-        }
-        self.country = country
+        self.country = CountryManager.shared.country(by: \.name, value: strings[1]) ?? .unknown
         self.genre = strings[2]
 
         guard let spanTag = try Kanna.HTML(html: strings[3], encoding: .utf8).at_css("span"),

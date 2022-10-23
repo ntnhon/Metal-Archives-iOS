@@ -166,6 +166,10 @@
 		EF3F5FD92905688800FD1A31 /* LabelByCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FD82905688800FD1A31 /* LabelByCountry.swift */; };
 		EF3F5FDB290569B000FD1A31 /* LabelsByCountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FDA290569B000FD1A31 /* LabelsByCountryView.swift */; };
 		EF3F5FDD290569C500FD1A31 /* LabelsByCountryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FDC290569C500FD1A31 /* LabelsByCountryViewModel.swift */; };
+		EF3F5FDF29056C5600FD1A31 /* DeceasedArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FDE29056C5600FD1A31 /* DeceasedArtist.swift */; };
+		EF3F5FE129056CB500FD1A31 /* ArtistLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FE029056CB500FD1A31 /* ArtistLite.swift */; };
+		EF3F5FE329057A7800FD1A31 /* DeceasedArtistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FE229057A7800FD1A31 /* DeceasedArtistsView.swift */; };
+		EF3F5FE529057A8100FD1A31 /* DeceasedArtistsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FE429057A8100FD1A31 /* DeceasedArtistsViewModel.swift */; };
 		EF3FCC1E28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */; };
 		EF3FCC2028FC2E1C004CBB97 /* ToastViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */; };
 		EF42EE7C2900807B00362E39 /* ThumbnailInfoMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF42EE7B2900807B00362E39 /* ThumbnailInfoMatcher.swift */; };
@@ -400,6 +404,10 @@
 		EF3F5FD82905688800FD1A31 /* LabelByCountry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelByCountry.swift; sourceTree = "<group>"; };
 		EF3F5FDA290569B000FD1A31 /* LabelsByCountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsByCountryView.swift; sourceTree = "<group>"; };
 		EF3F5FDC290569C500FD1A31 /* LabelsByCountryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsByCountryViewModel.swift; sourceTree = "<group>"; };
+		EF3F5FDE29056C5600FD1A31 /* DeceasedArtist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeceasedArtist.swift; sourceTree = "<group>"; };
+		EF3F5FE029056CB500FD1A31 /* ArtistLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistLite.swift; sourceTree = "<group>"; };
+		EF3F5FE229057A7800FD1A31 /* DeceasedArtistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeceasedArtistsView.swift; sourceTree = "<group>"; };
+		EF3F5FE429057A8100FD1A31 /* DeceasedArtistsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeceasedArtistsViewModel.swift; sourceTree = "<group>"; };
 		EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSelectableViewModifier.swift; sourceTree = "<group>"; };
 		EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastViewModifier.swift; sourceTree = "<group>"; };
 		EF42EE7B2900807B00362E39 /* ThumbnailInfoMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailInfoMatcher.swift; sourceTree = "<group>"; };
@@ -839,6 +847,8 @@
 				C01ECED226623273009A3A32 /* Artist.swift */,
 				C038739F2659A92F00D2FD5E /* ArtistInBand.swift */,
 				C018C516265CE0C40022C8DD /* ArtistInRelease.swift */,
+				EF3F5FE029056CB500FD1A31 /* ArtistLite.swift */,
+				EF3F5FDE29056C5600FD1A31 /* DeceasedArtist.swift */,
 				C01ECED42662339F009A3A32 /* RoleInBand.swift */,
 				C01ECED6266233DF009A3A32 /* RoleInRelease.swift */,
 			);
@@ -991,6 +1001,8 @@
 			children = (
 				C0A993452712396800121BA3 /* ArtistView.swift */,
 				EF48E6D32895CB5600B52EF2 /* ArtistViewModel.swift */,
+				EF3F5FE229057A7800FD1A31 /* DeceasedArtistsView.swift */,
+				EF3F5FE429057A8100FD1A31 /* DeceasedArtistsViewModel.swift */,
 			);
 			path = Artist;
 			sourceTree = "<group>";
@@ -1333,6 +1345,7 @@
 				C017D42D267E9B51008B6EE5 /* AboutView.swift in Sources */,
 				EF5A058128FDDC72001BF230 /* TopBandsView.swift in Sources */,
 				EF3FCC1E28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift in Sources */,
+				EF3F5FE129056CB500FD1A31 /* ArtistLite.swift in Sources */,
 				C01ECED92662341A009A3A32 /* ReleaseLite.swift in Sources */,
 				EFA48C4028F5E9AC0012B349 /* TracklistView.swift in Sources */,
 				C021535426A6155F006F6A33 /* Blur.swift in Sources */,
@@ -1369,6 +1382,7 @@
 				C007887A26AF5B750080AC93 /* SimilarArtistsView.swift in Sources */,
 				EF6A8A012903D7BE00DA2D67 /* BandsByGenreViewModel.swift in Sources */,
 				C0A37B6D26584E980017A02F /* Country.swift in Sources */,
+				EF3F5FDF29056C5600FD1A31 /* DeceasedArtist.swift in Sources */,
 				C03873A62659AC0C00D2FD5E /* ReleaseInBand.swift in Sources */,
 				EF48E6D02895BD8100B52EF2 /* ReleaseView.swift in Sources */,
 				C060E6D02682714F0006433A /* AdvancedSearchSongsView.swift in Sources */,
@@ -1378,6 +1392,7 @@
 				EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */,
 				EF48E6CB2895BC2900B52EF2 /* ErrorExtensions.swift in Sources */,
 				EF7A2CA028FC19340046B136 /* UserViewModel.swift in Sources */,
+				EF3F5FE529057A8100FD1A31 /* DeceasedArtistsViewModel.swift in Sources */,
 				EF3CAEED28FAA3710092D80E /* LabelLiteButton.swift in Sources */,
 				EF2862D328EB5EB700E2C131 /* PageManagerProtocol.swift in Sources */,
 				C051863026979FBE006BB7D5 /* DiscographyView.swift in Sources */,
@@ -1418,6 +1433,7 @@
 				EF50D1C42896FC070081D6AA /* BandHeaderViewModel.swift in Sources */,
 				C0964F492723FAB100100972 /* ActivityView.swift in Sources */,
 				EF5A058F28FDE7C8001BF230 /* TopReleases.swift in Sources */,
+				EF3F5FE329057A7800FD1A31 /* DeceasedArtistsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,6 +26,13 @@ extension BandLite: Equatable {
     }
 }
 
+extension BandLite: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(thumbnailInfo)
+    }
+}
+
 // swiftlint:disable force_unwrapping
 extension BandLite {
     static var controlDenied: BandLite {

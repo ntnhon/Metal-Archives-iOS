@@ -122,13 +122,15 @@ struct BrowseView: View {
 
     private var ripSection: some View {
         Section(header: Text("R.I.P")) {
-            NavigationLink(destination: Text("RIP")) {
+            NavigationLink(destination: {
+                DeceasedArtistsView(apiService: apiService)
+            }, label: {
                 HStack {
                     Image(systemName: "staroflife.fill")
                         .foregroundColor(preferences.theme.primaryColor)
                     Text("Deceased artists")
                 }
-            }
+            })
         }
     }
 
