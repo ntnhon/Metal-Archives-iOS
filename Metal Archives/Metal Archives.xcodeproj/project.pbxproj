@@ -163,6 +163,9 @@
 		EF3CAEED28FAA3710092D80E /* LabelLiteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3CAEEC28FAA3710092D80E /* LabelLiteButton.swift */; };
 		EF3CAEF028FADD3D0092D80E /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3CAEEF28FADD3D0092D80E /* LabelView.swift */; };
 		EF3CAEF228FADD5A0092D80E /* LabelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3CAEF128FADD5A0092D80E /* LabelViewModel.swift */; };
+		EF3F5FD92905688800FD1A31 /* LabelByCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FD82905688800FD1A31 /* LabelByCountry.swift */; };
+		EF3F5FDB290569B000FD1A31 /* LabelsByCountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FDA290569B000FD1A31 /* LabelsByCountryView.swift */; };
+		EF3F5FDD290569C500FD1A31 /* LabelsByCountryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FDC290569C500FD1A31 /* LabelsByCountryViewModel.swift */; };
 		EF3FCC1E28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */; };
 		EF3FCC2028FC2E1C004CBB97 /* ToastViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */; };
 		EF42EE7C2900807B00362E39 /* ThumbnailInfoMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF42EE7B2900807B00362E39 /* ThumbnailInfoMatcher.swift */; };
@@ -394,6 +397,9 @@
 		EF3CAEEC28FAA3710092D80E /* LabelLiteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLiteButton.swift; sourceTree = "<group>"; };
 		EF3CAEEF28FADD3D0092D80E /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		EF3CAEF128FADD5A0092D80E /* LabelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewModel.swift; sourceTree = "<group>"; };
+		EF3F5FD82905688800FD1A31 /* LabelByCountry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelByCountry.swift; sourceTree = "<group>"; };
+		EF3F5FDA290569B000FD1A31 /* LabelsByCountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsByCountryView.swift; sourceTree = "<group>"; };
+		EF3F5FDC290569C500FD1A31 /* LabelsByCountryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsByCountryViewModel.swift; sourceTree = "<group>"; };
 		EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSelectableViewModifier.swift; sourceTree = "<group>"; };
 		EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastViewModifier.swift; sourceTree = "<group>"; };
 		EF42EE7B2900807B00362E39 /* ThumbnailInfoMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailInfoMatcher.swift; sourceTree = "<group>"; };
@@ -861,6 +867,7 @@
 			children = (
 				C004A2B52658F17B0071E12A /* LabelLite.swift */,
 				EF6A8A022903DF1700DA2D67 /* LabelByAlphabet.swift */,
+				EF3F5FD82905688800FD1A31 /* LabelByCountry.swift */,
 				EF6A8A042903DF7A00DA2D67 /* LabelStatus.swift */,
 			);
 			path = Label;
@@ -1020,6 +1027,8 @@
 				EF3CAEF128FADD5A0092D80E /* LabelViewModel.swift */,
 				EF6A8A0629040FC900DA2D67 /* LabelsByAlphabetView.swift */,
 				EF6A8A0829040FDF00DA2D67 /* LabelsByAlphabetViewModel.swift */,
+				EF3F5FDA290569B000FD1A31 /* LabelsByCountryView.swift */,
+				EF3F5FDC290569C500FD1A31 /* LabelsByCountryViewModel.swift */,
 			);
 			path = Label;
 			sourceTree = "<group>";
@@ -1259,6 +1268,7 @@
 				C017D421267E30D9008B6EE5 /* SettingsView.swift in Sources */,
 				C0F240FB26891AB500ED546D /* BandViewModel.swift in Sources */,
 				EF5A058728FDDDA7001BF230 /* TopAlbumsViewModel.swift in Sources */,
+				EF3F5FD92905688800FD1A31 /* LabelByCountry.swift in Sources */,
 				C038739B265996F000D2FD5E /* ReleaseType.swift in Sources */,
 				C0DD1383267F6C40009F0B81 /* DiscographyMode.swift in Sources */,
 				C004556D267FA95500B47356 /* Theme.swift in Sources */,
@@ -1315,6 +1325,7 @@
 				EF488C7228F74309007191A6 /* LyricViewModel.swift in Sources */,
 				C02A8CB426812E78001430D6 /* Genre.swift in Sources */,
 				C0D632BD2687CC9900348E29 /* DataExtensions.swift in Sources */,
+				EF3F5FDD290569C500FD1A31 /* LabelsByCountryViewModel.swift in Sources */,
 				C004A2C02658F4F40071E12A /* DateFormatterExtensions.swift in Sources */,
 				C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */,
 				C01D2D652683CB9500957DE5 /* BandStatusListView.swift in Sources */,
@@ -1392,6 +1403,7 @@
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
 				C05FDD3726996E1000EE2AB3 /* UIColorExtensions.swift in Sources */,
 				EF6A89F92903D01C00DA2D67 /* BandsByCountryView.swift in Sources */,
+				EF3F5FDB290569B000FD1A31 /* LabelsByCountryView.swift in Sources */,
 				C017D414267E3034008B6EE5 /* SearchView.swift in Sources */,
 				EF6A8A052903DF7A00DA2D67 /* LabelStatus.swift in Sources */,
 				C017D424267E3115008B6EE5 /* RootView.swift in Sources */,

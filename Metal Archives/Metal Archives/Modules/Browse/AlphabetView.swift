@@ -40,14 +40,18 @@ struct AlphabetView: View {
                             LabelsByAlphabetView(apiService: apiService, letter: letter)
                         }
                     }, label: {
-                        Text(letter.description)
-                            .font(.title)
-                            .fontWeight(.medium)
-                            .frame(width: 50, height: 50)
-                            .background(Color.secondary
-                                            .opacity(0.15)
-                                            .clipShape(RoundedRectangle(cornerRadius: 2))
-                            )
+                        if case .labels = mode, letter == .tilde {
+                            EmptyView()
+                        } else {
+                            Text(letter.description)
+                                .font(.title)
+                                .fontWeight(.medium)
+                                .frame(width: 50, height: 50)
+                                .background(Color.secondary
+                                    .opacity(0.15)
+                                    .clipShape(RoundedRectangle(cornerRadius: 2))
+                                )
+                        }
                     })
                     .buttonStyle(.plain)
                 }

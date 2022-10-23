@@ -30,7 +30,7 @@ struct CountryListView: View {
                     case .bands:
                         BandsByCountryView(apiService: apiService, country: country)
                     case .labels:
-                        Text("Label")
+                        LabelsByCountryView(apiService: apiService, country: country)
                     }
                 }, label: {
                     Text(country.nameAndFlag)
