@@ -30,13 +30,15 @@ struct BrowseView: View {
 
     private var newsStatisticSection: some View {
         Section(header: Text("News & statistics")) {
-            NavigationLink(destination: Text("News archives")) {
+            NavigationLink(destination: {
+                NewsArchivesView(apiService: apiService)
+            }, label: {
                 HStack {
                     Image(systemName: "newspaper.fill")
                         .foregroundColor(preferences.theme.primaryColor)
                     Text("News archives")
                 }
-            }
+            })
 
             NavigationLink(destination: Text("Stats")) {
                 HStack {

@@ -170,6 +170,10 @@
 		EF3F5FE129056CB500FD1A31 /* ArtistLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FE029056CB500FD1A31 /* ArtistLite.swift */; };
 		EF3F5FE329057A7800FD1A31 /* DeceasedArtistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FE229057A7800FD1A31 /* DeceasedArtistsView.swift */; };
 		EF3F5FE529057A8100FD1A31 /* DeceasedArtistsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FE429057A8100FD1A31 /* DeceasedArtistsViewModel.swift */; };
+		EF3F5FE72905833500FD1A31 /* NewsPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FE62905833500FD1A31 /* NewsPost.swift */; };
+		EF3F5FE9290586C700FD1A31 /* NewsArchivesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FE8290586C700FD1A31 /* NewsArchivesView.swift */; };
+		EF3F5FEB290586EB00FD1A31 /* NewsArchivesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FEA290586EB00FD1A31 /* NewsArchivesViewModel.swift */; };
+		EF3F5FED29058AB500FD1A31 /* NewsPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FEC29058AB500FD1A31 /* NewsPostView.swift */; };
 		EF3FCC1E28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */; };
 		EF3FCC2028FC2E1C004CBB97 /* ToastViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */; };
 		EF42EE7C2900807B00362E39 /* ThumbnailInfoMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF42EE7B2900807B00362E39 /* ThumbnailInfoMatcher.swift */; };
@@ -408,6 +412,10 @@
 		EF3F5FE029056CB500FD1A31 /* ArtistLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistLite.swift; sourceTree = "<group>"; };
 		EF3F5FE229057A7800FD1A31 /* DeceasedArtistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeceasedArtistsView.swift; sourceTree = "<group>"; };
 		EF3F5FE429057A8100FD1A31 /* DeceasedArtistsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeceasedArtistsViewModel.swift; sourceTree = "<group>"; };
+		EF3F5FE62905833500FD1A31 /* NewsPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPost.swift; sourceTree = "<group>"; };
+		EF3F5FE8290586C700FD1A31 /* NewsArchivesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArchivesView.swift; sourceTree = "<group>"; };
+		EF3F5FEA290586EB00FD1A31 /* NewsArchivesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArchivesViewModel.swift; sourceTree = "<group>"; };
+		EF3F5FEC29058AB500FD1A31 /* NewsPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPostView.swift; sourceTree = "<group>"; };
 		EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSelectableViewModifier.swift; sourceTree = "<group>"; };
 		EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastViewModifier.swift; sourceTree = "<group>"; };
 		EF42EE7B2900807B00362E39 /* ThumbnailInfoMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailInfoMatcher.swift; sourceTree = "<group>"; };
@@ -719,6 +727,9 @@
 				C017D418267E3088008B6EE5 /* BrowseView.swift */,
 				C027D26526807CAB00BD54AE /* CountryListView.swift */,
 				C02A8CB726812F61001430D6 /* GenreListView.swift */,
+				EF3F5FE8290586C700FD1A31 /* NewsArchivesView.swift */,
+				EF3F5FEA290586EB00FD1A31 /* NewsArchivesViewModel.swift */,
+				EF3F5FEC29058AB500FD1A31 /* NewsPostView.swift */,
 				EF5A058228FDDC8F001BF230 /* TopAlbumsView.swift */,
 				EF5A058628FDDDA7001BF230 /* TopAlbumsViewModel.swift */,
 				EF5A058028FDDC72001BF230 /* TopBandsView.swift */,
@@ -919,6 +930,7 @@
 				C02A8CAD2681258B001430D6 /* Letter.swift */,
 				C0F2410026891F1100ED546D /* MAError.swift */,
 				C004A2B72658F2E70071E12A /* ModificationInfo.swift */,
+				EF3F5FE62905833500FD1A31 /* NewsPost.swift */,
 				C0C65A1326982A0B0062FF9C /* Order.swift */,
 				C0A9934A271240A100121BA3 /* Photo.swift */,
 				C03873A32659AB3600D2FD5E /* RelatedLink.swift */,
@@ -1305,6 +1317,7 @@
 				EF6A89F72903CE4D00DA2D67 /* BandByCountry.swift in Sources */,
 				C03873A22659AAD000D2FD5E /* BandSimilar.swift in Sources */,
 				C038739D2659A7E700D2FD5E /* BandLite.swift in Sources */,
+				EF3F5FEB290586EB00FD1A31 /* NewsArchivesViewModel.swift in Sources */,
 				EF48E6D42895CB5600B52EF2 /* ArtistViewModel.swift in Sources */,
 				C0E006A12698EDC100B5D503 /* ReleaseInBandView.swift in Sources */,
 				EFA48C4628F5EA1E0012B349 /* ReleaseReviewsView.swift in Sources */,
@@ -1335,9 +1348,11 @@
 				C0FA708926B084BA00B618E6 /* BandReadMoreView.swift in Sources */,
 				C01D2D6B2683DD0D00957DE5 /* ReleaseFormatListView.swift in Sources */,
 				EF488C7228F74309007191A6 /* LyricViewModel.swift in Sources */,
+				EF3F5FE72905833500FD1A31 /* NewsPost.swift in Sources */,
 				C02A8CB426812E78001430D6 /* Genre.swift in Sources */,
 				C0D632BD2687CC9900348E29 /* DataExtensions.swift in Sources */,
 				EF3F5FDD290569C500FD1A31 /* LabelsByCountryViewModel.swift in Sources */,
+				EF3F5FE9290586C700FD1A31 /* NewsArchivesView.swift in Sources */,
 				C004A2C02658F4F40071E12A /* DateFormatterExtensions.swift in Sources */,
 				C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */,
 				C01D2D652683CB9500957DE5 /* BandStatusListView.swift in Sources */,
@@ -1364,6 +1379,7 @@
 				EFA48C4428F5EA010012B349 /* OtherVersionsView.swift in Sources */,
 				EFA48C3E28F5E5890012B349 /* ReleaseTabsDatasource.swift in Sources */,
 				C071578326E6AA280075C012 /* HighlightableText.swift in Sources */,
+				EF3F5FED29058AB500FD1A31 /* NewsPostView.swift in Sources */,
 				C004A2D3265916020071E12A /* Release.swift in Sources */,
 				C0A644B226E805C90004413A /* ArtistInBandView.swift in Sources */,
 				EF6A8A032903DF1700DA2D67 /* LabelByAlphabet.swift in Sources */,
