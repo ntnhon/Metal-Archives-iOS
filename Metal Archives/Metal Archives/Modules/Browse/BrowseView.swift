@@ -40,13 +40,19 @@ struct BrowseView: View {
                 }
             })
 
-            NavigationLink(destination: Text("Stats")) {
+            NavigationLink(destination: {
+                if #available(iOS 16, *) {
+                    StatsView(apiService: apiService)
+                } else {
+                    Text("This page requires iOS 16 or above.")
+                }
+            }, label: {
                 HStack {
                     Image(systemName: "chart.pie.fill")
                         .foregroundColor(preferences.theme.primaryColor)
                     Text("Statistics")
                 }
-            }
+            })
         }
     }
 
