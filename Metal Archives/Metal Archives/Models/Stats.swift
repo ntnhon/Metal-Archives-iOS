@@ -147,11 +147,7 @@ extension Stats: HTMLParsable {
                 Int(match)
             })
 
-            " approved bands."
-
-            OneOrMore(.any)
-
-            " "
+            " approved bands.\n"
 
             TryCapture(as: activeRef, {
                 OneOrMore(.digit)
