@@ -8,6 +8,7 @@
 @testable import Metal_Archives
 import XCTest
 
+@available(iOS 16, *)
 final class StatsTests: XCTestCase {
     func testParseStats() throws {
         let data: Data = try Data.from(fileName: "Stats", extension: "html")
@@ -45,9 +46,9 @@ final class StatsTests: XCTestCase {
         XCTAssertEqual(sut.artistStats.unknown, 9_195)
 
         // Member stats
-        XCTAssertEqual(sut.memberStats.total, 1_188_016)
-        XCTAssertEqual(sut.memberStats.active, 510_256)
-        XCTAssertEqual(sut.memberStats.inactive, 1_698_272)
+        XCTAssertEqual(sut.memberStats.active, 1_188_016)
+        XCTAssertEqual(sut.memberStats.inactive, 510_256)
+        XCTAssertEqual(sut.memberStats.total, 1_698_272)
 
         // Release stats
         XCTAssertEqual(sut.releaseStats.albums, 499_563)
