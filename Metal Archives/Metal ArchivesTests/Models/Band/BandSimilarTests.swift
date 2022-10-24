@@ -8,6 +8,8 @@
 @testable import Metal_Archives
 import XCTest
 
+// swiftlint:disable line_length
+/*
 class SimilarBandsTests: XCTestCase {
     func testInvalidSimilarBands() throws {
         // given
@@ -80,8 +82,8 @@ class SimilarBandsTests: XCTestCase {
         XCTAssertEqual(pestilence.name, "Pestilence")
         XCTAssertEqual(pestilence.country, netherlands)
         XCTAssertEqual(pestilence.genre,
-                       // swiftlint:disable:next line_length
                        "Thrash Metal (1986-1988); Death Metal (1989-1991, 2008-); Progressive Death Metal/Jazz Fusion (1993)")
         XCTAssertEqual(pestilence.score, 304)
     }
 }
+*/

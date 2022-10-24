@@ -5,14 +5,14 @@
 //  Created by Thanh-Nhon Nguyen on 22/05/2021.
 //
 
+import Kanna
 @testable import Metal_Archives
 import XCTest
 
 class ModificationInfoTests: XCTestCase {
     var sut: ModificationInfo!
 
-    override func setUp() {
-        super.setUp()
+    func testInit() throws {
         // swiftlint:disable line_length
         let htmlTag = """
                  <table>
@@ -34,10 +34,9 @@ class ModificationInfoTests: XCTestCase {
                  </table>
             """
         // swiftlint:enable line_length
-        sut = ModificationInfo(from: htmlTag)
-    }
-
-    func testInit() throws {
+        let html = try Kanna.HTML(html: htmlTag, encoding: .utf8)
+        let table = try XCTUnwrap(html.at_css("table"))
+        sut = ModificationInfo(element: table)
         let dateFormatter = DateFormatter.default
 
         let addedOnDate = try XCTUnwrap(sut.addedOnDate)
@@ -47,13 +46,11 @@ class ModificationInfoTests: XCTestCase {
         XCTAssertEqual(modifiedOnDate, dateFormatter.date(from: "2021-05-07 10:22:22"))
 
         let addedByUser = try XCTUnwrap(sut.addedByUser)
-        // swiftlint:disable:next line_length
-        let expectedAddedByUser = UserLite(from: #"<a href="https://www.metal-archives.com/users/Krister%20Jensen" class="profileMenu">Krister Jensen</a>"#)
-        XCTAssertEqual(addedByUser, expectedAddedByUser)
+        XCTAssertEqual(addedByUser.name, "Krister Jensen")
+        XCTAssertEqual(addedByUser.urlString, "https://www.metal-archives.com/users/Krister%20Jensen")
 
         let modifiedByUser = try XCTUnwrap(sut.modifiedByUser)
-        // swiftlint:disable:next line_length
-        let expectedModifiedByUser = UserLite(from: #"<a href="https://www.metal-archives.com/users/Putrid_Abomination" class="profileMenu">Putrid_Abomination</a>"#)
-        XCTAssertEqual(modifiedByUser, expectedModifiedByUser)
+        XCTAssertEqual(modifiedByUser.name, "Putrid_Abomination")
+        XCTAssertEqual(modifiedByUser.urlString, "https://www.metal-archives.com/users/Putrid_Abomination")
     }
 }

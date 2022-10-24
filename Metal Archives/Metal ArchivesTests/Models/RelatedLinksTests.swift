@@ -8,6 +8,7 @@
 @testable import Metal_Archives
 import XCTest
 
+/*
 class RelatedLinksTests: XCTestCase {
     func testEmptyRelatedLinks() throws {
         // given
@@ -52,3 +53,4 @@ class RelatedLinksTests: XCTestCase {
         XCTAssertEqual(guitareTab.urlString, "http://www.guitaretab.com/d/death/")
     }
 }
+*/

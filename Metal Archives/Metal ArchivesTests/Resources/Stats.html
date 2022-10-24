@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Stats - Encyclopaedia Metallum: The Metal Archives</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <link rel="stylesheet" type="text/css" href="/min/index.php?g=css" />
+        <script type="810d8ab828250ef3bcafbc8f-text/javascript" src="/min/index.php?g=js"></script>
+        <script type="810d8ab828250ef3bcafbc8f-text/javascript">
+            var URL_SITE    = 'https://www.metal-archives.com/';
+            var URL_IMAGES    = 'https://www.metal-archives.com/images/';
+            var URL_CSS        = 'https://www.metal-archives.com/css/';
+            var csrfToken    = '';
+
+            $(document).ready(function() {
+                toggleFixedPositioning(1280, 600);
+                executeOnAllPages();
+
+            });
+
+
+        </script>
+        <noscript>
+            <style type="text/css">
+                .no-js { display: block !important; }
+            </style>
+        </noscript>
+        <!--[if lt IE 8]>
+        <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://www.metal-archives.com/css/default/oldie.css" />
+        <![endif]-->
+        <script type="810d8ab828250ef3bcafbc8f-text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4046749-4']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="header">
+                <a href="https://www.metal-archives.com/" id="MA_logo">Metal Archives</a>
+                <div class="clear loading"><img src="https://www.metal-archives.com/images/loading.gif" alt="loading" width="12" height="12" /> loading...</div>
+                <div id="search_box">
+                    <form id="search_form" action="https://www.metal-archives.com/search" method="get">
+                        <div>
+                            <label>Search:</label><br />
+                            <input name="searchString" type="text" id="searchQueryBox" size="25" value="" tabindex="1" />
+                            <select name="type" tabindex="2">
+                                <option value="band_name">Band name</option>
+                                <option value="band_genre">Music genre</option>
+                                <option value="band_themes">Lyrical themes</option>
+                                <option value="album_title">Album title</option>
+                                <option value="song_title">Song title</option>
+                                <option value="label_name">Label</option>
+                                <option value="artist_alias">Artist</option>
+                                <option value="user_name">User profile</option>
+                                <option value="google">Google</option>
+                            </select>
+                            <br />
+                            <a href="https://www.metal-archives.com/search/advanced/?searchString=&type=" class="float_left" tabindex="4">Advanced search</a>
+                            <button type="submit" class="btn_submit float_right" tabindex="3">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="top_menu_box">
+                    <ul class="menu_style_1">
+                        <li><a href="https://www.metal-archives.com/content/help">Help</a></li>
+                        <li><a href="https://www.metal-archives.com/content/rules">Rules</a></li>
+                        <li><a href="https://metalarchives.threadless.com/" target="_top">Store</a></li>
+                        <li><a href="https://forum.metal-archives.com" target="_top">Forum</a></li>
+                    </ul>
+                    <ul class="menu_style_2">
+                        <li><a href="https://www.metal-archives.com/content/faq">FAQ</a></li>
+                        <li><a href="https://www.metal-archives.com/content/support">Support Us</a></li>
+                        <li><a href="https://www.metal-archives.com/content/tools">Add-ons</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="left_col">
+                <div id="member_box">
+                    <form name="login_form" id="login_form" action="https://www.metal-archives.com/authentication/login" method="post">
+                        <div>
+                            <label>Username</label><br />
+                            <input type="text" name="loginUsername" />
+                            <label>Password</label><br />
+                            <input type="password" name="loginPassword" />
+                            <input type="hidden" name="origin" value="" />
+                            <button type="submit" class="btn_login float_right">Login</button>
+                        </div>
+                    </form>
+                    <a href="https://www.metal-archives.com/user/signup" class="float-left writeAction">Register</a>
+                    <span class="float_right"><a href="https://www.metal-archives.com/user/forgot-password" class="float-left writeAction">Forgot login?</a> </span>
+                    <div class="clear"> </div>
+                </div>
+                <div id="left_menu_box">
+                    <ul class="menu_style_3 block_spacer_20">
+                        <li>
+                            Bands
+                            <ul>
+                                <li><a href="https://www.metal-archives.com/browse/letter">alphabetical</a></li>
+                                <li><a href="https://www.metal-archives.com/browse/country">country</a></li>
+                                <li><a href="https://www.metal-archives.com/browse/genre">genre</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            Labels
+                            <ul>
+                                <li><a href="https://www.metal-archives.com/label">alphabetical</a></li>
+                                <li><a href="https://www.metal-archives.com/label/country">country</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="https://www.metal-archives.com/review/browse">Reviews</a></li>
+                    </ul>
+                    <ul class="menu_style_3 block_spacer_20">
+                        <li><a href="https://www.metal-archives.com/artist/rip">R.I.P.</a></li>
+                        <li><a href="https://www.metal-archives.com/band/random">Random Band</a></li>
+                        <li><a href="https://www.metal-archives.com/user/list">User rankings</a></li>
+                        <li><a href="https://www.metal-archives.com/news">News archive</a></li>
+                    </ul>
+                    <ul class="menu_style_3 ornement_30">
+                        <li><a href="https://www.metal-archives.com/report/list">Reports</a></li>
+                        <li><a href="https://www.metal-archives.com/todo">Contribute / To do</a></li>
+                    </ul>
+                </div>
+                <div id="left_text_box">
+                    <p class="small_text center"> &copy; 2002-2022<br />Encyclopaedia Metallum </p>
+                    <p class="small_text center">Best viewed<br /> <a href="http://www.getfirefox.com" target="_blank">without</a> Internet Explorer, <br />in 1280 x 960 resolution<br /> or higher.</p>
+                </div>
+                <div>
+                    <p class="small_text center"><a href="https://www.metal-archives.com/content/pp">Privacy Policy</a></p>
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <script type="810d8ab828250ef3bcafbc8f-text/javascript">
+                    $(document).ready(function() {
+                        $(".no-js").removeClass("no-js");
+                        $('.tabs, .tabs2lvl').tabs({ beforeLoad: cacheTab });
+                    });
+                </script>
+                <h1 class="page_title">Statistics</h1>
+                <p>Here are a bunch of statistics regarding the site's database, just for fun. Updated daily.</p>
+                <div id="stats" class="tabs no-js">
+                    <ul>
+                        <li><a href="#general">General</a></li>
+                        <li><a href="https://www.metal-archives.com/stats/bands" title="Top 100 - Bands"><span>Top 100 - Bands</span></a></li>
+                        <li><a href="https://www.metal-archives.com/stats/albums" title="Top 100 - Albums"><span>Top 100 - Albums</span></a></li>
+                        <li><a href="https://www.metal-archives.com/stats/members" title="Top 100 - Members"><span>Top 100 - Members</span></a></li>
+                    </ul>
+                    <div id="general">
+                        <div class="tabs2lvl"> </div>
+                        <div class="ui-tabs-panel-content">
+                            <p class="center">Stats as of October 24th, 2022, 1:34 pm EDT</p>
+                            <p>
+                            There is a total of <strong>161672</strong> <a href="https://www.metal-archives.com/archives/band-list/by/created">approved bands</a>.
+                            <span class="active">89147</span> are active, <span class="on_hold">3588</span> are on hold, <span class="split_up">49673</span> are split-up, <span class="changed_name">6636</span> changed name, and the rest (<span class="unknown">12601</span> bands) are unknown.
+                            </p>
+                            <p>
+                            There is a total of <strong>121123</strong> <a href="https://www.metal-archives.com/review/browse">approved reviews</a>, for <strong>58918</strong> unique albums.
+                            </p>
+                            <p>
+                            There is a total of <strong>42437</strong> <a href="https://www.metal-archives.com/label">labels</a>. <span class="active">19456</span> are active, <span class="closed">12965</span> are closed, <span class="changed_name">392</span> changed name, and the rest (<span class="unknown">9411</span> labels) are unknown.
+                            </p>
+                            <p>
+                            There is a total of <strong>827026</strong> artists. 683782 are still playing. 143244 quit playing music / metal. 7395 are deceased. 58783 are female, 758034 are male, 198 are non-binary, 787 are non-gendered entities (companies, orchestras, etc.), and 9195 are unknown.
+                            </p>
+                            <p>
+                            There are 1188016 <a href="https://www.metal-archives.com/user/list">active members</a>, 510256 inactive members for a total of <strong>1698272</strong> registered members.
+                            </p>
+                            <p>
+                            There is a total of <strong>499563</strong> albums and <strong>3403178</strong> songs.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="810d8ab828250ef3bcafbc8f-|49" defer=""></script></body>
+</html>

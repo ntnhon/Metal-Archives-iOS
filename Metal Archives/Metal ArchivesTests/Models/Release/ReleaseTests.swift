@@ -51,70 +51,70 @@ class ReleaseTests: XCTestCase {
 
         // Songs
         XCTAssertEqual(sut.elements.count, 10)
-        let scavengerOfHumanSorrow = ReleaseElement.song(number: "1.",
-                                                         title: "Scavenger of Human Sorrow",
-                                                         length: "06:54",
-                                                         lyricId: "5678",
-                                                         isInstrumental: false)
+        let scavengerOfHumanSorrow = ReleaseElement.song(.init(number: "1.",
+                                                               title: "Scavenger of Human Sorrow",
+                                                               length: "06:54",
+                                                               lyricId: "5678",
+                                                               isInstrumental: false))
         XCTAssertEqual(sut.elements[0], scavengerOfHumanSorrow)
 
-        let biteThePain = ReleaseElement.song(number: "2.",
-                                              title: "Bite the Pain",
-                                              length: "04:30",
-                                              lyricId: "5679",
-                                              isInstrumental: false)
+        let biteThePain = ReleaseElement.song(.init(number: "2.",
+                                                    title: "Bite the Pain",
+                                                    length: "04:30",
+                                                    lyricId: "5679",
+                                                    isInstrumental: false))
         XCTAssertEqual(sut.elements[1], biteThePain)
 
-        let spiritCrusher = ReleaseElement.song(number: "3.",
-                                                title: "Spirit Crusher",
-                                                length: "06:45",
-                                                lyricId: "5680",
-                                                isInstrumental: false)
+        let spiritCrusher = ReleaseElement.song(.init(number: "3.",
+                                                      title: "Spirit Crusher",
+                                                      length: "06:45",
+                                                      lyricId: "5680",
+                                                      isInstrumental: false))
         XCTAssertEqual(sut.elements[2], spiritCrusher)
 
-        let storyToTell = ReleaseElement.song(number: "4.",
-                                              title: "Story to Tell",
-                                              length: "06:34",
-                                              lyricId: "5681",
-                                              isInstrumental: false)
+        let storyToTell = ReleaseElement.song(.init(number: "4.",
+                                                    title: "Story to Tell",
+                                                    length: "06:34",
+                                                    lyricId: "5681",
+                                                    isInstrumental: false))
         XCTAssertEqual(sut.elements[3], storyToTell)
 
-        let fleshAndThePower = ReleaseElement.song(number: "5.",
-                                                   title: "Flesh and the Power It Holds",
-                                                   length: "08:26",
-                                                   lyricId: "5682",
-                                                   isInstrumental: false)
+        let fleshAndThePower = ReleaseElement.song(.init(number: "5.",
+                                                         title: "Flesh and the Power It Holds",
+                                                         length: "08:26",
+                                                         lyricId: "5682",
+                                                         isInstrumental: false))
         XCTAssertEqual(sut.elements[4], fleshAndThePower)
 
-        let voiceOfTheSoul = ReleaseElement.song(number: "6.",
-                                                 title: "Voice of the Soul",
-                                                 length: "03:43",
-                                                 lyricId: nil,
-                                                 isInstrumental: true)
+        let voiceOfTheSoul = ReleaseElement.song(.init(number: "6.",
+                                                       title: "Voice of the Soul",
+                                                       length: "03:43",
+                                                       lyricId: nil,
+                                                       isInstrumental: true))
         XCTAssertEqual(sut.elements[5], voiceOfTheSoul)
 
-        let forgiveIsSuffer = ReleaseElement.song(number: "7.",
-                                                  title: "To Forgive Is to Suffer",
-                                                  length: "05:55",
-                                                  lyricId: "5684",
-                                                  isInstrumental: false)
+        let forgiveIsSuffer = ReleaseElement.song(.init(number: "7.",
+                                                        title: "To Forgive Is to Suffer",
+                                                        length: "05:55",
+                                                        lyricId: "5684",
+                                                        isInstrumental: false))
         XCTAssertEqual(sut.elements[6], forgiveIsSuffer)
 
-        let momentOfClarity = ReleaseElement.song(number: "8.",
-                                                  title: "A Moment of Clarity",
-                                                  length: "07:23",
-                                                  lyricId: "5685",
-                                                  isInstrumental: false)
+        let momentOfClarity = ReleaseElement.song(.init(number: "8.",
+                                                        title: "A Moment of Clarity",
+                                                        length: "07:23",
+                                                        lyricId: "5685",
+                                                        isInstrumental: false))
         XCTAssertEqual(sut.elements[7], momentOfClarity)
 
-        let painkiller = ReleaseElement.song(number: "9.",
-                                             title: "Painkiller (Judas Priest cover)",
-                                             length: "06:03",
-                                             lyricId: "5686",
-                                             isInstrumental: false)
+        let painkiller = ReleaseElement.song(.init(number: "9.",
+                                                   title: "Painkiller (Judas Priest cover)",
+                                                   length: "06:03",
+                                                   lyricId: "5686",
+                                                   isInstrumental: false))
         XCTAssertEqual(sut.elements[8], painkiller)
 
-        XCTAssertEqual(sut.elements[9], ReleaseElement.length(value: "56:13"))
+        XCTAssertEqual(sut.elements[9], ReleaseElement.length("56:13"))
 
         // Band members
         XCTAssertEqual(sut.bandMembers.count, 1)
@@ -298,21 +298,21 @@ class ReleaseTests: XCTestCase {
 
         // Songs
         XCTAssertEqual(sut.elements.count, 9)
-        let firstTrack = ReleaseElement.song(number: "1.",
-                                             title: "Grimorium Serpent - Golden Horns",
-                                             length: "05:38",
-                                             lyricId: nil,
-                                             isInstrumental: false)
+        let firstTrack = ReleaseElement.song(.init(number: "1.",
+                                                   title: "Grimorium Serpent - Golden Horns",
+                                                   length: "05:38",
+                                                   lyricId: nil,
+                                                   isInstrumental: false))
         XCTAssertEqual(sut.elements[0], firstTrack)
 
-        let secondTrack = ReleaseElement.song(number: "2.",
-                                              title: "Grimorium Serpent - Ritual of the Nine Weeks",
-                                              length: "05:31",
-                                              lyricId: nil,
-                                              isInstrumental: false)
+        let secondTrack = ReleaseElement.song(.init(number: "2.",
+                                                    title: "Grimorium Serpent - Ritual of the Nine Weeks",
+                                                    length: "05:31",
+                                                    lyricId: nil,
+                                                    isInstrumental: false))
         XCTAssertEqual(sut.elements[1], secondTrack)
 
-        XCTAssertEqual(sut.elements[8], ReleaseElement.length(value: "45:41"))
+        XCTAssertEqual(sut.elements[8], ReleaseElement.length("45:41"))
 
         // Band members
         XCTAssertEqual(sut.bandMembers.count, 3)
@@ -371,10 +371,10 @@ class ReleaseTests: XCTestCase {
 
         // Songs
         XCTAssertEqual(sut.elements.count, 52)
-        let firstDisc = ReleaseElement.disc(value: "Disc 1 - Human")
+        let firstDisc = ReleaseElement.disc("Disc 1 - Human")
         XCTAssertEqual(sut.elements.first, firstDisc)
 
-        let lastLength = ReleaseElement.length(value: "01:08:00")
+        let lastLength = ReleaseElement.length("01:08:00")
         XCTAssertEqual(sut.elements.last, lastLength)
 
         // Band members
@@ -386,21 +386,21 @@ class ReleaseTests: XCTestCase {
         // Guest
         XCTAssertEqual(sut.guestMembers.count, 2)
         let originalGuestMembers = try XCTUnwrap(sut.guestMembers
-                                                    .first { $0.name == "Original line-up" })
+            .first { $0.name == "Original line-up" })
         XCTAssertEqual(originalGuestMembers.members.count, 1)
 
         let additionalGuestMembers = try XCTUnwrap(sut.guestMembers
-                                                    .first { $0.name == "Additional line-up" })
+            .first { $0.name == "Additional line-up" })
         XCTAssertEqual(additionalGuestMembers.members.count, 2)
 
         // Other staff
         XCTAssertEqual(sut.otherStaff.count, 2)
         let originalStaff = try XCTUnwrap(sut.otherStaff
-                                            .first { $0.name == "Original line-up" })
+            .first { $0.name == "Original line-up" })
         XCTAssertEqual(originalStaff.members.count, 7)
 
         let additionalSatff = try XCTUnwrap(sut.otherStaff
-                                                .first { $0.name == "Additional line-up" })
+            .first { $0.name == "Additional line-up" })
         XCTAssertEqual(additionalSatff.members.count, 5)
 
         XCTAssertEqual(sut.reviews.count, 28)

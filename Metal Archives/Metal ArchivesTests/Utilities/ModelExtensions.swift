@@ -17,48 +17,33 @@ extension ArtistInBand: Equatable {
     }
 }
 
-extension BandLite: Equatable {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.name == rhs.name && lhs.thumbnailInfo == rhs.thumbnailInfo
-    }
-}
-
-extension LabelLite: Equatable {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.name == rhs.name && lhs.thumbnailInfo == rhs.thumbnailInfo
-    }
-}
-
 extension ModificationInfo: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.addedOnDate == rhs.addedOnDate &&
-            lhs.modifiedOnDate == rhs.modifiedOnDate &&
-            lhs.addedByUser == rhs.addedByUser &&
-            lhs.modifiedByUser == rhs.modifiedByUser
-    }
-}
-
-extension ThumbnailInfo: Equatable {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.id == rhs.id && lhs.urlString == rhs.urlString && lhs.type == rhs.type
+        lhs.modifiedOnDate == rhs.modifiedOnDate &&
+        lhs.addedByUser?.urlString == rhs.addedByUser?.urlString &&
+        lhs.modifiedByUser?.urlString == rhs.modifiedByUser?.urlString
     }
 }
 
 extension ReleaseElement: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         switch (lhs, rhs) {
-        case let (.song(lNumber, lTitle, lLength, lLyricId, lIsInstrumental),
-                  .song(rNumber, rTitle, rLength, rLyricId, rIsInstrumental)):
-            return lNumber == rNumber &&
-                lTitle == rTitle &&
-                lLength == rLength &&
-                lLyricId == rLyricId &&
-                lIsInstrumental == rIsInstrumental
-
+        case let (.song(lhsSong), .song(rhsSong)): return lhsSong == rhsSong
         case let (.side(lValue), side(rValue)): return lValue == rValue
         case let (.disc(lValue), disc(rValue)): return lValue == rValue
         case let (.length(lValue), length(rValue)): return lValue == rValue
         default: return false
         }
+    }
+}
+
+extension Song: Equatable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.number == rhs.number &&
+        lhs.title == rhs.title &&
+        lhs.length == rhs.length &&
+        lhs.lyricId == rhs.lyricId &&
+        lhs.isInstrumental == rhs.isInstrumental
     }
 }

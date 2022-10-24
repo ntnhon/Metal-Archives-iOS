@@ -18,7 +18,7 @@ class CountryManagerTests: XCTestCase {
 
     func testInitSuccess() {
         XCTAssertNotNil(sut)
-        XCTAssertEqual(sut.countries.count, 149)
+        XCTAssertEqual(sut.countries.count, 152)
     }
 
     func testGetCountryByIsoCode() throws {
