@@ -9,18 +9,24 @@ import SwiftUI
 
 struct HomeSectionOrderView: View {
     @EnvironmentObject private var preferences: Preferences
+    @Environment(\.editMode) private var editMode
 
     var body: some View {
         Form {
-            Section(footer: Text("Hold & drag ≡ icon to change order")) {
+            Section(content: {
                 ForEach(preferences.homeSectionOrder, id: \.self) {
                     Text($0.description)
                 }
                 .onMove(perform: handleMove)
-            }
+            }, footer: {
+                if editMode?.wrappedValue.isEditing == true {
+                    Text("Hold & drag ≡ icon to change order")
+                        .animation(.default, value: editMode?.wrappedValue)
+                }
+            })
         }
         .navigationBarTitle("Home section order", displayMode: .inline)
-        .environment(\.editMode, .constant(.active))
+        .toolbar { EditButton() }
     }
 
     private func handleMove(from source: IndexSet, to destination: Int) {
