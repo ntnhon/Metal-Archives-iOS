@@ -55,9 +55,11 @@ private struct ReleaseContentView: View {
     @State private var coverScaleFactor: CGFloat = 1.0
     @State private var coverOpacity: Double = 1.0
     @State private var selectedBandUrl: String?
+    @State private var selectedArtistUrl: String?
     @State private var selectedLabelUrl: String?
     @State private var selectedReviewUrl: String?
     @State private var selectedUserUrl: String?
+    @State private var selectedLineUpMode: ReleaseLineUpMode = .bandMembers
     private let minCoverScaleFactor: CGFloat = 0.5
     private let maxCoverScaleFactor: CGFloat = 1.2
     let apiService: APIServiceProtocol
@@ -65,6 +67,7 @@ private struct ReleaseContentView: View {
 
     var body: some View {
         let isShowingBandDetail = makeIsShowingBandDetailBinding()
+        let isShowingArtistDetail = makeIsShowingArtistDetailBinding()
         let isShowingLabelDetail = makeIsShowingLabelDetailBinding()
         let isShowingReviewDetail = makeIsShowingReviewDetailBinding()
         let isShowingUserDetail = makeIsShowingUserDetailBinding()
@@ -75,6 +78,16 @@ private struct ReleaseContentView: View {
                 destination: {
                     if let selectedBandUrl {
                         BandView(apiService: apiService, bandUrlString: selectedBandUrl)
+                    } else {
+                        EmptyView()
+                    }},
+                label: { EmptyView() })
+
+            NavigationLink(
+                isActive: isShowingArtistDetail,
+                destination: {
+                    if let selectedArtistUrl {
+                        ArtistView(apiService: apiService, urlString: selectedArtistUrl)
                     } else {
                         EmptyView()
                     }},
@@ -164,7 +177,7 @@ private struct ReleaseContentView: View {
                         let screenBounds = UIScreen.main.bounds
                         let maxSize = max(screenBounds.height, screenBounds.width)
                         let bottomSectionMinHeight = maxSize - coverViewHeight // 🪄✨
-                        Group {
+                        ZStack {
                             switch tabsDatasource.selectedTab {
                             case .songs:
                                 TracklistView(apiService: apiService,
@@ -172,8 +185,11 @@ private struct ReleaseContentView: View {
                                     .padding(.horizontal)
 
                             case .lineUp:
-                                ReleaseLineUpView()
+                                ReleaseLineUpView(lineUpMode: $selectedLineUpMode,
+                                                  release: release,
+                                                  onSelectArtist: { url in selectedArtistUrl = url })
                                     .padding(.horizontal)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
 
                             case .otherVersions:
                                 OtherVersionsView()
@@ -215,6 +231,16 @@ private struct ReleaseContentView: View {
         }, set: { newValue in
             if !newValue {
                 selectedBandUrl = nil
+            }
+        })
+    }
+
+    private func makeIsShowingArtistDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedArtistUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedArtistUrl = nil
             }
         })
     }

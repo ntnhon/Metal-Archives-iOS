@@ -5,13 +5,20 @@
 //  Created by Thanh-Nhon Nguyen on 25/05/2021.
 //
 
-struct ArtistInRelease: Thumbnailable {
+struct ArtistInRelease: Thumbnailable, Identifiable {
+    var id: String { thumbnailInfo.urlString }
     let thumbnailInfo: ThumbnailInfo
     let name: String
     let additionalDetail: String?
     let lineUpType: LineUpType
     let instruments: String
     let bandName: String?
+}
+
+extension ArtistInRelease: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(thumbnailInfo)
+    }
 }
 
 enum LineUpType: String, CaseIterable {

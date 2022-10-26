@@ -181,6 +181,7 @@
 		EF3FCC1E28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */; };
 		EF3FCC2028FC2E1C004CBB97 /* ToastViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */; };
 		EF42EE7C2900807B00362E39 /* ThumbnailInfoMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF42EE7B2900807B00362E39 /* ThumbnailInfoMatcher.swift */; };
+		EF4664AE2909B05800207E14 /* ReleaseLineUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4664AD2909B05800207E14 /* ReleaseLineUpViewModel.swift */; };
 		EF488C7028F741E6007191A6 /* LyricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF488C6F28F741E6007191A6 /* LyricView.swift */; };
 		EF488C7228F74309007191A6 /* LyricViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF488C7128F74309007191A6 /* LyricViewModel.swift */; };
 		EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */; };
@@ -427,6 +428,7 @@
 		EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSelectableViewModifier.swift; sourceTree = "<group>"; };
 		EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastViewModifier.swift; sourceTree = "<group>"; };
 		EF42EE7B2900807B00362E39 /* ThumbnailInfoMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailInfoMatcher.swift; sourceTree = "<group>"; };
+		EF4664AD2909B05800207E14 /* ReleaseLineUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseLineUpViewModel.swift; sourceTree = "<group>"; };
 		EF488C6F28F741E6007191A6 /* LyricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricView.swift; sourceTree = "<group>"; };
 		EF488C7128F74309007191A6 /* LyricViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricViewModel.swift; sourceTree = "<group>"; };
 		EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
@@ -1072,6 +1074,7 @@
 				EF62240D28F1C94300845430 /* ReleaseCoverView.swift */,
 				EFE80F4F28F8A1F3008445DD /* ReleaseInfoView.swift */,
 				EFA48C4128F5E9E00012B349 /* ReleaseLineUpView.swift */,
+				EF4664AD2909B05800207E14 /* ReleaseLineUpViewModel.swift */,
 				EFA48C4728F5EA3A0012B349 /* ReleaseNoteView.swift */,
 				EFA48C4528F5EA1E0012B349 /* ReleaseReviewsView.swift */,
 				EFA48C3D28F5E5890012B349 /* ReleaseTabsDatasource.swift */,
@@ -1291,6 +1294,7 @@
 				C01D2D692683DC7D00957DE5 /* ReleaseFormat.swift in Sources */,
 				EF2862D628EB70CB00E2C131 /* BandReviewsViewModel.swift in Sources */,
 				EF48E6D22895BDAB00B52EF2 /* ReleaseViewModel.swift in Sources */,
+				EF4664AE2909B05800207E14 /* ReleaseLineUpViewModel.swift in Sources */,
 				EF6A8A0929040FDF00DA2D67 /* LabelsByAlphabetViewModel.swift in Sources */,
 				C0C65A1426982A0B0062FF9C /* Order.swift in Sources */,
 				EF42EE7C2900807B00362E39 /* ThumbnailInfoMatcher.swift in Sources */,

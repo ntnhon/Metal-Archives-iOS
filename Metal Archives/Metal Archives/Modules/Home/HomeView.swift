@@ -70,19 +70,28 @@ struct HomeView: View {
                 Text("Scream Bloody Gore")
             })
 
-            NavigationLink(destination: {
-                ReleaseView(apiService: apiService,
-                            releaseUrlString: "https://www.metal-archives.com/albums/Death/Victims_of_Death_-_The_Best_of_Decade_of_Chaos/665400")
-            }, label: {
-                Text("Victims of Death - The Best of Decade of Chaos")
-            })
+            Group {
+                NavigationLink(destination: {
+                    ReleaseView(apiService: apiService,
+                                releaseUrlString: "https://www.metal-archives.com/albums/Death/Ultimate_Revenge_2/254112")
+                }, label: {
+                    Text("Ultimate Revenge 2")
+                })
 
-            NavigationLink(destination: {
-                ReleaseView(apiService: apiService,
-                            releaseUrlString: "https://www.metal-archives.com/albums/At_Radogost%27s_Gates/Dyau/57765")
-            }, label: {
-                Text("Dyau")
-            })
+                NavigationLink(destination: {
+                    ReleaseView(apiService: apiService,
+                                releaseUrlString: "https://www.metal-archives.com/albums/Death/Victims_of_Death_-_The_Best_of_Decade_of_Chaos/665400")
+                }, label: {
+                    Text("Victims of Death - The Best of Decade of Chaos")
+                })
+
+                NavigationLink(destination: {
+                    ReleaseView(apiService: apiService,
+                                releaseUrlString: "https://www.metal-archives.com/albums/At_Radogost%27s_Gates/Dyau/57765")
+                }, label: {
+                    Text("Dyau")
+                })
+            }
         }
     }
 }

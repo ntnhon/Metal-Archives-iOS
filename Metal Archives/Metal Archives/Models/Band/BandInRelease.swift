@@ -13,3 +13,12 @@ struct BandInRelease {
     let name: String?
     let members: [ArtistInRelease]
 }
+
+extension BandInRelease: Hashable {
+    func hash(into hasher: inout Hasher) {
+        if let name {
+            hasher.combine(name)
+        }
+        hasher.combine(members)
+    }
+}
