@@ -183,6 +183,7 @@ private struct ReleaseContentView: View {
                                 TracklistView(apiService: apiService,
                                               elements: release.elements)
                                     .padding(.horizontal)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
 
                             case .lineUp:
                                 ReleaseLineUpView(lineUpMode: $selectedLineUpMode,
@@ -193,16 +194,19 @@ private struct ReleaseContentView: View {
 
                             case .otherVersions:
                                 OtherVersionsView()
+                                    .frame(maxWidth: .infinity, alignment: .leading)
 
                             case .reviews:
                                 if release.reviews.isEmpty {
                                     Text("No reviews yet")
                                         .font(.callout.italic())
                                         .padding(.horizontal)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                 } else {
                                     ReleaseReviewsView(reviews: release.reviews,
                                                        onSelectReview: { url in selectedReviewUrl = url },
                                                        onSelectUser: { url in selectedUserUrl = url })
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                                 }
 
                             case .additionalNotes:
