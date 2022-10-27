@@ -127,7 +127,9 @@ private struct BandContentView: View {
                         isActive: isShowingRelease,
                         destination: {
                             if let selectedReleaseUrl {
-                                ReleaseView(apiService: apiService, releaseUrlString: selectedReleaseUrl)
+                                ReleaseView(apiService: apiService,
+                                            urlString: selectedReleaseUrl,
+                                            parentRelease: nil)
                             } else {
                                 EmptyView()
                             }

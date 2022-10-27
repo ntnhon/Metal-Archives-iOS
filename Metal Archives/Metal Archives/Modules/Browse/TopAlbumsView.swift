@@ -25,7 +25,9 @@ struct TopAlbumsView: View {
                 isActive: isShowingRelease,
                 destination: {
                     if let selectedReleaseUrl {
-                        ReleaseView(apiService: viewModel.apiService, releaseUrlString: selectedReleaseUrl)
+                        ReleaseView(apiService: viewModel.apiService,
+                                    urlString: selectedReleaseUrl,
+                                    parentRelease: nil)
                     } else {
                         EmptyView()
                     }

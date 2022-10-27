@@ -17,6 +17,11 @@ struct ReleaseOtherVersion {
     let isUnofficial: Bool
     let format: String
     let description: String
+    let isCurrentVersion: Bool
+
+    var thumbnailInfo: ThumbnailInfo? {
+        .init(urlString: urlString, type: .release)
+    }
 }
 
 extension ReleaseOtherVersion {
@@ -29,6 +34,7 @@ extension ReleaseOtherVersion {
         var isUnofficial = false
         var format: String?
         var description: String?
+        var isCurrentVersion = false
 
         func build() -> ReleaseOtherVersion? {
             guard let urlString else {
@@ -68,7 +74,8 @@ extension ReleaseOtherVersion {
                                        additionalDetail: additionalDetail,
                                        isUnofficial: isUnofficial,
                                        format: format,
-                                       description: description)
+                                       description: description,
+                                       isCurrentVersion: isCurrentVersion)
         }
     }
 }
@@ -95,6 +102,7 @@ extension Array where Element == ReleaseOtherVersion {
         var releases = [ReleaseOtherVersion]()
         for tr in tbody.css("tr") {
             let builder = ReleaseOtherVersion.Builder()
+            builder.isCurrentVersion = tr["class"] == "priorityReport"
             for (column, td) in tr.css("td").enumerated() {
                 guard let tdText = td.text?.trimmingCharacters(in: .whitespaces) else { continue }
                 switch column {

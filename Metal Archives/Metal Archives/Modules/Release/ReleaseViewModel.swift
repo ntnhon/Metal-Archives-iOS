@@ -14,9 +14,11 @@ final class ReleaseViewModel: ObservableObject {
 
     @Published private(set) var releaseFetchable: FetchableObject<Release> = .fetching
     @Published private(set) var coverFetchable: FetchableObject<UIImage?> = .fetching
+    @Published private(set) var otherVersionsFetchable: FetchableObject<[ReleaseOtherVersion]> = .fetching
     @Published private(set) var noCover = false
     private let apiService: APIServiceProtocol
-    private let releaseUrlString: String
+    private let urlString: String
+    let parentRelease: Release?
 
     var release: Release? {
         switch releaseFetchable {
@@ -45,9 +47,10 @@ final class ReleaseViewModel: ObservableObject {
         }
     }
 
-    init(apiService: APIServiceProtocol, releaseUrlString: String) {
+    init(apiService: APIServiceProtocol, urlString: String, parentRelease: Release?) {
         self.apiService = apiService
-        self.releaseUrlString = releaseUrlString
+        self.urlString = urlString
+        self.parentRelease = parentRelease
     }
 
     @MainActor
@@ -57,7 +60,7 @@ final class ReleaseViewModel: ObservableObject {
             noCover = false
             releaseFetchable = .fetching
             let release = try await apiService.request(forType: Release.self,
-                                                       urlString: releaseUrlString)
+                                                       urlString: urlString)
             releaseFetchable = .fetched(release)
             await fetchCoverImage()
         } catch {
@@ -78,6 +81,23 @@ final class ReleaseViewModel: ObservableObject {
             coverFetchable = .fetched(cover)
         } catch {
             coverFetchable = .error(error)
+        }
+    }
+
+    @MainActor
+    func fetchOtherVersions() async {
+        guard let release else { return }
+        if case .fetched = otherVersionsFetchable { return }
+        do {
+            otherVersionsFetchable = .fetching
+            let parentReleaseId = parentRelease?.id ?? release.id
+            // swiftlint:disable:next line_length
+            let urlString = "https://www.metal-archives.com/release/ajax-versions/current/\(release.id)/parent/\(parentReleaseId)"
+            let data = try await apiService.getData(for: urlString)
+            let otherVersions = [ReleaseOtherVersion](data: data)
+            otherVersionsFetchable = .fetched(otherVersions)
+        } catch {
+            otherVersionsFetchable = .error(error)
         }
     }
 }

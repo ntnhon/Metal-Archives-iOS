@@ -12,10 +12,12 @@ struct ReleaseView: View {
     private let apiService: APIServiceProtocol
 
     init(apiService: APIServiceProtocol,
-         releaseUrlString: String) {
+         urlString: String,
+         parentRelease: Release?) {
         self.apiService = apiService
         let vm = ReleaseViewModel(apiService: apiService,
-                                  releaseUrlString: releaseUrlString)
+                                  urlString: urlString,
+                                  parentRelease: parentRelease)
         _viewModel = .init(wrappedValue: vm)
     }
 
@@ -56,6 +58,7 @@ private struct ReleaseContentView: View {
     @State private var coverOpacity: Double = 1.0
     @State private var selectedBandUrl: String?
     @State private var selectedArtistUrl: String?
+    @State private var selectedReleaseUrl: String?
     @State private var selectedLabelUrl: String?
     @State private var selectedReviewUrl: String?
     @State private var selectedUserUrl: String?
@@ -68,6 +71,7 @@ private struct ReleaseContentView: View {
     var body: some View {
         let isShowingBandDetail = makeIsShowingBandDetailBinding()
         let isShowingArtistDetail = makeIsShowingArtistDetailBinding()
+        let isShowingReleaseDetail = makeIsShowingReleaseDetailBinding()
         let isShowingLabelDetail = makeIsShowingLabelDetailBinding()
         let isShowingReviewDetail = makeIsShowingReviewDetailBinding()
         let isShowingUserDetail = makeIsShowingUserDetailBinding()
@@ -88,6 +92,18 @@ private struct ReleaseContentView: View {
                 destination: {
                     if let selectedArtistUrl {
                         ArtistView(apiService: apiService, urlString: selectedArtistUrl)
+                    } else {
+                        EmptyView()
+                    }},
+                label: { EmptyView() })
+
+            NavigationLink(
+                isActive: isShowingReleaseDetail,
+                destination: {
+                    if let selectedReleaseUrl {
+                        ReleaseView(apiService: apiService,
+                                    urlString: selectedReleaseUrl,
+                                    parentRelease: viewModel.parentRelease ?? viewModel.release)
                     } else {
                         EmptyView()
                     }},
@@ -193,7 +209,8 @@ private struct ReleaseContentView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
 
                             case .otherVersions:
-                                OtherVersionsView()
+                                OtherVersionsView(viewModel: viewModel,
+                                                  onSelectRelease: { url in selectedReleaseUrl = url })
                                     .frame(maxWidth: .infinity, alignment: .leading)
 
                             case .reviews:
@@ -245,6 +262,16 @@ private struct ReleaseContentView: View {
         }, set: { newValue in
             if !newValue {
                 selectedArtistUrl = nil
+            }
+        })
+    }
+
+    private func makeIsShowingReleaseDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedReleaseUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedReleaseUrl = nil
             }
         })
     }

@@ -37,7 +37,8 @@ struct DiscographyView: View {
                     NavigationLink(
                         destination: {
                             ReleaseView(apiService: apiService,
-                                        releaseUrlString: release.thumbnailInfo.urlString)
+                                        urlString: release.thumbnailInfo.urlString,
+                                        parentRelease: nil)
                         },
                         label: {
                             let text = "\(release.title) (\(release.year)) (\(release.type.description))"

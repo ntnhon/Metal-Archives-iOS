@@ -65,7 +65,8 @@ struct HomeView: View {
 
             NavigationLink(destination: {
                 ReleaseView(apiService: apiService,
-                            releaseUrlString: "https://www.metal-archives.com/albums/Death/Scream_Bloody_Gore/598")
+                            urlString: "https://www.metal-archives.com/albums/Death/Scream_Bloody_Gore/598",
+                            parentRelease: nil)
             }, label: {
                 Text("Scream Bloody Gore")
             })
@@ -73,21 +74,24 @@ struct HomeView: View {
             Group {
                 NavigationLink(destination: {
                     ReleaseView(apiService: apiService,
-                                releaseUrlString: "https://www.metal-archives.com/albums/Death/Ultimate_Revenge_2/254112")
+                                urlString: "https://www.metal-archives.com/albums/Death/Ultimate_Revenge_2/254112",
+                                parentRelease: nil)
                 }, label: {
                     Text("Ultimate Revenge 2")
                 })
 
                 NavigationLink(destination: {
                     ReleaseView(apiService: apiService,
-                                releaseUrlString: "https://www.metal-archives.com/albums/Death/Victims_of_Death_-_The_Best_of_Decade_of_Chaos/665400")
+                                urlString: "https://www.metal-archives.com/albums/Death/Victims_of_Death_-_The_Best_of_Decade_of_Chaos/665400",
+                                parentRelease: nil)
                 }, label: {
                     Text("Victims of Death - The Best of Decade of Chaos")
                 })
 
                 NavigationLink(destination: {
                     ReleaseView(apiService: apiService,
-                                releaseUrlString: "https://www.metal-archives.com/albums/At_Radogost%27s_Gates/Dyau/57765")
+                                urlString: "https://www.metal-archives.com/albums/At_Radogost%27s_Gates/Dyau/57765",
+                                parentRelease: nil)
                 }, label: {
                     Text("Dyau")
                 })
