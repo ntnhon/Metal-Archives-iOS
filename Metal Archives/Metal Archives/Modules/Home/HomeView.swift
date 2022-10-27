@@ -95,6 +95,13 @@ struct HomeView: View {
                 }, label: {
                     Text("Dyau")
                 })
+
+                NavigationLink(destination: {
+                    ArtistView(apiService: apiService,
+                               urlString: "https://www.metal-archives.com/artists/Chuck_Schuldiner/3012")
+                }, label: {
+                    Text("Chuck Schuldiner")
+                })
             }
         }
     }

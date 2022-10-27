@@ -17,5 +17,8 @@ struct ArtistView: View {
 
     var body: some View {
         Text("Artist view")
+            .task {
+                await viewModel.fetchArtist()
+            }
     }
 }

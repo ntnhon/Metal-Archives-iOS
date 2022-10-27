@@ -18,9 +18,9 @@ struct Artist {
     let rip: String?
     let causeOfDeath: String?
     let photoUrlString: String?
-    let biographyHtmlString: String?
+    let biography: String?
     let hasMoreBiography: Bool
-    let triviaHtmlString: String?
+    let trivia: String?
     var isBookmarked: Bool
     let modificationInfo: ModificationInfo
     let activeRoles: [RoleInBand]
@@ -35,14 +35,21 @@ extension Artist {
         case realFullName, placeOfOrigin, age, gender, rip, causeOfDeath
 
         init?(string: String) {
-            switch string {
-            case "Real/full name:": self = .realFullName
-            case "Place of origin:": self = .placeOfOrigin
-            case "Age:": self = .age
-            case "Gender:": self = .gender
-            case "R.I.P.: ", "R.I.P.:": self = .rip
-            case "Died of:": self = .causeOfDeath
-            default: return nil
+            let string = string.lowercased()
+            if string.contains("name") {
+                self = .realFullName
+            } else if string.contains("place") {
+                self = .placeOfOrigin
+            } else if string.contains("age") {
+                self = .age
+            } else if string.contains("gender") {
+                self = .gender
+            } else if string.contains("r.i.p") {
+                self = .rip
+            } else if string.contains("die") {
+                self = .causeOfDeath
+            } else {
+                return nil
             }
         }
     }
@@ -62,9 +69,9 @@ extension Artist {
         var rip: String?
         var causeOfDeath: String?
         var photoUrlString: String?
-        var biographyHtmlString: String?
+        var biography: String?
         var hasMoreBiography = false
-        var triviaHtmlString: String?
+        var trivia: String?
         var isBookmarked = false
         var modificationInfo: ModificationInfo?
         var activeRoles: [RoleInBand]?
@@ -112,9 +119,9 @@ extension Artist {
                           rip: rip,
                           causeOfDeath: causeOfDeath,
                           photoUrlString: photoUrlString,
-                          biographyHtmlString: biographyHtmlString,
+                          biography: biography,
                           hasMoreBiography: hasMoreBiography,
-                          triviaHtmlString: triviaHtmlString,
+                          trivia: trivia,
                           isBookmarked: isBookmarked,
                           modificationInfo: modificationInfo,
                           activeRoles: activeRoles ?? [],
@@ -126,12 +133,9 @@ extension Artist {
     }
 }
 
-extension Artist {
-    init?(data: Data) {
-        guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
-              let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
-            return nil
-        }
+extension Artist: HTMLParsable {
+    init(data: Data) throws {
+        let html = try Kanna.HTML(html: data, encoding: .utf8)
 
         let builder = Builder()
         builder.artistName = html.at_css("h1")?.text
@@ -157,7 +161,9 @@ extension Artist {
             }
         }
 
-        guard let artist = builder.build() else { return nil }
+        guard let artist = builder.build() else {
+            throw MAError.parseFailure("\(Self.self)")
+        }
         self = artist
     }
 
@@ -188,15 +194,11 @@ extension Artist {
 
     private static func parseBioAndTrivia(from div: XMLElement, builder: Builder) {
         builder.hasMoreBiography = div.text?.contains("Read more") == true
-        guard let innerHtmlString = div.innerHTML else { return }
-        let trailingString = builder.hasMoreBiography ?
-            #"<h2 class="title_comment">Trivia</h2>"# : #"<div class="tool_strip bottom right">"#
-        builder.biographyHtmlString = innerHtmlString
-            .subString(after: #"<h2 class="title_comment">Biography</h2>"#, before: trailingString)?
+        guard let text = div.text else { return }
+        builder.biography = text.subString(after: "Biography", before: "Trivia")?
+            .replacingOccurrences(of: "\nRead more", with: "")
             .trimmingCharacters(in: .whitespacesAndNewlines)
-        builder.triviaHtmlString = innerHtmlString
-            .subString(after: #"<h2 class="title_comment">Trivia</h2>"#)?
-            .trimmingCharacters(in: .whitespacesAndNewlines)
+        builder.trivia = text.subString(after: "Trivia")?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     private static func parseRoles(from div: XMLElement, builder: Builder, type: RoleType) {
