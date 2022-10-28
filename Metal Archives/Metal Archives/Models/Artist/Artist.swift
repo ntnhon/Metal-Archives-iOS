@@ -28,6 +28,8 @@ struct Artist {
     let liveRoles: [RoleInBand]
     let guestSessionRoles: [RoleInBand]
     let miscStaffRoles: [RoleInBand]
+
+    var hasPhoto: Bool { photoUrlString != nil }
 }
 
 extension Artist {

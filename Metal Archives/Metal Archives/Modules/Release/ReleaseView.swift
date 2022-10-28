@@ -33,11 +33,11 @@ struct ReleaseView: View {
             case .error(let error):
                 VStack {
                     Text(error.userFacingMessage)
-                    RetryButton(onRetry: {
+                    RetryButton {
                         Task {
                             await viewModel.fetchRelease()
                         }
-                    })
+                    }
                 }
             }
         }
@@ -237,7 +237,6 @@ private struct ReleaseContentView: View {
                     }
                 })
         }
-        .modifier(IgnoreTopSafeArea(shouldIgnore: !viewModel.noCover))
         .toolbar { toolbarContent }
         .onReceive(viewModel.$noCover) { noCover in
             if noCover {
@@ -350,7 +349,8 @@ struct ReleaseView_Previews: PreviewProvider {
 }
 */
 
-private struct IgnoreTopSafeArea: ViewModifier {
+/*
+struct IgnoreTopSafeArea: ViewModifier {
     let shouldIgnore: Bool
 
     func body(content: Content) -> some View {
@@ -362,3 +362,4 @@ private struct IgnoreTopSafeArea: ViewModifier {
         }
     }
 }
+*/

@@ -232,6 +232,7 @@
 		EFC98B3C28EE0BD000154C30 /* RetryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC98B3B28EE0BD000154C30 /* RetryButton.swift */; };
 		EFE028F12894852E004F2328 /* SearchTips.md in Resources */ = {isa = PBXBuildFile; fileRef = EFE028F02894852E004F2328 /* SearchTips.md */; };
 		EFE80F5028F8A1F3008445DD /* ReleaseInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE80F4F28F8A1F3008445DD /* ReleaseInfoView.swift */; };
+		EFEB4334290C60210021F4DA /* ArtistPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEB4333290C60210021F4DA /* ArtistPhotoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -478,6 +479,7 @@
 		EFC98B3B28EE0BD000154C30 /* RetryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryButton.swift; sourceTree = "<group>"; };
 		EFE028F02894852E004F2328 /* SearchTips.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SearchTips.md; sourceTree = "<group>"; };
 		EFE80F4F28F8A1F3008445DD /* ReleaseInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInfoView.swift; sourceTree = "<group>"; };
+		EFEB4333290C60210021F4DA /* ArtistPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistPhotoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1019,6 +1021,7 @@
 			children = (
 				C0A993452712396800121BA3 /* ArtistView.swift */,
 				EF48E6D32895CB5600B52EF2 /* ArtistViewModel.swift */,
+				EFEB4333290C60210021F4DA /* ArtistPhotoView.swift */,
 				EF3F5FE229057A7800FD1A31 /* DeceasedArtistsView.swift */,
 				EF3F5FE429057A8100FD1A31 /* DeceasedArtistsViewModel.swift */,
 			);
@@ -1443,6 +1446,7 @@
 				C060E6CE268271330006433A /* AdvancedSearchAlbumsView.swift in Sources */,
 				EF6A89FB2903D03600DA2D67 /* BandsByCountryViewModel.swift in Sources */,
 				C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */,
+				EFEB4334290C60210021F4DA /* ArtistPhotoView.swift in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
 				C05FDD3726996E1000EE2AB3 /* UIColorExtensions.swift in Sources */,
 				EF6A89F92903D01C00DA2D67 /* BandsByCountryView.swift in Sources */,

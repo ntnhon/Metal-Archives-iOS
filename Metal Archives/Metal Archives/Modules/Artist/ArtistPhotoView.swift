@@ -1,20 +1,20 @@
 //
-//  ReleaseCoverView.swift
+//  ArtistPhotoView.swift
 //  Metal Archives
 //
-//  Created by Nhon Nguyen on 08/10/2022.
+//  Created by Nhon Nguyen on 28/10/2022.
 //
 
 import SwiftUI
 
-struct ReleaseCoverView: View {
-    @EnvironmentObject private var viewModel: ReleaseViewModel
+struct ArtistPhotoView: View {
+    @EnvironmentObject private var viewModel: ArtistViewModel
     @Binding var scaleFactor: CGFloat
     @Binding var opacity: Double
 
     var body: some View {
         ZStack {
-            switch viewModel.coverFetchable {
+            switch viewModel.photoFetchable {
             case .fetching:
                 ProgressView()
 
@@ -41,7 +41,7 @@ struct ReleaseCoverView: View {
                     Text(error.userFacingMessage)
                     RetryButton {
                         Task {
-                            await viewModel.fetchCoverImage()
+                            await viewModel.fetchPhoto()
                         }
                     }
                 }
