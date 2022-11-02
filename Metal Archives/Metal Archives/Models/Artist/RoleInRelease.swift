@@ -14,6 +14,15 @@ struct RoleInRelease {
     let description: String
 }
 
+extension RoleInRelease: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(year)
+        hasher.combine(release)
+        hasher.combine(releaseAdditionalInfo)
+        hasher.combine(description)
+    }
+}
+
 extension RoleInRelease {
     final class Builder {
         var year: String?

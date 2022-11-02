@@ -116,22 +116,27 @@ private struct ArtistContentView: View {
                             case .activeBands:
                                 ArtistRolesView(roles: artist.activeRoles)
                                     .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.horizontal)
 
                             case .pastBands:
                                 ArtistRolesView(roles: artist.pastRoles)
                                     .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.horizontal)
 
                             case .live:
                                 ArtistRolesView(roles: artist.liveRoles)
                                     .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.horizontal)
 
                             case .guestSession:
                                 ArtistRolesView(roles: artist.guestSessionRoles)
                                     .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.horizontal)
 
                             case .miscStaff:
                                 ArtistRolesView(roles: artist.miscStaffRoles)
                                     .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.horizontal)
 
                             case .biography:
                                 ArtistBiographyView(viewModel: viewModel, artist: artist)

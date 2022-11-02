@@ -13,6 +13,14 @@ struct RoleInBand {
     let roleInReleases: [RoleInRelease]
 }
 
+extension RoleInBand: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(band)
+        hasher.combine(description)
+        hasher.combine(roleInReleases)
+    }
+}
+
 extension RoleInBand {
     final class Builder {
         var band: BandExtraLite?

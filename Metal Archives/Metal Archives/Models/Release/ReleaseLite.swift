@@ -19,3 +19,10 @@ struct ReleaseLite: Thumbnailable {
         self.title = title
     }
 }
+
+extension ReleaseLite: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(thumbnailInfo)
+        hasher.combine(title)
+    }
+}

@@ -70,3 +70,10 @@ struct BandExtraLite: OptionalThumbnailable {
         self.name = name
     }
 }
+
+extension BandExtraLite: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(thumbnailInfo)
+        hasher.combine(name)
+    }
+}

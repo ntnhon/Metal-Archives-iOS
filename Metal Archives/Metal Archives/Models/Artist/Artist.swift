@@ -251,8 +251,9 @@ extension Artist: HTMLParsable {
                 }
             }
 
-            roleInBandBuilder.description =
-                memberInBandDiv.at_css("p")?.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+            roleInBandBuilder.description = memberInBandDiv.at_css("p")?.text?
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .replacingOccurrences(of: "\n", with: " ")
             roleInBandBuilder.roleInReleases = rolesInRelease
             if let roleInBand = roleInBandBuilder.build() {
                 roles.append(roleInBand)
