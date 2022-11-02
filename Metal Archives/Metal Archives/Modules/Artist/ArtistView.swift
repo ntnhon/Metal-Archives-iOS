@@ -48,6 +48,8 @@ private struct ArtistContentView: View {
     @State private var photoViewHeight: CGFloat
     @State private var photoScaleFactor: CGFloat = 1.0
     @State private var photoOpacity: Double = 1.0
+    @State private var selectedBandUrl: String?
+    @State private var selectedReleaseUrl: String?
     private let minPhotoScaleFactor: CGFloat = 0.5
     private let maxPhotoScaleFactor: CGFloat = 1.2
     let artist: Artist
@@ -59,7 +61,32 @@ private struct ArtistContentView: View {
     }
 
     var body: some View {
+        let isShowingBandDetail = makeIsShowingBandDetailBinding()
+        let isShowingReleaseDetail = makeIsShowingReleaseDetailBinding()
+
         ZStack(alignment: .top) {
+            NavigationLink(
+                isActive: isShowingBandDetail,
+                destination: {
+                    if let selectedBandUrl {
+                        BandView(apiService: viewModel.apiService, bandUrlString: selectedBandUrl)
+                    } else {
+                        EmptyView()
+                    }},
+                label: { EmptyView() })
+
+            NavigationLink(
+                isActive: isShowingReleaseDetail,
+                destination: {
+                    if let selectedReleaseUrl {
+                        ReleaseView(apiService: viewModel.apiService,
+                                    urlString: selectedReleaseUrl,
+                                    parentRelease: nil)
+                    } else {
+                        EmptyView()
+                    }},
+                label: { EmptyView() })
+
             ArtistPhotoView(scaleFactor: $photoScaleFactor, opacity: $photoOpacity)
                 .environmentObject(viewModel)
                 .frame(height: photoViewHeight)
@@ -114,29 +141,19 @@ private struct ArtistContentView: View {
                         ZStack {
                             switch tabsDatasource.selectedTab {
                             case .activeBands:
-                                ArtistRolesView(roles: artist.activeRoles)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.horizontal)
+                                artistRolesView(artist.activeRoles)
 
                             case .pastBands:
-                                ArtistRolesView(roles: artist.pastRoles)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.horizontal)
+                                artistRolesView(artist.pastRoles)
 
                             case .live:
-                                ArtistRolesView(roles: artist.liveRoles)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.horizontal)
+                                artistRolesView(artist.liveRoles)
 
                             case .guestSession:
-                                ArtistRolesView(roles: artist.guestSessionRoles)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.horizontal)
+                                artistRolesView(artist.guestSessionRoles)
 
                             case .miscStaff:
-                                ArtistRolesView(roles: artist.miscStaffRoles)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.horizontal)
+                                artistRolesView(artist.miscStaffRoles)
 
                             case .biography:
                                 ArtistBiographyView(viewModel: viewModel, artist: artist)
@@ -154,6 +171,34 @@ private struct ArtistContentView: View {
                 })
         }
         .toolbar { toolbarContent }
+    }
+
+    private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedBandUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedBandUrl = nil
+            }
+        })
+    }
+
+    private func makeIsShowingReleaseDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedReleaseUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedReleaseUrl = nil
+            }
+        })
+    }
+
+    private func artistRolesView(_ roles: [RoleInBand]) -> some View {
+        ArtistRolesView(roles: roles,
+                        onSelectBand: { url in selectedBandUrl = url },
+                        onSelectRelease: { url in selectedReleaseUrl = url })
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal)
     }
 
     @ToolbarContentBuilder

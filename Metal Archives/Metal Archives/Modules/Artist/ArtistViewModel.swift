@@ -16,8 +16,8 @@ final class ArtistViewModel: ObservableObject {
     @Published private(set) var photoFetchable: FetchableObject<UIImage?> = .fetching
     @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .fetching
 
-    private let apiService: APIServiceProtocol
     private let urlString: String
+    let apiService: APIServiceProtocol
 
     var artist: Artist? {
         switch artistFetchable {

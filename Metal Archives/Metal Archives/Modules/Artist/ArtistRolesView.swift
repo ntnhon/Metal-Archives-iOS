@@ -9,11 +9,15 @@ import SwiftUI
 
 struct ArtistRolesView: View {
     let roles: [RoleInBand]
+    let onSelectBand: (String) -> Void
+    let onSelectRelease: (String) -> Void
 
     var body: some View {
         LazyVStack {
             ForEach(roles, id: \.hashValue) {
-                RoleInBandView(role: $0)
+                RoleInBandView(role: $0,
+                               onSelectBand: onSelectBand,
+                               onSelectRelease: onSelectRelease)
                 Divider()
             }
         }
@@ -23,6 +27,8 @@ struct ArtistRolesView: View {
 private struct RoleInBandView: View {
     @EnvironmentObject private var preferences: Preferences
     let role: RoleInBand
+    let onSelectBand: (String) -> Void
+    let onSelectRelease: (String) -> Void
 
     var body: some View {
         VStack {
@@ -38,17 +44,28 @@ private struct RoleInBandView: View {
                     Text(role.band.name)
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundColor(preferences.theme.primaryColor)
+                        .foregroundColor(role.band.thumbnailInfo?.urlString != nil ?
+                                         preferences.theme.primaryColor : Color.primary)
 
                     Text(role.description)
                         .fontWeight(.medium)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                if let urlString = role.band.thumbnailInfo?.urlString {
+                    onSelectBand(urlString)
+                }
+            }
 
-            ForEach(role.roleInReleases, id: \.hashValue) {
-                RoleInReleaseView(role: $0)
+            ForEach(role.roleInReleases, id: \.hashValue) { roleInReleases in
+                RoleInReleaseView(role: roleInReleases)
                     .padding(.leading)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        onSelectRelease(roleInReleases.release.thumbnailInfo.urlString)
+                    }
             }
         }
     }
