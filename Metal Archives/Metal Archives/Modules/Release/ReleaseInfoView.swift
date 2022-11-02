@@ -27,24 +27,7 @@ struct ReleaseInfoView: View {
             .frame(maxWidth: .infinity)
             .multilineTextAlignment(.center)
             .padding(.bottom)
-            .background(
-                LinearGradient(
-                    gradient: .init(colors: [Color(.systemBackground),
-                                             Color(.systemBackground.withAlphaComponent(0.9)),
-                                             Color(.systemBackground.withAlphaComponent(0.8)),
-                                             Color(.systemBackground.withAlphaComponent(0.7)),
-                                             Color(.systemBackground.withAlphaComponent(0.6)),
-                                             Color(.systemBackground.withAlphaComponent(0.5)),
-                                             Color(.systemBackground.withAlphaComponent(0.4)),
-                                             Color(.systemBackground.withAlphaComponent(0.3)),
-                                             Color(.systemBackground.withAlphaComponent(0.2)),
-                                             Color(.systemBackground.withAlphaComponent(0.1)),
-                                             Color(.systemBackground.withAlphaComponent(0.05)),
-                                             Color(.systemBackground.withAlphaComponent(0.025)),
-                                             Color.clear]),
-                    startPoint: .bottom,
-                    endPoint: .top)
-            )
+            .background(GradientBackgroundView())
 
             VStack(alignment: .leading, spacing: 10) {
                 if release.bands.count == 1, let band = release.bands.first {
@@ -53,19 +36,9 @@ struct ReleaseInfoView: View {
                     bandsView
                 }
 
-                HStack {
-                    Image(systemName: "calendar")
-                        .foregroundColor(.secondary)
-                    Text(release.date)
-                    Spacer()
-                }
+                ColorCustomizableLabel(title: release.date, systemImage: "calendar")
 
-                HStack {
-                    Image(systemName: "books.vertical")
-                        .foregroundColor(.secondary)
-                    Text(release.catalogId)
-                    Spacer()
-                }
+                ColorCustomizableLabel(title: release.catalogId, systemImage: "books.vertical")
 
                 HStack {
                     Image(systemName: "tag.fill")
@@ -74,21 +47,11 @@ struct ReleaseInfoView: View {
                     Spacer()
                 }
 
-                HStack {
-                    Image(systemName: "opticaldisc")
-                        .foregroundColor(.secondary)
-                    Text(release.format)
-                    Spacer()
-                }
+                ColorCustomizableLabel(title: release.format, systemImage: "opticaldisc")
 
                 reviewView
 
-                HStack {
-                    Image(systemName: "clock.fill")
-                        .foregroundColor(.secondary)
-                    Text(release.modificationInfo.summary)
-                    Spacer()
-                }
+                ColorCustomizableLabel(title: release.modificationInfo.summary, systemImage: "clock.fill")
             }
             .padding(.horizontal)
             .frame(maxWidth: .infinity, alignment: .leading)

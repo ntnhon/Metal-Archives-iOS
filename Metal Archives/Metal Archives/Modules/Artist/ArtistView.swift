@@ -99,6 +99,9 @@ private struct ArtistContentView: View {
                                                                        description: artist.artistName)
                                 }
                             }
+
+                        ArtistInfoView(artist: artist)
+
                         ForEach(0..<100, id: \.self) { index in
                             Text("\(index)")
                                 .frame(maxWidth: .infinity)

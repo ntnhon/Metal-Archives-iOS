@@ -35,6 +35,7 @@ struct NewsPostView: View {
                 Text(newsPost.content)
             }
             .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .navigationTitle(newsPost.title)
         .navigationBarTitleDisplayMode(.inline)

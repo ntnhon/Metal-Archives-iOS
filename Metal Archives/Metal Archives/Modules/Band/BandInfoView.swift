@@ -16,34 +16,16 @@ struct BandInfoView: View {
     var body: some View {
         let band = viewModel.band
         VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                Image(systemName: "house.fill")
-                    .foregroundColor(.secondary)
-                Text(viewModel.band.country.nameAndFlag)
-                Spacer()
-            }
+            ColorCustomizableLabel(title: viewModel.band.country.nameAndFlag,
+                                   systemImage: "house.fill")
 
-            HStack {
-                Image(systemName: "location.fill")
-                    .foregroundColor(.secondary)
-                Text(band.location)
-                Spacer()
-            }
+            ColorCustomizableLabel(title: band.location, systemImage: "location.fill")
 
-            HStack {
-                Image(systemName: "waveform.path")
-                    .foregroundColor(.secondary)
-                Text(band.status.rawValue)
-                    .foregroundColor(band.status.color)
-                Spacer()
-            }
+            ColorCustomizableLabel(title: band.status.rawValue,
+                                   systemImage: "waveform.path",
+                                   titleColor: band.status.color)
 
-            HStack {
-                Image(systemName: "calendar")
-                    .foregroundColor(.secondary)
-                Text(viewModel.yearOfCreationString)
-                Spacer()
-            }
+            ColorCustomizableLabel(title: viewModel.yearOfCreationString, systemImage: "calendar")
 
             if viewModel.band.oldBands.count <= 1 {
                 yearsActiveView
@@ -69,23 +51,9 @@ struct BandInfoView: View {
                     )
             }
 
-            HStack {
-                Image(systemName: "guitars.fill")
-                    .foregroundColor(.secondary)
-                Text(band.genre)
-                    .fixedSize(horizontal: false,
-                               vertical: true)
-                Spacer()
-            }
+            ColorCustomizableLabel(title: band.genre, systemImage: "guitars.fill")
 
-            HStack {
-                Image(systemName: "music.quarternote.3")
-                    .foregroundColor(.secondary)
-                Text(band.lyricalTheme)
-                    .fixedSize(horizontal: false,
-                               vertical: true)
-                Spacer()
-            }
+            ColorCustomizableLabel(title: band.lyricalTheme, systemImage: "music.quarternote.3")
 
             reviewView
 
@@ -96,12 +64,8 @@ struct BandInfoView: View {
                 Spacer()
             }
 
-            HStack {
-                Image(systemName: "clock.fill")
-                    .foregroundColor(.secondary)
-                Text(viewModel.band.modificationInfo.summary)
-                Spacer()
-            }
+            ColorCustomizableLabel(title: viewModel.band.modificationInfo.summary,
+                                   systemImage: "clock.fill")
         }
         .frame(maxWidth: .infinity)
         .font(.callout)

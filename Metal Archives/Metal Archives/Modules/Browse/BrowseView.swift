@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct BrowseView: View {
-    @EnvironmentObject private var preferences: Preferences
     @State private var randomBandUrlString: String?
     let apiService: APIServiceProtocol
 
@@ -30,15 +29,9 @@ struct BrowseView: View {
 
     private var newsStatisticSection: some View {
         Section(header: Text("News & statistics")) {
-            NavigationLink(destination: {
-                NewsArchivesView(apiService: apiService)
-            }, label: {
-                HStack {
-                    Image(systemName: "newspaper.fill")
-                        .foregroundColor(preferences.theme.primaryColor)
-                    Text("News archives")
-                }
-            })
+            NavigationLink(destination: NewsArchivesView(apiService: apiService)) {
+                Label("News archives", systemImage: "newspaper.fill")
+            }
 
             NavigationLink(destination: {
                 if #available(iOS 16, *) {
@@ -47,34 +40,24 @@ struct BrowseView: View {
                     Text("This page requires iOS 16 or above.")
                 }
             }, label: {
-                HStack {
-                    Image(systemName: "chart.pie.fill")
-                        .foregroundColor(preferences.theme.primaryColor)
-                    Text("Statistics")
-                }
+                Label("Statistics", systemImage: "chart.pie.fill")
             })
         }
     }
 
     private var topOfSection: some View {
         Section(content: {
-            NavigationLink(destination: {
-                TopBandsView(apiService: apiService)
-            }, label: {
+            NavigationLink(destination: TopBandsView(apiService: apiService)) {
                 Label("Top 100 bands", systemImage: "person.3.fill")
-            })
+            }
 
-            NavigationLink(destination: {
-                TopAlbumsView(apiService: apiService)
-            }, label: {
+            NavigationLink(destination: TopAlbumsView(apiService: apiService)) {
                 Label("Top 100 albums", systemImage: "opticaldisc")
-            })
+            }
 
-            NavigationLink(destination: {
-                TopMembersView(apiService: apiService)
-            }, label: {
+            NavigationLink(destination: TopMembersView(apiService: apiService)) {
                 Label("Top 100 members", systemImage: "person.fill")
-            })
+            }
         }, header: {
             Text("Top of Metal Archives")
         })
@@ -83,27 +66,15 @@ struct BrowseView: View {
     private var bandsSection: some View {
         Section(header: Text("Bands")) {
             NavigationLink(destination: AlphabetView(apiService: apiService, mode: .bands)) {
-                HStack {
-                    Image(systemName: "abc")
-                        .foregroundColor(preferences.theme.primaryColor)
-                    Text("Alphabetical")
-                }
+                Label("Alphabetical", systemImage: "abc")
             }
 
             NavigationLink(destination: CountryListView(apiService: apiService, mode: .bands)) {
-                HStack {
-                    Image(systemName: "globe")
-                        .foregroundColor(preferences.theme.primaryColor)
-                    Text("Country")
-                }
+                Label("Country", systemImage: "globe")
             }
 
             NavigationLink(destination: GenreListView(apiService: apiService)) {
-                HStack {
-                    Image(systemName: "guitars.fill")
-                        .foregroundColor(preferences.theme.primaryColor)
-                    Text("Genre")
-                }
+                Label("Genre", systemImage: "guitars.fill")
             }
         }
     }
@@ -111,34 +82,20 @@ struct BrowseView: View {
     private var labelsSection: some View {
         Section(header: Text("Labels")) {
             NavigationLink(destination: AlphabetView(apiService: apiService, mode: .labels)) {
-                HStack {
-                    Image(systemName: "abc")
-                        .foregroundColor(preferences.theme.primaryColor)
-                    Text("Alphabetical")
-                }
+                Label("Alphabetical", systemImage: "abc")
             }
 
             NavigationLink(destination: CountryListView(apiService: apiService, mode: .labels)) {
-                HStack {
-                    Image(systemName: "globe")
-                        .foregroundColor(preferences.theme.primaryColor)
-                    Text("Country")
-                }
+                Label("Country", systemImage: "globe")
             }
         }
     }
 
     private var ripSection: some View {
         Section(header: Text("R.I.P")) {
-            NavigationLink(destination: {
-                DeceasedArtistsView(apiService: apiService)
-            }, label: {
-                HStack {
-                    Image(systemName: "staroflife.fill")
-                        .foregroundColor(preferences.theme.primaryColor)
-                    Text("Deceased artists")
-                }
-            })
+            NavigationLink(destination: DeceasedArtistsView(apiService: apiService)) {
+                Label("Deceased artists", systemImage: "staroflife.fill")
+            }
         }
     }
 
@@ -147,11 +104,7 @@ struct BrowseView: View {
             let bandView = BandView(apiService: apiService,
                                     bandUrlString: randomBandUrlString ?? "")
             NavigationLink(destination: bandView) {
-                HStack {
-                    Image(systemName: "questionmark")
-                        .foregroundColor(preferences.theme.primaryColor)
-                    Text("Random band")
-                }
+                Label("Random band", systemImage: "questionmark")
             }
         }
     }
@@ -161,6 +114,5 @@ struct BrowseView_Previews: PreviewProvider {
     static var previews: some View {
         BrowseView(apiService: APIService())
             .environment(\.colorScheme, .dark)
-            .environmentObject(Preferences())
     }
 }
