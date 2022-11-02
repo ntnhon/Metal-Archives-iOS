@@ -14,6 +14,7 @@ final class ArtistViewModel: ObservableObject {
     @Published private(set) var artistFetchable: FetchableObject<Artist> = .fetching
     @Published private(set) var biographyFetchable: FetchableObject<String?> = .fetching
     @Published private(set) var photoFetchable: FetchableObject<UIImage?> = .fetching
+    @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .fetching
 
     private let apiService: APIServiceProtocol
     private let urlString: String
@@ -89,6 +90,22 @@ final class ArtistViewModel: ObservableObject {
             photoFetchable = .fetched(photo)
         } catch {
             photoFetchable = .error(error)
+        }
+    }
+
+    @MainActor
+    func fetchRelatedLinks(forceRefresh: Bool) async {
+        guard let artistId = urlString.components(separatedBy: "/").last else { return }
+        if !forceRefresh, case .fetched = relatedLinksFetchable { return }
+
+        let urlString = "https://www.metal-archives.com/link/ajax-list/type/person/id/\(artistId)"
+        relatedLinksFetchable = .fetching
+        do {
+            let links = try await apiService.request(forType: RelatedLinkArray.self,
+                                                     urlString: urlString)
+            relatedLinksFetchable = .fetched(links.content)
+        } catch {
+            relatedLinksFetchable = .error(error)
         }
     }
 }

@@ -144,7 +144,7 @@ private struct ArtistContentView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
 
                             case .links:
-                                ArtistRelatedLinksView()
+                                ArtistRelatedLinksView(viewModel: viewModel)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
