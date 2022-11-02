@@ -160,6 +160,10 @@
 		EF3C273D2912E8AD00D6C9B2 /* ArtistInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C273C2912E8AD00D6C9B2 /* ArtistInfoView.swift */; };
 		EF3C273F2912E90600D6C9B2 /* GradientBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C273E2912E90600D6C9B2 /* GradientBackgroundView.swift */; };
 		EF3C27412912EC5B00D6C9B2 /* ColorCustomizableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C27402912EC5B00D6C9B2 /* ColorCustomizableLabel.swift */; };
+		EF3C27432912FC5C00D6C9B2 /* ArtistTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C27422912FC5C00D6C9B2 /* ArtistTabsDatasource.swift */; };
+		EF3C2745291301CB00D6C9B2 /* ArtistRolesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C2744291301CB00D6C9B2 /* ArtistRolesView.swift */; };
+		EF3C27472913022F00D6C9B2 /* ArtistBiographyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C27462913022F00D6C9B2 /* ArtistBiographyView.swift */; };
+		EF3C2749291302B700D6C9B2 /* ArtistRelatedLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C2748291302B700D6C9B2 /* ArtistRelatedLinksView.swift */; };
 		EF3C56A82901C5480010D568 /* BandByAlphabet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C56A72901C5480010D568 /* BandByAlphabet.swift */; };
 		EF3C56AA2901CCE60010D568 /* BandsByAlphabetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C56A92901CCE60010D568 /* BandsByAlphabetView.swift */; };
 		EF3C56AC2901CD000010D568 /* BandsByAlphabetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C56AB2901CD000010D568 /* BandsByAlphabetViewModel.swift */; };
@@ -411,6 +415,10 @@
 		EF3C273C2912E8AD00D6C9B2 /* ArtistInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInfoView.swift; sourceTree = "<group>"; };
 		EF3C273E2912E90600D6C9B2 /* GradientBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBackgroundView.swift; sourceTree = "<group>"; };
 		EF3C27402912EC5B00D6C9B2 /* ColorCustomizableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCustomizableLabel.swift; sourceTree = "<group>"; };
+		EF3C27422912FC5C00D6C9B2 /* ArtistTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTabsDatasource.swift; sourceTree = "<group>"; };
+		EF3C2744291301CB00D6C9B2 /* ArtistRolesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistRolesView.swift; sourceTree = "<group>"; };
+		EF3C27462913022F00D6C9B2 /* ArtistBiographyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistBiographyView.swift; sourceTree = "<group>"; };
+		EF3C2748291302B700D6C9B2 /* ArtistRelatedLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistRelatedLinksView.swift; sourceTree = "<group>"; };
 		EF3C56A72901C5480010D568 /* BandByAlphabet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandByAlphabet.swift; sourceTree = "<group>"; };
 		EF3C56A92901CCE60010D568 /* BandsByAlphabetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandsByAlphabetView.swift; sourceTree = "<group>"; };
 		EF3C56AB2901CD000010D568 /* BandsByAlphabetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandsByAlphabetViewModel.swift; sourceTree = "<group>"; };
@@ -1029,8 +1037,12 @@
 			children = (
 				C0A993452712396800121BA3 /* ArtistView.swift */,
 				EF48E6D32895CB5600B52EF2 /* ArtistViewModel.swift */,
+				EF3C27462913022F00D6C9B2 /* ArtistBiographyView.swift */,
 				EF3C273C2912E8AD00D6C9B2 /* ArtistInfoView.swift */,
 				EFEB4333290C60210021F4DA /* ArtistPhotoView.swift */,
+				EF3C2748291302B700D6C9B2 /* ArtistRelatedLinksView.swift */,
+				EF3C2744291301CB00D6C9B2 /* ArtistRolesView.swift */,
+				EF3C27422912FC5C00D6C9B2 /* ArtistTabsDatasource.swift */,
 				EF3F5FE229057A7800FD1A31 /* DeceasedArtistsView.swift */,
 				EF3F5FE429057A8100FD1A31 /* DeceasedArtistsViewModel.swift */,
 			);
@@ -1303,6 +1315,7 @@
 			files = (
 				EF5A058928FDDDE5001BF230 /* TopBandsViewModel.swift in Sources */,
 				EF3C56A82901C5480010D568 /* BandByAlphabet.swift in Sources */,
+				EF3C2745291301CB00D6C9B2 /* ArtistRolesView.swift in Sources */,
 				C01D2D692683DC7D00957DE5 /* ReleaseFormat.swift in Sources */,
 				EF2862D628EB70CB00E2C131 /* BandReviewsViewModel.swift in Sources */,
 				EF48E6D22895BDAB00B52EF2 /* ReleaseViewModel.swift in Sources */,
@@ -1352,6 +1365,7 @@
 				EF3F5FEF2905922100FD1A31 /* StatsView.swift in Sources */,
 				C08DF5CF26A62108002E73EB /* SizePreferenceKey.swift in Sources */,
 				EF31834C289862D000B6C8DD /* BetterSafariViewModifier.swift in Sources */,
+				EF3C27432912FC5C00D6C9B2 /* ArtistTabsDatasource.swift in Sources */,
 				EF60FFFF28FB122F00F96735 /* SimilarArtistsViewModel.swift in Sources */,
 				C02A8CB826812F61001430D6 /* GenreListView.swift in Sources */,
 				C0F240F92689052000ED546D /* ColorExtensions.swift in Sources */,
@@ -1374,6 +1388,7 @@
 				EF488C7228F74309007191A6 /* LyricViewModel.swift in Sources */,
 				EF3F5FE72905833500FD1A31 /* NewsPost.swift in Sources */,
 				C02A8CB426812E78001430D6 /* Genre.swift in Sources */,
+				EF3C2749291302B700D6C9B2 /* ArtistRelatedLinksView.swift in Sources */,
 				C0D632BD2687CC9900348E29 /* DataExtensions.swift in Sources */,
 				EF3F5FDD290569C500FD1A31 /* LabelsByCountryViewModel.swift in Sources */,
 				EF3F5FE9290586C700FD1A31 /* NewsArchivesView.swift in Sources */,
@@ -1430,6 +1445,7 @@
 				EFC98B3C28EE0BD000154C30 /* RetryButton.swift in Sources */,
 				C027D26626807CAB00BD54AE /* CountryListView.swift in Sources */,
 				C02A4CDE268678C6001CF9D2 /* Vibration.swift in Sources */,
+				EF3C27472913022F00D6C9B2 /* ArtistBiographyView.swift in Sources */,
 				EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */,
 				EF48E6CB2895BC2900B52EF2 /* ErrorExtensions.swift in Sources */,
 				EF7A2CA028FC19340046B136 /* UserViewModel.swift in Sources */,

@@ -43,6 +43,7 @@ struct ArtistView: View {
 private struct ArtistContentView: View {
     @EnvironmentObject private var viewModel: ArtistViewModel
     @Environment(\.selectedPhoto) private var selectedPhoto
+    @ObservedObject private var tabsDatasource: ArtistTabsDatasource
     @State private var titleViewAlpha = 0.0
     @State private var photoViewHeight: CGFloat
     @State private var photoScaleFactor: CGFloat = 1.0
@@ -53,6 +54,7 @@ private struct ArtistContentView: View {
 
     init(artist: Artist) {
         self.artist = artist
+        self.tabsDatasource = .init(artist: artist)
         self._photoViewHeight = .init(initialValue: artist.hasPhoto ? 300 : 0)
     }
 
@@ -102,11 +104,46 @@ private struct ArtistContentView: View {
 
                         ArtistInfoView(artist: artist)
 
-                        ForEach(0..<100, id: \.self) { index in
-                            Text("\(index)")
-                                .frame(maxWidth: .infinity)
-                                .background(Color(.systemBackground))
+                        HorizontalTabs(datasource: tabsDatasource)
+                            .padding(.vertical)
+                            .background(Color(.systemBackground))
+
+                        let screenBounds = UIScreen.main.bounds
+                        let maxSize = max(screenBounds.height, screenBounds.width)
+                        let bottomSectionMinHeight = maxSize - photoViewHeight // 🪄✨
+                        ZStack {
+                            switch tabsDatasource.selectedTab {
+                            case .activeBands:
+                                ArtistRolesView(roles: artist.activeRoles)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                            case .pastBands:
+                                ArtistRolesView(roles: artist.pastRoles)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                            case .live:
+                                ArtistRolesView(roles: artist.liveRoles)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                            case .guestSession:
+                                ArtistRolesView(roles: artist.guestSessionRoles)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                            case .miscStaff:
+                                ArtistRolesView(roles: artist.miscStaffRoles)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                            case .biography:
+                                ArtistBiographyView(viewModel: viewModel)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                            case .links:
+                                ArtistRelatedLinksView()
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
                         }
+                        .frame(minHeight: bottomSectionMinHeight, alignment: .top)
+                        .background(Color(.systemBackground))
                     }
                 })
         }
