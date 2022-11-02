@@ -195,11 +195,14 @@ extension Artist: HTMLParsable {
     }
 
     private static func parseBioAndTrivia(from div: XMLElement, builder: Builder) {
-        builder.hasMoreBiography = div.text?.contains("Read more") == true
         guard let text = div.text else { return }
-        builder.biography = text.subString(after: "Biography", before: "Trivia")?
+        builder.hasMoreBiography = text.contains("Read more")
+        let biography = text.subString(after: "Biography", before: "Trivia")?
             .replacingOccurrences(of: "\nRead more", with: "")
             .trimmingCharacters(in: .whitespacesAndNewlines)
+        if biography?.isEmpty == false {
+            builder.biography = biography
+        }
         builder.trivia = text.subString(after: "Trivia")?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 

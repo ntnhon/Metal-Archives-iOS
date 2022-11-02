@@ -51,10 +51,13 @@ struct ArtistInfoView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
-            .padding(.horizontal)
+            .padding([.horizontal, .bottom])
+            .background(Color(.systemBackground))
             .frame(maxWidth: .infinity, alignment: .leading)
             .fixedSize(horizontal: false, vertical: true)
-            .background(Color(.systemBackground))
         }
+
+        Color(.systemGray6)
+            .frame(height: 10)
     }
 }

@@ -64,8 +64,8 @@ final class ArtistViewModel: ObservableObject {
     }
 
     @MainActor
-    func fetchBiography() async {
-        if case .fetched = biographyFetchable { return }
+    func fetchBiography(forceRefresh: Bool) async {
+        if !forceRefresh, case .fetched = biographyFetchable { return }
         guard let id = urlString.components(separatedBy: "/").last else { return }
         do {
             biographyFetchable = .fetching

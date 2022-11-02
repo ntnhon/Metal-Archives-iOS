@@ -134,7 +134,8 @@ private struct ArtistContentView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
 
                             case .biography:
-                                ArtistBiographyView(viewModel: viewModel)
+                                ArtistBiographyView(viewModel: viewModel, artist: artist)
+                                    .padding([.horizontal, .bottom])
                                     .frame(maxWidth: .infinity, alignment: .leading)
 
                             case .links:

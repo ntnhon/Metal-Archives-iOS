@@ -191,7 +191,6 @@ private struct BandContentView: View {
 
                         Color(.systemGray6)
                             .frame(height: 10)
-                            .padding(.vertical)
                     }
                     .modifier(SizeModifier())
                     .onPreferenceChange(SizePreferenceKey.self) {
