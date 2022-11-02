@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewsPostView: View {
     @EnvironmentObject private var preferences: Preferences
+    @Environment(\.selectedUrl) private var selectedUrl
     let apiService: APIServiceProtocol
     let newsPost: NewsPost
 
@@ -37,7 +38,23 @@ struct NewsPostView: View {
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .navigationTitle(newsPost.title)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar { toolbarContent }
+    }
+
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text(newsPost.title)
+                .fontWeight(.bold)
+        }
+
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: {
+                selectedUrl.wrappedValue = newsPost.urlString
+            }, label: {
+                Image(systemName: "safari")
+            })
+        }
     }
 }

@@ -14,6 +14,7 @@ struct NewsPost {
     let title: String
     let date: Date
     let content: String
+    let urlString: String
     let author: UserLite
 
     var dateString: String {
@@ -45,6 +46,7 @@ extension NewsPost {
         var title: String?
         var date: Date?
         var content: String?
+        var urlString: String?
         var author: UserLite?
 
         func build() -> NewsPost? {
@@ -63,16 +65,26 @@ extension NewsPost {
                 return nil
             }
 
+            guard let urlString else {
+                Logger.log("[Building NewsPost] urlString can not be nil")
+                return nil
+            }
+
             guard let author else {
                 Logger.log("[Building NewsPost] author can not be nil")
                 return nil
             }
 
-            return .init(title: title, date: date, content: content, author: author)
+            return .init(title: title,
+                         date: date,
+                         content: content,
+                         urlString: urlString,
+                         author: author)
         }
     }
 }
 
+// swiftlint:disable identifier_name
 extension NewsPost {
     init?(element: XMLElement) {
         let builder = Builder()
@@ -91,7 +103,6 @@ extension NewsPost {
             }
         }
 
-        // swiftlint:disable:next identifier_name
         for p in element.css("p") {
             switch p["class"] {
             case "body":
@@ -104,6 +115,13 @@ extension NewsPost {
                 }
             default:
                 break
+            }
+        }
+
+        for a in element.css("a") {
+            if a["class"] == "iconContainer ui-state-default ui-corner-all",
+               let urlString = a["href"] {
+                builder.urlString = urlString
             }
         }
 
