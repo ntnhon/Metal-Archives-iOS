@@ -31,7 +31,7 @@ struct CountryManager {
 
     static let shared = CountryManager()
 
-    func country(by keyPath: KeyPath<Country, String>, value: String) -> Country? {
-        countries.first { $0[keyPath: keyPath] == value }
+    func country(by keyPath: KeyPath<Country, String>, value: String) -> Country {
+        countries.first { $0[keyPath: keyPath] == value } ?? .unknown
     }
 }

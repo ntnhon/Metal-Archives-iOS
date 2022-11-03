@@ -62,11 +62,7 @@ extension LabelByAlphabet: PageElement {
 
         let countryName = strings[4].replacingOccurrences(of: "&nbsp;", with: "")
             .trimmingCharacters(in: .whitespacesAndNewlines)
-        if let country = CountryManager.shared.country(by: \.name, value: countryName) {
-            self.country = country
-        } else {
-            self.country = nil
-        }
+        country = CountryManager.shared.country(by: \.name, value: countryName)
 
         if let aTag = try Kanna.HTML(html: strings[5], encoding: .utf8).at_css("a"),
            let urlString = aTag["href"] {

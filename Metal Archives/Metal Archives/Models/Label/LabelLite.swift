@@ -5,9 +5,19 @@
 //  Created by Thanh-Nhon Nguyen on 22/05/2021.
 //
 
+import Kanna
+
 struct LabelLite: OptionalThumbnailable {
     let thumbnailInfo: ThumbnailInfo?
     let name: String
+}
+
+extension LabelLite {
+    init?(aTag: XMLElement) {
+        guard let urlString = aTag["href"], let name = aTag.text else { return nil }
+        self.thumbnailInfo = .init(urlString: urlString, type: .label)
+        self.name = name
+    }
 }
 
 extension LabelLite: Equatable {

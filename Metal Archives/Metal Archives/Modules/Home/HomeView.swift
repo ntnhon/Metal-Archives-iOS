@@ -102,6 +102,20 @@ struct HomeView: View {
                 }, label: {
                     Text("Chuck Schuldiner")
                 })
+
+                NavigationLink(destination: {
+                    LabelView(apiService: apiService,
+                              urlString: "https://www.metal-archives.com/labels/Nuclear_Blast/2")
+                }, label: {
+                    Text("Nuclear Blast")
+                })
+
+                NavigationLink(destination: {
+                    LabelView(apiService: apiService,
+                              urlString: "https://www.metal-archives.com/labels/Anstalt_Records/4867")
+                }, label: {
+                    Text("Anstalt Records")
+                })
             }
         }
     }

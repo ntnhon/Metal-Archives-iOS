@@ -201,6 +201,7 @@
 		EF4B6BA6289900DA008DBCF6 /* Support.md in Resources */ = {isa = PBXBuildFile; fileRef = EF4B6BA52898FFF8008DBCF6 /* Support.md */; };
 		EF4B6BA82899015F008DBCF6 /* AttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B6BA72899015F008DBCF6 /* AttributedStringExtensions.swift */; };
 		EF50D1C42896FC070081D6AA /* BandHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF50D1C32896FC070081D6AA /* BandHeaderViewModel.swift */; };
+		EF5234D6291455EE0089B5E4 /* LabelDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5234D5291455EE0089B5E4 /* LabelDetail.swift */; };
 		EF5A058128FDDC72001BF230 /* TopBandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058028FDDC72001BF230 /* TopBandsView.swift */; };
 		EF5A058328FDDC8F001BF230 /* TopAlbumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058228FDDC8F001BF230 /* TopAlbumsView.swift */; };
 		EF5A058528FDDCAE001BF230 /* TopMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058428FDDCAE001BF230 /* TopMembersView.swift */; };
@@ -455,6 +456,7 @@
 		EF4B6BA52898FFF8008DBCF6 /* Support.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Support.md; sourceTree = "<group>"; };
 		EF4B6BA72899015F008DBCF6 /* AttributedStringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringExtensions.swift; sourceTree = "<group>"; };
 		EF50D1C32896FC070081D6AA /* BandHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandHeaderViewModel.swift; sourceTree = "<group>"; };
+		EF5234D5291455EE0089B5E4 /* LabelDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelDetail.swift; sourceTree = "<group>"; };
 		EF5A058028FDDC72001BF230 /* TopBandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBandsView.swift; sourceTree = "<group>"; };
 		EF5A058228FDDC8F001BF230 /* TopAlbumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAlbumsView.swift; sourceTree = "<group>"; };
 		EF5A058428FDDCAE001BF230 /* TopMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMembersView.swift; sourceTree = "<group>"; };
@@ -909,6 +911,7 @@
 		C041C3132658EF19006B0F1F /* Label */ = {
 			isa = PBXGroup;
 			children = (
+				EF5234D5291455EE0089B5E4 /* LabelDetail.swift */,
 				C004A2B52658F17B0071E12A /* LabelLite.swift */,
 				EF6A8A022903DF1700DA2D67 /* LabelByAlphabet.swift */,
 				EF3F5FD82905688800FD1A31 /* LabelByCountry.swift */,
@@ -1409,6 +1412,7 @@
 				C01ECED52662339F009A3A32 /* RoleInBand.swift in Sources */,
 				C0DD1379267F5E6C009F0B81 /* SupportView.swift in Sources */,
 				C0A993462712396800121BA3 /* ArtistView.swift in Sources */,
+				EF5234D6291455EE0089B5E4 /* LabelDetail.swift in Sources */,
 				C07A25512685208C008478D7 /* SimpleSearchTypeView.swift in Sources */,
 				C0056C56265C201700400A03 /* ReleaseElement.swift in Sources */,
 				C07A254F26852001008478D7 /* SimpleSearchType.swift in Sources */,

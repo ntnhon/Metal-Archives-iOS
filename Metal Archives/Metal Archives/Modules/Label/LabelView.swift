@@ -17,5 +17,8 @@ struct LabelView: View {
 
     var body: some View {
         Text("Label view")
+            .task {
+                await viewModel.fetchLabel()
+            }
     }
 }
