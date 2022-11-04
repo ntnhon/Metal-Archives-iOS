@@ -46,6 +46,9 @@ struct ArtistInfoView: View {
                     }
                 }
 
+                ColorCustomizableLabel(title: artist.modificationInfo.summary,
+                                       systemImage: "clock.fill")
+
                 if let trivia = artist.trivia {
                     Text(trivia)
                         .frame(maxWidth: .infinity, alignment: .leading)
