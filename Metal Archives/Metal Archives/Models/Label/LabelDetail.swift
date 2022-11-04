@@ -22,8 +22,8 @@ struct LabelDetail {
     let onlineShopping: String
     let isLastKnown: Bool
     let website: RelatedLink?
-    let email: String?
     let additionalNotes: String?
+    let modificationInfo: ModificationInfo
 }
 
 extension LabelDetail {
@@ -73,8 +73,8 @@ extension LabelDetail {
         var onlineShopping: String?
         var isLastKnown = false
         var website: RelatedLink?
-        var email: String?
         var additionalNotes: String?
+        var modificationInfo: ModificationInfo?
 
         func build() -> LabelDetail? {
             guard let name else {
@@ -117,6 +117,11 @@ extension LabelDetail {
                 return nil
             }
 
+            guard let modificationInfo else {
+                Logger.log("[Building LabelDetail] modificationInfo can not be nil")
+                return nil
+            }
+
             return .init(logoUrlString: logoUrlString,
                          name: name,
                          address: address,
@@ -130,8 +135,8 @@ extension LabelDetail {
                          onlineShopping: onlineShopping,
                          isLastKnown: isLastKnown,
                          website: website,
-                         email: email,
-                         additionalNotes: additionalNotes)
+                         additionalNotes: additionalNotes,
+                         modificationInfo: modificationInfo)
         }
     }
 }
@@ -149,6 +154,10 @@ extension LabelDetail: HTMLParsable {
             switch div["id"] {
             case "label_info":
                 Self.parseLabelInfo(from: div, builder: builder)
+            case "label_tabs_notes":
+                builder.additionalNotes = div.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+            case "auditTrail":
+                builder.modificationInfo = .init(element: div)
             default:
                 break
             }
