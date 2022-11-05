@@ -215,6 +215,8 @@
 		EF62240A28F15FDF00845430 /* HornCircularLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240928F15FDF00845430 /* HornCircularLoader.swift */; };
 		EF62240C28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */; };
 		EF62240E28F1C94300845430 /* ReleaseCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240D28F1C94300845430 /* ReleaseCoverView.swift */; };
+		EF69DD7F291660AF00C3D4E3 /* LabelTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */; };
+		EF69DD81291664E500C3D4E3 /* LabelLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */; };
 		EF6A89F72903CE4D00DA2D67 /* BandByCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A89F62903CE4D00DA2D67 /* BandByCountry.swift */; };
 		EF6A89F92903D01C00DA2D67 /* BandsByCountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A89F82903D01C00DA2D67 /* BandsByCountryView.swift */; };
 		EF6A89FB2903D03600DA2D67 /* BandsByCountryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A89FA2903D03600DA2D67 /* BandsByCountryViewModel.swift */; };
@@ -470,6 +472,8 @@
 		EF62240928F15FDF00845430 /* HornCircularLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HornCircularLoader.swift; sourceTree = "<group>"; };
 		EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+retrieveImageAsync.swift"; sourceTree = "<group>"; };
 		EF62240D28F1C94300845430 /* ReleaseCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseCoverView.swift; sourceTree = "<group>"; };
+		EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabsDatasource.swift; sourceTree = "<group>"; };
+		EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLogoView.swift; sourceTree = "<group>"; };
 		EF6A89F62903CE4D00DA2D67 /* BandByCountry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandByCountry.swift; sourceTree = "<group>"; };
 		EF6A89F82903D01C00DA2D67 /* BandsByCountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandsByCountryView.swift; sourceTree = "<group>"; };
 		EF6A89FA2903D03600DA2D67 /* BandsByCountryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandsByCountryViewModel.swift; sourceTree = "<group>"; };
@@ -1082,10 +1086,12 @@
 			children = (
 				EF3CAEEF28FADD3D0092D80E /* LabelView.swift */,
 				EF3CAEF128FADD5A0092D80E /* LabelViewModel.swift */,
+				EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */,
 				EF6A8A0629040FC900DA2D67 /* LabelsByAlphabetView.swift */,
 				EF6A8A0829040FDF00DA2D67 /* LabelsByAlphabetViewModel.swift */,
 				EF3F5FDA290569B000FD1A31 /* LabelsByCountryView.swift */,
 				EF3F5FDC290569C500FD1A31 /* LabelsByCountryViewModel.swift */,
+				EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */,
 			);
 			path = Label;
 			sourceTree = "<group>";
@@ -1342,6 +1348,7 @@
 				C0F2410126891F1100ED546D /* MAError.swift in Sources */,
 				EFA48C4828F5EA3A0012B349 /* ReleaseNoteView.swift in Sources */,
 				C0063EBE265C4630005AB1E2 /* Logger.swift in Sources */,
+				EF69DD81291664E500C3D4E3 /* LabelLogoView.swift in Sources */,
 				C060E6D2268273920006433A /* AdvancedSearchTipsView.swift in Sources */,
 				C0DD1377267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift in Sources */,
 				C0DD1381267F6BC2009F0B81 /* Preferences.swift in Sources */,
@@ -1429,6 +1436,7 @@
 				EF6A8A032903DF1700DA2D67 /* LabelByAlphabet.swift in Sources */,
 				C007887826AF5B200080AC93 /* BandReviewsView.swift in Sources */,
 				C0DF7D1926A44C850049C98D /* ThumbnailView.swift in Sources */,
+				EF69DD7F291660AF00C3D4E3 /* LabelTabsDatasource.swift in Sources */,
 				C004A2B82658F2E70071E12A /* ModificationInfo.swift in Sources */,
 				EF62240A28F15FDF00845430 /* HornCircularLoader.swift in Sources */,
 				EF5A058D28FDDF71001BF230 /* TopBands.swift in Sources */,
