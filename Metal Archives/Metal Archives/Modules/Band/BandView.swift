@@ -57,7 +57,7 @@ struct BandView: View {
 private struct BandContentView: View {
     @Environment(\.selectedPhoto) private var selectedPhoto
     @ObservedObject private var viewModel: BandViewModel
-    @ObservedObject private var tabsDatasource = BandTabsDatasource()
+    @StateObject private var tabsDatasource = BandTabsDatasource()
     @StateObject private var reviewsViewModel: BandReviewsViewModel
     @StateObject private var discographyViewModel: DiscographyViewModel
     @StateObject private var similarArtistsViewModel: SimilarArtistsViewModel

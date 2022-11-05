@@ -43,21 +43,21 @@ struct ArtistView: View {
 private struct ArtistContentView: View {
     @EnvironmentObject private var viewModel: ArtistViewModel
     @Environment(\.selectedPhoto) private var selectedPhoto
-    @ObservedObject private var tabsDatasource: ArtistTabsDatasource
+    @StateObject private var tabsDatasource: ArtistTabsDatasource
     @State private var titleViewAlpha = 0.0
-    @State private var photoViewHeight: CGFloat
     @State private var photoScaleFactor: CGFloat = 1.0
     @State private var photoOpacity: Double = 1.0
     @State private var selectedBandUrl: String?
     @State private var selectedReleaseUrl: String?
+    private let photoViewHeight: CGFloat
     private let minPhotoScaleFactor: CGFloat = 0.5
     private let maxPhotoScaleFactor: CGFloat = 1.2
     let artist: Artist
 
     init(artist: Artist) {
         self.artist = artist
-        self.tabsDatasource = .init(artist: artist)
-        self._photoViewHeight = .init(initialValue: artist.hasPhoto ? 300 : 0)
+        self._tabsDatasource = .init(wrappedValue: .init(artist: artist))
+        self.photoViewHeight = artist.hasPhoto ? 300 : 0
     }
 
     var body: some View {

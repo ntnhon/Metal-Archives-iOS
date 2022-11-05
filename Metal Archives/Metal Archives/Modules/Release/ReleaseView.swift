@@ -51,7 +51,7 @@ private struct ReleaseContentView: View {
     @EnvironmentObject private var preferences: Preferences
     @EnvironmentObject private var viewModel: ReleaseViewModel
     @Environment(\.selectedPhoto) private var selectedPhoto
-    @ObservedObject private var tabsDatasource = ReleaseTabsDatasource()
+    @StateObject private var tabsDatasource = ReleaseTabsDatasource()
     @State private var titleViewAlpha = 0.0
     @State private var coverViewHeight: CGFloat = 300
     @State private var coverScaleFactor: CGFloat = 1.0
