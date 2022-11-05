@@ -41,6 +41,7 @@ struct LabelView: View {
 }
 
 private struct LabelContentView: View {
+    @EnvironmentObject private var preferences: Preferences
     @EnvironmentObject private var viewModel: LabelViewModel
     @Environment(\.selectedPhoto) private var selectedPhoto
     @StateObject private var tabsDatasource: LabelTabsDatasource
@@ -155,7 +156,8 @@ private struct LabelContentView: View {
                         ZStack {
                             switch tabsDatasource.selectedTab {
                             case .subLabels:
-                                Text("Sub labels")
+                                subLabelList
+                                    .padding(.horizontal)
                             case .currentRoster:
                                 Text("Current")
                             case .lastKnownRoster:
@@ -242,6 +244,31 @@ private struct LabelContentView: View {
                 .textSelection(.enabled)
                 .minimumScaleFactor(0.5)
                 .opacity(titleViewAlpha)
+        }
+    }
+
+    private var subLabelList: some View {
+        LazyVStack {
+            ForEach(label.subLabels, id: \.hashValue) { subLabel in
+                HStack {
+                    if let thumbnailInfo = subLabel.thumbnailInfo {
+                        ThumbnailView(thumbnailInfo: thumbnailInfo, photoDescription: subLabel.name)
+                            .font(.largeTitle)
+                            .foregroundColor(preferences.theme.secondaryColor)
+                            .frame(width: 64, height: 64)
+                    }
+                    Text(subLabel.name)
+                        .fontWeight(.medium)
+                        .foregroundColor(preferences.theme.primaryColor)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedLabelUrl = subLabel.thumbnailInfo?.urlString
+                }
+
+                Divider()
+            }
         }
     }
 }
