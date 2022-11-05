@@ -163,6 +163,15 @@ extension LabelDetail: HTMLParsable {
             }
         }
 
+        // swiftlint:disable:next identifier_name
+        for p in html.css("p") where p["id"] == "label_contact" {
+            if let aTag = p.at_css("a"),
+               let urlString = aTag["href"],
+               let title = aTag.text {
+                builder.website = .init(urlString: urlString, title: title)
+            }
+        }
+
         guard let label = builder.build() else {
             throw MAError.parseFailure("\(Self.self)")
         }

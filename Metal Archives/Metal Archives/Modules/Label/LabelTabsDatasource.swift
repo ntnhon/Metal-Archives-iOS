@@ -33,7 +33,7 @@ enum LabelTab {
         case .subLabels: return "tag"
         case .currentRoster, .lastKnownRoster: return "circle"
         case .pastRoster: return "circle.dashed"
-        case .releases: return "circle.grid.3x3"
+        case .releases: return "opticaldisc"
         case .additionalNotes: return "info.circle"
         case .links: return "link"
         }
@@ -44,7 +44,7 @@ enum LabelTab {
         case .subLabels: return "tag.fill"
         case .currentRoster, .lastKnownRoster: return "circle.fill"
         case .pastRoster: return "circle.dashed.inset.filled"
-        case .releases: return "circle.grid.3x3.fill"
+        case .releases: return "opticaldisc.fill"
         case .additionalNotes: return "info.circle.fill"
         case .links: return "link"
         }

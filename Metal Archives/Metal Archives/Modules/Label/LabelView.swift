@@ -47,6 +47,7 @@ private struct LabelContentView: View {
     @State private var titleViewAlpha = 0.0
     @State private var logoScaleFactor: CGFloat = 1.0
     @State private var logoOpacity: Double = 1.0
+    @State private var selectedLabelUrl: String?
     @State private var selectedBandUrl: String?
     @State private var selectedReleaseUrl: String?
     private let logoViewHeight: CGFloat
@@ -61,10 +62,21 @@ private struct LabelContentView: View {
     }
 
     var body: some View {
+        let isShowingLabelDetail = makeIsShowingLabelDetailBinding()
         let isShowingBandDetail = makeIsShowingBandDetailBinding()
         let isShowingReleaseDetail = makeIsShowingReleaseDetailBinding()
 
         ZStack(alignment: .top) {
+            NavigationLink(
+                isActive: isShowingLabelDetail,
+                destination: {
+                    if let selectedLabelUrl {
+                        LabelView(apiService: viewModel.apiService, urlString: selectedLabelUrl)
+                    } else {
+                        EmptyView()
+                    }},
+                label: { EmptyView() })
+
             NavigationLink(
                 isActive: isShowingBandDetail,
                 destination: {
@@ -129,7 +141,9 @@ private struct LabelContentView: View {
                                 }
                             }
 
-                        Text("Label info")
+                        LabelInfoView(label: label) { url in
+                            selectedLabelUrl = url
+                        }
 
                         HorizontalTabs(datasource: tabsDatasource)
                             .padding(.vertical)
@@ -151,7 +165,14 @@ private struct LabelContentView: View {
                             case .releases:
                                 Text("Releases")
                             case .additionalNotes:
-                                Text("Notes")
+                                if let notes = label.additionalNotes {
+                                    HighlightableText(text: notes,
+                                                      highlights: ["Description", "Trivia"],
+                                                      highlightFontWeight: .bold,
+                                                      highlightColor: .primary)
+                                        .padding([.horizontal, .bottom])
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                }
                             case .links:
                                 Text("Links")
                             }
@@ -162,6 +183,16 @@ private struct LabelContentView: View {
                 })
         }
         .toolbar { toolbarContent }
+    }
+
+    private func makeIsShowingLabelDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedLabelUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedLabelUrl = nil
+            }
+        })
     }
 
     private func makeIsShowingBandDetailBinding() -> Binding<Bool> {

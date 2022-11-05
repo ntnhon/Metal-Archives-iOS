@@ -231,6 +231,7 @@
 		EF7A2C9B28FC18A60046B136 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9A28FC18A60046B136 /* ReviewViewModel.swift */; };
 		EF7A2C9E28FC19210046B136 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9D28FC19210046B136 /* UserView.swift */; };
 		EF7A2CA028FC19340046B136 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9F28FC19340046B136 /* UserViewModel.swift */; };
+		EF81B20C2916939000ADDD60 /* LabelInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF81B20B2916939000ADDD60 /* LabelInfoView.swift */; };
 		EFA48C3E28F5E5890012B349 /* ReleaseTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA48C3D28F5E5890012B349 /* ReleaseTabsDatasource.swift */; };
 		EFA48C4028F5E9AC0012B349 /* TracklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA48C3F28F5E9AC0012B349 /* TracklistView.swift */; };
 		EFA48C4228F5E9E00012B349 /* ReleaseLineUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA48C4128F5E9E00012B349 /* ReleaseLineUpView.swift */; };
@@ -488,6 +489,7 @@
 		EF7A2C9A28FC18A60046B136 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 		EF7A2C9D28FC19210046B136 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		EF7A2C9F28FC19340046B136 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		EF81B20B2916939000ADDD60 /* LabelInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelInfoView.swift; sourceTree = "<group>"; };
 		EFA48C3D28F5E5890012B349 /* ReleaseTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTabsDatasource.swift; sourceTree = "<group>"; };
 		EFA48C3F28F5E9AC0012B349 /* TracklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracklistView.swift; sourceTree = "<group>"; };
 		EFA48C4128F5E9E00012B349 /* ReleaseLineUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseLineUpView.swift; sourceTree = "<group>"; };
@@ -1091,6 +1093,7 @@
 				EF6A8A0829040FDF00DA2D67 /* LabelsByAlphabetViewModel.swift */,
 				EF3F5FDA290569B000FD1A31 /* LabelsByCountryView.swift */,
 				EF3F5FDC290569C500FD1A31 /* LabelsByCountryViewModel.swift */,
+				EF81B20B2916939000ADDD60 /* LabelInfoView.swift */,
 				EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */,
 			);
 			path = Label;
@@ -1466,6 +1469,7 @@
 				EF3CAEED28FAA3710092D80E /* LabelLiteButton.swift in Sources */,
 				EF2862D328EB5EB700E2C131 /* PageManagerProtocol.swift in Sources */,
 				C051863026979FBE006BB7D5 /* DiscographyView.swift in Sources */,
+				EF81B20C2916939000ADDD60 /* LabelInfoView.swift in Sources */,
 				C03873AB2659AE4B00D2FD5E /* Discography.swift in Sources */,
 				C007887626AF599E0080AC93 /* BandLineUpView.swift in Sources */,
 				EF7A2C9B28FC18A60046B136 /* ReviewViewModel.swift in Sources */,
