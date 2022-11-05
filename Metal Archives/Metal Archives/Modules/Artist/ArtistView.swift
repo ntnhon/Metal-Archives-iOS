@@ -163,6 +163,7 @@ private struct ArtistContentView: View {
                             case .links:
                                 ArtistRelatedLinksView(viewModel: viewModel)
                                     .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.horizontal)
                             }
                         }
                         .frame(minHeight: bottomSectionMinHeight, alignment: .top)

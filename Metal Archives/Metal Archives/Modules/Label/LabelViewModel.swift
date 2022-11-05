@@ -12,6 +12,7 @@ final class LabelViewModel: ObservableObject {
 //    deinit { print("\(Self.self) of \(urlString) is deallocated") }
     @Published private(set) var labelFetchable: FetchableObject<LabelDetail> = .fetching
     @Published private(set) var logoFetchable: FetchableObject<UIImage?> = .fetching
+    @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .fetching
 
     let apiService: APIServiceProtocol
     private let urlString: String
@@ -63,6 +64,22 @@ final class LabelViewModel: ObservableObject {
             logoFetchable = .fetched(photo)
         } catch {
             logoFetchable = .error(error)
+        }
+    }
+
+    @MainActor
+    func fetchRelatedLinks(forceRefresh: Bool) async {
+        guard let labelId = urlString.components(separatedBy: "/").last else { return }
+        if !forceRefresh, case .fetched = relatedLinksFetchable { return }
+
+        let urlString = "https://www.metal-archives.com/link/ajax-list/type/label/id/\(labelId)"
+        relatedLinksFetchable = .fetching
+        do {
+            let links = try await apiService.request(forType: RelatedLinkArray.self,
+                                                     urlString: urlString)
+            relatedLinksFetchable = .fetched(links.content)
+        } catch {
+            relatedLinksFetchable = .error(error)
         }
     }
 }

@@ -1,14 +1,14 @@
 //
-//  ArtistRelatedLinksView.swift
+//  LabelRelatedLinksView.swift
 //  Metal Archives
 //
-//  Created by Nhon Nguyen on 02/11/2022.
+//  Created by Nhon Nguyen on 05/11/2022.
 //
 
 import SwiftUI
 
-struct ArtistRelatedLinksView: View {
-    @ObservedObject var viewModel: ArtistViewModel
+struct LabelRelatedLinksView: View {
+    @ObservedObject var viewModel: LabelViewModel
 
     var body: some View {
         VStack {

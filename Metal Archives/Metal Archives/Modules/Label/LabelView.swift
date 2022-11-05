@@ -176,7 +176,9 @@ private struct LabelContentView: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 }
                             case .links:
-                                Text("Links")
+                                LabelRelatedLinksView(viewModel: viewModel)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.horizontal)
                             }
                         }
                         .frame(minHeight: bottomSectionMinHeight, alignment: .top)
