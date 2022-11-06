@@ -97,6 +97,8 @@ extension Review: HTMLParsable {
             switch div["class"] {
             case "reviewBox":
                 Self.parseOtherContent(from: div, builder: builder)
+            case "album_img":
+                builder.coverPhotoUrlString = div.at_css("a")?["href"]
             default:
                 break
             }

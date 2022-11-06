@@ -10,8 +10,6 @@ import Kingfisher
 import UIKit
 
 final class ReleaseViewModel: ObservableObject {
-//    deinit { print("\(Self.self) of \(releaseUrlString) is deallocated") }
-
     @Published private(set) var releaseFetchable: FetchableObject<Release> = .fetching
     @Published private(set) var coverFetchable: FetchableObject<UIImage?> = .fetching
     @Published private(set) var otherVersionsFetchable: FetchableObject<[ReleaseOtherVersion]> = .fetching
