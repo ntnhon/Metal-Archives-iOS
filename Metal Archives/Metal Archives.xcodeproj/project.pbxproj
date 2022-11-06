@@ -222,6 +222,7 @@
 		EF5EAB4B291804D8009BCDFF /* LabelReleasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB4A291804D8009BCDFF /* LabelReleasesViewModel.swift */; };
 		EF5EAB4D29181004009BCDFF /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB4C29181004009BCDFF /* Review.swift */; };
 		EF5EAB4F29181DF0009BCDFF /* ReviewCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB4E29181DF0009BCDFF /* ReviewCoverView.swift */; };
+		EF5EAB51291821A4009BCDFF /* ReviewInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB50291821A4009BCDFF /* ReviewInfoView.swift */; };
 		EF60FFFF28FB122F00F96735 /* SimilarArtistsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */; };
 		EF62240A28F15FDF00845430 /* HornCircularLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240928F15FDF00845430 /* HornCircularLoader.swift */; };
 		EF62240C28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */; };
@@ -492,6 +493,7 @@
 		EF5EAB4A291804D8009BCDFF /* LabelReleasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelReleasesViewModel.swift; sourceTree = "<group>"; };
 		EF5EAB4C29181004009BCDFF /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		EF5EAB4E29181DF0009BCDFF /* ReviewCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCoverView.swift; sourceTree = "<group>"; };
+		EF5EAB50291821A4009BCDFF /* ReviewInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewInfoView.swift; sourceTree = "<group>"; };
 		EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarArtistsViewModel.swift; sourceTree = "<group>"; };
 		EF62240928F15FDF00845430 /* HornCircularLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HornCircularLoader.swift; sourceTree = "<group>"; };
 		EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+retrieveImageAsync.swift"; sourceTree = "<group>"; };
@@ -1158,6 +1160,7 @@
 			isa = PBXGroup;
 			children = (
 				EF5EAB4E29181DF0009BCDFF /* ReviewCoverView.swift */,
+				EF5EAB50291821A4009BCDFF /* ReviewInfoView.swift */,
 				EF7A2C9828FC18860046B136 /* ReviewView.swift */,
 				EF7A2C9A28FC18A60046B136 /* ReviewViewModel.swift */,
 			);
@@ -1361,6 +1364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF5EAB51291821A4009BCDFF /* ReviewInfoView.swift in Sources */,
 				EF5A058928FDDDE5001BF230 /* TopBandsViewModel.swift in Sources */,
 				EF5EAB412917FC0C009BCDFF /* LabelPastBand.swift in Sources */,
 				EF3C56A82901C5480010D568 /* BandByAlphabet.swift in Sources */,

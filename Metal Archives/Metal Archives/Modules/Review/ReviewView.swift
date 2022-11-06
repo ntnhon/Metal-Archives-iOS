@@ -47,7 +47,7 @@ private struct ReviewContentView: View {
     @State private var titleViewAlpha = 0.0
     @State private var coverScaleFactor: CGFloat = 1.0
     @State private var coverOpacity: Double = 1.0
-    @State private var selectedLabelUrl: String?
+    @State private var selectedUserUrl: String?
     @State private var selectedBandUrl: String?
     @State private var selectedReleaseUrl: String?
     private let coverViewHeight: CGFloat
@@ -63,10 +63,21 @@ private struct ReviewContentView: View {
     }
 
     var body: some View {
+        let isShowingUserDetail = makeIsShowingUserDetailBinding()
         let isShowingBandDetail = makeIsShowingBandDetailBinding()
         let isShowingReleaseDetail = makeIsShowingReleaseDetailBinding()
 
         ZStack(alignment: .top) {
+            NavigationLink(
+                isActive: isShowingUserDetail,
+                destination: {
+                    if let selectedUserUrl {
+                        UserView(apiService: viewModel.apiService, urlString: selectedUserUrl)
+                    } else {
+                        EmptyView()
+                    }},
+                label: { EmptyView() })
+
             NavigationLink(
                 isActive: isShowingBandDetail,
                 destination: {
@@ -129,11 +140,25 @@ private struct ReviewContentView: View {
                                                                        description: review.release.title)
                                 }
                             }
-                        Text("")
+
+                        ReviewInfoView(review: review,
+                                       onSelectUser: { url in selectedUserUrl = url },
+                                       onSelectBand: { url in selectedBandUrl = url },
+                                       onSelectRelease: { url in selectedReleaseUrl = url })
                     }
                 })
         }
         .toolbar { toolbarContent }
+    }
+
+    private func makeIsShowingUserDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedUserUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedUserUrl = nil
+            }
+        })
     }
 
     private func makeIsShowingBandDetailBinding() -> Binding<Bool> {

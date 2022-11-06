@@ -85,9 +85,7 @@ struct BandInfoView: View {
     }
 
     private var reviewView: some View {
-        HStack {
-            Image(systemName: "quote.bubble.fill")
-                .foregroundColor(.secondary)
+        Label(title: {
             if viewModel.reviewCount == 0 {
                 Text("No reviews yet")
             } else {
@@ -101,8 +99,10 @@ struct BandInfoView: View {
                     + Text(viewModel.platiniumCount == 0 ? "" : "\(viewModel.platiniumCount)🏅")
                     .fontWeight(.bold)
             }
-        }
-        .fixedSize(horizontal: false, vertical: true)
+        }, icon: {
+            Image(systemName: "quote.bubble.fill")
+                .foregroundColor(.secondary)
+        })
     }
 }
 
