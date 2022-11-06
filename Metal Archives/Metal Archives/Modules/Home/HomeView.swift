@@ -130,6 +130,20 @@ struct HomeView: View {
                 }, label: {
                     Text("Individual Thought Patterns")
                 })
+
+                NavigationLink(destination: {
+                    UserView(apiService: apiService,
+                             urlString: "https://www.metal-archives.com/users/Felix%201666")
+                }, label: {
+                    Text("Felix 1666")
+                })
+
+                NavigationLink(destination: {
+                    UserView(apiService: apiService,
+                             urlString: "https://www.metal-archives.com/users/HellBlazer")
+                }, label: {
+                    Text("HellBlazer")
+                })
             }
         }
     }

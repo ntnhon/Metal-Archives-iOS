@@ -223,6 +223,7 @@
 		EF5EAB4D29181004009BCDFF /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB4C29181004009BCDFF /* Review.swift */; };
 		EF5EAB4F29181DF0009BCDFF /* ReviewCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB4E29181DF0009BCDFF /* ReviewCoverView.swift */; };
 		EF5EAB51291821A4009BCDFF /* ReviewInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB50291821A4009BCDFF /* ReviewInfoView.swift */; };
+		EF5EAB532918274B009BCDFF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB522918274B009BCDFF /* User.swift */; };
 		EF60FFFF28FB122F00F96735 /* SimilarArtistsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */; };
 		EF62240A28F15FDF00845430 /* HornCircularLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240928F15FDF00845430 /* HornCircularLoader.swift */; };
 		EF62240C28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */; };
@@ -494,6 +495,7 @@
 		EF5EAB4C29181004009BCDFF /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		EF5EAB4E29181DF0009BCDFF /* ReviewCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCoverView.swift; sourceTree = "<group>"; };
 		EF5EAB50291821A4009BCDFF /* ReviewInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewInfoView.swift; sourceTree = "<group>"; };
+		EF5EAB522918274B009BCDFF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarArtistsViewModel.swift; sourceTree = "<group>"; };
 		EF62240928F15FDF00845430 /* HornCircularLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HornCircularLoader.swift; sourceTree = "<group>"; };
 		EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+retrieveImageAsync.swift"; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 		C004A2B92658F31C0071E12A /* User */ = {
 			isa = PBXGroup;
 			children = (
+				EF5EAB522918274B009BCDFF /* User.swift */,
 				EF5D011B28FF19BE008833C5 /* TopUsers.swift */,
 				C004A2BA2658F3290071E12A /* UserLite.swift */,
 			);
@@ -1453,6 +1456,7 @@
 				C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */,
 				C01D2D652683CB9500957DE5 /* BandStatusListView.swift in Sources */,
 				C0DD137B267F6A23009F0B81 /* HomeSection.swift in Sources */,
+				EF5EAB532918274B009BCDFF /* User.swift in Sources */,
 				C017D42D267E9B51008B6EE5 /* AboutView.swift in Sources */,
 				EF5A058128FDDC72001BF230 /* TopBandsView.swift in Sources */,
 				EF3FCC1E28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift in Sources */,

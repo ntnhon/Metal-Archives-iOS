@@ -8,13 +8,25 @@
 import SwiftUI
 
 final class UserViewModel: ObservableObject {
-    deinit { print("\(Self.self) of \(urlString) is deallocated") }
+    @Published private(set) var userFetchable: FetchableObject<User> = .fetching
 
-    private let apiService: APIServiceProtocol
-    private let urlString: String
+    let apiService: APIServiceProtocol
+    let urlString: String
 
     init(apiService: APIServiceProtocol, urlString: String) {
         self.apiService = apiService
         self.urlString = urlString
+    }
+
+    @MainActor
+    func fetchUser() async {
+        if case .fetched = userFetchable { return }
+        do {
+            userFetchable = .fetching
+            let user = try await apiService.request(forType: User.self, urlString: urlString)
+            userFetchable = .fetched(user)
+        } catch {
+            userFetchable = .error(error)
+        }
     }
 }

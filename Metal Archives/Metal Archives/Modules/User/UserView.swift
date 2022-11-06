@@ -17,5 +17,8 @@ struct UserView: View {
 
     var body: some View {
         Text("User")
+            .task {
+                await viewModel.fetchUser()
+            }
     }
 }
