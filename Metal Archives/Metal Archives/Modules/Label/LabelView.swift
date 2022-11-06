@@ -49,6 +49,7 @@ private struct LabelContentView: View {
     @StateObject private var tabsDatasource: LabelTabsDatasource
     @StateObject private var currentRosterViewModel: LabelCurrentRosterViewModel
     @StateObject private var pastRosterViewModel: LabelPastRosterViewModel
+    @StateObject private var releasesViewModel: LabelReleasesViewModel
     @State private var titleViewAlpha = 0.0
     @State private var logoScaleFactor: CGFloat = 1.0
     @State private var logoOpacity: Double = 1.0
@@ -67,6 +68,8 @@ private struct LabelContentView: View {
                                                                  urlString: urlString))
         self._pastRosterViewModel = .init(wrappedValue: .init(apiService: apiService,
                                                               urlString: urlString))
+        self._releasesViewModel = .init(wrappedValue: .init(apiService: apiService,
+                                                            urlString: urlString))
         self.logoViewHeight = label.logoUrlString != nil ? 300 : 0
     }
 
@@ -180,7 +183,10 @@ private struct LabelContentView: View {
                                 .padding([.horizontal, .bottom])
 
                             case .releases:
-                                Text("Releases")
+                                LabelReleasesView(viewModel: releasesViewModel,
+                                                  onSelectBand: { url in selectedBandUrl = url },
+                                                  onSelectRelease: { url in selectedReleaseUrl = url })
+                                .padding([.horizontal, .bottom])
 
                             case .additionalNotes:
                                 if let notes = label.additionalNotes {
