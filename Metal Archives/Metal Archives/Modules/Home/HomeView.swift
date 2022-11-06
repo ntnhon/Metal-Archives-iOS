@@ -116,6 +116,20 @@ struct HomeView: View {
                 }, label: {
                     Text("Anstalt Records")
                 })
+
+                NavigationLink(destination: {
+                    ReviewView(apiService: apiService,
+                               urlString: "https://www.metal-archives.com/reviews/Death/Live_Tape_%232/67218/AgnosticPuppy666/799050")
+                }, label: {
+                    Text("Live Tape #2")
+                })
+
+                NavigationLink(destination: {
+                    ReviewView(apiService: apiService,
+                               urlString: "https://www.metal-archives.com/reviews/Death/Individual_Thought_Patterns/613/robotiq/126459")
+                }, label: {
+                    Text("Individual Thought Patterns")
+                })
             }
         }
     }

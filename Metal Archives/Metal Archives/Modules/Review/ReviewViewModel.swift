@@ -8,13 +8,25 @@
 import SwiftUI
 
 final class ReviewViewModel: ObservableObject {
-    deinit { print("\(Self.self) of \(urlString) is deallocated") }
+    @Published private(set) var reviewFetchable: FetchableObject<Review> = .fetching
 
-    private let apiService: APIServiceProtocol
-    private let urlString: String
+    let apiService: APIServiceProtocol
+    let urlString: String
 
     init(apiService: APIServiceProtocol, urlString: String) {
         self.apiService = apiService
         self.urlString = urlString
+    }
+
+    @MainActor
+    func fetchRelease() async {
+        if case .fetched = reviewFetchable { return }
+        do {
+            reviewFetchable = .fetching
+            let review = try await apiService.request(forType: Review.self, urlString: urlString)
+            reviewFetchable = .fetched(review)
+        } catch {
+            reviewFetchable = .error(error)
+        }
     }
 }

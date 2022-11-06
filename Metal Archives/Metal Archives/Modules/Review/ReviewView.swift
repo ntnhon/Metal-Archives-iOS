@@ -17,5 +17,8 @@ struct ReviewView: View {
 
     var body: some View {
         Text("Review")
+            .task {
+                await viewModel.fetchRelease()
+            }
     }
 }
