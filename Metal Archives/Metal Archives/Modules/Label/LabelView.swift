@@ -48,6 +48,7 @@ private struct LabelContentView: View {
     @Environment(\.selectedPhoto) private var selectedPhoto
     @StateObject private var tabsDatasource: LabelTabsDatasource
     @StateObject private var currentRosterViewModel: LabelCurrentRosterViewModel
+    @StateObject private var pastRosterViewModel: LabelPastRosterViewModel
     @State private var titleViewAlpha = 0.0
     @State private var logoScaleFactor: CGFloat = 1.0
     @State private var logoOpacity: Double = 1.0
@@ -64,6 +65,8 @@ private struct LabelContentView: View {
         self._tabsDatasource = .init(wrappedValue: .init(label: label))
         self._currentRosterViewModel = .init(wrappedValue: .init(apiService: apiService,
                                                                  urlString: urlString))
+        self._pastRosterViewModel = .init(wrappedValue: .init(apiService: apiService,
+                                                              urlString: urlString))
         self.logoViewHeight = label.logoUrlString != nil ? 300 : 0
     }
 
@@ -163,15 +166,22 @@ private struct LabelContentView: View {
                             case .subLabels:
                                 subLabelList
                                     .padding(.horizontal)
+
                             case .currentRoster, .lastKnownRoster:
                                 LabelCurrentRosterView(viewModel: currentRosterViewModel) { url in
                                     selectedBandUrl = url
                                 }
                                 .padding([.horizontal, .bottom])
+
                             case .pastRoster:
-                                Text("Past")
+                                LabelPastRosterView(viewModel: pastRosterViewModel) { url in
+                                    selectedBandUrl = url
+                                }
+                                .padding([.horizontal, .bottom])
+
                             case .releases:
                                 Text("Releases")
+
                             case .additionalNotes:
                                 if let notes = label.additionalNotes {
                                     HighlightableText(text: notes,
@@ -181,6 +191,7 @@ private struct LabelContentView: View {
                                         .padding([.horizontal, .bottom])
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 }
+
                             case .links:
                                 LabelRelatedLinksView(viewModel: viewModel)
                                     .frame(maxWidth: .infinity, alignment: .leading)

@@ -214,6 +214,9 @@
 		EF5A058F28FDE7C8001BF230 /* TopReleases.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058E28FDE7C8001BF230 /* TopReleases.swift */; };
 		EF5D011C28FF19BE008833C5 /* TopUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D011B28FF19BE008833C5 /* TopUsers.swift */; };
 		EF5EAB3F2917F0E7009BCDFF /* LabelCurrentRosterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB3E2917F0E7009BCDFF /* LabelCurrentRosterViewModel.swift */; };
+		EF5EAB412917FC0C009BCDFF /* LabelPastBand.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB402917FC0C009BCDFF /* LabelPastBand.swift */; };
+		EF5EAB432917FD38009BCDFF /* LabelPastRosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB422917FD38009BCDFF /* LabelPastRosterView.swift */; };
+		EF5EAB452917FD45009BCDFF /* LabelPastRosterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB442917FD45009BCDFF /* LabelPastRosterViewModel.swift */; };
 		EF60FFFF28FB122F00F96735 /* SimilarArtistsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */; };
 		EF62240A28F15FDF00845430 /* HornCircularLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240928F15FDF00845430 /* HornCircularLoader.swift */; };
 		EF62240C28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */; };
@@ -476,6 +479,9 @@
 		EF5A058E28FDE7C8001BF230 /* TopReleases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopReleases.swift; sourceTree = "<group>"; };
 		EF5D011B28FF19BE008833C5 /* TopUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUsers.swift; sourceTree = "<group>"; };
 		EF5EAB3E2917F0E7009BCDFF /* LabelCurrentRosterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCurrentRosterViewModel.swift; sourceTree = "<group>"; };
+		EF5EAB402917FC0C009BCDFF /* LabelPastBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelPastBand.swift; sourceTree = "<group>"; };
+		EF5EAB422917FD38009BCDFF /* LabelPastRosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelPastRosterView.swift; sourceTree = "<group>"; };
+		EF5EAB442917FD45009BCDFF /* LabelPastRosterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelPastRosterViewModel.swift; sourceTree = "<group>"; };
 		EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarArtistsViewModel.swift; sourceTree = "<group>"; };
 		EF62240928F15FDF00845430 /* HornCircularLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HornCircularLoader.swift; sourceTree = "<group>"; };
 		EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+retrieveImageAsync.swift"; sourceTree = "<group>"; };
@@ -930,6 +936,7 @@
 				C004A2B52658F17B0071E12A /* LabelLite.swift */,
 				EF6A8A022903DF1700DA2D67 /* LabelByAlphabet.swift */,
 				EF3F5FD82905688800FD1A31 /* LabelByCountry.swift */,
+				EF5EAB402917FC0C009BCDFF /* LabelPastBand.swift */,
 				EF6A8A042903DF7A00DA2D67 /* LabelStatus.swift */,
 			);
 			path = Label;
@@ -1100,6 +1107,8 @@
 				EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */,
 				EF57E81E29170E1C00408461 /* LabelCurrentRosterView.swift */,
 				EF5EAB3E2917F0E7009BCDFF /* LabelCurrentRosterViewModel.swift */,
+				EF5EAB422917FD38009BCDFF /* LabelPastRosterView.swift */,
+				EF5EAB442917FD45009BCDFF /* LabelPastRosterViewModel.swift */,
 				EF6A8A0629040FC900DA2D67 /* LabelsByAlphabetView.swift */,
 				EF6A8A0829040FDF00DA2D67 /* LabelsByAlphabetViewModel.swift */,
 				EF3F5FDA290569B000FD1A31 /* LabelsByCountryView.swift */,
@@ -1338,6 +1347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF5A058928FDDDE5001BF230 /* TopBandsViewModel.swift in Sources */,
+				EF5EAB412917FC0C009BCDFF /* LabelPastBand.swift in Sources */,
 				EF3C56A82901C5480010D568 /* BandByAlphabet.swift in Sources */,
 				EF3C2745291301CB00D6C9B2 /* ArtistRolesView.swift in Sources */,
 				C01D2D692683DC7D00957DE5 /* ReleaseFormat.swift in Sources */,
@@ -1465,6 +1475,7 @@
 				EFE80F5028F8A1F3008445DD /* ReleaseInfoView.swift in Sources */,
 				C007887A26AF5B750080AC93 /* SimilarArtistsView.swift in Sources */,
 				EF6A8A012903D7BE00DA2D67 /* BandsByGenreViewModel.swift in Sources */,
+				EF5EAB432917FD38009BCDFF /* LabelPastRosterView.swift in Sources */,
 				C0A37B6D26584E980017A02F /* Country.swift in Sources */,
 				EF57E81D291709F400408461 /* LabelCurrentBand.swift in Sources */,
 				EF3F5FDF29056C5600FD1A31 /* DeceasedArtist.swift in Sources */,
@@ -1523,6 +1534,7 @@
 				C0C22336265D914B00BA6ACB /* ReleaseOtherVersion.swift in Sources */,
 				EF6A8A0729040FC900DA2D67 /* LabelsByAlphabetView.swift in Sources */,
 				EF50D1C42896FC070081D6AA /* BandHeaderViewModel.swift in Sources */,
+				EF5EAB452917FD45009BCDFF /* LabelPastRosterViewModel.swift in Sources */,
 				C0964F492723FAB100100972 /* ActivityView.swift in Sources */,
 				EF5A058F28FDE7C8001BF230 /* TopReleases.swift in Sources */,
 				EF3F5FE329057A7800FD1A31 /* DeceasedArtistsView.swift in Sources */,

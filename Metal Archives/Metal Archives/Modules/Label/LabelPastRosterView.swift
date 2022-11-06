@@ -1,15 +1,15 @@
 //
-//  LabelCurrentRosterView.swift
+//  LabelPastRosterView.swift
 //  Metal Archives
 //
-//  Created by Nhon Nguyen on 05/11/2022.
+//  Created by Nhon Nguyen on 06/11/2022.
 //
 
 import SwiftUI
 
-struct LabelCurrentRosterView: View {
+struct LabelPastRosterView: View {
     @EnvironmentObject private var preferences: Preferences
-    @ObservedObject var viewModel: LabelCurrentRosterViewModel
+    @ObservedObject var viewModel: LabelPastRosterViewModel
     let onSelectBand: (String) -> Void
 
     var body: some View {
@@ -48,7 +48,7 @@ struct LabelCurrentRosterView: View {
                 sortOptions
             }
             ForEach(viewModel.bands, id: \.hashValue) { band in
-                LabelCurrentBandView(band: band)
+                LabelPastBandView(band: band)
                     .onTapGesture {
                         onSelectBand(band.band.thumbnailInfo.urlString)
                     }
@@ -106,6 +106,18 @@ struct LabelCurrentRosterView: View {
             }, label: {
                 view(for: .country(.descending))
             })
+
+            Button(action: {
+                viewModel.sortOption = .releaseCount(.ascending)
+            }, label: {
+                view(for: .releaseCount(.ascending))
+            })
+
+            Button(action: {
+                viewModel.sortOption = .releaseCount(.descending)
+            }, label: {
+                view(for: .releaseCount(.descending))
+            })
         }, label: {
             Text(viewModel.sortOption.title)
                 .padding(8)
@@ -121,7 +133,7 @@ struct LabelCurrentRosterView: View {
     }
 
     @ViewBuilder
-    private func view(for option: LabelCurrentBandPageManager.SortOption) -> some View {
+    private func view(for option: LabelPastBandPageManager.SortOption) -> some View {
         if option == viewModel.sortOption {
             Label(option.title, systemImage: "checkmark")
         } else {
@@ -130,9 +142,9 @@ struct LabelCurrentRosterView: View {
     }
 }
 
-private struct LabelCurrentBandView: View {
+private struct LabelPastBandView: View {
     @EnvironmentObject private var preferences: Preferences
-    let band: LabelCurrentBand
+    let band: LabelPastBand
 
     var body: some View {
         HStack {
@@ -146,10 +158,18 @@ private struct LabelCurrentBandView: View {
                     .fontWeight(.bold)
                     .foregroundColor(preferences.theme.primaryColor)
 
-                Text(band.country.nameAndFlag)
-                    .foregroundColor(preferences.theme.secondaryColor)
+                HStack {
+                    Text(band.country.nameAndFlag)
+                        .foregroundColor(preferences.theme.secondaryColor)
+
+                    Spacer()
+
+                    Label(band.releaseCount, systemImage: "opticaldisc")
+                        .font(.callout.weight(.medium))
+                }
 
                 Text(band.genre)
+                    .font(.callout)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
