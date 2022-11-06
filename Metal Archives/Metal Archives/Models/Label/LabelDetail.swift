@@ -152,6 +152,8 @@ extension LabelDetail: HTMLParsable {
             }
 
             switch div["id"] {
+            case "label_tabs":
+                builder.isLastKnown = div.text?.contains("Last known") ?? false
             case "label_info":
                 Self.parseLabelInfo(from: div, builder: builder)
             case "label_tabs_notes":

@@ -15,7 +15,7 @@ final class LabelViewModel: ObservableObject {
     @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .fetching
 
     let apiService: APIServiceProtocol
-    private let urlString: String
+    let urlString: String
 
     var label: LabelDetail? {
         switch labelFetchable {

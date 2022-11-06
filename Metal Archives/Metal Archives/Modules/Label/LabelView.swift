@@ -21,7 +21,9 @@ struct LabelView: View {
             case .fetching:
                 HornCircularLoader()
             case .fetched(let label):
-                LabelContentView(label: label)
+                LabelContentView(apiService: viewModel.apiService,
+                                 urlString: viewModel.urlString,
+                                 label: label)
                     .environmentObject(viewModel)
             case .error(let error):
                 VStack {
@@ -45,6 +47,7 @@ private struct LabelContentView: View {
     @EnvironmentObject private var viewModel: LabelViewModel
     @Environment(\.selectedPhoto) private var selectedPhoto
     @StateObject private var tabsDatasource: LabelTabsDatasource
+    @StateObject private var currentRosterViewModel: LabelCurrentRosterViewModel
     @State private var titleViewAlpha = 0.0
     @State private var logoScaleFactor: CGFloat = 1.0
     @State private var logoOpacity: Double = 1.0
@@ -56,9 +59,11 @@ private struct LabelContentView: View {
     private let maxLogoScaleFactor: CGFloat = 1.2
     let label: LabelDetail
 
-    init(label: LabelDetail) {
+    init(apiService: APIServiceProtocol, urlString: String, label: LabelDetail) {
         self.label = label
         self._tabsDatasource = .init(wrappedValue: .init(label: label))
+        self._currentRosterViewModel = .init(wrappedValue: .init(apiService: apiService,
+                                                                 urlString: urlString))
         self.logoViewHeight = label.logoUrlString != nil ? 300 : 0
     }
 
@@ -158,10 +163,11 @@ private struct LabelContentView: View {
                             case .subLabels:
                                 subLabelList
                                     .padding(.horizontal)
-                            case .currentRoster:
-                                Text("Current")
-                            case .lastKnownRoster:
-                                Text("Last known")
+                            case .currentRoster, .lastKnownRoster:
+                                LabelCurrentRosterView(viewModel: currentRosterViewModel) { url in
+                                    selectedBandUrl = url
+                                }
+                                .padding([.horizontal, .bottom])
                             case .pastRoster:
                                 Text("Past")
                             case .releases:

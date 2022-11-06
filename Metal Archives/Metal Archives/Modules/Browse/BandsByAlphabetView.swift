@@ -42,7 +42,7 @@ struct BandsByAlphabetView: View {
     @ViewBuilder
     private var bandList: some View {
         List {
-            ForEach(viewModel.bands, id: \.band.thumbnailInfo.urlString) { band in
+            ForEach(viewModel.bands, id: \.hashValue) { band in
                 NavigationLink(destination: {
                     BandView(apiService: viewModel.apiService,
                              bandUrlString: band.band.thumbnailInfo.urlString)

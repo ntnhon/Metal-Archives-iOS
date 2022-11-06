@@ -25,6 +25,12 @@ extension Country: Equatable {
     static func == (lhs: Self, rhs: Self) -> Bool { lhs.isoCode == rhs.isoCode }
 }
 
+extension Country: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(isoCode)
+    }
+}
+
 final class CountrySet: ObservableObject {
     @Published var countries: [Country] = []
 

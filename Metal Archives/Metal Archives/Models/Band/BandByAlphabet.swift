@@ -18,6 +18,15 @@ extension BandByAlphabet: Equatable {
     static func == (lhs: Self, rhs: Self) -> Bool { lhs.band == rhs.band }
 }
 
+extension BandByAlphabet: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(band)
+        hasher.combine(country)
+        hasher.combine(genre)
+        hasher.combine(status)
+    }
+}
+
 extension BandByAlphabet: PageElement {
     /*
      "<a href='https://www.metal-archives.com/bands/Aten/3540381609'>Aten</a>",
@@ -38,7 +47,7 @@ extension BandByAlphabet: PageElement {
         }
         self.band = band
 
-        self.country = CountryManager.shared.country(by: \.name, value: strings[1]) ?? .unknown
+        self.country = CountryManager.shared.country(by: \.name, value: strings[1])
         self.genre = strings[2]
 
         guard let spanTag = try Kanna.HTML(html: strings[3], encoding: .utf8).at_css("span"),
