@@ -58,6 +58,33 @@ private struct UserContentView: View {
                 HorizontalTabs(datasource: tabsDatasource)
                     .padding(.vertical)
                     .background(Color(.systemBackground))
+
+                switch tabsDatasource.selectedTab {
+                case .comments:
+                    if let comments = user.comments {
+                        Text(comments)
+                            .padding([.horizontal, .bottom])
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+
+                case .reviews:
+                    Text("Reviews")
+
+                case .albumCollection:
+                    Text("Album collections")
+
+                case .wantedList:
+                    Text("Wanted list")
+
+                case .tradeList:
+                    Text("Trade list")
+
+                case .submittedBands:
+                    Text("Submitted bands")
+
+                case .modificationHistory:
+                    Text("Modification history")
+                }
             }
         }
         .navigationTitle(user.username)
