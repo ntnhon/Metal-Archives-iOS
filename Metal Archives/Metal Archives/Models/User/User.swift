@@ -7,6 +7,7 @@
 
 import Foundation
 import Kanna
+import SwiftUI
 
 // swiftlint:disable inclusive_language
 struct User {
@@ -80,6 +81,19 @@ enum UserRank {
         case .veteran: return "Veteran"
         case .metalhead: return "Metalhead"
         case .other(let title): return title
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .webmaster, .metalGod, .metalLord: return .red
+        case .metalDemon: return .yellow
+        case .metalKnight: return .green
+        case .dishonourablyDischarged: return .blue
+        case .metalFreak: return .cyan
+        case .veteran: return .purple
+        case .metalhead: return Color(.magenta)
+        case .other: return .primary
         }
     }
 

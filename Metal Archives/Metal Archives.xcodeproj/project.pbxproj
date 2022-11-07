@@ -200,6 +200,7 @@
 		EF48E6D42895CB5600B52EF2 /* ArtistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6D32895CB5600B52EF2 /* ArtistViewModel.swift */; };
 		EF4B6BA6289900DA008DBCF6 /* Support.md in Resources */ = {isa = PBXBuildFile; fileRef = EF4B6BA52898FFF8008DBCF6 /* Support.md */; };
 		EF4B6BA82899015F008DBCF6 /* AttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B6BA72899015F008DBCF6 /* AttributedStringExtensions.swift */; };
+		EF4F13F32919957F0069C1EB /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4F13F22919957F0069C1EB /* UserInfoView.swift */; };
 		EF50D1C42896FC070081D6AA /* BandHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF50D1C32896FC070081D6AA /* BandHeaderViewModel.swift */; };
 		EF5234D6291455EE0089B5E4 /* LabelDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5234D5291455EE0089B5E4 /* LabelDetail.swift */; };
 		EF57E81D291709F400408461 /* LabelCurrentBand.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF57E81C291709F400408461 /* LabelCurrentBand.swift */; };
@@ -472,6 +473,7 @@
 		EF48E6D32895CB5600B52EF2 /* ArtistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewModel.swift; sourceTree = "<group>"; };
 		EF4B6BA52898FFF8008DBCF6 /* Support.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Support.md; sourceTree = "<group>"; };
 		EF4B6BA72899015F008DBCF6 /* AttributedStringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringExtensions.swift; sourceTree = "<group>"; };
+		EF4F13F22919957F0069C1EB /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		EF50D1C32896FC070081D6AA /* BandHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandHeaderViewModel.swift; sourceTree = "<group>"; };
 		EF5234D5291455EE0089B5E4 /* LabelDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelDetail.swift; sourceTree = "<group>"; };
 		EF57E81C291709F400408461 /* LabelCurrentBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCurrentBand.swift; sourceTree = "<group>"; };
@@ -1175,6 +1177,7 @@
 			children = (
 				EF7A2C9D28FC19210046B136 /* UserView.swift */,
 				EF7A2C9F28FC19340046B136 /* UserViewModel.swift */,
+				EF4F13F22919957F0069C1EB /* UserInfoView.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1506,6 +1509,7 @@
 				EF57E81D291709F400408461 /* LabelCurrentBand.swift in Sources */,
 				EF3F5FDF29056C5600FD1A31 /* DeceasedArtist.swift in Sources */,
 				C03873A62659AC0C00D2FD5E /* ReleaseInBand.swift in Sources */,
+				EF4F13F32919957F0069C1EB /* UserInfoView.swift in Sources */,
 				EF48E6D02895BD8100B52EF2 /* ReleaseView.swift in Sources */,
 				C060E6D02682714F0006433A /* AdvancedSearchSongsView.swift in Sources */,
 				EFC98B3C28EE0BD000154C30 /* RetryButton.swift in Sources */,
