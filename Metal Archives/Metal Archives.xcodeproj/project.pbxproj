@@ -202,6 +202,9 @@
 		EF4B6BA82899015F008DBCF6 /* AttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B6BA72899015F008DBCF6 /* AttributedStringExtensions.swift */; };
 		EF4F13F32919957F0069C1EB /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4F13F22919957F0069C1EB /* UserInfoView.swift */; };
 		EF4F13F529199A2C0069C1EB /* UserTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4F13F429199A2C0069C1EB /* UserTabsDatasource.swift */; };
+		EF4F13F72919A2C40069C1EB /* UserReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4F13F62919A2C40069C1EB /* UserReview.swift */; };
+		EF4F13F92919A85A0069C1EB /* UserReviewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4F13F82919A85A0069C1EB /* UserReviewsView.swift */; };
+		EF4F13FB2919A89A0069C1EB /* UserReviewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4F13FA2919A89A0069C1EB /* UserReviewsViewModel.swift */; };
 		EF50D1C42896FC070081D6AA /* BandHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF50D1C32896FC070081D6AA /* BandHeaderViewModel.swift */; };
 		EF5234D6291455EE0089B5E4 /* LabelDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5234D5291455EE0089B5E4 /* LabelDetail.swift */; };
 		EF57E81D291709F400408461 /* LabelCurrentBand.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF57E81C291709F400408461 /* LabelCurrentBand.swift */; };
@@ -476,6 +479,9 @@
 		EF4B6BA72899015F008DBCF6 /* AttributedStringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringExtensions.swift; sourceTree = "<group>"; };
 		EF4F13F22919957F0069C1EB /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		EF4F13F429199A2C0069C1EB /* UserTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabsDatasource.swift; sourceTree = "<group>"; };
+		EF4F13F62919A2C40069C1EB /* UserReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReview.swift; sourceTree = "<group>"; };
+		EF4F13F82919A85A0069C1EB /* UserReviewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewsView.swift; sourceTree = "<group>"; };
+		EF4F13FA2919A89A0069C1EB /* UserReviewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewsViewModel.swift; sourceTree = "<group>"; };
 		EF50D1C32896FC070081D6AA /* BandHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandHeaderViewModel.swift; sourceTree = "<group>"; };
 		EF5234D5291455EE0089B5E4 /* LabelDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelDetail.swift; sourceTree = "<group>"; };
 		EF57E81C291709F400408461 /* LabelCurrentBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCurrentBand.swift; sourceTree = "<group>"; };
@@ -571,6 +577,7 @@
 				EF5EAB522918274B009BCDFF /* User.swift */,
 				EF5D011B28FF19BE008833C5 /* TopUsers.swift */,
 				C004A2BA2658F3290071E12A /* UserLite.swift */,
+				EF4F13F62919A2C40069C1EB /* UserReview.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1180,6 +1187,8 @@
 				EF4F13F22919957F0069C1EB /* UserInfoView.swift */,
 				EF7A2C9D28FC19210046B136 /* UserView.swift */,
 				EF7A2C9F28FC19340046B136 /* UserViewModel.swift */,
+				EF4F13F82919A85A0069C1EB /* UserReviewsView.swift */,
+				EF4F13FA2919A89A0069C1EB /* UserReviewsViewModel.swift */,
 				EF4F13F429199A2C0069C1EB /* UserTabsDatasource.swift */,
 			);
 			path = User;
@@ -1384,6 +1393,7 @@
 				EF4664AE2909B05800207E14 /* ReleaseLineUpViewModel.swift in Sources */,
 				EF6A8A0929040FDF00DA2D67 /* LabelsByAlphabetViewModel.swift in Sources */,
 				C0C65A1426982A0B0062FF9C /* Order.swift in Sources */,
+				EF4F13F92919A85A0069C1EB /* UserReviewsView.swift in Sources */,
 				EF42EE7C2900807B00362E39 /* ThumbnailInfoMatcher.swift in Sources */,
 				C017D421267E30D9008B6EE5 /* SettingsView.swift in Sources */,
 				C0F240FB26891AB500ED546D /* BandViewModel.swift in Sources */,
@@ -1437,6 +1447,7 @@
 				C0F240F92689052000ED546D /* ColorExtensions.swift in Sources */,
 				C0A9934B271240A100121BA3 /* Photo.swift in Sources */,
 				C03873A42659AB3600D2FD5E /* RelatedLink.swift in Sources */,
+				EF4F13F72919A2C40069C1EB /* UserReview.swift in Sources */,
 				C0F240FD26891D9D00ED546D /* HTMLParsable.swift in Sources */,
 				C05186322697A0BF006BB7D5 /* DiscographyViewModel.swift in Sources */,
 				C0DD1385267F6E1D009F0B81 /* ArrayExtensions.swift in Sources */,
@@ -1556,6 +1567,7 @@
 				C05FDD3726996E1000EE2AB3 /* UIColorExtensions.swift in Sources */,
 				EF6A89F92903D01C00DA2D67 /* BandsByCountryView.swift in Sources */,
 				EF3F5FDB290569B000FD1A31 /* LabelsByCountryView.swift in Sources */,
+				EF4F13FB2919A89A0069C1EB /* UserReviewsViewModel.swift in Sources */,
 				C017D414267E3034008B6EE5 /* SearchView.swift in Sources */,
 				EF6A8A052903DF7A00DA2D67 /* LabelStatus.swift in Sources */,
 				C017D424267E3115008B6EE5 /* RootView.swift in Sources */,
