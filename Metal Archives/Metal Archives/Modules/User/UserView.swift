@@ -42,13 +42,22 @@ struct UserView: View {
 
 private struct UserContentView: View {
     @EnvironmentObject private var viewModel: UserViewModel
+    @StateObject private var tabsDatasource: UserTabsDatasource
     let user: User
+
+    init(user: User) {
+        self.user = user
+        self._tabsDatasource = .init(wrappedValue: .init(user: user))
+    }
 
     var body: some View {
         ScrollView {
             VStack {
                 UserInfoView(user: user)
-                    .padding(.horizontal)
+
+                HorizontalTabs(datasource: tabsDatasource)
+                    .padding(.vertical)
+                    .background(Color(.systemBackground))
             }
         }
         .navigationTitle(user.username)
