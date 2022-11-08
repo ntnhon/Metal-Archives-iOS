@@ -45,9 +45,12 @@ private struct UserContentView: View {
     @StateObject private var tabsDatasource: UserTabsDatasource
     @StateObject private var reviewsViewModel: UserReviewsViewModel
     @StateObject private var submittedBandsViewModel: UserSubmittedBandsViewModel
+    @StateObject private var modificationsViewModel: UserModificationsViewModel
     @State private var selectedReviewUrl: String?
     @State private var selectedBandUrl: String?
     @State private var selectedReleaseUrl: String?
+    @State private var selectedArtistUrl: String?
+    @State private var selectedLabelUrl: String?
     let user: User
 
     init(apiService: APIServiceProtocol, user: User) {
@@ -55,12 +58,15 @@ private struct UserContentView: View {
         self._tabsDatasource = .init(wrappedValue: .init(user: user))
         self._reviewsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: user.id))
         self._submittedBandsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: user.id))
+        self._modificationsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: user.id))
     }
 
     var body: some View {
         let isShowingReviewDetail = makeIsShowingReviewDetailBinding()
         let isShowingBandDetail = makeIsShowingBandDetailBinding()
         let isShowingReleaseDetail = makeIsShowingReleaseDetailBinding()
+        let isShowingArtistDetail = makeIsShowingArtistDetailBinding()
+        let isShowingLabelDetail = makeIsShowingLabelDetailBinding()
 
         ZStack {
             NavigationLink(
@@ -134,7 +140,12 @@ private struct UserContentView: View {
                         .padding([.horizontal, .bottom])
 
                     case .modificationHistory:
-                        Text("Modification history")
+                        UserModificationsView(viewModel: modificationsViewModel,
+                                              onSelectBand: { url in selectedBandUrl = url },
+                                              onSelectArtist: { url in selectedArtistUrl = url },
+                                              onSelectRelease: { url in selectedReleaseUrl = url },
+                                              onSelectLabel: { url in selectedLabelUrl = url })
+                        .padding([.horizontal, .bottom])
                     }
                 }
             }
@@ -169,6 +180,26 @@ private struct UserContentView: View {
         }, set: { newValue in
             if !newValue {
                 selectedReleaseUrl = nil
+            }
+        })
+    }
+
+    private func makeIsShowingArtistDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedArtistUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedArtistUrl = nil
+            }
+        })
+    }
+
+    private func makeIsShowingLabelDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedLabelUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedLabelUrl = nil
             }
         })
     }

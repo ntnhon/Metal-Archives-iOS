@@ -32,6 +32,7 @@ enum PageConfigsError: Error {
     case missingDisplayStart(String)
     case missingDisplayLength(String)
     case failedToAddPercentEncoding(String)
+    case impossibleCase
 }
 
 struct PageConfigs {
