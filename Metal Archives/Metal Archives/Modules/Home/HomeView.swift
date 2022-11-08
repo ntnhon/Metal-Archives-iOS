@@ -145,6 +145,15 @@ struct HomeView: View {
                     Text("HellBlazer")
                 })
             }
+
+            Group {
+                NavigationLink(destination: {
+                    UserView(apiService: apiService,
+                             urlString: "https://www.metal-archives.com/users/artery")
+                }, label: {
+                    Text("artery")
+                })
+            }
         }
     }
 }

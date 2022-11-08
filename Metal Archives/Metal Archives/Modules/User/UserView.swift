@@ -44,6 +44,7 @@ private struct UserContentView: View {
     @EnvironmentObject private var viewModel: UserViewModel
     @StateObject private var tabsDatasource: UserTabsDatasource
     @StateObject private var reviewsViewModel: UserReviewsViewModel
+    @StateObject private var submittedBandsViewModel: UserSubmittedBandsViewModel
     @State private var selectedReviewUrl: String?
     @State private var selectedBandUrl: String?
     @State private var selectedReleaseUrl: String?
@@ -53,6 +54,7 @@ private struct UserContentView: View {
         self.user = user
         self._tabsDatasource = .init(wrappedValue: .init(user: user))
         self._reviewsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: user.id))
+        self._submittedBandsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: user.id))
     }
 
     var body: some View {
@@ -126,7 +128,10 @@ private struct UserContentView: View {
                         Text("Trade list")
 
                     case .submittedBands:
-                        Text("Submitted bands")
+                        UserSubmittedBandsView(viewModel: submittedBandsViewModel) { url in
+                            selectedBandUrl = url
+                        }
+                        .padding([.horizontal, .bottom])
 
                     case .modificationHistory:
                         Text("Modification history")

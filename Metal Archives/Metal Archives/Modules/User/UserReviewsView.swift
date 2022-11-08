@@ -35,6 +35,7 @@ struct UserReviewsView: View {
             } else if viewModel.reviews.isEmpty {
                 Text("No reviews")
                     .font(.callout.italic())
+                    .frame(maxWidth: .infinity, alignment: .leading)
             } else {
                 reviewList
             }
