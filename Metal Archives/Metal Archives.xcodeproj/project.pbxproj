@@ -255,6 +255,9 @@
 		EF7A2C9B28FC18A60046B136 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9A28FC18A60046B136 /* ReviewViewModel.swift */; };
 		EF7A2C9E28FC19210046B136 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9D28FC19210046B136 /* UserView.swift */; };
 		EF7A2CA028FC19340046B136 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9F28FC19340046B136 /* UserViewModel.swift */; };
+		EF7A99EE291C5946008770E7 /* UserRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A99ED291C5946008770E7 /* UserRelease.swift */; };
+		EF7A99F0291C5A9B008770E7 /* UserReleasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A99EF291C5A9B008770E7 /* UserReleasesView.swift */; };
+		EF7A99F2291C5AB0008770E7 /* UserReleasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A99F1291C5AB0008770E7 /* UserReleasesViewModel.swift */; };
 		EF81B20C2916939000ADDD60 /* LabelInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF81B20B2916939000ADDD60 /* LabelInfoView.swift */; };
 		EF81B20E29169ACB00ADDD60 /* LabelRelatedLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF81B20D29169ACB00ADDD60 /* LabelRelatedLinksView.swift */; };
 		EFA48C3E28F5E5890012B349 /* ReleaseTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA48C3D28F5E5890012B349 /* ReleaseTabsDatasource.swift */; };
@@ -538,6 +541,9 @@
 		EF7A2C9A28FC18A60046B136 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 		EF7A2C9D28FC19210046B136 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		EF7A2C9F28FC19340046B136 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		EF7A99ED291C5946008770E7 /* UserRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRelease.swift; sourceTree = "<group>"; };
+		EF7A99EF291C5A9B008770E7 /* UserReleasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReleasesView.swift; sourceTree = "<group>"; };
+		EF7A99F1291C5AB0008770E7 /* UserReleasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReleasesViewModel.swift; sourceTree = "<group>"; };
 		EF81B20B2916939000ADDD60 /* LabelInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelInfoView.swift; sourceTree = "<group>"; };
 		EF81B20D29169ACB00ADDD60 /* LabelRelatedLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelRelatedLinksView.swift; sourceTree = "<group>"; };
 		EFA48C3D28F5E5890012B349 /* ReleaseTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTabsDatasource.swift; sourceTree = "<group>"; };
@@ -590,6 +596,7 @@
 				EF5D011B28FF19BE008833C5 /* TopUsers.swift */,
 				C004A2BA2658F3290071E12A /* UserLite.swift */,
 				EF59D61F291AFD0800B68F4F /* UserModification.swift */,
+				EF7A99ED291C5946008770E7 /* UserRelease.swift */,
 				EF4F13F62919A2C40069C1EB /* UserReview.swift */,
 				EF59D619291AF41800B68F4F /* UserSubmittedBand.swift */,
 			);
@@ -1203,6 +1210,8 @@
 				EF7A2C9F28FC19340046B136 /* UserViewModel.swift */,
 				EF59D621291B00A800B68F4F /* UserModificationsView.swift */,
 				EF59D623291B00B500B68F4F /* UserModificationsViewModel.swift */,
+				EF7A99EF291C5A9B008770E7 /* UserReleasesView.swift */,
+				EF7A99F1291C5AB0008770E7 /* UserReleasesViewModel.swift */,
 				EF4F13F82919A85A0069C1EB /* UserReviewsView.swift */,
 				EF4F13FA2919A89A0069C1EB /* UserReviewsViewModel.swift */,
 				EF59D61B291AF5CF00B68F4F /* UserSubmittedBandsView.swift */,
@@ -1467,6 +1476,7 @@
 				C0F240F92689052000ED546D /* ColorExtensions.swift in Sources */,
 				C0A9934B271240A100121BA3 /* Photo.swift in Sources */,
 				C03873A42659AB3600D2FD5E /* RelatedLink.swift in Sources */,
+				EF7A99F2291C5AB0008770E7 /* UserReleasesViewModel.swift in Sources */,
 				EF4F13F72919A2C40069C1EB /* UserReview.swift in Sources */,
 				C0F240FD26891D9D00ED546D /* HTMLParsable.swift in Sources */,
 				C05186322697A0BF006BB7D5 /* DiscographyViewModel.swift in Sources */,
@@ -1495,6 +1505,7 @@
 				C0DD137B267F6A23009F0B81 /* HomeSection.swift in Sources */,
 				EF5EAB532918274B009BCDFF /* User.swift in Sources */,
 				C017D42D267E9B51008B6EE5 /* AboutView.swift in Sources */,
+				EF7A99F0291C5A9B008770E7 /* UserReleasesView.swift in Sources */,
 				EF5A058128FDDC72001BF230 /* TopBandsView.swift in Sources */,
 				EF3FCC1E28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift in Sources */,
 				EF3F5FE129056CB500FD1A31 /* ArtistLite.swift in Sources */,
@@ -1610,6 +1621,7 @@
 				C0964F492723FAB100100972 /* ActivityView.swift in Sources */,
 				EF5A058F28FDE7C8001BF230 /* TopReleases.swift in Sources */,
 				EF3F5FE329057A7800FD1A31 /* DeceasedArtistsView.swift in Sources */,
+				EF7A99EE291C5946008770E7 /* UserRelease.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

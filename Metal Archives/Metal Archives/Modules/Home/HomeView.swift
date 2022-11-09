@@ -153,6 +153,20 @@ struct HomeView: View {
                 }, label: {
                     Text("artery")
                 })
+
+                NavigationLink(destination: {
+                    UserView(apiService: apiService,
+                             urlString: "https://www.metal-archives.com/users/Helvede")
+                }, label: {
+                    Text("Helvede")
+                })
+
+                NavigationLink(destination: {
+                    UserView(apiService: apiService,
+                             urlString: "https://www.metal-archives.com/users/Azmodes")
+                }, label: {
+                    Text("Azmodes")
+                })
             }
         }
     }

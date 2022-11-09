@@ -46,6 +46,9 @@ private struct UserContentView: View {
     @StateObject private var reviewsViewModel: UserReviewsViewModel
     @StateObject private var submittedBandsViewModel: UserSubmittedBandsViewModel
     @StateObject private var modificationsViewModel: UserModificationsViewModel
+    @StateObject private var albumCollectionViewModel: UserReleasesViewModel
+    @StateObject private var forTradeListViewModel: UserReleasesViewModel
+    @StateObject private var wantedListViewModel: UserReleasesViewModel
     @State private var selectedReviewUrl: String?
     @State private var selectedBandUrl: String?
     @State private var selectedReleaseUrl: String?
@@ -54,11 +57,21 @@ private struct UserContentView: View {
     let user: User
 
     init(apiService: APIServiceProtocol, user: User) {
+        let userId = user.id
         self.user = user
         self._tabsDatasource = .init(wrappedValue: .init(user: user))
-        self._reviewsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: user.id))
-        self._submittedBandsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: user.id))
-        self._modificationsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: user.id))
+        self._reviewsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: userId))
+        self._submittedBandsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: userId))
+        self._modificationsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: userId))
+        self._albumCollectionViewModel = .init(wrappedValue: .init(apiService: apiService,
+                                                                   userId: userId,
+                                                                   type: .collection))
+        self._forTradeListViewModel = .init(wrappedValue: .init(apiService: apiService,
+                                                                userId: userId,
+                                                                type: .forTrade))
+        self._wantedListViewModel = .init(wrappedValue: .init(apiService: apiService,
+                                                              userId: userId,
+                                                              type: .wanted))
     }
 
     var body: some View {
@@ -101,6 +114,26 @@ private struct UserContentView: View {
                     }},
                 label: { EmptyView() })
 
+            NavigationLink(
+                isActive: isShowingArtistDetail,
+                destination: {
+                    if let selectedArtistUrl {
+                        ArtistView(apiService: viewModel.apiService, urlString: selectedArtistUrl)
+                    } else {
+                        EmptyView()
+                    }},
+                label: { EmptyView() })
+
+            NavigationLink(
+                isActive: isShowingLabelDetail,
+                destination: {
+                    if let selectedLabelUrl {
+                        LabelView(apiService: viewModel.apiService, urlString: selectedLabelUrl)
+                    } else {
+                        EmptyView()
+                    }},
+                label: { EmptyView() })
+
             ScrollView {
                 VStack {
                     UserInfoView(user: user)
@@ -125,13 +158,22 @@ private struct UserContentView: View {
                         .padding([.horizontal, .bottom])
 
                     case .albumCollection:
-                        Text("Album collections")
+                        UserReleasesView(viewModel: albumCollectionViewModel,
+                                         onSelectBand: { url in selectedBandUrl = url },
+                                         onSelectRelease: { url in selectedReleaseUrl = url })
+                        .padding([.horizontal, .bottom])
 
                     case .wantedList:
-                        Text("Wanted list")
+                        UserReleasesView(viewModel: wantedListViewModel,
+                                         onSelectBand: { url in selectedBandUrl = url },
+                                         onSelectRelease: { url in selectedReleaseUrl = url })
+                        .padding([.horizontal, .bottom])
 
                     case .tradeList:
-                        Text("Trade list")
+                        UserReleasesView(viewModel: forTradeListViewModel,
+                                         onSelectBand: { url in selectedBandUrl = url },
+                                         onSelectRelease: { url in selectedReleaseUrl = url })
+                        .padding([.horizontal, .bottom])
 
                     case .submittedBands:
                         UserSubmittedBandsView(viewModel: submittedBandsViewModel) { url in
