@@ -33,7 +33,7 @@ struct RootView: View {
                 }
                 .tag(RootViewTab.browse)
 
-            NavigationView { SearchView() }
+            NavigationView { SearchView(apiService: apiService) }
                 .tabItem {
                     Image(systemName: selectedTab == .search ?
                             "magnifyingglass.circle.fill" : "magnifyingglass.circle")

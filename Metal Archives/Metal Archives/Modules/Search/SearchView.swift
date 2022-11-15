@@ -10,9 +10,37 @@ import SwiftUI
 struct SearchView: View {
     @State private var type = SimpleSearchType.bandName
     @State private var term = ""
+    @State private var isShowingResults = false
+    let apiService: APIServiceProtocol
+
     var body: some View {
         ScrollView {
             VStack {
+                NavigationLink(
+                    isActive: $isShowingResults,
+                    destination: {
+                        switch type {
+                        case .bandName:
+                            makeBandSimpleSearchResultsView()
+                        case .musicGenre:
+                            Text("Music genre")
+                        case .lyricalThemes:
+                            Text("Lyrical themes")
+                        case .albumTitle:
+                            Text("Album title")
+                        case .songTitle:
+                            Text("Song title")
+                        case .label:
+                            Text("Label")
+                        case .artist:
+                            Text("Artist")
+                        case .user:
+                            Text("User")
+                        }
+                    },
+                    label: {
+                        EmptyView()
+                    })
                 searchBar
                 LazyVStack {
                     ForEach(0..<50, id: \.self) { index in
@@ -36,7 +64,7 @@ struct SearchView: View {
     private var searchBar: some View {
         VStack {
             SwiftUISearchBar(term: $term, placeholder: type.placeholder) {
-                print(term)
+                isShowingResults.toggle()
             }
 
             HStack {
@@ -69,5 +97,13 @@ struct SearchView: View {
             }
             .padding(.horizontal)
         }
+    }
+
+    private func makeBandSimpleSearchResultsView() -> some View {
+        let manager = BandSimpleSearchResultPageManager(apiService: apiService, query: term)
+        let viewModel = SearchResultsViewModel(apiService: apiService,
+                                               manager: manager,
+                                               query: term)
+        return SearchResultsView(viewModel: viewModel)
     }
 }

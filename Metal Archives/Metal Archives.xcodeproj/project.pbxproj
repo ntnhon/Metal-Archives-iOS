@@ -272,6 +272,9 @@
 		EFE028F12894852E004F2328 /* SearchTips.md in Resources */ = {isa = PBXBuildFile; fileRef = EFE028F02894852E004F2328 /* SearchTips.md */; };
 		EFE80F5028F8A1F3008445DD /* ReleaseInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE80F4F28F8A1F3008445DD /* ReleaseInfoView.swift */; };
 		EFEB4334290C60210021F4DA /* ArtistPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEB4333290C60210021F4DA /* ArtistPhotoView.swift */; };
+		EFF4B875292419F20007B563 /* BandSimpleSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF4B874292419F20007B563 /* BandSimpleSearchResult.swift */; };
+		EFF4B87729241CE20007B563 /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF4B87629241CE20007B563 /* SearchResultsViewModel.swift */; };
+		EFF4B87A292427D60007B563 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF4B879292427D60007B563 /* SearchResultsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -558,6 +561,9 @@
 		EFE028F02894852E004F2328 /* SearchTips.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SearchTips.md; sourceTree = "<group>"; };
 		EFE80F4F28F8A1F3008445DD /* ReleaseInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInfoView.swift; sourceTree = "<group>"; };
 		EFEB4333290C60210021F4DA /* ArtistPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistPhotoView.swift; sourceTree = "<group>"; };
+		EFF4B874292419F20007B563 /* BandSimpleSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimpleSearchResult.swift; sourceTree = "<group>"; };
+		EFF4B87629241CE20007B563 /* SearchResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewModel.swift; sourceTree = "<group>"; };
+		EFF4B879292427D60007B563 /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -796,6 +802,8 @@
 				C01D2D6A2683DD0D00957DE5 /* ReleaseFormatListView.swift */,
 				C01D2D662683DB1A00957DE5 /* ReleaseTypeListView.swift */,
 				C017D413267E3034008B6EE5 /* SearchView.swift */,
+				EFF4B879292427D60007B563 /* SearchResultsView.swift */,
+				EFF4B87629241CE20007B563 /* SearchResultsViewModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1017,6 +1025,7 @@
 				C041C3132658EF19006B0F1F /* Label */,
 				C004A2D1265915F50071E12A /* Release */,
 				C0A68A15265D738D00E9A658 /* Review */,
+				EFF4B878292426910007B563 /* Search */,
 				C004A2B92658F31C0071E12A /* User */,
 				C0A37B6C26584E980017A02F /* Country.swift */,
 				C0DD1382267F6C40009F0B81 /* DiscographyMode.swift */,
@@ -1221,6 +1230,14 @@
 			path = User;
 			sourceTree = "<group>";
 		};
+		EFF4B878292426910007B563 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				EFF4B874292419F20007B563 /* BandSimpleSearchResult.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1411,6 +1428,7 @@
 			files = (
 				EF5EAB51291821A4009BCDFF /* ReviewInfoView.swift in Sources */,
 				EF5A058928FDDDE5001BF230 /* TopBandsViewModel.swift in Sources */,
+				EFF4B87A292427D60007B563 /* SearchResultsView.swift in Sources */,
 				EF5EAB412917FC0C009BCDFF /* LabelPastBand.swift in Sources */,
 				EF3C56A82901C5480010D568 /* BandByAlphabet.swift in Sources */,
 				EF3C2745291301CB00D6C9B2 /* ArtistRolesView.swift in Sources */,
@@ -1483,6 +1501,7 @@
 				C0DD1385267F6E1D009F0B81 /* ArrayExtensions.swift in Sources */,
 				EF5A058B28FDDE02001BF230 /* TopMembersViewModel.swift in Sources */,
 				EF62240E28F1C94300845430 /* ReleaseCoverView.swift in Sources */,
+				EFF4B875292419F20007B563 /* BandSimpleSearchResult.swift in Sources */,
 				EFC0C6BF28F49F8C0092497A /* BandTabsDatasource.swift in Sources */,
 				EF6A89FF2903D7A000DA2D67 /* BandsByGenreView.swift in Sources */,
 				EF3C273D2912E8AD00D6C9B2 /* ArtistInfoView.swift in Sources */,
@@ -1529,6 +1548,7 @@
 				EF3C56AC2901CD000010D568 /* BandsByAlphabetViewModel.swift in Sources */,
 				EFA48C4428F5EA010012B349 /* OtherVersionsView.swift in Sources */,
 				EFA48C3E28F5E5890012B349 /* ReleaseTabsDatasource.swift in Sources */,
+				EFF4B87729241CE20007B563 /* SearchResultsViewModel.swift in Sources */,
 				C071578326E6AA280075C012 /* HighlightableText.swift in Sources */,
 				EF3F5FED29058AB500FD1A31 /* NewsPostView.swift in Sources */,
 				C004A2D3265916020071E12A /* Release.swift in Sources */,
