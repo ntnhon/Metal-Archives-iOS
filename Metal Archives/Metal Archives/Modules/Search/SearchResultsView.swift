@@ -176,6 +176,11 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
                 .onTapGesture {
                     selectedBandUrl = band.band.thumbnailInfo.urlString
                 }
+        } else if let band = result as? MusicGenreSimpleSearchResult {
+            BandSimpleSearchResultView(band: band)
+                .onTapGesture {
+                    selectedBandUrl = band.band.thumbnailInfo.urlString
+                }
         } else {
             EmptyView()
         }

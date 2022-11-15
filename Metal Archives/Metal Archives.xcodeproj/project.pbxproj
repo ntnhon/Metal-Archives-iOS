@@ -275,6 +275,7 @@
 		EFF4B875292419F20007B563 /* BandSimpleSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF4B874292419F20007B563 /* BandSimpleSearchResult.swift */; };
 		EFF4B87729241CE20007B563 /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF4B87629241CE20007B563 /* SearchResultsViewModel.swift */; };
 		EFF4B87A292427D60007B563 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF4B879292427D60007B563 /* SearchResultsView.swift */; };
+		EFF4B87C292431780007B563 /* MusicGenreSimpleSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF4B87B292431780007B563 /* MusicGenreSimpleSearchResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -564,6 +565,7 @@
 		EFF4B874292419F20007B563 /* BandSimpleSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimpleSearchResult.swift; sourceTree = "<group>"; };
 		EFF4B87629241CE20007B563 /* SearchResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewModel.swift; sourceTree = "<group>"; };
 		EFF4B879292427D60007B563 /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
+		EFF4B87B292431780007B563 /* MusicGenreSimpleSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicGenreSimpleSearchResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1234,6 +1236,7 @@
 			isa = PBXGroup;
 			children = (
 				EFF4B874292419F20007B563 /* BandSimpleSearchResult.swift */,
+				EFF4B87B292431780007B563 /* MusicGenreSimpleSearchResult.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1433,6 +1436,7 @@
 				EF3C56A82901C5480010D568 /* BandByAlphabet.swift in Sources */,
 				EF3C2745291301CB00D6C9B2 /* ArtistRolesView.swift in Sources */,
 				C01D2D692683DC7D00957DE5 /* ReleaseFormat.swift in Sources */,
+				EFF4B87C292431780007B563 /* MusicGenreSimpleSearchResult.swift in Sources */,
 				EF2862D628EB70CB00E2C131 /* BandReviewsViewModel.swift in Sources */,
 				EF48E6D22895BDAB00B52EF2 /* ReleaseViewModel.swift in Sources */,
 				EF4664AE2909B05800207E14 /* ReleaseLineUpViewModel.swift in Sources */,

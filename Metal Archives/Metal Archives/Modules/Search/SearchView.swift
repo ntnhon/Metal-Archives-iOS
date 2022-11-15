@@ -19,24 +19,10 @@ struct SearchView: View {
                 NavigationLink(
                     isActive: $isShowingResults,
                     destination: {
-                        switch type {
-                        case .bandName:
-                            makeBandSimpleSearchResultsView()
-                        case .musicGenre:
-                            Text("Music genre")
-                        case .lyricalThemes:
-                            Text("Lyrical themes")
-                        case .albumTitle:
-                            Text("Album title")
-                        case .songTitle:
-                            Text("Song title")
-                        case .label:
-                            Text("Label")
-                        case .artist:
-                            Text("Artist")
-                        case .user:
-                            Text("User")
-                        }
+                        let manager = makePageManager()
+                        SearchResultsView(viewModel: .init(apiService: apiService,
+                                                           manager: manager,
+                                                           query: term))
                     },
                     label: {
                         EmptyView()
@@ -99,11 +85,17 @@ struct SearchView: View {
         }
     }
 
-    private func makeBandSimpleSearchResultsView() -> some View {
-        let manager = BandSimpleSearchResultPageManager(apiService: apiService, query: term)
-        let viewModel = SearchResultsViewModel(apiService: apiService,
-                                               manager: manager,
-                                               query: term)
-        return SearchResultsView(viewModel: viewModel)
+    private func makePageManager() -> PageManager<some HashableEquatablePageElement> {
+        switch type {
+        case .bandName:
+            return BandSimpleSearchResultPageManager(apiService: apiService,
+                                                     query: term)
+        case .musicGenre:
+            return MusicGenreSimpleSearchResultPageManager(apiService: apiService,
+                                                           query: term)
+        default:
+            return BandSimpleSearchResultPageManager(apiService: apiService,
+                                                     query: term)
+        }
     }
 }
