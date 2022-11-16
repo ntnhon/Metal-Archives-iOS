@@ -194,6 +194,11 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
             SongSimpleSearchResultView(result: result,
                                        onSelectRelease: { url in selectedReleaseUrl = url },
                                        onSelectBand: { url in selectedBandUrl = url })
+        } else if let result = result as? LabelSimpleSearchResult {
+            LabelSimpleSearchResultView(result: result)
+                .onTapGesture {
+                    selectedLabelUrl = result.label.thumbnailInfo?.urlString
+                }
         } else {
             EmptyView()
         }
@@ -416,5 +421,43 @@ private struct SongSimpleSearchResultView: View {
             message: {
                 Text("\"\(result.release.title)\" by \(result.band.name)")
             })
+    }
+}
+
+private struct LabelSimpleSearchResultView: View {
+    @EnvironmentObject private var preferences: Preferences
+    let result: LabelSimpleSearchResult
+
+    var body: some View {
+        HStack {
+            if let thumbnailInfo = result.label.thumbnailInfo {
+                ThumbnailView(thumbnailInfo: thumbnailInfo,
+                              photoDescription: result.label.name)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
+            }
+
+            VStack(alignment: .leading) {
+                if let note = result.note {
+                    Text(result.label.name)
+                        .fontWeight(.bold)
+                        .foregroundColor(preferences.theme.primaryColor) +
+                    Text(" (\(note))")
+                } else {
+                    Text(result.label.name)
+                        .fontWeight(.bold)
+                        .foregroundColor(preferences.theme.primaryColor)
+                }
+
+                Text(result.country.nameAndFlag)
+                    .foregroundColor(preferences.theme.secondaryColor)
+
+                Text(result.specialisation)
+                    .font(.callout)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .contentShape(Rectangle())
     }
 }
