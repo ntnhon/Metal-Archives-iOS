@@ -98,6 +98,9 @@ struct SearchView: View {
         case .label:
             let manager = LabelSimpleSearchResultPageManager(apiService: apiService, query: term)
             SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))
+        case .artist:
+            let manager = ArtistSimpleSearchResultPageManager(apiService: apiService, query: term)
+            SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))
         default:
             let manager = BandSimpleSearchResultPageManager(apiService: apiService, query: term)
             SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))

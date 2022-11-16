@@ -199,6 +199,10 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
                 .onTapGesture {
                     selectedLabelUrl = result.label.thumbnailInfo?.urlString
                 }
+        } else if let result = result as? ArtistSimpleSearchResult {
+            ArtistSimpleSearchResultView(result: result,
+                                         onSelectArtist: { url in selectedArtistUrl = url },
+                                         onSelectBand: { url in selectedBandUrl = url })
         } else {
             EmptyView()
         }
@@ -459,5 +463,74 @@ private struct LabelSimpleSearchResultView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .contentShape(Rectangle())
+    }
+}
+
+private struct ArtistSimpleSearchResultView: View {
+    @EnvironmentObject private var preferences: Preferences
+    @State private var isShowingConfirmationDialog = false
+    let result: ArtistSimpleSearchResult
+    let onSelectArtist: (String) -> Void
+    let onSelectBand: (String) -> Void
+
+    var body: some View {
+        HStack {
+            ThumbnailView(thumbnailInfo: result.artist.thumbnailInfo,
+                          photoDescription: result.artist.name)
+            .font(.largeTitle)
+            .foregroundColor(preferences.theme.secondaryColor)
+            .frame(width: 64, height: 64)
+
+            VStack(alignment: .leading) {
+                if let note = result.note {
+                    Text(result.artist.name)
+                        .fontWeight(.bold)
+                        .foregroundColor(preferences.theme.primaryColor) +
+                    Text(" (\(note))")
+                } else {
+                    Text(result.artist.name)
+                        .fontWeight(.bold)
+                        .foregroundColor(preferences.theme.primaryColor)
+                }
+
+                if !result.realName.isEmpty {
+                    Text(result.realName)
+                }
+
+                Text(result.country.nameAndFlag)
+                    .foregroundColor(preferences.theme.secondaryColor)
+
+                HighlightableText(text: result.bandsString,
+                                  highlights: result.bands.map { $0.name },
+                                  highlightFontWeight: .bold,
+                                  highlightColor: preferences.theme.secondaryColor)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            isShowingConfirmationDialog.toggle()
+        }
+        .confirmationDialog(
+            "",
+            isPresented: $isShowingConfirmationDialog,
+            actions: {
+                Button(action: {
+                    onSelectArtist(result.artist.thumbnailInfo.urlString)
+                }, label: {
+                    Text("View artist's detail")
+                })
+
+                ForEach(result.bands, id: \.hashValue) { band in
+                    Button(action: {
+                        onSelectBand(band.thumbnailInfo.urlString)
+                    }, label: {
+                        Text(band.name)
+                    })
+                }
+            },
+            message: {
+                Text(result.artist.name)
+            })
     }
 }
