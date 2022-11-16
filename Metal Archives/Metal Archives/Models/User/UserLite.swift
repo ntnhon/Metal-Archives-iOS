@@ -11,3 +11,10 @@ struct UserLite {
     let name: String
     let urlString: String
 }
+
+extension UserLite: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(urlString)
+    }
+}

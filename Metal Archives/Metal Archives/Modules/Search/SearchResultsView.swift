@@ -203,6 +203,11 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
             ArtistSimpleSearchResultView(result: result,
                                          onSelectArtist: { url in selectedArtistUrl = url },
                                          onSelectBand: { url in selectedBandUrl = url })
+        } else if let result = result as? UserSimpleSearchResult {
+            UserSimpleSearchResultView(result: result)
+                .onTapGesture {
+                    selectedUserUrl = result.user.urlString
+                }
         } else {
             EmptyView()
         }
@@ -532,5 +537,28 @@ private struct ArtistSimpleSearchResultView: View {
             message: {
                 Text(result.artist.name)
             })
+    }
+}
+
+private struct UserSimpleSearchResultView: View {
+    @EnvironmentObject private var preferences: Preferences
+    let result: UserSimpleSearchResult
+
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(result.user.name)
+                    .fontWeight(.bold)
+                    .foregroundColor(preferences.theme.primaryColor)
+
+                Text(result.rank.title)
+                    .foregroundColor(result.rank.color) +
+                Text(" • ") +
+                Text(result.point)
+                    .font(.callout)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .contentShape(Rectangle())
     }
 }
