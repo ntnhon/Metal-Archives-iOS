@@ -190,6 +190,10 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
             ReleaseSimpleSearchResultView(result: result,
                                           onSelectRelease: { url in selectedReleaseUrl = url },
                                           onSelectBand: { url in selectedBandUrl = url })
+        } else if let result = result as? SongSimpleSearchResult {
+            SongSimpleSearchResultView(result: result,
+                                       onSelectRelease: { url in selectedReleaseUrl = url },
+                                       onSelectBand: { url in selectedBandUrl = url })
         } else {
             EmptyView()
         }
@@ -326,6 +330,65 @@ private struct ReleaseSimpleSearchResultView: View {
                 Text(" • ")
                     .font(.callout) +
                 Text(result.date)
+                    .font(.callout)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            isShowingConfirmationDialog.toggle()
+        }
+        .confirmationDialog(
+            "",
+            isPresented: $isShowingConfirmationDialog,
+            actions: {
+                Button(action: {
+                    onSelectRelease(result.release.thumbnailInfo.urlString)
+                }, label: {
+                    Text("View release's detail")
+                })
+
+                Button(action: {
+                    onSelectBand(result.band.thumbnailInfo.urlString)
+                }, label: {
+                    Text("View band's detail")
+                })
+            },
+            message: {
+                Text("\"\(result.release.title)\" by \(result.band.name)")
+            })
+    }
+}
+
+private struct SongSimpleSearchResultView: View {
+    @EnvironmentObject private var preferences: Preferences
+    @State private var isShowingConfirmationDialog = false
+    let result: SongSimpleSearchResult
+    let onSelectRelease: (String) -> Void
+    let onSelectBand: (String) -> Void
+
+    var body: some View {
+        HStack {
+            ThumbnailView(thumbnailInfo: result.release.thumbnailInfo,
+                          photoDescription: result.release.title)
+            .font(.largeTitle)
+            .foregroundColor(preferences.theme.secondaryColor)
+            .frame(width: 64, height: 64)
+
+            VStack(alignment: .leading) {
+                Text(result.release.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(preferences.theme.primaryColor)
+
+                Text(result.band.name)
+                    .fontWeight(.semibold)
+                    .foregroundColor(preferences.theme.secondaryColor)
+
+                Text(result.releaseType.description)
+                    .font(.callout)
+                    .fontWeight(.semibold)
+
+                Text(result.title)
                     .font(.callout)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
