@@ -223,6 +223,7 @@
 		EF5A058D28FDDF71001BF230 /* TopBands.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058C28FDDF71001BF230 /* TopBands.swift */; };
 		EF5A058F28FDE7C8001BF230 /* TopReleases.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A058E28FDE7C8001BF230 /* TopReleases.swift */; };
 		EF5D011C28FF19BE008833C5 /* TopUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D011B28FF19BE008833C5 /* TopUsers.swift */; };
+		EF5E6CD829256BFE00AE7CAA /* LyricalSimpleSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5E6CD729256BFE00AE7CAA /* LyricalSimpleSearchResult.swift */; };
 		EF5EAB3F2917F0E7009BCDFF /* LabelCurrentRosterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB3E2917F0E7009BCDFF /* LabelCurrentRosterViewModel.swift */; };
 		EF5EAB412917FC0C009BCDFF /* LabelPastBand.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB402917FC0C009BCDFF /* LabelPastBand.swift */; };
 		EF5EAB432917FD38009BCDFF /* LabelPastRosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB422917FD38009BCDFF /* LabelPastRosterView.swift */; };
@@ -513,6 +514,7 @@
 		EF5A058C28FDDF71001BF230 /* TopBands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBands.swift; sourceTree = "<group>"; };
 		EF5A058E28FDE7C8001BF230 /* TopReleases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopReleases.swift; sourceTree = "<group>"; };
 		EF5D011B28FF19BE008833C5 /* TopUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUsers.swift; sourceTree = "<group>"; };
+		EF5E6CD729256BFE00AE7CAA /* LyricalSimpleSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricalSimpleSearchResult.swift; sourceTree = "<group>"; };
 		EF5EAB3E2917F0E7009BCDFF /* LabelCurrentRosterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCurrentRosterViewModel.swift; sourceTree = "<group>"; };
 		EF5EAB402917FC0C009BCDFF /* LabelPastBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelPastBand.swift; sourceTree = "<group>"; };
 		EF5EAB422917FD38009BCDFF /* LabelPastRosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelPastRosterView.swift; sourceTree = "<group>"; };
@@ -1236,6 +1238,7 @@
 			isa = PBXGroup;
 			children = (
 				EFF4B874292419F20007B563 /* BandSimpleSearchResult.swift */,
+				EF5E6CD729256BFE00AE7CAA /* LyricalSimpleSearchResult.swift */,
 				EFF4B87B292431780007B563 /* MusicGenreSimpleSearchResult.swift */,
 			);
 			path = Search;
@@ -1560,6 +1563,7 @@
 				EF6A8A032903DF1700DA2D67 /* LabelByAlphabet.swift in Sources */,
 				C007887826AF5B200080AC93 /* BandReviewsView.swift in Sources */,
 				C0DF7D1926A44C850049C98D /* ThumbnailView.swift in Sources */,
+				EF5E6CD829256BFE00AE7CAA /* LyricalSimpleSearchResult.swift in Sources */,
 				EF69DD7F291660AF00C3D4E3 /* LabelTabsDatasource.swift in Sources */,
 				C004A2B82658F2E70071E12A /* ModificationInfo.swift in Sources */,
 				EF62240A28F15FDF00845430 /* HornCircularLoader.swift in Sources */,

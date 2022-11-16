@@ -171,15 +171,20 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
 
     @ViewBuilder
     private func view(for result: some HashableEquatablePageElement) -> some View {
-        if let band = result as? BandSimpleSearchResult {
-            BandSimpleSearchResultView(band: band)
+        if let result = result as? BandSimpleSearchResult {
+            BandSimpleSearchResultView(result: result)
                 .onTapGesture {
-                    selectedBandUrl = band.band.thumbnailInfo.urlString
+                    selectedBandUrl = result.band.thumbnailInfo.urlString
                 }
-        } else if let band = result as? MusicGenreSimpleSearchResult {
-            BandSimpleSearchResultView(band: band)
+        } else if let result = result as? MusicGenreSimpleSearchResult {
+            BandSimpleSearchResultView(result: result)
                 .onTapGesture {
-                    selectedBandUrl = band.band.thumbnailInfo.urlString
+                    selectedBandUrl = result.band.thumbnailInfo.urlString
+                }
+        } else if let result = result as? LyricalSimpleSearchResult {
+            LyricalSimpleSearchResultView(result: result)
+                .onTapGesture {
+                    selectedBandUrl = result.band.thumbnailInfo.urlString
                 }
         } else {
             EmptyView()
@@ -214,36 +219,74 @@ private struct NoResultsView: View {
 
 private struct BandSimpleSearchResultView: View {
     @EnvironmentObject private var preferences: Preferences
-    let band: BandSimpleSearchResult
+    let result: BandSimpleSearchResult
 
     var body: some View {
         HStack {
-            ThumbnailView(thumbnailInfo: band.band.thumbnailInfo,
-                          photoDescription: band.band.name)
+            ThumbnailView(thumbnailInfo: result.band.thumbnailInfo,
+                          photoDescription: result.band.name)
             .font(.largeTitle)
             .foregroundColor(preferences.theme.secondaryColor)
             .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
-                if let note = band.note {
-                    Text(band.band.name)
+                if let note = result.note {
+                    Text(result.band.name)
                         .fontWeight(.bold)
                         .foregroundColor(preferences.theme.primaryColor) +
                     Text(" (\(note))")
                 } else {
-                    Text(band.band.name)
+                    Text(result.band.name)
                         .fontWeight(.bold)
                         .foregroundColor(preferences.theme.primaryColor)
                 }
 
-                Text(band.country.nameAndFlag)
+                Text(result.country.nameAndFlag)
                     .foregroundColor(preferences.theme.secondaryColor)
 
-                Text(band.genre)
+                Text(result.genre)
                     .font(.callout)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .contentShape(Rectangle())
+    }
+}
 
-            Spacer()
+private struct LyricalSimpleSearchResultView: View {
+    @EnvironmentObject private var preferences: Preferences
+    let result: LyricalSimpleSearchResult
+
+    var body: some View {
+        HStack {
+            ThumbnailView(thumbnailInfo: result.band.thumbnailInfo,
+                          photoDescription: result.band.name)
+            .font(.largeTitle)
+            .foregroundColor(preferences.theme.secondaryColor)
+            .frame(width: 64, height: 64)
+
+            VStack(alignment: .leading) {
+                if let note = result.note {
+                    Text(result.band.name)
+                        .fontWeight(.bold)
+                        .foregroundColor(preferences.theme.primaryColor) +
+                    Text(" (\(note))")
+                } else {
+                    Text(result.band.name)
+                        .fontWeight(.bold)
+                        .foregroundColor(preferences.theme.primaryColor)
+                }
+
+                Text(result.country.nameAndFlag)
+                    .foregroundColor(preferences.theme.secondaryColor)
+
+                Text(result.genre)
+                    .font(.callout)
+
+                Text(result.lyricalThemes)
+                    .font(.callout)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .contentShape(Rectangle())
     }

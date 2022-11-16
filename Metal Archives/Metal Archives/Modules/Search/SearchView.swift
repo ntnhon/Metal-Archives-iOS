@@ -16,17 +16,9 @@ struct SearchView: View {
     var body: some View {
         ScrollView {
             VStack {
-                NavigationLink(
-                    isActive: $isShowingResults,
-                    destination: {
-                        let manager = makePageManager()
-                        SearchResultsView(viewModel: .init(apiService: apiService,
-                                                           manager: manager,
-                                                           query: term))
-                    },
-                    label: {
-                        EmptyView()
-                    })
+                NavigationLink(isActive: $isShowingResults,
+                               destination: searchResultView,
+                               label: emptyView)
                 searchBar
                 LazyVStack {
                     ForEach(0..<50, id: \.self) { index in
@@ -85,17 +77,25 @@ struct SearchView: View {
         }
     }
 
-    private func makePageManager() -> PageManager<some HashableEquatablePageElement> {
+    @ViewBuilder
+    private func searchResultView() -> some View {
         switch type {
         case .bandName:
-            return BandSimpleSearchResultPageManager(apiService: apiService,
-                                                     query: term)
+            let manager = BandSimpleSearchResultPageManager(apiService: apiService, query: term)
+            SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))
         case .musicGenre:
-            return MusicGenreSimpleSearchResultPageManager(apiService: apiService,
-                                                           query: term)
+            let manager = MusicGenreSimpleSearchResultPageManager(apiService: apiService, query: term)
+            SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))
+        case .lyricalThemes:
+            let manager = LyricalSimpleSearchResultPageManager(apiService: apiService, query: term)
+            SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))
         default:
-            return BandSimpleSearchResultPageManager(apiService: apiService,
-                                                     query: term)
+            let manager = BandSimpleSearchResultPageManager(apiService: apiService, query: term)
+            SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))
         }
+    }
+
+    private func emptyView() -> some View {
+        EmptyView()
     }
 }

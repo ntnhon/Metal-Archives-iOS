@@ -11,6 +11,8 @@ import SwiftUI
 typealias HashableEquatablePageElement = Hashable & Equatable & PageElement
 
 final class SearchResultsViewModel<T: HashableEquatablePageElement>: ObservableObject {
+    deinit { print("\(Self.self) is deallocated") }
+
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error?
     @Published private(set) var results: [T] = []
