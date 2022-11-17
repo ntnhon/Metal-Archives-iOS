@@ -240,6 +240,11 @@
 		EF5EAB4F29181DF0009BCDFF /* ReviewCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB4E29181DF0009BCDFF /* ReviewCoverView.swift */; };
 		EF5EAB51291821A4009BCDFF /* ReviewInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB50291821A4009BCDFF /* ReviewInfoView.swift */; };
 		EF5EAB532918274B009BCDFF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5EAB522918274B009BCDFF /* User.swift */; };
+		EF5F053E2926BE5900CECF67 /* SearchEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5F053D2926BE5900CECF67 /* SearchEntry.swift */; };
+		EF5F05402926C05F00CECF67 /* SearchEntryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5F053F2926C05F00CECF67 /* SearchEntryEntity.swift */; };
+		EF5F05432926C21D00CECF67 /* MetalArchives.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EF5F05412926C21D00CECF67 /* MetalArchives.xcdatamodeld */; };
+		EF5F05452926C32E00CECF67 /* SearchEntryDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5F05442926C32E00CECF67 /* SearchEntryDatasource.swift */; };
+		EF5F05472926C37600CECF67 /* LocalDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5F05462926C37600CECF67 /* LocalDatasource.swift */; };
 		EF60FFFF28FB122F00F96735 /* SimilarArtistsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */; };
 		EF62240A28F15FDF00845430 /* HornCircularLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240928F15FDF00845430 /* HornCircularLoader.swift */; };
 		EF62240C28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */; };
@@ -536,6 +541,11 @@
 		EF5EAB4E29181DF0009BCDFF /* ReviewCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCoverView.swift; sourceTree = "<group>"; };
 		EF5EAB50291821A4009BCDFF /* ReviewInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewInfoView.swift; sourceTree = "<group>"; };
 		EF5EAB522918274B009BCDFF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		EF5F053D2926BE5900CECF67 /* SearchEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEntry.swift; sourceTree = "<group>"; };
+		EF5F053F2926C05F00CECF67 /* SearchEntryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEntryEntity.swift; sourceTree = "<group>"; };
+		EF5F05422926C21D00CECF67 /* MetalArchives.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MetalArchives.xcdatamodel; sourceTree = "<group>"; };
+		EF5F05442926C32E00CECF67 /* SearchEntryDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEntryDatasource.swift; sourceTree = "<group>"; };
+		EF5F05462926C37600CECF67 /* LocalDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatasource.swift; sourceTree = "<group>"; };
 		EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarArtistsViewModel.swift; sourceTree = "<group>"; };
 		EF62240928F15FDF00845430 /* HornCircularLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HornCircularLoader.swift; sourceTree = "<group>"; };
 		EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+retrieveImageAsync.swift"; sourceTree = "<group>"; };
@@ -742,6 +752,7 @@
 			children = (
 				C0A37B6426584A690017A02F /* Metal Archives.entitlements */,
 				C00A79D126570245004FA9D7 /* Metal_ArchivesApp.swift */,
+				EF5F053C2926BDBE00CECF67 /* CoreData */,
 				C0A37B6E26584F920017A02F /* Managers */,
 				C0A37B6626584C1B0017A02F /* Models */,
 				C0A37B6726584C2D0017A02F /* Modules */,
@@ -1214,6 +1225,18 @@
 			path = Release;
 			sourceTree = "<group>";
 		};
+		EF5F053C2926BDBE00CECF67 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				EF5F05412926C21D00CECF67 /* MetalArchives.xcdatamodeld */,
+				EF5F05462926C37600CECF67 /* LocalDatasource.swift */,
+				EF5F053D2926BE5900CECF67 /* SearchEntry.swift */,
+				EF5F053F2926C05F00CECF67 /* SearchEntryEntity.swift */,
+				EF5F05442926C32E00CECF67 /* SearchEntryDatasource.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		EF7A2C9728FC18740046B136 /* Review */ = {
 			isa = PBXGroup;
 			children = (
@@ -1475,6 +1498,7 @@
 				EF488C7028F741E6007191A6 /* LyricView.swift in Sources */,
 				EFC0C6BD28F49D0A0092497A /* HorizontalTabs.swift in Sources */,
 				C01D2D672683DB1A00957DE5 /* ReleaseTypeListView.swift in Sources */,
+				EF5F05452926C32E00CECF67 /* SearchEntryDatasource.swift in Sources */,
 				C0F2410126891F1100ED546D /* MAError.swift in Sources */,
 				EFA48C4828F5EA3A0012B349 /* ReleaseNoteView.swift in Sources */,
 				EF5EAB4B291804D8009BCDFF /* LabelReleasesViewModel.swift in Sources */,
@@ -1540,6 +1564,7 @@
 				C0D632BD2687CC9900348E29 /* DataExtensions.swift in Sources */,
 				EF3F5FDD290569C500FD1A31 /* LabelsByCountryViewModel.swift in Sources */,
 				EF3F5FE9290586C700FD1A31 /* NewsArchivesView.swift in Sources */,
+				EF5F05472926C37600CECF67 /* LocalDatasource.swift in Sources */,
 				C004A2C02658F4F40071E12A /* DateFormatterExtensions.swift in Sources */,
 				C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */,
 				EF5E6CE029257CE800AE7CAA /* ArtistSimpleSearchResult.swift in Sources */,
@@ -1563,6 +1588,7 @@
 				C0A993462712396800121BA3 /* ArtistView.swift in Sources */,
 				EF5234D6291455EE0089B5E4 /* LabelDetail.swift in Sources */,
 				EFD5B0D4291EF676001859B5 /* SwiftUISearchBar.swift in Sources */,
+				EF5F053E2926BE5900CECF67 /* SearchEntry.swift in Sources */,
 				C0056C56265C201700400A03 /* ReleaseElement.swift in Sources */,
 				C07A254F26852001008478D7 /* SimpleSearchType.swift in Sources */,
 				EF7A2C9928FC18860046B136 /* ReviewView.swift in Sources */,
@@ -1630,6 +1656,7 @@
 				C02A8CAE2681258B001430D6 /* Letter.swift in Sources */,
 				C02A8CB22681261E001430D6 /* AlphabetView.swift in Sources */,
 				C0FA708726B081D000B618E6 /* HtmlBodyText.swift in Sources */,
+				EF5F05402926C05F00CECF67 /* SearchEntryEntity.swift in Sources */,
 				C0378CE4268BAC7700E24B28 /* FetchableObject.swift in Sources */,
 				EF7A2C9E28FC19210046B136 /* UserView.swift in Sources */,
 				EF3C56AA2901CCE60010D568 /* BandsByAlphabetView.swift in Sources */,
@@ -1643,6 +1670,7 @@
 				EF6A89FB2903D03600DA2D67 /* BandsByCountryViewModel.swift in Sources */,
 				C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */,
 				EFEB4334290C60210021F4DA /* ArtistPhotoView.swift in Sources */,
+				EF5F05432926C21D00CECF67 /* MetalArchives.xcdatamodeld in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
 				C05FDD3726996E1000EE2AB3 /* UIColorExtensions.swift in Sources */,
 				EF6A89F92903D01C00DA2D67 /* BandsByCountryView.swift in Sources */,
@@ -2077,6 +2105,19 @@
 			productName = AlertToast;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		EF5F05412926C21D00CECF67 /* MetalArchives.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EF5F05422926C21D00CECF67 /* MetalArchives.xcdatamodel */,
+			);
+			currentVersion = EF5F05422926C21D00CECF67 /* MetalArchives.xcdatamodel */;
+			path = MetalArchives.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C00A79C626570245004FA9D7 /* Project object */;
 }
