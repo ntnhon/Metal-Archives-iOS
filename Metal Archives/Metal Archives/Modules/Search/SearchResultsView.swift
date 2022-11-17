@@ -174,38 +174,66 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
         if let result = result as? BandSimpleSearchResult {
             BandSimpleSearchResultView(result: result)
                 .onTapGesture {
+                    viewModel.upsertBandEntry(result.band)
                     selectedBandUrl = result.band.thumbnailInfo.urlString
                 }
         } else if let result = result as? MusicGenreSimpleSearchResult {
             BandSimpleSearchResultView(result: result)
                 .onTapGesture {
+                    viewModel.upsertBandEntry(result.band)
                     selectedBandUrl = result.band.thumbnailInfo.urlString
                 }
         } else if let result = result as? LyricalSimpleSearchResult {
             LyricalSimpleSearchResultView(result: result)
                 .onTapGesture {
+                    viewModel.upsertBandEntry(result.band)
                     selectedBandUrl = result.band.thumbnailInfo.urlString
                 }
         } else if let result = result as? ReleaseSimpleSearchResult {
-            ReleaseSimpleSearchResultView(result: result,
-                                          onSelectRelease: { url in selectedReleaseUrl = url },
-                                          onSelectBand: { url in selectedBandUrl = url })
+            ReleaseSimpleSearchResultView(
+                result: result,
+                onSelectRelease: { url in
+                    viewModel.upsertReleaseEntry(result.release)
+                    selectedReleaseUrl = url
+                },
+                onSelectBand: { url in
+                    viewModel.upsertBandEntry(result.band)
+                    selectedBandUrl = url
+                })
         } else if let result = result as? SongSimpleSearchResult {
-            SongSimpleSearchResultView(result: result,
-                                       onSelectRelease: { url in selectedReleaseUrl = url },
-                                       onSelectBand: { url in selectedBandUrl = url })
+            SongSimpleSearchResultView(
+                result: result,
+                onSelectRelease: { url in
+                    viewModel.upsertReleaseEntry(result.release)
+                    selectedReleaseUrl = url
+                },
+                onSelectBand: { url in
+                    viewModel.upsertBandEntry(result.band)
+                    selectedBandUrl = url
+                })
         } else if let result = result as? LabelSimpleSearchResult {
             LabelSimpleSearchResultView(result: result)
                 .onTapGesture {
+                    viewModel.upsertLabelEntry(result.label)
                     selectedLabelUrl = result.label.thumbnailInfo?.urlString
                 }
         } else if let result = result as? ArtistSimpleSearchResult {
-            ArtistSimpleSearchResultView(result: result,
-                                         onSelectArtist: { url in selectedArtistUrl = url },
-                                         onSelectBand: { url in selectedBandUrl = url })
+            ArtistSimpleSearchResultView(
+                result: result,
+                onSelectArtist: { url in
+                    viewModel.upsertArtistEntry(result.artist)
+                    selectedArtistUrl = url
+                },
+                onSelectBand: { url in
+                    if let band = result.bands.first(where: { $0.thumbnailInfo.urlString == url }) {
+                        viewModel.upsertBandEntry(band)
+                    }
+                    selectedBandUrl = url
+                })
         } else if let result = result as? UserSimpleSearchResult {
             UserSimpleSearchResultView(result: result)
                 .onTapGesture {
+                    viewModel.upsertUserEntry(result.user)
                     selectedUserUrl = result.user.urlString
                 }
         } else {

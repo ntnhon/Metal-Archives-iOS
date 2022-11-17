@@ -22,12 +22,67 @@ final class SearchEntryDatasource: LocalDatasource, LocalDatasourceProtocol {
 
     func upsert(_ entry: SearchEntry) async throws {
         let taskContext = newTaskContext(type: .insert)
-        let entity = SearchEntryEntity.entity(context: taskContext)
-        let batchInsertRequest = newBatchInsertRequest(entity: entity,
-                                                       sourceItems: [entry]) { managedObject, item in
-            (managedObject as? SearchEntryEntity)?.hydrate(from: item)
+        let fetchRequest = SearchEntryEntity.fetchRequest()
+        let secondaryDetailPredicate: NSPredicate
+        if let secondaryDetail = entry.secondaryDetail {
+            secondaryDetailPredicate = .init(format: "secondaryDetail == %@", secondaryDetail)
+        } else {
+            secondaryDetailPredicate = .init(format: "secondaryDetail == nil")
         }
-        try await execute(batchInsertRequest: batchInsertRequest, context: taskContext)
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            .init(format: "type == %d", entry.type.rawValue),
+            .init(format: "primaryDetail == %@", entry.primaryDetail),
+            secondaryDetailPredicate
+        ])
+        if let entity = try await execute(fetchRequest: fetchRequest, context: taskContext).first {
+            entity.hydrate(from: entry)
+        } else {
+            let newEntity = SearchEntryEntity(context: taskContext)
+            newEntity.hydrate(from: entry)
+        }
+        try taskContext.save()
+    }
+
+    func upsertQueryEntry(_ query: String, type: SimpleSearchType) async throws {
+        let entry = SearchEntry(type: type.toEntryType(),
+                                primaryDetail: query,
+                                secondaryDetail: nil)
+        try await upsert(entry)
+    }
+
+    func upsertBandEntry(_ band: BandLite) async throws {
+        let entry = SearchEntry(type: .band,
+                                primaryDetail: band.name,
+                                secondaryDetail: band.thumbnailInfo.urlString)
+        try await upsert(entry)
+    }
+
+    func upsertReleaseEntry(_ release: ReleaseLite) async throws {
+        let entry = SearchEntry(type: .release,
+                                primaryDetail: release.title,
+                                secondaryDetail: release.thumbnailInfo.urlString)
+        try await upsert(entry)
+    }
+
+    func upsertArtistEntry(_ artist: ArtistLite) async throws {
+        let entry = SearchEntry(type: .artist,
+                                primaryDetail: artist.name,
+                                secondaryDetail: artist.thumbnailInfo.urlString)
+        try await upsert(entry)
+    }
+
+    func upsertLabelEntry(_ label: LabelLite) async throws {
+        let entry = SearchEntry(type: .label,
+                                primaryDetail: label.name,
+                                secondaryDetail: label.thumbnailInfo?.urlString)
+        try await upsert(entry)
+    }
+
+    func upsertUserEntry(_ user: UserLite) async throws {
+        let entry = SearchEntry(type: .user,
+                                primaryDetail: user.name,
+                                secondaryDetail: user.urlString)
+        try await upsert(entry)
     }
 
     func removeAllEntries() async throws {
@@ -35,5 +90,20 @@ final class SearchEntryDatasource: LocalDatasource, LocalDatasourceProtocol {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SearchEntryEntity")
         try await execute(batchDeleteRequest: .init(fetchRequest: fetchRequest),
                           context: taskContext)
+    }
+}
+
+extension SimpleSearchType {
+    func toEntryType() -> SearchEntryType {
+        switch self {
+        case .bandName: return .bandNameQuery
+        case .musicGenre: return .musicGenreQuery
+        case .lyricalThemes: return .lyricalThemesQuery
+        case .albumTitle: return .albumTitleQuery
+        case .songTitle: return .songTitleQuery
+        case .label: return .labelQuery
+        case .artist: return .artistQuery
+        case .user: return .userQuery
+        }
     }
 }

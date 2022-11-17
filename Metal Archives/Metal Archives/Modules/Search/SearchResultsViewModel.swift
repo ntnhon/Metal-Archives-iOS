@@ -20,12 +20,17 @@ final class SearchResultsViewModel<T: HashableEquatablePageElement>: ObservableO
     let apiService: APIServiceProtocol
     let manager: PageManager<T>
     let query: String?
+    let datasource: SearchEntryDatasource
     private var cancellables = Set<AnyCancellable>()
 
-    init(apiService: APIServiceProtocol, manager: PageManager<T>, query: String?) {
+    init(apiService: APIServiceProtocol,
+         manager: PageManager<T>,
+         query: String?,
+         datasource: SearchEntryDatasource) {
         self.apiService = apiService
         self.manager = manager
         self.query = query
+        self.datasource = datasource
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)
@@ -61,6 +66,36 @@ final class SearchResultsViewModel<T: HashableEquatablePageElement>: ObservableO
             } catch {
                 self.error = error
             }
+        }
+    }
+
+    func upsertBandEntry(_ band: BandLite) {
+        Task {
+            try await datasource.upsertBandEntry(band)
+        }
+    }
+
+    func upsertReleaseEntry(_ release: ReleaseLite) {
+        Task {
+            try await datasource.upsertReleaseEntry(release)
+        }
+    }
+
+    func upsertArtistEntry(_ artist: ArtistLite) {
+        Task {
+            try await datasource.upsertArtistEntry(artist)
+        }
+    }
+
+    func upsertLabelEntry(_ label: LabelLite) {
+        Task {
+            try await datasource.upsertLabelEntry(label)
+        }
+    }
+
+    func upsertUserEntry(_ user: UserLite) {
+        Task {
+            try await datasource.upsertUserEntry(user)
         }
     }
 }

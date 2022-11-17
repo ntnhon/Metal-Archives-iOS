@@ -15,6 +15,20 @@ enum TaskContextType: String {
     case fetch = "fetchContext"
 }
 
+extension NSPersistentContainer {
+    enum Builder {
+        static func build(name: String) -> NSPersistentContainer {
+            let container = NSPersistentContainer(name: name)
+            container.loadPersistentStores { _, error in
+                if let error {
+                    fatalError("Unresolved error \(error.localizedDescription)")
+                }
+            }
+            return container
+        }
+    }
+}
+
 enum LocalDatasourceError: Error, CustomDebugStringConvertible {
     case batchInsertError(NSBatchInsertRequest)
     case batchDeleteError(NSBatchDeleteRequest)

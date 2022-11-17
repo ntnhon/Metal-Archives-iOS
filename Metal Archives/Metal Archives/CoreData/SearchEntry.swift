@@ -8,22 +8,19 @@
 import Foundation
 
 enum SearchEntryType: Int16 {
-    case bandName           = 0
-    case bandNameQuery      = 1
-    case musicGenre         = 2
-    case musicGenreQuery    = 3
-    case lyricalThemes      = 4
-    case lyricalThemesQuery = 5
-    case albumTitle         = 6
-    case albumTitleQuery    = 7
-    case songTitle          = 8
-    case songTitleQuery     = 9
-    case label              = 10
-    case labelQuery         = 11
-    case artist             = 12
-    case artistQuery        = 13
-    case user               = 14
-    case userQuery          = 15
+    case bandNameQuery      = 0
+    case musicGenreQuery    = 1
+    case lyricalThemesQuery = 2
+    case albumTitleQuery    = 3
+    case songTitleQuery     = 4
+    case labelQuery         = 5
+    case artistQuery        = 6
+    case userQuery          = 7
+    case band               = 8
+    case release            = 9
+    case artist             = 10
+    case label              = 11
+    case user               = 12
 
     var isQueryEntry: Bool {
         switch self {
@@ -48,4 +45,12 @@ struct SearchEntry {
     let primaryDetail: String
     /// When type is query, this will be `null`. Otherwise it'll be the URL string of band, label, album...
     let secondaryDetail: String?
+}
+
+extension SearchEntry: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(type.rawValue)
+        hasher.combine(primaryDetail)
+        hasher.combine(secondaryDetail)
+    }
 }

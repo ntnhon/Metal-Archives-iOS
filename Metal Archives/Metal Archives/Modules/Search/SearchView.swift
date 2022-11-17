@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
+    @StateObject private var viewModel = SearchViewModel()
     @State private var type = SimpleSearchType.bandName
     @State private var term = ""
     @State private var isShowingResults = false
@@ -20,11 +21,7 @@ struct SearchView: View {
                                destination: searchResultView,
                                label: emptyView)
                 searchBar
-                LazyVStack {
-                    ForEach(0..<50, id: \.self) { index in
-                        Text("#\(index)")
-                    }
-                }
+                history
             }
         }
         .navigationTitle("Search")
@@ -37,11 +34,15 @@ struct SearchView: View {
                 }
             }
         }
+        .task { await viewModel.fetchEntries() }
     }
 
     private var searchBar: some View {
         VStack {
             SwiftUISearchBar(term: $term, placeholder: type.placeholder) {
+                Task {
+                    try await viewModel.datasource.upsertQueryEntry(term, type: type)
+                }
                 isShowingResults.toggle()
             }
 
@@ -71,7 +72,12 @@ struct SearchView: View {
                 .transaction { transaction in
                     transaction.animation = nil
                 }
+
                 Spacer()
+
+                Button(action: viewModel.removeAllEntries) {
+                    Text("Clear history")
+                }
             }
             .padding(.horizontal)
         }
@@ -82,32 +88,67 @@ struct SearchView: View {
         switch type {
         case .bandName:
             let manager = BandSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))
+            SearchResultsView(viewModel: .init(apiService: apiService,
+                                               manager: manager,
+                                               query: term,
+                                               datasource: viewModel.datasource))
         case .musicGenre:
             let manager = MusicGenreSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))
+            SearchResultsView(viewModel: .init(apiService: apiService,
+                                               manager: manager,
+                                               query: term,
+                                               datasource: viewModel.datasource))
         case .lyricalThemes:
             let manager = LyricalSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))
+            SearchResultsView(viewModel: .init(apiService: apiService,
+                                               manager: manager,
+                                               query: term,
+                                               datasource: viewModel.datasource))
         case .albumTitle:
             let manager = ReleaseSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))
+            SearchResultsView(viewModel: .init(apiService: apiService,
+                                               manager: manager,
+                                               query: term,
+                                               datasource: viewModel.datasource))
         case .songTitle:
             let manager = SongSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))
+            SearchResultsView(viewModel: .init(apiService: apiService,
+                                               manager: manager,
+                                               query: term,
+                                               datasource: viewModel.datasource))
         case .label:
             let manager = LabelSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))
+            SearchResultsView(viewModel: .init(apiService: apiService,
+                                               manager: manager,
+                                               query: term,
+                                               datasource: viewModel.datasource))
         case .artist:
             let manager = ArtistSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))
+            SearchResultsView(viewModel: .init(apiService: apiService,
+                                               manager: manager,
+                                               query: term,
+                                               datasource: viewModel.datasource))
         case .user:
             let manager = UserSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService, manager: manager, query: term))
+            SearchResultsView(viewModel: .init(apiService: apiService,
+                                               manager: manager,
+                                               query: term,
+                                               datasource: viewModel.datasource))
         }
     }
 
     private func emptyView() -> some View {
         EmptyView()
+    }
+
+    @ViewBuilder
+    private var history: some View {
+        if viewModel.isLoading {
+            ProgressView()
+        } else {
+            ForEach(viewModel.entries, id: \.hashValue) { entry in
+                Text(String(describing: entry))
+            }
+        }
     }
 }
