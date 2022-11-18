@@ -12,6 +12,7 @@ struct SearchView: View {
     @State private var type = SimpleSearchType.bandName
     @State private var term = ""
     @State private var isShowingResults = false
+    @State private var isShowingClearHistoryConfirmation = false
     let apiService: APIServiceProtocol
 
     var body: some View {
@@ -75,11 +76,23 @@ struct SearchView: View {
 
                 Spacer()
 
-                Button(action: viewModel.removeAllEntries) {
+                Button(action: {
+                    isShowingClearHistoryConfirmation.toggle()
+                }, label: {
                     Text("Clear history")
-                }
+                })
             }
             .padding(.horizontal)
+            .alert(
+                "Clear search history?",
+                isPresented: $isShowingClearHistoryConfirmation,
+                actions: {
+                    Button("Yes, clear search history", action: viewModel.removeAllEntries)
+                    Button("Cancel", role: .cancel) {}
+                },
+                message: {
+                    Text("Please confirm")
+                })
         }
     }
 
