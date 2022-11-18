@@ -42,4 +42,30 @@ enum SimpleSearchType: CaseIterable {
         case .user: return "e.g., hellblazer, morrigan"
         }
     }
+
+    var navigationTitle: String {
+        switch self {
+        case .bandName: return "Search by band name"
+        case .musicGenre: return "Search by music genre"
+        case .lyricalThemes: return "Search by lyrical themes"
+        case .albumTitle: return "Search by album title"
+        case .songTitle: return "Search by song title"
+        case .label: return "Search labels"
+        case .artist: return "Search artists"
+        case .user: return "Search users"
+        }
+    }
+
+    var imageName: String {
+        switch self {
+        case .bandName: return "person.3.fill"
+        case .musicGenre: return "guitars.fill"
+        case .lyricalThemes: return "music.quarternote.3"
+        case .albumTitle: return "opticaldisc"
+        case .songTitle: return "music.note.list"
+        case .label: return "tag.fill"
+        case .artist: return "person.fill"
+        case .user: return "person.crop.circle.fill"
+        }
+    }
 }

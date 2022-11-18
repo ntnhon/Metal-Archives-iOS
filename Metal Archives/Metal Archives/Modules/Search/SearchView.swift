@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
+    @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel = SearchViewModel()
     @State private var type = SimpleSearchType.bandName
     @State private var term = ""
@@ -58,7 +59,7 @@ struct SearchView: View {
                     .padding(.horizontal)
             }
         }
-        .navigationTitle("Search")
+        .navigationTitle(type.navigationTitle)
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -94,11 +95,14 @@ struct SearchView: View {
                     }
                 }, label: {
                     HStack {
-                        Text("Search by: \(type.title)")
+                        Label(type.title, systemImage: type.imageName)
                         Image(systemName: "chevron.down")
                             .imageScale(.small)
                     }
-                    .foregroundColor(.secondary)
+                    .padding(8)
+                    .background(preferences.theme.primaryColor)
+                    .foregroundColor(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 })
                 .transaction { transaction in
                     transaction.animation = nil
