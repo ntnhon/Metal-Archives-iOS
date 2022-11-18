@@ -78,11 +78,7 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
             if let error = viewModel.error {
                 VStack {
                     Text(error.userFacingMessage)
-                    RetryButton {
-                        Task {
-                            await viewModel.getMoreResults(force: true)
-                        }
-                    }
+                    RetryButton(onRetry: viewModel.refresh)
                 }
             } else if viewModel.isLoading && viewModel.results.isEmpty {
                 HornCircularLoader()
@@ -208,7 +204,9 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
                     selectedReleaseUrl = url
                 },
                 onSelectBand: { url in
-                    viewModel.upsertBandEntry(result.band)
+                    if let band = result.band.toBandLite() {
+                        viewModel.upsertBandEntry(band)
+                    }
                     selectedBandUrl = url
                 })
         } else if let result = result as? LabelSimpleSearchResult {
@@ -424,7 +422,8 @@ private struct SongSimpleSearchResultView: View {
 
                 Text(result.band.name)
                     .fontWeight(.semibold)
-                    .foregroundColor(preferences.theme.secondaryColor)
+                    .foregroundColor(result.band.thumbnailInfo != nil ?
+                                     preferences.theme.secondaryColor : .primary)
 
                 Text(result.releaseType.description)
                     .font(.callout)
@@ -449,11 +448,13 @@ private struct SongSimpleSearchResultView: View {
                     Text("View release's detail")
                 })
 
-                Button(action: {
-                    onSelectBand(result.band.thumbnailInfo.urlString)
-                }, label: {
-                    Text("View band's detail")
-                })
+                if let urlString = result.band.thumbnailInfo?.urlString {
+                    Button(action: {
+                        onSelectBand(urlString)
+                    }, label: {
+                        Text("View band's detail")
+                    })
+                }
             },
             message: {
                 Text("\"\(result.release.title)\" by \(result.band.name)")

@@ -69,6 +69,11 @@ struct BandExtraLite: OptionalThumbnailable {
         }
         self.name = name
     }
+
+    func toBandLite() -> BandLite? {
+        guard let urlString = thumbnailInfo?.urlString else { return nil }
+        return .init(urlString: urlString, name: name)
+    }
 }
 
 extension BandExtraLite: Hashable {

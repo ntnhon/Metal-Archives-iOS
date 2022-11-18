@@ -8,7 +8,7 @@
 import Kanna
 
 struct SongSimpleSearchResult {
-    let band: BandLite
+    let band: BandExtraLite
     let release: ReleaseLite
     let releaseType: ReleaseType
     let title: String
@@ -41,13 +41,20 @@ extension SongSimpleSearchResult: PageElement {
             throw PageElementError.badCount(count: strings.count, expectedCount: 4)
         }
 
-        guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
-              let bandName = aTag.text,
-              let bandUrlString = aTag["href"],
-              let band = BandLite(urlString: bandUrlString, name: bandName) else {
-            throw PageElementError.failedToParse("\(BandLite.self): \(strings[0])")
+        let html = try Kanna.HTML(html: strings[0], encoding: .utf8)
+        if strings[0].contains("<a") {
+            guard let aTag = html.at_css("a"),
+                  let bandName = aTag.text,
+                  let bandUrlString = aTag["href"] else {
+                throw PageElementError.failedToParse("\(BandExtraLite.self): \(strings[0])")
+            }
+            self.band = .init(urlString: bandUrlString, name: bandName)
+        } else {
+            guard let bandName = html.at_css("span")?.text else {
+                throw PageElementError.failedToParse("\(BandExtraLite.self): \(strings[0])")
+            }
+            self.band = .init(urlString: nil, name: bandName)
         }
-        self.band = band
 
         guard let aTag = try Kanna.HTML(html: strings[1], encoding: .utf8).at_css("a"),
               let releaseTitle = aTag.text,

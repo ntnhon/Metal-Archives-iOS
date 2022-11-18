@@ -13,14 +13,46 @@ struct SearchView: View {
     @State private var term = ""
     @State private var isShowingResults = false
     @State private var isShowingClearHistoryConfirmation = false
+    @State private var selectedBandUrl: String?
+    @State private var selectedReleaseUrl: String?
+    @State private var selectedArtistUrl: String?
+    @State private var selectedLabelUrl: String?
+    @State private var selectedUserUrl: String?
     let apiService: APIServiceProtocol
 
     var body: some View {
+        let isShowingBandDetail = makeIsShowingBandDetailBinding()
+        let isShowingReleaseDetail = makeIsShowingReleaseDetailBinding()
+        let isShowingArtistDetail = makeIsShowingArtistDetailBinding()
+        let isShowingLabelDetail = makeIsShowingLabelDetailBinding()
+        let isShowingUserDetail = makeIsShowingUserDetailBinding()
+
         ScrollView {
             VStack {
                 NavigationLink(isActive: $isShowingResults,
                                destination: searchResultView,
                                label: emptyView)
+
+                NavigationLink(isActive: isShowingBandDetail,
+                               destination: bandDetailView,
+                               label: emptyView)
+
+                NavigationLink(isActive: isShowingReleaseDetail,
+                               destination: releaseDetailView,
+                               label: emptyView)
+
+                NavigationLink(isActive: isShowingArtistDetail,
+                               destination: artistDetailView,
+                               label: emptyView)
+
+                NavigationLink(isActive: isShowingLabelDetail,
+                               destination: labelDetailView,
+                               label: emptyView)
+
+                NavigationLink(isActive: isShowingUserDetail,
+                               destination: userDetailView,
+                               label: emptyView)
+
                 searchBar
                 history
                     .padding(.horizontal)
@@ -41,12 +73,9 @@ struct SearchView: View {
 
     private var searchBar: some View {
         VStack {
-            SwiftUISearchBar(term: $term, placeholder: type.placeholder) {
-                Task {
-                    try await viewModel.datasource.upsertQueryEntry(term, type: type)
-                }
-                isShowingResults.toggle()
-            }
+            SwiftUISearchBar(term: $term,
+                             placeholder: type.placeholder,
+                             onSubmit: search)
 
             HStack {
                 Menu(content: {
@@ -155,6 +184,108 @@ struct SearchView: View {
         EmptyView()
     }
 
+    private func search() {
+        Task {
+            try await viewModel.datasource.upsertQueryEntry(term, type: type)
+        }
+        isShowingResults.toggle()
+    }
+
+    private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedBandUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedBandUrl = nil
+            }
+        })
+    }
+
+    @ViewBuilder
+    private func bandDetailView() -> some View {
+        if let selectedBandUrl {
+            BandView(apiService: apiService, bandUrlString: selectedBandUrl)
+        } else {
+            EmptyView()
+        }
+    }
+
+    private func makeIsShowingReleaseDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedReleaseUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedReleaseUrl = nil
+            }
+        })
+    }
+
+    @ViewBuilder
+    private func releaseDetailView() -> some View {
+        if let selectedReleaseUrl {
+            ReleaseView(apiService: apiService, urlString: selectedReleaseUrl, parentRelease: nil)
+        } else {
+            EmptyView()
+        }
+    }
+
+    private func makeIsShowingArtistDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedArtistUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedArtistUrl = nil
+            }
+        })
+    }
+
+    @ViewBuilder
+    private func artistDetailView() -> some View {
+        if let selectedArtistUrl {
+            ArtistView(apiService: apiService, urlString: selectedArtistUrl)
+        } else {
+            EmptyView()
+        }
+    }
+
+    private func makeIsShowingLabelDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedLabelUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedLabelUrl = nil
+            }
+        })
+    }
+
+    @ViewBuilder
+    private func labelDetailView() -> some View {
+        if let selectedLabelUrl {
+            LabelView(apiService: apiService, urlString: selectedLabelUrl)
+        } else {
+            EmptyView()
+        }
+    }
+
+    private func makeIsShowingUserDetailBinding() -> Binding<Bool> {
+        .init(get: {
+            selectedUserUrl != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedUserUrl = nil
+            }
+        })
+    }
+
+    @ViewBuilder
+    private func userDetailView() -> some View {
+        if let selectedUserUrl {
+            UserView(apiService: apiService, urlString: selectedUserUrl)
+        } else {
+            EmptyView()
+        }
+    }
+
     @ViewBuilder
     private var history: some View {
         if viewModel.isLoading, viewModel.entries.isEmpty {
@@ -174,9 +305,28 @@ struct SearchView: View {
                         QuerySearchEntryView(entry: entry) {
                             viewModel.remove(entry: entry)
                         }
+                        .onTapGesture {
+                            term = entry.primaryDetail
+                            type = entry.type.toSimpleSearchType()
+                            search()
+                        }
                     } else {
                         EntitySearchEntryView(entry: entry) {
                             viewModel.remove(entry: entry)
+                        }
+                        .onTapGesture {
+                            guard let urlString = entry.secondaryDetail else { return }
+                            switch entry.type {
+                            case .band: selectedBandUrl = urlString
+                            case .release: selectedReleaseUrl = urlString
+                            case .artist: selectedArtistUrl = urlString
+                            case .label: selectedLabelUrl = urlString
+                            case .user: selectedUserUrl = urlString
+                            default: return
+                            }
+                            Task {
+                                try await viewModel.datasource.upsert(entry)
+                            }
                         }
                     }
                     Divider()
@@ -213,6 +363,8 @@ private struct QuerySearchEntryView: View {
                     .foregroundColor(.secondary)
             }
         }
+        .background(Color.gray.opacity(0.001))
+        .containerShape(Rectangle())
     }
 }
 
@@ -229,6 +381,12 @@ private struct EntitySearchEntryView: View {
                 .font(.largeTitle)
                 .foregroundColor(preferences.theme.secondaryColor)
                 .frame(width: 64, height: 64)
+            } else if entry.type == .user {
+                Image(systemName: "person.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(preferences.theme.secondaryColor)
+                    .frame(width: 64, height: 64)
             }
 
             Text(entry.primaryDetail)
@@ -243,5 +401,7 @@ private struct EntitySearchEntryView: View {
                     .foregroundColor(.secondary)
             }
         }
+        .background(Color.gray.opacity(0.001))
+        .containerShape(Rectangle())
     }
 }

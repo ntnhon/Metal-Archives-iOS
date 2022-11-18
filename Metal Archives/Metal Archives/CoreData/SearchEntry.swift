@@ -51,6 +51,20 @@ enum SearchEntryType: Int16 {
         default                 : return nil
         }
     }
+
+    func toSimpleSearchType() -> SimpleSearchType {
+        switch self {
+        case .bandNameQuery     : return .bandName
+        case .musicGenreQuery   : return .musicGenre
+        case .lyricalThemesQuery: return .lyricalThemes
+        case .albumTitleQuery   : return .albumTitle
+        case .songTitleQuery    : return .songTitle
+        case .labelQuery        : return .label
+        case .artistQuery       : return .artist
+        case .userQuery         : return .user
+        default                 : return .bandName
+        }
+    }
 }
 
 struct SearchEntry {

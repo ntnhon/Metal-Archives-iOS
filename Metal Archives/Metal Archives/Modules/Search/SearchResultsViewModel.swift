@@ -58,7 +58,7 @@ final class SearchResultsViewModel<T: HashableEquatablePageElement>: ObservableO
         }
     }
 
-    private func refresh() {
+    func refresh() {
         Task { @MainActor in
             do {
                 error = nil
