@@ -22,18 +22,7 @@ final class SearchEntryDatasource: LocalDatasource, LocalDatasourceProtocol {
 
     func upsert(_ entry: SearchEntry) async throws {
         let taskContext = newTaskContext(type: .insert)
-        let fetchRequest = SearchEntryEntity.fetchRequest()
-        let secondaryDetailPredicate: NSPredicate
-        if let secondaryDetail = entry.secondaryDetail {
-            secondaryDetailPredicate = .init(format: "secondaryDetail == %@", secondaryDetail)
-        } else {
-            secondaryDetailPredicate = .init(format: "secondaryDetail == nil")
-        }
-        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-            .init(format: "type == %d", entry.type.rawValue),
-            .init(format: "primaryDetail == %@", entry.primaryDetail),
-            secondaryDetailPredicate
-        ])
+        let fetchRequest = fetchRequest(for: entry)
         if let entity = try await execute(fetchRequest: fetchRequest, context: taskContext).first {
             entity.hydrate(from: entry)
         } else {
@@ -85,11 +74,36 @@ final class SearchEntryDatasource: LocalDatasource, LocalDatasourceProtocol {
         try await upsert(entry)
     }
 
+    func removeEntry(_ entry: SearchEntry) async throws {
+        let taskContext = newTaskContext(type: .delete)
+        let fetchRequest = fetchRequest(for: entry)
+        if let entity = try await execute(fetchRequest: fetchRequest, context: taskContext).first {
+            taskContext.delete(entity)
+        }
+        try taskContext.save()
+    }
+
     func removeAllEntries() async throws {
         let taskContext = newTaskContext(type: .delete)
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SearchEntryEntity")
         try await execute(batchDeleteRequest: .init(fetchRequest: fetchRequest),
                           context: taskContext)
+    }
+
+    private func fetchRequest(for entry: SearchEntry) -> NSFetchRequest<SearchEntryEntity> {
+        let fetchRequest = SearchEntryEntity.fetchRequest()
+        let secondaryDetailPredicate: NSPredicate
+        if let secondaryDetail = entry.secondaryDetail {
+            secondaryDetailPredicate = .init(format: "secondaryDetail == %@", secondaryDetail)
+        } else {
+            secondaryDetailPredicate = .init(format: "secondaryDetail == nil")
+        }
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            .init(format: "type == %d", entry.type.rawValue),
+            .init(format: "primaryDetail == %@", entry.primaryDetail),
+            secondaryDetailPredicate
+        ])
+        return fetchRequest
     }
 }
 

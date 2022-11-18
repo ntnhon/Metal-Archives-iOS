@@ -23,6 +23,7 @@ struct SearchView: View {
                                label: emptyView)
                 searchBar
                 history
+                    .padding(.horizontal)
             }
         }
         .navigationTitle("Search")
@@ -156,11 +157,90 @@ struct SearchView: View {
 
     @ViewBuilder
     private var history: some View {
-        if viewModel.isLoading {
+        if viewModel.isLoading, viewModel.entries.isEmpty {
             ProgressView()
         } else {
-            ForEach(viewModel.entries, id: \.hashValue) { entry in
-                Text(String(describing: entry))
+            if viewModel.entries.isEmpty {
+                Text("Empty search history")
+                    .font(.callout.italic())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            } else {
+                Text("Recent searches")
+                    .font(.callout)
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                ForEach(viewModel.entries, id: \.hashValue) { entry in
+                    if entry.type.isQueryEntry {
+                        QuerySearchEntryView(entry: entry) {
+                            viewModel.remove(entry: entry)
+                        }
+                    } else {
+                        EntitySearchEntryView(entry: entry) {
+                            viewModel.remove(entry: entry)
+                        }
+                    }
+                    Divider()
+                }
+                .animation(.default, value: viewModel.entries.count)
+            }
+        }
+    }
+}
+
+private struct QuerySearchEntryView: View {
+    @EnvironmentObject private var preferences: Preferences
+    let entry: SearchEntry
+    let onRemove: () -> Void
+
+    var body: some View {
+        HStack {
+            if let imageName = entry.type.placeholderSystemImageName {
+                Image(systemName: imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(preferences.theme.secondaryColor)
+                    .frame(width: 64, height: 64)
+            }
+
+            Label("\"\(entry.primaryDetail)\"", systemImage: "magnifyingglass")
+                .font(.body.italic())
+
+            Spacer()
+
+            Button(action: onRemove) {
+                Image(systemName: "xmark")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+}
+
+private struct EntitySearchEntryView: View {
+    @EnvironmentObject private var preferences: Preferences
+    let entry: SearchEntry
+    let onRemove: () -> Void
+
+    var body: some View {
+        HStack {
+            if let thumbnailInfo = entry.thumbnailInfo {
+                ThumbnailView(thumbnailInfo: thumbnailInfo,
+                              photoDescription: entry.primaryDetail)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
+            }
+
+            Text(entry.primaryDetail)
+                .fontWeight(.semibold)
+                .foregroundColor(preferences.theme.primaryColor)
+
+            Spacer()
+
+            Button(action: onRemove) {
+                Image(systemName: "xmark")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
             }
         }
     }

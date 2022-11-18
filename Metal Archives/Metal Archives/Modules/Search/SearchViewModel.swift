@@ -36,4 +36,11 @@ final class SearchViewModel: ObservableObject {
             await fetchEntries()
         }
     }
+
+    func remove(entry: SearchEntry) {
+        Task {
+            try await datasource.removeEntry(entry)
+            await fetchEntries()
+        }
+    }
 }

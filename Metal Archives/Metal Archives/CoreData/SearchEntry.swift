@@ -37,6 +37,20 @@ enum SearchEntryType: Int16 {
             return false
         }
     }
+
+    var placeholderSystemImageName: String? {
+        switch self {
+        case .bandNameQuery     : return "person.3.fill"
+        case .musicGenreQuery   : return "guitars.fill"
+        case .lyricalThemesQuery: return "music.quarternote.3"
+        case .albumTitleQuery   : return "opticaldisc"
+        case .songTitleQuery    : return "music.note.list"
+        case .labelQuery        : return "tag.fill"
+        case .artistQuery       : return "person.fill"
+        case .userQuery         : return "person.crop.circle.fill"
+        default                 : return nil
+        }
+    }
 }
 
 struct SearchEntry {
@@ -45,6 +59,22 @@ struct SearchEntry {
     let primaryDetail: String
     /// When type is query, this will be `null`. Otherwise it'll be the URL string of band, label, album...
     let secondaryDetail: String?
+
+    var thumbnailInfo: ThumbnailInfo? {
+        guard let secondaryDetail else { return nil }
+
+        let thumbnailType: ThumbnailType?
+        switch type {
+        case .band: thumbnailType = .bandLogo
+        case .release: thumbnailType = .release
+        case .artist: thumbnailType = .artist
+        case .label: thumbnailType = .label
+        default: thumbnailType = nil
+        }
+
+        guard let thumbnailType else { return nil }
+        return .init(urlString: secondaryDetail, type: thumbnailType)
+    }
 }
 
 extension SearchEntry: Hashable {
