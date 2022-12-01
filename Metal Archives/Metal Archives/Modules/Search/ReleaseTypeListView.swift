@@ -16,13 +16,13 @@ struct ReleaseTypeListView: View {
                 HStack {
                     Text(type.description)
                     Spacer()
-                    if releaseTypeSet.types.contains(type) {
+                    if releaseTypeSet.isSelected(type) {
                         Image(systemName: "checkmark")
                             .foregroundColor(.accentColor)
                     }
                 }
                 .contentShape(Rectangle())
-                .onTapGesture { releaseTypeSet.select(type: type) }
+                .onTapGesture { releaseTypeSet.select(type) }
             }
         }
         .toolbar { toolbarContent }
@@ -31,13 +31,13 @@ struct ReleaseTypeListView: View {
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .principal) {
-            Text(releaseTypeSet.navigationTitle)
+            Text(releaseTypeSet.title)
                 .fontWeight(.bold)
         }
 
         ToolbarItem(placement: .navigationBarTrailing) {
-            if !releaseTypeSet.types.isEmpty {
-                Button(action: releaseTypeSet.removeAll) {
+            if !releaseTypeSet.noChoice {
+                Button(action: releaseTypeSet.deselectAll) {
                     Text("Deselect all")
                 }
             }
