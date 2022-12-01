@@ -38,7 +38,7 @@ struct AdvancedSearchBandsView: View {
                     HStack {
                         Text("Country")
                         Spacer()
-                        Text(countrySet.detailString)
+                        Text(countrySet.detail)
                             .font(.callout)
                             .foregroundColor(.gray)
                     }

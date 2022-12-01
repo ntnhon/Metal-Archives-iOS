@@ -16,13 +16,13 @@ struct AdvancedSearchCountryListView: View {
                 HStack {
                     Text(country.nameAndFlag)
                     Spacer()
-                    if countrySet.countries.contains(country) {
+                    if countrySet.isSelected(country) {
                         Image(systemName: "checkmark")
                             .foregroundColor(.accentColor)
                     }
                 }
                 .contentShape(Rectangle())
-                .onTapGesture { countrySet.select(country: country) }
+                .onTapGesture { countrySet.select(country) }
             }
         }
         .toolbar { toolbarContent }
@@ -31,13 +31,13 @@ struct AdvancedSearchCountryListView: View {
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .principal) {
-            Text(countrySet.navigationTitle)
+            Text(countrySet.title)
                 .fontWeight(.bold)
         }
 
         ToolbarItem(placement: .navigationBarTrailing) {
-            if !countrySet.countries.isEmpty {
-                Button(action: countrySet.removeAll) {
+            if !countrySet.noChoice {
+                Button(action: countrySet.deselectAll) {
                     Text("Deselect all")
                 }
             }

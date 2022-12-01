@@ -31,39 +31,14 @@ extension Country: Hashable {
     }
 }
 
-final class CountrySet: ObservableObject {
-    @Published private(set) var countries: [Country] = []
-
-    var navigationTitle: String {
-        if countries.isEmpty {
-            return "Any country"
-        } else if countries.count == 1 {
-            return countries.first?.nameAndFlag ?? ""
-        } else {
-            return "\(countries.count) countries selected"
-        }
-    }
-
-    var detailString: String {
-        if countries.isEmpty {
-            return "Any country"
-        } else {
-            return countries.map { $0.nameAndFlag }.joined(separator: ", ")
-        }
-    }
-
-    func removeAll() {
-        countries.removeAll()
-    }
-
-    func select(country: Country) {
-        if countries.contains(country) {
-            countries.removeAll { $0 == country }
-        } else {
-            countries.append(country)
-        }
-    }
+extension Country: MultipleChoiceProtocol {
+    static var noChoice: String { "Any country" }
+    static var multipleChoicesSuffix: String { "countries selected" }
+    static var totalChoices: Int { CountryManager.shared.countries.count }
+    var choiceDescription: String { nameAndFlag }
 }
+
+final class CountrySet: MultipleChoiceSet<Country>, ObservableObject {}
 
 extension Country {
     static var usa: Country {
