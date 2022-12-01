@@ -22,9 +22,7 @@ struct AdvancedSearchCountryListView: View {
                     }
                 }
                 .contentShape(Rectangle())
-                .onTapGesture {
-                    countrySet.select(country: country)
-                }
+                .onTapGesture { countrySet.select(country: country) }
             }
         }
         .toolbar { toolbarContent }
@@ -34,6 +32,7 @@ struct AdvancedSearchCountryListView: View {
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .principal) {
             Text(countrySet.navigationTitle)
+                .fontWeight(.bold)
         }
 
         ToolbarItem(placement: .navigationBarTrailing) {

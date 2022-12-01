@@ -87,7 +87,17 @@ enum ReleaseType: Int, CustomStringConvertible, CaseIterable {
 }
 
 final class ReleaseTypeSet: ObservableObject {
-    @Published var types: [ReleaseType] = []
+    @Published private(set) var types: [ReleaseType] = []
+
+    var navigationTitle: String {
+        if types.isEmpty {
+            return "Any type"
+        } else if types.count == 1 {
+            return types.first?.description ?? ""
+        } else {
+            return "\(types.count) types selected"
+        }
+    }
 
     var detailString: String {
         if types.isEmpty {
@@ -95,5 +105,21 @@ final class ReleaseTypeSet: ObservableObject {
         } else {
             return types.map { $0.description }.joined(separator: ", ")
         }
+    }
+
+    func select(type: ReleaseType) {
+        if types.contains(type) {
+            types.removeAll { $0 == type }
+        } else {
+            types.append(type)
+        }
+
+        if types.count == ReleaseType.allCases.count {
+            types.removeAll()
+        }
+    }
+
+    func removeAll() {
+        types.removeAll()
     }
 }

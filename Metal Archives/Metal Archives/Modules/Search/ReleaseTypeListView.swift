@@ -9,61 +9,38 @@ import SwiftUI
 
 struct ReleaseTypeListView: View {
     @ObservedObject var releaseTypeSet: ReleaseTypeSet
-    @State private var navigationTitle = "Any type"
 
     var body: some View {
-        List {
+        Form {
             ForEach(ReleaseType.allCases, id: \.self) { type in
                 HStack {
-                    Button(action: {
-                        handleSelection(type)
-                    }, label: {
-                        Text(type.description)
-                    })
-                    .foregroundColor(.primary)
-
+                    Text(type.description)
+                    Spacer()
                     if releaseTypeSet.types.contains(type) {
-                        Spacer()
-
                         Image(systemName: "checkmark")
                             .foregroundColor(.accentColor)
                     }
                 }
+                .contentShape(Rectangle())
+                .onTapGesture { releaseTypeSet.select(type: type) }
             }
         }
-        .listStyle(InsetGroupedListStyle())
-        .navigationBarTitle(navigationTitle, displayMode: .inline)
-        .navigationBarItems(trailing:
-                                Button(action: {
-                                    releaseTypeSet.types.removeAll()
-                                    updateNavigationTitle()
-                                }, label: {
-                                    Text("Deselect all")
-                                }))
-        .onAppear {
-            updateNavigationTitle()
-        }
+        .toolbar { toolbarContent }
     }
 
-    private func handleSelection(_ type: ReleaseType) {
-        if releaseTypeSet.types.contains(type) {
-            releaseTypeSet.types.removeAll { $0 == type }
-        } else {
-            releaseTypeSet.types.append(type)
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text(releaseTypeSet.navigationTitle)
+                .fontWeight(.bold)
         }
-        if releaseTypeSet.types.count == ReleaseType.allCases.count {
-            releaseTypeSet.types.removeAll()
-        }
-        updateNavigationTitle()
-    }
 
-    private func updateNavigationTitle() {
-        if releaseTypeSet.types.isEmpty {
-            navigationTitle = "Any type"
-        } else if releaseTypeSet.types.count == 1 {
-            navigationTitle = "1 type selected"
-        } else {
-            navigationTitle = "\(releaseTypeSet.types.count ) types selected"
+        ToolbarItem(placement: .navigationBarTrailing) {
+            if !releaseTypeSet.types.isEmpty {
+                Button(action: releaseTypeSet.removeAll) {
+                    Text("Deselect all")
+                }
+            }
         }
     }
 }
