@@ -32,13 +32,35 @@ extension Country: Hashable {
 }
 
 final class CountrySet: ObservableObject {
-    @Published var countries: [Country] = []
+    @Published private(set) var countries: [Country] = []
+
+    var navigationTitle: String {
+        if countries.isEmpty {
+            return "Any country"
+        } else if countries.count == 1 {
+            return countries.first?.nameAndFlag ?? ""
+        } else {
+            return "\(countries.count) countries selected"
+        }
+    }
 
     var detailString: String {
         if countries.isEmpty {
             return "Any country"
         } else {
-            return countries.map { $0.name }.joined(separator: ", ")
+            return countries.map { $0.nameAndFlag }.joined(separator: ", ")
+        }
+    }
+
+    func removeAll() {
+        countries.removeAll()
+    }
+
+    func select(country: Country) {
+        if countries.contains(country) {
+            countries.removeAll { $0 == country }
+        } else {
+            countries.append(country)
         }
     }
 }

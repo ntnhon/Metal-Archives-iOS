@@ -9,58 +9,39 @@ import SwiftUI
 
 struct AdvancedSearchCountryListView: View {
     @ObservedObject var countrySet: CountrySet
-    @State private var navigationTitle = "Any country"
 
     var body: some View {
-        List {
+        Form {
             ForEach(CountryManager.shared.countries, id: \.isoCode) { country in
                 HStack {
-                    Button(action: {
-                        handleSelection(country)
-                    }, label: {
-                        Text(country.nameAndFlag)
-                    })
-                    .foregroundColor(.primary)
-
+                    Text(country.nameAndFlag)
+                    Spacer()
                     if countrySet.countries.contains(country) {
-                        Spacer()
-
                         Image(systemName: "checkmark")
                             .foregroundColor(.accentColor)
                     }
                 }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    countrySet.select(country: country)
+                }
             }
         }
-        .listStyle(InsetGroupedListStyle())
-        .navigationBarTitle(navigationTitle, displayMode: .inline)
-        .navigationBarItems(trailing:
-                                Button(action: {
-                                    countrySet.countries.removeAll()
-                                    updateNavigationTitle()
-                                }, label: {
-                                    Text("Deselect all")
-                                }))
-        .onAppear {
-            updateNavigationTitle()
-        }
+        .toolbar { toolbarContent }
     }
 
-    private func handleSelection(_ country: Country) {
-        if countrySet.countries.contains(country) {
-            countrySet.countries.removeAll { $0 == country }
-        } else {
-            countrySet.countries.append(country)
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text(countrySet.navigationTitle)
         }
-        updateNavigationTitle()
-    }
 
-    private func updateNavigationTitle() {
-        if countrySet.countries.isEmpty {
-            navigationTitle = "Any country"
-        } else if countrySet.countries.count == 1 {
-            navigationTitle = "1 country selected"
-        } else {
-            navigationTitle = "\(countrySet.countries.count) countries selected"
+        ToolbarItem(placement: .navigationBarTrailing) {
+            if !countrySet.countries.isEmpty {
+                Button(action: countrySet.removeAll) {
+                    Text("Deselect all")
+                }
+            }
         }
     }
 }

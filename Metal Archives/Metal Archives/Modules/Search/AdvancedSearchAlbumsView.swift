@@ -16,7 +16,6 @@ struct AdvancedSearchAlbumsView: View {
     @State private var exactMatchReleaseTitle = false
     @State private var fromDate = kStartDate
     @State private var toDate = Date()
-    @StateObject private var countrySet = CountrySet()
     @State private var cityStateProvince = ""
     @State private var label = ""
     @State private var indieLabel = false
@@ -26,6 +25,7 @@ struct AdvancedSearchAlbumsView: View {
     @State private var versionDescription = ""
     @State private var additionalNote = ""
     @State private var genre = ""
+    @StateObject private var countrySet = CountrySet()
     @StateObject private var releaseTypeSet = ReleaseTypeSet()
     @StateObject private var releaseFormatSet = ReleaseFormatSet()
 
