@@ -56,7 +56,7 @@ struct AdvancedSearchBandsView: View {
                     HStack {
                         Text("Status")
                         Spacer()
-                        Text(bandStatusSet.detailString)
+                        Text(bandStatusSet.detail)
                             .font(.callout)
                             .foregroundColor(.gray)
                     }

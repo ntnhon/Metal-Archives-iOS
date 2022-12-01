@@ -39,14 +39,11 @@ enum BandStatus: String, CaseIterable {
     }
 }
 
-final class BandStatusSet: ObservableObject {
-    @Published var status: [BandStatus] = []
-
-    var detailString: String {
-        if status.isEmpty {
-            return "Any status"
-        } else {
-            return status.map { $0.rawValue }.joined(separator: ", ")
-        }
-    }
+extension BandStatus: MultipleChoiceProtocol {
+    static var noChoice: String { "Any status" }
+    static var multipleChoicesSuffix: String { "statuses selected" }
+    static var totalChoices: Int { BandStatus.allCases.count }
+    var choiceDescription: String { rawValue }
 }
+
+final class BandStatusSet: MultipleChoiceSet<BandStatus>, ObservableObject {}

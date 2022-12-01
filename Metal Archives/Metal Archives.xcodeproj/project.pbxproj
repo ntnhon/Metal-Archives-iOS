@@ -199,6 +199,7 @@
 		EF48E6D42895CB5600B52EF2 /* ArtistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48E6D32895CB5600B52EF2 /* ArtistViewModel.swift */; };
 		EF4B6BA6289900DA008DBCF6 /* Support.md in Resources */ = {isa = PBXBuildFile; fileRef = EF4B6BA52898FFF8008DBCF6 /* Support.md */; };
 		EF4B6BA82899015F008DBCF6 /* AttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B6BA72899015F008DBCF6 /* AttributedStringExtensions.swift */; };
+		EF4DDC1629394BA800CA8B19 /* MultipleChoiceSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4DDC1529394BA800CA8B19 /* MultipleChoiceSet.swift */; };
 		EF4F13F32919957F0069C1EB /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4F13F22919957F0069C1EB /* UserInfoView.swift */; };
 		EF4F13F529199A2C0069C1EB /* UserTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4F13F429199A2C0069C1EB /* UserTabsDatasource.swift */; };
 		EF4F13F72919A2C40069C1EB /* UserReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4F13F62919A2C40069C1EB /* UserReview.swift */; };
@@ -501,6 +502,7 @@
 		EF48E6D32895CB5600B52EF2 /* ArtistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewModel.swift; sourceTree = "<group>"; };
 		EF4B6BA52898FFF8008DBCF6 /* Support.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Support.md; sourceTree = "<group>"; };
 		EF4B6BA72899015F008DBCF6 /* AttributedStringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringExtensions.swift; sourceTree = "<group>"; };
+		EF4DDC1529394BA800CA8B19 /* MultipleChoiceSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceSet.swift; sourceTree = "<group>"; };
 		EF4F13F22919957F0069C1EB /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		EF4F13F429199A2C0069C1EB /* UserTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabsDatasource.swift; sourceTree = "<group>"; };
 		EF4F13F62919A2C40069C1EB /* UserReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReview.swift; sourceTree = "<group>"; };
@@ -826,6 +828,7 @@
 				C060E6CF2682714F0006433A /* AdvancedSearchSongsView.swift */,
 				C060E6D1268273920006433A /* AdvancedSearchTipsView.swift */,
 				C01D2D642683CB9500957DE5 /* BandStatusListView.swift */,
+				EF4DDC1529394BA800CA8B19 /* MultipleChoiceSet.swift */,
 				C01D2D6A2683DD0D00957DE5 /* ReleaseFormatListView.swift */,
 				C01D2D662683DB1A00957DE5 /* ReleaseTypeListView.swift */,
 				C017D413267E3034008B6EE5 /* SearchView.swift */,
@@ -1635,6 +1638,7 @@
 				EFC98B3C28EE0BD000154C30 /* RetryButton.swift in Sources */,
 				C027D26626807CAB00BD54AE /* CountryListView.swift in Sources */,
 				C02A4CDE268678C6001CF9D2 /* Vibration.swift in Sources */,
+				EF4DDC1629394BA800CA8B19 /* MultipleChoiceSet.swift in Sources */,
 				EF3C27472913022F00D6C9B2 /* ArtistBiographyView.swift in Sources */,
 				EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */,
 				EF5E6CE2292581EB00AE7CAA /* UserSimpleSearchResult.swift in Sources */,

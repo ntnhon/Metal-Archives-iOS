@@ -9,59 +9,39 @@ import SwiftUI
 
 struct BandStatusListView: View {
     @ObservedObject var bandStatusSet: BandStatusSet
-    @State private var navigationTitle = "Any status"
 
     var body: some View {
-        List {
+        Form {
             ForEach(BandStatus.allCases, id: \.self) { status in
                 HStack {
-                    Button(action: {
-                        handleSelection(status)
-                    }, label: {
-                        Text(status.rawValue)
-                    })
-                    .foregroundColor(.primary)
+                    Text(status.rawValue)
+                    Spacer()
 
-                    if bandStatusSet.status.contains(status) {
-                        Spacer()
-
+                    if bandStatusSet.isSelected(status) {
                         Image(systemName: "checkmark")
                             .foregroundColor(.accentColor)
                     }
                 }
+                .contentShape(Rectangle())
+                .onTapGesture { bandStatusSet.select(status) }
             }
         }
-        .listStyle(InsetGroupedListStyle())
-        .navigationBarTitle(navigationTitle, displayMode: .inline)
-        .navigationBarItems(trailing:
-                                Button(action: {
-                                    bandStatusSet.status.removeAll()
-                                    updateNavigationTitle()
-                                }, label: {
-                                    Text("Deselect all")
-                                }))
-        .onAppear {
-            updateNavigationTitle()
-        }
+        .toolbar { toolbarContent }
     }
 
-    private func handleSelection(_ status: BandStatus) {
-        if bandStatusSet.status.contains(status) {
-            bandStatusSet.status.removeAll { $0 == status }
-        } else {
-            bandStatusSet.status.append(status)
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text(bandStatusSet.title)
+                .fontWeight(.bold)
         }
-        if bandStatusSet.status.count == BandStatus.allCases.count {
-            bandStatusSet.status.removeAll()
-        }
-        updateNavigationTitle()
-    }
 
-    private func updateNavigationTitle() {
-        if bandStatusSet.status.isEmpty {
-            navigationTitle = "Any status"
-        } else {
-            navigationTitle = "\(bandStatusSet.status.count ) status selected"
+        ToolbarItem(placement: .navigationBarTrailing) {
+            if !bandStatusSet.noChoice {
+                Button(action: bandStatusSet.deselectAll) {
+                    Text("Deselect all")
+                }
+            }
         }
     }
 }
