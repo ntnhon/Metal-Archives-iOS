@@ -93,7 +93,7 @@ struct AdvancedSearchAlbumsView: View {
                     HStack {
                         Text("Release format")
                         Spacer()
-                        Text(releaseFormatSet.detailString)
+                        Text(releaseFormatSet.detail)
                             .font(.callout)
                             .foregroundColor(.gray)
                     }

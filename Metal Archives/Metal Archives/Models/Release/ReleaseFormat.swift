@@ -18,14 +18,11 @@ enum ReleaseFormat: String, CaseIterable {
     case other = "Other"
 }
 
-final class ReleaseFormatSet: ObservableObject {
-    @Published var formats: [ReleaseFormat] = []
-
-    var detailString: String {
-        if formats.isEmpty {
-            return "Any format"
-        } else {
-            return formats.map { $0.rawValue }.joined(separator: ", ")
-        }
-    }
+extension ReleaseFormat: MultipleChoiceProtocol {
+    static var noChoice: String { "Any format" }
+    static var multipleChoicesSuffix: String { "formats selected" }
+    static var totalChoices: Int { Self.allCases.count }
+    var choiceDescription: String { rawValue }
 }
+
+final class ReleaseFormatSet: MultipleChoiceSet<ReleaseFormat>, ObservableObject {}
