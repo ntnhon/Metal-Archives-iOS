@@ -12,19 +12,24 @@ struct AdvancedSearchCountryListView: View {
 
     var body: some View {
         Form {
-            ForEach(CountryManager.shared.countries, id: \.isoCode) { country in
-                HStack {
-                    Text(country.nameAndFlag)
-                    Spacer()
-                    if countrySet.isSelected(country) {
-                        Image(systemName: "checkmark")
-                            .foregroundColor(.accentColor)
+            Section(content: {
+                ForEach(CountryManager.shared.countries) { country in
+                    HStack {
+                        Text(country.nameAndFlag)
+                        Spacer()
+                        if countrySet.isSelected(country) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.accentColor)
+                        }
                     }
+                    .contentShape(Rectangle())
+                    .onTapGesture { countrySet.select(country) }
                 }
-                .contentShape(Rectangle())
-                .onTapGesture { countrySet.select(country) }
-            }
+            }, header: {
+                Text("Countries")
+            })
         }
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar { toolbarContent }
     }
 

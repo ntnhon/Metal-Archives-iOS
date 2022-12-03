@@ -31,6 +31,10 @@ extension Country: Hashable {
     }
 }
 
+extension Country: Identifiable {
+    var id: String { isoCode }
+}
+
 extension Country: MultipleChoiceProtocol {
     static var noChoice: String { "Any country" }
     static var multipleChoicesSuffix: String { "countries selected" }

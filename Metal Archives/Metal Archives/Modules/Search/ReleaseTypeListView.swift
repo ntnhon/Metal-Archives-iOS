@@ -12,19 +12,24 @@ struct ReleaseTypeListView: View {
 
     var body: some View {
         Form {
-            ForEach(ReleaseType.allCases, id: \.self) { type in
-                HStack {
-                    Text(type.description)
-                    Spacer()
-                    if releaseTypeSet.isSelected(type) {
-                        Image(systemName: "checkmark")
-                            .foregroundColor(.accentColor)
+            Section(content: {
+                ForEach(ReleaseType.allCases, id: \.self) { type in
+                    HStack {
+                        Text(type.description)
+                        Spacer()
+                        if releaseTypeSet.isSelected(type) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.accentColor)
+                        }
                     }
+                    .contentShape(Rectangle())
+                    .onTapGesture { releaseTypeSet.select(type) }
                 }
-                .contentShape(Rectangle())
-                .onTapGesture { releaseTypeSet.select(type) }
-            }
+            }, header: {
+                Text("Release types")
+            })
         }
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar { toolbarContent }
     }
 

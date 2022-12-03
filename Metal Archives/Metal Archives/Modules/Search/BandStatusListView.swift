@@ -12,20 +12,25 @@ struct BandStatusListView: View {
 
     var body: some View {
         Form {
-            ForEach(BandStatus.allCases, id: \.self) { status in
-                HStack {
-                    Text(status.rawValue)
-                    Spacer()
+            Section(content: {
+                ForEach(BandStatus.allCases, id: \.self) { status in
+                    HStack {
+                        Text(status.rawValue)
+                        Spacer()
 
-                    if bandStatusSet.isSelected(status) {
-                        Image(systemName: "checkmark")
-                            .foregroundColor(.accentColor)
+                        if bandStatusSet.isSelected(status) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.accentColor)
+                        }
                     }
+                    .contentShape(Rectangle())
+                    .onTapGesture { bandStatusSet.select(status) }
                 }
-                .contentShape(Rectangle())
-                .onTapGesture { bandStatusSet.select(status) }
-            }
+            }, header: {
+                Text("Band statuses")
+            })
         }
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar { toolbarContent }
     }
 

@@ -12,19 +12,24 @@ struct ReleaseFormatListView: View {
 
     var body: some View {
         Form {
-            ForEach(ReleaseFormat.allCases, id: \.self) { format in
-                HStack {
-                    Text(format.rawValue)
-                    Spacer()
-                    if releaseFormatSet.isSelected(format) {
-                        Image(systemName: "checkmark")
-                            .foregroundColor(.accentColor)
+            Section(content: {
+                ForEach(ReleaseFormat.allCases, id: \.self) { format in
+                    HStack {
+                        Text(format.rawValue)
+                        Spacer()
+                        if releaseFormatSet.isSelected(format) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.accentColor)
+                        }
                     }
+                    .contentShape(Rectangle())
+                    .onTapGesture { releaseFormatSet.select(format) }
                 }
-                .contentShape(Rectangle())
-                .onTapGesture { releaseFormatSet.select(format) }
-            }
+            }, header: {
+                Text("Release formats")
+            })
         }
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar { toolbarContent }
     }
 

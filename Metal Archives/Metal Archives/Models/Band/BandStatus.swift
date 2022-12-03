@@ -39,6 +39,10 @@ enum BandStatus: String, CaseIterable {
     }
 }
 
+extension BandStatus: Identifiable {
+    var id: String { rawValue }
+}
+
 extension BandStatus: MultipleChoiceProtocol {
     static var noChoice: String { "Any status" }
     static var multipleChoicesSuffix: String { "statuses selected" }
