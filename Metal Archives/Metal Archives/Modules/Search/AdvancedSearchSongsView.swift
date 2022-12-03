@@ -22,27 +22,27 @@ struct AdvancedSearchSongsView: View {
         List {
             Section(header: Text("Song")) {
                 TextField("Song title", text: $songTitle)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 Toggle("Exact match song title", isOn: $exactMatchSongTitle)
 
                 TextField("Lyrics", text: $lyrics)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
             }
 
             Section(header: Text("Band")) {
                 TextField("Band name", text: $bandName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 Toggle("Exact match band name", isOn: $exactMatchBandName)
 
                 TextField("Genre", text: $genre)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
             }
 
             Section(header: Text("Release")) {
                 TextField("Release title", text: $releaseTitle)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 Toggle("Exact match release title", isOn: $exactMatchReleaseTitle)
 

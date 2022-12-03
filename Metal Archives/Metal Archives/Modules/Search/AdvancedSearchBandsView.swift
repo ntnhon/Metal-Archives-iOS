@@ -30,7 +30,7 @@ struct AdvancedSearchBandsView: View {
         Form {
             Section(header: Text("Band")) {
                 TextField("Band name", text: $bandName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 Toggle("Exact match band name", isOn: $exactMatch)
 
@@ -65,23 +65,23 @@ struct AdvancedSearchBandsView: View {
 
             Section(header: Text("Label")) {
                 TextField("Label name", text: $label)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 Toggle("Indie label", isOn: $indieLabel)
             }
 
             Section(header: Text("Additional information")) {
                 TextField("Genre", text: $genre)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 TextField("Additional note", text: $additionalNote)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 TextField("Lyrical theme(s)", text: $lyricalThemes)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 TextField("City / state / province", text: $cityStateProvince)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
             }
 
             Section {

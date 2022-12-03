@@ -30,10 +30,10 @@ struct AdvancedSearchAlbumsView: View {
     @StateObject private var releaseFormatSet = ReleaseFormatSet()
 
     var body: some View {
-        List {
+        Form {
             Section(header: Text("Band")) {
                 TextField("Band name", text: $bandName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 Toggle("Exact match band name", isOn: $exactMatchBandName)
 
@@ -48,12 +48,12 @@ struct AdvancedSearchAlbumsView: View {
                 }
 
                 TextField("City / state / province", text: $cityStateProvince)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
             }
 
             Section(header: Text("Release")) {
                 TextField("Release title", text: $releaseTitle)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 Toggle("Exact match release title", isOn: $exactMatchReleaseTitle)
 
@@ -102,29 +102,29 @@ struct AdvancedSearchAlbumsView: View {
 
             Section(header: Text("Label")) {
                 TextField("Label name", text: $label)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 Toggle("Indie label", isOn: $indieLabel)
             }
 
             Section(header: Text("Additional information")) {
                 TextField("Catalog number", text: $catalogNumber)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 TextField("Identifier (barcode, matrix, etc.)", text: $identifier)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 TextField("Recording information (studio, city, etc.)", text: $recordingInformation)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 TextField("Version description (country, digipak, etc.)", text: $versionDescription)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 TextField("Additional note", text: $additionalNote)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
 
                 TextField("Genre", text: $genre)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
             }
 
             Section {
