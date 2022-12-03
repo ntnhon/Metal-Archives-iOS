@@ -10,6 +10,7 @@ import SwiftUI
 private let kStartDate = DateFormatter.default.date(from: "1960-01-01 00:00:00") ?? Date()
 
 struct AdvancedSearchAlbumsView: View {
+    @EnvironmentObject private var preferences: Preferences
     @State private var bandName = ""
     @State private var exactMatchBandName = false
     @State private var releaseTitle = ""
@@ -32,14 +33,17 @@ struct AdvancedSearchAlbumsView: View {
     var body: some View {
         Form {
             Section(header: Text("Band")) {
-                TextField("Band name", text: $bandName)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Name")
+                    TextField("", text: $bandName)
+                        .textFieldStyle(.roundedBorder)
+                }
 
                 Toggle("Exact match band name", isOn: $exactMatchBandName)
 
                 NavigationLink(destination: AdvancedSearchCountryListView(countrySet: countrySet)) {
                     HStack {
-                        Text("Band country")
+                        Text("Country")
                         Spacer()
                         Text(countrySet.detail)
                             .font(.callout)
@@ -47,13 +51,19 @@ struct AdvancedSearchAlbumsView: View {
                     }
                 }
 
-                TextField("City / state / province", text: $cityStateProvince)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("City/state/province")
+                    TextField("", text: $cityStateProvince)
+                        .textFieldStyle(.roundedBorder)
+                }
             }
 
             Section(header: Text("Release")) {
-                TextField("Release title", text: $releaseTitle)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Title")
+                    TextField("", text: $releaseTitle)
+                        .textFieldStyle(.roundedBorder)
+                }
 
                 Toggle("Exact match release title", isOn: $exactMatchReleaseTitle)
 
@@ -101,47 +111,65 @@ struct AdvancedSearchAlbumsView: View {
             }
 
             Section(header: Text("Label")) {
-                TextField("Label name", text: $label)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Name")
+                    TextField("", text: $label)
+                        .textFieldStyle(.roundedBorder)
+                }
 
                 Toggle("Indie label", isOn: $indieLabel)
             }
 
             Section(header: Text("Additional information")) {
-                TextField("Catalog number", text: $catalogNumber)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Catalog number")
+                    TextField("", text: $catalogNumber)
+                        .textFieldStyle(.roundedBorder)
+                }
 
-                TextField("Identifier (barcode, matrix, etc.)", text: $identifier)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Identifier")
+                    TextField("barcode, matrix, etc.", text: $identifier)
+                        .textFieldStyle(.roundedBorder)
+                }
 
-                TextField("Recording information (studio, city, etc.)", text: $recordingInformation)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Recording information")
+                    TextField("studio, city, etc.", text: $recordingInformation)
+                        .textFieldStyle(.roundedBorder)
+                }
 
-                TextField("Version description (country, digipak, etc.)", text: $versionDescription)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Version description")
+                    TextField("country, digipak, etc.", text: $versionDescription)
+                        .textFieldStyle(.roundedBorder)
+                }
 
-                TextField("Additional note", text: $additionalNote)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Additional note")
+                    TextField("", text: $additionalNote)
+                        .textFieldStyle(.roundedBorder)
+                }
 
-                TextField("Genre", text: $genre)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Genre")
+                    TextField("", text: $genre)
+                        .textFieldStyle(.roundedBorder)
+                }
             }
 
             Section {
-                HStack {
-                    Spacer()
-                    Button(action: {}, label: {
-                        Text("SEARCH")
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                    })
-                    Spacer()
-                }
+                Button(action: {}, label: {
+                    Text("SEARCH")
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                })
             }
             .listRowBackground(Color.accentColor)
         }
-        .listStyle(GroupedListStyle())
-        .navigationBarTitle("Advanced search albums", displayMode: .inline)
+        .tint(preferences.theme.primaryColor)
+        .navigationBarTitle("Advanced search albums", displayMode: .large)
     }
 }
 

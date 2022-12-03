@@ -29,8 +29,11 @@ struct AdvancedSearchBandsView: View {
     var body: some View {
         Form {
             Section(header: Text("Band")) {
-                TextField("Band name", text: $bandName)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Name")
+                    TextField("", text: $bandName)
+                        .textFieldStyle(.roundedBorder)
+                }
 
                 Toggle("Exact match band name", isOn: $exactMatch)
 
@@ -64,41 +67,53 @@ struct AdvancedSearchBandsView: View {
             }
 
             Section(header: Text("Label")) {
-                TextField("Label name", text: $label)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Name")
+                    TextField("", text: $label)
+                        .textFieldStyle(.roundedBorder)
+                }
 
                 Toggle("Indie label", isOn: $indieLabel)
             }
 
             Section(header: Text("Additional information")) {
-                TextField("Genre", text: $genre)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Genre")
+                    TextField("", text: $genre)
+                        .textFieldStyle(.roundedBorder)
+                }
 
-                TextField("Additional note", text: $additionalNote)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Additional note")
+                    TextField("", text: $additionalNote)
+                        .textFieldStyle(.roundedBorder)
+                }
 
-                TextField("Lyrical theme(s)", text: $lyricalThemes)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Lyrical theme(s)")
+                    TextField("", text: $lyricalThemes)
+                        .textFieldStyle(.roundedBorder)
+                }
 
-                TextField("City / state / province", text: $cityStateProvince)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("City/state/province")
+                    TextField("", text: $cityStateProvince)
+                        .textFieldStyle(.roundedBorder)
+                }
             }
 
             Section {
-                HStack {
-                    Spacer()
-                    Button(action: {}, label: {
-                        Text("SEARCH")
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                    })
-                    Spacer()
-                }
+                Button(action: {}, label: {
+                    Text("SEARCH")
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                })
             }
             .listRowBackground(Color.accentColor)
         }
         .tint(preferences.theme.primaryColor)
-        .navigationBarTitle("Advanced search bands", displayMode: .inline)
+        .navigationBarTitle("Advanced search bands", displayMode: .large)
     }
 }
 

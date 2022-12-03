@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AdvancedSearchSongsView: View {
+    @EnvironmentObject private var preferences: Preferences
     @State private var songTitle = ""
     @State private var exactMatchSongTitle = false
     @State private var bandName = ""
@@ -19,30 +20,45 @@ struct AdvancedSearchSongsView: View {
     @StateObject private var releaseTypeSet = ReleaseTypeSet()
 
     var body: some View {
-        List {
+        Form {
             Section(header: Text("Song")) {
-                TextField("Song title", text: $songTitle)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Title")
+                    TextField("", text: $songTitle)
+                        .textFieldStyle(.roundedBorder)
+                }
 
                 Toggle("Exact match song title", isOn: $exactMatchSongTitle)
 
-                TextField("Lyrics", text: $lyrics)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Lyrics")
+                    TextField("", text: $lyrics)
+                        .textFieldStyle(.roundedBorder)
+                }
             }
 
             Section(header: Text("Band")) {
-                TextField("Band name", text: $bandName)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Name")
+                    TextField("", text: $bandName)
+                        .textFieldStyle(.roundedBorder)
+                }
 
                 Toggle("Exact match band name", isOn: $exactMatchBandName)
 
-                TextField("Genre", text: $genre)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Genre")
+                    TextField("", text: $genre)
+                        .textFieldStyle(.roundedBorder)
+                }
             }
 
             Section(header: Text("Release")) {
-                TextField("Release title", text: $releaseTitle)
-                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Text("Title")
+                    TextField("", text: $releaseTitle)
+                        .textFieldStyle(.roundedBorder)
+                }
 
                 Toggle("Exact match release title", isOn: $exactMatchReleaseTitle)
 
@@ -58,20 +74,17 @@ struct AdvancedSearchSongsView: View {
             }
 
             Section {
-                HStack {
-                    Spacer()
-                    Button(action: {}, label: {
-                        Text("SEARCH")
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                    })
-                    Spacer()
-                }
+                Button(action: {}, label: {
+                    Text("SEARCH")
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                })
             }
             .listRowBackground(Color.accentColor)
         }
-        .listStyle(GroupedListStyle())
-        .navigationBarTitle("Advanced search songs", displayMode: .inline)
+        .tint(preferences.theme.primaryColor)
+        .navigationBarTitle("Advanced search songs", displayMode: .large)
     }
 }
 
