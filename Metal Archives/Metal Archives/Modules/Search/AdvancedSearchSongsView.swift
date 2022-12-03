@@ -21,7 +21,7 @@ struct AdvancedSearchSongsView: View {
 
     var body: some View {
         Form {
-            Section(header: Text("Song")) {
+            Section(content: {
                 HStack {
                     Text("Title")
                     TextField("", text: $songTitle)
@@ -35,9 +35,11 @@ struct AdvancedSearchSongsView: View {
                     TextField("", text: $lyrics)
                         .textFieldStyle(.roundedBorder)
                 }
-            }
+            }, header: {
+                Text("Song")
+            })
 
-            Section(header: Text("Band")) {
+            Section(content: {
                 HStack {
                     Text("Name")
                     TextField("", text: $bandName)
@@ -51,9 +53,11 @@ struct AdvancedSearchSongsView: View {
                     TextField("", text: $genre)
                         .textFieldStyle(.roundedBorder)
                 }
-            }
+            }, header: {
+                Text("Band")
+            })
 
-            Section(header: Text("Release")) {
+            Section(content: {
                 HStack {
                     Text("Title")
                     TextField("", text: $releaseTitle)
@@ -71,7 +75,9 @@ struct AdvancedSearchSongsView: View {
                             .foregroundColor(.gray)
                     }
                 }
-            }
+            }, header: {
+                Text("Release")
+            })
 
             Section {
                 Button(action: {}, label: {

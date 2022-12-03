@@ -32,7 +32,7 @@ struct AdvancedSearchAlbumsView: View {
 
     var body: some View {
         Form {
-            Section(header: Text("Band")) {
+            Section(content: {
                 HStack {
                     Text("Name")
                     TextField("", text: $bandName)
@@ -56,9 +56,11 @@ struct AdvancedSearchAlbumsView: View {
                     TextField("", text: $cityStateProvince)
                         .textFieldStyle(.roundedBorder)
                 }
-            }
+            }, header: {
+                Text("Band")
+            })
 
-            Section(header: Text("Release")) {
+            Section(content: {
                 HStack {
                     Text("Title")
                     TextField("", text: $releaseTitle)
@@ -108,9 +110,11 @@ struct AdvancedSearchAlbumsView: View {
                             .foregroundColor(.gray)
                     }
                 }
-            }
+            }, header: {
+                Text("Release")
+            })
 
-            Section(header: Text("Label")) {
+            Section(content: {
                 HStack {
                     Text("Name")
                     TextField("", text: $label)
@@ -118,9 +122,11 @@ struct AdvancedSearchAlbumsView: View {
                 }
 
                 Toggle("Indie label", isOn: $indieLabel)
-            }
+            }, header: {
+                Text("Label")
+            })
 
-            Section(header: Text("Additional information")) {
+            Section(content: {
                 HStack {
                     Text("Catalog number")
                     TextField("", text: $catalogNumber)
@@ -156,7 +162,9 @@ struct AdvancedSearchAlbumsView: View {
                     TextField("", text: $genre)
                         .textFieldStyle(.roundedBorder)
                 }
-            }
+            }, header: {
+                Text("Additional information")
+            })
 
             Section {
                 Button(action: {}, label: {
