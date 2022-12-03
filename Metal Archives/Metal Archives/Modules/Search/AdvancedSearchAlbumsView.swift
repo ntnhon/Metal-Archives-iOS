@@ -52,8 +52,8 @@ struct AdvancedSearchAlbumsView: View {
                 }
 
                 HStack {
-                    Text("City/state/province")
-                    TextField("", text: $cityStateProvince)
+                    Text("Location")
+                    TextField("City / state / province", text: $cityStateProvince)
                         .textFieldStyle(.roundedBorder)
                 }
             }, header: {

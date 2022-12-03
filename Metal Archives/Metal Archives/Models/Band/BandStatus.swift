@@ -37,6 +37,17 @@ enum BandStatus: String, CaseIterable {
         case .disputed: return .purple
         }
     }
+
+    var paramValue: Int {
+        switch self {
+        case .active: return 1
+        case .onHold: return 2
+        case .splitUp: return 3
+        case .changedName: return 5
+        case .unknown: return 4
+        case .disputed: return 6
+        }
+    }
 }
 
 extension BandStatus: Identifiable {
