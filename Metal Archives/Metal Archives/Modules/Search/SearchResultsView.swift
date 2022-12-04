@@ -375,7 +375,7 @@ private struct ReleaseSimpleSearchResultView: View {
     }
 }
 
-private struct SongSimpleSearchResultView: View {
+struct SongSimpleSearchResultView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var isShowingConfirmationDialog = false
     let result: SongSimpleSearchResult

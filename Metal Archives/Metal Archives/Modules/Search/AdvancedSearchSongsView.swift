@@ -18,6 +18,7 @@ struct AdvancedSearchSongsView: View {
     @State private var lyrics = ""
     @State private var genre = ""
     @StateObject private var releaseTypeSet = ReleaseTypeSet()
+    let apiService: APIServiceProtocol
 
     var body: some View {
         Form {
@@ -80,24 +81,43 @@ struct AdvancedSearchSongsView: View {
             })
 
             Section {
-                Button(action: {}, label: {
-                    Text("SEARCH")
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                })
+                NavigationLink(
+                    destination: {
+                        AdvancedSearchResultView(viewModel: .init(apiService: apiService,
+                                                                  manager: makePageManager()))
+                    },
+                    label: {
+                        Text("SEARCH")
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    })
             }
             .listRowBackground(Color.accentColor)
         }
         .tint(preferences.theme.primaryColor)
         .navigationBarTitle("Advanced search songs", displayMode: .large)
     }
+
+    private func makePageManager() -> SongAdvancedSearchResultPageManager {
+        let params = SongAdvancedSearchResultParams()
+        params.songTitle = songTitle
+        params.exactMatchSongTitle = exactMatchSongTitle
+        params.bandName = bandName
+        params.exactMatchBandName = exactMatchBandName
+        params.releaseTitle = releaseTitle
+        params.exactMatchReleaseTitle = exactMatchReleaseTitle
+        params.lyrics = lyrics
+        params.genre = genre
+        params.releaseTypes = releaseTypeSet.choices
+        return .init(apiService: apiService, params: params)
+    }
 }
 
 struct AdvancedSearchSongsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AdvancedSearchSongsView()
+            AdvancedSearchSongsView(apiService: APIService())
         }
         .environment(\.colorScheme, .dark)
         .environmentObject(Preferences())

@@ -9,7 +9,6 @@ import SwiftUI
 
 // swiftlint:disable line_length
 private let kQuickTips = """
-
     Tip #1: to search for part of a word, use * as wildcards (e.g. searching "hel*" will return results containing "hell" or "helm").
 
     Tip #2: to exclude terms, use the - symbol (e.g. searching "death -melodic" will return results that do not contain the word "melodic").
@@ -31,7 +30,7 @@ struct AdvancedSearchView: View {
                     Text("Advanced search albums")
                 }
 
-                NavigationLink(destination: AdvancedSearchSongsView()) {
+                NavigationLink(destination: AdvancedSearchSongsView(apiService: apiService)) {
                     Text("Advanced search songs")
                 }
             }

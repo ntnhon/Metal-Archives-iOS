@@ -37,7 +37,7 @@ extension SongSimpleSearchResult: PageElement {
      */
     // swiftlint:enable line_length
     init(from strings: [String]) throws {
-        guard strings.count == 4 else {
+        guard strings.count >= 4 else {
             throw PageElementError.badCount(count: strings.count, expectedCount: 4)
         }
 

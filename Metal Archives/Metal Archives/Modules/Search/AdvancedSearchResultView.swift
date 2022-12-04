@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+private typealias SongAdvancedSearchResultView = SongSimpleSearchResultView
+
 struct AdvancedSearchResultView<T: HashableEquatablePageElement>: View {
     @StateObject var viewModel: AdvancedSearchResultViewModel<T>
     @State private var selectedBandUrl: String?
@@ -111,6 +113,11 @@ struct AdvancedSearchResultView<T: HashableEquatablePageElement>: View {
                 result: result,
                 onSelectBand: { url in selectedBandUrl = url },
                 onSelectRelease: { url in selectedReleaseUrl = url })
+        } else if let result = result as? SongAdvancedSearchResult {
+            SongAdvancedSearchResultView(
+                result: result,
+                onSelectRelease: { url in selectedReleaseUrl = url },
+                onSelectBand: { url in selectedBandUrl = url })
         } else {
             EmptyView()
         }
