@@ -25,14 +25,6 @@ struct RootView: View {
                 }
                 .tag(RootViewTab.home)
 
-            NavigationView { BrowseView(apiService: apiService) }
-                .tabItem {
-                    Image(systemName: selectedTab == .browse ?
-                            "tray.2.fill" : "tray.2")
-                    Text("Browse")
-                }
-                .tag(RootViewTab.browse)
-
             NavigationView { SearchView(apiService: apiService) }
                 .tabItem {
                     Image(systemName: selectedTab == .search ?
@@ -41,6 +33,15 @@ struct RootView: View {
                 }
                 .tag(RootViewTab.search)
 
+            NavigationView { BrowseView(apiService: apiService) }
+                .tabItem {
+                    Image(systemName: selectedTab == .browse ?
+                            "tray.2.fill" : "tray.2")
+                    Text("Browse")
+                }
+                .tag(RootViewTab.browse)
+
+            /*
             NavigationView { MyAccountView() }
                 .tabItem {
                     Image(systemName: selectedTab == .myAccount ?
@@ -48,6 +49,7 @@ struct RootView: View {
                     Text("My account")
                 }
                 .tag(RootViewTab.myAccount)
+             */
 
             NavigationView { SettingsView() }
                 .tabItem {
