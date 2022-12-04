@@ -106,6 +106,11 @@ struct AdvancedSearchResultView<T: HashableEquatablePageElement>: View {
                 .onTapGesture {
                     selectedBandUrl = result.band.thumbnailInfo.urlString
                 }
+        } else if let result = result as? ReleaseAdvancedSearchResult {
+            ReleaseAdvancedSearchResultView(
+                result: result,
+                onSelectBand: { url in selectedBandUrl = url },
+                onSelectRelease: { url in selectedReleaseUrl = url })
         } else {
             EmptyView()
         }
@@ -159,5 +164,64 @@ private struct BandAdvancedSearchResultView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .contentShape(Rectangle())
+    }
+}
+
+private struct ReleaseAdvancedSearchResultView: View {
+    @EnvironmentObject private var preferences: Preferences
+    @State private var isShowingConfirmationDialog = false
+    let result: ReleaseAdvancedSearchResult
+    let onSelectBand: (String) -> Void
+    let onSelectRelease: (String) -> Void
+
+    var body: some View {
+        HStack {
+            ThumbnailView(thumbnailInfo: result.release.thumbnailInfo,
+                          photoDescription: result.release.title)
+            .font(.largeTitle)
+            .foregroundColor(preferences.theme.secondaryColor)
+            .frame(width: 64, height: 64)
+
+            VStack(alignment: .leading) {
+                Text(result.release.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(preferences.theme.primaryColor)
+
+                Text(result.band.name)
+                    .foregroundColor(preferences.theme.secondaryColor)
+
+                Text(result.type.description)
+                    .fontWeight(.bold)
+
+                ForEach(result.otherInfo, id: \.self) { info in
+                    Text(info)
+                        .font(.callout)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            isShowingConfirmationDialog.toggle()
+        }
+        .confirmationDialog(
+            "",
+            isPresented: $isShowingConfirmationDialog,
+            actions: {
+                Button(action: {
+                    onSelectRelease(result.release.thumbnailInfo.urlString)
+                }, label: {
+                    Text("View release's detail")
+                })
+
+                Button(action: {
+                    onSelectBand(result.band.thumbnailInfo.urlString)
+                }, label: {
+                    Text("View band's detail")
+                })
+            },
+            message: {
+                Text("\"\(result.release.title)\" by \(result.band.name)")
+            })
     }
 }

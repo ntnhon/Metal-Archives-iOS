@@ -17,7 +17,7 @@ struct AdvancedSearchAlbumsView: View {
     @State private var exactMatchReleaseTitle = false
     @State private var fromDate = kStartDate
     @State private var toDate = Date()
-    @State private var cityStateProvince = ""
+    @State private var location = ""
     @State private var label = ""
     @State private var indieLabel = false
     @State private var catalogNumber = ""
@@ -29,6 +29,7 @@ struct AdvancedSearchAlbumsView: View {
     @StateObject private var countrySet = CountrySet()
     @StateObject private var releaseTypeSet = ReleaseTypeSet()
     @StateObject private var releaseFormatSet = ReleaseFormatSet()
+    let apiService: APIServiceProtocol
 
     var body: some View {
         Form {
@@ -53,7 +54,7 @@ struct AdvancedSearchAlbumsView: View {
 
                 HStack {
                     Text("Location")
-                    TextField("City / state / province", text: $cityStateProvince)
+                    TextField("City / state / province", text: $location)
                         .textFieldStyle(.roundedBorder)
                 }
             }, header: {
@@ -167,24 +168,52 @@ struct AdvancedSearchAlbumsView: View {
             })
 
             Section {
-                Button(action: {}, label: {
-                    Text("SEARCH")
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                })
+                NavigationLink(
+                    destination: {
+                        AdvancedSearchResultView(viewModel: .init(apiService: apiService,
+                                                                  manager: makePageManager()))
+                    },
+                    label: {
+                        Text("SEARCH")
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    })
             }
             .listRowBackground(Color.accentColor)
         }
         .tint(preferences.theme.primaryColor)
         .navigationBarTitle("Advanced search albums", displayMode: .large)
     }
+
+    private func makePageManager() -> ReleaseAdvancedSearchResultPageManager {
+        let params = ReleaseAdvancedSearchParams()
+        params.bandName = bandName
+        params.exactMatchBandName = exactMatchBandName
+        params.releaseTitle = releaseTitle
+        params.exactMatchReleaseTitle = exactMatchReleaseTitle
+        params.fromDate = fromDate
+        params.toDate = toDate
+        params.countries = countrySet.choices
+        params.location = location
+        params.label = label
+        params.indieLabel = indieLabel
+        params.catalogNumber = catalogNumber
+        params.identifier = identifier
+        params.recordingInformation = recordingInformation
+        params.versionDescription = versionDescription
+        params.additionalNote = additionalNote
+        params.genre = genre
+        params.releaseTypes = releaseTypeSet.choices
+        params.releaseFormats = releaseFormatSet.choices
+        return .init(apiService: apiService, params: params)
+    }
 }
 
 struct AdvancedSearchAlbumsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AdvancedSearchAlbumsView()
+            AdvancedSearchAlbumsView(apiService: APIService())
         }
         .environment(\.colorScheme, .dark)
         .environmentObject(Preferences())

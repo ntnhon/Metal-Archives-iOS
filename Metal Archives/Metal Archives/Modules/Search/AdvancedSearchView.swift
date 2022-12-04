@@ -27,7 +27,7 @@ struct AdvancedSearchView: View {
                     Text("Advanced search bands")
                 }
 
-                NavigationLink(destination: AdvancedSearchAlbumsView()) {
+                NavigationLink(destination: AdvancedSearchAlbumsView(apiService: apiService)) {
                     Text("Advanced search albums")
                 }
 
