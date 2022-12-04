@@ -256,6 +256,7 @@
 		EF62240A28F15FDF00845430 /* HornCircularLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240928F15FDF00845430 /* HornCircularLoader.swift */; };
 		EF62240C28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */; };
 		EF62240E28F1C94300845430 /* ReleaseCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240D28F1C94300845430 /* ReleaseCoverView.swift */; };
+		EF67B679293D4A4E00BAC4D2 /* UpcomingAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */; };
 		EF69DD7F291660AF00C3D4E3 /* LabelTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */; };
 		EF69DD81291664E500C3D4E3 /* LabelLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */; };
 		EF6A89F72903CE4D00DA2D67 /* BandByCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A89F62903CE4D00DA2D67 /* BandByCountry.swift */; };
@@ -569,6 +570,7 @@
 		EF62240928F15FDF00845430 /* HornCircularLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HornCircularLoader.swift; sourceTree = "<group>"; };
 		EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+retrieveImageAsync.swift"; sourceTree = "<group>"; };
 		EF62240D28F1C94300845430 /* ReleaseCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseCoverView.swift; sourceTree = "<group>"; };
+		EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbum.swift; sourceTree = "<group>"; };
 		EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabsDatasource.swift; sourceTree = "<group>"; };
 		EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLogoView.swift; sourceTree = "<group>"; };
 		EF6A89F62903CE4D00DA2D67 /* BandByCountry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandByCountry.swift; sourceTree = "<group>"; };
@@ -1080,6 +1082,7 @@
 			children = (
 				C038739E2659A90A00D2FD5E /* Artist */,
 				C041C3102658EE5F006B0F1F /* Band */,
+				EF67B677293D4A3900BAC4D2 /* Home */,
 				C041C3132658EF19006B0F1F /* Label */,
 				C004A2D1265915F50071E12A /* Release */,
 				C0A68A15265D738D00E9A658 /* Review */,
@@ -1268,6 +1271,14 @@
 				EF5F05442926C32E00CECF67 /* SearchEntryDatasource.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		EF67B677293D4A3900BAC4D2 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		EF7A2C9728FC18740046B136 /* Review */ = {
@@ -1615,6 +1626,7 @@
 				EF5EAB532918274B009BCDFF /* User.swift in Sources */,
 				C017D42D267E9B51008B6EE5 /* AboutView.swift in Sources */,
 				EF7A99F0291C5A9B008770E7 /* UserReleasesView.swift in Sources */,
+				EF67B679293D4A4E00BAC4D2 /* UpcomingAlbum.swift in Sources */,
 				EF5A058128FDDC72001BF230 /* TopBandsView.swift in Sources */,
 				EF3FCC1E28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift in Sources */,
 				EF3F5FE129056CB500FD1A31 /* ArtistLite.swift in Sources */,

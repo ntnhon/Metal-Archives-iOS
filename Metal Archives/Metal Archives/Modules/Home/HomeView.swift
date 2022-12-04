@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject private var preferences: Preferences
-
     let apiService: APIServiceProtocol
 
     var body: some View {
@@ -29,7 +28,7 @@ struct HomeView: View {
                     case .latestReviews:
                         LatestReviewsSection()
                     case .upcomingAlbums:
-                        UpcomingAlbumsSection()
+                        UpcomingAlbumsSection(apiService: apiService)
                     }
                 }
             }
