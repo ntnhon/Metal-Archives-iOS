@@ -7,168 +7,40 @@
 
 import SwiftUI
 
-// swiftlint:disable line_length
 struct HomeView: View {
-    @EnvironmentObject private var settings: Preferences
+    @EnvironmentObject private var preferences: Preferences
+
     let apiService: APIServiceProtocol
 
     var body: some View {
-        Form {
-            NavigationLink(destination: {
-                BandView(apiService: apiService,
-                         bandUrlString: "https://www.metal-archives.com/bands/Death/141")
-            }, label: {
-                Text("Death")
-            })
+        ScrollView {
+            VStack {
+                Text("What's news on Metal Archives today")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                    .padding(.bottom)
 
-            NavigationLink(destination: {
-                BandView(apiService: apiService,
-                         bandUrlString: "https://www.metal-archives.com/bands/Testament/70")
-            }, label: {
-                Text("Testament")
-            })
-
-            NavigationLink(destination: {
-                BandView(apiService: apiService,
-                         bandUrlString: "https://www.metal-archives.com/bands/Lamb_of_God/59")
-            }, label: {
-                Text("Lamb of God")
-            })
-
-            NavigationLink(destination: {
-                BandView(apiService: apiService,
-                         bandUrlString: "https://www.metal-archives.com/bands/Nile/139")
-            }, label: {
-                Text("Nile")
-            })
-
-            NavigationLink(destination: {
-                BandView(apiService: apiService,
-                         bandUrlString: "https://www.metal-archives.com/bands/Fleshgod_Apocalypse/113185")
-            }, label: {
-                Text("Fleshgod Apocalypse")
-            })
-
-            NavigationLink(destination: {
-                BandView(apiService: apiService,
-                         bandUrlString: "https://www.metal-archives.com/bands/Cephalic_Destruction/3540495596")
-            }, label: {
-                Text("Cephalic Destruction")
-            })
-
-            NavigationLink(destination: {
-                BandView(apiService: apiService,
-                         bandUrlString: "https://www.metal-archives.com/bands/Earthwhore/110516")
-            }, label: {
-                Text("Earthwhore")
-            })
-
-            NavigationLink(destination: {
-                ReleaseView(apiService: apiService,
-                            urlString: "https://www.metal-archives.com/albums/Death/Scream_Bloody_Gore/598",
-                            parentRelease: nil)
-            }, label: {
-                Text("Scream Bloody Gore")
-            })
-
-            Group {
-                NavigationLink(destination: {
-                    ReleaseView(apiService: apiService,
-                                urlString: "https://www.metal-archives.com/albums/Death/Ultimate_Revenge_2/254112",
-                                parentRelease: nil)
-                }, label: {
-                    Text("Ultimate Revenge 2")
-                })
-
-                NavigationLink(destination: {
-                    ReleaseView(apiService: apiService,
-                                urlString: "https://www.metal-archives.com/albums/Death/Victims_of_Death_-_The_Best_of_Decade_of_Chaos/665400",
-                                parentRelease: nil)
-                }, label: {
-                    Text("Victims of Death - The Best of Decade of Chaos")
-                })
-
-                NavigationLink(destination: {
-                    ReleaseView(apiService: apiService,
-                                urlString: "https://www.metal-archives.com/albums/At_Radogost%27s_Gates/Dyau/57765",
-                                parentRelease: nil)
-                }, label: {
-                    Text("Dyau")
-                })
-
-                NavigationLink(destination: {
-                    ArtistView(apiService: apiService,
-                               urlString: "https://www.metal-archives.com/artists/Chuck_Schuldiner/3012")
-                }, label: {
-                    Text("Chuck Schuldiner")
-                })
-
-                NavigationLink(destination: {
-                    LabelView(apiService: apiService,
-                              urlString: "https://www.metal-archives.com/labels/Nuclear_Blast/2")
-                }, label: {
-                    Text("Nuclear Blast")
-                })
-
-                NavigationLink(destination: {
-                    LabelView(apiService: apiService,
-                              urlString: "https://www.metal-archives.com/labels/Anstalt_Records/4867")
-                }, label: {
-                    Text("Anstalt Records")
-                })
-
-                NavigationLink(destination: {
-                    ReviewView(apiService: apiService,
-                               urlString: "https://www.metal-archives.com/reviews/Death/Live_Tape_%232/67218/AgnosticPuppy666/799050")
-                }, label: {
-                    Text("Live Tape #2")
-                })
-
-                NavigationLink(destination: {
-                    ReviewView(apiService: apiService,
-                               urlString: "https://www.metal-archives.com/reviews/Death/Individual_Thought_Patterns/613/robotiq/126459")
-                }, label: {
-                    Text("Individual Thought Patterns")
-                })
-
-                NavigationLink(destination: {
-                    UserView(apiService: apiService,
-                             urlString: "https://www.metal-archives.com/users/Felix%201666")
-                }, label: {
-                    Text("Felix 1666")
-                })
-
-                NavigationLink(destination: {
-                    UserView(apiService: apiService,
-                             urlString: "https://www.metal-archives.com/users/HellBlazer")
-                }, label: {
-                    Text("HellBlazer")
-                })
-            }
-
-            Group {
-                NavigationLink(destination: {
-                    UserView(apiService: apiService,
-                             urlString: "https://www.metal-archives.com/users/artery")
-                }, label: {
-                    Text("artery")
-                })
-
-                NavigationLink(destination: {
-                    UserView(apiService: apiService,
-                             urlString: "https://www.metal-archives.com/users/Helvede")
-                }, label: {
-                    Text("Helvede")
-                })
-
-                NavigationLink(destination: {
-                    UserView(apiService: apiService,
-                             urlString: "https://www.metal-archives.com/users/Azmodes")
-                }, label: {
-                    Text("Azmodes")
-                })
+                ForEach(preferences.homeSectionOrder) { section in
+                    switch section {
+                    case .latestAdditions:
+                        LatestAdditionsSection()
+                    case .latestUpdates:
+                        LatestUpdatesSection()
+                    case .latestReviews:
+                        LatestReviewsSection()
+                    case .upcomingAlbums:
+                        UpcomingAlbumsSection()
+                    }
+                }
             }
         }
+        .navigationTitle(Text(navigationTitle))
+        .navigationBarTitleDisplayMode(.large)
+    }
+
+    private var navigationTitle: String {
+        let formatter = DateFormatter(dateFormat: "EEEE, d MMM yyyy")
+        return formatter.string(for: Date()) ?? "Metal Archives"
     }
 }
 

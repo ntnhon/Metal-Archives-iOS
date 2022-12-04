@@ -19,3 +19,7 @@ enum HomeSection: Int, CustomStringConvertible, Codable {
         }
     }
 }
+
+extension HomeSection: Identifiable {
+    var id: Int { rawValue }
+}
