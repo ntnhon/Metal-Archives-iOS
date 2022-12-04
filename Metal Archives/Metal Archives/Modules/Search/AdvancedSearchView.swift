@@ -18,10 +18,12 @@ private let kQuickTips = """
 
 struct AdvancedSearchView: View {
     @State private var showTips = false
+    let apiService: APIServiceProtocol
+
     var body: some View {
         Form {
             Section(footer: Text(kQuickTips)) {
-                NavigationLink(destination: AdvancedSearchBandsView()) {
+                NavigationLink(destination: AdvancedSearchBandsView(apiService: apiService)) {
                     Text("Advanced search bands")
                 }
 
@@ -53,7 +55,7 @@ struct AdvancedSearchView: View {
 struct AdvancedSearchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AdvancedSearchView()
+            AdvancedSearchView(apiService: APIService())
         }
         .environment(\.colorScheme, .dark)
         .environmentObject(Preferences())

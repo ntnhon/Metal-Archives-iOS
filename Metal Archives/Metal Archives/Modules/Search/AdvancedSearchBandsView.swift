@@ -15,16 +15,16 @@ struct AdvancedSearchBandsView: View {
     @State private var bandName = ""
     @State private var exactMatch = false
     @State private var genre = ""
-    @State private var showCountryList = false
     @StateObject private var countrySet = CountrySet()
     @State private var fromYear = kMinYear
     @State private var toYear = kThisYear
     @State private var additionalNote = ""
     @StateObject private var bandStatusSet = BandStatusSet()
     @State private var lyricalThemes = ""
-    @State private var cityStateProvince = ""
+    @State private var location = ""
     @State private var label = ""
     @State private var indieLabel = false
+    let apiService: APIServiceProtocol
 
     var body: some View {
         Form {
@@ -101,7 +101,7 @@ struct AdvancedSearchBandsView: View {
 
                 HStack {
                     Text("Location")
-                    TextField("City / state / province", text: $cityStateProvince)
+                    TextField("City / state / province", text: $location)
                         .textFieldStyle(.roundedBorder)
                 }
             }, header: {
@@ -109,17 +109,39 @@ struct AdvancedSearchBandsView: View {
             })
 
             Section {
-                Button(action: {}, label: {
-                    Text("SEARCH")
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                })
+                NavigationLink(
+                    destination: {
+                        AdvancedSearchResultView(viewModel: .init(apiService: apiService,
+                                                                  manager: makePageManager()))
+                    },
+                    label: {
+                        Text("SEARCH")
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    })
             }
             .listRowBackground(Color.accentColor)
         }
         .tint(preferences.theme.primaryColor)
         .navigationBarTitle("Advanced search bands", displayMode: .large)
+    }
+
+    private func makePageManager() -> BandAdvancedSearchResultPageManager {
+        let params = BandAdvancedSearchParams()
+        params.bandName = bandName
+        params.exactMatch = exactMatch
+        params.genre = genre
+        params.countries = countrySet.choices
+        params.fromYear = fromYear
+        params.toYear = toYear
+        params.notes = additionalNote
+        params.statuses = bandStatusSet.choices
+        params.lyricalThemes = lyricalThemes
+        params.location = location
+        params.labelName = label
+        params.indieLabel = indieLabel
+        return .init(apiService: apiService, params: params)
     }
 }
 

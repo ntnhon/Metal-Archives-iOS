@@ -6,8 +6,92 @@
 //
 
 import Foundation
+import Kanna
 
-typealias BandAdvancedSearchResult = BandSimpleSearchResult
+enum CountryOrLocation: Hashable {
+    case country(Country)
+    case location(String)
+
+    func hash(into hasher: inout Hasher) {
+        switch self {
+        case .country(let country): hasher.combine(country)
+        case .location(let location): hasher.combine(location)
+        }
+    }
+}
+
+struct BandAdvancedSearchResult {
+    let band: BandLite
+    let note: String? // e.g. a.k.a. D.A.D.
+    let genre: String
+    let countryOrLocation: CountryOrLocation
+    let year: String
+    let label: String?
+}
+
+extension BandAdvancedSearchResult: Equatable {
+    static func == (lhs: Self, rhs: Self) -> Bool { lhs.hashValue == rhs.hashValue }
+}
+
+extension BandAdvancedSearchResult: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(band)
+        hasher.combine(note)
+        hasher.combine(countryOrLocation)
+        hasher.combine(genre)
+        hasher.combine(year)
+        hasher.combine(label)
+    }
+}
+
+extension BandAdvancedSearchResult: PageElement {
+    /*
+     "<a href=\"https://www.metal-archives.com/bands/Death/141\">Death</a>  <!-- 5.8260393 -->" ,
+     "Death Metal (early); Progressive Death Metal (later)" ,
+     "United States",
+     "1984"
+     */
+    init(from strings: [String]) throws {
+        guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
+              let bandName = aTag.text,
+              let bandUrlString = aTag["href"],
+              let band = BandLite(urlString: bandUrlString, name: bandName) else {
+            throw PageElementError.failedToParse("\(BandLite.self): \(strings[0])")
+        }
+        self.band = band
+
+        if let noteHtml = strings[0].subString(after: "</a> (", before: ")") {
+            self.note = try Kanna.HTML(html: noteHtml, encoding: .utf8).text
+        } else {
+            self.note = nil
+        }
+
+        self.genre = strings[1]
+
+        let countryOrLocationString = strings[2]
+        if countryOrLocationString.contains(",") {
+            self.countryOrLocation = .location(countryOrLocationString)
+        } else {
+            self.countryOrLocation = .country(CountryManager.shared.country(by: \.name,
+                                                                            value: countryOrLocationString))
+        }
+
+        let year = Int(strings[3]) ?? 0
+        let thisYear = Calendar.current.component(.year, from: .init())
+        let distance = thisYear - year
+        switch distance {
+        case 0: self.year = "\(year) (this year)"
+        case 1: self.year = "\(year) (last year)"
+        default: self.year = "\(year) (\(distance) years ago)"
+        }
+
+        if strings.count == 5 {
+            self.label = strings[4]
+        } else {
+            self.label = nil
+        }
+    }
+}
 
 final class BandAdvancedSearchParams {
     var bandName = ""
@@ -62,7 +146,7 @@ final class BandAdvancedSearchResultPageManager: PageManager<BandAdvancedSearchR
             urlString += "&status="
         } else {
             for status in params.statuses {
-                urlString += "$status[]=\(status.paramValue)"
+                urlString += "&status[]=\(status.paramValue)"
             }
         }
 

@@ -240,31 +240,6 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
     }
 }
 
-private struct NoResultsView: View {
-    @Environment(\.dismiss) private var dismiss
-    let message: String
-
-    init(query: String?) {
-        if let query {
-            message = "🤕 No results found for \"\(query)\""
-        } else {
-            message = "🤕 No results found"
-        }
-    }
-
-    var body: some View {
-        VStack {
-            Text(message)
-                .font(.callout.italic())
-                .multilineTextAlignment(.center)
-            Button(action: dismiss.callAsFunction) {
-                Label("Go back", systemImage: "arrowshape.turn.up.backward.2")
-            }
-        }
-        .padding()
-    }
-}
-
 private struct BandSimpleSearchResultView: View {
     @EnvironmentObject private var preferences: Preferences
     let result: BandSimpleSearchResult

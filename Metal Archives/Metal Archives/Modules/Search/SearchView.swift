@@ -63,7 +63,7 @@ struct SearchView: View {
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: AdvancedSearchView()) {
+                NavigationLink(destination: AdvancedSearchView(apiService: apiService)) {
                     Text("Advanced search")
                         .fontWeight(.bold)
                 }
