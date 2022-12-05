@@ -80,7 +80,8 @@ struct ReleaseInfoView: View {
 
     @ViewBuilder
     private var bandsView: some View {
-        let texts = generateBandsText()
+        let texts = release.bands.generateTexts(fontWeight: .medium,
+                                                foregroundColor: preferences.theme.primaryColor)
         HStack {
             Image(systemName: "person.3.fill")
                 .foregroundColor(.secondary)
@@ -103,20 +104,6 @@ struct ReleaseInfoView: View {
             )
             Spacer()
         }
-    }
-
-    private func generateBandsText() -> [Text] {
-        var texts = [Text]()
-        for (index, band) in release.bands.enumerated() {
-            texts.append(
-                Text(band.name)
-                    .fontWeight(.medium)
-                    .foregroundColor(preferences.theme.primaryColor))
-            if index != release.bands.count - 1 {
-                texts.append(Text(" / "))
-            }
-        }
-        return texts
     }
 
     private var reviewView: some View {

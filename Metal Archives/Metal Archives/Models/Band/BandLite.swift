@@ -5,7 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 22/05/2021.
 //
 
-import Foundation
+import SwiftUI
 
 struct BandLite: Thumbnailable {
     let thumbnailInfo: ThumbnailInfo
@@ -80,5 +80,19 @@ extension BandExtraLite: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(thumbnailInfo)
         hasher.combine(name)
+    }
+}
+
+extension Array where Element == BandLite {
+    func generateTexts(fontWeight: Font.Weight,
+                       foregroundColor: Color) -> [Text] {
+        var texts = [Text]()
+        for (index, band) in enumerated() {
+            texts.append(Text(band.name).fontWeight(fontWeight).foregroundColor(foregroundColor))
+            if index != count - 1 {
+                texts.append(Text(" / ").fontWeight(fontWeight))
+            }
+        }
+        return texts
     }
 }
