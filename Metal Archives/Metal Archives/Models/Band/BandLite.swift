@@ -33,6 +33,10 @@ extension BandLite: Hashable {
     }
 }
 
+extension BandLite: Identifiable {
+    var id: Int { hashValue }
+}
+
 // swiftlint:disable force_unwrapping
 extension BandLite {
     static var controlDenied: BandLite {

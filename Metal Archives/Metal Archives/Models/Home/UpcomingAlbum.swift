@@ -14,6 +14,10 @@ struct UpcomingAlbum {
     let releaseType: ReleaseType
     let genre: String
     let date: String
+
+    var bandsName: String {
+        bands.map { $0.name }.joined(separator: " & ")
+    }
 }
 
 extension UpcomingAlbum: Equatable {

@@ -12,12 +12,16 @@ typealias UpcomingAlbumsSectionViewModel = HomeSectionViewModel<UpcomingAlbum>
 
 struct UpcomingAlbumsSection: View {
     @StateObject private var viewModel: UpcomingAlbumsSectionViewModel
-    @State private var selectedBandUrl: String?
-    @State private var selectedReleaseUrl: String?
+    let onSelectBand: (String) -> Void
+    let onSelectRelease: (String) -> Void
 
-    init(apiService: APIServiceProtocol) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService,
-                                               manager: UpcomingAlbumPageManager(apiService: apiService)))
+    init(apiService: APIServiceProtocol,
+         onSelectBand: @escaping (String) -> Void,
+         onSelectRelease: @escaping (String) -> Void) {
+        self._viewModel = .init(wrappedValue: .init(apiService: apiService,
+                                                    manager: UpcomingAlbumPageManager(apiService: apiService)))
+        self.onSelectBand = onSelectBand
+        self.onSelectRelease = onSelectRelease
     }
 
     var body: some View {
@@ -68,7 +72,9 @@ struct UpcomingAlbumsSection: View {
             ForEach(viewModel.chunkedResults) { upcomingAlbums in
                 VStack(spacing: HomeSettings.entrySpacing) {
                     ForEach(upcomingAlbums) { album in
-                        UpcomingAlbumView(upcomingAlbum: album)
+                        UpcomingAlbumView(upcomingAlbum: album,
+                                          onSelectBand: onSelectBand,
+                                          onSelectRelease: onSelectRelease)
                     }
                 }
                 .snapAlignmentHelper(id: upcomingAlbums.hashValue)
@@ -80,7 +86,10 @@ struct UpcomingAlbumsSection: View {
 
 private struct UpcomingAlbumView: View {
     @EnvironmentObject private var preferences: Preferences
+    @State private var isShowingConfirmationDialog = false
     let upcomingAlbum: UpcomingAlbum
+    let onSelectBand: (String) -> Void
+    let onSelectRelease: (String) -> Void
 
     var body: some View {
         HStack {
@@ -126,5 +135,31 @@ private struct UpcomingAlbumView: View {
         }
         .frame(width: HomeSettings.entryWidth)
         .contentShape(Rectangle())
+        .onTapGesture { isShowingConfirmationDialog.toggle() }
+        .confirmationDialog(
+            "Upcoming album",
+            isPresented: $isShowingConfirmationDialog,
+            actions: {
+                Button(action: {
+                    onSelectRelease(upcomingAlbum.release.thumbnailInfo.urlString)
+                }, label: {
+                    Text("View release's detail")
+                })
+
+                ForEach(upcomingAlbum.bands) { band in
+                    Button(action: {
+                        onSelectBand(band.thumbnailInfo.urlString)
+                    }, label: {
+                        if upcomingAlbum.bands.count == 1 {
+                            Text("View band's detail")
+                        } else {
+                            Text(band.name)
+                        }
+                    })
+                }
+            },
+            message: {
+                Text("\"\(upcomingAlbum.release.title)\" by \(upcomingAlbum.bandsName)")
+            })
     }
 }
