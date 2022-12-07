@@ -279,6 +279,7 @@
 		EF7A99F0291C5A9B008770E7 /* UserReleasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A99EF291C5A9B008770E7 /* UserReleasesView.swift */; };
 		EF7A99F2291C5AB0008770E7 /* UserReleasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A99F1291C5AB0008770E7 /* UserReleasesViewModel.swift */; };
 		EF815B5A29411DDC003CEFF5 /* HomeSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF815B5929411DDC003CEFF5 /* HomeSectionViewModel.swift */; };
+		EF815B5C29412694003CEFF5 /* HomeSectionSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF815B5B29412694003CEFF5 /* HomeSectionSkeletonView.swift */; };
 		EF81B20C2916939000ADDD60 /* LabelInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF81B20B2916939000ADDD60 /* LabelInfoView.swift */; };
 		EF81B20E29169ACB00ADDD60 /* LabelRelatedLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF81B20D29169ACB00ADDD60 /* LabelRelatedLinksView.swift */; };
 		EFA48C3E28F5E5890012B349 /* ReleaseTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA48C3D28F5E5890012B349 /* ReleaseTabsDatasource.swift */; };
@@ -595,6 +596,7 @@
 		EF7A99EF291C5A9B008770E7 /* UserReleasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReleasesView.swift; sourceTree = "<group>"; };
 		EF7A99F1291C5AB0008770E7 /* UserReleasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReleasesViewModel.swift; sourceTree = "<group>"; };
 		EF815B5929411DDC003CEFF5 /* HomeSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionViewModel.swift; sourceTree = "<group>"; };
+		EF815B5B29412694003CEFF5 /* HomeSectionSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionSkeletonView.swift; sourceTree = "<group>"; };
 		EF81B20B2916939000ADDD60 /* LabelInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelInfoView.swift; sourceTree = "<group>"; };
 		EF81B20D29169ACB00ADDD60 /* LabelRelatedLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelRelatedLinksView.swift; sourceTree = "<group>"; };
 		EFA48C3D28F5E5890012B349 /* ReleaseTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTabsDatasource.swift; sourceTree = "<group>"; };
@@ -843,6 +845,7 @@
 			children = (
 				C017D410267E2FF1008B6EE5 /* HomeView.swift */,
 				EF815B5929411DDC003CEFF5 /* HomeSectionViewModel.swift */,
+				EF815B5B29412694003CEFF5 /* HomeSectionSkeletonView.swift */,
 				EF626214293E7EEB006C3FDC /* HomeSettings.swift */,
 				EF5F9956293D08A100766883 /* LatestAdditionsSection.swift */,
 				EF5F995A293D0DE800766883 /* LatestReviewsSection.swift */,
@@ -1573,6 +1576,7 @@
 				C007887E26AF5C020080AC93 /* BandRelatedLinksView.swift in Sources */,
 				EF626215293E7EEB006C3FDC /* HomeSettings.swift in Sources */,
 				EF5F9955293CFB5000766883 /* SongAdvancedSearchResult.swift in Sources */,
+				EF815B5C29412694003CEFF5 /* HomeSectionSkeletonView.swift in Sources */,
 				EF4B6BA82899015F008DBCF6 /* AttributedStringExtensions.swift in Sources */,
 				C060E6CC2682710F0006433A /* AdvancedSearchBandsView.swift in Sources */,
 				EF6A89F72903CE4D00DA2D67 /* BandByCountry.swift in Sources */,

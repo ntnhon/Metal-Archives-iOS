@@ -47,8 +47,7 @@ struct UpcomingAlbumsSection: View {
                     .padding(.horizontal)
 
                     if viewModel.isLoading && viewModel.results.isEmpty {
-                        ProgressView()
-                            .frame(height: HomeSettings.pageHeight)
+                        HomeSectionSkeletonView()
                     } else if viewModel.results.isEmpty {
                         Text("No upcoming albums")
                             .font(.callout.italic())
