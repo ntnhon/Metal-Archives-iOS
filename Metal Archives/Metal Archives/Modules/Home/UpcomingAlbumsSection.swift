@@ -8,7 +8,7 @@
 import SnapToScroll
 import SwiftUI
 
-typealias UpcomingAlbumsSectionViewModel = AdvancedSearchResultViewModel<UpcomingAlbum>
+typealias UpcomingAlbumsSectionViewModel = HomeSectionViewModel<UpcomingAlbum>
 
 struct UpcomingAlbumsSection: View {
     @StateObject private var viewModel: UpcomingAlbumsSectionViewModel
@@ -48,6 +48,7 @@ struct UpcomingAlbumsSection: View {
 
                     if viewModel.isLoading && viewModel.results.isEmpty {
                         ProgressView()
+                            .frame(height: HomeSettings.pageHeight)
                     } else if viewModel.results.isEmpty {
                         Text("No upcoming albums")
                             .font(.callout.italic())
@@ -65,8 +66,7 @@ struct UpcomingAlbumsSection: View {
 
     private var resultList: some View {
         HStackSnap(alignment: .leading(24)) {
-            ForEach(Array(viewModel.results.prefix(HomeSettings.entriesPerPage * 10))
-                .chunked(into: HomeSettings.entriesPerPage)) { upcomingAlbums in
+            ForEach(viewModel.chunkedResults) { upcomingAlbums in
                 VStack(spacing: HomeSettings.entrySpacing) {
                     ForEach(upcomingAlbums) { album in
                         UpcomingAlbumView(upcomingAlbum: album)
@@ -74,14 +74,6 @@ struct UpcomingAlbumsSection: View {
                 }
                 .snapAlignmentHelper(id: upcomingAlbums.hashValue)
             }
-
-            Button(action: {
-                print("See all")
-            }, label: {
-                Text("See All")
-            })
-            .frame(width: HomeSettings.entryWidth)
-            .snapAlignmentHelper(id: "See All")
         }
         .frame(height: HomeSettings.pageHeight)
     }

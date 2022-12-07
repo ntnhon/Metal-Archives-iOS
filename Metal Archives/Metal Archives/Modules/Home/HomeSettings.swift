@@ -16,5 +16,6 @@ enum HomeSettings {
         return max(width, 350)
     }()
     static let entriesPerPage = 3
+    static let maxPages = 10
     static let pageHeight = CGFloat(entriesPerPage - 1) * entrySpacing + CGFloat(entriesPerPage) * entryHeight
 }
