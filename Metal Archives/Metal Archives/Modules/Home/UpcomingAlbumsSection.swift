@@ -12,16 +12,13 @@ typealias UpcomingAlbumsSectionViewModel = HomeSectionViewModel<UpcomingAlbum>
 
 struct UpcomingAlbumsSection: View {
     @StateObject private var viewModel: UpcomingAlbumsSectionViewModel
-    let onSelectBand: (String) -> Void
-    let onSelectRelease: (String) -> Void
+    @Binding var detail: Detail?
 
     init(apiService: APIServiceProtocol,
-         onSelectBand: @escaping (String) -> Void,
-         onSelectRelease: @escaping (String) -> Void) {
+         detail: Binding<Detail?>) {
         self._viewModel = .init(wrappedValue: .init(apiService: apiService,
                                                     manager: UpcomingAlbumPageManager(apiService: apiService)))
-        self.onSelectBand = onSelectBand
-        self.onSelectRelease = onSelectRelease
+        self._detail = detail
     }
 
     var body: some View {
@@ -72,9 +69,7 @@ struct UpcomingAlbumsSection: View {
             ForEach(viewModel.chunkedResults) { upcomingAlbums in
                 VStack(spacing: HomeSettings.entrySpacing) {
                     ForEach(upcomingAlbums) { album in
-                        UpcomingAlbumView(upcomingAlbum: album,
-                                          onSelectBand: onSelectBand,
-                                          onSelectRelease: onSelectRelease)
+                        UpcomingAlbumView(detail: $detail, upcomingAlbum: album)
                     }
                 }
                 .snapAlignmentHelper(id: upcomingAlbums.hashValue)
@@ -87,9 +82,8 @@ struct UpcomingAlbumsSection: View {
 private struct UpcomingAlbumView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var isShowingConfirmationDialog = false
+    @Binding var detail: Detail?
     let upcomingAlbum: UpcomingAlbum
-    let onSelectBand: (String) -> Void
-    let onSelectRelease: (String) -> Void
 
     var body: some View {
         HStack {
@@ -141,14 +135,14 @@ private struct UpcomingAlbumView: View {
             isPresented: $isShowingConfirmationDialog,
             actions: {
                 Button(action: {
-                    onSelectRelease(upcomingAlbum.release.thumbnailInfo.urlString)
+                    detail = .release(upcomingAlbum.release.thumbnailInfo.urlString)
                 }, label: {
                     Text("View release's detail")
                 })
 
                 ForEach(upcomingAlbum.bands) { band in
                     Button(action: {
-                        onSelectBand(band.thumbnailInfo.urlString)
+                        detail = .band(band.thumbnailInfo.urlString)
                     }, label: {
                         if upcomingAlbum.bands.count == 1 {
                             Text("View band's detail")

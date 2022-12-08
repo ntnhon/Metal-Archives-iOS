@@ -280,6 +280,7 @@
 		EF7A99F2291C5AB0008770E7 /* UserReleasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A99F1291C5AB0008770E7 /* UserReleasesViewModel.swift */; };
 		EF815B5A29411DDC003CEFF5 /* HomeSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF815B5929411DDC003CEFF5 /* HomeSectionViewModel.swift */; };
 		EF815B5C29412694003CEFF5 /* HomeSectionSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF815B5B29412694003CEFF5 /* HomeSectionSkeletonView.swift */; };
+		EF818C2729427D5C00C369DD /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF818C2629427D5C00C369DD /* DetailView.swift */; };
 		EF81B20C2916939000ADDD60 /* LabelInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF81B20B2916939000ADDD60 /* LabelInfoView.swift */; };
 		EF81B20E29169ACB00ADDD60 /* LabelRelatedLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF81B20D29169ACB00ADDD60 /* LabelRelatedLinksView.swift */; };
 		EFA48C3E28F5E5890012B349 /* ReleaseTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA48C3D28F5E5890012B349 /* ReleaseTabsDatasource.swift */; };
@@ -597,6 +598,7 @@
 		EF7A99F1291C5AB0008770E7 /* UserReleasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReleasesViewModel.swift; sourceTree = "<group>"; };
 		EF815B5929411DDC003CEFF5 /* HomeSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionViewModel.swift; sourceTree = "<group>"; };
 		EF815B5B29412694003CEFF5 /* HomeSectionSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionSkeletonView.swift; sourceTree = "<group>"; };
+		EF818C2629427D5C00C369DD /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		EF81B20B2916939000ADDD60 /* LabelInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelInfoView.swift; sourceTree = "<group>"; };
 		EF81B20D29169ACB00ADDD60 /* LabelRelatedLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelRelatedLinksView.swift; sourceTree = "<group>"; };
 		EFA48C3D28F5E5890012B349 /* ReleaseTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseTabsDatasource.swift; sourceTree = "<group>"; };
@@ -843,6 +845,7 @@
 		C017D40D267E2F53008B6EE5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				EF818C2629427D5C00C369DD /* DetailView.swift */,
 				C017D410267E2FF1008B6EE5 /* HomeView.swift */,
 				EF815B5929411DDC003CEFF5 /* HomeSectionViewModel.swift */,
 				EF815B5B29412694003CEFF5 /* HomeSectionSkeletonView.swift */,
@@ -1535,6 +1538,7 @@
 				EFF4B87A292427D60007B563 /* SearchResultsView.swift in Sources */,
 				EF5EAB412917FC0C009BCDFF /* LabelPastBand.swift in Sources */,
 				EF3C56A82901C5480010D568 /* BandByAlphabet.swift in Sources */,
+				EF818C2729427D5C00C369DD /* DetailView.swift in Sources */,
 				EF3C2745291301CB00D6C9B2 /* ArtistRolesView.swift in Sources */,
 				C01D2D692683DC7D00957DE5 /* ReleaseFormat.swift in Sources */,
 				EFF4B87C292431780007B563 /* MusicGenreSimpleSearchResult.swift in Sources */,
