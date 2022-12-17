@@ -9,45 +9,15 @@ import SwiftUI
 
 struct TopAlbumsView: View {
     @StateObject private var viewModel: TopAlbumsViewModel
-    @State private var selectedReleaseUrl: String?
-    @State private var selectedBandUrl: String?
+    @State private var detail: Detail?
 
     init(apiService: APIServiceProtocol) {
         _viewModel = .init(wrappedValue: .init(apiService: apiService))
     }
 
     var body: some View {
-        let isShowingBand = makeIsShowingBandDetailBinding()
-        let isShowingRelease = makeIsShowingReleaseDetailBinding()
-
         ZStack {
-            NavigationLink(
-                isActive: isShowingRelease,
-                destination: {
-                    if let selectedReleaseUrl {
-                        ReleaseView(apiService: viewModel.apiService,
-                                    urlString: selectedReleaseUrl,
-                                    parentRelease: nil)
-                    } else {
-                        EmptyView()
-                    }
-                },
-                label: {
-                    EmptyView()
-                })
-
-            NavigationLink(
-                isActive: isShowingBand,
-                destination: {
-                    if let selectedBandUrl {
-                        BandView(apiService: viewModel.apiService, bandUrlString: selectedBandUrl)
-                    } else {
-                        EmptyView()
-                    }
-                },
-                label: {
-                    EmptyView()
-                })
+            DetailView(detail: $detail, apiService: viewModel.apiService)
 
             switch viewModel.topReleasesFetchable {
             case .fetching:
@@ -60,10 +30,10 @@ struct TopAlbumsView: View {
                             topRelease: topRelease,
                             index: index,
                             onSelectRelease: {
-                                selectedReleaseUrl = topRelease.release.thumbnailInfo.urlString
+                                detail = .release(topRelease.release.thumbnailInfo.urlString)
                             },
                             onSelectBand: {
-                                selectedBandUrl = topRelease.band.thumbnailInfo.urlString
+                                detail = .band(topRelease.band.thumbnailInfo.urlString)
                             })
                     }
                 }
@@ -81,26 +51,6 @@ struct TopAlbumsView: View {
         .task {
             await viewModel.fetchTopReleases()
         }
-    }
-
-    private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedBandUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedBandUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingReleaseDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedReleaseUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReleaseUrl = nil
-            }
-        })
     }
 
     @ToolbarContentBuilder
