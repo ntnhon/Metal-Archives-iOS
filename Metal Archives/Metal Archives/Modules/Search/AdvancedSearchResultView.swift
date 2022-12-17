@@ -11,35 +11,11 @@ private typealias SongAdvancedSearchResultView = SongSimpleSearchResultView
 
 struct AdvancedSearchResultView<T: HashableEquatablePageElement>: View {
     @StateObject var viewModel: AdvancedSearchResultViewModel<T>
-    @State private var selectedBandUrl: String?
-    @State private var selectedReleaseUrl: String?
+    @State private var detail: Detail?
 
     var body: some View {
-        let isShowingBandDetail = makeIsShowingBandDetailBinding()
-        let isShowingReleaseDetail = makeIsShowingReleaseDetailBinding()
-
         ZStack {
-            NavigationLink(
-                isActive: isShowingBandDetail,
-                destination: {
-                    if let selectedBandUrl {
-                        BandView(apiService: viewModel.apiService, bandUrlString: selectedBandUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingReleaseDetail,
-                destination: {
-                    if let selectedReleaseUrl {
-                        ReleaseView(apiService: viewModel.apiService,
-                                    urlString: selectedReleaseUrl,
-                                    parentRelease: nil)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
+            DetailView(detail: $detail, apiService: viewModel.apiService)
 
             if let error = viewModel.error {
                 VStack {
@@ -57,26 +33,6 @@ struct AdvancedSearchResultView<T: HashableEquatablePageElement>: View {
         .task {
             await viewModel.getMoreResults(force: false)
         }
-    }
-
-    private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedBandUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedBandUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingReleaseDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedReleaseUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReleaseUrl = nil
-            }
-        })
     }
 
     @ViewBuilder
@@ -106,18 +62,18 @@ struct AdvancedSearchResultView<T: HashableEquatablePageElement>: View {
         if let result = result as? BandAdvancedSearchResult {
             BandAdvancedSearchResultView(result: result)
                 .onTapGesture {
-                    selectedBandUrl = result.band.thumbnailInfo.urlString
+                    detail = .band(result.band.thumbnailInfo.urlString)
                 }
         } else if let result = result as? ReleaseAdvancedSearchResult {
             ReleaseAdvancedSearchResultView(
                 result: result,
-                onSelectBand: { url in selectedBandUrl = url },
-                onSelectRelease: { url in selectedReleaseUrl = url })
+                onSelectBand: { url in detail = .band(url) },
+                onSelectRelease: { url in detail = .release(url) })
         } else if let result = result as? SongAdvancedSearchResult {
             SongAdvancedSearchResultView(
                 result: result,
-                onSelectRelease: { url in selectedReleaseUrl = url },
-                onSelectBand: { url in selectedBandUrl = url })
+                onSelectRelease: { url in detail = .release(url) },
+                onSelectBand: { url in detail = .band(url) })
         } else {
             EmptyView()
         }
