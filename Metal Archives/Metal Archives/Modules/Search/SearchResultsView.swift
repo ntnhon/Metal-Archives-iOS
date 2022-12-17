@@ -9,71 +9,11 @@ import SwiftUI
 
 struct SearchResultsView<T: HashableEquatablePageElement>: View {
     @StateObject var viewModel: SearchResultsViewModel<T>
-    @State private var selectedBandUrl: String?
-    @State private var selectedReleaseUrl: String?
-    @State private var selectedArtistUrl: String?
-    @State private var selectedLabelUrl: String?
-    @State private var selectedUserUrl: String?
+    @State private var detail: Detail?
 
     var body: some View {
-        let isShowingBandDetail = makeIsShowingBandDetailBinding()
-        let isShowingReleaseDetail = makeIsShowingReleaseDetailBinding()
-        let isShowingArtistDetail = makeIsShowingArtistDetailBinding()
-        let isShowingLabelDetail = makeIsShowingLabelDetailBinding()
-        let isShowingUserDetail = makeIsShowingUserDetailBinding()
-
         ZStack {
-            NavigationLink(
-                isActive: isShowingBandDetail,
-                destination: {
-                    if let selectedBandUrl {
-                        BandView(apiService: viewModel.apiService, bandUrlString: selectedBandUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingReleaseDetail,
-                destination: {
-                    if let selectedReleaseUrl {
-                        ReleaseView(apiService: viewModel.apiService,
-                                    urlString: selectedReleaseUrl,
-                                    parentRelease: nil)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingArtistDetail,
-                destination: {
-                    if let selectedArtistUrl {
-                        ArtistView(apiService: viewModel.apiService, urlString: selectedArtistUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingLabelDetail,
-                destination: {
-                    if let selectedLabelUrl {
-                        LabelView(apiService: viewModel.apiService, urlString: selectedLabelUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingUserDetail,
-                destination: {
-                    if let selectedUserUrl {
-                        UserView(apiService: viewModel.apiService, urlString: selectedUserUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
+            DetailView(detail: $detail, apiService: viewModel.apiService)
 
             if let error = viewModel.error {
                 VStack {
@@ -115,124 +55,76 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
         .navigationBarTitleDisplayMode(.large)
     }
 
-    private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedBandUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedBandUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingReleaseDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedReleaseUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReleaseUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingArtistDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedArtistUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedArtistUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingLabelDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedLabelUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedLabelUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingUserDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedUserUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedUserUrl = nil
-            }
-        })
-    }
-
     @ViewBuilder
     private func view(for result: some HashableEquatablePageElement) -> some View {
         if let result = result as? BandSimpleSearchResult {
             BandSimpleSearchResultView(result: result)
                 .onTapGesture {
                     viewModel.upsertBandEntry(result.band)
-                    selectedBandUrl = result.band.thumbnailInfo.urlString
+                    detail = .band(result.band.thumbnailInfo.urlString)
                 }
         } else if let result = result as? MusicGenreSimpleSearchResult {
             BandSimpleSearchResultView(result: result)
                 .onTapGesture {
                     viewModel.upsertBandEntry(result.band)
-                    selectedBandUrl = result.band.thumbnailInfo.urlString
+                    detail = .band(result.band.thumbnailInfo.urlString)
                 }
         } else if let result = result as? LyricalSimpleSearchResult {
             LyricalSimpleSearchResultView(result: result)
                 .onTapGesture {
                     viewModel.upsertBandEntry(result.band)
-                    selectedBandUrl = result.band.thumbnailInfo.urlString
+                    detail = .band(result.band.thumbnailInfo.urlString)
                 }
         } else if let result = result as? ReleaseSimpleSearchResult {
             ReleaseSimpleSearchResultView(
                 result: result,
                 onSelectRelease: { url in
                     viewModel.upsertReleaseEntry(result.release)
-                    selectedReleaseUrl = url
+                    detail = .release(url)
                 },
                 onSelectBand: { url in
                     viewModel.upsertBandEntry(result.band)
-                    selectedBandUrl = url
+                    detail = .band(url)
                 })
         } else if let result = result as? SongSimpleSearchResult {
             SongSimpleSearchResultView(
                 result: result,
                 onSelectRelease: { url in
                     viewModel.upsertReleaseEntry(result.release)
-                    selectedReleaseUrl = url
+                    detail = .release(url)
                 },
                 onSelectBand: { url in
                     if let band = result.band.toBandLite() {
                         viewModel.upsertBandEntry(band)
                     }
-                    selectedBandUrl = url
+                    detail = .band(url)
                 })
         } else if let result = result as? LabelSimpleSearchResult {
             LabelSimpleSearchResultView(result: result)
                 .onTapGesture {
                     viewModel.upsertLabelEntry(result.label)
-                    selectedLabelUrl = result.label.thumbnailInfo?.urlString
+                    if let urlString = result.label.thumbnailInfo?.urlString {
+                        detail = .label(urlString)
+                    }
                 }
         } else if let result = result as? ArtistSimpleSearchResult {
             ArtistSimpleSearchResultView(
                 result: result,
                 onSelectArtist: { url in
                     viewModel.upsertArtistEntry(result.artist)
-                    selectedArtistUrl = url
+                    detail = .artist(url)
                 },
                 onSelectBand: { url in
                     if let band = result.bands.first(where: { $0.thumbnailInfo.urlString == url }) {
                         viewModel.upsertBandEntry(band)
                     }
-                    selectedBandUrl = url
+                    detail = .band(url)
                 })
         } else if let result = result as? UserSimpleSearchResult {
             UserSimpleSearchResultView(result: result)
                 .onTapGesture {
                     viewModel.upsertUserEntry(result.user)
-                    selectedUserUrl = result.user.urlString
+                    detail = .user(result.user.urlString)
                 }
         } else {
             EmptyView()
