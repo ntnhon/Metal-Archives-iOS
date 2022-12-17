@@ -10,9 +10,9 @@ import SwiftUI
 struct ArtistInBandView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var showingShareSheet = false
-    @Binding var selectedBand: BandLite?
-    @Binding var selectedArtist: ArtistInBand?
     let artist: ArtistInBand
+    let onSelectBand: (String) -> Void
+    let onSelectArtist: (String) -> Void
 
     var body: some View {
         HStack(alignment: .top) {
@@ -26,11 +26,11 @@ struct ArtistInBandView: View {
                 Text(artist.name)
                     .font(.title3.weight(.bold))
                     .foregroundColor(preferences.theme.primaryColor)
-                    .onTapGesture { selectedArtist = artist }
+                    .onTapGesture { onSelectArtist(artist.thumbnailInfo.urlString) }
 
                 Text(artist.instruments)
                     .font(.body.weight(.medium))
-                    .onTapGesture { selectedArtist = artist }
+                    .onTapGesture { onSelectArtist(artist.thumbnailInfo.urlString) }
 
                 if let seeAlso = artist.seeAlso {
                     HighlightableText(text: seeAlso,
@@ -42,7 +42,7 @@ struct ArtistInBandView: View {
                         Menu(content: {
                             ForEach(artist.bands, id: \.thumbnailInfo.id) { band in
                                 Button(action: {
-                                    selectedBand = band
+                                    onSelectBand(band.thumbnailInfo.urlString)
                                 }, label: {
                                     Text(band.name)
                                 })
@@ -58,7 +58,7 @@ struct ArtistInBandView: View {
         .contentShape(Rectangle())
         .contextMenu {
             Button(action: {
-                selectedArtist = artist
+                onSelectArtist(artist.thumbnailInfo.urlString)
             }, label: {
                 Label("View artist detail", systemImage: "person")
             })

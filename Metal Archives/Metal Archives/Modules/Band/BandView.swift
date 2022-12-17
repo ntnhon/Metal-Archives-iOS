@@ -142,7 +142,10 @@ private struct BandContentView: View {
                             .padding(.horizontal)
 
                         case .members:
-                            BandLineUpView(apiService: apiService, band: band)
+                            BandLineUpView(apiService: apiService,
+                                           band: band,
+                                           onSelectBand: { url in detail = .band(url) },
+                                           onSelectArtist: { url in detail = .artist(url) })
                                 .padding(.horizontal)
 
                         case .reviews:

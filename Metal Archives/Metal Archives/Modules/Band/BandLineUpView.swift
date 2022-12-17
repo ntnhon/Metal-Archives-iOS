@@ -28,15 +28,20 @@ private struct MemberLineUpDetail {
 
 struct BandLineUpView: View {
     @State private var lineUpType: MemberLineUpType
-    @State private var selectedArtist: ArtistInBand?
-    @State private var selectedBand: BandLite?
     private let viewModel: BandLineUpViewModel
     private let apiService: APIServiceProtocol
+    private let onSelectBand: (String) -> Void
+    private let onSelectArtist: (String) -> Void
 
-    init(apiService: APIServiceProtocol, band: Band) {
+    init(apiService: APIServiceProtocol,
+         band: Band,
+         onSelectBand: @escaping (String) -> Void,
+         onSelectArtist: @escaping (String) -> Void) {
         self.apiService = apiService
         viewModel = .init(band: band)
         _lineUpType = State(initialValue: viewModel.defaultLineUpType)
+        self.onSelectBand = onSelectBand
+        self.onSelectArtist = onSelectArtist
     }
 
     var body: some View {
@@ -50,9 +55,6 @@ struct BandLineUpView: View {
 
     @ViewBuilder
     private var memberList: some View {
-        let isShowingArtist = makeIsShowingArtistBinding()
-        let isShowingBand = makeIsShowingBandBinding()
-
         LazyVStack {
             HStack {
                 MemberLineUpTypePicker(viewModel: viewModel,
@@ -60,62 +62,13 @@ struct BandLineUpView: View {
                 Spacer()
             }
 
-            NavigationLink(
-                isActive: isShowingArtist,
-                destination: {
-                    if let urlString = selectedArtist?.thumbnailInfo.urlString {
-                        ArtistView(apiService: apiService, urlString: urlString)
-                    } else {
-                        EmptyView()
-                    }
-                },
-                label: {
-                    EmptyView()
-                }
-            )
-
-            NavigationLink(
-                isActive: isShowingBand,
-                destination: {
-                    if let urlString = selectedBand?.thumbnailInfo.urlString {
-                        BandView(apiService: apiService, bandUrlString: urlString)
-                    } else {
-                        EmptyView()
-                    }
-                },
-                label: {
-                    EmptyView()
-                }
-            )
-
             ForEach(viewModel.artists(for: lineUpType), id: \.name) { artist in
-                ArtistInBandView(
-                    selectedBand: $selectedBand,
-                    selectedArtist: $selectedArtist,
-                    artist: artist)
+                ArtistInBandView(artist: artist,
+                                 onSelectBand: onSelectBand,
+                                 onSelectArtist: onSelectArtist)
                 .padding(.vertical)
             }
         }
-    }
-
-    private func makeIsShowingBandBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedBand != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedBand = nil
-            }
-        })
-    }
-
-    private func makeIsShowingArtistBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedArtist != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedArtist = nil
-            }
-        })
     }
 }
 
@@ -158,12 +111,6 @@ private struct MemberLineUpTypePicker: View {
             .background(preferences.theme.primaryColor)
             .foregroundColor(.white)
             .clipShape(RoundedRectangle(cornerRadius: 8))
-    }
-}
-
-struct BandLineUpView_Previews: PreviewProvider {
-    static var previews: some View {
-        BandLineUpView(apiService: APIService(), band: .death)
     }
 }
 
