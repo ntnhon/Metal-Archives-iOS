@@ -49,11 +49,7 @@ private struct UserContentView: View {
     @StateObject private var albumCollectionViewModel: UserReleasesViewModel
     @StateObject private var forTradeListViewModel: UserReleasesViewModel
     @StateObject private var wantedListViewModel: UserReleasesViewModel
-    @State private var selectedReviewUrl: String?
-    @State private var selectedBandUrl: String?
-    @State private var selectedReleaseUrl: String?
-    @State private var selectedArtistUrl: String?
-    @State private var selectedLabelUrl: String?
+    @State private var detail: Detail?
     let user: User
 
     init(apiService: APIServiceProtocol, user: User) {
@@ -75,64 +71,8 @@ private struct UserContentView: View {
     }
 
     var body: some View {
-        let isShowingReviewDetail = makeIsShowingReviewDetailBinding()
-        let isShowingBandDetail = makeIsShowingBandDetailBinding()
-        let isShowingReleaseDetail = makeIsShowingReleaseDetailBinding()
-        let isShowingArtistDetail = makeIsShowingArtistDetailBinding()
-        let isShowingLabelDetail = makeIsShowingLabelDetailBinding()
-
         ZStack {
-            NavigationLink(
-                isActive: isShowingReviewDetail,
-                destination: {
-                    if let selectedReviewUrl {
-                        ReviewView(apiService: viewModel.apiService, urlString: selectedReviewUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingBandDetail,
-                destination: {
-                    if let selectedBandUrl {
-                        BandView(apiService: viewModel.apiService, bandUrlString: selectedBandUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingReleaseDetail,
-                destination: {
-                    if let selectedReleaseUrl {
-                        ReleaseView(apiService: viewModel.apiService,
-                                    urlString: selectedReleaseUrl,
-                                    parentRelease: nil)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingArtistDetail,
-                destination: {
-                    if let selectedArtistUrl {
-                        ArtistView(apiService: viewModel.apiService, urlString: selectedArtistUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingLabelDetail,
-                destination: {
-                    if let selectedLabelUrl {
-                        LabelView(apiService: viewModel.apiService, urlString: selectedLabelUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
+            DetailView(detail: $detail, apiService: viewModel.apiService)
 
             ScrollView {
                 VStack {
@@ -152,41 +92,40 @@ private struct UserContentView: View {
 
                     case .reviews:
                         UserReviewsView(viewModel: reviewsViewModel,
-                                        onSelectReview: { url in selectedReviewUrl = url },
-                                        onSelectBand: { url in selectedBandUrl = url },
-                                        onSelectRelease: { url in selectedReleaseUrl = url })
+                                        onSelectReview: { url in detail = .review(url) },
+                                        onSelectBand: { url in detail = .band(url) },
+                                        onSelectRelease: { url in detail = .release(url) })
                         .padding([.horizontal, .bottom])
 
                     case .albumCollection:
                         UserReleasesView(viewModel: albumCollectionViewModel,
-                                         onSelectBand: { url in selectedBandUrl = url },
-                                         onSelectRelease: { url in selectedReleaseUrl = url })
+                                         onSelectBand: { url in detail = .band(url) },
+                                         onSelectRelease: { url in detail = .release(url) })
                         .padding([.horizontal, .bottom])
 
                     case .wantedList:
                         UserReleasesView(viewModel: wantedListViewModel,
-                                         onSelectBand: { url in selectedBandUrl = url },
-                                         onSelectRelease: { url in selectedReleaseUrl = url })
+                                         onSelectBand: { url in detail = .band(url) },
+                                         onSelectRelease: { url in detail = .release(url) })
                         .padding([.horizontal, .bottom])
 
                     case .tradeList:
                         UserReleasesView(viewModel: forTradeListViewModel,
-                                         onSelectBand: { url in selectedBandUrl = url },
-                                         onSelectRelease: { url in selectedReleaseUrl = url })
+                                         onSelectBand: { url in detail = .band(url) },
+                                         onSelectRelease: { url in detail = .release(url) })
                         .padding([.horizontal, .bottom])
 
                     case .submittedBands:
-                        UserSubmittedBandsView(viewModel: submittedBandsViewModel) { url in
-                            selectedBandUrl = url
-                        }
+                        UserSubmittedBandsView(viewModel: submittedBandsViewModel,
+                                               onSelectBand: { url in detail = .band(url) })
                         .padding([.horizontal, .bottom])
 
                     case .modificationHistory:
                         UserModificationsView(viewModel: modificationsViewModel,
-                                              onSelectBand: { url in selectedBandUrl = url },
-                                              onSelectArtist: { url in selectedArtistUrl = url },
-                                              onSelectRelease: { url in selectedReleaseUrl = url },
-                                              onSelectLabel: { url in selectedLabelUrl = url })
+                                              onSelectBand: { url in detail = .band(url) },
+                                              onSelectArtist: { url in detail = .artist(url) },
+                                              onSelectRelease: { url in detail = .release(url) },
+                                              onSelectLabel: { url in detail = .label(url) })
                         .padding([.horizontal, .bottom])
                     }
                 }
@@ -194,55 +133,5 @@ private struct UserContentView: View {
         }
         .navigationTitle(user.username)
         .navigationBarTitleDisplayMode(.large)
-    }
-
-    private func makeIsShowingReviewDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedReviewUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReviewUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedBandUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedBandUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingReleaseDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedReleaseUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReleaseUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingArtistDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedArtistUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedArtistUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingLabelDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedLabelUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedLabelUrl = nil
-            }
-        })
     }
 }
