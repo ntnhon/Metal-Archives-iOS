@@ -47,9 +47,7 @@ private struct ReviewContentView: View {
     @State private var titleViewAlpha = 0.0
     @State private var coverScaleFactor: CGFloat = 1.0
     @State private var coverOpacity: Double = 1.0
-    @State private var selectedUserUrl: String?
-    @State private var selectedBandUrl: String?
-    @State private var selectedReleaseUrl: String?
+    @State private var detail: Detail?
     private let coverViewHeight: CGFloat
     private let minCoverScaleFactor: CGFloat = 0.5
     private let maxCoverScaleFactor: CGFloat = 1.2
@@ -63,42 +61,8 @@ private struct ReviewContentView: View {
     }
 
     var body: some View {
-        let isShowingUserDetail = makeIsShowingUserDetailBinding()
-        let isShowingBandDetail = makeIsShowingBandDetailBinding()
-        let isShowingReleaseDetail = makeIsShowingReleaseDetailBinding()
-
         ZStack(alignment: .top) {
-            NavigationLink(
-                isActive: isShowingUserDetail,
-                destination: {
-                    if let selectedUserUrl {
-                        UserView(apiService: viewModel.apiService, urlString: selectedUserUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingBandDetail,
-                destination: {
-                    if let selectedBandUrl {
-                        BandView(apiService: viewModel.apiService, bandUrlString: selectedBandUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingReleaseDetail,
-                destination: {
-                    if let selectedReleaseUrl {
-                        ReleaseView(apiService: viewModel.apiService,
-                                    urlString: selectedReleaseUrl,
-                                    parentRelease: nil)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
+            DetailView(detail: $detail, apiService: apiService)
 
             ReviewCoverView(scaleFactor: $coverScaleFactor, opacity: $coverOpacity)
                 .environmentObject(viewModel)
@@ -142,43 +106,13 @@ private struct ReviewContentView: View {
                             }
 
                         ReviewInfoView(review: review,
-                                       onSelectUser: { url in selectedUserUrl = url },
-                                       onSelectBand: { url in selectedBandUrl = url },
-                                       onSelectRelease: { url in selectedReleaseUrl = url })
+                                       onSelectUser: { url in detail = .user(url) },
+                                       onSelectBand: { url in detail = .band(url) },
+                                       onSelectRelease: { url in detail = .release(url) })
                     }
                 })
         }
         .toolbar { toolbarContent }
-    }
-
-    private func makeIsShowingUserDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedUserUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedUserUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedBandUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedBandUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingReleaseDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedReleaseUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReleaseUrl = nil
-            }
-        })
     }
 
     @ToolbarContentBuilder
