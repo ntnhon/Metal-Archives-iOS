@@ -43,7 +43,7 @@ extension DeceasedArtist: PageElement {
         }
         self.artist = artist
 
-        self.country = CountryManager.shared.country(by: \.name, value: strings[1]) ?? .unknown
+        self.country = CountryManager.shared.country(by: \.name, value: strings[1])
 
         let bandsHtml = try Kanna.HTML(html: strings[2], encoding: .utf8)
         var bands = [BandLite]()

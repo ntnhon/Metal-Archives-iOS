@@ -9,26 +9,16 @@ import SwiftUI
 
 struct DeceasedArtistsView: View {
     @StateObject private var viewModel: DeceasedArtistsViewModel
-    @State private var selectedBandUrlString: String?
+    @State private var selectedArtist: DeceasedArtist?
+    @State private var detail: Detail?
 
     init(apiService: APIServiceProtocol) {
         _viewModel = .init(wrappedValue: .init(apiService: apiService))
     }
 
     var body: some View {
-        let isShowingBand = makeShowingBandDetailBinding()
         ZStack {
-            NavigationLink(
-                isActive: isShowingBand,
-                destination: {
-                    if let selectedBandUrlString {
-                        BandView(apiService: viewModel.apiService, bandUrlString: selectedBandUrlString)
-                    } else {
-                        EmptyView()
-                    }
-                }, label: {
-                    EmptyView()
-                })
+            DetailView(detail: $detail, apiService: viewModel.apiService)
 
             if let error = viewModel.error {
                 VStack {
@@ -55,30 +45,23 @@ struct DeceasedArtistsView: View {
 
     @ViewBuilder
     private var artistList: some View {
+        let isShowingConfirmation = Binding<Bool>(get: {
+            selectedArtist != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedArtist = nil
+            }
+        })
         List {
             ForEach(viewModel.artists, id: \.artist) { artist in
-                NavigationLink(destination: {
-                    ArtistView(apiService: viewModel.apiService,
-                               urlString: artist.artist.thumbnailInfo.urlString)
-                }, label: {
-                    DeceasedArtistView(artist: artist)
-                        .contextMenu {
-                            if !artist.bands.isEmpty {
-                                ForEach(artist.bands, id: \.self) { band in
-                                    Button(action: {
-                                        selectedBandUrlString = band.thumbnailInfo.urlString
-                                    }, label: {
-                                        Text(band.name)
-                                    })
-                                }
-                            }
+                DeceasedArtistView(artist: artist)
+                    .contentShape(Rectangle())
+                    .onTapGesture { selectedArtist = artist }
+                    .task {
+                        if artist == viewModel.artists.last {
+                            await viewModel.getMoreArtists(force: true)
                         }
-                })
-                .task {
-                    if artist == viewModel.artists.last {
-                        await viewModel.getMoreArtists(force: true)
                     }
-                }
 
                 if artist == viewModel.artists.last, viewModel.isLoading {
                     ProgressView()
@@ -90,16 +73,31 @@ struct DeceasedArtistsView: View {
         .navigationTitle("Deceased artists")
         .navigationBarTitleDisplayMode(.large)
         .toolbar { toolbarContent }
-    }
+        .confirmationDialog(
+            "",
+            isPresented: isShowingConfirmation,
+            actions: {
+                if let selectedArtist {
+                    Button(action: {
+                        detail = .artist(selectedArtist.artist.thumbnailInfo.urlString)
+                    }, label: {
+                        Text("View artist's detail")
+                    })
 
-    private func makeShowingBandDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedBandUrlString != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedBandUrlString = nil
-            }
-        })
+                    ForEach(selectedArtist.bands) { band in
+                        Button(action: {
+                            detail = .band(band.thumbnailInfo.urlString)
+                        }, label: {
+                            Text(band.name)
+                        })
+                    }
+                }
+            },
+            message: {
+                if let selectedArtist {
+                    Text(selectedArtist.artist.name)
+                }
+            })
     }
 
     @ToolbarContentBuilder
