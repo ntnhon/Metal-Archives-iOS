@@ -47,8 +47,7 @@ private struct ArtistContentView: View {
     @State private var titleViewAlpha = 0.0
     @State private var photoScaleFactor: CGFloat = 1.0
     @State private var photoOpacity: Double = 1.0
-    @State private var selectedBandUrl: String?
-    @State private var selectedReleaseUrl: String?
+    @State private var detail: Detail?
     private let photoViewHeight: CGFloat
     private let minPhotoScaleFactor: CGFloat = 0.5
     private let maxPhotoScaleFactor: CGFloat = 1.2
@@ -61,31 +60,8 @@ private struct ArtistContentView: View {
     }
 
     var body: some View {
-        let isShowingBandDetail = makeIsShowingBandDetailBinding()
-        let isShowingReleaseDetail = makeIsShowingReleaseDetailBinding()
-
         ZStack(alignment: .top) {
-            NavigationLink(
-                isActive: isShowingBandDetail,
-                destination: {
-                    if let selectedBandUrl {
-                        BandView(apiService: viewModel.apiService, bandUrlString: selectedBandUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingReleaseDetail,
-                destination: {
-                    if let selectedReleaseUrl {
-                        ReleaseView(apiService: viewModel.apiService,
-                                    urlString: selectedReleaseUrl,
-                                    parentRelease: nil)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
+            DetailView(detail: $detail, apiService: viewModel.apiService)
 
             ArtistPhotoView(scaleFactor: $photoScaleFactor, opacity: $photoOpacity)
                 .environmentObject(viewModel)
@@ -174,30 +150,10 @@ private struct ArtistContentView: View {
         .toolbar { toolbarContent }
     }
 
-    private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedBandUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedBandUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingReleaseDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedReleaseUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReleaseUrl = nil
-            }
-        })
-    }
-
     private func artistRolesView(_ roles: [RoleInBand]) -> some View {
         ArtistRolesView(roles: roles,
-                        onSelectBand: { url in selectedBandUrl = url },
-                        onSelectRelease: { url in selectedReleaseUrl = url })
+                        onSelectBand: { url in detail = .band(url) },
+                        onSelectRelease: { url in detail = .release(url) })
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal)
     }
