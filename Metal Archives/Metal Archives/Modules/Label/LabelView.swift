@@ -53,9 +53,7 @@ private struct LabelContentView: View {
     @State private var titleViewAlpha = 0.0
     @State private var logoScaleFactor: CGFloat = 1.0
     @State private var logoOpacity: Double = 1.0
-    @State private var selectedLabelUrl: String?
-    @State private var selectedBandUrl: String?
-    @State private var selectedReleaseUrl: String?
+    @State private var detail: Detail?
     private let logoViewHeight: CGFloat
     private let minLogoScaleFactor: CGFloat = 0.5
     private let maxLogoScaleFactor: CGFloat = 1.2
@@ -74,42 +72,8 @@ private struct LabelContentView: View {
     }
 
     var body: some View {
-        let isShowingLabelDetail = makeIsShowingLabelDetailBinding()
-        let isShowingBandDetail = makeIsShowingBandDetailBinding()
-        let isShowingReleaseDetail = makeIsShowingReleaseDetailBinding()
-
         ZStack(alignment: .top) {
-            NavigationLink(
-                isActive: isShowingLabelDetail,
-                destination: {
-                    if let selectedLabelUrl {
-                        LabelView(apiService: viewModel.apiService, urlString: selectedLabelUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingBandDetail,
-                destination: {
-                    if let selectedBandUrl {
-                        BandView(apiService: viewModel.apiService, bandUrlString: selectedBandUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingReleaseDetail,
-                destination: {
-                    if let selectedReleaseUrl {
-                        ReleaseView(apiService: viewModel.apiService,
-                                    urlString: selectedReleaseUrl,
-                                    parentRelease: nil)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
+            DetailView(detail: $detail, apiService: viewModel.apiService)
 
             LabelLogoView(scaleFactor: $logoScaleFactor, opacity: $logoOpacity)
                 .environmentObject(viewModel)
@@ -154,7 +118,7 @@ private struct LabelContentView: View {
                             }
 
                         LabelInfoView(label: label) { url in
-                            selectedLabelUrl = url
+                            detail = .label(url)
                         }
 
                         HorizontalTabs(datasource: tabsDatasource)
@@ -172,20 +136,20 @@ private struct LabelContentView: View {
 
                             case .currentRoster, .lastKnownRoster:
                                 LabelCurrentRosterView(viewModel: currentRosterViewModel) { url in
-                                    selectedBandUrl = url
+                                    detail = .band(url)
                                 }
                                 .padding([.horizontal, .bottom])
 
                             case .pastRoster:
                                 LabelPastRosterView(viewModel: pastRosterViewModel) { url in
-                                    selectedBandUrl = url
+                                    detail = .band(url)
                                 }
                                 .padding([.horizontal, .bottom])
 
                             case .releases:
                                 LabelReleasesView(viewModel: releasesViewModel,
-                                                  onSelectBand: { url in selectedBandUrl = url },
-                                                  onSelectRelease: { url in selectedReleaseUrl = url })
+                                                  onSelectBand: { url in detail = .band(url) },
+                                                  onSelectRelease: { url in detail = .release(url) })
                                 .padding([.horizontal, .bottom])
 
                             case .additionalNotes:
@@ -210,36 +174,6 @@ private struct LabelContentView: View {
                 })
         }
         .toolbar { toolbarContent }
-    }
-
-    private func makeIsShowingLabelDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedLabelUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedLabelUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedBandUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedBandUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingReleaseDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedReleaseUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReleaseUrl = nil
-            }
-        })
     }
 
     @ToolbarContentBuilder
@@ -289,7 +223,9 @@ private struct LabelContentView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectedLabelUrl = subLabel.thumbnailInfo?.urlString
+                    if let urlString = subLabel.thumbnailInfo?.urlString {
+                        detail = .label(urlString)
+                    }
                 }
 
                 Divider()
