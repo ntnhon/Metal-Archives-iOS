@@ -64,11 +64,7 @@ private struct BandContentView: View {
     @State private var titleViewAlpha = 0.0
     @State private var showingShareSheet = false
     @State private var topSectionSize: CGSize = .zero
-    @State private var selectedBandUrl: String?
-    @State private var selectedReleaseUrl: String?
-    @State private var selectedLabelUrl: String?
-    @State private var selectedReviewUrl: String?
-    @State private var selectedUserUrl: String?
+    @State private var detail: Detail?
     let apiService: APIServiceProtocol
     let metadata: BandMetadata
 
@@ -91,11 +87,6 @@ private struct BandContentView: View {
 
     var body: some View {
         let band = metadata.band
-        let isShowingBand = makeIsShowingBandDetailBinding()
-        let isShowingRelease = makeIsShowingReleaseDetailBinding()
-        let isShowingLabel = makeIsShowingLabelDetailBinding()
-        let isShowingReview = makeIsShowingReviewDetailBinding()
-        let isShowingUser = makeIsShowingUserDetailBinding()
 
         OffsetAwareScrollView(
             axes: .vertical,
@@ -111,67 +102,7 @@ private struct BandContentView: View {
             },
             content: {
                 VStack {
-                    NavigationLink(
-                        isActive: isShowingBand,
-                        destination: {
-                            if let selectedBandUrl {
-                                BandView(apiService: apiService, bandUrlString: selectedBandUrl)
-                            } else {
-                                EmptyView()
-                            }
-                        }, label: {
-                            EmptyView()
-                        })
-
-                    NavigationLink(
-                        isActive: isShowingRelease,
-                        destination: {
-                            if let selectedReleaseUrl {
-                                ReleaseView(apiService: apiService,
-                                            urlString: selectedReleaseUrl,
-                                            parentRelease: nil)
-                            } else {
-                                EmptyView()
-                            }
-                        }, label: {
-                            EmptyView()
-                        })
-
-                    NavigationLink(
-                        isActive: isShowingLabel,
-                        destination: {
-                            if let selectedLabelUrl {
-                                LabelView(apiService: apiService, urlString: selectedLabelUrl)
-                            } else {
-                                EmptyView()
-                            }
-                        }, label: {
-                            EmptyView()
-                        })
-
-                    NavigationLink(
-                        isActive: isShowingReview,
-                        destination: {
-                            if let selectedReviewUrl {
-                                ReviewView(apiService: apiService, urlString: selectedReviewUrl)
-                            } else {
-                                EmptyView()
-                            }
-                        }, label: {
-                            EmptyView()
-                        })
-
-                    NavigationLink(
-                        isActive: isShowingUser,
-                        destination: {
-                            if let selectedUserUrl {
-                                UserView(apiService: apiService, urlString: selectedUserUrl)
-                            } else {
-                                EmptyView()
-                            }
-                        }, label: {
-                            EmptyView()
-                        })
+                    DetailView(detail: $detail, apiService: apiService)
 
                     VStack {
                         BandHeaderView(band: band) { selectedImage in
@@ -181,8 +112,8 @@ private struct BandContentView: View {
                         }
 
                         BandInfoView(viewModel: .init(band: band, discography: metadata.discography),
-                                     onSelectLabel: { url in selectedLabelUrl = url },
-                                     onSelectBand: { url in selectedBandUrl = url })
+                                     onSelectLabel: { url in detail = .label(url) },
+                                     onSelectBand: { url in detail = .band(url) })
                         .padding(.horizontal)
 
                         if let readMore = metadata.readMore {
@@ -216,9 +147,9 @@ private struct BandContentView: View {
 
                         case .reviews:
                             BandReviewsView(viewModel: reviewsViewModel,
-                                            onSelectReview: { url in selectedReviewUrl = url },
-                                            onSelectRelease: { url in selectedReleaseUrl = url },
-                                            onSelectUser: { url in selectedUserUrl = url })
+                                            onSelectReview: { url in detail = .review(url) },
+                                            onSelectRelease: { url in detail = .release(url) },
+                                            onSelectUser: { url in detail = .user(url) })
 
                         case .similarArtists:
                             SimilarArtistsView(viewModel: similarArtistsViewModel)
@@ -239,56 +170,6 @@ private struct BandContentView: View {
                 ActivityView(items: [band.urlString])
             }
         }
-    }
-
-    private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedBandUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedBandUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingReleaseDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedReleaseUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReleaseUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingLabelDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedLabelUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedLabelUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingReviewDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedReviewUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReviewUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingUserDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedUserUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedUserUrl = nil
-            }
-        })
     }
 
     @ToolbarContentBuilder

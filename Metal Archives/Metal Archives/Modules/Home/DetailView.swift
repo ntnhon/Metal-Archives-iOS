@@ -12,6 +12,7 @@ enum Detail {
     case artist(String)
     case release(String)
     case label(String)
+    case review(String)
     case user(String)
 }
 
@@ -40,6 +41,8 @@ struct DetailView: View {
                         ReleaseView(apiService: apiService, urlString: urlString, parentRelease: nil)
                     case .label(let urlString):
                         LabelView(apiService: apiService, urlString: urlString)
+                    case .review(let urlString):
+                        ReviewView(apiService: apiService, urlString: urlString)
                     case .user(let urlString):
                         UserView(apiService: apiService, urlString: urlString)
                     }
