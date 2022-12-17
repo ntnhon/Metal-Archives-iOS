@@ -56,12 +56,7 @@ private struct ReleaseContentView: View {
     @State private var coverViewHeight: CGFloat = 300
     @State private var coverScaleFactor: CGFloat = 1.0
     @State private var coverOpacity: Double = 1.0
-    @State private var selectedBandUrl: String?
-    @State private var selectedArtistUrl: String?
-    @State private var selectedReleaseUrl: String?
-    @State private var selectedLabelUrl: String?
-    @State private var selectedReviewUrl: String?
-    @State private var selectedUserUrl: String?
+    @State private var detail: Detail?
     @State private var selectedLineUpMode: ReleaseLineUpMode = .bandMembers
     private let minCoverScaleFactor: CGFloat = 0.5
     private let maxCoverScaleFactor: CGFloat = 1.2
@@ -69,75 +64,8 @@ private struct ReleaseContentView: View {
     let release: Release
 
     var body: some View {
-        let isShowingBandDetail = makeIsShowingBandDetailBinding()
-        let isShowingArtistDetail = makeIsShowingArtistDetailBinding()
-        let isShowingReleaseDetail = makeIsShowingReleaseDetailBinding()
-        let isShowingLabelDetail = makeIsShowingLabelDetailBinding()
-        let isShowingReviewDetail = makeIsShowingReviewDetailBinding()
-        let isShowingUserDetail = makeIsShowingUserDetailBinding()
-
         ZStack(alignment: .top) {
-            NavigationLink(
-                isActive: isShowingBandDetail,
-                destination: {
-                    if let selectedBandUrl {
-                        BandView(apiService: apiService, bandUrlString: selectedBandUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingArtistDetail,
-                destination: {
-                    if let selectedArtistUrl {
-                        ArtistView(apiService: apiService, urlString: selectedArtistUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingReleaseDetail,
-                destination: {
-                    if let selectedReleaseUrl {
-                        ReleaseView(apiService: apiService,
-                                    urlString: selectedReleaseUrl,
-                                    parentRelease: viewModel.parentRelease ?? viewModel.release)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingLabelDetail,
-                destination: {
-                    if let selectedLabelUrl {
-                        LabelView(apiService: apiService, urlString: selectedLabelUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingReviewDetail,
-                destination: {
-                    if let selectedReviewUrl {
-                        ReviewView(apiService: apiService, urlString: selectedReviewUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
-
-            NavigationLink(
-                isActive: isShowingUserDetail,
-                destination: {
-                    if let selectedUserUrl {
-                        UserView(apiService: apiService, urlString: selectedUserUrl)
-                    } else {
-                        EmptyView()
-                    }},
-                label: { EmptyView() })
+            DetailView(detail: $detail, apiService: apiService)
 
             ReleaseCoverView(scaleFactor: $coverScaleFactor,
                              opacity: $coverOpacity)
@@ -183,8 +111,8 @@ private struct ReleaseContentView: View {
                             }
 
                         ReleaseInfoView(release: release,
-                                        onSelectBand: { url in selectedBandUrl = url },
-                                        onSelectLabel: { url in selectedLabelUrl = url })
+                                        onSelectBand: { url in detail = .band(url) },
+                                        onSelectLabel: { url in detail = .label(url) })
 
                         HorizontalTabs(datasource: tabsDatasource)
                             .padding(.vertical)
@@ -204,13 +132,13 @@ private struct ReleaseContentView: View {
                             case .lineUp:
                                 ReleaseLineUpView(lineUpMode: $selectedLineUpMode,
                                                   release: release,
-                                                  onSelectArtist: { url in selectedArtistUrl = url })
+                                                  onSelectArtist: { url in detail = .artist(url) })
                                     .padding(.horizontal)
                                     .frame(maxWidth: .infinity, alignment: .leading)
 
                             case .otherVersions:
                                 OtherVersionsView(viewModel: viewModel,
-                                                  onSelectRelease: { url in selectedReleaseUrl = url })
+                                                  onSelectRelease: { url in detail = .release(url) })
                                     .frame(maxWidth: .infinity, alignment: .leading)
 
                             case .reviews:
@@ -221,8 +149,8 @@ private struct ReleaseContentView: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 } else {
                                     ReleaseReviewsView(reviews: release.reviews,
-                                                       onSelectReview: { url in selectedReviewUrl = url },
-                                                       onSelectUser: { url in selectedUserUrl = url })
+                                                       onSelectReview: { url in detail = .review(url) },
+                                                       onSelectUser: { url in detail = .user(url) })
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 }
 
@@ -243,66 +171,6 @@ private struct ReleaseContentView: View {
                 coverViewHeight = 0
             }
         }
-    }
-
-    private func makeIsShowingBandDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedBandUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedBandUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingArtistDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedArtistUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedArtistUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingReleaseDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedReleaseUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReleaseUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingLabelDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedLabelUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedLabelUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingReviewDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedReviewUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReviewUrl = nil
-            }
-        })
-    }
-
-    private func makeIsShowingUserDetailBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedUserUrl != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedUserUrl = nil
-            }
-        })
     }
 
     @ToolbarContentBuilder
