@@ -29,7 +29,7 @@ struct HomeView: View {
                     case .latestUpdates:
                         LatestUpdatesSection()
                     case .latestReviews:
-                        LatestReviewsSection()
+                        LatestReviewsSection(apiService: apiService, detail: $detail)
                     case .upcomingAlbums:
                         UpcomingAlbumsSection(apiService: apiService, detail: $detail)
                     }

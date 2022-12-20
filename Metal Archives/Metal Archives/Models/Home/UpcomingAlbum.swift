@@ -38,10 +38,6 @@ extension UpcomingAlbum: Identifiable {
     var id: Int { hashValue }
 }
 
-extension [UpcomingAlbum]: Identifiable {
-    public var id: Int { hashValue }
-}
-
 extension UpcomingAlbum: PageElement {
     // swiftlint:disable line_length
     /*

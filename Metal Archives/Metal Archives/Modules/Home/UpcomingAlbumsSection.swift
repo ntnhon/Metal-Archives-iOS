@@ -66,7 +66,7 @@ struct UpcomingAlbumsSection: View {
 
     private var resultList: some View {
         HStackSnap(alignment: .leading(24)) {
-            ForEach(viewModel.chunkedResults) { upcomingAlbums in
+            ForEach(viewModel.chunkedResults, id: \.hashValue) { upcomingAlbums in
                 VStack(spacing: HomeSettings.entrySpacing) {
                     ForEach(upcomingAlbums) { album in
                         UpcomingAlbumView(detail: $detail, upcomingAlbum: album)
