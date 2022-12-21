@@ -94,7 +94,33 @@ private struct LatestReviewView: View {
             .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
+                let texts = review.bands
+                    .generateTexts(fontWeight: .bold,
+                                   foregroundColor: preferences.theme.primaryColor)
+                texts.reduce(into: Text("")) { partialResult, text in
+                    // swiftlint:disable:next shorthand_operator
+                    partialResult = partialResult + text
+                }
+                .fixedSize(horizontal: false, vertical: true)
+                .lineLimit(2)
+                .minimumScaleFactor(0.5)
+
                 Text(review.release.title)
+                    .fontWeight(.semibold)
+                    .foregroundColor(preferences.theme.secondaryColor)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.5)
+
+                Text(review.author.name)
+                    .font(.body.italic())
+                    .foregroundColor(preferences.theme.secondaryColor) +
+                Text(" • ") +
+                Text("\(review.rating)%")
+                    .foregroundColor(.byRating(review.rating))
+
+                Text("\(review.date), \(review.time)")
+
                 Divider()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -103,31 +129,41 @@ private struct LatestReviewView: View {
         .contentShape(Rectangle())
         .onTapGesture { isShowingConfirmationDialog.toggle() }
         .confirmationDialog(
-            "Upcoming album",
+            "Review",
             isPresented: $isShowingConfirmationDialog,
             actions: {
+                Button(action: {
+                    detail = .review(review.urlString)
+                }, label: {
+                    Text("Read review by \(review.author.name) - \(review.rating)%")
+                })
+
                 Button(action: {
                     detail = .release(review.release.thumbnailInfo.urlString)
                 }, label: {
                     Text("View release's detail")
                 })
 
-                /*
-                ForEach(upcomingAlbum.bands) { band in
+                ForEach(review.bands) { band in
                     Button(action: {
                         detail = .band(band.thumbnailInfo.urlString)
                     }, label: {
-                        if upcomingAlbum.bands.count == 1 {
+                        if review.bands.count == 1 {
                             Text("View band's detail")
                         } else {
                             Text(band.name)
                         }
                     })
                 }
-                 */
+
+                Button(action: {
+                    detail = .user(review.author.urlString)
+                }, label: {
+                    Text("View \(review.author.name)'s detail")
+                })
             },
             message: {
-                Text("\"\(review.release.title)\" reviewed by \(review.author.name)")
+                Text("\"\(review.release.title)\" by \(review.bandsName)")
             })
     }
 }

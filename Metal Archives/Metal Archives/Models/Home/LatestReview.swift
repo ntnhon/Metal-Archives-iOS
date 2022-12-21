@@ -9,6 +9,7 @@ import Foundation
 import Kanna
 
 struct LatestReview {
+    let urlString: String
     let bands: [BandLite]
     let release: ReleaseLite
     let rating: Int
@@ -27,6 +28,7 @@ extension LatestReview: Equatable {
 
 extension LatestReview: Hashable {
     func hash(into hasher: inout Hasher) {
+        hasher.combine(urlString)
         hasher.combine(bands)
         hasher.combine(release)
         hasher.combine(rating)
@@ -59,6 +61,12 @@ extension LatestReview: PageElement {
         }
 
         self.date = strings[0]
+
+        let reviewHtml = try Kanna.HTML(html: strings[1], encoding: .utf8)
+        guard let urlString = reviewHtml.at_css("a")?["href"] else {
+            throw PageElementError.failedToParse("Latest review's urlString")
+        }
+        self.urlString = urlString
 
         let bandsHtml = try Kanna.HTML(html: strings[2], encoding: .utf8)
         var bands = [BandLite]()
