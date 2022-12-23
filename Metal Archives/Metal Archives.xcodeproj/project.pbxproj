@@ -299,6 +299,7 @@
 		EFD8283A293CBC7600F70DA9 /* NoResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD82839293CBC7600F70DA9 /* NoResultsView.swift */; };
 		EFD8283C293CDA6A00F70DA9 /* ReleaseAdvancedSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD8283B293CDA6A00F70DA9 /* ReleaseAdvancedSearchResult.swift */; };
 		EFE028F12894852E004F2328 /* SearchTips.md in Resources */ = {isa = PBXBuildFile; fileRef = EFE028F02894852E004F2328 /* SearchTips.md */; };
+		EFE60BD12954DF9600EF6F31 /* AddedBand.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE60BD02954DF9600EF6F31 /* AddedBand.swift */; };
 		EFE80F5028F8A1F3008445DD /* ReleaseInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE80F4F28F8A1F3008445DD /* ReleaseInfoView.swift */; };
 		EFE90666293B89F0006A24CF /* BandAdvancedSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE90665293B89F0006A24CF /* BandAdvancedSearchResult.swift */; };
 		EFEB4334290C60210021F4DA /* ArtistPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEB4333290C60210021F4DA /* ArtistPhotoView.swift */; };
@@ -618,6 +619,7 @@
 		EFD82839293CBC7600F70DA9 /* NoResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoResultsView.swift; sourceTree = "<group>"; };
 		EFD8283B293CDA6A00F70DA9 /* ReleaseAdvancedSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseAdvancedSearchResult.swift; sourceTree = "<group>"; };
 		EFE028F02894852E004F2328 /* SearchTips.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SearchTips.md; sourceTree = "<group>"; };
+		EFE60BD02954DF9600EF6F31 /* AddedBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedBand.swift; sourceTree = "<group>"; };
 		EFE80F4F28F8A1F3008445DD /* ReleaseInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInfoView.swift; sourceTree = "<group>"; };
 		EFE90665293B89F0006A24CF /* BandAdvancedSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandAdvancedSearchResult.swift; sourceTree = "<group>"; };
 		EFEB4333290C60210021F4DA /* ArtistPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistPhotoView.swift; sourceTree = "<group>"; };
@@ -1292,6 +1294,7 @@
 		EF67B677293D4A3900BAC4D2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				EFE60BD02954DF9600EF6F31 /* AddedBand.swift */,
 				EF818C282942845E00C369DD /* LatestReview.swift */,
 				EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */,
 			);
@@ -1627,6 +1630,7 @@
 				EF3C273D2912E8AD00D6C9B2 /* ArtistInfoView.swift in Sources */,
 				C0D632C02687CE1A00348E29 /* BandView.swift in Sources */,
 				EF5A058528FDDCAE001BF230 /* TopMembersView.swift in Sources */,
+				EFE60BD12954DF9600EF6F31 /* AddedBand.swift in Sources */,
 				C004A2BB2658F3290071E12A /* UserLite.swift in Sources */,
 				EF3FCC2028FC2E1C004CBB97 /* ToastViewModifier.swift in Sources */,
 				C0FA708926B084BA00B618E6 /* BandReadMoreView.swift in Sources */,

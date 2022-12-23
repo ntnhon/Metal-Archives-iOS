@@ -25,7 +25,7 @@ struct HomeView: View {
                 ForEach(preferences.homeSectionOrder) { section in
                     switch section {
                     case .latestAdditions:
-                        LatestAdditionsSection()
+                        LatestAdditionsSection(apiService: apiService, detail: $detail)
                     case .latestUpdates:
                         LatestUpdatesSection()
                     case .latestReviews:
