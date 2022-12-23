@@ -16,11 +16,13 @@ enum AdditionType: String, CaseIterable {
 
 private typealias AddedBandsViewModel = HomeSectionViewModel<AddedBand>
 private typealias AddedLabelsViewModel = HomeSectionViewModel<AddedLabel>
+private typealias AddedArtistsViewModel = HomeSectionViewModel<AddedArtist>
 
 struct LatestAdditionsSection: View {
     @State private var selectedAdditionType = AdditionType.bands
     @StateObject private var addedBandsViewModel: AddedBandsViewModel
     @StateObject private var addedLabelsViewModel: AddedLabelsViewModel
+    @StateObject private var addedArtistsViewModel: AddedArtistsViewModel
     @Binding var detail: Detail?
 
     init(apiService: APIServiceProtocol,
@@ -31,6 +33,9 @@ struct LatestAdditionsSection: View {
         let addedLabelsViewModel = AddedLabelsViewModel(apiService: apiService,
                                                         manager: AddedLabelPageManager(apiService: apiService))
         self._addedLabelsViewModel = .init(wrappedValue: addedLabelsViewModel)
+        let addedArtistsViewModel = AddedArtistsViewModel(apiService: apiService,
+                                                          manager: AddedArtistPageManager(apiService: apiService))
+        self._addedArtistsViewModel = .init(wrappedValue: addedArtistsViewModel)
         self._detail = detail
     }
 
@@ -62,7 +67,7 @@ struct LatestAdditionsSection: View {
             case .labels:
                 AddedLabelsView(viewModel: addedLabelsViewModel, detail: $detail)
             case .artists:
-                Text("Artist")
+                AddedArtistsView(viewModel: addedArtistsViewModel, detail: $detail)
             }
         }
     }
@@ -228,6 +233,102 @@ private struct AddedLabelView: View {
                     .foregroundColor(addedLabel.status.color)
 
                 Text(addedLabel.dateAndTime)
+
+                Divider()
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .frame(width: HomeSettings.entryWidth)
+        .contentShape(Rectangle())
+    }
+}
+
+// MARK: - Artist
+private struct AddedArtistsView: View {
+    @ObservedObject var viewModel: AddedArtistsViewModel
+    @Binding var detail: Detail?
+
+    var body: some View {
+        ZStack {
+            if let error = viewModel.error {
+                VStack {
+                    Text(error.userFacingMessage)
+                    RetryButton(onRetry: viewModel.refresh)
+                }
+            } else {
+                Group {
+                    if viewModel.isLoading && viewModel.results.isEmpty {
+                        HomeSectionSkeletonView()
+                    } else if viewModel.results.isEmpty {
+                        Text("No last added artist")
+                            .font(.callout.italic())
+                    } else {
+                        resultList
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .task {
+            await viewModel.getMoreResults(force: false)
+        }
+    }
+
+    private var resultList: some View {
+        HStackSnap(alignment: .leading(24)) {
+            ForEach(viewModel.chunkedResults, id: \.hashValue) { addedArtists in
+                VStack(spacing: HomeSettings.entrySpacing) {
+                    ForEach(addedArtists) { artist in
+                        AddedArtistView(addedArtist: artist)
+                            .onTapGesture { detail = .artist(artist.artist.thumbnailInfo.urlString) }
+                    }
+                }
+                .snapAlignmentHelper(id: addedArtists.hashValue)
+            }
+        }
+        .frame(height: HomeSettings.pageHeight)
+    }
+}
+
+private struct AddedArtistView: View {
+    @EnvironmentObject private var preferences: Preferences
+    let addedArtist: AddedArtist
+
+    var body: some View {
+        HStack {
+            ThumbnailView(thumbnailInfo: addedArtist.artist.thumbnailInfo,
+                          photoDescription: addedArtist.artist.name)
+            .font(.largeTitle)
+            .foregroundColor(preferences.theme.secondaryColor)
+            .frame(width: 64, height: 64)
+
+            VStack(alignment: .leading) {
+                if let realName = addedArtist.realName {
+                    Text(addedArtist.artist.name)
+                        .fontWeight(.bold)
+                        .foregroundColor(preferences.theme.primaryColor) +
+                    Text("(\(realName))")
+                } else {
+                    Text(addedArtist.artist.name)
+                        .fontWeight(.bold)
+                        .foregroundColor(preferences.theme.primaryColor)
+                }
+
+                let texts = addedArtist.bands
+                    .generateTexts(fontWeight: .medium,
+                                   foregroundColor: preferences.theme.secondaryColor)
+                texts.reduce(into: Text("")) { partialResult, text in
+                    // swiftlint:disable:next shorthand_operator
+                    partialResult = partialResult + text
+                }
+                .fixedSize(horizontal: false, vertical: true)
+                .lineLimit(2)
+                .minimumScaleFactor(0.5)
+
+                Text(addedArtist.country.nameAndFlag)
+                    .fontWeight(.medium)
+
+                Text(addedArtist.dateAndTime)
 
                 Divider()
             }

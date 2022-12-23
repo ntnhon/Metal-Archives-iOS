@@ -272,6 +272,7 @@
 		EF6A8A0729040FC900DA2D67 /* LabelsByAlphabetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A8A0629040FC900DA2D67 /* LabelsByAlphabetView.swift */; };
 		EF6A8A0929040FDF00DA2D67 /* LabelsByAlphabetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A8A0829040FDF00DA2D67 /* LabelsByAlphabetViewModel.swift */; };
 		EF73568A29564A96002187FD /* AddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73568929564A96002187FD /* AddedLabel.swift */; };
+		EF73568C29564EAF002187FD /* AddedArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73568B29564EAF002187FD /* AddedArtist.swift */; };
 		EF7A2C9928FC18860046B136 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9828FC18860046B136 /* ReviewView.swift */; };
 		EF7A2C9B28FC18A60046B136 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9A28FC18A60046B136 /* ReviewViewModel.swift */; };
 		EF7A2C9E28FC19210046B136 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9D28FC19210046B136 /* UserView.swift */; };
@@ -593,6 +594,7 @@
 		EF6A8A0629040FC900DA2D67 /* LabelsByAlphabetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsByAlphabetView.swift; sourceTree = "<group>"; };
 		EF6A8A0829040FDF00DA2D67 /* LabelsByAlphabetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsByAlphabetViewModel.swift; sourceTree = "<group>"; };
 		EF73568929564A96002187FD /* AddedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedLabel.swift; sourceTree = "<group>"; };
+		EF73568B29564EAF002187FD /* AddedArtist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedArtist.swift; sourceTree = "<group>"; };
 		EF7A2C9828FC18860046B136 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		EF7A2C9A28FC18A60046B136 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 		EF7A2C9D28FC19210046B136 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
@@ -1296,6 +1298,7 @@
 		EF67B677293D4A3900BAC4D2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				EF73568B29564EAF002187FD /* AddedArtist.swift */,
 				EFE60BD02954DF9600EF6F31 /* AddedBand.swift */,
 				EF73568929564A96002187FD /* AddedLabel.swift */,
 				EF818C282942845E00C369DD /* LatestReview.swift */,
@@ -1682,6 +1685,7 @@
 				EF3C56AC2901CD000010D568 /* BandsByAlphabetViewModel.swift in Sources */,
 				EFA48C4428F5EA010012B349 /* OtherVersionsView.swift in Sources */,
 				EFA48C3E28F5E5890012B349 /* ReleaseTabsDatasource.swift in Sources */,
+				EF73568C29564EAF002187FD /* AddedArtist.swift in Sources */,
 				EFF4B87729241CE20007B563 /* SearchResultsViewModel.swift in Sources */,
 				C071578326E6AA280075C012 /* HighlightableText.swift in Sources */,
 				EF3F5FED29058AB500FD1A31 /* NewsPostView.swift in Sources */,
