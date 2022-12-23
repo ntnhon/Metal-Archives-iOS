@@ -15,10 +15,12 @@ enum AdditionType: String, CaseIterable {
 }
 
 private typealias AddedBandsViewModel = HomeSectionViewModel<AddedBand>
+private typealias AddedLabelsViewModel = HomeSectionViewModel<AddedLabel>
 
 struct LatestAdditionsSection: View {
     @State private var selectedAdditionType = AdditionType.bands
     @StateObject private var addedBandsViewModel: AddedBandsViewModel
+    @StateObject private var addedLabelsViewModel: AddedLabelsViewModel
     @Binding var detail: Detail?
 
     init(apiService: APIServiceProtocol,
@@ -26,6 +28,9 @@ struct LatestAdditionsSection: View {
         let addedBandsViewModel = AddedBandsViewModel(apiService: apiService,
                                                       manager: AddedBandPageManager(apiService: apiService))
         self._addedBandsViewModel = .init(wrappedValue: addedBandsViewModel)
+        let addedLabelsViewModel = AddedLabelsViewModel(apiService: apiService,
+                                                        manager: AddedLabelPageManager(apiService: apiService))
+        self._addedLabelsViewModel = .init(wrappedValue: addedLabelsViewModel)
         self._detail = detail
     }
 
@@ -55,7 +60,7 @@ struct LatestAdditionsSection: View {
             case .bands:
                 AddedBandsView(viewModel: addedBandsViewModel, detail: $detail)
             case .labels:
-                Text("Labels")
+                AddedLabelsView(viewModel: addedLabelsViewModel, detail: $detail)
             case .artists:
                 Text("Artist")
             }
@@ -80,7 +85,7 @@ private struct AddedBandsView: View {
                     if viewModel.isLoading && viewModel.results.isEmpty {
                         HomeSectionSkeletonView()
                     } else if viewModel.results.isEmpty {
-                        Text("No latest reviews")
+                        Text("No last added bands")
                             .font(.callout.italic())
                     } else {
                         resultList
@@ -135,6 +140,94 @@ private struct AddedBandView: View {
 
                 Text(addedBand.genre)
                     .font(.body.italic())
+
+                Divider()
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .frame(width: HomeSettings.entryWidth)
+        .contentShape(Rectangle())
+    }
+}
+
+// MARK: - Labels
+private struct AddedLabelsView: View {
+    @ObservedObject var viewModel: AddedLabelsViewModel
+    @Binding var detail: Detail?
+
+    var body: some View {
+        ZStack {
+            if let error = viewModel.error {
+                VStack {
+                    Text(error.userFacingMessage)
+                    RetryButton(onRetry: viewModel.refresh)
+                }
+            } else {
+                Group {
+                    if viewModel.isLoading && viewModel.results.isEmpty {
+                        HomeSectionSkeletonView()
+                    } else if viewModel.results.isEmpty {
+                        Text("No last added labels")
+                            .font(.callout.italic())
+                    } else {
+                        resultList
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .task {
+            await viewModel.getMoreResults(force: false)
+        }
+    }
+
+    private var resultList: some View {
+        HStackSnap(alignment: .leading(24)) {
+            ForEach(viewModel.chunkedResults, id: \.hashValue) { addedLabels in
+                VStack(spacing: HomeSettings.entrySpacing) {
+                    ForEach(addedLabels) { label in
+                        AddedLabelView(addedLabel: label)
+                            .onTapGesture {
+                                if let urlString = label.label.thumbnailInfo?.urlString {
+                                    detail = .label(urlString)
+                                }
+                            }
+                    }
+                }
+                .snapAlignmentHelper(id: addedLabels.hashValue)
+            }
+        }
+        .frame(height: HomeSettings.pageHeight)
+    }
+}
+
+private struct AddedLabelView: View {
+    @EnvironmentObject private var preferences: Preferences
+    let addedLabel: AddedLabel
+
+    var body: some View {
+        HStack {
+            if let thumbnailInfo = addedLabel.label.thumbnailInfo {
+                ThumbnailView(thumbnailInfo: thumbnailInfo,
+                              photoDescription: addedLabel.label.name)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
+            }
+
+            VStack(alignment: .leading) {
+                Text(addedLabel.label.name)
+                    .fontWeight(.bold)
+                    .foregroundColor(preferences.theme.primaryColor)
+
+                Text(addedLabel.country.nameAndFlag)
+                    .fontWeight(.medium)
+                    .foregroundColor(preferences.theme.secondaryColor)
+
+                Text(addedLabel.status.rawValue)
+                    .foregroundColor(addedLabel.status.color)
+
+                Text(addedLabel.dateAndTime)
 
                 Divider()
             }

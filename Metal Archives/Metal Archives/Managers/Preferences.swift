@@ -15,7 +15,7 @@ final class Preferences: ObservableObject {
     var dateOrder: Order = .ascending
 
     @AppStorage("homeSectionOrder")
-    var homeSectionOrder: [HomeSection] = [.upcomingAlbums, .latestAdditions, .latestUpdates, .latestReviews]
+    var homeSectionOrder: [HomeSection] = [.upcomingAlbums, .latestReviews, .latestAdditions, .latestUpdates]
 
     @AppStorage("showThumbnails")
     var showThumbnails = true
