@@ -17,17 +17,12 @@ struct HomeView: View {
             VStack {
                 DetailView(detail: $detail, apiService: apiService)
 
-                Text("What's news on Metal Archives today")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                    .padding(.bottom)
-
                 ForEach(preferences.homeSectionOrder) { section in
                     switch section {
                     case .latestAdditions:
                         LatestAdditionsSection(apiService: apiService, detail: $detail)
                     case .latestUpdates:
-                        LatestUpdatesSection()
+                        LatestUpdatesSection(apiService: apiService, detail: $detail)
                     case .latestReviews:
                         LatestReviewsSection(apiService: apiService, detail: $detail)
                     case .upcomingAlbums:
@@ -35,6 +30,7 @@ struct HomeView: View {
                     }
                 }
             }
+            .padding(.top)
         }
         .navigationTitle(Text(navigationTitle))
         .navigationBarTitleDisplayMode(.large)

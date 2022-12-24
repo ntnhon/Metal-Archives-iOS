@@ -7,10 +7,33 @@
 
 import SwiftUI
 
-typealias UpdateType = AdditionType
-
 struct LatestUpdatesSection: View {
-    @State private var selectedUpdateType = UpdateType.bands
+    @State private var selectedObject = LatestObject.bands
+    @StateObject private var updatedBandsViewModel: LatestBandsViewModel
+    @StateObject private var updatedLabelsViewModel: LatestLabelsViewModel
+    @StateObject private var updateArtistsViewModel: LatestArtistsViewModel
+    @Binding var detail: Detail?
+
+    init(apiService: APIServiceProtocol,
+         detail: Binding<Detail?>) {
+        let latestBandPageManager = LatestBandPageManager(apiService: apiService, type: .updated)
+        let addedBandsViewModel = LatestBandsViewModel(apiService: apiService,
+                                                       manager: latestBandPageManager)
+        self._updatedBandsViewModel = .init(wrappedValue: addedBandsViewModel)
+
+        let latestLabelPageManager = LatestLabelPageManager(apiService: apiService, type: .updated)
+        let addedLabelsViewModel = LatestLabelsViewModel(apiService: apiService,
+                                                         manager: latestLabelPageManager)
+        self._updatedLabelsViewModel = .init(wrappedValue: addedLabelsViewModel)
+
+        let latestArtistPageManager = LatestArtistPageManager(apiService: apiService, type: .updated)
+        let addedArtistsViewModel = LatestArtistsViewModel(apiService: apiService,
+                                                           manager: latestArtistPageManager)
+        self._updateArtistsViewModel = .init(wrappedValue: addedArtistsViewModel)
+
+        self._detail = detail
+    }
+
     var body: some View {
         VStack {
             HStack {
@@ -24,8 +47,8 @@ struct LatestUpdatesSection: View {
             }
             .padding(.horizontal)
 
-            Picker("", selection: $selectedUpdateType) {
-                ForEach(AdditionType.allCases, id: \.rawValue) { type in
+            Picker("", selection: $selectedObject) {
+                ForEach(LatestObject.allCases, id: \.rawValue) { type in
                     Text(type.rawValue)
                         .tag(type)
                 }
@@ -33,13 +56,16 @@ struct LatestUpdatesSection: View {
             .pickerStyle(.segmented)
             .padding(.horizontal)
 
-            ForEach(0..<5, id: \.self) { index in
-                Button(action: {
-                    print("Select \(index)")
-                }, label: {
-                    Text("#\(index)")
-                })
-                .frame(maxWidth: .infinity, alignment: .leading)
+            switch selectedObject {
+            case .bands:
+                LatestBandsView(viewModel: updatedBandsViewModel, detail: $detail)
+                    .frame(minHeight: HomeSettings.pageHeight)
+            case .labels:
+                LatestLabelsView(viewModel: updatedLabelsViewModel, detail: $detail)
+                    .frame(minHeight: HomeSettings.pageHeight)
+            case .artists:
+                LatestArtistsView(viewModel: updateArtistsViewModel, detail: $detail)
+                    .frame(minHeight: HomeSettings.pageHeight)
             }
         }
     }

@@ -1,5 +1,5 @@
 //
-//  AddedBand.swift
+//  LatestBand.swift
 //  Metal Archives
 //
 //  Created by Nhon Nguyen on 22/12/2022.
@@ -8,7 +8,7 @@
 import Foundation
 import Kanna
 
-struct AddedBand {
+struct LatestBand {
     let date: String
     let band: BandLite
     let country: Country
@@ -17,11 +17,11 @@ struct AddedBand {
     let author: UserLite
 }
 
-extension AddedBand: Equatable {
+extension LatestBand: Equatable {
     static func == (lhs: Self, rhs: Self) -> Bool { lhs.hashValue == rhs.hashValue }
 }
 
-extension AddedBand: Hashable {
+extension LatestBand: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(band)
         hasher.combine(country)
@@ -31,11 +31,11 @@ extension AddedBand: Hashable {
     }
 }
 
-extension AddedBand: Identifiable {
+extension LatestBand: Identifiable {
     public var id: Int { hashValue }
 }
 
-extension AddedBand: PageElement {
+extension LatestBand: PageElement {
     /*
      "December 22",
      "<a href=\"https://www.metal-archives.com/bands/Cryptogenic/3540517357\">Cryptogenic</a>",
@@ -82,13 +82,13 @@ extension AddedBand: PageElement {
     }
 }
 
-final class AddedBandPageManager: PageManager<AddedBand> {
-    init(apiService: APIServiceProtocol) {
+final class LatestBandPageManager: PageManager<LatestBand> {
+    init(apiService: APIServiceProtocol, type: LatestType) {
         let components = Calendar.current.dateComponents([.month, .year], from: Date())
         let month = components.month ?? 1
         let year = components.year ?? 2_023
         // swiftlint:disable:next line_length
-        let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/archives/ajax-band-list/selection/\(year)-\(month)/by/created//json/1?sEcho=1&iColumns=6&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&iSortCol_0=4&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true&bSortable_4=true&bSortable_5=true",
+        let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/archives/ajax-band-list/selection/\(year)-\(month)/by/\(type.path)/json/1?sEcho=1&iColumns=6&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&iSortCol_0=4&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true&bSortable_4=true&bSortable_5=true",
                                   pageSize: 200)
         super.init(configs: configs, apiService: apiService)
     }
