@@ -37,13 +37,13 @@ struct LatestReviewsSection: View {
 
                         Spacer()
 
-                        if !viewModel.isLoading && !viewModel.results.isEmpty {
-                            Button(action: {
-                                print("See All")
-                            }, label: {
-                                Text("See all")
-                            })
-                        }
+//                        if !viewModel.isLoading && !viewModel.results.isEmpty {
+//                            Button(action: {
+//                                print("See All")
+//                            }, label: {
+//                                Text("See all")
+//                            })
+//                        }
                     }
                     .padding(.horizontal)
 

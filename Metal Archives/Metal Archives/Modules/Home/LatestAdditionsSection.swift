@@ -42,8 +42,8 @@ struct LatestAdditionsSection: View {
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
                 Spacer()
-                NavigationLink(destination: { Text("All") },
-                               label: { Text("See All") })
+//                NavigationLink(destination: { Text("All") },
+//                               label: { Text("See All") })
             }
             .padding(.horizontal)
 

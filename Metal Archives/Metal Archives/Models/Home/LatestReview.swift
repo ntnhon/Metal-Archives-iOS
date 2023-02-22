@@ -105,7 +105,7 @@ extension LatestReview: PageElement {
 final class LatestReviewPageManager: PageManager<LatestReview> {
     init(apiService: APIServiceProtocol) {
         let components = Calendar.current.dateComponents([.month, .year], from: Date())
-        let month = components.month ?? 1
+        let month = String(format: "%02d", components.month ?? 1)
         let year = components.year ?? 2_023
         // swiftlint:disable:next line_length
         let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/review/ajax-list-browse/by/date/selection/\(year)-\(month)/json/1?sEcho=1&iColumns=7&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&mDataProp_6=6&iSortCol_0=6&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=false&bSortable_2=true&bSortable_3=false&bSortable_4=true&bSortable_5=true&bSortable_6=true",
