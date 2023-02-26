@@ -7,62 +7,74 @@
 
 import SwiftUI
 
-private enum RootViewTab {
-    case home, search, browse, myAccount, settings
+private enum HomeTab: Int, CaseIterable {
+    case home = 0, search, browse, myAccount, settings
+
+    var title: String {
+        switch self {
+        case .home:
+            return "Home"
+        case .search:
+            return "Search"
+        case .browse:
+            return "Browse"
+        case .myAccount:
+            return "My account"
+        case .settings:
+            return "Settings"
+        }
+    }
+
+    var imageName: String {
+        switch self {
+        case .home:
+            return "house"
+        case .search:
+            return "magnifyingglass.circle"
+        case .browse:
+            return "tray.2"
+        case .myAccount:
+            return "person"
+        case .settings:
+            return "gearshape"
+        }
+    }
+
+    var selectedImageName: String { "\(imageName).fill" }
 }
 
 struct RootView: View {
     @EnvironmentObject private var preferences: Preferences
-    @State private var selectedTab: RootViewTab = .home
+    @State private var selectedTab = HomeTab.home
     let apiService: APIServiceProtocol
 
     var body: some View {
         TabView(selection: $selectedTab) {
             NavigationView { HomeView(apiService: apiService) }
-                .tabItem {
-                    Image(systemName: selectedTab == .home ? "house.fill" : "house")
-                    Text("Home")
-                }
-                .tag(RootViewTab.home)
+                .tab(.home, selectedTab: selectedTab)
 
             NavigationView { SearchView(apiService: apiService) }
-                .tabItem {
-                    Image(systemName: selectedTab == .search ?
-                            "magnifyingglass.circle.fill" : "magnifyingglass.circle")
-                    Text("Search")
-                }
-                .tag(RootViewTab.search)
+                .tab(.search, selectedTab: selectedTab)
 
             NavigationView { BrowseView(apiService: apiService) }
-                .tabItem {
-                    Image(systemName: selectedTab == .browse ?
-                            "tray.2.fill" : "tray.2")
-                    Text("Browse")
-                }
-                .tag(RootViewTab.browse)
-
-            /*
-            NavigationView { MyAccountView() }
-                .tabItem {
-                    Image(systemName: selectedTab == .myAccount ?
-                          "person.fill" : "person")
-                    Text("My account")
-                }
-                .tag(RootViewTab.myAccount)
-             */
+                .tab(.browse, selectedTab: selectedTab)
 
             NavigationView { SettingsView() }
-                .tabItem {
-                    Image(systemName: selectedTab == .settings ?
-                          "gearshape.fill" : "gearshape")
-                    Text("Settings")
-                }
-                .tag(RootViewTab.settings)
+                .tab(.settings, selectedTab: selectedTab)
         }
         .accentColor(preferences.theme.primaryColor)
     }
 }
 
+private extension View {
+    func tab(_ tab: HomeTab, selectedTab: HomeTab) -> some View {
+        self
+            .tabItem { Label(tab.title, systemImage: tab == selectedTab ? tab.selectedImageName : tab.imageName) }
+            .tag(tab)
+    }
+}
+
+/*
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
         RootView(apiService: APIService())
@@ -70,3 +82,4 @@ struct RootView_Previews: PreviewProvider {
             .environmentObject(Preferences())
     }
 }
+*/
