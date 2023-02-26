@@ -286,7 +286,7 @@ extension Band: HTMLParsable {
         for tr in div.css("tr") {
             switch tr["class"] {
             case "lineupRow":
-                if lastArtistBuilder?.name != nil && lastArtistBuilder?.bands == nil {
+                if lastArtistBuilder?.name != nil, lastArtistBuilder?.bands == nil {
                     lastArtistBuilder?.bands = []
                     lastArtistBuilder?.seeAlso = nil
                 }
@@ -334,6 +334,10 @@ extension Band: HTMLParsable {
 
             default: break
             }
+        }
+
+        if let artist = lastArtistBuilder?.build() {
+            lineUp.append(artist)
         }
 
         switch memberType {

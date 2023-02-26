@@ -28,7 +28,7 @@ extension ArtistInBand {
         var thumbnailInfo: ThumbnailInfo?
         var name: String?
         var instruments: String?
-        var bands: [BandLite]?
+        var bands = [BandLite]()
         var seeAlso: String?
 
         func build() -> ArtistInBand? {
@@ -49,11 +49,6 @@ extension ArtistInBand {
 
             guard let instruments else {
                 Logger.log("[Building ArtistInBand] instruments can not be nil.")
-                return nil
-            }
-
-            guard let bands else {
-                Logger.log("[Building ArtistInBand] bands can not be nil.")
                 return nil
             }
 
