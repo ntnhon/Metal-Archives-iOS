@@ -25,6 +25,7 @@ struct LabelPastRosterView: View {
             } else if viewModel.manager.elements.isEmpty {
                 Text("Empty roster")
                     .font(.callout.italic())
+                    .frame(maxWidth: .infinity, alignment: .leading)
             } else {
                 bandList
             }
