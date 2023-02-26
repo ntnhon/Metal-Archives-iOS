@@ -2,25 +2,50 @@
 //  RelatedLink.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 04/02/2019.
-//  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
+//  Created by Thanh-Nhon Nguyen on 22/05/2021.
 //
 
 import Foundation
+import Kanna
 
-final class RelatedLink {
-    let title: String
+struct RelatedLink {
     let urlString: String
-    let favIconURLString: String
-    
-    init?(title: String, urlString: String) {
-        self.title = title
+    let favIconUrlString: String?
+    let title: String
+
+    init(urlString: String, title: String) {
         self.urlString = urlString
-        
-        if let urlComponents = URLComponents(string: urlString), let scheme = urlComponents.scheme, let host = urlComponents.host {
-            self.favIconURLString = "http://www.google.com/s2/favicons?domain=\(scheme)://\(host)"
+        self.title = title
+        if let components = URLComponents(string: urlString),
+           let scheme = components.scheme,
+           let host = components.host {
+            self.favIconUrlString = "https://www.google.com/s2/favicons?domain=\(scheme)://\(host)"
         } else {
-            return nil
+            self.favIconUrlString = nil
         }
+    }
+}
+
+struct RelatedLinkArray: HTMLParsable {
+    let content: [RelatedLink]
+
+    init(data: Data) {
+        guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
+              !htmlString.contains("No links have been added yet"),
+              let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
+            content = []
+            return
+        }
+
+        var links = [RelatedLink]()
+        // swiftlint:disable:next identifier_name
+        html.css("a").forEach { a in
+            if let title = a.text, let urlString = a["href"], urlString.contains("http") {
+                // Make sure that urlString contain "http" because it can have
+                // other values like "#" or "#band_links_Official"
+                links.append(.init(urlString: urlString, title: title))
+            }
+        }
+        content = links
     }
 }

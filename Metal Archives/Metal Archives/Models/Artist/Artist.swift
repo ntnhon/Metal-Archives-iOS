@@ -2,217 +2,270 @@
 //  Artist.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 22/01/2019.
-//  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
+//  Created by Thanh-Nhon Nguyen on 29/05/2021.
 //
 
 import Foundation
 import Kanna
 
-final class Artist {
-    private(set) var urlString: String!
-    private(set) var id: String!
-    private(set) var bandMemberName: String!
-    private(set) var realFullName: String!
-    private(set) var age: String!
-    private(set) var origin: String!
-    private(set) var gender: String!
-    private(set) var isDead: Bool = false
-    private(set) var rip: String?
-    private(set) var diedOf: String?
-    private(set) var photoURLString: String?
-    
-    private(set) var biography: String?
-    private(set) var trivia: String?
-    
-    private(set) var isBookmarked: Bool? = nil
-    
-    private(set) var  addedOnDate: Date?
-    private(set) var  lastModifiedOnDate: Date?
-    
-    private(set) var activeBands: [RolesInBand]?
-    private(set) var pastBands: [RolesInBand]?
-    private(set) var live: [RolesInBand]?
-    private(set) var guestSession: [RolesInBand]?
-    private(set) var miscStaff: [RolesInBand]?
-    
-    private(set) var links: [RelatedLink]?
-    
-    deinit {
-        print("Artist is deallocated")
-    }
-    
-    init?(fromData data: Data, urlString: String) {
-        guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
-            let doc = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
+// swiftlint:disable identifier_name
+struct Artist {
+    let artistName: String
+    let realFullName: String
+    let age: String
+    let origin: String
+    let gender: String
+    let rip: String?
+    let causeOfDeath: String?
+    let photoUrlString: String?
+    let biography: String?
+    let hasMoreBiography: Bool
+    let trivia: String?
+    var isBookmarked: Bool
+    let modificationInfo: ModificationInfo
+    let activeRoles: [RoleInBand]
+    let pastRoles: [RoleInBand]
+    let liveRoles: [RoleInBand]
+    let guestSessionRoles: [RoleInBand]
+    let miscStaffRoles: [RoleInBand]
+
+    var hasPhoto: Bool { photoUrlString != nil }
+}
+
+extension Artist {
+    private enum InfoType {
+        case realFullName, placeOfOrigin, age, gender, rip, causeOfDeath
+
+        init?(string: String) {
+            let string = string.lowercased()
+            if string.contains("name") {
+                self = .realFullName
+            } else if string.contains("place") {
+                self = .placeOfOrigin
+            } else if string.contains("age") {
+                self = .age
+            } else if string.contains("gender") {
+                self = .gender
+            } else if string.contains("r.i.p") {
+                self = .rip
+            } else if string.contains("die") {
+                self = .causeOfDeath
+            } else {
                 return nil
-        }
-        
-        self.urlString = urlString
-        self.id = urlString.components(separatedBy: "/").last
-        
-        // Firstly detect if artist is bookmarked or not
-        for a in doc.css("a") {
-            // When bookmarked
-            // <a id="bookmark" class="iconContainer ui-state-active ui-corner-all writeAction"...
-            // When not bookmarked
-            // <a id="bookmark" class="iconContainer ui-state-default ui-corner-all writeAction"...
-            if let id = a["id"], id == "bookmark", let classValue = a["class"] {
-                self.isBookmarked = classValue.contains("active")
-                continue
-            }
-        }
-        
-        for div in doc.css("div") {
-            if (div["id"] == "member_info") {
-                self.parseArtistMetaData(div_member_info: div)
-            } else if (div["class"] == "member_img") {
-                if let a = div.at_css("a") {
-                    self.photoURLString = a["href"]
-                }
-            } else if (div["id"] == "artist_tab_active") {
-                self.activeBands = self.parseRolesInBand(div: div)
-            } else if (div["id"] == "artist_tab_past") {
-                self.pastBands = self.parseRolesInBand(div: div)
-            } else if (div["id"] == "artist_tab_live") {
-                self.live = self.parseRolesInBand(div: div)
-            } else if (div["id"] == "artist_tab_guest") {
-                self.guestSession = self.parseRolesInBand(div: div)
-            } else if (div["id"] == "artist_tab_misc") {
-                self.miscStaff = self.parseRolesInBand(div: div)
-            } else if (div["id"] == "auditTrail") {
-                self.parseAddedOnAndLastModified(div: div)
             }
         }
     }
-    
-    private func parseArtistMetaData(div_member_info: XMLElement) {
-        
-        if let h1 = div_member_info.at_css("h1"), let bandMemberName = h1.text {
-            self.bandMemberName = bandMemberName
-        }
-        
-        for dl in div_member_info.css("dl") {
-            if (dl["class"] == "float_left") {
-                // Check is artist id dead by counting dd tag (info)
-                var countDD = 0
-                for _ in dl.css("dd") {
-                    countDD = countDD + 1
-                }
-                
-                if (countDD == 2) {
-                    self.isDead = false
-                }
-                else if (countDD == 3 || countDD == 4) {
-                    self.isDead = true
-                }
-                
-                var i = 0
-                for dd in dl.css("dd") {
-                    if (i == 0) {
-                        var temp = dd.text
-                        temp = temp?.replacingOccurrences(of: "\n", with: "")
-                        temp = temp?.replacingOccurrences(of: "\t", with: "")
-                        self.realFullName = temp
-                    }
-                    else if (i == 1) {
-                        self.age = dd.text
-                    }
-                    
-                    if (isDead == true) {
-                        if (i == 2) {
-                            self.rip = dd.text
-                        }
-                        else if (i == 3) {
-                            self.diedOf = dd.text
-                        }
-                    }
-                    
-                    i = i + 1
-                }
-            }
-            else if (dl["class"] == "float_right") {
-                
-                var i = 0
-                
-                for dd in dl.css("dd") {
-                    if (i == 0) {
-                        self.origin = dd.text
-                    }
-                    else if (i == 1) {
-                        gender = dd.text
-                    }
-                    
-                    i = i + 1
-                }
-                
-                return
-            }
-        }
-    }
-    
-    private func parseRolesInBand(div: XMLElement) -> [RolesInBand]? {
-        var rolesInBands = [RolesInBand]()
-        
-        for div_member_in_band in div.css("div") {
-            
-            if (div_member_in_band["class"] == "member_in_band") {
-                if let rolesInBand = RolesInBand(div_member_in_band: div_member_in_band) {
-                    rolesInBands.append(rolesInBand)
-                }
-            }
-        }
-        
-        return rolesInBands
-    }
-    
-    private func parseAddedOnAndLastModified(div: XMLElement) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        var i = 0
-        for td in div.css("td") {
-            if (i == 2) {
-                if let addedOnString = (td.text?.replacingOccurrences(of: "Added on: ", with: "")),
-                    let addedOnDate =  dateFormatter.date(from: addedOnString) {
-                    self.addedOnDate = addedOnDate
-                } else {
-                    self.addedOnDate = nil
-                }
-            }
-            else if (i == 3) {
-                if let lastModifiedOnString = (td.text?.replacingOccurrences(of: "Last modified on: ", with: "")),
-                    let lastModifiedOnDate = dateFormatter.date(from: lastModifiedOnString) {
-                    self.lastModifiedOnDate = lastModifiedOnDate
-                } else {
-                    self.lastModifiedOnDate = nil
-                }
-                
-                break
-            }
-            
-            i = i + 1
-        }
-    }
-    
-    func setBiography(biographyString: String?) {
-        self.biography = biographyString
-    }
-    
-    func setTrivia(triviaString: String?) {
-        self.trivia = triviaString
-    }
-    
-    func setLinks(links: [RelatedLink]?) {
-        self.links = links
-    }
-    
-    func setIsBookmarked(_ isBookmarked: Bool) {
-        self.isBookmarked = isBookmarked
+
+    private enum RoleType {
+        case active, past, live, guestSession, misc
     }
 }
 
-extension Artist: Descriptive {
-    var generalDescription: String {
-        return "\(id ?? "") - \(bandMemberName ?? "") - \(urlString ?? "")"
+extension Artist {
+    final class Builder {
+        var artistName: String?
+        var realFullName: String?
+        var age: String?
+        var origin: String?
+        var gender: String?
+        var rip: String?
+        var causeOfDeath: String?
+        var photoUrlString: String?
+        var biography: String?
+        var hasMoreBiography = false
+        var trivia: String?
+        var isBookmarked = false
+        var modificationInfo: ModificationInfo?
+        var activeRoles: [RoleInBand]?
+        var pastRoles: [RoleInBand]?
+        var liveRoles: [RoleInBand]?
+        var guestSessionRoles: [RoleInBand]?
+        var miscStaffRoles: [RoleInBand]?
+
+        func build() -> Artist? {
+            guard let artistName else {
+                Logger.log("[Building Artist] artistName can not be nil")
+                return nil
+            }
+
+            guard let realFullName else {
+                Logger.log("[Building Artist] realFullName can not be nil")
+                return nil
+            }
+
+            guard let age else {
+                Logger.log("[Building Artist] age can not be nil")
+                return nil
+            }
+
+            guard let origin else {
+                Logger.log("[Building Artist] origin can not be nil")
+                return nil
+            }
+
+            guard let gender else {
+                Logger.log("[Building Artist] gender can not be nil")
+                return nil
+            }
+
+            guard let modificationInfo else {
+                Logger.log("[Building Artist] modificationInfo can not be nil")
+                return nil
+            }
+
+            return Artist(artistName: artistName,
+                          realFullName: realFullName,
+                          age: age,
+                          origin: origin,
+                          gender: gender,
+                          rip: rip,
+                          causeOfDeath: causeOfDeath,
+                          photoUrlString: photoUrlString,
+                          biography: biography,
+                          hasMoreBiography: hasMoreBiography,
+                          trivia: trivia,
+                          isBookmarked: isBookmarked,
+                          modificationInfo: modificationInfo,
+                          activeRoles: activeRoles ?? [],
+                          pastRoles: pastRoles ?? [],
+                          liveRoles: liveRoles ?? [],
+                          guestSessionRoles: guestSessionRoles ?? [],
+                          miscStaffRoles: miscStaffRoles ?? [])
+        }
+    }
+}
+
+extension Artist: HTMLParsable {
+    init(data: Data) throws {
+        let html = try Kanna.HTML(html: data, encoding: .utf8)
+
+        let builder = Builder()
+        builder.artistName = html.at_css("h1")?.text
+
+        for div in html.css("div") {
+            if let divId = div["id"] {
+                switch divId {
+                case "member_info": Self.parseMemberInfo(from: div, builder: builder)
+                case "auditTrail": builder.modificationInfo = ModificationInfo(element: div)
+                case "artist_tab_active": Self.parseRoles(from: div, builder: builder, type: .active)
+                case "artist_tab_past": Self.parseRoles(from: div, builder: builder, type: .past)
+                case "artist_tab_live": Self.parseRoles(from: div, builder: builder, type: .live)
+                case "artist_tab_guest": Self.parseRoles(from: div, builder: builder, type: .guestSession)
+                case "artist_tab_misc": Self.parseRoles(from: div, builder: builder, type: .misc)
+                default: break
+                }
+            } else if let divClass = div["class"] {
+                switch divClass {
+                case "member_img": builder.photoUrlString = div.at_css("a")?["href"]
+                case "clear band_comment": Self.parseBioAndTrivia(from: div, builder: builder)
+                default: break
+                }
+            }
+        }
+
+        guard let artist = builder.build() else {
+            throw MAError.parseFailure("\(Self.self)")
+        }
+        self = artist
+    }
+
+    private static func parseMemberInfo(from div: XMLElement, builder: Builder) {
+        var infoTypes = [Artist.InfoType]()
+
+        for dt in div.css("dt") {
+            if let dtText = dt.text, let type = InfoType(string: dtText) {
+                infoTypes.append(type)
+            }
+        }
+
+        for (index, dd) in div.css("dd").enumerated() {
+            guard let ddText = dd.text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
+                continue
+            }
+
+            switch infoTypes[index] {
+            case .realFullName: builder.realFullName = ddText
+            case .age: builder.age = ddText
+            case .rip: builder.rip = ddText
+            case .causeOfDeath: builder.causeOfDeath = ddText
+            case .placeOfOrigin: builder.origin = ddText
+            case .gender: builder.gender = ddText
+            }
+        }
+    }
+
+    private static func parseBioAndTrivia(from div: XMLElement, builder: Builder) {
+        guard let text = div.text else { return }
+        builder.hasMoreBiography = text.contains("Read more")
+        let biography = text.subString(after: "Biography", before: "Trivia")?
+            .replacingOccurrences(of: "\nRead more", with: "")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        if biography?.isEmpty == false {
+            builder.biography = biography
+        }
+        builder.trivia = text.subString(after: "Trivia")?.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private static func parseRoles(from div: XMLElement, builder: Builder, type: RoleType) {
+        var roles = [RoleInBand]()
+
+        for memberInBandDiv in div.css("div") where memberInBandDiv["class"] == "member_in_band" {
+            let roleInBandBuilder = RoleInBand.Builder()
+            var rolesInRelease = [RoleInRelease]()
+
+            if let h3 = memberInBandDiv.at_css("h3") {
+                if let a = h3.at_css("a"), let bandName = a.text,
+                   let bandUrlString = a["href"]?.components(separatedBy: "#").first {
+                    roleInBandBuilder.band = .init(urlString: bandUrlString, name: bandName)
+                } else if let bandName = h3.text {
+                    // In case the band is not listed on Metal Archives
+                    // See more: https://www.metal-archives.com/artists/Rick_Rozz/11902
+                    roleInBandBuilder.band = .init(urlString: nil, name: bandName)
+                }
+            }
+
+            for tr in memberInBandDiv.css("tr") {
+                let roleInReleaseBuilder = RoleInRelease.Builder()
+
+                for (index, td) in tr.css("td").enumerated() {
+                    guard let tdText = td.text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
+                        continue
+                    }
+                    switch index {
+                    case 0: roleInReleaseBuilder.year = tdText
+                    case 1:
+                        if let a = td.at_css("a"), let releaseTitle = a.text,
+                           let releaseUrlString = a["href"] {
+                            roleInReleaseBuilder.release = .init(urlString: releaseUrlString,
+                                                                 title: releaseTitle)
+                            roleInReleaseBuilder.releaseAdditionalInfo =
+                                tdText.subString(after: "(", before: ")")
+                        }
+                    case 2: roleInReleaseBuilder.description = tdText
+                    default: break
+                    }
+                }
+
+                if let roleInRelease = roleInReleaseBuilder.build() {
+                    rolesInRelease.append(roleInRelease)
+                }
+            }
+
+            roleInBandBuilder.description = memberInBandDiv.at_css("p")?.text?
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .replacingOccurrences(of: "\n", with: " ")
+            roleInBandBuilder.roleInReleases = rolesInRelease
+            if let roleInBand = roleInBandBuilder.build() {
+                roles.append(roleInBand)
+            }
+        }
+
+        switch type {
+        case .active: builder.activeRoles = roles
+        case .past: builder.pastRoles = roles
+        case .live: builder.liveRoles = roles
+        case .guestSession: builder.guestSessionRoles = roles
+        case .misc: builder.miscStaffRoles = roles
+        }
     }
 }

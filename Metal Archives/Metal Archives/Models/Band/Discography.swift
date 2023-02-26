@@ -2,197 +2,80 @@
 //  Discography.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 30/01/2019.
-//  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
+//  Created by Thanh-Nhon Nguyen on 22/05/2021.
 //
 
 import Foundation
 import Kanna
 
-final class Discography {
-    private var releases: [ReleaseLite]? = nil
-    
-    lazy var complete: [ReleaseLite] = {
-        if let `releases` = self.releases {
-            return releases
-        }
-        return []
-    }()
-    
-    lazy var completeDescription: String = {
-        if self.complete.count <= 1 {
-            return "Complete (\(self.complete.count) release)"
-        }
-        
-        return "Complete (\(self.complete.count) releases)"
-    }()
-    
-    lazy var main: [ReleaseLite] = {
-        if let `releases` = self.releases {
-           return releases.filter {
-            $0.type == ReleaseType.fullLength
-            }
-        }
-        
-        return []
-    }()
-    
-    lazy var mainDescription: String = {
-        if self.main.count <= 1 {
-            return "Main (\(self.main.count) release)"
-        }
-        
-        return "Main (\(self.main.count) releases)"
-    }()
-    
-    lazy var lives: [ReleaseLite] = {
-        if let `releases` = self.releases {
-            return releases.filter {
-                $0.type == ReleaseType.liveAlbum || $0.type == ReleaseType.video
-            }
-        }
-        
-        return []
-    }()
-    
-    lazy var livesDescription: String = {
-        if self.lives.count <= 1 {
-            return "Lives (\(self.lives.count) release)"
-        }
-        
-        return "Lives (\(self.lives.count) releases)"
-    }()
-    
-    lazy var demos: [ReleaseLite] = {
-        if let `releases` = self.releases {
-            return releases.filter {
-                $0.type == ReleaseType.demo
-            }
-        }
-        
-        return []
-    }()
-    
-    lazy var demosDescription: String = {
-        if self.demos.count <= 1 {
-            return "Demos (\(self.demos.count) release)"
-        }
-        
-        return "Demos (\(self.demos.count) releases)"
-    }()
-    
-    lazy var misc: [ReleaseLite] = {
-        if let `releases` = self.releases {
-            return releases.filter {
-                $0.type != ReleaseType.demo && $0.type != ReleaseType.fullLength && $0.type != ReleaseType.liveAlbum && $0.type != ReleaseType.video
-            }
-        }
-        
-        return []
-    }()
-    
-    lazy var miscDescription: String = {
-        if self.misc.count <= 1 {
-            return "Misc. (\(self.misc.count) release)"
-        }
-        
-        return "Misc. (\(self.misc.count) releases)"
-    }()
-    
-    init?(data: Data) {
+struct Discography: HTMLParsable {
+    let releases: [ReleaseInBand]
+    let reviewCount: Int
+
+    // Sample: https://www.metal-archives.com/band/discography/id/141/tab/all
+    init(data: Data) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
-            let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
-                return nil
+              let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8),
+              let tbody = html.at_css("tbody") else {
+            Logger.log("Error parsing html for discography")
+            self.releases = []
+            self.reviewCount = 0
+            return
         }
-        
+
         // Check if user is logged in, because in this case the html structure is different
         // there is 1 more column at the beginning (for editing)
         let isLoggedIn = htmlString.contains("title=\"Tools\"")
-        
+
         let nameColumn = isLoggedIn ? 1 : 0
         let typeColumn = isLoggedIn ? 2 : 1
         let yearColumn = isLoggedIn ? 3 : 2
         let reviewColumn = isLoggedIn ? 4 : 3
-        
-        self.releases = [ReleaseLite]()
-        
-        for tbody in html.css("tbody") {
-            for tr in tbody.css("tr") {
-                
-                var title: String?
-                var urlString: String?
-                var type: ReleaseType?
-                var year: Int?
-                var numberOfReviews: Int?
-                var rating: Int?
-                var reviewsURLString: String?
-                var i = 0
-                
-                //This band has no release yet
-                if tr.css("td").count == 1 && tr.innerHTML!.contains("Nothing entered yet") {
-                    return nil
-                }
-                
-                for td in tr.css("td") {
-                    if (i == nameColumn) {
-                        // Get disc name and disc URL
-                        title = td.text
-                        urlString = td.css("a")[0]["href"]
-                    }
-                    else if (i == typeColumn) {
-                        // Get disc type
-                        if let releaseTypeString = td.text {
-                            type = ReleaseType(typeString: releaseTypeString)
-                        }
-                    }
-                    else if (i == yearColumn) {
-                        // Get disc year
-                        if let yearString = td.text {
-                            year = Int(yearString)
-                        }
-                        
-                    }
-                    else if (i == reviewColumn) {
-                        // Get disc's reviews
-                        if var reviewString = td.text {
-                            reviewString = reviewString.replacingOccurrences(of: "\t", with: "")
-                            reviewString = reviewString.replacingOccurrences(of: "\n", with: "")
-                            reviewString = reviewString.replacingOccurrences(of: " ", with: "")
-                            reviewString = reviewString.replacingOccurrences(of: "(", with: " (")
-                            
-                            if let numberOfReviewsString = reviewString.components(separatedBy: " ").first {
-                                numberOfReviews = Int(numberOfReviewsString)
-                            }
-                            
-                            if let ratingString = reviewString.subString(after: "(", before: "%)", options: .caseInsensitive) {
-                                rating = Int(ratingString)
-                            }
-                            
-                            for a in td.css("a") {
-                                if var reviewURLString = a["href"] {
-                                    reviewURLString = reviewURLString.replacingOccurrences(of: "\t", with: "")
-                                    reviewURLString = reviewURLString.replacingOccurrences(of: "\n", with: "")
-                                    reviewURLString = reviewURLString.replacingOccurrences(of: " ", with: "")
-                                    reviewsURLString = reviewURLString
-                                }
-                            }
-                        }
-                        
-                    }
-                    
-                    i += 1
-                }
-                
-                if let `title` = title, let `urlString` = urlString, let `type` = type, let `year` = year {
-                    if let release = ReleaseLite(urlString: urlString, type: type, title: title, year: year, numberOfReviews: numberOfReviews, rating: rating, reviewsURLString: reviewsURLString) {
-                        self.releases?.append(release)
-                    }
-                    
-                } else {
-                    return nil
-                }
 
+        var releases = [ReleaseInBand]()
+        for tr in tbody.css("tr") {
+            // This band has no release yet
+            if tr.css("td").count == 1 {
+                self.releases = []
+                self.reviewCount = 0
+                return
+            }
+
+            let builder = ReleaseInBand.Builder()
+            for (column, td) in tr.css("td").enumerated() {
+                switch column {
+                case nameColumn:
+                    builder.title = td.text
+                    // swiftlint:disable:next identifier_name
+                    if let a = td.at_css("a"), let urlString = a["href"] {
+                        builder.thumbnailInfo = ThumbnailInfo(urlString: urlString, type: .release)
+                    }
+                case typeColumn:
+                    if let typeString = td.text {
+                        builder.type = ReleaseType(typeString: typeString)
+                    }
+                case yearColumn:
+                    builder.year = td.text?.toInt()
+                case reviewColumn:
+                    let reviewString = td.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+                    builder.reviewCount = reviewString?.components(separatedBy: " ").first?.toInt()
+                    builder.rating = reviewString?.subString(after: "(", before: "%)")?.toInt()
+                    builder.reviewsUrlString = td.css("a").first?["href"]
+                default: break
+                }
+            }
+
+            if let releaseLite = builder.build() {
+                releases.append(releaseLite)
             }
         }
+        self.releases = releases
+        self.reviewCount = releases.compactMap { $0.reviewCount }.reduce(0, +)
     }
+}
+
+extension Discography {
+    // swiftlint:disable force_try
+    // swiftlint:disable force_unwrapping
+    static let death = Discography(data: try! Data.fromHtml(fileName: "DiscographyPublic")!)
 }

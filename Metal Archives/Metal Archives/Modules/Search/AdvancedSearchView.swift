@@ -1,0 +1,62 @@
+//
+//  AdvancedSearchView.swift
+//  Metal Archives
+//
+//  Created by Thanh-Nhon Nguyen on 22/06/2021.
+//
+
+import SwiftUI
+
+// swiftlint:disable line_length
+private let kQuickTips = """
+    Tip #1: to search for part of a word, use * as wildcards (e.g. searching "hel*" will return results containing "hell" or "helm").
+
+    Tip #2: to exclude terms, use the - symbol (e.g. searching "death -melodic" will return results that do not contain the word "melodic").
+    """
+// swiftlint:enable line_length
+
+struct AdvancedSearchView: View {
+    @State private var showTips = false
+    let apiService: APIServiceProtocol
+
+    var body: some View {
+        Form {
+            Section(footer: Text(kQuickTips)) {
+                NavigationLink(destination: AdvancedSearchBandsView(apiService: apiService)) {
+                    Text("Advanced search bands")
+                }
+
+                NavigationLink(destination: AdvancedSearchAlbumsView(apiService: apiService)) {
+                    Text("Advanced search albums")
+                }
+
+                NavigationLink(destination: AdvancedSearchSongsView(apiService: apiService)) {
+                    Text("Advanced search songs")
+                }
+            }
+        }
+        .navigationTitle("Advanced search")
+        .sheet(isPresented: $showTips) {
+            AdvancedSearchTipsView()
+        }
+        .navigationBarItems(trailing:
+                                Button(action: {
+                                    showTips = true
+                                }, label: {
+                                    HStack {
+                                        Text("More tips")
+                                        Image(systemName: "lightbulb")
+                                    }
+                                }))
+    }
+}
+
+struct AdvancedSearchView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            AdvancedSearchView(apiService: APIService())
+        }
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
+    }
+}

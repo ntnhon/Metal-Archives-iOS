@@ -2,120 +2,54 @@
 //  Country.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 28/01/2019.
-//  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
+//  Created by Thanh-Nhon Nguyen on 21/05/2021.
 //
 
 import Foundation
 
-final class Country: Equatable {
-    let iso: String
-    let emoji: String
+struct Country {
+    let isoCode: String
+    let flag: String
     let name: String
-    
-    var nameAndEmoji: String {
-        return "\(name) \(emoji)"
+
+    var nameAndFlag: String { "\(name) \(flag)" }
+}
+
+extension Country: Comparable {
+    static func < (lhs: Self, rhs: Self) -> Bool { lhs.isoCode < rhs.isoCode }
+
+    static func > (lhs: Self, rhs: Self) -> Bool { lhs.isoCode > rhs.isoCode }
+}
+
+extension Country: Equatable {
+    static func == (lhs: Self, rhs: Self) -> Bool { lhs.isoCode == rhs.isoCode }
+}
+
+extension Country: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(isoCode)
     }
-    
-    static let unknownCountry = Country(iso: "ZZ", emoji: "🏳️", name: "Unknown")
-    
-    fileprivate init(iso: String, emoji: String, name: String) {
-        self.iso = iso
-        self.emoji = emoji
-        self.name = name
+}
+
+extension Country: Identifiable {
+    var id: String { isoCode }
+}
+
+extension Country: MultipleChoiceProtocol {
+    static var noChoice: String { "Any country" }
+    static var multipleChoicesSuffix: String { "countries selected" }
+    static var totalChoices: Int { CountryManager.shared.countries.count }
+    var choiceDescription: String { nameAndFlag }
+}
+
+final class CountrySet: MultipleChoiceSet<Country>, ObservableObject {}
+
+extension Country {
+    static var usa: Country {
+        .init(isoCode: "US", flag: "🇺🇸", name: "United States")
     }
-    
-    init(iso: String) {
-        if iso.count != 2 {
-            self.iso = "ZZ"
-            self.emoji = "🏳️"
-            self.name = "Unknown"
-            return
-        }
-        
-        for (eachISO, eachISODictionary) in countryDictionary {
-            guard let `eachISO` = eachISO as? String, let `eachISODictionary` = eachISODictionary as? NSDictionary else {
-                self.iso = "ZZ"
-                self.emoji = "🏳️"
-                self.name = "Unknown"
-                return
-            }
-            
-            if eachISO.caseInsensitiveCompare(iso) == .orderedSame {
-                self.iso = eachISO
-                self.emoji = eachISODictionary["Emoji"] as! String
-                self.name = eachISODictionary["Name"] as! String
-                return
-            }
-        }
-        
-        self.iso = "ZZ"
-        self.emoji = "🏳️"
-        self.name = "Unknown"
-        return
-    }
-    
-    init(name: String) {
-        for (eachISO, eachISODictionary) in countryDictionary {
-            guard let `eachISO` = eachISO as? String, let `eachISODictionary` = eachISODictionary as? NSDictionary else {
-                self.iso = "ZZ"
-                self.emoji = "🏳️"
-                self.name = "Unknown"
-                return
-            }
-            
-            guard let countryName = eachISODictionary["Name"] as? String else {
-                self.iso = "ZZ"
-                self.emoji = "🏳️"
-                self.name = "Unknown"
-                return
-            }
-            
-            if name == countryName {
-                self.iso = eachISO
-                self.emoji = eachISODictionary["Emoji"] as! String
-                self.name = countryName
-                return
-            }
-        }
-        
-        self.iso = "ZZ"
-        self.emoji = "🏳️"
-        self.name = "Unknown"
-        return
-    }
-    
-    init(emoji: String) {
-        for (eachISO, eachISODictionary) in countryDictionary {
-            guard let `eachISO` = eachISO as? String, let `eachISODictionary` = eachISODictionary as? NSDictionary else {
-                self.iso = "ZZ"
-                self.emoji = "🏳️"
-                self.name = "Unknown"
-                return
-            }
-            
-            guard let countryEmoji = eachISODictionary["Emoji"] as? String else {
-                self.iso = "ZZ"
-                self.emoji = "🏳️"
-                self.name = "Unknown"
-                return
-            }
-            
-            if emoji == countryEmoji {
-                self.iso = eachISO
-                self.emoji = countryEmoji
-                self.name = eachISODictionary["Name"] as! String
-                return
-            }
-        }
-        
-        self.iso = "ZZ"
-        self.emoji = "🏳️"
-        self.name = "Unknown"
-        return
-    }
-    
-    static func == (lhs: Country, rhs: Country) -> Bool {
-        return lhs.iso == rhs.iso
+
+    static var unknown: Country {
+        .init(isoCode: "ZZ", flag: "🏳️", name: "Unknown")
     }
 }

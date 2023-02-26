@@ -1,0 +1,17 @@
+<script type="191cd645405ecbe5e01a18e5-text/javascript">
+$(document).ready(function() {
+    // Prepare the sub-tabs
+     $('.tabs2lvl').tabs();     // Prepare the form popup
+    $('#editLink').dialog({ autoOpen: false, width: 400, height: 250, modal: true, overlay: { opacity: 0.5, background: 'white'}, buttons: { 'Save link': function(){ $('#linkForm').submit();}, 'Cancel': function() { $('#editLink').dialog('close');} } });
+});
+
+
+</script>
+<div id="band_links" class="tabs2lvl">
+<ul>
+</ul>
+<div id="band_links_official" class="ui-tabs-panel-content">
+<span id="noLinks">No links have been added yet.</span>
+</div>
+</div>
+<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="191cd645405ecbe5e01a18e5-|49" defer=""></script>

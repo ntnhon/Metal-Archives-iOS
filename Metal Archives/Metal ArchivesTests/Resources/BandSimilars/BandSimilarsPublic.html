@@ -1,0 +1,1879 @@
+<script type="e2d1283aaef837f16d222c13-text/javascript" src="https://www.metal-archives.com/js/jquery/jquery.dataTables.min.js"></script>
+<script type="e2d1283aaef837f16d222c13-text/javascript">
+
+// Prepare band recommendation dialog
+$(document).ready(function() {
+    $(".no-js").removeClass("no-js");
+    $('#similarBandSelection').dialog({ autoOpen: false, width: 600, height: 500, modal: true, overlay: { opacity: 0.5, background: 'white'} });
+    $('#bandSearch').ajaxForm({ target: '#bandSearchResults', beforeSubmit: toggleLoading, success: toggleLoading});
+});
+
+</script>
+<div id="band_simartists">
+<div class="tool_strip top right writeAction">
+</div>
+</div>
+<div class="ui-tabs-panel-content block_spacer_top_36">
+<table id="artist_list" class="display" cellpadding="0" cellspacing="0">
+<thead>
+<tr>
+<th>Name</th>
+<th width="82">Country</th>
+<th>Genre</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr id="recRow_304">
+<td><a href="https://www.metal-archives.com/bands/Atheist/304">Atheist</a></td>
+<td>United States</td>
+<td>Progressive Death/Thrash Metal with Jazz influences</td>
+<td><span id="score_304">389 </span></td>
+</tr>
+<tr id="recRow_238">
+<td><a href="https://www.metal-archives.com/bands/Pestilence/238">Pestilence</a></td>
+<td>Netherlands</td>
+<td>Thrash Metal (1986-1988); Death Metal (1989-1991, 2008-); Progressive Death Metal/Jazz Fusion (1993)</td>
+<td><span id="score_238">304 </span></td>
+</tr>
+<tr id="recRow_914">
+<td><a href="https://www.metal-archives.com/bands/Possessed/914">Possessed</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_914">286 </span></td>
+</tr>
+<tr id="recRow_3540392674">
+<td><a href="https://www.metal-archives.com/bands/Gruesome/3540392674">Gruesome</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_3540392674">272 </span></td>
+</tr>
+<tr id="recRow_549">
+<td><a href="https://www.metal-archives.com/bands/Control_Denied/549">Control Denied</a></td>
+<td>United States</td>
+<td>Progressive Power Metal</td>
+<td><span id="score_549">268 </span></td>
+</tr>
+<tr id="recRow_91">
+<td><a href="https://www.metal-archives.com/bands/Cynic/91">Cynic</a></td>
+<td>United States</td>
+<td>Thrash Metal (early); Progressive Death Metal/Fusion (mid); Progressive Rock (later)</td>
+<td><span id="score_91">246 </span></td>
+</tr>
+<tr id="recRow_165">
+<td><a href="https://www.metal-archives.com/bands/Obituary/165">Obituary</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_165">237 </span></td>
+</tr>
+<tr id="recRow_63100">
+<td><a href="https://www.metal-archives.com/bands/Obscura/63100">Obscura</a></td>
+<td>Germany</td>
+<td>Progressive/Technical Death Metal</td>
+<td><span id="score_63100">225 </span></td>
+</tr>
+<tr id="recRow_281">
+<td><a href="https://www.metal-archives.com/bands/Massacre/281">Massacre</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_281">175 </span></td>
+</tr>
+<tr id="recRow_35328">
+<td><a href="https://www.metal-archives.com/bands/Mantas/35328">Mantas</a></td>
+<td>United States</td>
+<td>Speed/Thrash/Death Metal</td>
+<td><span id="score_35328">173 </span></td>
+</tr>
+<tr id="recRow_285">
+<td><a href="https://www.metal-archives.com/bands/Autopsy/285">Autopsy</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_285">161 </span></td>
+</tr>
+<tr id="recRow_811">
+<td><a href="https://www.metal-archives.com/bands/Morgoth/811">Morgoth</a></td>
+<td>Germany</td>
+<td>Death Metal, Industrial Rock (1996)</td>
+<td><span id="score_811">143 </span></td>
+</tr>
+<tr id="recRow_1124">
+<td><a href="https://www.metal-archives.com/bands/Gorguts/1124">Gorguts</a></td>
+<td>Canada</td>
+<td>Death Metal (early); Technical/Avant-garde Death Metal (later)</td>
+<td><span id="score_1124">141 </span></td>
+</tr>
+<tr id="recRow_1012">
+<td><a href="https://www.metal-archives.com/bands/Sadus/1012">Sadus</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal (early); Technical Thrash Metal (later)</td>
+<td><span id="score_1012">136 </span></td>
+</tr>
+<tr id="recRow_695">
+<td><a href="https://www.metal-archives.com/bands/Cancer/695">Cancer</a></td>
+<td>United Kingdom</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_695">129 </span></td>
+</tr>
+<tr id="recRow_152">
+<td><a href="https://www.metal-archives.com/bands/Nocturnus/152">Nocturnus</a></td>
+<td>United States</td>
+<td>Technical Death Metal</td>
+<td><span id="score_152">125 </span></td>
+</tr>
+<tr id="recRow_3540331659">
+<td><a href="https://www.metal-archives.com/bands/Skeletal_Remains/3540331659">Skeletal Remains</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_3540331659">114 </span></td>
+</tr>
+<tr id="recRow_4280">
+<td><a href="https://www.metal-archives.com/bands/Master/4280">Master</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_4280">113 </span></td>
+</tr>
+<tr id="recRow_552">
+<td><a href="https://www.metal-archives.com/bands/Martyr/552">Martyr</a></td>
+<td>Canada</td>
+<td>Technical Death Metal</td>
+<td><span id="score_552">101 </span></td>
+</tr>
+<tr id="recRow_916">
+<td><a href="https://www.metal-archives.com/bands/Decrepit_Birth/916">Decrepit Birth</a></td>
+<td>United States</td>
+<td>Technical Death Metal</td>
+<td><span id="score_916">90 </span></td>
+</tr>
+<tr id="recRow_3540301705">
+<td><a href="https://www.metal-archives.com/bands/Horrendous/3540301705">Horrendous</a></td>
+<td>United States</td>
+<td>Death Metal (early), Progressive Death Metal (later)</td>
+<td><span id="score_3540301705">86 </span></td>
+</tr>
+<tr id="recRow_207">
+<td><a href="https://www.metal-archives.com/bands/Necrophagist/207">Necrophagist</a></td>
+<td>Germany</td>
+<td>Technical Death Metal</td>
+<td><span id="score_207">85 </span></td>
+</tr>
+<tr id="recRow_20">
+<td><a href="https://www.metal-archives.com/bands/Quo_Vadis/20">Quo Vadis</a></td>
+<td>Canada</td>
+<td>Technical Melodic Death Metal</td>
+<td><span id="score_20">84 </span></td>
+</tr>
+<tr id="recRow_14">
+<td><a href="https://www.metal-archives.com/bands/Carcass/14">Carcass</a></td>
+<td>United Kingdom</td>
+<td>Goregrind/Grindcore (early); Melodic Death Metal/Death 'n' Roll (later)</td>
+<td><span id="score_14">71 </span></td>
+</tr>
+<tr id="recRow_3540368063">
+<td><a href="https://www.metal-archives.com/bands/Blood_Incantation/3540368063">Blood Incantation</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_3540368063">66 </span></td>
+</tr>
+<tr id="recRow_87803">
+<td><a href="https://www.metal-archives.com/bands/Vektor/87803">Vektor</a></td>
+<td>United States</td>
+<td>Progressive Thrash Metal</td>
+<td><span id="score_87803">62 </span></td>
+</tr>
+<tr id="recRow_68">
+<td><a href="https://www.metal-archives.com/bands/Morbid_Angel/68">Morbid Angel</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_68">57 </span></td>
+</tr>
+<tr id="recRow_437">
+<td><a href="https://www.metal-archives.com/bands/Obliveon/437">Obliveon</a></td>
+<td>Canada</td>
+<td>Technical Death/Thrash Metal (early), Groove Metal (later)</td>
+<td><span id="score_437">52 </span></td>
+</tr>
+<tr id="recRow_78">
+<td><a href="https://www.metal-archives.com/bands/Sepultura/78">Sepultura</a></td>
+<td>Brazil</td>
+<td>Death/Thrash Metal (early); Nu-Metal, Groove/Thrash Metal (later)</td>
+<td><span id="score_78">51 </span></td>
+</tr>
+<tr id="recRow_145">
+<td><a href="https://www.metal-archives.com/bands/Vader/145">Vader</a></td>
+<td>Poland</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_145">50 </span></td>
+</tr>
+<tr id="recRow_106">
+<td><a href="https://www.metal-archives.com/bands/Edge_of_Sanity/106">Edge of Sanity</a></td>
+<td>Sweden</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_106">44 </span></td>
+</tr>
+<tr id="recRow_1392">
+<td><a href="https://www.metal-archives.com/bands/Deceased/1392">Deceased</a></td>
+<td>United States</td>
+<td>Death/Thrash/Heavy Metal</td>
+<td><span id="score_1392">43 </span></td>
+</tr>
+<tr id="recRow_2663">
+<td><a href="https://www.metal-archives.com/bands/Sadist/2663">Sadist</a></td>
+<td>Italy</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_2663">43 </span></td>
+</tr>
+<tr id="recRow_3540285489">
+<td><a href="https://www.metal-archives.com/bands/Morbus_Chron/3540285489">Morbus Chron</a></td>
+<td>Sweden</td>
+<td>Death Metal (early); Progressive Death Metal (later)</td>
+<td><span id="score_3540285489">40 </span></td>
+</tr>
+<tr id="recRow_3540316039">
+<td><a href="https://www.metal-archives.com/bands/Beyond_Creation/3540316039">Beyond Creation</a></td>
+<td>Canada</td>
+<td>Progressive/Technical Death Metal</td>
+<td><span id="score_3540316039">39 </span></td>
+</tr>
+<tr id="recRow_3540330821">
+<td><a href="https://www.metal-archives.com/bands/Morfin/3540330821">Morfin</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_3540330821">38 </span></td>
+</tr>
+<tr id="recRow_199">
+<td><a href="https://www.metal-archives.com/bands/Disincarnate/199">Disincarnate</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_199">37 </span></td>
+</tr>
+<tr id="recRow_16129">
+<td><a href="https://www.metal-archives.com/bands/Hieronymus_Bosch/16129">Hieronymus Bosch</a></td>
+<td>Russia</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_16129">37 </span></td>
+</tr>
+<tr id="recRow_175">
+<td><a href="https://www.metal-archives.com/bands/Malevolent_Creation/175">Malevolent Creation</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_175">36 </span></td>
+</tr>
+<tr id="recRow_376">
+<td><a href="https://www.metal-archives.com/bands/Slaughter/376">Slaughter</a></td>
+<td>Canada</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_376">36 </span></td>
+</tr>
+<tr id="recRow_78107">
+<td><a href="https://www.metal-archives.com/bands/Revocation/78107">Revocation</a></td>
+<td>United States</td>
+<td>Technical Death/Thrash Metal</td>
+<td><span id="score_78107">34 </span></td>
+</tr>
+<tr id="recRow_406">
+<td><a href="https://www.metal-archives.com/bands/Necrophagia/406">Necrophagia</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_406">34 </span></td>
+</tr>
+<tr id="recRow_3540381503">
+<td><a href="https://www.metal-archives.com/bands/Contrarian/3540381503">Contrarian</a></td>
+<td>United States</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_3540381503">34 </span></td>
+</tr>
+<tr id="recRow_32322">
+<td><a href="https://www.metal-archives.com/bands/Incubus/32322">Incubus</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+ <td><span id="score_32322">33 </span></td>
+</tr>
+<tr id="recRow_72">
+<td><a href="https://www.metal-archives.com/bands/Slayer/72">Slayer</a></td>
+<td>United States</td>
+<td>Thrash Metal</td>
+<td><span id="score_72">32 </span></td>
+</tr>
+<tr id="recRow_792">
+<td><a href="https://www.metal-archives.com/bands/Mortification/792">Mortification</a></td>
+<td>Australia</td>
+<td>Thrash/Death Metal</td>
+<td><span id="score_792">31 </span></td>
+</tr>
+<tr id="recRow_2798">
+<td><a href="https://www.metal-archives.com/bands/Chemical_Breath/2798">Chemical Breath</a></td>
+<td>Belgium</td>
+<td>Technical Death/Thrash Metal</td>
+<td><span id="score_2798">31 </span></td>
+</tr>
+<tr id="recRow_118976">
+<td><a href="https://www.metal-archives.com/bands/After_Oblivion/118976">After Oblivion</a></td>
+<td>Bosnia and Herzegovina</td>
+<td>Technical Death/Thrash Metal</td>
+<td><span id="score_118976">30 </span></td>
+</tr>
+<tr id="recRow_3540259368">
+<td><a href="https://www.metal-archives.com/bands/Ripper/3540259368">Ripper</a></td>
+<td>Chile</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_3540259368">30 </span></td>
+</tr>
+<tr id="recRow_694">
+<td><a href="https://www.metal-archives.com/bands/Watchtower/694">Watchtower</a></td>
+<td>United States</td>
+<td>Progressive/Technical Thrash Metal</td>
+<td><span id="score_694">26 </span></td>
+</tr>
+<tr id="recRow_93921">
+<td><a href="https://www.metal-archives.com/bands/Blackthorn/93921">Blackthorn</a></td>
+<td>Mexico</td>
+<td>Death Metal</td>
+<td><span id="score_93921">26 </span></td>
+</tr>
+<tr id="recRow_3540344863">
+<td><a href="https://www.metal-archives.com/bands/Chapel_of_Disease/3540344863">Chapel of Disease</a></td>
+<td>Germany</td>
+<td>Death Metal</td>
+<td><span id="score_3540344863">25 </span></td>
+</tr>
+<tr id="recRow_157">
+<td><a href="https://www.metal-archives.com/bands/Kreator/157">Kreator</a></td>
+<td>Germany</td>
+<td>Thrash Metal</td>
+<td><span id="score_157">24 </span></td>
+</tr>
+<tr id="recRow_126">
+<td><a href="https://www.metal-archives.com/bands/Dark_Angel/126">Dark Angel</a></td>
+<td>United States</td>
+<td>Thrash Metal</td>
+<td><span id="score_126">24 </span></td>
+</tr>
+<tr id="recRow_907">
+<td><a href="https://www.metal-archives.com/bands/Messiah/907">Messiah</a></td>
+<td>Switzerland</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_907">24 </span></td>
+</tr>
+<tr id="recRow_508">
+<td><a href="https://www.metal-archives.com/bands/Brutality/508">Brutality</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_508">24 </span></td>
+</tr>
+<tr id="recRow_293">
+<td><a href="https://www.metal-archives.com/bands/Thanatos/293">Thanatos</a></td>
+<td>Netherlands</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_293">24 </span></td>
+</tr>
+<tr id="recRow_3540398960">
+<td><a href="https://www.metal-archives.com/bands/Cist/3540398960">Cist</a></td>
+<td>Russia</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_3540398960">24 </span></td>
+</tr>
+<tr id="recRow_8939">
+<td><a href="https://www.metal-archives.com/bands/Morbid_Saint/8939">Morbid Saint</a></td>
+<td>United States</td>
+<td>Thrash Metal</td>
+<td><span id="score_8939">23 </span></td>
+</tr>
+<tr id="recRow_3329">
+<td><a href="https://www.metal-archives.com/bands/Sceptic/3329">Sceptic</a></td>
+<td>Poland</td>
+<td>Technical Death Metal</td>
+<td><span id="score_3329">23 </span></td>
+</tr>
+<tr id="recRow_1770">
+<td><a href="https://www.metal-archives.com/bands/Transmetal/1770">Transmetal</a></td>
+<td>Mexico</td>
+<td>Thrash/Death Metal</td>
+<td><span id="score_1770">23 </span></td>
+</tr>
+<tr id="recRow_3540346146">
+<td><a href="https://www.metal-archives.com/bands/Abyssus/3540346146">Abyssus</a></td>
+<td>Greece</td>
+<td>Death Metal</td>
+<td><span id="score_3540346146">23 </span></td>
+</tr>
+<tr id="recRow_7143">
+<td><a href="https://www.metal-archives.com/bands/Num_Skull/7143">Num Skull</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal (early); Death Metal (later)</td>
+<td><span id="score_7143">22 </span></td>
+</tr>
+<tr id="recRow_2531">
+<td><a href="https://www.metal-archives.com/bands/Solstice/2531">Solstice</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_2531">21 </span></td>
+</tr>
+<tr id="recRow_4537">
+<td><a href="https://www.metal-archives.com/bands/Illogicist/4537">Illogicist</a></td>
+<td>Italy</td>
+<td>Technical Death Metal</td>
+<td><span id="score_4537">21 </span></td>
+</tr>
+<tr id="recRow_2352">
+<td><a href="https://www.metal-archives.com/bands/Alarum/2352">Alarum</a></td>
+<td>Australia</td>
+<td>Progressive/Thrash Metal/Fusion</td>
+<td><span id="score_2352">21 </span></td>
+</tr>
+<tr id="recRow_944">
+<td><a href="https://www.metal-archives.com/bands/Loudblast/944">Loudblast</a></td>
+<td>France</td>
+<td>Death/Thrash Metal (early); Death Metal (later)</td>
+<td><span id="score_944">21 </span></td>
+</tr>
+<tr id="recRow_3540452002">
+<td><a href="https://www.metal-archives.com/bands/Nocturnus_AD/3540452002">Nocturnus AD</a></td>
+<td>United States</td>
+<td>Technical Death Metal</td>
+<td><span id="score_3540452002">21 </span></td>
+</tr>
+<tr id="recRow_4228">
+<td><a href="https://www.metal-archives.com/bands/Carcariass/4228">Carcariass</a></td>
+<td>France</td>
+<td>Progressive Melodic Death Metal</td>
+<td><span id="score_4228">20 </span></td>
+</tr>
+<tr id="recRow_14764">
+<td><a href="https://www.metal-archives.com/bands/Desecrator/14764">Desecrator</a></td>
+<td>United Kingdom</td>
+<td>Death Metal</td>
+<td><span id="score_14764">20 </span></td>
+</tr>
+<tr id="recRow_2518">
+<td><a href="https://www.metal-archives.com/bands/Gory_Blister/2518">Gory Blister</a></td>
+<td>Italy</td>
+<td>Technical Death Metal</td>
+<td><span id="score_2518">20 </span></td>
+</tr>
+<tr id="recRow_31495">
+<td><a href="https://www.metal-archives.com/bands/Burial/31495">Burial</a></td>
+<td>Netherlands</td>
+<td>Death Metal</td>
+<td><span id="score_31495">19 </span></td>
+</tr>
+<tr id="recRow_68985">
+<td><a href="https://www.metal-archives.com/bands/Death_Breath/68985">Death Breath</a></td>
+<td>Sweden</td>
+<td>Death Metal</td>
+<td><span id="score_68985">19 </span></td>
+</tr>
+<tr id="recRow_3417">
+<td><a href="https://www.metal-archives.com/bands/Electrocution/3417">Electrocution</a></td>
+<td>Italy</td>
+<td>Death Metal (early); Technical Death Metal (later)</td>
+<td><span id="score_3417">19 </span></td>
+</tr>
+<tr id="recRow_1284">
+<td><a href="https://www.metal-archives.com/bands/Hellwitch/1284">Hellwitch</a></td>
+<td>United States</td>
+<td>Technical Death/Thrash Metal</td>
+<td><span id="score_1284">19 </span></td>
+</tr>
+<tr id="recRow_3604">
+<td><a href="https://www.metal-archives.com/bands/Neuraxis/3604">Neuraxis</a></td>
+<td>Canada</td>
+<td>Technical Death Metal</td>
+<td><span id="score_3604">19 </span></td>
+</tr>
+<tr id="recRow_3540360569">
+<td><a href="https://www.metal-archives.com/bands/Rude/3540360569">Rude</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_3540360569">19 </span></td>
+</tr>
+<tr id="recRow_1120">
+<td><a href="https://www.metal-archives.com/bands/Repulsion/1120">Repulsion</a></td>
+<td>United States</td>
+<td>Grindcore/Death Metal</td>
+<td><span id="score_1120">18 </span></td>
+</tr>
+<tr id="recRow_43">
+<td><a href="https://www.metal-archives.com/bands/At_the_Gates/43">At the Gates</a></td>
+<td>Sweden</td>
+<td>Melodic Death Metal</td>
+<td><span id="score_43">17 </span></td>
+</tr>
+<tr id="recRow_1020">
+<td><a href="https://www.metal-archives.com/bands/Grave/1020">Grave</a></td>
+<td>Sweden</td>
+<td>Death Metal</td>
+<td><span id="score_1020">17 </span></td>
+</tr>
+<tr id="recRow_117">
+<td><a href="https://www.metal-archives.com/bands/Coroner/117">Coroner</a></td>
+<td>Switzerland</td>
+<td>Technical Thrash Metal</td>
+<td><span id="score_117">17 </span></td>
+</tr>
+<tr id="recRow_3540383275">
+<td><a href="https://www.metal-archives.com/bands/Cryptic_Shift/3540383275">Cryptic Shift</a></td>
+<td>United Kingdom</td>
+<td>Technical Thrash/Death Metal</td>
+<td><span id="score_3540383275">17 </span></td>
+</tr>
+<tr id="recRow_893">
+<td><a href="https://www.metal-archives.com/bands/Monstrosity/893">Monstrosity</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_893">17 </span></td>
+</tr>
+<tr id="recRow_504">
+<td><a href="https://www.metal-archives.com/bands/Benediction/504">Benediction</a></td>
+<td>United Kingdom</td>
+<td>Death Metal</td>
+<td><span id="score_504">16 </span></td>
+</tr>
+<tr id="recRow_122">
+<td><a href="https://www.metal-archives.com/bands/Dismember/122">Dismember</a></td>
+<td>Sweden</td>
+<td>Death Metal</td>
+<td><span id="score_122">16 </span></td>
+</tr>
+<tr id="recRow_3540315628">
+<td><a href="https://www.metal-archives.com/bands/Incarnator/3540315628">Incarnator</a></td>
+<td>Russia</td>
+<td>Technical/Progressive Death Metal</td>
+<td><span id="score_3540315628">16 </span></td>
+</tr>
+<tr id="recRow_3147">
+<td><a href="https://www.metal-archives.com/bands/Polluted_Inheritance/3147">Polluted Inheritance</a></td>
+<td>Netherlands</td>
+<td>Technical Death Metal</td>
+<td><span id="score_3147">16 </span></td>
+</tr>
+<tr id="recRow_517">
+<td><a href="https://www.metal-archives.com/bands/Acid_Death/517">Acid Death</a></td>
+<td>Greece</td>
+<td>Death/Thrash/Progressive Metal</td>
+<td><span id="score_517">16 </span></td>
+</tr>
+<tr id="recRow_3540368826">
+<td><a href="https://www.metal-archives.com/bands/Black_Fast/3540368826">Black Fast</a></td>
+<td>United States</td>
+<td>Progressive Thrash Metal</td>
+<td><span id="score_3540368826">15 </span></td>
+</tr>
+<tr id="recRow_3540349455">
+<td><a href="https://www.metal-archives.com/bands/Hemotoxin/3540349455">Hemotoxin</a></td>
+<td>United States</td>
+<td>Progressive Death/Thrash Metal</td>
+<td><span id="score_3540349455">15 </span></td>
+</tr>
+<tr id="recRow_12471">
+<td><a href="https://www.metal-archives.com/bands/Leprosy/12471">Leprosy</a></td>
+<td>Mexico</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_12471">15 </span></td>
+</tr>
+<tr id="recRow_8549">
+<td><a href="https://www.metal-archives.com/bands/Revenant/8549">Revenant</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_8549">15 </span></td>
+</tr>
+<tr id="recRow_655">
+<td><a href="https://www.metal-archives.com/bands/Believer/655">Believer</a></td>
+<td>United States</td>
+<td>Progressive/Technical Thrash Metal</td>
+<td><span id="score_655">15 </span></td>
+</tr>
+<tr id="recRow_129932">
+<td><a href="https://www.metal-archives.com/bands/Mindwork/129932">Mindwork</a></td>
+<td>Czechia</td>
+<td>Progressive Thrash/Death Metal</td>
+<td><span id="score_129932">15 </span></td>
+</tr>
+<tr id="recRow_234">
+<td><a href="https://www.metal-archives.com/bands/Bolt_Thrower/234">Bolt Thrower</a></td>
+<td>United Kingdom</td>
+<td>Death Metal</td>
+<td><span id="score_234">14 </span></td>
+</tr>
+<tr id="recRow_233">
+<td><a href="https://www.metal-archives.com/bands/Bloodbath/233">Bloodbath</a></td>
+<td>Sweden</td>
+<td>Death Metal</td>
+<td><span id="score_233">14 </span></td>
+</tr>
+<tr id="recRow_613">
+<td><a href="https://www.metal-archives.com/bands/Into_Eternity/613">Into Eternity</a></td>
+<td>Canada</td>
+<td>Progressive/Melodic Death Metal</td>
+<td><span id="score_613">14 </span></td>
+</tr>
+<tr id="recRow_3540441946">
+<td><a href="https://www.metal-archives.com/bands/Skyglow/3540441946">Skyglow</a></td>
+<td>Russia</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_3540441946">14 </span></td>
+</tr>
+<tr id="recRow_3540328120">
+<td><a href="https://www.metal-archives.com/bands/Grace_Disgraced/3540328120">Grace Disgraced</a></td>
+<td>Russia</td>
+<td>Technical Death Metal</td>
+<td><span id="score_3540328120">14 </span></td>
+</tr>
+<tr id="recRow_18351">
+<td><a href="https://www.metal-archives.com/bands/Gojira/18351">Gojira</a></td>
+<td>France</td>
+<td>Progressive/Groove/Death Metal</td>
+<td><span id="score_18351">13 </span></td>
+</tr>
+<tr id="recRow_3540430816">
+<td><a href="https://www.metal-archives.com/bands/Bedsore/3540430816">Bedsore</a></td>
+<td>Italy</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_3540430816">13 </span></td>
+</tr>
+<tr id="recRow_8535">
+<td><a href="https://www.metal-archives.com/bands/Dissonance/8535">Dissonance</a></td>
+<td>Slovakia</td>
+<td>Technical Death Metal</td>
+<td><span id="score_8535">13 </span></td>
+</tr>
+<tr id="recRow_5819">
+<td><a href="https://www.metal-archives.com/bands/Arsis/5819">Arsis</a></td>
+<td>United States</td>
+<td>Technical Melodic Death Metal</td>
+<td><span id="score_5819">12 </span></td>
+</tr>
+<tr id="recRow_2975">
+<td><a href="https://www.metal-archives.com/bands/Anata/2975">Anata</a></td>
+<td>Sweden</td>
+<td>Technical Death Metal</td>
+<td><span id="score_2975">12 </span></td>
+</tr>
+<tr id="recRow_7193">
+<td><a href="https://www.metal-archives.com/bands/Repugnant/7193">Repugnant</a></td>
+<td>Sweden</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_7193">12 </span></td>
+</tr>
+<tr id="recRow_3540256908">
+<td><a href="https://www.metal-archives.com/bands/Keeper_of_Dreams/3540256908">Keeper of Dreams</a></td>
+<td>Hungary</td>
+<td>Technical Death/Thrash Metal</td>
+<td><span id="score_3540256908">12 </span></td>
+</tr>
+<tr id="recRow_10563">
+<td><a href="https://www.metal-archives.com/bands/Arkhe/10563">Arkhe</a></td>
+<td>Mexico</td>
+<td>Technical Death Metal</td>
+<td><span id="score_10563">12 </span></td>
+</tr>
+<tr id="recRow_226">
+<td><a href="https://www.metal-archives.com/bands/Opprobrium/226">Opprobrium</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_226">12 </span></td>
+</tr>
+<tr id="recRow_3540359663">
+<td><a href="https://www.metal-archives.com/bands/Alitor/3540359663">Alitor</a></td>
+<td>Serbia</td>
+<td>Progressive Thrash Metal</td>
+ <td><span id="score_3540359663">12 </span></td>
+</tr>
+<tr id="recRow_3540395747">
+<td><a href="https://www.metal-archives.com/bands/Undead_Prophecies/3540395747">Undead Prophecies</a></td>
+<td>Unknown</td>
+<td>Death Metal</td>
+<td><span id="score_3540395747">12 </span></td>
+</tr>
+<tr id="recRow_148">
+<td><a href="https://www.metal-archives.com/bands/Deicide/148">Deicide</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_148">11 </span></td>
+</tr>
+<tr id="recRow_3540329117">
+<td><a href="https://www.metal-archives.com/bands/Ouroboros/3540329117">Ouroboros</a></td>
+<td>Australia</td>
+<td>Technical Death/Thrash Metal</td>
+<td><span id="score_3540329117">11 </span></td>
+</tr>
+<tr id="recRow_4234">
+<td><a href="https://www.metal-archives.com/bands/Mortem/4234">Mortem</a></td>
+<td>Peru</td>
+<td>Death Metal</td>
+<td><span id="score_4234">11 </span></td>
+</tr>
+<tr id="recRow_8999">
+<td><a href="https://www.metal-archives.com/bands/Mortuary/8999">Mortuary</a></td>
+<td>Mexico</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_8999">11 </span></td>
+</tr>
+<tr id="recRow_1101">
+<td><a href="https://www.metal-archives.com/bands/Rigor_Mortis/1101">Rigor Mortis</a></td>
+<td>United States</td>
+<td>Thrash Metal</td>
+<td><span id="score_1101">11 </span></td>
+</tr>
+<tr id="recRow_44494">
+<td><a href="https://www.metal-archives.com/bands/Gorod/44494">Gorod</a></td>
+<td>France</td>
+<td>Progressive/Technical Death Metal</td>
+<td><span id="score_44494">11 </span></td>
+</tr>
+<tr id="recRow_273">
+<td><a href="https://www.metal-archives.com/bands/Disciples_of_Power/273">Disciples of Power</a></td>
+<td>Canada</td>
+<td>Thrash/Death Metal</td>
+<td><span id="score_273">11 </span></td>
+</tr>
+<tr id="recRow_16206">
+<td><a href="https://www.metal-archives.com/bands/Tempestas/16206">Tempestas</a></td>
+<td>Brazil</td>
+<td>Death Metal</td>
+<td><span id="score_16206">11 </span></td>
+</tr>
+<tr id="recRow_2707">
+<td><a href="https://www.metal-archives.com/bands/Akercocke/2707">Akercocke</a></td>
+<td>United Kingdom</td>
+<td>Progressive Black/Death Metal</td>
+<td><span id="score_2707">11 </span></td>
+</tr>
+<tr id="recRow_103709">
+<td><a href="https://www.metal-archives.com/bands/De_Profundis/103709">De Profundis</a></td>
+<td>United Kingdom</td>
+<td>Doom/Death Metal (early); Progressive Death/Black Metal (later)</td>
+<td><span id="score_103709">11 </span></td>
+</tr>
+<tr id="recRow_3540377598">
+<td><a href="https://www.metal-archives.com/bands/Hybris/3540377598">Hybris</a></td>
+<td>Poland</td>
+<td>Technical Death/Thrash Metal</td>
+<td><span id="score_3540377598">11 </span></td>
+</tr>
+<tr id="recRow_3540354578">
+<td><a href="https://www.metal-archives.com/bands/Sabbatory/3540354578">Sabbatory</a></td>
+<td>Canada</td>
+<td>Death Metal</td>
+<td><span id="score_3540354578">11 </span></td>
+</tr>
+<tr id="recRow_1233">
+<td><a href="https://www.metal-archives.com/bands/Burning_Inside/1233">Burning Inside</a></td>
+<td>United States</td>
+<td>Technical Death Metal</td>
+<td><span id="score_1233">11 </span></td>
+</tr>
+<tr id="recRow_462">
+<td><a href="https://www.metal-archives.com/bands/Sacrifice/462">Sacrifice</a></td>
+<td>Canada</td>
+<td>Thrash Metal</td>
+<td><span id="score_462">10 </span></td>
+</tr>
+<tr id="recRow_4565">
+<td><a href="https://www.metal-archives.com/bands/Creepmime/4565">Creepmime</a></td>
+<td>Netherlands</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_4565">10 </span></td>
+</tr>
+<tr id="recRow_3540358363">
+<td><a href="https://www.metal-archives.com/bands/Dementia_13/3540358363">Dementia 13</a></td>
+<td>Portugal</td>
+<td>Death Metal</td>
+<td><span id="score_3540358363">10 </span></td>
+</tr>
+<tr id="recRow_2884">
+<td><a href="https://www.metal-archives.com/bands/Lykathea_Aflame/2884">Lykathea Aflame</a></td>
+<td>Czechia</td>
+<td>Progressive/Technical Brutal Death Metal</td>
+<td><span id="score_2884">10 </span></td>
+</tr>
+<tr id="recRow_77123">
+<td><a href="https://www.metal-archives.com/bands/Angel_of_Disease/77123">Angel of Disease</a></td>
+<td>Georgia</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_77123">10 </span></td>
+</tr>
+<tr id="recRow_2061">
+<td><a href="https://www.metal-archives.com/bands/Sarc%C3%B3fago/2061">Sarcófago</a></td>
+<td>Brazil</td>
+<td>Black/Thrash/Death Metal</td>
+<td><span id="score_2061">9 </span></td>
+</tr>
+<tr id="recRow_119">
+<td><a href="https://www.metal-archives.com/bands/Suffocation/119">Suffocation</a></td>
+<td>United States</td>
+<td>Brutal/Technical Death Metal</td>
+<td><span id="score_119">9 </span></td>
+</tr>
+<tr id="recRow_3540383594">
+<td><a href="https://www.metal-archives.com/bands/Cemetery_Filth/3540383594">Cemetery Filth</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_3540383594">9 </span></td>
+</tr>
+<tr id="recRow_879">
+<td><a href="https://www.metal-archives.com/bands/Eternal_Solstice/879">Eternal Solstice</a></td>
+<td>Netherlands</td>
+<td>Death Metal</td>
+<td><span id="score_879">9 </span></td>
+</tr>
+<tr id="recRow_74695">
+<td><a href="https://www.metal-archives.com/bands/Pestifer/74695">Pestifer</a></td>
+<td>Belgium</td>
+<td>Technical Death Metal</td>
+<td><span id="score_74695">9 </span></td>
+</tr>
+<tr id="recRow_3540339438">
+<td><a href="https://www.metal-archives.com/bands/Plague_Rider/3540339438">Plague Rider</a></td>
+<td>United Kingdom</td>
+<td>Technical Death/Thrash Metal</td>
+<td><span id="score_3540339438">9 </span></td>
+</tr>
+<tr id="recRow_3540348112">
+<td><a href="https://www.metal-archives.com/bands/Zealot_Cult/3540348112">Zealot Cult</a></td>
+<td>Ireland</td>
+<td>Death Metal</td>
+<td><span id="score_3540348112">9 </span></td>
+</tr>
+<tr id="recRow_42770">
+<td><a href="https://www.metal-archives.com/bands/%D0%90%D1%81%D0%BF%D0%B8%D0%B4/42770">Аспид</a></td>
+<td>Russia</td>
+<td>Technical/Progressive Thrash Metal</td>
+<td><span id="score_42770">8 </span></td>
+</tr>
+<tr id="recRow_115">
+<td><a href="https://www.metal-archives.com/bands/Voivod/115">Voivod</a></td>
+<td>Canada</td>
+<td>Thrash Metal (early); Progressive Metal (later)</td>
+<td><span id="score_115">8 </span></td>
+</tr>
+<tr id="recRow_646">
+<td><a href="https://www.metal-archives.com/bands/Atrocity/646">Atrocity</a></td>
+<td>Germany</td>
+<td>Various</td>
+<td><span id="score_646">8 </span></td>
+</tr>
+<tr id="recRow_3007">
+<td><a href="https://www.metal-archives.com/bands/Ripping_Corpse/3007">Ripping Corpse</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_3007">8 </span></td>
+</tr>
+<tr id="recRow_3540365050">
+<td><a href="https://www.metal-archives.com/bands/Horrified/3540365050">Horrified</a></td>
+<td>United Kingdom</td>
+<td>Death Metal (early); Melodic Black/Death Metal (later)</td>
+<td><span id="score_3540365050">8 </span></td>
+</tr>
+<tr id="recRow_139">
+<td><a href="https://www.metal-archives.com/bands/Nile/139">Nile</a></td>
+<td>United States</td>
+<td>Brutal/Technical Death Metal</td>
+<td><span id="score_139">8 </span></td>
+</tr>
+<tr id="recRow_953">
+<td><a href="https://www.metal-archives.com/bands/Baphomet/953">Baphomet</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_953">8 </span></td>
+</tr>
+<tr id="recRow_2546">
+<td><a href="https://www.metal-archives.com/bands/Dragon/2546">Dragon</a></td>
+<td>Poland</td>
+<td>Thrash/Death Metal, Industrial Hard Rock</td>
+<td><span id="score_2546">8 </span></td>
+</tr>
+<tr id="recRow_3540424753">
+<td><a href="https://www.metal-archives.com/bands/Excruciation_by_Silence/3540424753">Excruciation by Silence</a></td>
+<td>Russia</td>
+<td>Thrash Metal</td>
+<td><span id="score_3540424753">8 </span></td>
+</tr>
+<tr id="recRow_4753">
+<td><a href="https://www.metal-archives.com/bands/Dr._Shrinker/4753">Dr. Shrinker</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_4753">8 </span></td>
+</tr>
+<tr id="recRow_55597">
+<td><a href="https://www.metal-archives.com/bands/Godzilla/55597">Godzilla</a></td>
+<td>France</td>
+<td>Death Metal</td>
+<td><span id="score_55597">8 </span></td>
+</tr>
+<tr id="recRow_3540388333">
+<td><a href="https://www.metal-archives.com/bands/VoidCeremony/3540388333">VoidCeremony</a></td>
+<td>United States</td>
+<td>Progressive/Technical Death Metal</td>
+<td><span id="score_3540388333">8 </span></td>
+</tr>
+<tr id="recRow_6398">
+<td><a href="https://www.metal-archives.com/bands/Esqarial/6398">Esqarial</a></td>
+<td>Poland</td>
+<td>Technical/Progressive Death Metal</td>
+<td><span id="score_6398">8 </span></td>
+</tr>
+<tr id="recRow_12144">
+<td><a href="https://www.metal-archives.com/bands/Scenery/12144">Scenery</a></td>
+<td>Czechia</td>
+<td>Technical Death/Thrash Metal</td>
+<td><span id="score_12144">8 </span></td>
+</tr>
+<tr id="recRow_3540377880">
+<td><a href="https://www.metal-archives.com/bands/Plague/3540377880">Plague</a></td>
+<td>Greece</td>
+<td>Death Metal</td>
+<td><span id="score_3540377880">8 </span></td>
+</tr>
+<tr id="recRow_39075">
+<td><a href="https://www.metal-archives.com/bands/Pessimist/39075">Pessimist</a></td>
+<td>Czechia</td>
+<td>Progressive Technical Death Metal</td>
+<td><span id="score_39075">8 </span></td>
+</tr>
+<tr id="recRow_3540304785">
+<td><a href="https://www.metal-archives.com/bands/Scavenger/3540304785">Scavenger</a></td>
+<td>Italy</td>
+<td>Thrash/Death Metal</td>
+<td><span id="score_3540304785">8 </span></td>
+</tr>
+<tr id="recRow_11052">
+<td><a href="https://www.metal-archives.com/bands/Defeated_Sanity/11052">Defeated Sanity</a></td>
+<td>Germany</td>
+<td>Technical Brutal Death Metal</td>
+<td><span id="score_11052">7 </span></td>
+</tr>
+<tr id="recRow_20127">
+<td><a href="https://www.metal-archives.com/bands/Absorbed/20127">Absorbed</a></td>
+<td>Spain</td>
+<td>Technical Death Metal</td>
+<td><span id="score_20127">7 </span></td>
+</tr>
+<tr id="recRow_49014">
+<td><a href="https://www.metal-archives.com/bands/R.A.V.A.G.E./49014">R.A.V.A.G.E.</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_49014">7 </span></td>
+</tr>
+<tr id="recRow_2618">
+<td><a href="https://www.metal-archives.com/bands/Sacrament/2618">Sacrament</a></td>
+<td>United States</td>
+<td>Thrash Metal</td>
+<td><span id="score_2618">7 </span></td>
+</tr>
+<tr id="recRow_48583">
+<td><a href="https://www.metal-archives.com/bands/Succubus/48583">Succubus</a></td>
+<td>Russia</td>
+<td>Technical Death Metal</td>
+ <td><span id="score_48583">7 </span></td>
+</tr>
+<tr id="recRow_3540320894">
+<td><a href="https://www.metal-archives.com/bands/Funeral_Speech/3540320894">Funeral Speech</a></td>
+<td>Russia</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_3540320894">7 </span></td>
+</tr>
+<tr id="recRow_187">
+<td><a href="https://www.metal-archives.com/bands/Psycroptic/187">Psycroptic</a></td>
+<td>Australia</td>
+<td>Technical Death Metal</td>
+<td><span id="score_187">7 </span></td>
+</tr>
+<tr id="recRow_20728">
+<td><a href="https://www.metal-archives.com/bands/Thormenthor/20728">Thormenthor</a></td>
+<td>Portugal</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_20728">7 </span></td>
+</tr>
+<tr id="recRow_31177">
+<td><a href="https://www.metal-archives.com/bands/Unreal_Overflows/31177">Unreal Overflows</a></td>
+<td>Spain</td>
+<td>Technical Melodic Death Metal</td>
+<td><span id="score_31177">7 </span></td>
+</tr>
+<tr id="recRow_3540450486">
+<td><a href="https://www.metal-archives.com/bands/Critical_Extravasation/3540450486">Critical Extravasation</a></td>
+<td>Russia</td>
+<td>Technical Death/Thrash Metal</td>
+<td><span id="score_3540450486">7 </span></td>
+</tr>
+<tr id="recRow_3540392749">
+<td><a href="https://www.metal-archives.com/bands/Fractal_Universe/3540392749">Fractal Universe</a></td>
+<td>France</td>
+<td>Progressive/Technical Death Metal</td>
+<td><span id="score_3540392749">7 </span></td>
+</tr>
+<tr id="recRow_3540384828">
+<td><a href="https://www.metal-archives.com/bands/Xoth/3540384828">Xoth</a></td>
+<td>United States</td>
+<td>Technical Death/Black/Thrash Metal</td>
+<td><span id="score_3540384828">7 </span></td>
+</tr>
+<tr id="recRow_167">
+<td><a href="https://www.metal-archives.com/bands/Macabre/167">Macabre</a></td>
+<td>United States</td>
+<td>Thrash/Death Metal/Grindcore</td>
+<td><span id="score_167">6 </span></td>
+</tr>
+<tr id="recRow_10050">
+<td><a href="https://www.metal-archives.com/bands/Insanity/10050">Insanity</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_10050">6 </span></td>
+</tr>
+<tr id="recRow_3540365473">
+<td><a href="https://www.metal-archives.com/bands/Noisem/3540365473">Noisem</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal/Grindcore</td>
+<td><span id="score_3540365473">6 </span></td>
+</tr>
+<tr id="recRow_410">
+<td><a href="https://www.metal-archives.com/bands/The_Chasm/410">The Chasm</a></td>
+<td>Mexico</td>
+<td>Death Metal</td>
+<td><span id="score_410">6 </span></td>
+</tr>
+<tr id="recRow_3540362897">
+<td><a href="https://www.metal-archives.com/bands/Eternal_Storm/3540362897">Eternal Storm</a></td>
+<td>Spain</td>
+<td>Melodic Death Metal</td>
+<td><span id="score_3540362897">6 </span></td>
+</tr>
+<tr id="recRow_8611">
+<td><a href="https://www.metal-archives.com/bands/1917/8611">1917</a></td>
+<td>Argentina</td>
+<td>Death Metal</td>
+<td><span id="score_8611">6 </span></td>
+</tr>
+<tr id="recRow_96">
+<td><a href="https://www.metal-archives.com/bands/Hypocrisy/96">Hypocrisy</a></td>
+<td>Sweden</td>
+<td>Death Metal (early); Melodic Death Metal (later)</td>
+<td><span id="score_96">6 </span></td>
+</tr>
+<tr id="recRow_1022">
+<td><a href="https://www.metal-archives.com/bands/Terrorizer/1022">Terrorizer</a></td>
+<td>United States</td>
+<td>Death Metal/Grindcore</td>
+<td><span id="score_1022">6 </span></td>
+</tr>
+<tr id="recRow_118973">
+<td><a href="https://www.metal-archives.com/bands/Blood_Exile/118973">Blood Exile</a></td>
+<td>Mexico</td>
+<td>Thrash Metal</td>
+<td><span id="score_118973">6 </span></td>
+</tr>
+<tr id="recRow_3540429024">
+<td><a href="https://www.metal-archives.com/bands/Casket/3540429024">Casket</a></td>
+<td>Germany</td>
+<td>Death Metal</td>
+<td><span id="score_3540429024">6 </span></td>
+</tr>
+<tr id="recRow_9223">
+<td><a href="https://www.metal-archives.com/bands/Dungortheb/9223">Dungortheb</a></td>
+<td>France</td>
+<td>Technical Death Metal</td>
+<td><span id="score_9223">6 </span></td>
+</tr>
+<tr id="recRow_3540314282">
+<td><a href="https://www.metal-archives.com/bands/Exeloume/3540314282">Exeloume</a></td>
+<td>Norway</td>
+<td>Thrash/Death Metal</td>
+<td><span id="score_3540314282">6 </span></td>
+</tr>
+<tr id="recRow_3611">
+<td><a href="https://www.metal-archives.com/bands/Suffer/3611">Suffer</a></td>
+<td>Sweden</td>
+<td>Death Metal</td>
+<td><span id="score_3611">6 </span></td>
+</tr>
+<tr id="recRow_1641">
+<td><a href="https://www.metal-archives.com/bands/Crystal_Age/1641">Crystal Age</a></td>
+<td>Sweden</td>
+<td>Death Metal</td>
+<td><span id="score_1641">6 </span></td>
+</tr>
+<tr id="recRow_9004">
+<td><a href="https://www.metal-archives.com/bands/Fleshold/9004">Fleshold</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_9004">6 </span></td>
+</tr>
+<tr id="recRow_101944">
+<td><a href="https://www.metal-archives.com/bands/Infernal_Conjuration/101944">Infernal Conjuration</a></td>
+<td>Mexico</td>
+<td>Death Metal</td>
+<td><span id="score_101944">6 </span></td>
+</tr>
+<tr id="recRow_3540457586">
+<td><a href="https://www.metal-archives.com/bands/Leprosys/3540457586">Leprosys</a></td>
+<td>Canada</td>
+<td>Death Metal</td>
+<td><span id="score_3540457586">6 </span></td>
+</tr>
+<tr id="recRow_178">
+<td><a href="https://www.metal-archives.com/bands/Theory_in_Practice/178">Theory in Practice</a></td>
+<td>Sweden</td>
+<td>Technical Death Metal</td>
+<td><span id="score_178">6 </span></td>
+</tr>
+<tr id="recRow_14607">
+<td><a href="https://www.metal-archives.com/bands/Hacksaw_to_the_Throat/14607">Hacksaw to the Throat</a></td>
+<td>United States</td>
+<td>Death Metal/Grindcore (early); Progressive Death Metal (later)</td>
+<td><span id="score_14607">6 </span></td>
+</tr>
+<tr id="recRow_3540370634">
+<td><a href="https://www.metal-archives.com/bands/Obelisk/3540370634">Obelisk</a></td>
+<td>United States</td>
+<td>Progressive Metal</td>
+<td><span id="score_3540370634">6 </span></td>
+</tr>
+<tr id="recRow_3540276192">
+<td><a href="https://www.metal-archives.com/bands/Necrowretch/3540276192">Necrowretch</a></td>
+<td>France</td>
+<td>Death/Black Metal</td>
+<td><span id="score_3540276192">5 </span></td>
+</tr>
+<tr id="recRow_1537">
+<td><a href="https://www.metal-archives.com/bands/Massacra/1537">Massacra</a></td>
+<td>France</td>
+<td>Death/Thrash Metal (early); Heavy/Thrash Metal (later)</td>
+<td><span id="score_1537">5 </span></td>
+</tr>
+<tr id="recRow_1502">
+<td><a href="https://www.metal-archives.com/bands/Devastation/1502">Devastation</a></td>
+<td>United States</td>
+<td>Thrash Metal</td>
+<td><span id="score_1502">5 </span></td>
+</tr>
+<tr id="recRow_720">
+<td><a href="https://www.metal-archives.com/bands/Vital_Remains/720">Vital Remains</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_720">5 </span></td>
+</tr>
+<tr id="recRow_787">
+<td><a href="https://www.metal-archives.com/bands/DBC/787">DBC</a></td>
+<td>Canada</td>
+<td>Thrash/Speed Metal</td>
+<td><span id="score_787">5 </span></td>
+</tr>
+<tr id="recRow_44">
+<td><a href="https://www.metal-archives.com/bands/Nevermore/44">Nevermore</a></td>
+<td>United States</td>
+<td>Groove/Progressive Metal</td>
+<td><span id="score_44">5 </span></td>
+</tr>
+<tr id="recRow_22430">
+<td><a href="https://www.metal-archives.com/bands/Gladiator/22430">Gladiator</a></td>
+<td>Slovakia</td>
+<td>Death/Thrash Metal (early); Grunge/Hard Rock (later)</td>
+<td><span id="score_22430">5 </span></td>
+</tr>
+<tr id="recRow_3540363167">
+<td><a href="https://www.metal-archives.com/bands/Oniricous/3540363167">Oniricous</a></td>
+<td>Spain</td>
+<td>Death Metal</td>
+<td><span id="score_3540363167">5 </span></td>
+</tr>
+<tr id="recRow_3540377570">
+<td><a href="https://www.metal-archives.com/bands/%C3%86poch/3540377570">Æpoch</a></td>
+<td>Canada</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_3540377570">5 </span></td>
+</tr>
+<tr id="recRow_3540418243">
+<td><a href="https://www.metal-archives.com/bands/Baest/3540418243">Baest</a></td>
+<td>Denmark</td>
+<td>Death Metal</td>
+<td><span id="score_3540418243">5 </span></td>
+</tr>
+<tr id="recRow_40630">
+<td><a href="https://www.metal-archives.com/bands/Dark_Reign/40630">Dark Reign</a></td>
+<td>United States</td>
+<td>Death Metal/Grindcore</td>
+<td><span id="score_40630">5 </span></td>
+</tr>
+<tr id="recRow_3540355915">
+<td><a href="https://www.metal-archives.com/bands/Deathcult/3540355915">Deathcult</a></td>
+<td>Switzerland</td>
+<td>Death Metal</td>
+<td><span id="score_3540355915">5 </span></td>
+</tr>
+<tr id="recRow_3540318477">
+<td><a href="https://www.metal-archives.com/bands/Gverr/3540318477">Gverr</a></td>
+<td>Albania</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_3540318477">5 </span></td>
+</tr>
+<tr id="recRow_3540363968">
+<td><a href="https://www.metal-archives.com/bands/Illuminati/3540363968">Illuminati</a></td>
+<td>Romania</td>
+<td>Progressive Death Metal/Jazz Fusion</td>
+<td><span id="score_3540363968">5 </span></td>
+</tr>
+<tr id="recRow_3540437246">
+<td><a href="https://www.metal-archives.com/bands/Molder/3540437246">Molder</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_3540437246">5 </span></td>
+</tr>
+<tr id="recRow_16822">
+<td><a href="https://www.metal-archives.com/bands/Vedonist/16822">Vedonist</a></td>
+<td>Poland</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_16822">5 </span></td>
+</tr>
+<tr id="recRow_4227">
+<td><a href="https://www.metal-archives.com/bands/Capharnaum/4227">Capharnaum</a></td>
+<td>United States</td>
+<td>Technical Death Metal</td>
+<td><span id="score_4227">5 </span></td>
+</tr>
+<tr id="recRow_3540394752">
+<td><a href="https://www.metal-archives.com/bands/Faceless_Burial/3540394752">Faceless Burial</a></td>
+<td>Australia</td>
+<td>Black/Death Metal (early); Death Metal (later)</td>
+<td><span id="score_3540394752">5 </span></td>
+</tr>
+<tr id="recRow_9255">
+<td><a href="https://www.metal-archives.com/bands/Funerus/9255">Funerus</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_9255">5 </span></td>
+</tr>
+<tr id="recRow_79067">
+<td><a href="https://www.metal-archives.com/bands/Hell%3AOn/79067">Hell:On</a></td>
+<td>Ukraine</td>
+<td>Thrash/Death Metal</td>
+<td><span id="score_79067">5 </span></td>
+</tr>
+<tr id="recRow_3540372196">
+<td><a href="https://www.metal-archives.com/bands/Live_Burial/3540372196">Live Burial</a></td>
+<td>United Kingdom</td>
+<td>Death Metal</td>
+<td><span id="score_3540372196">5 </span></td>
+</tr>
+<tr id="recRow_38719">
+<td><a href="https://www.metal-archives.com/bands/Necrodead/38719">Necrodead</a></td>
+<td>Chile</td>
+<td>Death Metal (early), Thrash Metal (later)</td>
+<td><span id="score_38719">5 </span></td>
+</tr>
+<tr id="recRow_3540349936">
+<td><a href="https://www.metal-archives.com/bands/Necrot/3540349936">Necrot</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_3540349936">5 </span></td>
+</tr>
+<tr id="recRow_18267">
+<td><a href="https://www.metal-archives.com/bands/Terminal_Death/18267">Terminal Death</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_18267">5 </span></td>
+</tr>
+<tr id="recRow_34781">
+<td><a href="https://www.metal-archives.com/bands/Unhuman/34781">Unhuman</a></td>
+<td>Canada</td>
+<td>Technical/Progressive Death Metal</td>
+<td><span id="score_34781">5 </span></td>
+</tr>
+<tr id="recRow_2624">
+<td><a href="https://www.metal-archives.com/bands/Wolf_Spider/2624">Wolf Spider</a></td>
+<td>Poland</td>
+<td>Technical Thrash Metal</td>
+<td><span id="score_2624">5 </span></td>
+</tr>
+<tr id="recRow_3540473217">
+<td><a href="https://www.metal-archives.com/bands/Horrible/3540473217">Horrible</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_3540473217">5 </span></td>
+</tr>
+<tr id="recRow_509">
+<td><a href="https://www.metal-archives.com/bands/Blood_Feast/509">Blood Feast</a></td>
+<td>United States</td>
+<td>Thrash Metal</td>
+<td><span id="score_509">4 </span></td>
+</tr>
+<tr id="recRow_1164">
+<td><a href="https://www.metal-archives.com/bands/Extol/1164">Extol</a></td>
+<td>Norway</td>
+<td>Technical Death Metal (early); Progressive Death/Thrash Metal, Progressive Metal/Alternative Rock</td>
+<td><span id="score_1164">4 </span></td>
+</tr>
+<tr id="recRow_2107">
+<td><a href="https://www.metal-archives.com/bands/Necrodeath/2107">Necrodeath</a></td>
+<td>Italy</td>
+<td>Black/Death/Thrash Metal</td>
+<td><span id="score_2107">4 </span></td>
+</tr>
+<tr id="recRow_114">
+<td><a href="https://www.metal-archives.com/bands/Decapitated/114">Decapitated</a></td>
+<td>Poland</td>
+<td>Technical Death Metal (early); Death/Groove Metal (later)</td>
+<td><span id="score_114">4 </span></td>
+</tr>
+<tr id="recRow_641">
+<td><a href="https://www.metal-archives.com/bands/Asphyx/641">Asphyx</a></td>
+<td>Netherlands</td>
+<td>Death/Doom Metal</td>
+<td><span id="score_641">4 </span></td>
+</tr>
+<tr id="recRow_2942">
+<td><a href="https://www.metal-archives.com/bands/StarGazer/2942">StarGazer</a></td>
+<td>Australia</td>
+<td>Avant-garde Black/Death Metal</td>
+<td><span id="score_2942">4 </span></td>
+</tr>
+<tr id="recRow_47218">
+<td><a href="https://www.metal-archives.com/bands/Witchmasters/47218">Witchmasters</a></td>
+<td>Hungary</td>
+<td>Death Metal</td>
+<td><span id="score_47218">4 </span></td>
+</tr>
+<tr id="recRow_88077">
+<td><a href="https://www.metal-archives.com/bands/Sakrificer/88077">Sakrificer</a></td>
+<td>United States</td>
+<td>Thrash/Death Metal</td>
+<td><span id="score_88077">4 </span></td>
+</tr>
+<tr id="recRow_22180">
+<td><a href="https://www.metal-archives.com/bands/Stigmatized/22180">Stigmatized</a></td>
+<td>Chile</td>
+<td>Technical Death Metal</td>
+<td><span id="score_22180">4 </span></td>
+</tr>
+<tr id="recRow_11253">
+<td><a href="https://www.metal-archives.com/bands/Strangulation/11253">Strangulation</a></td>
+<td>Brazil</td>
+<td>Technical Death Metal</td>
+<td><span id="score_11253">4 </span></td>
+</tr>
+<tr id="recRow_3540370833">
+<td><a href="https://www.metal-archives.com/bands/The_Bleeding/3540370833">The Bleeding</a></td>
+<td>United Kingdom</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_3540370833">4 </span></td>
+</tr>
+<tr id="recRow_27821">
+<td><a href="https://www.metal-archives.com/bands/Abysmal_Dawn/27821">Abysmal Dawn</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_27821">4 </span></td>
+</tr>
+<tr id="recRow_3540476509">
+<td><a href="https://www.metal-archives.com/bands/Barn/3540476509">Barn</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_3540476509">4 </span></td>
+</tr>
+<tr id="recRow_5980">
+<td><a href="https://www.metal-archives.com/bands/Coram_Lethe/5980">Coram Lethe</a></td>
+<td>Italy</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_5980">4 </span></td>
+</tr>
+<tr id="recRow_981">
+<td><a href="https://www.metal-archives.com/bands/Dekapitator/981">Dekapitator</a></td>
+<td>United States</td>
+<td>Thrash Metal</td>
+<td><span id="score_981">4 </span></td>
+</tr>
+<tr id="recRow_3540337291">
+<td><a href="https://www.metal-archives.com/bands/Demisery/3540337291">Demisery</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_3540337291">4 </span></td>
+</tr>
+<tr id="recRow_128341">
+<td><a href="https://www.metal-archives.com/bands/Deviant_Syndrome/128341">Deviant Syndrome</a></td>
+<td>Russia</td>
+<td>Melodic Death Metal</td>
+<td><span id="score_128341">4 </span></td>
+</tr>
+<tr id="recRow_3540393662">
+<td><a href="https://www.metal-archives.com/bands/Ectoplasma/3540393662">Ectoplasma</a></td>
+<td>Greece</td>
+<td>Death Metal</td>
+<td><span id="score_3540393662">4 </span></td>
+</tr>
+<tr id="recRow_3540436307">
+<td><a href="https://www.metal-archives.com/bands/Hated/3540436307">Hated</a></td>
+<td>Russia</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_3540436307">4 </span></td>
+</tr>
+<tr id="recRow_2231">
+<td><a href="https://www.metal-archives.com/bands/Human_Remains/2231">Human Remains</a></td>
+<td>United States</td>
+<td>Death Metal/Grindcore</td>
+<td><span id="score_2231">4 </span></td>
+</tr>
+<tr id="recRow_126724">
+<td><a href="https://www.metal-archives.com/bands/Madrost/126724">Madrost</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_126724">4 </span></td>
+</tr>
+<tr id="recRow_7544">
+<td><a href="https://www.metal-archives.com/bands/Mercyless/7544">Mercyless</a></td>
+<td>France</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_7544">4 </span></td>
+</tr>
+<tr id="recRow_6600">
+<td><a href="https://www.metal-archives.com/bands/Mithras/6600">Mithras</a></td>
+<td>United Kingdom</td>
+<td>Experimental Death Metal</td>
+<td><span id="score_6600">4 </span></td>
+</tr>
+<tr id="recRow_14999">
+<td><a href="https://www.metal-archives.com/bands/Necrosanct/14999">Necrosanct</a></td>
+<td>United Kingdom</td>
+<td>Death Metal</td>
+<td><span id="score_14999">4 </span></td>
+</tr>
+<tr id="recRow_3540318439">
+<td><a href="https://www.metal-archives.com/bands/Syrebris/3540318439">Syrebris</a></td>
+<td>United States</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_3540318439">4 </span></td>
+</tr>
+<tr id="recRow_3366">
+<td><a href="https://www.metal-archives.com/bands/Black_Shepherd/3366">Black Shepherd</a></td>
+<td>Belgium</td>
+<td>Thrash Metal</td>
+<td><span id="score_3366">4 </span></td>
+</tr>
+<tr id="recRow_82078">
+<td><a href="https://www.metal-archives.com/bands/Blood_Spill/82078">Blood Spill</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_82078">4 </span></td>
+</tr>
+<tr id="recRow_3540359383">
+<td><a href="https://www.metal-archives.com/bands/Bones/3540359383">Bones</a></td>
+<td>Belgium</td>
+<td>Death Metal</td>
+<td><span id="score_3540359383">4 </span></td>
+</tr>
+<tr id="recRow_2091">
+<td><a href="https://www.metal-archives.com/bands/Chakal/2091">Chakal</a></td>
+<td>Brazil</td>
+<td>Thrash Metal (early); Groove Metal (later)</td>
+<td><span id="score_2091">4 </span></td>
+</tr>
+<tr id="recRow_32935">
+<td><a href="https://www.metal-archives.com/bands/Disassembled/32935">Disassembled</a></td>
+<td>Portugal</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_32935">4 </span></td>
+</tr>
+<tr id="recRow_40159">
+<td><a href="https://www.metal-archives.com/bands/Epitaph/40159">Epitaph</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_40159">4 </span></td>
+</tr>
+<tr id="recRow_3540379408">
+<td><a href="https://www.metal-archives.com/bands/Evoked/3540379408">Evoked</a></td>
+<td>Germany</td>
+<td>Death Metal</td>
+<td><span id="score_3540379408">4 </span></td>
+</tr>
+<tr id="recRow_29475">
+<td><a href="https://www.metal-archives.com/bands/Hostil/29475">Hostil</a></td>
+<td>Peru</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_29475">4 </span></td>
+</tr>
+<tr id="recRow_3540353957">
+<td><a href="https://www.metal-archives.com/bands/Human_Decay/3540353957">Human Decay</a></td>
+<td>Italy</td>
+<td>Death Metal</td>
+<td><span id="score_3540353957">4 </span></td>
+</tr>
+<tr id="recRow_1094">
+<td><a href="https://www.metal-archives.com/bands/Jungle_Rot/1094">Jungle Rot</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_1094">4 </span></td>
+</tr>
+<tr id="recRow_3540454803">
+<td><a href="https://www.metal-archives.com/bands/Mental_Casket/3540454803">Mental Casket</a></td>
+<td>Poland</td>
+<td>Death Metal</td>
+<td><span id="score_3540454803">4 </span></td>
+</tr>
+<tr id="recRow_3540389867">
+<td><a href="https://www.metal-archives.com/bands/Moss_upon_the_Skull/3540389867">Moss upon the Skull</a></td>
+<td>Belgium</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_3540389867">4 </span></td>
+</tr>
+<tr id="recRow_3316">
+<td><a href="https://www.metal-archives.com/bands/Node/3316">Node</a></td>
+<td>Italy</td>
+<td>Technical Death Metal (early), Melodic Death Metal (later)</td>
+<td><span id="score_3316">4 </span></td>
+</tr>
+<tr id="recRow_124931">
+<td><a href="https://www.metal-archives.com/bands/Prometheus/124931">Prometheus</a></td>
+<td>Greece</td>
+<td>Black/Death Metal</td>
+<td><span id="score_124931">4 </span></td>
+</tr>
+<tr id="recRow_3540355209">
+<td><a href="https://www.metal-archives.com/bands/Shards_of_Humanity/3540355209">Shards of Humanity</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_3540355209">4 </span></td>
+</tr>
+<tr id="recRow_3540432498">
+<td><a href="https://www.metal-archives.com/bands/Voorhees/3540432498">Voorhees</a></td>
+<td>France</td>
+<td>Death Metal</td>
+<td><span id="score_3540432498">4 </span></td>
+</tr>
+<tr id="recRow_3540339411">
+<td><a href="https://www.metal-archives.com/bands/Died/3540339411">Died</a></td>
+<td>Malaysia</td>
+<td>Death Metal</td>
+<td><span id="score_3540339411">4 </span></td>
+</tr>
+ <tr id="recRow_3540406566">
+<td><a href="https://www.metal-archives.com/bands/Abscendent/3540406566">Abscendent</a></td>
+<td>Italy</td>
+<td>Thrash/Death Metal</td>
+<td><span id="score_3540406566">4 </span></td>
+</tr>
+<tr id="recRow_3540436237">
+<td><a href="https://www.metal-archives.com/bands/Mind_Cry/3540436237">Mind Cry</a></td>
+<td>Russia</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_3540436237">4 </span></td>
+</tr>
+<tr id="recRow_3540364918">
+<td><a href="https://www.metal-archives.com/bands/Sectara/3540364918">Sectara</a></td>
+<td>United States</td>
+<td>Extreme Progressive Metal</td>
+<td><span id="score_3540364918">4 </span></td>
+</tr>
+<tr id="recRow_3383">
+<td><a href="https://www.metal-archives.com/bands/Demented_Ted/3383">Demented Ted</a></td>
+<td>United States</td>
+<td>Thrash Metal (early); Death Metal (later)</td>
+<td><span id="score_3383">3 </span></td>
+</tr>
+<tr id="recRow_112670">
+<td><a href="https://www.metal-archives.com/bands/Acrania/112670">Acrania</a></td>
+<td>Mexico</td>
+<td>Death/Thrash Metal with Latin Jazz influences</td>
+<td><span id="score_112670">3 </span></td>
+</tr>
+<tr id="recRow_3221">
+<td><a href="https://www.metal-archives.com/bands/Broken_Hope/3221">Broken Hope</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_3221">3 </span></td>
+</tr>
+<tr id="recRow_3540441039">
+<td><a href="https://www.metal-archives.com/bands/Coexistence/3540441039">Coexistence</a></td>
+<td>Italy</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_3540441039">3 </span></td>
+</tr>
+<tr id="recRow_68542">
+<td><a href="https://www.metal-archives.com/bands/Deathbringer/68542">Deathbringer</a></td>
+<td>Belarus</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_68542">3 </span></td>
+</tr>
+<tr id="recRow_3540388467">
+<td><a href="https://www.metal-archives.com/bands/Obliterated/3540388467">Obliterated</a></td>
+<td>Italy</td>
+<td>Progressive Thrash Metal</td>
+<td><span id="score_3540388467">3 </span></td>
+</tr>
+<tr id="recRow_1226">
+<td><a href="https://www.metal-archives.com/bands/Sindrome/1226">Sindrome</a></td>
+<td>United States</td>
+<td>Thrash Metal</td>
+<td><span id="score_1226">3 </span></td>
+</tr>
+<tr id="recRow_15561">
+<td><a href="https://www.metal-archives.com/bands/Viogression/15561">Viogression</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_15561">3 </span></td>
+</tr>
+<tr id="recRow_3540318319">
+<td><a href="https://www.metal-archives.com/bands/Decaying/3540318319">Decaying</a></td>
+<td>Finland</td>
+<td>Death Metal</td>
+<td><span id="score_3540318319">3 </span></td>
+</tr>
+<tr id="recRow_50980">
+<td><a href="https://www.metal-archives.com/bands/Arte_Sacra/50980">Arte Sacra</a></td>
+<td>Portugal</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_50980">3 </span></td>
+</tr>
+<tr id="recRow_3540310514">
+<td><a href="https://www.metal-archives.com/bands/Bone_Sickness/3540310514">Bone Sickness</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_3540310514">3 </span></td>
+</tr>
+<tr id="recRow_65897">
+<td><a href="https://www.metal-archives.com/bands/Clit_Ripper/65897">Clit Ripper</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal, Grindcore</td>
+<td><span id="score_65897">3 </span></td>
+</tr>
+<tr id="recRow_28640">
+<td><a href="https://www.metal-archives.com/bands/Comatose/28640">Comatose</a></td>
+<td>Philippines</td>
+<td>Death Metal</td>
+<td><span id="score_28640">3 </span></td>
+</tr>
+<tr id="recRow_3540312627">
+<td><a href="https://www.metal-archives.com/bands/Coral_de_Esp%C3%ADritos/3540312627">Coral de Espíritos</a></td>
+<td>Brazil</td>
+<td>Technical Death Metal</td>
+<td><span id="score_3540312627">3 </span></td>
+</tr>
+<tr id="recRow_83448">
+<td><a href="https://www.metal-archives.com/bands/Dezember/83448">Dezember</a></td>
+<td>Thailand</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_83448">3 </span></td>
+</tr>
+<tr id="recRow_71047">
+<td><a href="https://www.metal-archives.com/bands/Echidna/71047">Echidna</a></td>
+<td>Greece</td>
+<td>Progressive Death/Thrash Metal</td>
+<td><span id="score_71047">3 </span></td>
+</tr>
+<tr id="recRow_3540372017">
+<td><a href="https://www.metal-archives.com/bands/Ekpyrosis/3540372017">Ekpyrosis</a></td>
+<td>Italy</td>
+<td>Death Metal</td>
+<td><span id="score_3540372017">3 </span></td>
+</tr>
+<tr id="recRow_3540414311">
+<td><a href="https://www.metal-archives.com/bands/Evil_Priest/3540414311">Evil Priest</a></td>
+<td>Peru</td>
+<td>Death Metal</td>
+<td><span id="score_3540414311">3 </span></td>
+</tr>
+<tr id="recRow_3540281252">
+<td><a href="https://www.metal-archives.com/bands/Exence/3540281252">Exence</a></td>
+<td>Italy</td>
+<td>Progressive Thrash/Death Metal</td>
+<td><span id="score_3540281252">3 </span></td>
+</tr>
+<tr id="recRow_3540291432">
+<td><a href="https://www.metal-archives.com/bands/Festival_of_Mutilation/3540291432">Festival of Mutilation</a></td>
+<td>Bosnia and Herzegovina</td>
+<td>Technical Death Metal</td>
+<td><span id="score_3540291432">3 </span></td>
+</tr>
+<tr id="recRow_3540428991">
+<td><a href="https://www.metal-archives.com/bands/Intrepid/3540428991">Intrepid</a></td>
+<td>Estonia</td>
+<td>Death Metal</td>
+<td><span id="score_3540428991">3 </span></td>
+</tr>
+<tr id="recRow_26512">
+<td><a href="https://www.metal-archives.com/bands/Necropolis/26512">Necropolis</a></td>
+<td>Argentina</td>
+<td>Technical Death Metal</td>
+<td><span id="score_26512">3 </span></td>
+</tr>
+<tr id="recRow_3540293219">
+<td><a href="https://www.metal-archives.com/bands/Nexus/3540293219">Nexus</a></td>
+<td>Australia</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_3540293219">3 </span></td>
+</tr>
+<tr id="recRow_3540387235">
+<td><a href="https://www.metal-archives.com/bands/Oraculum/3540387235">Oraculum</a></td>
+<td>Chile</td>
+<td>Death Metal</td>
+<td><span id="score_3540387235">3 </span></td>
+</tr>
+<tr id="recRow_9512">
+<td><a href="https://www.metal-archives.com/bands/Sadism/9512">Sadism</a></td>
+<td>Chile</td>
+<td>Death Metal</td>
+<td><span id="score_9512">3 </span></td>
+</tr>
+<tr id="recRow_3540265881">
+<td><a href="https://www.metal-archives.com/bands/Sanity_Obscure/3540265881">Sanity Obscure</a></td>
+<td>Singapore</td>
+<td>Technical Thrash Metal (early); Progressive Death Metal (later)</td>
+<td><span id="score_3540265881">3 </span></td>
+</tr>
+<tr id="recRow_12001">
+<td><a href="https://www.metal-archives.com/bands/Savage_Death/12001">Savage Death</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_12001">3 </span></td>
+</tr>
+<tr id="recRow_3540344431">
+<td><a href="https://www.metal-archives.com/bands/Voodoo_Gods/3540344431">Voodoo Gods</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_3540344431">3 </span></td>
+</tr>
+<tr id="recRow_69482">
+<td><a href="https://www.metal-archives.com/bands/W.A.K.O./69482">W.A.K.O.</a></td>
+<td>Portugal</td>
+<td>Death/Thrash/Groove Metal</td>
+<td><span id="score_69482">3 </span></td>
+</tr>
+<tr id="recRow_3540306619">
+<td><a href="https://www.metal-archives.com/bands/%28Psychoparalysis%29/3540306619">(Psychoparalysis)</a></td>
+<td>Finland</td>
+<td>Progressive Death Metal</td>
+<td><span id="score_3540306619">3 </span></td>
+</tr>
+<tr id="recRow_3058">
+<td><a href="https://www.metal-archives.com/bands/Apoplexy/3058">Apoplexy</a></td>
+<td>Slovakia</td>
+<td>Death Metal</td>
+<td><span id="score_3058">3 </span></td>
+</tr>
+<tr id="recRow_99052">
+<td><a href="https://www.metal-archives.com/bands/Azure_Emote/99052">Azure Emote</a></td>
+<td>United States</td>
+<td>Industrial/Avant-garde Death Metal</td>
+<td><span id="score_99052">3 </span></td>
+</tr>
+<tr id="recRow_3540379373">
+<td><a href="https://www.metal-archives.com/bands/Considered_Dead/3540379373">Considered Dead</a></td>
+<td>Brazil</td>
+<td>Death Metal</td>
+<td><span id="score_3540379373">3 </span></td>
+</tr>
+<tr id="recRow_356">
+<td><a href="https://www.metal-archives.com/bands/Disastrous_Murmur/356">Disastrous Murmur</a></td>
+<td>Austria</td>
+<td>Death Metal</td>
+<td><span id="score_356">3 </span></td>
+</tr>
+<tr id="recRow_2570">
+<td><a href="https://www.metal-archives.com/bands/Excidium/2570">Excidium</a></td>
+<td>Switzerland</td>
+<td>Progressive Death/Thrash Metal</td>
+<td><span id="score_2570">3 </span></td>
+</tr>
+<tr id="recRow_3540259222">
+<td><a href="https://www.metal-archives.com/bands/Gorgatron/3540259222">Gorgatron</a></td>
+<td>United States</td>
+<td>Death Metal, Grindcore</td>
+<td><span id="score_3540259222">3 </span></td>
+</tr>
+<tr id="recRow_56105">
+<td><a href="https://www.metal-archives.com/bands/Hatred/56105">Hatred</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_56105">3 </span></td>
+</tr>
+<tr id="recRow_29977">
+<td><a href="https://www.metal-archives.com/bands/Hexen/29977">Hexen</a></td>
+<td>United States</td>
+<td>Melodic Thrash Metal with Progressive influences</td>
+<td><span id="score_29977">3 </span></td>
+</tr>
+<tr id="recRow_26127">
+<td><a href="https://www.metal-archives.com/bands/Human_Waste/26127">Human Waste</a></td>
+<td>Spain</td>
+<td>Technical Death Metal (early), Progressive Death Metal (later)</td>
+<td><span id="score_26127">3 </span></td>
+</tr>
+<tr id="recRow_3540441052">
+<td><a href="https://www.metal-archives.com/bands/In_Human/3540441052">In Human</a></td>
+<td>India</td>
+<td>Technical Death Metal</td>
+<td><span id="score_3540441052">3 </span></td>
+</tr>
+<tr id="recRow_97249">
+<td><a href="https://www.metal-archives.com/bands/Infection/97249">Infection</a></td>
+<td>Peru</td>
+<td>Death Metal</td>
+<td><span id="score_97249">3 </span></td>
+</tr>
+<tr id="recRow_3540472857">
+<td><a href="https://www.metal-archives.com/bands/Katrinaz/3540472857">Katrinaz</a></td>
+<td>Mexico</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_3540472857">3 </span></td>
+</tr>
+<tr id="recRow_2945">
+<td><a href="https://www.metal-archives.com/bands/Lethargy/2945">Lethargy</a></td>
+<td>United States</td>
+<td>Technical Death Metal</td>
+<td><span id="score_2945">3 </span></td>
+</tr>
+<tr id="recRow_1013">
+<td><a href="https://www.metal-archives.com/bands/Luciferion/1013">Luciferion</a></td>
+<td>Sweden</td>
+<td>Death Metal</td>
+<td><span id="score_1013">3 </span></td>
+</tr>
+<tr id="recRow_2896">
+<td><a href="https://www.metal-archives.com/bands/Monsterworks/2896">Monsterworks</a></td>
+<td>New Zealand</td>
+<td>Thrash/Death/Heavy Metal</td>
+<td><span id="score_2896">3 </span></td>
+</tr>
+<tr id="recRow_3540328284">
+<td><a href="https://www.metal-archives.com/bands/Nader_Sadek/3540328284">Nader Sadek</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_3540328284">3 </span></td>
+</tr>
+<tr id="recRow_303">
+<td><a href="https://www.metal-archives.com/bands/Obscenity/303">Obscenity</a></td>
+<td>Germany</td>
+<td>Death Metal</td>
+<td><span id="score_303">3 </span></td>
+</tr>
+<tr id="recRow_3540448426">
+<td><a href="https://www.metal-archives.com/bands/Obsolete/3540448426">Obsolete</a></td>
+<td>United States</td>
+<td>Death/Thrash Metal</td>
+<td><span id="score_3540448426">3 </span></td>
+</tr>
+<tr id="recRow_13258">
+<td><a href="https://www.metal-archives.com/bands/Psychic_Pawn/13258">Psychic Pawn</a></td>
+<td>United States</td>
+<td>Death Metal</td>
+<td><span id="score_13258">3 </span></td>
+</tr>
+<tr id="recRow_7649">
+<td><a href="https://www.metal-archives.com/bands/Scapegoat/7649">Scapegoat</a></td>
+<td>Bulgaria</td>
+<td>Death Metal</td>
+<td><span id="score_7649">3 </span></td>
+</tr>
+<tr id="recRow_3540472916">
+<td><a href="https://www.metal-archives.com/bands/Wretched_Inferno/3540472916">Wretched Inferno</a></td>
+<td>United States</td>
+<td>Thrash Metal (early); Death Metal (later)</td>
+<td><span id="score_3540472916">3 </span></td>
+</tr>
+<tr id="recRow_26776">
+<td><a href="https://www.metal-archives.com/bands/Zoofilia/26776">Zoofilia</a></td>
+<td>Argentina</td>
+<td>Death Metal</td>
+<td><span id="score_26776">3 </span></td>
+</tr>
+<tr><td colspan="5" id="show_more">(<a href="https://www.metal-archives.com/bands/Death/141#Similar_artists">show top 20 only</a>)</td></tr>
+</tbody>
+</table>
+</div>
+<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="e2d1283aaef837f16d222c13-|49" defer=""></script>

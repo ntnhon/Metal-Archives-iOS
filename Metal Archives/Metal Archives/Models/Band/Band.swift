@@ -2,596 +2,350 @@
 //  Band.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 22/01/2019.
-//  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
+//  Created by Thanh-Nhon Nguyen on 22/05/2021.
 //
 
 import Foundation
 import Kanna
 
-final class Band {
-    private(set) var id: String!
-    private(set) var name: String!
-    private(set) var urlString: String!
-    private(set) var country: Country!
-    private(set) var genre: String!
-    private(set) var status: BandStatus!
-    
-    private(set) var location: String!
-    
-    private var _formedIn: String!
-    var formedIn: String {
-        get {
-            if let year = Int(_formedIn) {
-                let yearGap = Date().year - year
-                
-                switch yearGap {
-                case 0: return "\(year)"
-                case 1: return "\(year) (a year ago)"
-                default: return "\(year) (\(yearGap) years ago)"
-                }
-            }
-            
-            return _formedIn
-        }
-    }
-    
-    private var yearsActiveString: String!
-    private(set) var oldBands: [BandAncient]?
-    private(set) var lyricalTheme: String!
-    private(set) var lastLabel: LabelLiteInBand!
-    private(set) var shortHTMLDescription: String?
-    private(set) var completeHTMLDescription: String?
-    private(set) var auditTrail: AuditTrail!
-    private(set) var logoURLString: String?
-    private(set) var photoURLString: String?
-    private(set) var discography: Discography?
-    
-    private(set) var isBookmarked: Bool? = nil
-    
-    //Band detail
-    private(set) var isLastKnown: Bool = false
-    private(set) var completeLineup: [ArtistLite]?
-    private(set) var currentLineup: [ArtistLite]?
-    private(set) var lastKnownLineup: [ArtistLite]?
-    private(set) var pastMembers: [ArtistLite]?
-    private(set) var liveMusicians: [ArtistLite]?
-    
-    lazy var completeLineupDescription: String = {
-        if let complete = self.completeLineup {
-            if complete.count <= 1 {
-                return "Complete lineup (\(complete.count) member)"
-            } else {
-                return "Complete lineup (\(complete.count) members)"
-            }
-        }
-        
-        return "Complete lineup (0 member)"
-    }()
-    lazy var currentLineupDescription: String = {
-        if let current = self.currentLineup {
-            if current.count <= 1 {
-                return "Current lineup (\(current.count) member)"
-            } else {
-                return "Current lineup (\(current.count) members)"
-            }
-        }
-        
-        return "Current lineup (0 member)"
-    }()
-    lazy var lastKnownLineupDescription: String = {
-        if let lastKnown = self.lastKnownLineup {
-            if lastKnown.count <= 1 {
-                return "Last known lineup (\(lastKnown.count) member)"
-            } else {
-                return "Last known lineup (\(lastKnown.count) members)"
-            }
-        }
-        
-        return "Last known lineup (0 member)"
-    }()
-    lazy var pastMembersDescription: String = {
-        if let pastMembers = self.pastMembers {
-            if pastMembers.count <= 1 {
-                return "Past members (\(pastMembers.count) member)"
-            } else {
-                return "Past members (\(pastMembers.count) members)"
-            }
-        }
-        
-        return "Past members (0 member)"
-    }()
-    lazy var liveMusiciansDescription: String = {
-        if let liveMusicians = self.liveMusicians {
-            if liveMusicians.count <= 1 {
-                return "Live musicians (\(liveMusicians.count) member)"
-            } else {
-                return "Live musicians (\(liveMusicians.count) members)"
-            }
-        }
-        
-        return "Live musicians (0 member)"
-    }()
-    
-    lazy var hasNoMember: Bool = {
-        return completeLineup == nil
-    }()
-    
-    lazy private(set) var reviewLitePagableManager: PagableManager<ReviewLite> = {
-        let manager = PagableManager<ReviewLite>(options: ["<BAND_ID>": self.id])
-        return manager
-    }()
-    
-    lazy var yearsActiveAttributedString: NSAttributedString = {
-        let attributedString = NSMutableAttributedString(string: yearsActiveString)
-        
-        attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(yearsActiveString.startIndex..., in: yearsActiveString))
-        
-        let pastBandNames = RegexHelpers.listGroups(for: #"\(as ([^)]+)\)"#, inString: yearsActiveString)
-        
-        for oldBandName in pastBandNames {
-            let oldBandNameRange = yearsActiveString.range(of: oldBandName)!
-            let oldBandNameNSRange = NSRange(oldBandNameRange, in: yearsActiveString)
-            
-            if let oldBands = oldBands, oldBands.contains(where: {$0.name == oldBandName}) {
-                attributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor, .font: Settings.currentFontSize.secondaryTitleFont], range: oldBandNameNSRange)
-            } else {
-                attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.secondaryTitleFont], range: oldBandNameNSRange)
-            }
-        }
-        
-        return attributedString
-    }()
-    
-    lazy var reviewStatsAttributedString: NSAttributedString? = {
-        guard let discography = discography else { return nil }
-
-        let totalReviews = discography.complete.compactMap({$0.numberOfReviews}).reduce(0, +)
-        
-        guard totalReviews > 0 else { return nil }
-        
-        let ratings = discography.complete.compactMap({$0.rating})
-        let averageRating = ratings.reduce(0, +) / ratings.count
-        
-        var string = "\(totalReviews) \(totalReviews > 1 ? "reviews" : "review") in total • \(averageRating)% on average"
-        
-        let totalMedals = discography.complete.filter({$0.isPlatinium}).count
-        if totalMedals > 0 {
-            string += " • \(totalMedals)🏅"
-        }
-        
-        let attributedString = NSMutableAttributedString(string: string)
-        attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(string.startIndex..., in: string))
-        
-        // Bold the total number
-        if let range = string.range(of: "\(totalReviews)") {
-            attributedString.addAttribute(.font, value: Settings.currentFontSize.boldBodyTextFont, range: NSRange(range, in: string))
-        }
-        
-        // Color the average number
-        if let range = string.range(of: "\(averageRating)%") {
-            attributedString.addAttribute(.foregroundColor, value: UIColor.colorByRating(averageRating), range: NSRange(range, in: string))
-        }
-        
-        // Bold total medal
-        if let range = string.range(of: "\(totalMedals)🏅") {
-            attributedString.addAttribute(.font, value: Settings.currentFontSize.boldBodyTextFont, range: NSRange(range, in: string))
-        }
-        
-        return attributedString
-    }()
-    
-    //Similar artist
-    private(set) var similarArtists: [BandSimilar]?
-    
-    private(set) var relatedLinks: [RelatedLink]?
-    
-    deinit {
-        print("Band is deallocated")
-    }
-    
-    init?(fromData data: Data) {
-        
-        guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
-            let doc = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
-                return nil
-        }
-        
-        // Firstly detect if band is bookmarked or not
-        for a in doc.css("a") {
-            // When bookmarked
-            // <a id="bookmark" class="iconContainer ui-state-active ui-corner-all writeAction"...
-            // When not bookmarked
-            // <a id="bookmark" class="iconContainer ui-state-default ui-corner-all writeAction"...
-            if let id = a["id"], id == "bookmark", let classValue = a["class"] {
-                self.isBookmarked = classValue.contains("active")
-                continue
-            }
-        }
-        
-        for div in doc.css("div") {
-            
-            if let id = div["id"] {
-                switch id {
-                case "band_info":
-                    guard let results = Band.parseBandInfoDiv(div) else {
-                        return nil
-                    }
-                    self.name = results.name
-                    self.urlString = results.urlString
-                    self.id = results.id
-                    
-                case "band_stats":
-                    guard let results = Band.parseBandStatsDiv(div) else {
-                        return nil
-                    }
-                    
-                    self.country = results.country
-                    self.location = results.location
-                    self.status = results.status
-                    self._formedIn = results.formedIn
-                    self.genre = results.genre
-                    self.lyricalTheme = results.lyricalTheme
-                    self.lastLabel = results.lastLabel
-                    self.oldBands = results.oldBands
-                    self.yearsActiveString = results.yearsActiveString
-                    
-                case "auditTrail":
-                    guard let innerHTML = div.innerHTML else { return nil }
-                    self.auditTrail = AuditTrail(from: innerHTML)
-                    
-                case "band_tab_members":
-                    if let div_band_members = div.at_css("div") {
-                        self.isLastKnown = div_band_members.text?.range(of: "Last known") != nil
-                        
-                        for subDiv in div_band_members.css("div") {
-                            
-                            if (subDiv["id"] == "band_tab_members_current") {
-                                if isLastKnown {
-                                    self.lastKnownLineup = Band.parseBandArtists(inDiv: subDiv)
-                                }
-                                else {
-                                    self.currentLineup = Band.parseBandArtists(inDiv: subDiv)
-                                }
-                                
-                            }
-                            else if (subDiv["id"] == "band_tab_members_past") {
-                                self.pastMembers = Band.parseBandArtists(inDiv: subDiv)
-                            }
-                            else if (subDiv["id"] == "band_tab_members_live") {
-                                self.liveMusicians = Band.parseBandArtists(inDiv: subDiv)
-                            }
-                        }
-                        
-                        
-                        var completeLineup = [ArtistLite]()
-                        
-                        if let currentLineup = self.currentLineup {
-                            completeLineup.append(contentsOf: currentLineup)
-                        }
-                        
-                        if let lastKnownLineup = self.lastKnownLineup {
-                            completeLineup.append(contentsOf: lastKnownLineup)
-                        }
-                        
-                        if let pastMembers = self.pastMembers {
-                            completeLineup.append(contentsOf: pastMembers)
-                        }
-                        
-                        if let liveMusicians = self.liveMusicians {
-                            completeLineup.append(contentsOf: liveMusicians)
-                        }
-                        
-                        if completeLineup.count == 0 {
-                            self.completeLineup = nil
-                        } else {
-                            self.completeLineup = completeLineup
-                        }
-                    }
-                    
-                default: continue
-                }
-            } else if let `class` = div["class"] {
-                switch `class` {
-                case "band_comment clear":
-                    let prefix = "\n\t    <!-- Max 400 characters. Open the rest in a dialogue box-->\n\t    \t\t    \t"
-                    self.shortHTMLDescription = div.innerHTML?.replacingOccurrences(of: prefix, with: "")
-                    
-                case "band_name_img":
-                    let a = div.at_css("a")
-                    self.logoURLString = a?["href"]
-                    
-                case "band_img":
-                    let a = div.at_css("a")
-                    self.photoURLString = a?["href"]
-                    
-                default: continue
-                }
-            }
-        }
-    }
-    
-    static func parseBandArtists(inDiv div: XMLElement) -> [ArtistLite]? {
-        var artists = [ArtistLite]()
-        
-        let trs = div.css("tr")
-        
-        for i in 0..<trs.count {
-            // This is the <tr> that contains seeAlsoString, skip when encounter
-            if trs[i]["class"] == "lineupBandsRow" {
-                continue
-            }
-            
-            // There must be 2 <td>
-            // 1st <td> for for artist's name and url
-            // 2nd <td> for instruments string
-            let tds = trs[i].css("td")
-            guard tds.count == 2 else {
-                continue
-            }
-            
-            guard let a = tds[0].at_css("a"),
-                let urlString = a["href"],
-                let name = a.text,
-                let instrumentsString = tds[1].text?.removeHTMLTagsAndNoisySpaces() else {
-                    continue
-            }
-            
-            // Check the next <tr>, if it's class is "lineupBandsRow" then parse bands and seeAlsoString
-            // Use regex to find out A tags
-            guard i + 1 < trs.count, trs[i + 1]["class"] == "lineupBandsRow" else {
-                if let artist = ArtistLite(urlString: urlString, name: name, instrumentsInBand: instrumentsString, bands: nil, seeAlsoString: nil) {
-                    artists.append(artist)
-                }
-                continue
-            }
-            
-            guard let nextTrInnerHTML = trs[i + 1].innerHTML else {
-                continue
-            }
-            
-            var bands = [BandLite]()
-            RegexHelpers.listMatches(for: #"<a\s.*?</a>"#, inString: nextTrInnerHTML).forEach { (aTagHtmlString) in
-                if let tagA = TagA(htmlString: aTagHtmlString), let band = BandLite(name: tagA.value, urlString: tagA.urlString) {
-                    bands.append(band)
-                }
-            }
-            
-            let seeAlsoString = nextTrInnerHTML.removeHTMLTagsAndNoisySpaces()
-            
-            if let artist = ArtistLite(urlString: urlString, name: name, instrumentsInBand: instrumentsString, bands: bands, seeAlsoString: seeAlsoString) {
-                artists.append(artist)
-            }
-        }
-        
-        if artists.count == 0 {
-            return nil
-        }
-        
-        return artists
-    }
-}
-
-//MARK: - Parse band's details by divs
-extension Band {
-    /*
-     Sample data:
-     <div id="band_info">
-     
-     <h1 class="band_name"><a href="https://www.metal-archives.com/bands/Death/141">Death</a></h1>
-     
-     
-     <div class="clear block_spacer_5"></div>
-     */
-    
-    fileprivate static func parseBandInfoDiv(_ div: XMLElement) -> (name: String, urlString: String, id: String)? {
-        guard let a = div.at_css("a"), let bandName = a.text, let urlString = a["href"] else { return nil
-        }
-        
-        guard let id = urlString.components(separatedBy: "/").last else {
-            return nil
-        }
-        
-        return (bandName, urlString, id)
-    }
-    
-    /*
-     Sample data:
-     <div id="band_stats">
-     <dl class="float_left">
-     <dt>Country of origin:</dt>
-     <dd><a href="https://www.metal-archives.com/lists/US">United States</a></dd>
-     <dt>Location:</dt>
-     <dd>Altamonte Springs, Florida</dd>
-     <dt>Status:</dt>
-     <dd class="split_up">Split-up</dd>
-     <dt>Formed in:</dt>
-     <dd>1984</dd>
-     </dl>
-     <dl class="float_right">
-     <dt>Genre:</dt>
-     <dd>Death Metal (early), Death/Progressive Metal (later)</dd>
-     <dt>Lyrical themes:</dt>
-     <dd>Death, Gore (early); Society, Enlightenment (later)</dd>
-     <dt>Last label:</dt>
-     <dd><a href="https://www.metal-archives.com/labels/Nuclear_Blast/2">Nuclear Blast</a></dd>
-     </dl>
-     <dl style="width: 100%;" class="clear">
-     <dt>Years active:</dt>
-     <dd>
-     
-     1983-1984                                (as <a href="https://www.metal-archives.com/bands/Mantas/35328">Mantas</a>),
-     1984-2001                                    </dd>
-     </dl>
-     </div>
-     */
-    fileprivate static func parseBandStatsDiv(_ div: XMLElement) -> (country: Country, location: String, status: BandStatus, formedIn: String, genre: String, lyricalTheme: String, lastLabel: LabelLiteInBand, oldBands: [BandAncient]?, yearsActiveString: String)? {
-        
-        var country: Country?
-        var location: String?
-        var status: BandStatus?
-        var formedIn: String?
-        var genre: String?
-        var lyricalTheme: String?
-        var lastLabel: LabelLiteInBand?
-        var oldBands: [BandAncient]?
-        var yearsActiveString: String?
-        
-        var i = 0
-        let dds = div.css("dd")
-        for dt in div.css("dt") {
-            defer { i += 1}
-            
-            guard let dtText = dt.text else { continue }
-            
-            if dtText.contains("Country") {
-                if let a = dds[i].at_css("a"), let countryUrlString = a["href"], let countryISO = countryUrlString.components(separatedBy: "/").last {
-                    country = Country(iso: countryISO)
-                }
-                continue
-            }
-            
-            if dtText.contains("Location") {
-                location = dds[i].text
-                continue
-            }
-            
-            if dtText.contains("Status") {
-                if let statusString = dds[i].text {
-                    status = BandStatus(statusString: statusString)
-                }
-                continue
-            }
-            
-            if dtText.contains("Formed") {
-                formedIn = dds[i].text
-                continue
-            }
-            
-            if dtText.contains("Genre") {
-                genre = dds[i].text
-                continue
-            }
-            
-            if dtText.contains("Lyrical") {
-                lyricalTheme = dds[i].text
-                continue
-            }
-            
-            if dtText.contains("label") {
-                if let a = dds[i].at_css("a"), let labelName = a.text {
-                    if let labelUrlString = a["href"] {
-                        lastLabel = LabelLiteInBand(name: labelName, urlString: labelUrlString)
-                    }
-                } else if let labelName = dds[i].text {
-                    lastLabel = LabelLiteInBand(name: labelName)
-                }
-                continue
-            }
-            
-            if dtText.contains("Years") {
-                if let results = Band.parseOldBandsAndYearsActiveString(dds[i]) {
-                    oldBands = results.oldBands
-                    yearsActiveString = results.yearsActiveString
-                }
-                continue
-            }
-            
-        }
-        
-        if let country = country, let location = location, let status = status, let formedIn = formedIn, let genre = genre, let lyricalTheme = lyricalTheme, let lastLabel = lastLabel, let yearsActiveString = yearsActiveString {
-            return (country, location, status, formedIn, genre, lyricalTheme, lastLabel, oldBands, yearsActiveString)
-        }
-        
-        return nil
-    }
-    
-    fileprivate static func parseOldBandsAndYearsActiveString(_ div: XMLElement) -> (oldBands: [BandAncient]?, yearsActiveString: String)? {
-        
-        guard let rawTextString = div.innerHTML else { return nil }
-        
-        var oldBands = [BandAncient]()
-        
-        // Use regex to find out A tags
-        RegexHelpers.listMatches(for: #"<a\s.*?</a>"#, inString: rawTextString).forEach { (aTagHtmlString) in
-            if let tagA = TagA(htmlString: aTagHtmlString) {
-                oldBands.append(.init(name: tagA.value, urlString: tagA.urlString))
-            }
-        }
-        
-        // yearsActiveString example: 1993-2010,2010 (as Satanika),2010-present
-        // Add " " after "," to pretify
-        let yearsActiveString = rawTextString.removeHTMLTagsAndNoisySpaces().replacingOccurrences(of: ",", with: ", ")
-        
-        if oldBands.count == 0 {
-            return (nil, yearsActiveString)
-        }
-        
-        return (oldBands, yearsActiveString)
-    }
-}
-
-// MARK: - Descriptive
-extension Band: Descriptive {
-    var generalDescription: String {
-        return "\(self.id ?? "") - \(self.name ?? "") - \(self.country.nameAndEmoji)"
-    }
-}
-
-extension Band {
-    func setReadMoreString(_ readMoreString: String) {
-        self.completeHTMLDescription = readMoreString
-    }
-    
-    func setDiscography(_ discography: Discography?) {
-        self.discography = discography
-    }
-    
-    func setSimilarArtists(_ similarArtists: [BandSimilar]?) {
-        self.similarArtists = similarArtists
-    }
-    
-    func setRelatedLinks(_ relatedLinks: [RelatedLink]?) {
-        self.relatedLinks = relatedLinks
-    }
-    
-    func associateReleasesToReviews() {
-        guard let discography = discography else { return }
-        for review in reviewLitePagableManager.objects {
-            if let _ = review.release {
-                continue
-            }
-            
-            for release in discography.complete {
-                if release.title == review.releaseTitle {
-                    review.associateToRelease(release)
-                    break
-                }
-            }
-        }
-    }
-    
-    func setIsBookmarked(_ isBookmarked: Bool) {
-        self.isBookmarked = isBookmarked
-    }
-}
-
-fileprivate struct TagA {
-    private let htmlString: String
+struct Band {
+    let id: String
     let urlString: String
-    let value: String
-    
-    init?(htmlString: String) {
-        self.htmlString = htmlString
-            .replacingOccurrences(of: "href='", with: #"href=""#)
-            .replacingOccurrences(of: "'>", with: #"">"#)
-        
-        guard let urlSubstring = self.htmlString.subString(after: #"href=""#, before: #"">"#, options: .caseInsensitive),
-            let valueSubstring = self.htmlString.subString(after: #"">"#, before: "</a>", options: .caseInsensitive) else {
-                return nil
-        }
-        
-        self.urlString = String(urlSubstring)
-        self.value = String(valueSubstring)
+    let name: String
+    let country: Country
+    let genre: String
+    let status: BandStatus
+    let location: String
+    let yearOfCreation: String
+    let yearsActive: String
+    let oldBands: [BandLite]
+    let lyricalTheme: String
+    let lastLabel: LabelLite
+    let logoUrlString: String?
+    let photoUrlString: String?
+    let modificationInfo: ModificationInfo
+    var isBookmarked: Bool
+    let isLastKnownLineUp: Bool
+    let currentLineUp: [ArtistInBand] // or last known
+    let pastMembers: [ArtistInBand]
+    let liveMusicians: [ArtistInBand]
+
+    var hasPhoto: Bool { photoUrlString != nil }
+    var hasLogo: Bool { logoUrlString != nil }
+    var noMembers: Bool {
+        currentLineUp.isEmpty && pastMembers.isEmpty && liveMusicians.isEmpty
     }
+}
+
+extension Band {
+    final class Builder {
+        var id: String?
+        var urlString: String?
+        var name: String?
+        var country: Country?
+        var genre: String?
+        var status: BandStatus?
+        var location: String?
+        var yearOfCreation: String?
+        var yearsActive: String?
+        var oldBands: [BandLite]?
+        var lyricalTheme: String?
+        var lastLabel: LabelLite?
+        var logoUrlString: String?
+        var photoUrlString: String?
+        var modificationInfo: ModificationInfo?
+        var isBookmarked = false
+        var isLastKnownLineUp = false
+        var currentLineUp: [ArtistInBand] = []
+        var pastMembers: [ArtistInBand] = []
+        var liveMusicians: [ArtistInBand] = []
+
+        func build() -> Band? {
+            guard let id else {
+                Logger.log("[Building Band] id can not be nil.")
+                return nil
+            }
+
+            guard let urlString else {
+                Logger.log("[Building Band] urlString can not be nil.")
+                return nil
+            }
+
+            guard let name else {
+                Logger.log("[Building Band] name can not be nil.")
+                return nil
+            }
+
+            guard let country else {
+                Logger.log("[Building Band] country can not be nil.")
+                return nil
+            }
+
+            guard let genre else {
+                Logger.log("[Building Band] genre can not be nil.")
+                return nil
+            }
+
+            guard let status else {
+                Logger.log("[Building Band] status can not be nil.")
+                return nil
+            }
+
+            guard let location else {
+                Logger.log("[Building Band] location can not be nil.")
+                return nil
+            }
+
+            guard let yearOfCreation else {
+                Logger.log("[Building Band] yearOfCreation can not be nil.")
+                return nil
+            }
+
+            guard let yearsActive else {
+                Logger.log("[Building Band] yearsActive can not be nil.")
+                return nil
+            }
+
+            guard let oldBands else {
+                Logger.log("[Building Band] oldBands can not be nil.")
+                return nil
+            }
+
+            guard let lyricalTheme else {
+                Logger.log("[Building Band] lyricalTheme can not be nil.")
+                return nil
+            }
+
+            guard let lastLabel else {
+                Logger.log("[Building Band] lastLabel can not be nil.")
+                return nil
+            }
+
+            guard let modificationInfo else {
+                Logger.log("[Building Band] modificationInfo can not be nil.")
+                return nil
+            }
+
+            return Band(id: id,
+                        urlString: urlString,
+                        name: name,
+                        country: country,
+                        genre: genre,
+                        status: status,
+                        location: location,
+                        yearOfCreation: yearOfCreation,
+                        yearsActive: yearsActive,
+                        oldBands: oldBands,
+                        lyricalTheme: lyricalTheme,
+                        lastLabel: lastLabel,
+                        logoUrlString: logoUrlString,
+                        photoUrlString: photoUrlString,
+                        modificationInfo: modificationInfo,
+                        isBookmarked: isBookmarked,
+                        isLastKnownLineUp: isLastKnownLineUp,
+                        currentLineUp: currentLineUp,
+                        pastMembers: pastMembers,
+                        liveMusicians: liveMusicians)
+        }
+    }
+}
+
+fileprivate enum BandMemberType {
+    case current, past, live
+}
+
+extension Band: HTMLParsable {
+    // swiftlint:disable identifier_name
+    // Declare extra init in an extension in order to preserve the default initializer
+    init(data: Data) throws {
+        guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
+              let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
+            throw MAError.parseFailure(String(describing: Self.self))
+        }
+
+        let builder = Band.Builder()
+
+        if let a = html.css("a").first(where: { $0["id"] == "bookmark" }), let aClass = a["class"] {
+            builder.isBookmarked = aClass.contains("ui-state-active")
+        }
+
+        if let h1 = html.at_css("h1"), let a = h1.at_css("a") {
+            let urlString = a["href"]
+            builder.id = urlString?.components(separatedBy: "/").last
+            builder.urlString = urlString
+            builder.name = a.text
+        }
+
+        if let tr = html.css("tr").first(where: { $0["class"] == "lineupHeaders" }),
+           let trText = tr.text {
+            builder.isLastKnownLineUp = trText.contains("Last known")
+        }
+
+        for div in html.css("div") {
+            if let divId = div["id"] {
+                switch divId {
+                case "band_stats": Self.parseBandStatsDiv(div, to: builder)
+                case "auditTrail": builder.modificationInfo = ModificationInfo(element: div)
+                case "band_tab_members_current": Self.parseMembersDiv(div, to: builder, ofType: .current)
+                case "band_tab_members_past": Self.parseMembersDiv(div, to: builder, ofType: .past)
+                case "band_tab_members_live": Self.parseMembersDiv(div, to: builder, ofType: .live)
+                default: break
+                }
+            } else if let divClass = div["class"] {
+                switch divClass {
+                case "band_name_img":
+                    builder.logoUrlString = div.at_css("a")?["href"]
+
+                case "band_img":
+                    builder.photoUrlString = div.at_css("a")?["href"]
+                default: break
+                }
+            }
+        }
+
+        guard let band = builder.build() else {
+            throw MAError.parseFailure(String(describing: Self.self))
+        }
+        self = band
+    }
+
+    private static func parseBandStatsDiv(_ div: XMLElement, to builder: Builder) {
+        for dl in div.css("dl") {
+            switch dl["class"] {
+            case "float_left":
+                for (index, dd) in dl.css("dd").enumerated() {
+                    switch index {
+                    case 0:
+                        // Country of origin
+                        if let countryName = dd.at_css("a")?.text {
+                            builder.country = CountryManager.shared.country(by: \.name, value: countryName)
+                        }
+                    case 1:
+                        // Location
+                        builder.location = dd.text
+                    case 2:
+                        // Status
+                        if let statusString = dd.text {
+                            builder.status = BandStatus(rawValue: statusString)
+                        }
+                    case 3:
+                        // Formed in
+                        builder.yearOfCreation = dd.text
+                    default: break
+                    }
+                }
+
+            case "float_right":
+                for (index, dd) in dl.css("dd").enumerated() {
+                    switch index {
+                    case 0:
+                        // Genre
+                        builder.genre = dd.text
+                    case 1:
+                        // Lyrical themes
+                        builder.lyricalTheme = dd.text
+                    case 2:
+                        // Last label
+                        if let a = dd.at_css("a"), let labelName = a.text, let labelUrlString = a["href"],
+                           let thumbnailInfo = ThumbnailInfo(urlString: labelUrlString, type: .label) {
+                            builder.lastLabel = .init(thumbnailInfo: thumbnailInfo, name: labelName)
+                        } else if let labelName = dd.text {
+                            builder.lastLabel = .init(thumbnailInfo: nil, name: labelName)
+                        }
+                    default: break
+                    }
+                }
+
+            case "clear":
+                // Years active
+                if let dd = dl.at_css("dd") {
+                    builder.yearsActive = dd.text?
+                        .replacingOccurrences(of: "\n", with: " ")
+                        .trimmingCharacters(in: .whitespacesAndNewlines)
+                    // Parse old bands
+                    var oldBands = [BandLite]()
+                    for a in dd.css("a") {
+                        if let bandName = a.text, let bandUrlString = a["href"],
+                           let band = BandLite(urlString: bandUrlString, name: bandName) {
+                            oldBands.append(band)
+                        }
+                    }
+                    builder.oldBands = oldBands
+                }
+            default: break
+            }
+        }
+    }
+
+    private static func parseMembersDiv(_ div: XMLElement,
+                                        to builder: Builder,
+                                        ofType memberType: BandMemberType) {
+        var lineUp = [ArtistInBand]()
+        var lastArtistBuilder: ArtistInBand.Builder?
+
+        for tr in div.css("tr") {
+            switch tr["class"] {
+            case "lineupRow":
+                if lastArtistBuilder?.name != nil && lastArtistBuilder?.bands == nil {
+                    lastArtistBuilder?.bands = []
+                    lastArtistBuilder?.seeAlso = nil
+                }
+
+                if let artist = lastArtistBuilder?.build() {
+                    lineUp.append(artist)
+                }
+
+                lastArtistBuilder = ArtistInBand.Builder()
+                for (index, td) in tr.css("td").enumerated() {
+                    switch index {
+                    case 0:
+                        // Get name and url
+                        if let a = td.at_css("a"), let name = a.text, let urlString = a["href"] {
+                            lastArtistBuilder?.name = name
+                            lastArtistBuilder?.thumbnailInfo = ThumbnailInfo(urlString: urlString, type: .artist)
+                        }
+                    case 1:
+                        // Get instruments
+                        lastArtistBuilder?.instruments = td.text?.strippedHtmlString()
+                    default:
+                        break
+                    }
+                }
+
+            case "lineupBandsRow":
+                // Get ex-bands
+                var exBands = [BandLite]()
+                if let td = tr.at_css("td") {
+                    lastArtistBuilder?.seeAlso = td.text?.strippedHtmlString()
+                    for a in td.css("a") {
+                        if let bandName = a.text, let bandUrlString = a["href"],
+                           let band = BandLite(urlString: bandUrlString, name: bandName) {
+                            exBands.append(band)
+                        }
+                    }
+                }
+                lastArtistBuilder?.bands = exBands
+
+                if let artist = lastArtistBuilder?.build() {
+                    lineUp.append(artist)
+                }
+
+                lastArtistBuilder = nil
+
+            default: break
+            }
+        }
+
+        switch memberType {
+        case .current: builder.currentLineUp = lineUp
+        case .past: builder.pastMembers = lineUp
+        case .live: builder.liveMusicians = lineUp
+        }
+    }
+}
+
+extension Band {
+    // swiftlint:disable force_try
+    // swiftlint:disable force_unwrapping
+    static let death = try! Band(data: try! Data.fromHtml(fileName: "Death")!)
 }

@@ -2,103 +2,168 @@
 //  Review.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 22/01/2019.
-//  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
+//  Created by Nhon Nguyen on 06/11/2022.
 //
 
 import Foundation
 import Kanna
 
-final class Review {
-    private(set) var band: BandLite!
-    private(set) var release: ReleaseExtraLite!
-    private(set) var coverPhotoURLString: String?
-    private(set) var title: String!
-    private(set) var rating: Int!
-    private(set) var user: UserLite!
-    private(set) var dateString: String!
-    private(set) var baseVersion: ReleaseExtraLite?
-    private(set) var htmlContentString: String!
-    
-    deinit {
-        print("Review is deallocated")
-    }
-    
-    lazy var baseVersionAttributedString: NSAttributedString? = {
-        guard let baseVersion = baseVersion else { return nil }
-        
-        let baseVersionString = "Written based on this version: \(baseVersion.title)"
-        let mutableAttributedString = NSMutableAttributedString(string: baseVersionString)
-        mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(baseVersionString.startIndex..., in: baseVersionString))
-        
-        if let baseVersionRange = baseVersionString.range(of: baseVersion.title) {
-            mutableAttributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor], range: NSRange(baseVersionRange, in: baseVersionString))
-        }
-        
-        return mutableAttributedString
-    }()
-    
-    init?(data: Data) {
-        guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
-            let doc = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
-                return nil
-        }
-        
-        for div in doc.css("div") {
-            if (div["id"] == "album_content") {
-                if let h1 = div.at_css("h1"), let a = h1.at_css("a") {
-                    if let releaseURLString = a["href"], let releaseTitle = a.text {
-                        self.release = ReleaseExtraLite(urlString: releaseURLString, title: releaseTitle)
-                    }
-                }
-                
-                if let h2 = div.at_css("h2"), let a = h2.at_css("a") {
-                    if let bandURLString = a["href"], let bandName = a.text {
-                        self.band = BandLite(name: bandName, urlString: bandURLString)
-                    }
-                }
-            } else if (div["class"] == "album_img") {
-                if let a = div.at_css("a"), let releaseCoverURLString = a["href"] {
-                    self.coverPhotoURLString = releaseCoverURLString
-                }
-            } else if (div["class"] == "reviewBox") {
-                if let titleAndRatingString = div.at_css("h3")?.text?.removeHTMLTagsAndNoisySpaces() {
-                    let numberStrings = RegexHelpers.listMatches(for: #"\d{1,3}(?<!%)"#, inString: titleAndRatingString)
-                    if let lastNumberString = numberStrings.last, let rating = Int(lastNumberString) {
-                        self.rating = rating
-                        self.title = titleAndRatingString.replacingOccurrences(of: " - \(self.rating!)%", with: "")
-                    }
-                }
-                
-                // The 2nd div of the reviewBox div which contains:
-                // user, date, base version (optional)
-                let secondDiv = div.css("div")[1]
-                
-                // get the a tags
-                let aTags = secondDiv.css("a")
-                
-                // 1st a tag contains user
-                if let userName = aTags[0].text, let userURLString = aTags[0]["href"] {
-                    self.user = UserLite(name: userName, urlString: userURLString)
-                }
-                
-                // 2nd a tag (optional) contains base version
-                if aTags.count == 2 {
-                    if let baseVersionURLString = aTags[1]["href"], let baseVersionTitle = aTags[1].text {
-                        self.baseVersion = ReleaseExtraLite(urlString: baseVersionURLString, title: baseVersionTitle)
-                    }
-                }
-                
-                // get date
-                if let secondDivText = secondDiv.text {
-                    if let firstMatch = RegexHelpers.firstMatch(for: #"(January|February|March|April|May|June|July|August|September|October|November|December)\s\d{1,2}[a-z]{2},\s\d{4}"#, inString: secondDivText) {
-                        self.dateString = firstMatch
-                    }
-                }
+struct Review {
+    let band: BandLite
+    let release: ReleaseLite
+    let coverPhotoUrlString: String?
+    let title: String
+    let rating: Int
+    let user: UserLite
+    let date: String
+    let baseVersion: ReleaseLite?
+    let content: String
+}
 
-            } else if (div["class"] == "reviewContent") {
-                self.htmlContentString = div.innerHTML
+extension Review {
+    final class Builder {
+        var band: BandLite?
+        var release: ReleaseLite?
+        var coverPhotoUrlString: String?
+        var title: String?
+        var rating: Int?
+        var user: UserLite?
+        var date: String?
+        var baseVersion: ReleaseLite?
+        var content: String?
+
+        func build() -> Review? {
+            guard let band else {
+                Logger.log("[Building Review] band can not be nil")
+                return nil
+            }
+
+            guard let release else {
+                Logger.log("[Building Review] release can not be nil")
+                return nil
+            }
+
+            guard let title else {
+                Logger.log("[Building Review] title can not be nil")
+                return nil
+            }
+
+            guard let rating else {
+                Logger.log("[Building Review] rating can not be nil")
+                return nil
+            }
+
+            guard let user else {
+                Logger.log("[Building Review] user can not be nil")
+                return nil
+            }
+
+            guard let date else {
+                Logger.log("[Building Review] date can not be nil")
+                return nil
+            }
+
+            guard let content else {
+                Logger.log("[Building Review] content can not be nil")
+                return nil
+            }
+
+            return .init(band: band,
+                         release: release,
+                         coverPhotoUrlString: coverPhotoUrlString,
+                         title: title,
+                         rating: rating,
+                         user: user,
+                         date: date,
+                         baseVersion: baseVersion,
+                         content: content)
+        }
+    }
+}
+
+extension Review: HTMLParsable {
+    init(data: Data) throws {
+        let html = try Kanna.HTML(html: data, encoding: .utf8)
+        let builder = Builder()
+
+        for div in html.css("div") {
+            switch div["id"] {
+            case "album_content":
+                Self.parseBandAndRelease(from: div, builder: builder)
+            default:
+                break
+            }
+
+            switch div["class"] {
+            case "reviewBox":
+                Self.parseOtherContent(from: div, builder: builder)
+            case "album_img":
+                builder.coverPhotoUrlString = div.at_css("a")?["href"]
+            default:
+                break
             }
         }
+
+        guard let review = builder.build() else {
+            throw MAError.parseFailure("\(Self.self)")
+        }
+        self = review
+    }
+
+    private static func parseBandAndRelease(from div: XMLElement, builder: Builder) {
+        if let h1 = div.at_css("h1"),
+           let aTag = h1.at_css("a"),
+           let releaseTitle = aTag.text,
+           let releaseUrlString = aTag["href"] {
+            builder.release = .init(urlString: releaseUrlString, title: releaseTitle)
+        }
+
+        if let h2 = div.at_css("h2"),
+           let aTag = h2.at_css("a"),
+           let bandName = aTag.text,
+           let bandUrlString = aTag["href"] {
+            builder.band = .init(urlString: bandUrlString, name: bandName)
+        }
+    }
+
+    private static func parseOtherContent(from div: XMLElement, builder: Builder) {
+        if let h3 = div.at_css("h3"),
+           let titleAndRating = h3.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
+            Self.parseTitleAndRating(titleAndRating, builder: builder)
+        }
+
+        for div in div.css("div") {
+            switch div["class"] {
+            case "reviewContent":
+                builder.content = div.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+            case .none:
+                builder.date = div.innerHTML?.subString(after: ", ", before: "<br>")?
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                let aTags = div.css("a")
+                for (index, aTag) in aTags.enumerated() {
+                    if let urlString = aTag["href"],
+                       let text = aTag.text {
+                        if index == 0 {
+                            builder.user = .init(name: text, urlString: urlString)
+                        } else {
+                            builder.baseVersion = .init(urlString: urlString, title: text)
+                        }
+                    }
+                }
+            default:
+                break
+            }
+        }
+    }
+
+    private static func parseTitleAndRating(_ titleAndRating: String, builder: Builder) {
+        guard let hyphenIndex = titleAndRating.lastIndex(of: "-") else { return }
+        let title = titleAndRating[titleAndRating.startIndex..<hyphenIndex].trimmingCharacters(in: .whitespaces)
+        let rating = titleAndRating[hyphenIndex..<titleAndRating.endIndex]
+            .replacingOccurrences(of: "-", with: "")
+            .trimmingCharacters(in: .whitespaces)
+            .replacingOccurrences(of: "%", with: "")
+        builder.title = title
+        builder.rating = Int(rating)
     }
 }

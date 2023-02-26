@@ -2,17 +2,37 @@
 //  LabelLite.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 25/02/2019.
-//  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
+//  Created by Thanh-Nhon Nguyen on 22/05/2021.
 //
 
-import Foundation
+import Kanna
 
-final class LabelLite: ThumbnailableObject {
+struct LabelLite: OptionalThumbnailable {
+    let thumbnailInfo: ThumbnailInfo?
     let name: String
-    
-    init?(urlString: String, name: String) {
+}
+
+extension LabelLite {
+    init?(aTag: XMLElement) {
+        guard let urlString = aTag["href"], let name = aTag.text else { return nil }
+        self.thumbnailInfo = .init(urlString: urlString, type: .label)
         self.name = name
-        super.init(urlString: urlString, imageType: .label)
+    }
+}
+
+extension LabelLite: Equatable {
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        if let lhsThumbnailInfo = lhs.thumbnailInfo,
+           let rhsThumbnailInfo = rhs.thumbnailInfo {
+            return lhsThumbnailInfo.urlString == rhsThumbnailInfo.urlString
+        }
+        return lhs.name == rhs.name
+    }
+}
+
+extension LabelLite: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(thumbnailInfo?.urlString ?? "")
     }
 }

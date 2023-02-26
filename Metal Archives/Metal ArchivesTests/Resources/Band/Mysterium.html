@@ -1,0 +1,560 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Mysterium - Encyclopaedia Metallum: The Metal Archives</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <link rel="stylesheet" type="text/css" href="/min/index.php?g=css" />
+        <script type="5a167612d7cdb0ac0edbfcda-text/javascript" src="/min/index.php?g=js"></script>
+        <script type="5a167612d7cdb0ac0edbfcda-text/javascript">
+            var URL_SITE    = 'https://www.metal-archives.com/';
+            var URL_IMAGES    = 'https://www.metal-archives.com/images/';
+            var URL_CSS        = 'https://www.metal-archives.com/css/';
+            var csrfToken    = '';
+
+            $(document).ready(function() {
+                toggleFixedPositioning(1280, 600);
+                executeOnAllPages();
+
+            });
+
+
+        </script>
+        <noscript>
+            <style type="text/css">
+                .no-js { display: block !important; }
+            </style>
+        </noscript>
+        <!--[if lt IE 8]>
+        <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://www.metal-archives.com/css/default/oldie.css" />
+        <![endif]-->
+        <script type="5a167612d7cdb0ac0edbfcda-text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4046749-4']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="header">
+                <a href="https://www.metal-archives.com/" id="MA_logo">Metal Archives</a>
+                <div class="clear loading"><img src="https://www.metal-archives.com/images/loading.gif" alt="loading" width="12" height="12" /> loading...</div>
+                <div id="search_box">
+                    <form id="search_form" action="https://www.metal-archives.com/search" method="get">
+                        <div>
+                            <label>Search:</label><br />
+                            <input name="searchString" type="text" id="searchQueryBox" size="25" value="" tabindex="1" />
+                            <select name="type" tabindex="2">
+                                <option value="band_name">Band name</option>
+                                <option value="band_genre">Music genre</option>
+                                <option value="band_themes">Lyrical themes</option>
+                                <option value="album_title">Album title</option>
+                                <option value="song_title">Song title</option>
+                                <option value="label_name">Label</option>
+                                <option value="artist_alias">Artist</option>
+                                <option value="user_name">User profile</option>
+                                <option value="google">Google</option>
+                            </select>
+                            <br />
+                            <a href="https://www.metal-archives.com/search/advanced/?searchString=&type=" class="float_left" tabindex="4">Advanced search</a>
+                            <button type="submit" class="btn_submit float_right" tabindex="3">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="top_menu_box">
+                    <ul class="menu_style_1">
+                        <li><a href="https://www.metal-archives.com/content/help">Help</a></li>
+                        <li><a href="https://www.metal-archives.com/content/rules">Rules</a></li>
+                        <li><a href="https://forum.metal-archives.com" target="_top">Forum</a></li>
+                    </ul>
+                    <ul class="menu_style_2">
+                        <li><a href="https://www.metal-archives.com/content/faq">FAQ</a></li>
+                        <li><a href="https://www.metal-archives.com/content/support">Support Us</a></li>
+                        <li><a href="https://www.metal-archives.com/content/tools">Add-ons</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="left_col">
+                <div id="member_box">
+                    <form name="login_form" id="login_form" action="https://www.metal-archives.com/authentication/login" method="post">
+                        <div>
+                            <label>Username</label><br />
+                            <input type="text" name="loginUsername" />
+                            <label>Password</label><br />
+                            <input type="password" name="loginPassword" />
+                            <input type="hidden" name="origin" value="/band/view/id/72882" />
+                            <button type="submit" class="btn_login float_right">Login</button>
+                        </div>
+                    </form>
+                    <a href="https://www.metal-archives.com/user/signup" class="float-left writeAction">Register</a>
+                    <span class="float_right"><a href="https://www.metal-archives.com/user/forgot-password" class="float-left writeAction">Forgot login?</a> </span>
+                    <div class="clear"> </div>
+                </div>
+                <div id="left_menu_box">
+                    <ul class="menu_style_3 block_spacer_20">
+                        <li>
+                            Bands
+                            <ul>
+                                <li><a href="https://www.metal-archives.com/browse/letter">alphabetical</a></li>
+                                <li><a href="https://www.metal-archives.com/browse/country">country</a></li>
+                                <li><a href="https://www.metal-archives.com/browse/genre">genre</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            Labels
+                            <ul>
+                                <li><a href="https://www.metal-archives.com/label">alphabetical</a></li>
+                                <li><a href="https://www.metal-archives.com/label/country">country</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="https://www.metal-archives.com/review/browse">Reviews</a></li>
+                    </ul>
+                    <ul class="menu_style_3 block_spacer_20">
+                        <li><a href="https://www.metal-archives.com/artist/rip">R.I.P.</a></li>
+                        <li><a href="https://www.metal-archives.com/band/random">Random Band</a></li>
+                        <li><a href="https://www.metal-archives.com/user/list">User rankings</a></li>
+                        <li><a href="https://www.metal-archives.com/news">News archive</a></li>
+                    </ul>
+                    <ul class="menu_style_3 ornement_30">
+                        <li><a href="https://www.metal-archives.com/report/list">Reports</a></li>
+                        <li><a href="https://www.metal-archives.com/todo">Contribute / To do</a></li>
+                    </ul>
+                </div>
+                <div id="left_text_box">
+                    <p class="small_text center"> &copy; 2002-2021<br />Encyclopaedia Metallum </p>
+                    <p class="small_text center">Best viewed<br /> <a href="http://www.getfirefox.com" target="_blank">without</a> Internet Explorer, <br />in 1280 x 960 resolution<br /> or higher.</p>
+                </div>
+                <div>
+                    <p class="small_text center"><a href="https://www.metal-archives.com/content/pp">Privacy Policy</a></p>
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <script type="5a167612d7cdb0ac0edbfcda-text/javascript" src="https://www.metal-archives.com/js/jquery/jquery.form.js"></script>
+                <script type="5a167612d7cdb0ac0edbfcda-text/javascript">
+                    var bandId = 72882;
+                    var bandName = "Mysterium";
+                    var minRecScore = 3;
+
+
+
+                    $(document).ready(function() {
+                        $('.tabs, .tabs2lvl').tabs({ beforeLoad: cacheTab });
+                        $(".no-js").removeClass("no-js");
+                        $('#band_members').tabs( { active : 1 } );        $(document).on('click', '.albumMenu', toggleAlbumMenu);
+                        var browser = detectBrowser();
+                        if(browser.name == "webkit" && parseFloat(browser.version) < 536) {
+                            $('head').append( $('<style type="text/css">.releaseCol { width: 26%; }</style>'));
+                        }
+                    });
+
+                </script>
+                <div id="band_sidebar">
+                    <div class="band_name_img">
+                        <a class="image" id="logo" title="Mysterium" href="https://www.metal-archives.com/images/7/2/8/8/72882_logo.jpg"><img src="https://www.metal-archives.com/images/7/2/8/8/72882_logo.jpg" title="Click to zoom" alt="Mysterium - Logo" border="0" /></a>
+                    </div>
+                    <div class="band_img">
+                        <a class="image" id="photo" title="Mysterium" href="https://www.metal-archives.com/images/7/2/8/8/72882_photo.jpg"><img src="https://www.metal-archives.com/images/7/2/8/8/72882_photo.jpg" title="Click to zoom" alt="Mysterium - Photo" border="0" /></a>
+                    </div>
+                    <div id="affiliation-links">
+                        <span class="title">Buy their stuff</span>
+                        <br />
+                        <ul id="buyLinks" class="menu_style_5">
+                            <li>
+                                <a target="_blank" href="https://www.metal-archives.com/affiliate/?pid=3&bid=72882">Search on eBay</a>
+                                more... <a href="#more" onclick="if (!window.__cfRLUnblockHandlers) return false; $('#sub3').toggle(); return false;" data-cf-modified-5a167612d7cdb0ac0edbfcda-="">>></a><br />
+                                <ul id="sub3" style="display: none; margin-top: 0px; margin-bottom: 0px;">
+                                    <li><a target="_blank" href="https://www.metal-archives.com/affiliate/?pid=17&bid=72882">eBay Canada</a></li>
+                                    <li><a target="_blank" href="https://www.metal-archives.com/affiliate/?pid=19&bid=72882">eBay UK</a></li>
+                                    <li><a target="_blank" href="https://www.metal-archives.com/affiliate/?pid=57&bid=72882">eBay Germany</a></li>
+                                    <li><a target="_blank" href="https://www.metal-archives.com/affiliate/?pid=18&bid=72882">eBay France</a></li>
+                                    <li><a target="_blank" href="https://www.metal-archives.com/affiliate/?pid=36&bid=72882">eBay Spain</a></li>
+                                    <li><a target="_blank" href="https://www.metal-archives.com/affiliate/?pid=34&bid=72882">eBay Belgium</a></li>
+                                    <li><a target="_blank" href="https://www.metal-archives.com/affiliate/?pid=20&bid=72882">eBay Netherlands</a></li>
+                                    <li><a target="_blank" href="https://www.metal-archives.com/affiliate/?pid=21&bid=72882">eBay Italy</a></li>
+                                    <li><a target="_blank" href="https://www.metal-archives.com/affiliate/?pid=22&bid=72882">eBay Australia</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="band_content">
+                    <div class="tool_strip right writeAction">
+                        <ul>
+                            <li><a title="Report a mistake or additional information for this page" href="javascript:popupReportDialog(1, 72882);" class="btn_report_error"> </a></li>
+                        </ul>
+                    </div>
+                    <div id="band_info">
+                        <h1 class="band_name"><a href="https://www.metal-archives.com/bands/Mysterium/72882">Mysterium</a></h1>
+                        <div class="clear block_spacer_5"></div>
+                        <div id="band_stats">
+                            <dl class="float_left">
+                                <dt>Country of origin:</dt>
+                                <dd><a href="https://www.metal-archives.com/lists/PT">Portugal</a></dd>
+                                <dt>Location:</dt>
+                                <dd>Oporto</dd>
+                                <dt>Status:</dt>
+                                <dd class="split_up">Split-up</dd>
+                                <dt>Formed in:</dt>
+                                <dd>1996</dd>
+                            </dl>
+                            <dl class="float_right">
+                                <dt>Genre:</dt>
+                                <dd>Gothic/Doom/Heavy Metal</dd>
+                                <dt>Lyrical themes:</dt>
+                                <dd>N/A</dd>
+                                <dt>Last label:</dt>
+                                <dd>Unsigned/independent</dd>
+                            </dl>
+                            <dl style="width: 100%;" class="clear">
+                                <dt>Years active:</dt>
+                                <dd>
+                                    1996-2003,
+                                    2003-? (as <strong>Tremble</strong>) </dd>
+                            </dl>
+                        </div>
+                        <div class="band_comment clear">
+
+                            In 2003 due to line-up changes, changed name to Tremble and split after.
+                        </div>
+                    </div>
+
+                    <div id="message"> </div>
+                    <div class="clear block_spacer_5"> </div>
+                    <div id="band_tabs" class="tabs no-js">
+                        <ul>
+                            <li><a href="#band_tab_discography">Discography</a></li>
+                            <li><a href="#band_tab_members">Members</a></li>
+                            <li><a href="https://www.metal-archives.com/band/ajax-recommendations/id/72882" title="Similar artists"><span>Similar Artists</span></a></li>
+                            <li><a href="https://www.metal-archives.com/link/ajax-list/type/band/id/72882" title="Related links"><span>Related Links</span></a></li>
+                        </ul>
+                        <div id="band_tab_discography">
+                            <div id="band_disco" class="tabs2lvl">
+                                <ul>
+                                    <li><a href="https://www.metal-archives.com/band/discography/id/72882/tab/all"><span>Complete discography</span></a></li>
+                                    <li><a href="https://www.metal-archives.com/band/discography/id/72882/tab/main"><span>Main</span></a></li>
+                                    <li><a href="https://www.metal-archives.com/band/discography/id/72882/tab/lives"><span>Lives</span></a></li>
+                                    <li><a href="https://www.metal-archives.com/band/discography/id/72882/tab/demos"><span>Demos</span></a></li>
+                                    <li><a href="https://www.metal-archives.com/band/discography/id/72882/tab/misc"><span>Misc.</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="band_tab_members">
+                            <div id="band_members" class="tabs2lvl">
+                                <ul>
+                                    <li><a href="#band_tab_members_all">Complete lineup</a></li> <li><a href="#band_tab_members_current">Last known lineup</a></li>
+                                    <li><a href="#band_tab_members_past">Past members</a></li> </ul>
+
+                                <div id="band_tab_members_all">
+                                    <div class="ui-tabs-panel-content">
+                                        <table class="display lineupTable" cellpadding="0" cellspacing="0">
+                                            <tr class="lineupHeaders">
+                                                <td colspan="2" align="right">
+                                                    Last known </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Piranha/201685" class="bold">Piranha</a>
+                                                </td>
+                                                <td>
+                                                    Bass </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    ex-<a href="https://www.metal-archives.com/bands/Eternal_Tears/3540391728">Eternal Tears</a>, ex-<a href="https://www.metal-archives.com/bands/Equaleft/3540266907">Equaleft</a> </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Bino/201701" class="bold">Bino</a>
+                                                </td>
+                                                <td>
+                                                    Guitars </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/David_Reis/201702" class="bold">David Reis</a>
+                                                </td>
+                                                <td>
+                                                    Guitars </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    <a href="https://www.metal-archives.com/bands/Grindead/3540451909">Grindead</a> </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Ingl%C3%AAs/155962" class="bold">Ingl&ecirc;s</a>
+                                                </td>
+                                                <td>
+                                                    Vocals </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    <a href="https://www.metal-archives.com/bands/Axia/3540437938">Axia</a>, <a href="https://www.metal-archives.com/bands/Equaleft/3540266907">Equaleft</a>, <a href="https://www.metal-archives.com/bands/Heavenwood/4520">Heavenwood</a> (live), ex-<a href="https://www.metal-archives.com/bands/Eternal_Tears/3540391728">Eternal Tears</a>, ex-Tribe </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Z%C3%A9_Ferreira/201705" class="bold">Laranjas</a>
+                                                </td>
+                                                <td>
+                                                    Keyboards&nbsp;(1996-?) </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    ex-<a href="https://www.metal-archives.com/bands/Eternal_Tears/3540391728">Eternal Tears</a>, ex-<a href="https://www.metal-archives.com/bands/The_Whisper/75948">The Whisper</a> </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Daniela_Carneiro/201700" class="bold">Daniela Carneiro</a>
+                                                </td>
+                                                <td>
+                                                    Vocals&nbsp;(1996-?) </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    ex-<a href="https://www.metal-archives.com/bands/Eternal_Tears/3540391728">Eternal Tears</a> </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Filipe_Portules/523527" class="bold">Filipe Portules</a>
+                                                </td>
+                                                <td>
+                                                    Drums&nbsp;(1997-?) </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    ex-<a href="https://www.metal-archives.com/bands/Eternal_Tears/3540391728">Eternal Tears</a>, ex-<a href="https://www.metal-archives.com/bands/The_Whisper/75948">The Whisper</a> </td>
+                                            </tr>
+                                            <tr class="lineupHeaders">
+                                                <td colspan="2" align="right">
+                                                    Past </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Pedro/201690" class="bold">Pedro</a>
+                                                </td>
+                                                <td>
+                                                    Unknown </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    ex-<a href="https://www.metal-archives.com/bands/Equaleft/3540266907">Equaleft</a> </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Andre/201703" class="bold">Andre</a>
+                                                </td>
+                                                <td>
+                                                    Drums&nbsp;(1996-1997) </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Albino/523525" class="bold">Albino</a>
+                                                </td>
+                                                <td>
+                                                    Guitars&nbsp;(1996) </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Gon%C3%A7alo/523526" class="bold">Gon&ccedil;alo</a>
+                                                </td>
+                                                <td>
+                                                    Guitars&nbsp;(1996-1997) </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Jose_Miguel/523528" class="bold">Jose Miguel</a>
+                                                </td>
+                                                <td>
+                                                    Guitars&nbsp;(1997-?) </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    ex-<a href="https://www.metal-archives.com/bands/Eternal_Tears/3540391728">Eternal Tears</a>, ex-Tribe </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div id="band_tab_members_current">
+                                    <div class="ui-tabs-panel-content">
+                                        <table class="display lineupTable" cellpadding="0" cellspacing="0">
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Piranha/201685" class="bold">Piranha</a>
+                                                </td>
+                                                <td>
+                                                    Bass </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    ex-<a href="https://www.metal-archives.com/bands/Eternal_Tears/3540391728">Eternal Tears</a>, ex-<a href="https://www.metal-archives.com/bands/Equaleft/3540266907">Equaleft</a> </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Bino/201701" class="bold">Bino</a>
+                                                </td>
+                                                <td>
+                                                    Guitars </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/David_Reis/201702" class="bold">David Reis</a>
+                                                </td>
+                                                <td>
+                                                    Guitars </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    <a href="https://www.metal-archives.com/bands/Grindead/3540451909">Grindead</a> </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Ingl%C3%AAs/155962" class="bold">Ingl&ecirc;s</a>
+                                                </td>
+                                                <td>
+                                                    Vocals </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    <a href="https://www.metal-archives.com/bands/Axia/3540437938">Axia</a>, <a href="https://www.metal-archives.com/bands/Equaleft/3540266907">Equaleft</a>, <a href="https://www.metal-archives.com/bands/Heavenwood/4520">Heavenwood</a> (live), ex-<a href="https://www.metal-archives.com/bands/Eternal_Tears/3540391728">Eternal Tears</a>, ex-Tribe </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Z%C3%A9_Ferreira/201705" class="bold">Laranjas</a>
+                                                </td>
+                                                <td>
+                                                    Keyboards&nbsp;(1996-?) </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    ex-<a href="https://www.metal-archives.com/bands/Eternal_Tears/3540391728">Eternal Tears</a>, ex-<a href="https://www.metal-archives.com/bands/The_Whisper/75948">The Whisper</a> </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Daniela_Carneiro/201700" class="bold">Daniela Carneiro</a>
+                                                </td>
+                                                <td>
+                                                    Vocals&nbsp;(1996-?) </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    ex-<a href="https://www.metal-archives.com/bands/Eternal_Tears/3540391728">Eternal Tears</a> </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Filipe_Portules/523527" class="bold">Filipe Portules</a>
+                                                </td>
+                                                <td>
+                                                    Drums&nbsp;(1997-?) </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    ex-<a href="https://www.metal-archives.com/bands/Eternal_Tears/3540391728">Eternal Tears</a>, ex-<a href="https://www.metal-archives.com/bands/The_Whisper/75948">The Whisper</a> </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div id="band_tab_members_past">
+                                    <div class="ui-tabs-panel-content">
+                                        <table class="display lineupTable" cellpadding="0" cellspacing="0">
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Pedro/201690" class="bold">Pedro</a>
+                                                </td>
+                                                <td>
+                                                    Unknown </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    ex-<a href="https://www.metal-archives.com/bands/Equaleft/3540266907">Equaleft</a> </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Andre/201703" class="bold">Andre</a>
+                                                </td>
+                                                <td>
+                                                    Drums&nbsp;(1996-1997) </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Albino/523525" class="bold">Albino</a>
+                                                </td>
+                                                <td>
+                                                    Guitars&nbsp;(1996) </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Gon%C3%A7alo/523526" class="bold">Gon&ccedil;alo</a>
+                                                </td>
+                                                <td>
+                                                    Guitars&nbsp;(1996-1997) </td>
+                                            </tr>
+                                            <tr class="lineupRow">
+                                                <td width="200" valign="top">
+                                                    <a href="https://www.metal-archives.com/artists/Jose_Miguel/523528" class="bold">Jose Miguel</a>
+                                                </td>
+                                                <td>
+                                                    Guitars&nbsp;(1997-?) </td>
+                                            </tr>
+                                            <tr class="lineupBandsRow">
+                                                <td colspan="2">
+                                                    See also:
+                                                    ex-<a href="https://www.metal-archives.com/bands/Eternal_Tears/3540391728">Eternal Tears</a>, ex-Tribe </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="auditTrail">
+                        <table>
+                            <tr>
+                                <td>Added by: <a href="https://www.metal-archives.com/users/ralfman" class="profileMenu">ralfman</a></td>
+                                <td align="right">Modified by: <a href="https://www.metal-archives.com/users/Gelordum" class="profileMenu">Gelordum</a></td>
+                            </tr>
+                            <tr>
+                                <td>Added on: 2006-07-26 04:26:57</td>
+                                <td align="right">Last modified on: 2020-05-06 16:38:20</td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    &nbsp;
+                                </td>
+                                <td align="right" valign="top">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="readMoreDialog" title="Additional notes" class="displayNone"> </div>
+            </div>
+        </div>
+        <script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="5a167612d7cdb0ac0edbfcda-|49" defer=""></script></body>
+</html>
+
+

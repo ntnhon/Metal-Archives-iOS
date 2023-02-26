@@ -2,108 +2,164 @@
 //  ReviewLite.swift
 //  Metal Archives
 //
-//  Created by Thanh-Nhon Nguyen on 03/02/2019.
-//  Copyright © 2019 Thanh-Nhon Nguyen. All rights reserved.
+//  Created by Thanh-Nhon Nguyen on 25/05/2021.
 //
 
-import UIKit
+import Kanna
 
-final class ReviewLite: Pagable {
+struct ReviewLite {
     let urlString: String
-    let releaseTitle: String
+    let title: String
     let rating: Int
-    let dateString: String
-    let user: UserLite
-    
-    lazy var ratingAndUsernameAttributedString: NSAttributedString? = {
-        guard let release = release else {
-            return nil
-        }
-        
-        let detailString = "\(rating)% • \(release.type.description) • \(user.name)"
-        let attributedString = NSMutableAttributedString(string: detailString)
-        attributedString.addAttributes([.foregroundColor: Settings.currentTheme.bodyTextColor, .font: Settings.currentFontSize.bodyTextFont], range: NSRange(detailString.startIndex..., in: detailString))
-        
-        if let rangeOfUserName = detailString.range(of: "\(user.name)") {
-            attributedString.addAttributes([.foregroundColor: Settings.currentTheme.secondaryTitleColor], range: NSRange(rangeOfUserName, in: detailString))
-        }
-        
-        if let rangeOfType = detailString.range(of: "\(release.type.description)") {
-            let font: UIFont
-            switch release.type {
-            case .fullLength: font = Settings.currentFontSize.heavyBodyTextFont
-            case .demo: font = Settings.currentFontSize.italicBodyTextFont
-            case .single: font = Settings.currentFontSize.tertiaryFont
-            default: font = Settings.currentFontSize.bodyTextFont
-            }
-            
-            attributedString.addAttribute(.font, value: font, range: NSRange(rangeOfType, in: detailString))
-        }
-        
-        if let rangeOfRating = detailString.range(of: "\(rating)%") {
-            attributedString.addAttributes([.foregroundColor: UIColor.colorByRating(rating)], range: NSRange(rangeOfRating, in: detailString))
-        }
-        
-        return attributedString
-    }()
-    
-    //Iterate releases in bands in order to find a corresponding ReleaseLite
-    // => set thumbnail to review cell
-    private(set) var release: ReleaseLite?
+    let author: UserLite
+    let date: String
+}
 
-    func associateToRelease(_ release: ReleaseLite) {
-        self.release = release
-    }
-    
-    static var rawRequestURLString = "https://www.metal-archives.com/review/ajax-list-band/id/<BAND_ID>/json/1?sEcho=1&iColumns=4&sColumns=&iDisplayStart=<DISPLAY_START>&iDisplayLength=<DISPLAY_LENGTH>&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=3&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true"
-    
-    static var displayLength = 200
-    
-    /*
-     Sample array:
-     "<a href='https://www.metal-archives.com/reviews/Death/Human/606/mordor_machine/565946'>Human</a>",
-     "100%",
-     "<a href="https://www.metal-archives.com/users/mordor_machine" class="profileMenu">mordor_machine</a>",
-     "May 22nd, 2019"
-     */
-    
-    init?(from array: [String]) {
-        guard array.count == 4 else { return nil }
-        
-        guard let releaseTitleSubstring = array[0].subString(after: #"'>"#, before: "</a>", options: .caseInsensitive),
-            let urlSubstring = array[0].subString(after: #"href='"#, before: #"'>"#, options: .caseInsensitive) else { return nil }
-        
-        let ratingString = array[1].replacingOccurrences(of: "%", with: "")
-        let user = UserLite(from: array[2])
-        let dateString = array[3]
-        
-        if let rating = Int(ratingString), let user = user {
-            self.urlString = String(urlSubstring)
-            self.releaseTitle = String(releaseTitleSubstring)
-            self.rating = rating
-            self.dateString = dateString
-            self.user = user
-        } else {
-            return nil
+extension ReviewLite {
+    final class Builder {
+        var urlString: String?
+        var title: String?
+        var rating: Int?
+        var author: UserLite?
+        var date: String?
+
+        func build() -> ReviewLite? {
+            guard let urlString else {
+                Logger.log("[Building ReviewLite] urlString can not be nil.")
+                return nil
+            }
+
+            guard let title else {
+                Logger.log("[Building ReviewLite] title can not be nil.")
+                return nil
+            }
+
+            guard let rating else {
+                Logger.log("[Building ReviewLite] rating can not be nil.")
+                return nil
+            }
+
+            guard let author else {
+                Logger.log("[Building ReviewLite] author can not be nil.")
+                return nil
+            }
+
+            guard let date else {
+                Logger.log("[Building ReviewLite] date can not be nil.")
+                return nil
+            }
+
+            return ReviewLite(urlString: urlString,
+                              title: title,
+                              rating: rating,
+                              author: author,
+                              date: date)
         }
     }
 }
 
-// MARK: - Actionable
-extension ReviewLite: Actionable {
-    var actionableElements: [ActionableElement] {
-        var elements = [ActionableElement]()
-        if let release = release {
-            let releaseElement = ActionableElement.release(name: release.title, urlString: release.urlString)
-            elements.append(releaseElement)
+extension ReviewLite: PageElement {
+    // swiftlint:disable line_length
+    /*
+     "<a href='https://www.metal-archives.com/reviews/Death/Non%3AAnalog_-_On%3AStage_Series_-_Montreal_06.22.1995/837129/aidane154/377951'>Non:Analog - On:Stage Series - Montreal 06.22.1995</a>",
+
+     "96%",
+     "<a href=\"https://www.metal-archives.com/users/aidane154\" class=\"profileMenu\">aidane154</a>",
+     "September 26th, 2022"
+     */
+    // swiftlint:enable line_length
+
+    init(from strings: [String]) throws {
+        guard strings.count == 4 else {
+            throw PageElementError.badCount(count: strings.count, expectedCount: 4)
         }
 
-        let reviewElement = ActionableElement.review(name: "By \(user.name) - \(rating)%", urlString: urlString)
-        elements.append(reviewElement)
-        
-        let userElement = ActionableElement.user(name: user.name, urlString: user.urlString)
-        elements.append(userElement)
-        
-        return elements
+        guard let stringAndTitleATag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
+              let title = stringAndTitleATag.text,
+              let urlString = stringAndTitleATag["href"] else {
+            throw PageElementError.failedToParse("title & urlString")
+        }
+        self.urlString = urlString
+        self.title = title
+        self.rating = Int(strings[1].replacingOccurrences(of: "%", with: "")) ?? -1
+
+        guard let authorATag = try Kanna.HTML(html: strings[2], encoding: .utf8).at_css("a"),
+              let authorName = authorATag.text,
+              let authorUrlString = authorATag["href"] else {
+            throw PageElementError.failedToParse("\(UserLite.self)")
+        }
+        self.author = .init(name: authorName, urlString: authorUrlString)
+        self.date = strings[3]
+    }
+}
+
+final class ReviewLitePageManager: PageManager<ReviewLite> {
+    init(bandId: String, apiService: APIServiceProtocol, sortOptions: SortOption) {
+        // swiftlint:disable:next line_length
+        let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/review/ajax-list-band/id/\(bandId)/json/1?sEcho=1&iColumns=4&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=\(kSortColumnPlaceholder)&sSortDir_0=\(kSortDirectionPlaceholder)&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true")
+        super.init(configs: configs, apiService: apiService, options: sortOptions.options)
+    }
+}
+
+extension ReviewLitePageManager {
+    enum SortOption: Equatable {
+        case album(Order)
+        case rating(Order)
+        case author(Order)
+        case date(Order)
+
+        var title: String {
+            switch self {
+            case .album(.ascending): return "Album ↑"
+            case .album(.descending): return "Album ↓"
+            case .rating(.ascending): return "Rating ↑"
+            case .rating(.descending): return "Rating ↓"
+            case .author(.ascending): return "Author ↑"
+            case .author(.descending): return "Author ↓"
+            case .date(.ascending): return "Date ↑"
+            case .date(.descending): return "Date ↓"
+            }
+        }
+
+        var column: Int {
+            switch self {
+            case .album: return 0
+            case .rating: return 1
+            case .author: return 2
+            case .date: return 3
+            }
+        }
+
+        var order: Order {
+            switch self {
+            case .album(.ascending),
+                    .rating(.ascending),
+                    .author(.ascending),
+                    .date(.ascending):
+                return .ascending
+            default:
+                return .descending
+            }
+        }
+
+        var options: [String: String] {
+            [kSortColumnPlaceholder: "\(column)", kSortDirectionPlaceholder: order.queryValue]
+        }
+
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            switch (lhs, rhs) {
+            case (.album(.ascending), .album(.ascending)),
+                (.album(.descending), .album(.descending)),
+                (.rating(.ascending), .rating(.ascending)),
+                (.rating(.descending), .rating(.descending)),
+                (.author(.ascending), .author(.ascending)),
+                (.author(.descending), .author(.descending)),
+                (.date(.ascending), .date(.ascending)),
+                (.date(.descending), .date(.descending)):
+                return true
+            default:
+                return false
+            }
+        }
     }
 }
