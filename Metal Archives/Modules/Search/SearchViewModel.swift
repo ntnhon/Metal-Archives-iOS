@@ -16,7 +16,7 @@ final class SearchViewModel: ObservableObject {
     let datasource: SearchEntryDatasource
 
     init() {
-        self.datasource = .init(container: .Builder.build(name: kContainerName))
+        datasource = .init(container: .Builder.build(name: kContainerName))
     }
 
     func fetchEntries() async {

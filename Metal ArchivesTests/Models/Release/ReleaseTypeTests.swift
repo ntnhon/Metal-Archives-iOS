@@ -8,7 +8,7 @@
 @testable import Metal_Archives
 import XCTest
 
-class ReleaseTypeTests: XCTestCase {
+final class ReleaseTypeTests: XCTestCase {
     func testTypeFullLength() throws {
         try ["full-length", "Full-Length", "full-Length"].forEach {
             let sut = try XCTUnwrap(ReleaseType(typeString: $0))

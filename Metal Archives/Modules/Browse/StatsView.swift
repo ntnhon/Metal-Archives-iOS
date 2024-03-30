@@ -23,10 +23,10 @@ struct StatsView: View {
                 HornCircularLoader()
                     .navigationBarTitleDisplayMode(.inline)
 
-            case .fetched(let stats):
+            case let .fetched(stats):
                 StatsContentView(stats: stats)
 
-            case .error(let error):
+            case let .error(error):
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
@@ -60,12 +60,12 @@ private struct StatsContentView: View {
             .init(title: "On hold", value: stats.bandStats.onHold, color: .yellow),
             .init(title: "Split up", value: stats.bandStats.splitUp, color: .red),
             .init(title: "Changed name", value: stats.bandStats.changedName, color: .blue),
-            .init(title: "Unknown", value: stats.bandStats.unknown, color: .orange)
+            .init(title: "Unknown", value: stats.bandStats.unknown, color: .orange),
         ]
 
         reviewStatsValues = [
             .init(title: "Total", value: stats.reviewStats.total, color: .primary),
-            .init(title: "Unique albums", value: stats.reviewStats.uniqueAlbums, color: .blue)
+            .init(title: "Unique albums", value: stats.reviewStats.uniqueAlbums, color: .blue),
         ]
 
         labelStatsValues = [
@@ -73,14 +73,14 @@ private struct StatsContentView: View {
             .init(title: "Active", value: stats.labelStats.active, color: .green),
             .init(title: "Closed", value: stats.labelStats.closed, color: .red),
             .init(title: "Changed name", value: stats.labelStats.changedName, color: .blue),
-            .init(title: "Unknown", value: stats.labelStats.unknown, color: .orange)
+            .init(title: "Unknown", value: stats.labelStats.unknown, color: .orange),
         ]
 
         artistStatusStatsValues = [
             .init(title: "Total", value: stats.artistStats.total, color: .primary),
             .init(title: "Still playing", value: stats.artistStats.stillPlaying, color: .green),
             .init(title: "Quit playing", value: stats.artistStats.quitPlaying, color: .red),
-            .init(title: "Deceased", value: stats.artistStats.deceased, color: .purple)
+            .init(title: "Deceased", value: stats.artistStats.deceased, color: .purple),
         ]
 
         artistGenderStatsValues = [
@@ -89,18 +89,18 @@ private struct StatsContentView: View {
             .init(title: "Male", value: stats.artistStats.male, color: .blue),
             .init(title: "Non-binary", value: stats.artistStats.nonBinary, color: .gray),
             .init(title: "Non-gendered", value: stats.artistStats.nonGendered, color: .yellow),
-            .init(title: "Unknown", value: stats.artistStats.unknown, color: .orange)
+            .init(title: "Unknown", value: stats.artistStats.unknown, color: .orange),
         ]
 
         memberStatsValues = [
             .init(title: "Total", value: stats.memberStats.total, color: .primary),
             .init(title: "Active", value: stats.memberStats.active, color: .green),
-            .init(title: "Inactive", value: stats.memberStats.inactive, color: .red)
+            .init(title: "Inactive", value: stats.memberStats.inactive, color: .red),
         ]
 
         releaseStatsValues = [
             .init(title: "Albums", value: stats.releaseStats.albums, color: .blue),
-            .init(title: "Songs", value: stats.releaseStats.songs, color: .green)
+            .init(title: "Songs", value: stats.releaseStats.songs, color: .green),
         ]
     }
 

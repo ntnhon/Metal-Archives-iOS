@@ -12,10 +12,14 @@ enum HomeSection: Int, CustomStringConvertible, Codable {
 
     var description: String {
         switch self {
-        case .upcomingAlbums: return "Upcoming Albums"
-        case .latestAdditions: return "Latest Additions"
-        case .latestUpdates: return "Latest Updates"
-        case .latestReviews: return "Latest Reviews"
+        case .upcomingAlbums:
+            "Upcoming Albums"
+        case .latestAdditions:
+            "Latest Additions"
+        case .latestUpdates:
+            "Latest Updates"
+        case .latestReviews:
+            "Latest Reviews"
         }
     }
 }

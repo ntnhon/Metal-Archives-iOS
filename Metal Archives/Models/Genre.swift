@@ -27,22 +27,38 @@ enum Genre: String, CaseIterable {
 
     var parameterString: String {
         switch self {
-        case .black: return "black"
-        case .death: return "death"
-        case .doomStonerSludge: return "doom"
-        case .electronicIndustrial: return "electronic"
-        case .experimentalAvantGarde: return "avantgarde"
-        case .folkVikingPagan: return "folk"
-        case .gothic: return "gothic"
-        case .grindcore: return "grind"
-        case .groove: return "groove"
-        case .heavy: return "heavy"
-        case .metalcoreDeathcore: return "metalcore"
-        case .power: return "power"
-        case .progressive: return "prog"
-        case .speed: return "speed"
-        case .symphonic: return "orchestral"
-        case .thrash: return "thrash"
+        case .black:
+            "black"
+        case .death:
+            "death"
+        case .doomStonerSludge:
+            "doom"
+        case .electronicIndustrial:
+            "electronic"
+        case .experimentalAvantGarde:
+            "avantgarde"
+        case .folkVikingPagan:
+            "folk"
+        case .gothic:
+            "gothic"
+        case .grindcore:
+            "grind"
+        case .groove:
+            "groove"
+        case .heavy:
+            "heavy"
+        case .metalcoreDeathcore:
+            "metalcore"
+        case .power:
+            "power"
+        case .progressive:
+            "prog"
+        case .speed:
+            "speed"
+        case .symphonic:
+            "orchestral"
+        case .thrash:
+            "thrash"
         }
     }
 }

@@ -44,7 +44,8 @@ struct UserReleasesView: View {
             await viewModel.getMoreReleases(force: false)
         }
         .confirmationDialog("",
-                            isPresented: isShowingAlert) {
+                            isPresented: isShowingAlert)
+        {
             if let selectedRelease {
                 Button(action: {
                     onSelectRelease(selectedRelease.release.thumbnailInfo.urlString)

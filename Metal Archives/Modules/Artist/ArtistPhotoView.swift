@@ -18,7 +18,7 @@ struct ArtistPhotoView: View {
             case .fetching:
                 ProgressView()
 
-            case .fetched(let image):
+            case let .fetched(image):
                 if let image {
                     Image(uiImage: image)
                         .resizable()
@@ -36,7 +36,7 @@ struct ArtistPhotoView: View {
                     EmptyView()
                 }
 
-            case .error(let error):
+            case let .error(error):
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {

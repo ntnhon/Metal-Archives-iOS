@@ -29,16 +29,16 @@ struct ReviewInfoView: View {
                 ColorCustomizableLabel(title: review.band.name,
                                        systemImage: "person.3.fill",
                                        titleColor: preferences.theme.primaryColor)
-                .onTapGesture {
-                    onSelectBand(review.band.thumbnailInfo.urlString)
-                }
+                    .onTapGesture {
+                        onSelectBand(review.band.thumbnailInfo.urlString)
+                    }
 
                 ColorCustomizableLabel(title: review.release.title,
                                        systemImage: "opticaldisc.fill",
                                        titleColor: preferences.theme.primaryColor)
-                .onTapGesture {
-                    onSelectRelease(review.release.thumbnailInfo.urlString)
-                }
+                    .onTapGesture {
+                        onSelectRelease(review.release.thumbnailInfo.urlString)
+                    }
 
                 ColorCustomizableLabel(title: "\(review.rating)%",
                                        systemImage: "quote.bubble.fill",
@@ -47,9 +47,9 @@ struct ReviewInfoView: View {
                 ColorCustomizableLabel(title: review.user.name,
                                        systemImage: "person.fill",
                                        titleColor: preferences.theme.primaryColor)
-                .onTapGesture {
-                    onSelectUser(review.user.urlString)
-                }
+                    .onTapGesture {
+                        onSelectUser(review.user.urlString)
+                    }
 
                 ColorCustomizableLabel(title: review.date, systemImage: "calendar")
 
@@ -57,9 +57,9 @@ struct ReviewInfoView: View {
                     ColorCustomizableLabel(title: baseVersion.title,
                                            systemImage: "info.circle.fill",
                                            titleColor: preferences.theme.primaryColor)
-                    .onTapGesture {
-                        onSelectRelease(baseVersion.thumbnailInfo.urlString)
-                    }
+                        .onTapGesture {
+                            onSelectRelease(baseVersion.thumbnailInfo.urlString)
+                        }
                 }
 
                 Text(review.content)

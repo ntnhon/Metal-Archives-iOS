@@ -31,7 +31,9 @@ struct AdvancedSearchAlbumsView: View {
     @StateObject private var releaseFormatSet = ReleaseFormatSet()
     let apiService: APIServiceProtocol
 
+    // TODO: Decouple this
     var body: some View {
+        // swiftlint:disable:next closure_body_length
         Form {
             Section(content: {
                 HStack {
@@ -78,7 +80,7 @@ struct AdvancedSearchAlbumsView: View {
 
                         DatePicker("",
                                    selection: $fromDate,
-                                   in: kStartDate...Date(),
+                                   in: kStartDate ... Date(),
                                    displayedComponents: [.date])
                             .labelsHidden()
 
@@ -86,7 +88,7 @@ struct AdvancedSearchAlbumsView: View {
 
                         DatePicker("",
                                    selection: $toDate,
-                                   in: kStartDate...Date(),
+                                   in: kStartDate ... Date(),
                                    displayedComponents: [.date])
                             .labelsHidden()
                     }
@@ -178,7 +180,8 @@ struct AdvancedSearchAlbumsView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, alignment: .center)
-                    })
+                    }
+                )
             }
             .listRowBackground(Color.accentColor)
         }

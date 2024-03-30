@@ -169,7 +169,8 @@ extension LabelDetail: HTMLParsable {
         for p in html.css("p") where p["id"] == "label_contact" {
             if let aTag = p.at_css("a"),
                let urlString = aTag["href"],
-               let title = aTag.text {
+               let title = aTag.text
+            {
                 builder.website = .init(urlString: urlString, title: title)
             }
         }
@@ -197,18 +198,26 @@ extension LabelDetail: HTMLParsable {
             }
 
             switch infoTypes[index] {
-            case .address: builder.address = ddText
-            case .country: builder.country = CountryManager.shared.country(by: \.name, value: ddText)
-            case .phoneNumber: builder.phoneNumber = ddText
-            case .status: builder.status = .init(rawValue: ddText)
-            case .specialties: builder.specialties = ddText
-            case .foundingDate: builder.foundingDate = ddText
+            case .address:
+                builder.address = ddText
+            case .country:
+                builder.country = CountryManager.shared.country(by: \.name, value: ddText)
+            case .phoneNumber:
+                builder.phoneNumber = ddText
+            case .status:
+                builder.status = .init(rawValue: ddText)
+            case .specialties:
+                builder.specialties = ddText
+            case .foundingDate:
+                builder.foundingDate = ddText
             case .parentLabel:
                 if let aTag = dd.at_css("a") {
                     builder.parentLabel = .init(aTag: aTag)
                 }
-            case .subLabels: builder.subLabels = dd.css("a").compactMap { .init(aTag: $0) }
-            case .onlineShopping: builder.onlineShopping = ddText
+            case .subLabels:
+                builder.subLabels = dd.css("a").compactMap { .init(aTag: $0) }
+            case .onlineShopping:
+                builder.onlineShopping = ddText
             }
         }
     }

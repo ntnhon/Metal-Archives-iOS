@@ -21,7 +21,7 @@ enum ReleaseFormat: String, CaseIterable {
 extension ReleaseFormat: MultipleChoiceProtocol {
     static var noChoice: String { "Any format" }
     static var multipleChoicesSuffix: String { "formats selected" }
-    static var totalChoices: Int { Self.allCases.count }
+    static var totalChoices: Int { allCases.count }
     var choiceDescription: String { rawValue }
 }
 

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-private let kMinYear = 1_960
+private let kMinYear = 1960
 private let kThisYear = Calendar.current.component(.year, from: .init())
 
 struct AdvancedSearchBandsView: View {
@@ -119,7 +119,8 @@ struct AdvancedSearchBandsView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, alignment: .center)
-                    })
+                    }
+                )
             }
             .listRowBackground(Color.accentColor)
         }
@@ -151,7 +152,7 @@ private struct YearPicker: View {
 
     var body: some View {
         Menu(content: {
-            ForEach((kMinYear...kThisYear).reversed(), id: \.self) { year in
+            ForEach((kMinYear ... kThisYear).reversed(), id: \.self) { year in
                 Button(action: {
                     selectedYear = year
                 }, label: {
@@ -182,14 +183,14 @@ private struct YearPicker: View {
 }
 
 /*
-struct AdvancedSearchBandsView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            AdvancedSearchBandsView()
-                .environmentObject(Preferences())
-        }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
-    }
-}
-*/
+ struct AdvancedSearchBandsView_Previews: PreviewProvider {
+     static var previews: some View {
+         NavigationView {
+             AdvancedSearchBandsView()
+                 .environmentObject(Preferences())
+         }
+         .environment(\.colorScheme, .dark)
+         .environmentObject(Preferences())
+     }
+ }
+ */

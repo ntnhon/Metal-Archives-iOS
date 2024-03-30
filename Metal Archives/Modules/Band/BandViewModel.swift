@@ -37,17 +37,17 @@ final class BandViewModel: ObservableObject {
                 async let band = fetchBand()
                 async let discopgrahy = fetchDiscography(bandId: bandId)
                 async let readMore = fetchReadMore(bandId: bandId)
-                bandMetadataFetchable = .fetched(.init(band: try await band,
-                                                       discography: try await discopgrahy,
-                                                       readMore: try await readMore))
+                bandMetadataFetchable = try .fetched(.init(band: await band,
+                                                           discography: await discopgrahy,
+                                                           readMore: await readMore))
             } else {
                 // Random band
                 let band = try await fetchBand()
                 async let discopgrahy = fetchDiscography(bandId: band.id)
                 async let readMore = fetchReadMore(bandId: band.id)
-                bandMetadataFetchable = .fetched(.init(band: band,
-                                                       discography: try await discopgrahy,
-                                                       readMore: try await readMore))
+                bandMetadataFetchable = try .fetched(.init(band: band,
+                                                           discography: await discopgrahy,
+                                                           readMore: await readMore))
             }
         } catch {
             bandMetadataFetchable = .error(error)
@@ -75,6 +75,7 @@ final class BandViewModel: ObservableObject {
 }
 
 // MARK: - Related links
+
 extension BandViewModel {
     func refreshRelatedLinks(force: Bool) async {
         guard case let .fetched(metadata) = bandMetadataFetchable else {

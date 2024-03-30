@@ -1,5 +1,5 @@
 //
-//  SecondaryLabel.swift
+//  ColorCustomizableLabel.swift
 //  Metal Archives
 //
 //  Created by Nhon Nguyen on 02/11/2022.

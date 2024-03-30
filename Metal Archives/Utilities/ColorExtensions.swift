@@ -10,10 +10,14 @@ import SwiftUI
 extension Color {
     static func byRating(_ rating: Int) -> Color {
         switch rating {
-        case 0..<25: return BandStatus.splitUp.color
-        case 25..<50: return BandStatus.onHold.color
-        case 50..<75: return BandStatus.changedName.color
-        default: return BandStatus.active.color
+        case 0 ..< 25:
+            BandStatus.splitUp.color
+        case 25 ..< 50:
+            BandStatus.onHold.color
+        case 50 ..< 75:
+            BandStatus.changedName.color
+        default:
+            BandStatus.active.color
         }
     }
 

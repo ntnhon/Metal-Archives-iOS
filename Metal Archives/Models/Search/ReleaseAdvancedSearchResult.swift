@@ -41,7 +41,8 @@ extension ReleaseAdvancedSearchResult: PageElement {
         guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
               let bandName = aTag.text,
               let bandUrlString = aTag["href"],
-              let band = BandLite(urlString: bandUrlString, name: bandName) else {
+              let band = BandLite(urlString: bandUrlString, name: bandName)
+        else {
             throw PageElementError.failedToParse("\(BandLite.self): \(strings[0])")
         }
         self.band = band
@@ -49,13 +50,14 @@ extension ReleaseAdvancedSearchResult: PageElement {
         guard let aTag = try Kanna.HTML(html: strings[1], encoding: .utf8).at_css("a"),
               let releaseTitle = aTag.text,
               let releaseUrlString = aTag["href"],
-              let release = ReleaseLite(urlString: releaseUrlString, title: releaseTitle) else {
+              let release = ReleaseLite(urlString: releaseUrlString, title: releaseTitle)
+        else {
             throw PageElementError.failedToParse("\(ReleaseLite.self): \(strings[1])")
         }
         self.release = release
 
-        self.type = .init(typeString: strings[2]) ?? .demo
-        self.otherInfo = Array(strings.dropFirst(3))
+        type = .init(typeString: strings[2]) ?? .demo
+        otherInfo = Array(strings.dropFirst(3))
     }
 }
 
@@ -100,14 +102,16 @@ final class ReleaseAdvancedSearchResultPageManager: PageManager<ReleaseAdvancedS
 
         let fromComponents = calendar.dateComponents([.year, .month], from: params.fromDate)
         if let fromYear = fromComponents.year,
-           let fromMonth = fromComponents.month {
+           let fromMonth = fromComponents.month
+        {
             urlString += "&releaseYearFrom=\(fromYear)"
             urlString += "&releaseMonthFrom=\(fromMonth)"
         }
 
         let toComponents = calendar.dateComponents([.year, .month], from: params.toDate)
         if let fromYear = toComponents.year,
-           let fromMonth = toComponents.month {
+           let fromMonth = toComponents.month
+        {
             urlString += "&releaseYearTo=\(fromYear)"
             urlString += "&releaseMonthTo=\(fromMonth)"
         }

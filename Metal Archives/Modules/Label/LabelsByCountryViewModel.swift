@@ -27,7 +27,7 @@ final class LabelsByCountryViewModel: ObservableObject {
         self.apiService = apiService
         self.country = country
         let defaultSortOption: LabelByCountryPageManager.SortOption = .name(.ascending)
-        self.manager = .init(apiService: apiService, country: country, sortOptions: defaultSortOption)
+        manager = .init(apiService: apiService, country: country, sortOptions: defaultSortOption)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

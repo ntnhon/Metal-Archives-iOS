@@ -44,7 +44,8 @@ extension TopBands: HTMLParsable {
                 }
 
                 if let bandName, let bandUrlString, let count,
-                   let band = BandLite(urlString: bandUrlString, name: bandName) {
+                   let band = BandLite(urlString: bandUrlString, name: bandName)
+                {
                     bands.append(.init(band: band, count: count))
                 }
             }

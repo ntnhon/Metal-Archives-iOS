@@ -13,7 +13,7 @@ struct SimilarArtistsView: View {
     var body: some View {
         LazyVStack {
             switch viewModel.similarArtistsFetchable {
-            case .error(let error):
+            case let .error(error):
                 VStack(alignment: .center, spacing: 20) {
                     Text(error.userFacingMessage)
                         .frame(maxWidth: .infinity)
@@ -27,7 +27,7 @@ struct SimilarArtistsView: View {
             case .fetching:
                 ProgressView()
 
-            case .fetched(let similarArtists):
+            case let .fetched(similarArtists):
                 ForEach(Array(similarArtists.prefix(20)), id: \.name) {
                     BandSimilarView(apiService: viewModel.apiService, bandSimilar: $0)
                         .padding(.horizontal)
@@ -88,7 +88,7 @@ struct AllSimilarArtistsView: View {
     }
 
     private var navigationTitle: String {
-        guard let band  else { return "" }
+        guard let band else { return "" }
         return "Similar to \(band.name)"
     }
 }

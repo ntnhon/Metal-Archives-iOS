@@ -42,13 +42,14 @@ extension LabelCurrentBand: PageElement {
         guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
               let bandName = aTag.text,
               let bandUrlString = aTag["href"],
-              let band = BandLite(urlString: bandUrlString, name: bandName) else {
+              let band = BandLite(urlString: bandUrlString, name: bandName)
+        else {
             throw PageElementError.failedToParse("\(BandLite.self): \(strings[0])")
         }
         self.band = band
 
-        self.genre = strings[1]
-        self.country = CountryManager.shared.country(by: \.name, value: strings[2])
+        genre = strings[1]
+        country = CountryManager.shared.country(by: \.name, value: strings[2])
     }
 }
 
@@ -69,29 +70,38 @@ extension LabelCurrentBandPageManager {
 
         var title: String {
             switch self {
-            case .band(.ascending): return "Band ↑"
-            case .band(.descending): return "Band ↓"
-            case .genre(.ascending): return "Genre ↑"
-            case .genre(.descending): return "Genre ↓"
-            case .country(.ascending): return "Country ↑"
-            case .country(.descending): return "Country ↓"
+            case .band(.ascending):
+                "Band ↑"
+            case .band(.descending):
+                "Band ↓"
+            case .genre(.ascending):
+                "Genre ↑"
+            case .genre(.descending):
+                "Genre ↓"
+            case .country(.ascending):
+                "Country ↑"
+            case .country(.descending):
+                "Country ↓"
             }
         }
 
         var column: Int {
             switch self {
-            case .band: return 0
-            case .genre: return 1
-            case .country: return 2
+            case .band:
+                0
+            case .genre:
+                1
+            case .country:
+                2
             }
         }
 
         var order: Order {
             switch self {
             case .band(.ascending), .genre(.ascending), .country(.ascending):
-                return .ascending
+                .ascending
             default:
-                return .descending
+                .descending
             }
         }
 
@@ -102,14 +112,14 @@ extension LabelCurrentBandPageManager {
         static func == (lhs: Self, rhs: Self) -> Bool {
             switch (lhs, rhs) {
             case (.band(.ascending), .band(.ascending)),
-                (.band(.descending), .band(.descending)),
-                (.genre(.ascending), .genre(.ascending)),
-                (.genre(.descending), .genre(.descending)),
-                (.country(.ascending), .country(.ascending)),
-                (.country(.descending), .country(.descending)):
-                return true
+                 (.band(.descending), .band(.descending)),
+                 (.genre(.ascending), .genre(.ascending)),
+                 (.genre(.descending), .genre(.descending)),
+                 (.country(.ascending), .country(.ascending)),
+                 (.country(.descending), .country(.descending)):
+                true
             default:
-                return false
+                false
             }
         }
     }

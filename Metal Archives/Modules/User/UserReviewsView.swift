@@ -46,7 +46,7 @@ struct UserReviewsView: View {
         .confirmationDialog(
             "",
             isPresented:
-                isShowingAlert,
+            isShowingAlert,
             actions: {
                 if let selectedReview {
                     Button(action: {
@@ -71,9 +71,10 @@ struct UserReviewsView: View {
             message: {
                 if let selectedReview {
                     Text("\(selectedReview.title)\n") +
-                    Text("\"\(selectedReview.release.title)\" by \(selectedReview.band.name)")
+                        Text("\"\(selectedReview.release.title)\" by \(selectedReview.band.name)")
                 }
-            })
+            }
+        )
     }
 
     @ViewBuilder
@@ -219,8 +220,8 @@ private struct UserReviewView: View {
                 Text(review.title)
 
                 Text(review.date) +
-                Text(" • ") +
-                Text("\(review.rating)%")
+                    Text(" • ") +
+                    Text("\(review.rating)%")
                     .foregroundColor(.byRating(review.rating))
             }
             .frame(maxWidth: .infinity, alignment: .leading)

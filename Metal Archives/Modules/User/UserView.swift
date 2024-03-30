@@ -20,10 +20,10 @@ struct UserView: View {
             switch viewModel.userFetchable {
             case .fetching:
                 HornCircularLoader()
-            case .fetched(let user):
+            case let .fetched(user):
                 UserContentView(apiService: viewModel.apiService, user: user)
                     .environmentObject(viewModel)
-            case .error(let error):
+            case let .error(error):
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
@@ -53,19 +53,19 @@ private struct UserContentView: View {
     init(apiService: APIServiceProtocol, user: User) {
         let userId = user.id
         self.user = user
-        self._tabsDatasource = .init(wrappedValue: .init(user: user))
-        self._reviewsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: userId))
-        self._submittedBandsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: userId))
-        self._modificationsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: userId))
-        self._albumCollectionViewModel = .init(wrappedValue: .init(apiService: apiService,
-                                                                   userId: userId,
-                                                                   type: .collection))
-        self._forTradeListViewModel = .init(wrappedValue: .init(apiService: apiService,
-                                                                userId: userId,
-                                                                type: .forTrade))
-        self._wantedListViewModel = .init(wrappedValue: .init(apiService: apiService,
+        _tabsDatasource = .init(wrappedValue: .init(user: user))
+        _reviewsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: userId))
+        _submittedBandsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: userId))
+        _modificationsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: userId))
+        _albumCollectionViewModel = .init(wrappedValue: .init(apiService: apiService,
                                                               userId: userId,
-                                                              type: .wanted))
+                                                              type: .collection))
+        _forTradeListViewModel = .init(wrappedValue: .init(apiService: apiService,
+                                                           userId: userId,
+                                                           type: .forTrade))
+        _wantedListViewModel = .init(wrappedValue: .init(apiService: apiService,
+                                                         userId: userId,
+                                                         type: .wanted))
     }
 
     var body: some View {
@@ -93,30 +93,30 @@ private struct UserContentView: View {
                                         onSelectReview: { url in detail = .review(url) },
                                         onSelectBand: { url in detail = .band(url) },
                                         onSelectRelease: { url in detail = .release(url) })
-                        .padding([.horizontal, .bottom])
+                            .padding([.horizontal, .bottom])
 
                     case .albumCollection:
                         UserReleasesView(viewModel: albumCollectionViewModel,
                                          onSelectBand: { url in detail = .band(url) },
                                          onSelectRelease: { url in detail = .release(url) })
-                        .padding([.horizontal, .bottom])
+                            .padding([.horizontal, .bottom])
 
                     case .wantedList:
                         UserReleasesView(viewModel: wantedListViewModel,
                                          onSelectBand: { url in detail = .band(url) },
                                          onSelectRelease: { url in detail = .release(url) })
-                        .padding([.horizontal, .bottom])
+                            .padding([.horizontal, .bottom])
 
                     case .tradeList:
                         UserReleasesView(viewModel: forTradeListViewModel,
                                          onSelectBand: { url in detail = .band(url) },
                                          onSelectRelease: { url in detail = .release(url) })
-                        .padding([.horizontal, .bottom])
+                            .padding([.horizontal, .bottom])
 
                     case .submittedBands:
                         UserSubmittedBandsView(viewModel: submittedBandsViewModel,
                                                onSelectBand: { url in detail = .band(url) })
-                        .padding([.horizontal, .bottom])
+                            .padding([.horizontal, .bottom])
 
                     case .modificationHistory:
                         UserModificationsView(viewModel: modificationsViewModel,
@@ -124,7 +124,7 @@ private struct UserContentView: View {
                                               onSelectArtist: { url in detail = .artist(url) },
                                               onSelectRelease: { url in detail = .release(url) },
                                               onSelectLabel: { url in detail = .label(url) })
-                        .padding([.horizontal, .bottom])
+                            .padding([.horizontal, .bottom])
                     }
                 }
             }

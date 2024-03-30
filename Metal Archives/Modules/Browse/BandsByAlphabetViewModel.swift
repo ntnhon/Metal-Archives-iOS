@@ -27,7 +27,7 @@ final class BandsByAlphabetViewModel: ObservableObject {
         self.apiService = apiService
         self.letter = letter
         let defaultSortOption: BandByAlphabetPageManager.SortOption = .band(.ascending)
-        self.manager = .init(letter: letter, apiService: apiService, sortOptions: defaultSortOption)
+        manager = .init(letter: letter, apiService: apiService, sortOptions: defaultSortOption)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

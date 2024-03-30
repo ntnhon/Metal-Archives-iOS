@@ -33,19 +33,21 @@ extension BandByCountry: PageElement {
         guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
               let bandName = aTag.text,
               let bandUrlString = aTag["href"],
-              let band = BandLite(urlString: bandUrlString, name: bandName) else {
+              let band = BandLite(urlString: bandUrlString, name: bandName)
+        else {
             throw PageElementError.failedToParse("\(BandLite.self): \(strings[0])")
         }
         self.band = band
-        self.genre = strings[1]
-        self.location = strings[2]
+        genre = strings[1]
+        location = strings[2]
 
         guard let spanTag = try Kanna.HTML(html: strings[3], encoding: .utf8).at_css("span"),
-              let statusText = spanTag.text else {
+              let statusText = spanTag.text
+        else {
             throw PageElementError.failedToParse("\(BandStatus.self): \(strings[3])")
         }
 
-        self.status = BandStatus(rawValue: statusText)
+        status = BandStatus(rawValue: statusText)
     }
 }
 
@@ -66,20 +68,29 @@ extension BandByCountryPageManager {
 
         var title: String {
             switch self {
-            case .band(.ascending): return "Band ↑"
-            case .band(.descending): return "Band ↓"
-            case .genre(.ascending): return "Genre ↑"
-            case .genre(.descending): return "Genre ↓"
-            case .location(.ascending): return "Location ↑"
-            case .location(.descending): return "Location ↓"
+            case .band(.ascending):
+                "Band ↑"
+            case .band(.descending):
+                "Band ↓"
+            case .genre(.ascending):
+                "Genre ↑"
+            case .genre(.descending):
+                "Genre ↓"
+            case .location(.ascending):
+                "Location ↑"
+            case .location(.descending):
+                "Location ↓"
             }
         }
 
         var column: Int {
             switch self {
-            case .band: return 0
-            case .genre: return 1
-            case .location: return 2
+            case .band:
+                0
+            case .genre:
+                1
+            case .location:
+                2
             }
         }
 
@@ -99,11 +110,11 @@ extension BandByCountryPageManager {
         static func == (lhs: Self, rhs: Self) -> Bool {
             switch (lhs, rhs) {
             case (.band(.ascending), .band(.ascending)),
-                (.band(.descending), .band(.descending)),
-                (.genre(.ascending), .genre(.ascending)),
-                (.genre(.descending), .genre(.descending)),
-                (.location(.ascending), .location(.ascending)),
-                (.location(.descending), .location(.descending)):
+                 (.band(.descending), .band(.descending)),
+                 (.genre(.ascending), .genre(.ascending)),
+                 (.genre(.descending), .genre(.descending)),
+                 (.location(.ascending), .location(.ascending)),
+                 (.location(.descending), .location(.descending)):
                 return true
             default:
                 return false

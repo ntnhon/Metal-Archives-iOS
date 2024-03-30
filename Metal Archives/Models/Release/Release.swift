@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 22/05/2021.
 //
 
+// swiftlint:disable all
 import Foundation
 import Kanna
 
@@ -38,13 +39,20 @@ extension Release {
 
         init(string: String) {
             switch string {
-            case "Type:": self = .type
-            case "Release date:": self = .date
-            case "Catalog ID:": self = .catalogId
-            case "Label:": self = .label
-            case "Format:": self = .format
-            case "Reviews:": self = .reviews
-            default: self = .other
+            case "Type:":
+                self = .type
+            case "Release date:":
+                self = .date
+            case "Catalog ID:":
+                self = .catalogId
+            case "Label:":
+                self = .label
+            case "Format:":
+                self = .format
+            case "Reviews:":
+                self = .reviews
+            default:
+                self = .other
             }
         }
     }
@@ -160,15 +168,15 @@ extension Release {
     }
 }
 
-fileprivate enum ReleaseMemberType {
+private enum ReleaseMemberType {
     case bandMember, guest, misc
 }
 
 extension Release: HTMLParsable {
-    // swiftlint:disable identifier_name
     init(data: Data) throws {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
-              let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
+              let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8)
+        else {
             throw MAError.parseFailure(String(describing: Self.self))
         }
 
@@ -190,7 +198,8 @@ extension Release: HTMLParsable {
             var bands = [BandLite]()
             for a in h2.css("a") {
                 if let bandName = a.text, let bandUrlString = a["href"],
-                   let band = BandLite(urlString: bandUrlString, name: bandName) {
+                   let band = BandLite(urlString: bandUrlString, name: bandName)
+                {
                     bands.append(band)
                 }
             }
@@ -279,7 +288,8 @@ extension Release: HTMLParsable {
                         case 3:
                             if let aTag = td.at_css("a"),
                                let username = aTag.text,
-                               let urlString = aTag["href"] {
+                               let urlString = aTag["href"]
+                            {
                                 reviewBuilder.author = .init(name: username, urlString: urlString)
                             }
                         case 4: reviewBuilder.date = td.text
@@ -318,7 +328,8 @@ extension Release: HTMLParsable {
                 case .catalogId: builder.catalogId = ddText
                 case .label:
                     if let a = dd.at_css("a"), let labelName = a.text,
-                       let labelUrlString = a["href"]?.components(separatedBy: "#").first {
+                       let labelUrlString = a["href"]?.components(separatedBy: "#").first
+                    {
                         let thumbnailInfo = ThumbnailInfo(urlString: labelUrlString, type: .label)
                         builder.label = LabelLite(thumbnailInfo: thumbnailInfo, name: labelName)
                     } else {
@@ -379,7 +390,7 @@ extension Release: HTMLParsable {
         var allBandNames: Set<String?> = []
         allMembers.forEach { allBandNames.insert($0.bandName) }
         var bands = [BandInRelease]()
-        allBandNames.forEach { bandName in
+        for bandName in allBandNames {
             let filteredMembers = allMembers.filter { $0.bandName == bandName }
             bands.append(.init(name: bandName, members: filteredMembers))
         }
@@ -390,3 +401,5 @@ extension Release: HTMLParsable {
         }
     }
 }
+
+// swiftlint:enable all

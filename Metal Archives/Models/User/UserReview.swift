@@ -48,17 +48,19 @@ extension UserReview: PageElement {
         }
 
         guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
-              let urlString = aTag["href"] else {
+              let urlString = aTag["href"]
+        else {
             throw PageElementError.failedToParse("URL: \(strings[0])")
         }
 
         self.urlString = urlString
-        self.date = strings[1]
+        date = strings[1]
 
         guard let aTag = try Kanna.HTML(html: strings[2], encoding: .utf8).at_css("a"),
               let bandName = aTag.text,
               let bandUrlString = aTag["href"],
-              let band = BandLite(urlString: bandUrlString, name: bandName) else {
+              let band = BandLite(urlString: bandUrlString, name: bandName)
+        else {
             throw PageElementError.failedToParse("\(BandLite.self): \(strings[2])")
         }
         self.band = band
@@ -66,12 +68,13 @@ extension UserReview: PageElement {
         guard let aTag = try Kanna.HTML(html: strings[3], encoding: .utf8).at_css("a"),
               let releaseTitle = aTag.text,
               let releaseUrlString = aTag["href"],
-              let release = ReleaseLite(urlString: releaseUrlString, title: releaseTitle) else {
+              let release = ReleaseLite(urlString: releaseUrlString, title: releaseTitle)
+        else {
             throw PageElementError.failedToParse("\(ReleaseLite.self): \(strings[3])")
         }
         self.release = release
 
-        self.title = strings[4]
+        title = strings[4]
 
         let ratingString = strings[5].replacingOccurrences(of: "%", with: "")
         guard let rating = Int(ratingString) else {
@@ -100,39 +103,54 @@ extension UserReviewPageManager {
 
         var title: String {
             switch self {
-            case .date(.ascending): return "Date ↑"
-            case .date(.descending): return "Date ↓"
-            case .band(.ascending): return "Band ↑"
-            case .band(.descending): return "Band ↓"
-            case .release(.ascending): return "Release ↑"
-            case .release(.descending): return "Release ↓"
-            case .title(.ascending): return "Title ↑"
-            case .title(.descending): return "Title ↓"
-            case .rating(.ascending): return "Rating ↑"
-            case .rating(.descending): return "Rating ↓"
+            case .date(.ascending):
+                "Date ↑"
+            case .date(.descending):
+                "Date ↓"
+            case .band(.ascending):
+                "Band ↑"
+            case .band(.descending):
+                "Band ↓"
+            case .release(.ascending):
+                "Release ↑"
+            case .release(.descending):
+                "Release ↓"
+            case .title(.ascending):
+                "Title ↑"
+            case .title(.descending):
+                "Title ↓"
+            case .rating(.ascending):
+                "Rating ↑"
+            case .rating(.descending):
+                "Rating ↓"
             }
         }
 
         var column: Int {
             switch self {
-            case .date: return 1
-            case .band: return 2
-            case .release: return 3
-            case .title: return 4
-            case .rating: return 5
+            case .date:
+                1
+            case .band:
+                2
+            case .release:
+                3
+            case .title:
+                4
+            case .rating:
+                5
             }
         }
 
         var order: Order {
             switch self {
             case .date(.ascending),
-                    .band(.ascending),
-                    .release(.ascending),
-                    .title(.ascending),
-                    .rating(.ascending):
-                return .ascending
+                 .band(.ascending),
+                 .release(.ascending),
+                 .title(.ascending),
+                 .rating(.ascending):
+                .ascending
             default:
-                return .descending
+                .descending
             }
         }
 
@@ -143,18 +161,18 @@ extension UserReviewPageManager {
         static func == (lhs: Self, rhs: Self) -> Bool {
             switch (lhs, rhs) {
             case (.date(.ascending), .date(.ascending)),
-                (.date(.descending), .date(.descending)),
-                (.band(.ascending), .band(.ascending)),
-                (.band(.descending), .band(.descending)),
-                (.release(.ascending), .release(.ascending)),
-                (.release(.descending), .release(.descending)),
-                (.title(.ascending), .title(.ascending)),
-                (.title(.descending), .title(.descending)),
-                (.rating(.ascending), .rating(.ascending)),
-                (.rating(.descending), .rating(.descending)):
-                return true
+                 (.date(.descending), .date(.descending)),
+                 (.band(.ascending), .band(.ascending)),
+                 (.band(.descending), .band(.descending)),
+                 (.release(.ascending), .release(.ascending)),
+                 (.release(.descending), .release(.descending)),
+                 (.title(.ascending), .title(.ascending)),
+                 (.title(.descending), .title(.descending)),
+                 (.rating(.ascending), .rating(.ascending)),
+                 (.rating(.descending), .rating(.descending)):
+                true
             default:
-                return false
+                false
             }
         }
     }

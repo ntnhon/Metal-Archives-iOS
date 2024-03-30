@@ -20,12 +20,12 @@ struct LabelView: View {
             switch viewModel.labelFetchable {
             case .fetching:
                 HornCircularLoader()
-            case .fetched(let label):
+            case let .fetched(label):
                 LabelContentView(apiService: viewModel.apiService,
                                  urlString: viewModel.urlString,
                                  label: label)
                     .environmentObject(viewModel)
-            case .error(let error):
+            case let .error(error):
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
@@ -59,14 +59,14 @@ private struct LabelContentView: View {
 
     init(apiService: APIServiceProtocol, urlString: String, label: LabelDetail) {
         self.label = label
-        self._tabsDatasource = .init(wrappedValue: .init(label: label))
-        self._currentRosterViewModel = .init(wrappedValue: .init(apiService: apiService,
-                                                                 urlString: urlString))
-        self._pastRosterViewModel = .init(wrappedValue: .init(apiService: apiService,
-                                                              urlString: urlString))
-        self._releasesViewModel = .init(wrappedValue: .init(apiService: apiService,
+        _tabsDatasource = .init(wrappedValue: .init(label: label))
+        _currentRosterViewModel = .init(wrappedValue: .init(apiService: apiService,
                                                             urlString: urlString))
-        self.logoViewHeight = label.logoUrlString != nil ? 300 : 0
+        _pastRosterViewModel = .init(wrappedValue: .init(apiService: apiService,
+                                                         urlString: urlString))
+        _releasesViewModel = .init(wrappedValue: .init(apiService: apiService,
+                                                       urlString: urlString))
+        logoViewHeight = label.logoUrlString != nil ? 300 : 0
     }
 
     var body: some View {
@@ -84,8 +84,9 @@ private struct LabelContentView: View {
                 onOffsetChanged: { point in
                     /// Calculate `titleViewAlpha`
                     let screenBounds = UIScreen.main.bounds
-                    if point.y < 0,
-                       abs(point.y) > (min(screenBounds.width, screenBounds.height) / 4) {
+                    if point.y<0,
+                        abs(point.y)>(min(screenBounds.width, screenBounds.height) / 4)
+                    {
                         titleViewAlpha = (abs(point.y) + 300) / min(screenBounds.width, screenBounds.height)
                     } else {
                         titleViewAlpha = 0.0
@@ -148,7 +149,7 @@ private struct LabelContentView: View {
                                 LabelReleasesView(viewModel: releasesViewModel,
                                                   onSelectBand: { url in detail = .band(url) },
                                                   onSelectRelease: { url in detail = .release(url) })
-                                .padding([.horizontal, .bottom])
+                                    .padding([.horizontal, .bottom])
 
                             case .additionalNotes:
                                 if let notes = label.additionalNotes {
@@ -169,7 +170,8 @@ private struct LabelContentView: View {
                         .frame(minHeight: bottomSectionMinHeight, alignment: .top)
                         .background(Color(.systemBackground))
                     }
-                })
+                }
+            )
         }
         .toolbar { toolbarContent }
     }
@@ -179,8 +181,8 @@ private struct LabelContentView: View {
         ToolbarItem(placement: .navigationBarLeading) {
             Group {
                 switch viewModel.logoFetchable {
-                case .fetched(let image):
-                    if let image = image {
+                case let .fetched(image):
+                    if let image {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()

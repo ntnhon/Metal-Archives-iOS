@@ -15,9 +15,10 @@ struct DiscographyView: View {
     private let apiService: APIServiceProtocol
 
     init(apiService: APIServiceProtocol,
-         viewModel: DiscographyViewModel) {
+         viewModel: DiscographyViewModel)
+    {
         self.apiService = apiService
-        self._viewModel = .init(wrappedValue: viewModel)
+        _viewModel = .init(wrappedValue: viewModel)
     }
 
     var body: some View {
@@ -57,7 +58,8 @@ struct DiscographyView: View {
                                         Label("Share", systemImage: "square.and.arrow.up")
                                     })
                                 }
-                        })
+                        }
+                    )
                     .buttonStyle(.plain)
                     Divider()
                 }
@@ -65,7 +67,8 @@ struct DiscographyView: View {
         }
         .sheet(isPresented: showingShareSheet) {
             if let selectedRelease,
-               let url = URL(string: selectedRelease.thumbnailInfo.urlString) {
+               let url = URL(string: selectedRelease.thumbnailInfo.urlString)
+            {
                 ActivityView(items: [url])
             } else {
                 ActivityView(items: [selectedRelease?.thumbnailInfo.urlString ?? ""])

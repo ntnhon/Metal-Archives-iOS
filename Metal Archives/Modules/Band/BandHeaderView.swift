@@ -14,7 +14,8 @@ struct BandHeaderView: View {
     let onSelectImage: (UIImage) -> Void
 
     init(band: Band,
-         onSelectImage: @escaping (UIImage) -> Void) {
+         onSelectImage: @escaping (UIImage) -> Void)
+    {
         _viewModel = .init(wrappedValue: .init(band: band))
         self.onSelectImage = onSelectImage
     }
@@ -45,7 +46,7 @@ struct BandHeaderView: View {
                         ProgressView()
                             .frame(width: logoHeight, height: logoHeight)
 
-                    case .fetched(let logo):
+                    case let .fetched(logo):
                         if let logo {
                             Image(uiImage: logo)
                                 .resizable()
@@ -85,7 +86,7 @@ struct BandHeaderView: View {
                     ProgressView()
                         .frame(width: photoHeight, height: photoHeight)
 
-                case .fetched(let photo):
+                case let .fetched(photo):
                     if let photo {
                         ZStack {
                             Image(uiImage: photo)

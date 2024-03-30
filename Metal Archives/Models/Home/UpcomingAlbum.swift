@@ -59,7 +59,8 @@ extension UpcomingAlbum: PageElement {
         for aTag in bandsHtml.css("a") {
             if let name = aTag.text,
                let urlString = aTag["href"],
-               let band = BandLite(urlString: urlString, name: name) {
+               let band = BandLite(urlString: urlString, name: name)
+            {
                 bands.append(band)
             }
         }
@@ -69,14 +70,15 @@ extension UpcomingAlbum: PageElement {
         guard let aTag = releaseHtml.at_css("a"),
               let title = aTag.text,
               let urlString = aTag["href"],
-              let release = ReleaseLite(urlString: urlString, title: title) else {
+              let release = ReleaseLite(urlString: urlString, title: title)
+        else {
             throw PageElementError.failedToParse("\(ReleaseLite.self)")
         }
         self.release = release
 
-        self.releaseType = .init(typeString: strings[2]) ?? .demo
-        self.genre = strings[3]
-        self.date = strings[4]
+        releaseType = .init(typeString: strings[2]) ?? .demo
+        genre = strings[3]
+        date = strings[4]
     }
 }
 

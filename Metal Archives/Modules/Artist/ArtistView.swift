@@ -20,10 +20,10 @@ struct ArtistView: View {
             switch viewModel.artistFetchable {
             case .fetching:
                 HornCircularLoader()
-            case .fetched(let artist):
+            case let .fetched(artist):
                 ArtistContentView(artist: artist)
                     .environmentObject(viewModel)
-            case .error(let error):
+            case let .error(error):
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
@@ -53,8 +53,8 @@ private struct ArtistContentView: View {
 
     init(artist: Artist) {
         self.artist = artist
-        self._tabsDatasource = .init(wrappedValue: .init(artist: artist))
-        self.photoViewHeight = artist.hasPhoto ? 300 : 0
+        _tabsDatasource = .init(wrappedValue: .init(artist: artist))
+        photoViewHeight = artist.hasPhoto ? 300 : 0
     }
 
     var body: some View {
@@ -72,8 +72,9 @@ private struct ArtistContentView: View {
                 onOffsetChanged: { point in
                     /// Calculate `titleViewAlpha`
                     let screenBounds = UIScreen.main.bounds
-                    if point.y < 0,
-                       abs(point.y) > (min(screenBounds.width, screenBounds.height) / 4) {
+                    if point.y<0,
+                        abs(point.y)>(min(screenBounds.width, screenBounds.height) / 4)
+                    {
                         titleViewAlpha = (abs(point.y) + 300) / min(screenBounds.width, screenBounds.height)
                     } else {
                         titleViewAlpha = 0.0
@@ -143,7 +144,8 @@ private struct ArtistContentView: View {
                         .frame(minHeight: bottomSectionMinHeight, alignment: .top)
                         .background(Color(.systemBackground))
                     }
-                })
+                }
+            )
         }
         .toolbar { toolbarContent }
     }
@@ -152,8 +154,8 @@ private struct ArtistContentView: View {
         ArtistRolesView(roles: roles,
                         onSelectBand: { url in detail = .band(url) },
                         onSelectRelease: { url in detail = .release(url) })
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal)
     }
 
     @ToolbarContentBuilder
@@ -161,8 +163,8 @@ private struct ArtistContentView: View {
         ToolbarItem(placement: .navigationBarLeading) {
             Group {
                 switch viewModel.photoFetchable {
-                case .fetched(let image):
-                    if let image = image {
+                case let .fetched(image):
+                    if let image {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()

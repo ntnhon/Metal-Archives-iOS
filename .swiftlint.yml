@@ -1,88 +1,39 @@
-disabled_rules:
-  - private_over_fileprivate
-  - cyclomatic_complexity
-  - function_body_length
-  - redundant_string_enum_value
 opt_in_rules:
-  - array_init
+  - all
+disabled_rules:
+  - inert_defer
+  - unused_capture_list
+  - explicit_acl
+  - explicit_type_interface
+  - explicit_top_level_acl
+  - type_contents_order
+  - multiline_parameters_brackets
+  - multiline_arguments_brackets
+  - indentation_width
+  - no_grouping_extension
+  - no_extension_access_modifier
+  - conditional_returns_on_newline
+  - required_deinit
+  - opening_brace
+  - sorted_enum_cases
+  - file_types_order
+  - vertical_whitespace_between_cases
+  - no_magic_numbers
+  - accessibility_label_for_image
+  - prefer_nimble
   - attributes
-  - closure_spacing
-  - collection_alignment
-  - contains_over_filter_count
-  - contains_over_filter_is_empty
-  - contains_over_first_not_nil
-  - contains_over_range_nil_comparison
-  - convenience_type
-  - discouraged_object_literal
-  - discouraged_optional_boolean
-  - empty_collection_literal
-  - empty_count
-  - empty_xctest_method
-  - enum_case_associated_values_count
-  - expiring_todo
-  - explicit_init
-  - explicit_self
-  - extension_access_modifier
-  - fallthrough
-  - fatal_error_message
-  - file_name_no_space
-  - first_where
-  - flatmap_over_map_reduce
-  - force_unwrapping
-  - function_default_parameter_at_end
-  - ibinspectable_in_extension
-  - identical_operands
-  - implicit_return
-  - joined_default_parameter
-  - last_where
-  - legacy_multiple
-  - legacy_random
-  - let_var_whitespace
-  - literal_expression_end_indentation
-  - missing_docs
-  - modifier_order
-  - multiline_arguments
-  # - multiline_literal_brackets
-  - multiline_parameters
-  - nimble_operator
-  - nslocalizedstring_key
-  - nslocalizedstring_require_bundle
+  - accessibility_trait_for_button
+  - test_case_accessibility
+  - explicit_enum_raw_value
+  - anonymous_argument_in_multiline_closure
+  - discouraged_optional_collection
+  - file_name
+  - trailing_comma
   - number_separator
   - operator_usage_whitespace
-  - optional_enum_case_matching
-  - overridden_super_call
-  - override_in_extension
-  - pattern_matching_keywords
-  - prefer_self_type_over_type_of_self
-  - prefer_zero_over_explicit_init
-  - prefixed_toplevel_constant
-  - private_action
-  - private_outlet
-  - prohibited_super_call
-  - quick_discouraged_call
-  - quick_discouraged_focused_test
-  - quick_discouraged_pending_test
-  - raw_value_for_camel_cased_codable_enum
-  - reduce_into
-  - redundant_nil_coalescing
-  - redundant_type_annotation
-  - required_enum_case
-  - single_test_class
-  - sorted_first_last
-  - sorted_imports
-  - static_operator
-  - toggle_bool
-  - trailing_closure
-  - unavailable_function
-  - unneeded_parentheses_in_closure_argument
-  - untyped_error_in_catch
-  - unused_declaration
-  - unused_import
-  - vertical_parameter_alignment_on_call
-  - vertical_whitespace_closing_braces
-  - vertical_whitespace_opening_braces
-  - xct_specific_matcher
-  - yoda_condition
+  - cyclomatic_complexity
+  - inclusive_language
+  - todo
 included: # paths to include during linting. `--path` is ignored if present.
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Pods
@@ -105,6 +56,12 @@ type_body_length:
 file_length:
   warning: 700
   error: 1200
+function_body_length:
+  warning: 100
+  error: 120
+closure_body_length:
+  warning: 100
+  error: 120
 # naming rules can set warnings/errors for min_length and max_length
 # additionally they can set excluded names
 type_name:

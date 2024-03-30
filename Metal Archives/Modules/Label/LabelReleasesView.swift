@@ -44,7 +44,7 @@ struct LabelReleasesView: View {
         .confirmationDialog(
             "",
             isPresented:
-                isShowingAlert,
+            isShowingAlert,
             actions: {
                 if let selectedRelease {
                     Button(action: {
@@ -64,7 +64,8 @@ struct LabelReleasesView: View {
                 if let selectedRelease {
                     Text("\"\(selectedRelease.release.title)\" by \(selectedRelease.band.name)")
                 }
-            })
+            }
+        )
     }
 
     @ViewBuilder
@@ -212,8 +213,8 @@ private struct LabelReleaseView: View {
                     .foregroundColor(preferences.theme.secondaryColor)
 
                 Text(release.year) +
-                Text(" • ") +
-                Text(release.type.description)
+                    Text(" • ") +
+                    Text(release.type.description)
                     .foregroundColor(release.type.titleForegroundColor(preferences.theme))
 
                 Text(release.catalog)

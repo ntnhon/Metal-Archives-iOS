@@ -11,6 +11,6 @@ extension String {
     static func random(length: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         // swiftlint:disable:next force_unwrapping
-        return String((0..<length).map { _ in letters.randomElement()! })
+        return String((0 ..< length).map { _ in letters.randomElement()! })
     }
 }

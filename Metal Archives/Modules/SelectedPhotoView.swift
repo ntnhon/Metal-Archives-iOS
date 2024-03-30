@@ -1,5 +1,5 @@
 //
-//  PhotoView.swift
+//  SelectedPhotoView.swift
 //  Metal Archives
 //
 //  Created by Thanh-Nhon Nguyen on 09/10/2021.
@@ -21,57 +21,57 @@ struct SelectedPhotoView: View {
         ZStack {
             let gestures =
                 TapGesture(count: 1)
-                .onEnded {
-                    showPhotoOnly.toggle()
-                }
-                .simultaneously(
-                    with: TapGesture(count: 2)
-                        .onEnded {
-                            if scaleFactor == 1.0 {
-                                scaleFactor = 2.2
-                            } else {
-                                scaleFactor = 1.0
-                                offset = .zero
+                    .onEnded {
+                        showPhotoOnly.toggle()
+                    }
+                    .simultaneously(
+                        with: TapGesture(count: 2)
+                            .onEnded {
+                                if scaleFactor == 1.0 {
+                                    scaleFactor = 2.2
+                                } else {
+                                    scaleFactor = 1.0
+                                    offset = .zero
+                                }
                             }
-                        }
-                )
-                .simultaneously(
-                    with: MagnificationGesture()
-                        .onChanged { value in
-                            showPhotoOnly = true
-                            scaleFactor = value.magnitude
-                        }
-                        .onEnded { _ in
-                            scaleFactor = max(1, scaleFactor)
-                        }
-                )
-                .simultaneously(
-                    with: DragGesture()
-                        .onChanged { value in
-                            showPhotoOnly = true
-                            offset += value.translation
-                        }
-                        .onEnded { value in
-                            if scaleFactor == 1.0 {
-                                showPhotoOnly = false
-                                offset = .zero
+                    )
+                    .simultaneously(
+                        with: MagnificationGesture()
+                            .onChanged { value in
+                                showPhotoOnly = true
+                                scaleFactor = value.magnitude
                             }
-                            if value.location.y - value.startLocation.y > 5 {
-                                selectedPhoto.wrappedValue = nil
+                            .onEnded { _ in
+                                scaleFactor = max(1, scaleFactor)
                             }
+                    )
+                    .simultaneously(
+                        with: DragGesture()
+                            .onChanged { value in
+                                showPhotoOnly = true
+                                offset += value.translation
+                            }
+                            .onEnded { value in
+                                if scaleFactor == 1.0 {
+                                    showPhotoOnly = false
+                                    offset = .zero
+                                }
+                                if value.location.y - value.startLocation.y > 5 {
+                                    selectedPhoto.wrappedValue = nil
+                                }
 //                            else if offset.width > 0 {
 //                                offset.width = 0
 //                            } else if imageSize.width * scaleFactor - imageSize.width + offset.width < 0 {
 //                                offset.width = -(imageSize.width * scaleFactor - imageSize.width)
 //                            }
-                        }
-                )
-                .simultaneously(
-                    with: LongPressGesture()
-                        .onEnded { _ in
-                            showShareSheet = true
-                        }
-                )
+                            }
+                    )
+                    .simultaneously(
+                        with: LongPressGesture()
+                            .onEnded { _ in
+                                showShareSheet = true
+                            }
+                    )
 
             Color(.systemBackground)
                 .ignoresSafeArea()
@@ -121,7 +121,8 @@ struct SelectedPhotoView: View {
     }
 
     private func actionButton(imageSystemName: String,
-                              action: @escaping () -> Void) -> some View {
+                              action: @escaping () -> Void) -> some View
+    {
         Button(action: action) {
             Image(systemName: imageSystemName)
                 .resizable()

@@ -29,7 +29,7 @@ extension APIServiceProtocol {
         }
 
         switch httpResponse.statusCode {
-        case 200...299:
+        case 200 ... 299:
             return data
         default:
             throw MAError.requestFailure(httpResponse.statusCode)
@@ -49,7 +49,7 @@ extension APIServiceProtocol {
         return string.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    func request<T: HTMLParsable>(forType type: T.Type, urlString: String) async throws -> T {
+    func request<T: HTMLParsable>(forType _: T.Type, urlString: String) async throws -> T {
         let data = try await getData(for: urlString)
         return try T(data: data)
     }

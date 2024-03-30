@@ -98,7 +98,8 @@ struct SearchView: View {
                 },
                 message: {
                     Text("Please confirm")
-                })
+                }
+            )
         }
     }
 
@@ -194,12 +195,18 @@ struct SearchView: View {
                         .onTapGesture {
                             guard let urlString = entry.secondaryDetail else { return }
                             switch entry.type {
-                            case .band: detail = .band(urlString)
-                            case .release: detail = .release(urlString)
-                            case .artist: detail = .artist(urlString)
-                            case .label: detail = .label(urlString)
-                            case .user: detail = .user(urlString)
-                            default: return
+                            case .band:
+                                detail = .band(urlString)
+                            case .release:
+                                detail = .release(urlString)
+                            case .artist:
+                                detail = .artist(urlString)
+                            case .label:
+                                detail = .label(urlString)
+                            case .user:
+                                detail = .user(urlString)
+                            default:
+                                return
                             }
                             Task {
                                 try await viewModel.datasource.upsert(entry)
@@ -255,9 +262,9 @@ private struct EntitySearchEntryView: View {
             if let thumbnailInfo = entry.thumbnailInfo {
                 ThumbnailView(thumbnailInfo: thumbnailInfo,
                               photoDescription: entry.primaryDetail)
-                .font(.largeTitle)
-                .foregroundColor(preferences.theme.secondaryColor)
-                .frame(width: 64, height: 64)
+                    .font(.largeTitle)
+                    .foregroundColor(preferences.theme.secondaryColor)
+                    .frame(width: 64, height: 64)
             } else if entry.type == .user {
                 Image(systemName: "person.circle.fill")
                     .resizable()

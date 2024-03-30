@@ -52,7 +52,8 @@ struct BandReviewsView: View {
             },
             message: {
                 Text("\"\(selectedReview?.title ?? "")\" reviewed by \(selectedReview?.author.name ?? "")")
-            })
+            }
+        )
         .task {
             await viewModel.getMoreReviews()
         }
@@ -70,14 +71,14 @@ struct BandReviewsView: View {
             ForEach(viewModel.reviews, id: \.urlString) { review in
                 ReviewLiteView(review: review,
                                release: viewModel.release(for: review))
-                .onTapGesture {
-                    selectedReview = review
-                }
-                .task {
-                    if review.urlString == viewModel.reviews.last?.urlString {
-                        await viewModel.getMoreReviews()
+                    .onTapGesture {
+                        selectedReview = review
                     }
-                }
+                    .task {
+                        if review.urlString == viewModel.reviews.last?.urlString {
+                            await viewModel.getMoreReviews()
+                        }
+                    }
                 Divider()
             }
         }
@@ -103,9 +104,9 @@ private struct ReviewLiteView: View {
         HStack {
             ThumbnailView(thumbnailInfo: release.thumbnailInfo,
                           photoDescription: release.photoDescription)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 Text(release.title)
@@ -115,8 +116,8 @@ private struct ReviewLiteView: View {
 
                 Group {
                     Text(verbatim: "\(release.year) • ") +
-                    Text("\(release.type.description) • ") +
-                    Text("\(review.rating)%")
+                        Text("\(release.type.description) • ") +
+                        Text("\(review.rating)%")
                         .foregroundColor(Color.byRating(review.rating))
                 }
                 .font(release.type.subtitleFont)
@@ -124,7 +125,7 @@ private struct ReviewLiteView: View {
                 Group {
                     Text("\(review.author.name) • ")
                         .foregroundColor(preferences.theme.secondaryColor) +
-                    Text(review.date)
+                        Text(review.date)
                 }
                 .font(.callout)
             }
@@ -207,10 +208,10 @@ private struct ReviewOrderPicker: View {
             }
         }, label: {
             Text(viewModel.sortOption.title)
-            .padding(8)
-            .background(preferences.theme.primaryColor)
-            .foregroundColor(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+                .padding(8)
+                .background(preferences.theme.primaryColor)
+                .foregroundColor(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
         })
         .transaction { transaction in
             transaction.animation = nil

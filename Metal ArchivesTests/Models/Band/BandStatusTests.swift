@@ -10,48 +10,48 @@ import XCTest
 
 class BandStatusTests: XCTestCase {
     func testStatusActive() {
-        ["Active", "active", "aCtive", "actiVE"].forEach {
-            let sut = BandStatus(rawValue: $0)
+        for item in ["Active", "active", "aCtive", "actiVE"] {
+            let sut = BandStatus(rawValue: item)
             XCTAssertEqual(sut, .active)
             XCTAssertEqual(sut.rawValue, "Active")
         }
     }
 
     func testStatusOnHold() {
-        ["on hold", "On Hold", "on Hold", "On hold", "on hOlD"].forEach {
-            let sut = BandStatus(rawValue: $0)
+        for item in ["on hold", "On Hold", "on Hold", "On hold", "on hOlD"] {
+            let sut = BandStatus(rawValue: item)
             XCTAssertEqual(sut, .onHold)
             XCTAssertEqual(sut.rawValue, "On hold")
         }
     }
 
     func testStatusSplitUp() {
-        ["Split-up", "split-up", "spliT-Up", "Split up", "split UP"].forEach {
-            let sut = BandStatus(rawValue: $0)
+        for item in ["Split-up", "split-up", "spliT-Up", "Split up", "split UP"] {
+            let sut = BandStatus(rawValue: item)
             XCTAssertEqual(sut, .splitUp)
             XCTAssertEqual(sut.rawValue, "Split up")
         }
     }
 
     func testStatusChangedName() {
-        ["Changed name", "changed name", "cHanged name", "changed Name"].forEach {
-            let sut = BandStatus(rawValue: $0)
+        for item in ["Changed name", "changed name", "cHanged name", "changed Name"] {
+            let sut = BandStatus(rawValue: item)
             XCTAssertEqual(sut, .changedName)
             XCTAssertEqual(sut.rawValue, "Changed name")
         }
     }
 
     func testStatusDisputed() {
-        ["Disputed", "disputed", "dISputed"].forEach {
-            let sut = BandStatus(rawValue: $0)
+        for item in ["Disputed", "disputed", "dISputed"] {
+            let sut = BandStatus(rawValue: item)
             XCTAssertEqual(sut, .disputed)
             XCTAssertEqual(sut.rawValue, "Disputed")
         }
     }
 
     func testStatusUnknown() {
-        ["Unknown", "unknown", "uKNown", "unknowN", "", "ssqcfe"].forEach {
-            let sut = BandStatus(rawValue: $0)
+        for item in ["Unknown", "unknown", "uKNown", "unknowN", "", "ssqcfe"] {
+            let sut = BandStatus(rawValue: item)
             XCTAssertEqual(sut, .unknown)
             XCTAssertEqual(sut.rawValue, "Unknown")
         }

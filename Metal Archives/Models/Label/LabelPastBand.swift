@@ -45,14 +45,15 @@ extension LabelPastBand: PageElement {
         guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
               let bandName = aTag.text,
               let bandUrlString = aTag["href"],
-              let band = BandLite(urlString: bandUrlString, name: bandName) else {
+              let band = BandLite(urlString: bandUrlString, name: bandName)
+        else {
             throw PageElementError.failedToParse("\(BandLite.self): \(strings[0])")
         }
         self.band = band
 
-        self.genre = strings[1]
-        self.country = CountryManager.shared.country(by: \.name, value: strings[2])
-        self.releaseCount = strings[3]
+        genre = strings[1]
+        country = CountryManager.shared.country(by: \.name, value: strings[2])
+        releaseCount = strings[3]
     }
 }
 
@@ -74,35 +75,47 @@ extension LabelPastBandPageManager {
 
         var title: String {
             switch self {
-            case .band(.ascending): return "Band ↑"
-            case .band(.descending): return "Band ↓"
-            case .genre(.ascending): return "Genre ↑"
-            case .genre(.descending): return "Genre ↓"
-            case .country(.ascending): return "Country ↑"
-            case .country(.descending): return "Country ↓"
-            case .releaseCount(.ascending): return "Number of album released ↑"
-            case .releaseCount(.descending): return "Number of album released ↓"
+            case .band(.ascending):
+                "Band ↑"
+            case .band(.descending):
+                "Band ↓"
+            case .genre(.ascending):
+                "Genre ↑"
+            case .genre(.descending):
+                "Genre ↓"
+            case .country(.ascending):
+                "Country ↑"
+            case .country(.descending):
+                "Country ↓"
+            case .releaseCount(.ascending):
+                "Number of album released ↑"
+            case .releaseCount(.descending):
+                "Number of album released ↓"
             }
         }
 
         var column: Int {
             switch self {
-            case .band: return 0
-            case .genre: return 1
-            case .country: return 2
-            case .releaseCount: return 3
+            case .band:
+                0
+            case .genre:
+                1
+            case .country:
+                2
+            case .releaseCount:
+                3
             }
         }
 
         var order: Order {
             switch self {
             case .band(.ascending),
-                    .genre(.ascending),
-                    .country(.ascending),
-                    .releaseCount(.ascending):
-                return .ascending
+                 .genre(.ascending),
+                 .country(.ascending),
+                 .releaseCount(.ascending):
+                .ascending
             default:
-                return .descending
+                .descending
             }
         }
 
@@ -113,16 +126,16 @@ extension LabelPastBandPageManager {
         static func == (lhs: Self, rhs: Self) -> Bool {
             switch (lhs, rhs) {
             case (.band(.ascending), .band(.ascending)),
-                (.band(.descending), .band(.descending)),
-                (.genre(.ascending), .genre(.ascending)),
-                (.genre(.descending), .genre(.descending)),
-                (.country(.ascending), .country(.ascending)),
-                (.country(.descending), .country(.descending)),
-                (.releaseCount(.ascending), .releaseCount(.ascending)),
-                (.releaseCount(.descending), .releaseCount(.descending)):
-                return true
+                 (.band(.descending), .band(.descending)),
+                 (.genre(.ascending), .genre(.ascending)),
+                 (.genre(.descending), .genre(.descending)),
+                 (.country(.ascending), .country(.ascending)),
+                 (.country(.descending), .country(.descending)),
+                 (.releaseCount(.ascending), .releaseCount(.ascending)),
+                 (.releaseCount(.descending), .releaseCount(.descending)):
+                true
             default:
-                return false
+                false
             }
         }
     }

@@ -24,14 +24,14 @@ struct LyricView: View {
                 switch viewModel.lyricFetchable {
                 case .fetching:
                     HornCircularLoader()
-                case .fetched(let lyric):
+                case let .fetched(lyric):
                     ScrollView {
                         Text(lyric)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                             .textSelection(.enabled)
                     }
-                case .error(let error):
+                case let .error(error):
                     VStack {
                         Text(error.userFacingMessage)
                         RetryButton {

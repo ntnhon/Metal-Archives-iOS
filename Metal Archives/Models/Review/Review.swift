@@ -114,22 +114,25 @@ extension Review: HTMLParsable {
         if let h1 = div.at_css("h1"),
            let aTag = h1.at_css("a"),
            let releaseTitle = aTag.text,
-           let releaseUrlString = aTag["href"] {
+           let releaseUrlString = aTag["href"]
+        {
             builder.release = .init(urlString: releaseUrlString, title: releaseTitle)
         }
 
         if let h2 = div.at_css("h2"),
            let aTag = h2.at_css("a"),
            let bandName = aTag.text,
-           let bandUrlString = aTag["href"] {
+           let bandUrlString = aTag["href"]
+        {
             builder.band = .init(urlString: bandUrlString, name: bandName)
         }
     }
 
     private static func parseOtherContent(from div: XMLElement, builder: Builder) {
         if let h3 = div.at_css("h3"),
-           let titleAndRating = h3.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
-            Self.parseTitleAndRating(titleAndRating, builder: builder)
+           let titleAndRating = h3.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        {
+            parseTitleAndRating(titleAndRating, builder: builder)
         }
 
         for div in div.css("div") {
@@ -142,7 +145,8 @@ extension Review: HTMLParsable {
                 let aTags = div.css("a")
                 for (index, aTag) in aTags.enumerated() {
                     if let urlString = aTag["href"],
-                       let text = aTag.text {
+                       let text = aTag.text
+                    {
                         if index == 0 {
                             builder.user = .init(name: text, urlString: urlString)
                         } else {
@@ -158,8 +162,8 @@ extension Review: HTMLParsable {
 
     private static func parseTitleAndRating(_ titleAndRating: String, builder: Builder) {
         guard let hyphenIndex = titleAndRating.lastIndex(of: "-") else { return }
-        let title = titleAndRating[titleAndRating.startIndex..<hyphenIndex].trimmingCharacters(in: .whitespaces)
-        let rating = titleAndRating[hyphenIndex..<titleAndRating.endIndex]
+        let title = titleAndRating[titleAndRating.startIndex ..< hyphenIndex].trimmingCharacters(in: .whitespaces)
+        let rating = titleAndRating[hyphenIndex ..< titleAndRating.endIndex]
             .replacingOccurrences(of: "-", with: "")
             .trimmingCharacters(in: .whitespaces)
             .replacingOccurrences(of: "%", with: "")

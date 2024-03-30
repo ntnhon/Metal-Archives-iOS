@@ -85,7 +85,8 @@ extension Array where Element == ReleaseOtherVersion {
     init(data: Data) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
               let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8),
-              let tbody = html.at_css("tbody") else {
+              let tbody = html.at_css("tbody")
+        else {
             Logger.log("Error parsing html for list of release other version")
             self = []
             return
@@ -115,11 +116,16 @@ extension Array where Element == ReleaseOtherVersion {
                     builder.additionalDetail = tdText.removeAll(string: "\(builder.date ?? "")")
                         .removeAll(string: "(\n                    Unofficial)")
                         .trimmingCharacters(in: .whitespacesAndNewlines)
-                case labelColumn: builder.labelName = tdText
-                case catalogIdColumn: builder.catalogId = tdText
-                case formatColumn: builder.format = tdText
-                case descriptionColumn: builder.description = tdText
-                default: break
+                case labelColumn:
+                    builder.labelName = tdText
+                case catalogIdColumn:
+                    builder.catalogId = tdText
+                case formatColumn:
+                    builder.format = tdText
+                case descriptionColumn:
+                    builder.description = tdText
+                default:
+                    break
                 }
             }
 

@@ -76,20 +76,22 @@ extension ReviewLite: PageElement {
 
         guard let stringAndTitleATag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
               let title = stringAndTitleATag.text,
-              let urlString = stringAndTitleATag["href"] else {
+              let urlString = stringAndTitleATag["href"]
+        else {
             throw PageElementError.failedToParse("title & urlString")
         }
         self.urlString = urlString
         self.title = title
-        self.rating = Int(strings[1].replacingOccurrences(of: "%", with: "")) ?? -1
+        rating = Int(strings[1].replacingOccurrences(of: "%", with: "")) ?? -1
 
         guard let authorATag = try Kanna.HTML(html: strings[2], encoding: .utf8).at_css("a"),
               let authorName = authorATag.text,
-              let authorUrlString = authorATag["href"] else {
+              let authorUrlString = authorATag["href"]
+        else {
             throw PageElementError.failedToParse("\(UserLite.self)")
         }
-        self.author = .init(name: authorName, urlString: authorUrlString)
-        self.date = strings[3]
+        author = .init(name: authorName, urlString: authorUrlString)
+        date = strings[3]
     }
 }
 
@@ -110,35 +112,47 @@ extension ReviewLitePageManager {
 
         var title: String {
             switch self {
-            case .album(.ascending): return "Album ↑"
-            case .album(.descending): return "Album ↓"
-            case .rating(.ascending): return "Rating ↑"
-            case .rating(.descending): return "Rating ↓"
-            case .author(.ascending): return "Author ↑"
-            case .author(.descending): return "Author ↓"
-            case .date(.ascending): return "Date ↑"
-            case .date(.descending): return "Date ↓"
+            case .album(.ascending):
+                "Album ↑"
+            case .album(.descending):
+                "Album ↓"
+            case .rating(.ascending):
+                "Rating ↑"
+            case .rating(.descending):
+                "Rating ↓"
+            case .author(.ascending):
+                "Author ↑"
+            case .author(.descending):
+                "Author ↓"
+            case .date(.ascending):
+                "Date ↑"
+            case .date(.descending):
+                "Date ↓"
             }
         }
 
         var column: Int {
             switch self {
-            case .album: return 0
-            case .rating: return 1
-            case .author: return 2
-            case .date: return 3
+            case .album:
+                0
+            case .rating:
+                1
+            case .author:
+                2
+            case .date:
+                3
             }
         }
 
         var order: Order {
             switch self {
             case .album(.ascending),
-                    .rating(.ascending),
-                    .author(.ascending),
-                    .date(.ascending):
-                return .ascending
+                 .rating(.ascending),
+                 .author(.ascending),
+                 .date(.ascending):
+                .ascending
             default:
-                return .descending
+                .descending
             }
         }
 
@@ -149,16 +163,16 @@ extension ReviewLitePageManager {
         static func == (lhs: Self, rhs: Self) -> Bool {
             switch (lhs, rhs) {
             case (.album(.ascending), .album(.ascending)),
-                (.album(.descending), .album(.descending)),
-                (.rating(.ascending), .rating(.ascending)),
-                (.rating(.descending), .rating(.descending)),
-                (.author(.ascending), .author(.ascending)),
-                (.author(.descending), .author(.descending)),
-                (.date(.ascending), .date(.ascending)),
-                (.date(.descending), .date(.descending)):
-                return true
+                 (.album(.descending), .album(.descending)),
+                 (.rating(.ascending), .rating(.ascending)),
+                 (.rating(.descending), .rating(.descending)),
+                 (.author(.ascending), .author(.ascending)),
+                 (.author(.descending), .author(.descending)),
+                 (.date(.ascending), .date(.ascending)),
+                 (.date(.descending), .date(.descending)):
+                true
             default:
-                return false
+                false
             }
         }
     }

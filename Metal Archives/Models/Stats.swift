@@ -109,14 +109,22 @@ extension Stats: HTMLParsable {
         for (index, pTag) in generalDiv.css("p").enumerated() {
             guard let text = pTag.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { continue }
             switch index {
-            case 0: timestamp = text
-            case 1: bandStats = try Self.parseBandStats(from: text)
-            case 2: reviewStats = try Self.parseReviewStats(from: text)
-            case 3: labelStats = try Self.parseLabelStats(from: text)
-            case 4: artistStats = try Self.parseArtistStats(from: text)
-            case 5: memberStats = try Self.parseMemberStats(from: text)
-            case 6: releaseStats = try Self.parseReleaseStats(from: text)
-            default: break
+            case 0:
+                timestamp = text
+            case 1:
+                bandStats = try Self.parseBandStats(from: text)
+            case 2:
+                reviewStats = try Self.parseReviewStats(from: text)
+            case 3:
+                labelStats = try Self.parseLabelStats(from: text)
+            case 4:
+                artistStats = try Self.parseArtistStats(from: text)
+            case 5:
+                memberStats = try Self.parseMemberStats(from: text)
+            case 6:
+                releaseStats = try Self.parseReleaseStats(from: text)
+            default:
+                break
             }
         }
 
@@ -458,3 +466,5 @@ extension Stats: HTMLParsable {
         return .empty
     }
 }
+
+// swiftlint:enable multiline_arguments

@@ -18,12 +18,12 @@ struct ArtistBiographyView: View {
                 case .fetching:
                     ProgressView()
 
-                case .fetched(let biography):
-                    if let biography = biography {
+                case let .fetched(biography):
+                    if let biography {
                         Text(biography)
                     }
 
-                case .error(let error):
+                case let .error(error):
                     VStack {
                         Text(error.userFacingMessage)
                         RetryButton {

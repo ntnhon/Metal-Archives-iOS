@@ -15,10 +15,11 @@ struct LatestReviewsSection: View {
     @Binding var detail: Detail?
 
     init(apiService: APIServiceProtocol,
-         detail: Binding<Detail?>) {
-        self._viewModel = .init(wrappedValue: .init(apiService: apiService,
-                                                    manager: LatestReviewPageManager(apiService: apiService)))
-        self._detail = detail
+         detail: Binding<Detail?>)
+    {
+        _viewModel = .init(wrappedValue: .init(apiService: apiService,
+                                               manager: LatestReviewPageManager(apiService: apiService)))
+        _detail = detail
     }
 
     var body: some View {
@@ -89,9 +90,9 @@ private struct LatestReviewView: View {
         HStack {
             ThumbnailView(thumbnailInfo: review.release.thumbnailInfo,
                           photoDescription: review.release.title)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 let texts = review.bands
@@ -115,8 +116,8 @@ private struct LatestReviewView: View {
                 Text(review.author.name)
                     .font(.body.italic())
                     .foregroundColor(preferences.theme.secondaryColor) +
-                Text(" • ") +
-                Text("\(review.rating)%")
+                    Text(" • ") +
+                    Text("\(review.rating)%")
                     .foregroundColor(.byRating(review.rating))
 
                 Text("\(review.date), \(review.time)")
@@ -164,6 +165,7 @@ private struct LatestReviewView: View {
             },
             message: {
                 Text("\"\(review.release.title)\" by \(review.bandsName)")
-            })
+            }
+        )
     }
 }

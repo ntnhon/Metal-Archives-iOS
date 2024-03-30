@@ -91,7 +91,8 @@ struct AdvancedSearchSongsView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, alignment: .center)
-                    })
+                    }
+                )
             }
             .listRowBackground(Color.accentColor)
         }

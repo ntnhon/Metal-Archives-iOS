@@ -23,9 +23,9 @@ struct TracklistView: View {
         })
 
         VStack(alignment: .leading, spacing: 8) {
-            ForEach(0...elements.count - 1, id: \.self) { index in
+            ForEach(0 ... elements.count - 1, id: \.self) { index in
                 switch elements[index] {
-                case .song(let song):
+                case let .song(song):
                     SongView(song: song)
                         .contentShape(Rectangle())
                         .onTapGesture {
@@ -39,15 +39,15 @@ struct TracklistView: View {
                         }
                     Divider()
 
-                case .disc(let title):
+                case let .disc(title):
                     discOrSideView(title: title, isFirstElement: index == 0)
                     Divider()
 
-                case .side(let title):
+                case let .side(title):
                     discOrSideView(title: title, isFirstElement: index == 0)
                     Divider()
 
-                case .length(let length):
+                case let .length(length):
                     HStack {
                         Text(length)
                             .fontWeight(.bold)

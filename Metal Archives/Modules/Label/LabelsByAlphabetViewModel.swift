@@ -27,7 +27,7 @@ final class LabelsByAlphabetViewModel: ObservableObject {
         self.apiService = apiService
         self.letter = letter
         let defaultSortOption: LabelByAlphabetPageManager.SortOption = .name(.ascending)
-        self.manager = .init(apiService: apiService, letter: letter, sortOptions: defaultSortOption)
+        manager = .init(apiService: apiService, letter: letter, sortOptions: defaultSortOption)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

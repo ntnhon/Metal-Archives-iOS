@@ -25,11 +25,11 @@ struct ReleaseReviewsView: View {
                     Group {
                         Text("\(review.rating)%")
                             .foregroundColor(.byRating(review.rating)) +
-                        Text(" • ") +
-                        Text(review.author.name)
+                            Text(" • ") +
+                            Text(review.author.name)
                             .foregroundColor(preferences.theme.secondaryColor) +
-                        Text(" • ") +
-                        Text(review.date)
+                            Text(" • ") +
+                            Text(review.date)
                     }
                     .font(.callout)
 
@@ -59,7 +59,8 @@ struct ReleaseReviewsView: View {
             },
             message: {
                 Text("\"\(selectedReview?.title ?? "")\" review by \(selectedReview?.author.name ?? "")")
-            })
+            }
+        )
     }
 
     private func makeIsShowingConfirmationDialogBinding() -> Binding<Bool> {

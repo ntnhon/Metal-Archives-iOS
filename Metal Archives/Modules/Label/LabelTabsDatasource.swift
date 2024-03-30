@@ -18,35 +18,54 @@ enum LabelTab {
 
     var title: String {
         switch self {
-        case .subLabels: return "Sub-labels"
-        case .currentRoster: return "Current roster"
-        case .lastKnownRoster: return "Last known roster"
-        case .pastRoster: return "Past roster"
-        case .releases: return "Releases"
-        case .additionalNotes: return "Additional notes"
-        case .links: return "Links"
+        case .subLabels:
+            "Sub-labels"
+        case .currentRoster:
+            "Current roster"
+        case .lastKnownRoster:
+            "Last known roster"
+        case .pastRoster:
+            "Past roster"
+        case .releases:
+            "Releases"
+        case .additionalNotes:
+            "Additional notes"
+        case .links:
+            "Links"
         }
     }
 
     var iconName: String {
         switch self {
-        case .subLabels: return "tag"
-        case .currentRoster, .lastKnownRoster: return "circle"
-        case .pastRoster: return "circle.dashed"
-        case .releases: return "opticaldisc"
-        case .additionalNotes: return "info.circle"
-        case .links: return "link"
+        case .subLabels:
+            "tag"
+        case .currentRoster, .lastKnownRoster:
+            "circle"
+        case .pastRoster:
+            "circle.dashed"
+        case .releases:
+            "opticaldisc"
+        case .additionalNotes:
+            "info.circle"
+        case .links:
+            "link"
         }
     }
 
     var selectedIconName: String {
         switch self {
-        case .subLabels: return "tag.fill"
-        case .currentRoster, .lastKnownRoster: return "circle.fill"
-        case .pastRoster: return "circle.dashed.inset.filled"
-        case .releases: return "opticaldisc.fill"
-        case .additionalNotes: return "info.circle.fill"
-        case .links: return "link"
+        case .subLabels:
+            "tag.fill"
+        case .currentRoster, .lastKnownRoster:
+            "circle.fill"
+        case .pastRoster:
+            "circle.dashed.inset.filled"
+        case .releases:
+            "opticaldisc.fill"
+        case .additionalNotes:
+            "info.circle.fill"
+        case .links:
+            "link"
         }
     }
 }
@@ -80,7 +99,7 @@ final class LabelTabsDatasource: HorizontalTabsDatasource {
 
         allTabs.append(.links)
         self.allTabs = allTabs
-        self.selectedTab = allTabs.first ?? .links
+        selectedTab = allTabs.first ?? .links
     }
 
     override func numberOfTabs() -> Int {

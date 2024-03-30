@@ -13,7 +13,8 @@ struct ReleaseView: View {
 
     init(apiService: APIServiceProtocol,
          urlString: String,
-         parentRelease: Release?) {
+         parentRelease: Release?)
+    {
         self.apiService = apiService
         let vm = ReleaseViewModel(apiService: apiService,
                                   urlString: urlString,
@@ -26,11 +27,11 @@ struct ReleaseView: View {
             switch viewModel.releaseFetchable {
             case .fetching:
                 HornCircularLoader()
-            case .fetched(let release):
+            case let .fetched(release):
                 ReleaseContentView(apiService: apiService,
                                    release: release)
-                .environmentObject(viewModel)
-            case .error(let error):
+                    .environmentObject(viewModel)
+            case let .error(error):
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
@@ -77,8 +78,9 @@ private struct ReleaseContentView: View {
                 onOffsetChanged: { point in
                     /// Calculate `titleViewAlpha`
                     let screenBounds = UIScreen.main.bounds
-                    if point.y < 0,
-                       abs(point.y) > (min(screenBounds.width, screenBounds.height) / 4) {
+                    if point.y<0,
+                        abs(point.y)>(min(screenBounds.width, screenBounds.height) / 4)
+                    {
                         titleViewAlpha = (abs(point.y) + 300) / min(screenBounds.width, screenBounds.height)
                     } else {
                         titleViewAlpha = 0.0
@@ -149,7 +151,7 @@ private struct ReleaseContentView: View {
                                     ReleaseReviewsView(reviews: release.reviews,
                                                        onSelectReview: { url in detail = .review(url) },
                                                        onSelectUser: { url in detail = .user(url) })
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                 }
 
                             case .additionalNotes:
@@ -161,7 +163,8 @@ private struct ReleaseContentView: View {
                         .frame(minHeight: bottomSectionMinHeight, alignment: .top)
                         .background(Color(.systemBackground))
                     }
-                })
+                }
+            )
         }
         .toolbar { toolbarContent }
         .onReceive(viewModel.$noCover) { noCover in
@@ -176,8 +179,8 @@ private struct ReleaseContentView: View {
         ToolbarItem(placement: .navigationBarLeading) {
             Group {
                 switch viewModel.coverFetchable {
-                case .fetched(let image):
-                    if let image = image {
+                case let .fetched(image):
+                    if let image {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()
@@ -203,29 +206,29 @@ private struct ReleaseContentView: View {
 }
 
 /*
-struct ReleaseView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            ReleaseView(apiService: APIService(),
-                        releaseUrlString: "https://www.metal-archives.com/albums/Death/Human/606")
-        }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
-    }
-}
-*/
+ struct ReleaseView_Previews: PreviewProvider {
+     static var previews: some View {
+         NavigationView {
+             ReleaseView(apiService: APIService(),
+                         releaseUrlString: "https://www.metal-archives.com/albums/Death/Human/606")
+         }
+         .environment(\.colorScheme, .dark)
+         .environmentObject(Preferences())
+     }
+ }
+ */
 
 /*
-struct IgnoreTopSafeArea: ViewModifier {
-    let shouldIgnore: Bool
+ struct IgnoreTopSafeArea: ViewModifier {
+     let shouldIgnore: Bool
 
-    func body(content: Content) -> some View {
-        if shouldIgnore {
-            content
-                .ignoresSafeArea(edges: .top)
-        } else {
-            content
-        }
-    }
-}
-*/
+     func body(content: Content) -> some View {
+         if shouldIgnore {
+             content
+                 .ignoresSafeArea(edges: .top)
+         } else {
+             content
+         }
+     }
+ }
+ */

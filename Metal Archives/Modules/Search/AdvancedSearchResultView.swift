@@ -10,6 +10,7 @@ import SwiftUI
 private typealias SongAdvancedSearchResultView = SongSimpleSearchResultView
 
 struct AdvancedSearchResultView<T: HashableEquatablePageElement>: View {
+    // swiftlint:disable:next private_swiftui_state
     @StateObject var viewModel: AdvancedSearchResultViewModel<T>
     @State private var detail: Detail?
 
@@ -40,11 +41,11 @@ struct AdvancedSearchResultView<T: HashableEquatablePageElement>: View {
         List {
             ForEach(viewModel.results, id: \.hashValue) { result in
                 view(for: result)
-                .task {
-                    if result == viewModel.results.last {
-                        await viewModel.getMoreResults(force: true)
+                    .task {
+                        if result == viewModel.results.last {
+                            await viewModel.getMoreResults(force: true)
+                        }
                     }
-                }
 
                 if result == viewModel.results.last, viewModel.isLoading {
                     ProgressView()
@@ -68,12 +69,14 @@ struct AdvancedSearchResultView<T: HashableEquatablePageElement>: View {
             ReleaseAdvancedSearchResultView(
                 result: result,
                 onSelectBand: { url in detail = .band(url) },
-                onSelectRelease: { url in detail = .release(url) })
+                onSelectRelease: { url in detail = .release(url) }
+            )
         } else if let result = result as? SongAdvancedSearchResult {
             SongAdvancedSearchResultView(
                 result: result,
                 onSelectRelease: { url in detail = .release(url) },
-                onSelectBand: { url in detail = .band(url) })
+                onSelectBand: { url in detail = .band(url) }
+            )
         } else {
             EmptyView()
         }
@@ -88,16 +91,16 @@ private struct BandAdvancedSearchResultView: View {
         HStack {
             ThumbnailView(thumbnailInfo: result.band.thumbnailInfo,
                           photoDescription: result.band.name)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 if let note = result.note {
                     Text(result.band.name)
                         .fontWeight(.bold)
                         .foregroundColor(preferences.theme.primaryColor) +
-                    Text(" (\(note))")
+                        Text(" (\(note))")
                 } else {
                     Text(result.band.name)
                         .fontWeight(.bold)
@@ -105,10 +108,10 @@ private struct BandAdvancedSearchResultView: View {
                 }
 
                 switch result.countryOrLocation {
-                case .country(let country):
+                case let .country(country):
                     Text(country.nameAndFlag)
                         .foregroundColor(preferences.theme.secondaryColor)
-                case .location(let location):
+                case let .location(location):
                     Text(location)
                         .font(.callout)
                 }
@@ -141,9 +144,9 @@ private struct ReleaseAdvancedSearchResultView: View {
         HStack {
             ThumbnailView(thumbnailInfo: result.release.thumbnailInfo,
                           photoDescription: result.release.title)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 Text(result.release.title)
@@ -185,6 +188,7 @@ private struct ReleaseAdvancedSearchResultView: View {
             },
             message: {
                 Text("\"\(result.release.title)\" by \(result.band.name)")
-            })
+            }
+        )
     }
 }

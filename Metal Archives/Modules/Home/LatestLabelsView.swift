@@ -67,9 +67,9 @@ private struct LatestLabelView: View {
             if let thumbnailInfo = latestLabel.label.thumbnailInfo {
                 ThumbnailView(thumbnailInfo: thumbnailInfo,
                               photoDescription: latestLabel.label.name)
-                .font(.largeTitle)
-                .foregroundColor(preferences.theme.secondaryColor)
-                .frame(width: 64, height: 64)
+                    .font(.largeTitle)
+                    .foregroundColor(preferences.theme.secondaryColor)
+                    .frame(width: 64, height: 64)
             }
 
             VStack(alignment: .leading) {

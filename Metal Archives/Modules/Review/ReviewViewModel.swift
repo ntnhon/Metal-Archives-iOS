@@ -18,7 +18,7 @@ final class ReviewViewModel: ObservableObject {
 
     var review: Review? {
         switch reviewFetchable {
-        case .fetched(let review):
+        case let .fetched(review):
             return review
         default:
             return nil
@@ -36,7 +36,7 @@ final class ReviewViewModel: ObservableObject {
 
     var cover: UIImage? {
         switch coverFetchable {
-        case .fetched(let cover):
+        case let .fetched(cover):
             return cover
         default:
             return nil

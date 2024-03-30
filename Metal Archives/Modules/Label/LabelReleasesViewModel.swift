@@ -26,8 +26,8 @@ final class LabelReleasesViewModel: ObservableObject {
         self.apiService = apiService
         let labelId = urlString.components(separatedBy: "/").last ?? ""
         let defaultSortOption: LabelReleasePageManager.SortOption = .band(.ascending)
-        self.sortOption = defaultSortOption
-        self.manager = .init(apiService: apiService, sortOptions: defaultSortOption, labelId: labelId)
+        sortOption = defaultSortOption
+        manager = .init(apiService: apiService, sortOptions: defaultSortOption, labelId: labelId)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

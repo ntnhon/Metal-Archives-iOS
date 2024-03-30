@@ -22,7 +22,7 @@ final class ArtistViewModel: ObservableObject {
 
     var artist: Artist? {
         switch artistFetchable {
-        case .fetched(let artist):
+        case let .fetched(artist):
             return artist
         default:
             return nil
@@ -40,7 +40,7 @@ final class ArtistViewModel: ObservableObject {
 
     var photo: UIImage? {
         switch photoFetchable {
-        case .fetched(let photo):
+        case let .fetched(photo):
             return photo
         default:
             return nil
@@ -79,7 +79,8 @@ final class ArtistViewModel: ObservableObject {
 
     func fetchPhoto() async {
         guard let urlString = artist?.photoUrlString,
-              let url = URL(string: urlString) else {
+              let url = URL(string: urlString)
+        else {
             return
         }
         do {

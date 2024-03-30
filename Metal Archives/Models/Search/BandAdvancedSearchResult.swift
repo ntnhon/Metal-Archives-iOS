@@ -11,13 +11,6 @@ import Kanna
 enum CountryOrLocation: Hashable {
     case country(Country)
     case location(String)
-
-    func hash(into hasher: inout Hasher) {
-        switch self {
-        case .country(let country): hasher.combine(country)
-        case .location(let location): hasher.combine(location)
-        }
-    }
 }
 
 struct BandAdvancedSearchResult {
@@ -55,40 +48,44 @@ extension BandAdvancedSearchResult: PageElement {
         guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
               let bandName = aTag.text,
               let bandUrlString = aTag["href"],
-              let band = BandLite(urlString: bandUrlString, name: bandName) else {
+              let band = BandLite(urlString: bandUrlString, name: bandName)
+        else {
             throw PageElementError.failedToParse("\(BandLite.self): \(strings[0])")
         }
         self.band = band
 
         if let noteHtml = strings[0].subString(after: "</a> (", before: ")") {
-            self.note = try Kanna.HTML(html: noteHtml, encoding: .utf8).text
+            note = try Kanna.HTML(html: noteHtml, encoding: .utf8).text
         } else {
-            self.note = nil
+            note = nil
         }
 
-        self.genre = strings[1]
+        genre = strings[1]
 
         let countryOrLocationString = strings[2]
         if countryOrLocationString.contains(",") {
-            self.countryOrLocation = .location(countryOrLocationString)
+            countryOrLocation = .location(countryOrLocationString)
         } else {
-            self.countryOrLocation = .country(CountryManager.shared.country(by: \.name,
-                                                                            value: countryOrLocationString))
+            countryOrLocation = .country(CountryManager.shared.country(by: \.name,
+                                                                       value: countryOrLocationString))
         }
 
         let year = Int(strings[3]) ?? 0
         let thisYear = Calendar.current.component(.year, from: .init())
         let distance = thisYear - year
         switch distance {
-        case 0: self.year = "\(year) (this year)"
-        case 1: self.year = "\(year) (last year)"
-        default: self.year = "\(year) (\(distance) years ago)"
+        case 0:
+            self.year = "\(year) (this year)"
+        case 1:
+            self.year = "\(year) (last year)"
+        default:
+            self.year = "\(year) (\(distance) years ago)"
         }
 
         if strings.count == 5 {
-            self.label = strings[4]
+            label = strings[4]
         } else {
-            self.label = nil
+            label = nil
         }
     }
 }

@@ -9,48 +9,48 @@
 import XCTest
 
 /*
-class RelatedLinksTests: XCTestCase {
-    func testEmptyRelatedLinks() throws {
-        // given
-        let data = try XCTUnwrap(Data.fromHtml(fileName: "RelatedLinksEmpty"))
+ class RelatedLinksTests: XCTestCase {
+     func testEmptyRelatedLinks() throws {
+         // given
+         let data = try XCTUnwrap(Data.fromHtml(fileName: "RelatedLinksEmpty"))
 
-        // when
-        let sut = RelatedLinkArray(data: data)
+         // when
+         let sut = RelatedLinkArray(data: data)
 
-        // then
-        XCTAssertTrue(sut.content.isEmpty)
-    }
+         // then
+         XCTAssertTrue(sut.content.isEmpty)
+     }
 
-    func testPublicRelatedLinks() throws {
-        // given
-        let data = try XCTUnwrap(Data.fromHtml(fileName: "RelatedLinksPublic"))
+     func testPublicRelatedLinks() throws {
+         // given
+         let data = try XCTUnwrap(Data.fromHtml(fileName: "RelatedLinksPublic"))
 
-        // when
-        let sut = RelatedLinkArray(data: data)
+         // when
+         let sut = RelatedLinkArray(data: data)
 
-        // then
-        try testNonEmptySut(sut.content)
-    }
+         // then
+         try testNonEmptySut(sut.content)
+     }
 
-    func testLoggedInSimilarBands() throws {
-        // given
-        let data = try XCTUnwrap(Data.fromHtml(fileName: "RelatedLinksLoggedIn"))
+     func testLoggedInSimilarBands() throws {
+         // given
+         let data = try XCTUnwrap(Data.fromHtml(fileName: "RelatedLinksLoggedIn"))
 
-        // when
-        let sut = RelatedLinkArray(data: data)
+         // when
+         let sut = RelatedLinkArray(data: data)
 
-        // then
-        try testNonEmptySut(sut.content)
-    }
+         // then
+         try testNonEmptySut(sut.content)
+     }
 
-    func testNonEmptySut(_ sut: [RelatedLink]) throws {
-        XCTAssertEqual(sut.count, 36)
+     func testNonEmptySut(_ sut: [RelatedLink]) throws {
+         XCTAssertEqual(sut.count, 36)
 
-        let bandCamp = try XCTUnwrap(sut.first { $0.title == "Bandcamp" })
-        XCTAssertEqual(bandCamp.urlString, "https://death.bandcamp.com/")
+         let bandCamp = try XCTUnwrap(sut.first { $0.title == "Bandcamp" })
+         XCTAssertEqual(bandCamp.urlString, "https://death.bandcamp.com/")
 
-        let guitareTab = try XCTUnwrap(sut.first { $0.title == "GuitareTab" })
-        XCTAssertEqual(guitareTab.urlString, "http://www.guitaretab.com/d/death/")
-    }
-}
-*/
+         let guitareTab = try XCTUnwrap(sut.first { $0.title == "GuitareTab" })
+         XCTAssertEqual(guitareTab.urlString, "http://www.guitaretab.com/d/death/")
+     }
+ }
+ */

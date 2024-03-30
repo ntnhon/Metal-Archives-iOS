@@ -15,10 +15,11 @@ struct UpcomingAlbumsSection: View {
     @Binding var detail: Detail?
 
     init(apiService: APIServiceProtocol,
-         detail: Binding<Detail?>) {
-        self._viewModel = .init(wrappedValue: .init(apiService: apiService,
-                                                    manager: UpcomingAlbumPageManager(apiService: apiService)))
-        self._detail = detail
+         detail: Binding<Detail?>)
+    {
+        _viewModel = .init(wrappedValue: .init(apiService: apiService,
+                                               manager: UpcomingAlbumPageManager(apiService: apiService)))
+        _detail = detail
     }
 
     var body: some View {
@@ -89,9 +90,9 @@ private struct UpcomingAlbumView: View {
         HStack {
             ThumbnailView(thumbnailInfo: upcomingAlbum.release.thumbnailInfo,
                           photoDescription: upcomingAlbum.release.title)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 let texts = upcomingAlbum.bands
@@ -114,8 +115,8 @@ private struct UpcomingAlbumView: View {
 
                 Text(upcomingAlbum.releaseType.description)
                     .fontWeight(upcomingAlbum.releaseType == .fullLength ? .heavy : .regular) +
-                Text(" • ") +
-                Text(upcomingAlbum.date)
+                    Text(" • ") +
+                    Text(upcomingAlbum.date)
 
                 Text(upcomingAlbum.genre)
                     .font(.callout.italic())
@@ -154,6 +155,7 @@ private struct UpcomingAlbumView: View {
             },
             message: {
                 Text("\"\(upcomingAlbum.release.title)\" by \(upcomingAlbum.bandsName)")
-            })
+            }
+        )
     }
 }

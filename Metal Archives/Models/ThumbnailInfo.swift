@@ -14,7 +14,8 @@ struct ThumbnailInfo {
 
     init?(urlString: String, type: ThumbnailType) {
         guard URL(string: urlString) != nil,
-              let id = urlString.components(separatedBy: "/").last?.toInt() else {
+              let id = urlString.components(separatedBy: "/").last?.toInt()
+        else {
             return nil
         }
         self.id = id
@@ -50,21 +51,31 @@ enum ThumbnailType: CaseIterable {
 
     var suffix: String {
         switch self {
-        case .bandLogo: return "_logo"
-        case .bandPhoto: return "_photo"
-        case .artist: return "_artist"
-        case .release: return ""
-        case .label: return "_label"
+        case .bandLogo:
+            "_logo"
+        case .bandPhoto:
+            "_photo"
+        case .artist:
+            "_artist"
+        case .release:
+            ""
+        case .label:
+            "_label"
         }
     }
 
     var placeholderSystemImageName: String {
         switch self {
-        case .bandLogo: return "photo.fill"
-        case .bandPhoto: return "person.3.fill"
-        case .artist: return "person.fill"
-        case .release: return "opticaldisc"
-        case .label: return "tag.fill"
+        case .bandLogo:
+            "photo.fill"
+        case .bandPhoto:
+            "person.3.fill"
+        case .artist:
+            "person.fill"
+        case .release:
+            "opticaldisc"
+        case .label:
+            "tag.fill"
         }
     }
 }

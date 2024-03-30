@@ -26,8 +26,8 @@ struct NewsPostView: View {
                     Text(newsPost.dateString)
                         .font(.callout.italic())
                         .fontWeight(.medium) +
-                    Text(" • ") +
-                    Text(newsPost.author.name)
+                        Text(" • ") +
+                        Text(newsPost.author.name)
                         .fontWeight(.medium)
                         .foregroundColor(preferences.theme.secondaryColor)
                 })

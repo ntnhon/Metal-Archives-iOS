@@ -62,9 +62,9 @@ private struct LatestBandView: View {
         HStack {
             ThumbnailView(thumbnailInfo: latestBand.band.thumbnailInfo,
                           photoDescription: latestBand.band.name)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 Text(latestBand.band.name)

@@ -21,7 +21,7 @@ struct TopBandsView: View {
                 HornCircularLoader()
             case .fetched:
                 List {
-                    ForEach(0..<viewModel.topBands.count, id: \.self) { index in
+                    ForEach(0 ..< viewModel.topBands.count, id: \.self) { index in
                         let topBand = viewModel.topBands[index]
                         NavigationLink(destination: {
                             BandView(apiService: viewModel.apiService,
@@ -32,7 +32,7 @@ struct TopBandsView: View {
                     }
                 }
                 .listStyle(.plain)
-            case .error(let error):
+            case let .error(error):
                 HStack {
                     Text(error.userFacingMessage)
                     RetryButton {
@@ -82,7 +82,8 @@ private struct TopBandView: View {
     let index: Int
 
     init(topBand: TopBand,
-         index: Int) {
+         index: Int)
+    {
         self.topBand = topBand
         self.index = index
     }
@@ -93,9 +94,9 @@ private struct TopBandView: View {
 
             ThumbnailView(thumbnailInfo: topBand.band.thumbnailInfo,
                           photoDescription: topBand.band.name)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 Text(topBand.band.name)

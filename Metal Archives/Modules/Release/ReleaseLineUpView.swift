@@ -15,7 +15,8 @@ struct ReleaseLineUpView: View {
 
     init(lineUpMode: Binding<ReleaseLineUpMode>,
          release: Release,
-         onSelectArtist: @escaping (String) -> Void) {
+         onSelectArtist: @escaping (String) -> Void)
+    {
         _lineUpMode = lineUpMode
         viewModel = .init(release: release)
         self.onSelectArtist = onSelectArtist
@@ -110,9 +111,9 @@ private struct ArtistInReleaseView: View {
         HStack(alignment: .top) {
             ThumbnailView(thumbnailInfo: artist.thumbnailInfo,
                           photoDescription: artist.name)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64)
 
             VStack(alignment: .leading, spacing: 8) {
                 Text(artist.name)

@@ -27,7 +27,7 @@ final class BandsByCountryViewModel: ObservableObject {
         self.apiService = apiService
         self.country = country
         let defaultSortOption: BandByCountryPageManager.SortOption = .band(.ascending)
-        self.manager = .init(apiService: apiService, country: country, sortOptions: defaultSortOption)
+        manager = .init(apiService: apiService, country: country, sortOptions: defaultSortOption)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

@@ -44,12 +44,12 @@ struct LabelInfoView: View {
                     ColorCustomizableLabel(title: parent.name,
                                            systemImage: "building.2.fill",
                                            titleColor: urlString != nil ?
-                                           preferences.theme.primaryColor : .primary)
-                    .onTapGesture {
-                        if let urlString {
-                            onSelectLabel(urlString)
+                                               preferences.theme.primaryColor : .primary)
+                        .onTapGesture {
+                            if let urlString {
+                                onSelectLabel(urlString)
+                            }
                         }
-                    }
                 }
 
                 ColorCustomizableLabel(title: label.onlineShopping, systemImage: "cart.fill")

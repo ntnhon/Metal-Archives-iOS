@@ -45,7 +45,7 @@ private struct RoleInBandView: View {
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(role.band.thumbnailInfo?.urlString != nil ?
-                                         preferences.theme.primaryColor : Color.primary)
+                            preferences.theme.primaryColor : Color.primary)
 
                     Text(role.description)
                         .fontWeight(.medium)
@@ -82,9 +82,9 @@ private struct RoleInReleaseView: View {
 
             ThumbnailView(thumbnailInfo: role.release.thumbnailInfo,
                           photoDescription: role.release.title)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 Text(role.release.title)

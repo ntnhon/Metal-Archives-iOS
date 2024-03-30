@@ -15,9 +15,9 @@ struct ReleaseInBandView: View {
         HStack {
             ThumbnailView(thumbnailInfo: release.thumbnailInfo,
                           photoDescription: release.photoDescription)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 Text(release.title)
@@ -29,7 +29,8 @@ struct ReleaseInBandView: View {
                     Text(verbatim: "\(release.year) • ")
                     Text(release.type.description)
                     if let rating = release.rating,
-                       let reviewCount = release.reviewCount {
+                       let reviewCount = release.reviewCount
+                    {
                         Text(" • ")
                         Text("\(reviewCount) (\(rating)%)")
                             .foregroundColor(Color.byRating(rating))

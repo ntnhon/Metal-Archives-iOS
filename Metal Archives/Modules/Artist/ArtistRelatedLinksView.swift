@@ -13,7 +13,7 @@ struct ArtistRelatedLinksView: View {
     var body: some View {
         VStack {
             switch viewModel.relatedLinksFetchable {
-            case .error(let error):
+            case let .error(error):
                 VStack(alignment: .center, spacing: 20) {
                     Text(error.userFacingMessage)
                         .frame(maxWidth: .infinity)
@@ -28,7 +28,7 @@ struct ArtistRelatedLinksView: View {
                 ProgressView()
                     .frame(maxWidth: .infinity, alignment: .center)
 
-            case .fetched(let relatedLinks):
+            case let .fetched(relatedLinks):
                 if relatedLinks.isEmpty {
                     Text("No related links yet")
                         .font(.callout.italic())

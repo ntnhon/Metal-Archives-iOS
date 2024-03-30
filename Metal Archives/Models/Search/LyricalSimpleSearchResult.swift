@@ -46,20 +46,21 @@ extension LyricalSimpleSearchResult: PageElement {
         guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
               let bandName = aTag.text,
               let bandUrlString = aTag["href"],
-              let band = BandLite(urlString: bandUrlString, name: bandName) else {
+              let band = BandLite(urlString: bandUrlString, name: bandName)
+        else {
             throw PageElementError.failedToParse("\(BandLite.self): \(strings[0])")
         }
         self.band = band
 
         if let noteHtml = strings[0].subString(after: "</a> (", before: ")") {
-            self.note = try Kanna.HTML(html: noteHtml, encoding: .utf8).text
+            note = try Kanna.HTML(html: noteHtml, encoding: .utf8).text
         } else {
-            self.note = nil
+            note = nil
         }
 
-        self.genre = strings[1]
-        self.country = CountryManager.shared.country(by: \.name, value: strings[2])
-        self.lyricalThemes = strings[3]
+        genre = strings[1]
+        country = CountryManager.shared.country(by: \.name, value: strings[2])
+        lyricalThemes = strings[3]
     }
 }
 

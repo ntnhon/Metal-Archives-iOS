@@ -19,7 +19,7 @@ final class UserReleasesViewModel: ObservableObject {
 
     init(apiService: APIServiceProtocol, userId: String, type: UserReleaseType) {
         self.apiService = apiService
-        self.manager = .init(apiService: apiService, userId: userId, type: type)
+        manager = .init(apiService: apiService, userId: userId, type: type)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

@@ -16,31 +16,46 @@ enum ReleaseTab: CaseIterable {
 
     var title: String {
         switch self {
-        case .songs: return "Songs"
-        case .lineUp: return "Line-up"
-        case .reviews: return "Reviews"
-        case .otherVersions: return "Other Versions"
-        case .additionalNotes: return "Additional Notes"
+        case .songs:
+            "Songs"
+        case .lineUp:
+            "Line-up"
+        case .reviews:
+            "Reviews"
+        case .otherVersions:
+            "Other Versions"
+        case .additionalNotes:
+            "Additional Notes"
         }
     }
 
     var iconName: String {
         switch self {
-        case .songs: return "music.note.list"
-        case .lineUp: return "person.3"
-        case .reviews: return "star.bubble"
-        case .otherVersions: return "circle.grid.cross"
-        case .additionalNotes: return "info.circle"
+        case .songs:
+            "music.note.list"
+        case .lineUp:
+            "person.3"
+        case .reviews:
+            "star.bubble"
+        case .otherVersions:
+            "circle.grid.cross"
+        case .additionalNotes:
+            "info.circle"
         }
     }
 
     var selectedIconName: String {
         switch self {
-        case .songs: return "music.note.list"
-        case .lineUp: return "person.3.fill"
-        case .reviews: return "star.bubble.fill"
-        case .otherVersions: return "circle.grid.cross.fill"
-        case .additionalNotes: return "info.circle.fill"
+        case .songs:
+            "music.note.list"
+        case .lineUp:
+            "person.3.fill"
+        case .reviews:
+            "star.bubble.fill"
+        case .otherVersions:
+            "circle.grid.cross.fill"
+        case .additionalNotes:
+            "info.circle.fill"
         }
     }
 }

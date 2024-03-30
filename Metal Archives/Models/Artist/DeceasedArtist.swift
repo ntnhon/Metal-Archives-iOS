@@ -38,26 +38,28 @@ extension DeceasedArtist: PageElement {
         guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
               let name = aTag.text,
               let urlString = aTag["href"],
-              let artist = ArtistLite(urlString: urlString, name: name) else {
+              let artist = ArtistLite(urlString: urlString, name: name)
+        else {
             throw PageElementError.failedToParse("\(ArtistLite.self): \(strings[0])")
         }
         self.artist = artist
 
-        self.country = CountryManager.shared.country(by: \.name, value: strings[1])
+        country = CountryManager.shared.country(by: \.name, value: strings[1])
 
         let bandsHtml = try Kanna.HTML(html: strings[2], encoding: .utf8)
         var bands = [BandLite]()
         for aTag in bandsHtml.css("a") {
             if let bandName = aTag.text,
                let bandUrlString = aTag["href"],
-               let band = BandLite(urlString: bandUrlString, name: bandName) {
+               let band = BandLite(urlString: bandUrlString, name: bandName)
+            {
                 bands.append(band)
             }
         }
         self.bands = bands
-        self.bandsString = bandsHtml.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        self.dateOfDeath = strings[3]
-        self.causeOfDeath = strings[4]
+        bandsString = bandsHtml.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        dateOfDeath = strings[3]
+        causeOfDeath = strings[4]
     }
 }
 
@@ -76,26 +78,32 @@ extension DeceasedArtistPageManager {
 
         var title: String {
             switch self {
-            case .country(.ascending): return "Country ↑"
-            case .country(.descending): return "Country ↓"
-            case .date(.ascending): return "Date ↑"
-            case .date(.descending): return "Date ↓"
+            case .country(.ascending):
+                "Country ↑"
+            case .country(.descending):
+                "Country ↓"
+            case .date(.ascending):
+                "Date ↑"
+            case .date(.descending):
+                "Date ↓"
             }
         }
 
         var column: Int {
             switch self {
-            case .country: return 1
-            case .date: return 3
+            case .country:
+                1
+            case .date:
+                3
             }
         }
 
         var order: Order {
             switch self {
             case .country(.ascending), .date(.ascending):
-                return .ascending
+                .ascending
             default:
-                return .descending
+                .descending
             }
         }
 
@@ -106,12 +114,12 @@ extension DeceasedArtistPageManager {
         static func == (lhs: Self, rhs: Self) -> Bool {
             switch (lhs, rhs) {
             case (.country(.ascending), .country(.ascending)),
-                (.country(.descending), .country(.descending)),
-                (.date(.ascending), .date(.ascending)),
-                (.date(.descending), .date(.descending)):
-                return true
+                 (.country(.descending), .country(.descending)),
+                 (.date(.ascending), .date(.ascending)),
+                 (.date(.descending), .date(.descending)):
+                true
             default:
-                return false
+                false
             }
         }
     }

@@ -54,41 +54,44 @@ extension LatestArtist: PageElement {
             throw PageElementError.badCount(count: strings.count, expectedCount: 6)
         }
 
-        self.date = strings[0]
+        date = strings[0]
 
         let artistHtml = try Kanna.HTML(html: strings[1], encoding: .utf8)
         guard let artistATag = artistHtml.at_css("a"),
               let artistName = artistATag.text,
               let artistUrlString = artistATag["href"],
-              let artist = ArtistLite(urlString: artistUrlString, name: artistName) else {
+              let artist = ArtistLite(urlString: artistUrlString, name: artistName)
+        else {
             throw PageElementError.failedToParse("\(ArtistLite.self)")
         }
         self.artist = artist
-        self.realName = strings[1].subString(after: "(", before: ")")
+        realName = strings[1].subString(after: "(", before: ")")
 
         let countryName = strings[2].replacingOccurrences(of: "</a>", with: "")
-        self.country = CountryManager.shared.country(by: \.name, value: countryName)
+        country = CountryManager.shared.country(by: \.name, value: countryName)
 
         let bandsHtml = try Kanna.HTML(html: strings[3], encoding: .utf8)
         var bands = [BandLite]()
         for aTag in bandsHtml.css("a") {
             if let bandName = aTag.text,
                let bandUrlString = aTag["href"],
-               let band = BandLite(urlString: bandUrlString, name: bandName) {
+               let band = BandLite(urlString: bandUrlString, name: bandName)
+            {
                 bands.append(band)
             }
         }
         self.bands = bands
 
-        self.dateAndTime = strings[4]
+        dateAndTime = strings[4]
 
         let authorHtml = try Kanna.HTML(html: strings[5], encoding: .utf8)
         guard let authorATag = authorHtml.at_css("a"),
               let username = authorATag.text,
-              let userUrlString = authorATag["href"] else {
+              let userUrlString = authorATag["href"]
+        else {
             throw PageElementError.failedToParse("\(UserLite.self)")
         }
-        self.author = .init(name: username, urlString: userUrlString)
+        author = .init(name: username, urlString: userUrlString)
     }
 }
 
@@ -96,7 +99,7 @@ final class LatestArtistPageManager: PageManager<LatestArtist> {
     init(apiService: APIServiceProtocol, type: LatestType) {
         let components = Calendar.current.dateComponents([.month, .year], from: Date())
         let month = String(format: "%02d", components.month ?? 1)
-        let year = components.year ?? 2_023
+        let year = components.year ?? 2024
         // swiftlint:disable:next line_length
         let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/archives/ajax-artist-list/selection/\(year)-\(month)/by/\(type.path)/json/1?sEcho=3&iColumns=6&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&iSortCol_0=4&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=false&bSortable_4=true&bSortable_5=true",
                                   pageSize: 200)

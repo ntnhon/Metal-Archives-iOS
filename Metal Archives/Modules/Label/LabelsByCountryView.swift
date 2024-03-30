@@ -159,9 +159,9 @@ private struct LabelByCountryView: View {
             if let thumbnailInfo = label.label.thumbnailInfo {
                 ThumbnailView(thumbnailInfo: thumbnailInfo,
                               photoDescription: label.label.name)
-                .font(.largeTitle)
-                .foregroundColor(preferences.theme.secondaryColor)
-                .frame(width: 64, height: 64)
+                    .font(.largeTitle)
+                    .foregroundColor(preferences.theme.secondaryColor)
+                    .frame(width: 64, height: 64)
             }
 
             VStack(alignment: .leading) {

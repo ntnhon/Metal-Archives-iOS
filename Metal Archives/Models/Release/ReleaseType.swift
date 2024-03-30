@@ -23,65 +23,91 @@ enum ReleaseType: Int, CustomStringConvertible, CaseIterable {
 
     var description: String {
         switch self {
-        case .single: return "Single"
-        case .fullLength: return "Full-length"
-        case .video: return "Video"
-        case .liveAlbum: return "Live album"
-        case .split: return "Split"
-        case .ep: return "EP"
-        case .compilation: return "Compilation"
-        case .demo: return "Demo"
-        case .boxedSet: return "Boxed set"
-        case .splitVideo: return "Split video"
-        case .collaboration: return "Collaboration"
+        case .single:
+            "Single"
+        case .fullLength:
+            "Full-length"
+        case .video:
+            "Video"
+        case .liveAlbum:
+            "Live album"
+        case .split:
+            "Split"
+        case .ep:
+            "EP"
+        case .compilation:
+            "Compilation"
+        case .demo:
+            "Demo"
+        case .boxedSet:
+            "Boxed set"
+        case .splitVideo:
+            "Split video"
+        case .collaboration:
+            "Collaboration"
         }
     }
 
+    // swiftlint:disable cyclomatic_complexity
     init?(typeString: String) {
         switch typeString.lowercased() {
-        case "full-length": self = .fullLength
-        case "live album": self = .liveAlbum
-        case "demo": self = .demo
-        case "single": self = .single
-        case "ep": self = .ep
-        case "video": self = .video
-        case "boxed set": self = .boxedSet
-        case "split": self = .split
-        case "compilation": self = .compilation
-        case "split video": self = .splitVideo
-        case "collaboration": self = .collaboration
-        default: return nil
+        case "full-length":
+            self = .fullLength
+        case "live album":
+            self = .liveAlbum
+        case "demo":
+            self = .demo
+        case "single":
+            self = .single
+        case "ep":
+            self = .ep
+        case "video":
+            self = .video
+        case "boxed set":
+            self = .boxedSet
+        case "split":
+            self = .split
+        case "compilation":
+            self = .compilation
+        case "split video":
+            self = .splitVideo
+        case "collaboration":
+            self = .collaboration
+        default:
+            return nil
         }
     }
+
+    // swiftlint:enable cyclomatic_complexity
 
     var titleFont: Font {
         switch self {
         case .demo:
-            return .callout.italic()
+            .callout.italic()
         case .fullLength:
-            return .title3.weight(.bold)
+            .title3.weight(.bold)
         default:
-            return .body
+            .body
         }
     }
 
     func titleForegroundColor(_ theme: Theme) -> Color {
         switch self {
         case .fullLength:
-            return theme.primaryColor
+            theme.primaryColor
         default:
-            return theme.secondaryColor
+            theme.secondaryColor
         }
     }
 
     var subtitleFont: Font {
         switch self {
         case .demo:
-            return .caption
+            .caption
         case .fullLength:
-            return .body.weight(.medium)
+            .body.weight(.medium)
         default:
-            return .caption
+            .caption
         }
     }
 }

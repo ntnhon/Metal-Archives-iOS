@@ -133,9 +133,9 @@ private struct BandByCountryView: View {
         HStack {
             ThumbnailView(thumbnailInfo: band.band.thumbnailInfo,
                           photoDescription: band.band.name)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 Text(band.band.name)

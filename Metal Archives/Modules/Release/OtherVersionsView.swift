@@ -18,7 +18,7 @@ struct OtherVersionsView: View {
             case .fetching:
                 ProgressView()
 
-            case .fetched(let otherVersions):
+            case let .fetched(otherVersions):
                 if otherVersions.count == 1 {
                     Text("No other versions")
                         .font(.callout.italic())
@@ -27,7 +27,7 @@ struct OtherVersionsView: View {
                     otherVersionList(otherVersions)
                 }
 
-            case .error(let error):
+            case let .error(error):
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
@@ -70,9 +70,9 @@ private struct OtherVersionView: View {
             if let thumbnailInfo = otherVersion.thumbnailInfo {
                 ThumbnailView(thumbnailInfo: thumbnailInfo,
                               photoDescription: otherVersion.description)
-                .font(.largeTitle)
-                .foregroundColor(preferences.theme.secondaryColor)
-                .frame(width: 64)
+                    .font(.largeTitle)
+                    .foregroundColor(preferences.theme.secondaryColor)
+                    .frame(width: 64)
             }
             VStack(alignment: .leading) {
                 HStack {
@@ -93,7 +93,8 @@ private struct OtherVersionView: View {
                 if let additionalDetail = otherVersion.additionalDetail,
                    !additionalDetail.isEmpty,
                    !otherVersion.isUnofficial,
-                   !additionalDetail.contains("Unofficial") {
+                   !additionalDetail.contains("Unofficial")
+                {
                     Text(additionalDetail)
                 }
 

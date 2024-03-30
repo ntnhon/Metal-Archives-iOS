@@ -36,11 +36,11 @@ final class NewsArchivesViewModel: ObservableObject {
         guard canLoadMore else { return }
         defer { isLoading = false }
         do {
-            self.isLoading = true
+            isLoading = true
             let news = try await newsPost(page: currentPage)
             self.news.append(contentsOf: news)
-            self.currentPage += 1
-            self.canLoadMore = !news.isEmpty
+            currentPage += 1
+            canLoadMore = !news.isEmpty
         } catch {
             self.error = error
         }
@@ -49,10 +49,10 @@ final class NewsArchivesViewModel: ObservableObject {
     func refresh() async {
         defer { isLoading = false }
         do {
-            self.isLoading = true
-            self.news = try await newsPost(page: 0)
-            self.currentPage = 1
-            self.canLoadMore = true
+            isLoading = true
+            news = try await newsPost(page: 0)
+            currentPage = 1
+            canLoadMore = true
         } catch {
             self.error = error
         }

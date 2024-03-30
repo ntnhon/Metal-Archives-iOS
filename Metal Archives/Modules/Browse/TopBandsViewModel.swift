@@ -16,6 +16,7 @@ final class TopBandsViewModel: ObservableObject {
             refilter()
         }
     }
+
     let apiService: APIServiceProtocol
 
     var isFetched: Bool {
@@ -43,7 +44,7 @@ final class TopBandsViewModel: ObservableObject {
     }
 
     private func refilter() {
-        guard case .fetched(let topBands) = topBandsFetchable else { return }
+        guard case let .fetched(topBands) = topBandsFetchable else { return }
         switch category {
         case .numberOfReleases:
             self.topBands = topBands.byReleases
@@ -60,9 +61,12 @@ enum TopBandsCategory: CaseIterable {
 
     var description: String {
         switch self {
-        case .numberOfReleases: return "Number of releases"
-        case .numberOfFullLengths: return "Number of full-lengths"
-        case .numberOfReviews: return "Number of reviews"
+        case .numberOfReleases:
+            "Number of releases"
+        case .numberOfFullLengths:
+            "Number of full-lengths"
+        case .numberOfReviews:
+            "Number of reviews"
         }
     }
 }

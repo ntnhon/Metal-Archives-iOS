@@ -29,14 +29,15 @@ final class BandReviewsViewModel: ObservableObject {
 
     init(band: Band,
          apiService: APIServiceProtocol,
-         discography: Discography) {
+         discography: Discography)
+    {
         let defaultSortOption = ReviewLitePageManager.SortOption.date(.descending)
         let manager = ReviewLitePageManager(bandId: band.id,
                                             apiService: apiService,
                                             sortOptions: defaultSortOption)
         self.manager = manager
         self.discography = discography
-        self.sortOption = defaultSortOption
+        sortOption = defaultSortOption
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchResultsView<T: HashableEquatablePageElement>: View {
+    // swiftlint:disable:next private_swiftui_state
     @StateObject var viewModel: SearchResultsViewModel<T>
     @State private var detail: Detail?
 
@@ -38,11 +39,11 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
         List {
             ForEach(viewModel.results, id: \.hashValue) { result in
                 view(for: result)
-                .task {
-                    if result == viewModel.results.last {
-                        await viewModel.getMoreResults(force: true)
+                    .task {
+                        if result == viewModel.results.last {
+                            await viewModel.getMoreResults(force: true)
+                        }
                     }
-                }
 
                 if result == viewModel.results.last, viewModel.isLoading {
                     ProgressView()
@@ -85,7 +86,8 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
                 onSelectBand: { url in
                     viewModel.upsertBandEntry(result.band)
                     detail = .band(url)
-                })
+                }
+            )
         } else if let result = result as? SongSimpleSearchResult {
             SongSimpleSearchResultView(
                 result: result,
@@ -98,7 +100,8 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
                         viewModel.upsertBandEntry(band)
                     }
                     detail = .band(url)
-                })
+                }
+            )
         } else if let result = result as? LabelSimpleSearchResult {
             LabelSimpleSearchResultView(result: result)
                 .onTapGesture {
@@ -119,7 +122,8 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
                         viewModel.upsertBandEntry(band)
                     }
                     detail = .band(url)
-                })
+                }
+            )
         } else if let result = result as? UserSimpleSearchResult {
             UserSimpleSearchResultView(result: result)
                 .onTapGesture {
@@ -140,16 +144,16 @@ private struct BandSimpleSearchResultView: View {
         HStack {
             ThumbnailView(thumbnailInfo: result.band.thumbnailInfo,
                           photoDescription: result.band.name)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 if let note = result.note {
                     Text(result.band.name)
                         .fontWeight(.bold)
                         .foregroundColor(preferences.theme.primaryColor) +
-                    Text(" (\(note))")
+                        Text(" (\(note))")
                 } else {
                     Text(result.band.name)
                         .fontWeight(.bold)
@@ -176,16 +180,16 @@ private struct LyricalSimpleSearchResultView: View {
         HStack {
             ThumbnailView(thumbnailInfo: result.band.thumbnailInfo,
                           photoDescription: result.band.name)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 if let note = result.note {
                     Text(result.band.name)
                         .fontWeight(.bold)
                         .foregroundColor(preferences.theme.primaryColor) +
-                    Text(" (\(note))")
+                        Text(" (\(note))")
                 } else {
                     Text(result.band.name)
                         .fontWeight(.bold)
@@ -218,9 +222,9 @@ private struct ReleaseSimpleSearchResultView: View {
         HStack {
             ThumbnailView(thumbnailInfo: result.release.thumbnailInfo,
                           photoDescription: result.release.title)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 Text(result.release.title)
@@ -234,9 +238,9 @@ private struct ReleaseSimpleSearchResultView: View {
                 Text(result.releaseType.description)
                     .font(.callout)
                     .fontWeight(.semibold) +
-                Text(" • ")
+                    Text(" • ")
                     .font(.callout) +
-                Text(result.date)
+                    Text(result.date)
                     .font(.callout)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -263,7 +267,8 @@ private struct ReleaseSimpleSearchResultView: View {
             },
             message: {
                 Text("\"\(result.release.title)\" by \(result.band.name)")
-            })
+            }
+        )
     }
 }
 
@@ -278,9 +283,9 @@ struct SongSimpleSearchResultView: View {
         HStack {
             ThumbnailView(thumbnailInfo: result.release.thumbnailInfo,
                           photoDescription: result.release.title)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 Text(result.release.title)
@@ -290,7 +295,7 @@ struct SongSimpleSearchResultView: View {
                 Text(result.band.name)
                     .fontWeight(.semibold)
                     .foregroundColor(result.band.thumbnailInfo != nil ?
-                                     preferences.theme.secondaryColor : .primary)
+                        preferences.theme.secondaryColor : .primary)
 
                 Text(result.releaseType.description)
                     .font(.callout)
@@ -325,7 +330,8 @@ struct SongSimpleSearchResultView: View {
             },
             message: {
                 Text("\"\(result.release.title)\" by \(result.band.name)")
-            })
+            }
+        )
     }
 }
 
@@ -338,9 +344,9 @@ private struct LabelSimpleSearchResultView: View {
             if let thumbnailInfo = result.label.thumbnailInfo {
                 ThumbnailView(thumbnailInfo: thumbnailInfo,
                               photoDescription: result.label.name)
-                .font(.largeTitle)
-                .foregroundColor(preferences.theme.secondaryColor)
-                .frame(width: 64, height: 64)
+                    .font(.largeTitle)
+                    .foregroundColor(preferences.theme.secondaryColor)
+                    .frame(width: 64, height: 64)
             }
 
             VStack(alignment: .leading) {
@@ -348,7 +354,7 @@ private struct LabelSimpleSearchResultView: View {
                     Text(result.label.name)
                         .fontWeight(.bold)
                         .foregroundColor(preferences.theme.primaryColor) +
-                    Text(" (\(note))")
+                        Text(" (\(note))")
                 } else {
                     Text(result.label.name)
                         .fontWeight(.bold)
@@ -378,16 +384,16 @@ private struct ArtistSimpleSearchResultView: View {
         HStack {
             ThumbnailView(thumbnailInfo: result.artist.thumbnailInfo,
                           photoDescription: result.artist.name)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 if let note = result.note {
                     Text(result.artist.name)
                         .fontWeight(.bold)
                         .foregroundColor(preferences.theme.primaryColor) +
-                    Text(" (\(note))")
+                        Text(" (\(note))")
                 } else {
                     Text(result.artist.name)
                         .fontWeight(.bold)
@@ -432,7 +438,8 @@ private struct ArtistSimpleSearchResultView: View {
             },
             message: {
                 Text(result.artist.name)
-            })
+            }
+        )
     }
 }
 
@@ -449,8 +456,8 @@ private struct UserSimpleSearchResultView: View {
 
                 Text(result.rank.title)
                     .foregroundColor(result.rank.color) +
-                Text(" • ") +
-                Text(result.point)
+                    Text(" • ") +
+                    Text(result.point)
                     .font(.callout)
             }
             .frame(maxWidth: .infinity, alignment: .leading)

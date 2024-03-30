@@ -12,8 +12,10 @@ enum CountryListMode {
 
     var navigationTitle: String {
         switch self {
-        case .bands: return "Bands by country"
-        case .labels: return "Labels by country"
+        case .bands:
+            "Bands by country"
+        case .labels:
+            "Labels by country"
         }
     }
 }

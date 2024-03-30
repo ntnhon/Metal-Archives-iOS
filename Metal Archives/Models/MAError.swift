@@ -20,23 +20,23 @@ enum MAError: Error, CustomStringConvertible {
 
     var description: String {
         switch self {
-        case .badUrlString(let urlString):
+        case let .badUrlString(urlString):
             return "Bad url (\(urlString))"
         case .failedToUtf8DecodeString:
             return "Failed to UTF8 decode"
-        case .failedToFetchLyric(let lyricId):
+        case let .failedToFetchLyric(lyricId):
             return "Failed to fetch lyric \(lyricId)"
         case .invalidServerResponse:
             return "Invalid server response"
         case .missingBand:
             return "Band is null"
-        case .parseFailure(let description):
+        case let .parseFailure(description):
             return "Failed to parse \(description)"
-        case .requestFailure(let statusCode):
+        case let .requestFailure(statusCode):
             return "Request failed with status code \(statusCode)"
-        case .other(let error):
+        case let .other(error):
             return error.localizedDescription
-        case .songHasNoLyric(let title):
+        case let .songHasNoLyric(title):
             return "\"\(title)\" has no lyric"
         }
     }

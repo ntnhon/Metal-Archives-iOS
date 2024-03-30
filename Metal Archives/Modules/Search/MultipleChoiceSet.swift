@@ -21,21 +21,21 @@ class MultipleChoiceSet<T: MultipleChoiceProtocol & Equatable> {
 
     var title: String {
         if choices.isEmpty {
-            return T.noChoice
+            T.noChoice
         } else if choices.count == 1 {
-            return choices.first?.choiceDescription ?? ""
+            choices.first?.choiceDescription ?? ""
         } else {
-            return "\(choices.count) \(T.multipleChoicesSuffix)"
+            "\(choices.count) \(T.multipleChoicesSuffix)"
         }
     }
 
     var detail: String {
         if choices.isEmpty {
-            return T.noChoice
+            T.noChoice
         } else if choices.count == 1 {
-            return choices.first?.choiceDescription ?? ""
+            choices.first?.choiceDescription ?? ""
         } else {
-            return choices.map { $0.choiceDescription }.joined(separator: ", ")
+            choices.map { $0.choiceDescription }.joined(separator: ", ")
         }
     }
 

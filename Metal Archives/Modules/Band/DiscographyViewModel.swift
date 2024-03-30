@@ -21,16 +21,17 @@ final class DiscographyViewModel: ObservableObject {
 
     init(discography: Discography,
          discographyMode: DiscographyMode,
-         order: Order) {
+         order: Order)
+    {
         self.discography = discography
-        self.selectedMode = discographyMode
-        self.selectedOrder = order
-        self.main = discography.releases.filter { $0.type == .fullLength }
+        selectedMode = discographyMode
+        selectedOrder = order
+        main = discography.releases.filter { $0.type == .fullLength }
         let livesTypes: [ReleaseType] = [.liveAlbum, .video, .splitVideo]
-        self.lives = discography.releases.filter { livesTypes.contains($0.type) }
-        self.demos = discography.releases.filter { $0.type == .demo }
+        lives = discography.releases.filter { livesTypes.contains($0.type) }
+        demos = discography.releases.filter { $0.type == .demo }
         let notMiscTypes: [ReleaseType] = [.fullLength, .liveAlbum, .video, .splitVideo, .demo]
-        self.misc = discography.releases.filter { !notMiscTypes.contains($0.type) }
+        misc = discography.releases.filter { !notMiscTypes.contains($0.type) }
 
         var modes: [DiscographyMode] = []
         let nonEmptyModeCount = [main, lives, demos, misc].reduce(0) { $0 + (!$1.isEmpty ? 1 : 0) }
@@ -46,13 +47,18 @@ final class DiscographyViewModel: ObservableObject {
     func title(for mode: DiscographyMode) -> String {
         let count: Int
         switch mode {
-        case .complete: count = discography.releases.count
-        case .main: count = main.count
-        case .lives: count = lives.count
-        case .demos: count = demos.count
-        case .misc: count = misc.count
+        case .complete:
+            count = discography.releases.count
+        case .main:
+            count = main.count
+        case .lives:
+            count = lives.count
+        case .demos:
+            count = demos.count
+        case .misc:
+            count = misc.count
         }
-        return "\(mode.description ) (\(count))"
+        return "\(mode.description) (\(count))"
     }
 
     private func updateReleases() {
@@ -74,8 +80,10 @@ final class DiscographyViewModel: ObservableObject {
 extension Array where Element == ReleaseInBand {
     func sorted(by order: Order) -> [ReleaseInBand] {
         switch order {
-        case .ascending: return sorted { $0.year < $1.year }
-        case .descending: return sorted { $0.year > $1.year }
+        case .ascending:
+            sorted { $0.year < $1.year }
+        case .descending:
+            sorted { $0.year > $1.year }
         }
     }
 }

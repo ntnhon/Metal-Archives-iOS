@@ -9,11 +9,11 @@ import SwiftUI
 
 class HorizontalTabsDatasource: ObservableObject {
     func numberOfTabs() -> Int { 0 }
-    func titleForTab(index: Int) -> String { "" }
-    func normalSystemIconNameForTab(index: Int) -> String { "" }
-    func selectedSystemIconNameForTab(index: Int) -> String { "" }
-    func isSelectedTab(index: Int) -> Bool { false }
-    func onSelectTab(index: Int) {}
+    func titleForTab(index _: Int) -> String { "" }
+    func normalSystemIconNameForTab(index _: Int) -> String { "" }
+    func selectedSystemIconNameForTab(index _: Int) -> String { "" }
+    func isSelectedTab(index _: Int) -> Bool { false }
+    func onSelectTab(index _: Int) {}
 }
 
 struct HorizontalTabs: View {
@@ -24,7 +24,7 @@ struct HorizontalTabs: View {
         ScrollView(.horizontal, showsIndicators: false) {
             ScrollViewReader { scrollViewReader in
                 HStack(spacing: 0) {
-                    ForEach(0..<datasource.numberOfTabs(), id: \.self) { index in
+                    ForEach(0 ..< datasource.numberOfTabs(), id: \.self) { index in
                         tab(for: index, proxy: scrollViewReader)
                     }
                 }
@@ -41,8 +41,8 @@ struct HorizontalTabs: View {
                     .font(.headline)
             }, icon: {
                 Image(systemName: datasource.isSelectedTab(index: index) ?
-                      datasource.selectedSystemIconNameForTab(index: index) :
-                        datasource.normalSystemIconNameForTab(index: index))
+                    datasource.selectedSystemIconNameForTab(index: index) :
+                    datasource.normalSystemIconNameForTab(index: index))
             })
             .foregroundColor(datasource.isSelectedTab(index: index) ? preferences.theme.primaryColor : .secondary)
             Color(index != datasource.numberOfTabs() - 1 ? .separator : .clear)
@@ -61,10 +61,10 @@ struct HorizontalTabs: View {
 }
 
 /*
-struct HorizontalTabs_Previews: PreviewProvider {
-    static var previews: some View {
-        HorizontalTabs(datasource: BandTabsDatasource())
-            .environmentObject(Preferences())
-    }
-}
- */
+ struct HorizontalTabs_Previews: PreviewProvider {
+     static var previews: some View {
+         HorizontalTabs(datasource: BandTabsDatasource())
+             .environmentObject(Preferences())
+     }
+ }
+  */

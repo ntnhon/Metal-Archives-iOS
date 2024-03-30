@@ -71,7 +71,8 @@ struct BandSimilarArray: HTMLParsable {
     init(data: Data) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
               let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8),
-              let tbody = html.at_css("tbody") else {
+              let tbody = html.at_css("tbody")
+        else {
             Logger.log("Error parsing html for list of similar artist")
             content = []
             return
@@ -112,7 +113,8 @@ struct BandSimilarArray: HTMLParsable {
                 case scoreColumn:
                     let scoreString = td.at_css("span")?.text?.trimmingCharacters(in: .whitespacesAndNewlines)
                     builder.score = scoreString?.toInt()
-                default: break
+                default:
+                    break
                 }
             }
 

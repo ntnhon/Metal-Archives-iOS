@@ -1,5 +1,5 @@
 //
-//  KingfisherManager+fetchImageAsync.swift
+//  Kingfisher+retrieveImageAsync.swift
 //  Metal Archives
 //
 //  Created by Nhon Nguyen on 08/10/2022.
@@ -13,7 +13,7 @@ extension KingfisherManager {
         try await withCheckedThrowingContinuation { continuation in
             retrieveImage(with: url) { result in
                 switch result {
-                case .success(let imageResult):
+                case let .success(imageResult):
                     #if DEBUG
 //                    print("\(imageResult.cacheType): \(url.absoluteString)")
                     #endif
@@ -23,7 +23,7 @@ extension KingfisherManager {
                     } else {
                         continuation.resume(returning: nil)
                     }
-                case .failure(let error):
+                case let .failure(error):
                     continuation.resume(throwing: error)
                 }
             }

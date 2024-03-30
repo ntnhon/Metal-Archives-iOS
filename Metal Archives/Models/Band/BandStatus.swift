@@ -18,34 +18,52 @@ enum BandStatus: String, CaseIterable {
 
     init(rawValue: String) {
         switch rawValue.lowercased() {
-        case "active": self = .active
-        case "on hold": self = .onHold
-        case "split-up", "split up": self = .splitUp
-        case "changed name": self = .changedName
-        case "disputed": self = .disputed
-        default: self = .unknown
+        case "active":
+            self = .active
+        case "on hold":
+            self = .onHold
+        case "split-up", "split up":
+            self = .splitUp
+        case "changed name":
+            self = .changedName
+        case "disputed":
+            self = .disputed
+        default:
+            self = .unknown
         }
     }
 
     var color: Color {
         switch self {
-        case .active: return .green
-        case .onHold: return .yellow
-        case .splitUp: return .red
-        case .changedName: return .blue
-        case .unknown: return .orange
-        case .disputed: return .purple
+        case .active:
+            .green
+        case .onHold:
+            .yellow
+        case .splitUp:
+            .red
+        case .changedName:
+            .blue
+        case .unknown:
+            .orange
+        case .disputed:
+            .purple
         }
     }
 
     var paramValue: Int {
         switch self {
-        case .active: return 1
-        case .onHold: return 2
-        case .splitUp: return 3
-        case .changedName: return 5
-        case .unknown: return 4
-        case .disputed: return 6
+        case .active:
+            1
+        case .onHold:
+            2
+        case .splitUp:
+            3
+        case .changedName:
+            5
+        case .unknown:
+            4
+        case .disputed:
+            6
         }
     }
 }

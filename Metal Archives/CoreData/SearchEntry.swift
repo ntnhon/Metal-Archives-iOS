@@ -8,30 +8,30 @@
 import Foundation
 
 enum SearchEntryType: Int16 {
-    case bandNameQuery      = 0
-    case musicGenreQuery    = 1
+    case bandNameQuery = 0
+    case musicGenreQuery = 1
     case lyricalThemesQuery = 2
-    case albumTitleQuery    = 3
-    case songTitleQuery     = 4
-    case labelQuery         = 5
-    case artistQuery        = 6
-    case userQuery          = 7
-    case band               = 8
-    case release            = 9
-    case artist             = 10
-    case label              = 11
-    case user               = 12
+    case albumTitleQuery = 3
+    case songTitleQuery = 4
+    case labelQuery = 5
+    case artistQuery = 6
+    case userQuery = 7
+    case band = 8
+    case release = 9
+    case artist = 10
+    case label = 11
+    case user = 12
 
     var isQueryEntry: Bool {
         switch self {
         case .bandNameQuery,
-                .musicGenreQuery,
-                .lyricalThemesQuery,
-                .albumTitleQuery,
-                .songTitleQuery,
-                .labelQuery,
-                .artistQuery,
-                .userQuery:
+             .musicGenreQuery,
+             .lyricalThemesQuery,
+             .albumTitleQuery,
+             .songTitleQuery,
+             .labelQuery,
+             .artistQuery,
+             .userQuery:
             return true
         default:
             return false
@@ -40,34 +40,52 @@ enum SearchEntryType: Int16 {
 
     var placeholderSystemImageName: String? {
         switch self {
-        case .bandNameQuery     : return "person.3.fill"
-        case .musicGenreQuery   : return "guitars.fill"
-        case .lyricalThemesQuery: return "music.quarternote.3"
-        case .albumTitleQuery   : return "opticaldisc"
-        case .songTitleQuery    : return "music.note.list"
-        case .labelQuery        : return "tag.fill"
-        case .artistQuery       : return "person.fill"
-        case .userQuery         : return "person.crop.circle.fill"
-        default                 : return nil
+        case .bandNameQuery:
+            "person.3.fill"
+        case .musicGenreQuery:
+            "guitars.fill"
+        case .lyricalThemesQuery:
+            "music.quarternote.3"
+        case .albumTitleQuery:
+            "opticaldisc"
+        case .songTitleQuery:
+            "music.note.list"
+        case .labelQuery:
+            "tag.fill"
+        case .artistQuery:
+            "person.fill"
+        case .userQuery:
+            "person.crop.circle.fill"
+        default:
+            nil
         }
     }
 
     func toSimpleSearchType() -> SimpleSearchType {
         switch self {
-        case .bandNameQuery     : return .bandName
-        case .musicGenreQuery   : return .musicGenre
-        case .lyricalThemesQuery: return .lyricalThemes
-        case .albumTitleQuery   : return .albumTitle
-        case .songTitleQuery    : return .songTitle
-        case .labelQuery        : return .label
-        case .artistQuery       : return .artist
-        case .userQuery         : return .user
-        default                 : return .bandName
+        case .bandNameQuery:
+            .bandName
+        case .musicGenreQuery:
+            .musicGenre
+        case .lyricalThemesQuery:
+            .lyricalThemes
+        case .albumTitleQuery:
+            .albumTitle
+        case .songTitleQuery:
+            .songTitle
+        case .labelQuery:
+            .label
+        case .artistQuery:
+            .artist
+        case .userQuery:
+            .user
+        default:
+            .bandName
         }
     }
 }
 
-struct SearchEntry {
+struct SearchEntry: Hashable {
     let type: SearchEntryType
     /// When type is query, this will be the search term. Otherwise it'll be band name, label name, album title...
     let primaryDetail: String
@@ -79,22 +97,19 @@ struct SearchEntry {
 
         let thumbnailType: ThumbnailType?
         switch type {
-        case .band: thumbnailType = .bandLogo
-        case .release: thumbnailType = .release
-        case .artist: thumbnailType = .artist
-        case .label: thumbnailType = .label
-        default: thumbnailType = nil
+        case .band:
+            thumbnailType = .bandLogo
+        case .release:
+            thumbnailType = .release
+        case .artist:
+            thumbnailType = .artist
+        case .label:
+            thumbnailType = .label
+        default:
+            thumbnailType = nil
         }
 
         guard let thumbnailType else { return nil }
         return .init(urlString: secondaryDetail, type: thumbnailType)
-    }
-}
-
-extension SearchEntry: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(type.rawValue)
-        hasher.combine(primaryDetail)
-        hasher.combine(secondaryDetail)
     }
 }

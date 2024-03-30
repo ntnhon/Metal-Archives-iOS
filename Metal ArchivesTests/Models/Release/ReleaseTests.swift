@@ -8,7 +8,7 @@
 @testable import Metal_Archives
 import XCTest
 
-// swiftlint:disable type_body_length
+// swiftlint:disable type_body_length function_body_length
 class ReleaseTests: XCTestCase {
     func testReleaseWithLyricsAndInstrumentalTracks() throws {
         // The Sound of Perseverance
@@ -123,7 +123,7 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(bandMember.members.count, 4)
 
         let chuck = try XCTUnwrap(bandMember.members[0])
-        XCTAssertEqual(chuck.thumbnailInfo.id, 3_012)
+        XCTAssertEqual(chuck.thumbnailInfo.id, 3012)
         XCTAssertEqual(chuck.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Chuck_Schuldiner/3012")
         XCTAssertEqual(chuck.thumbnailInfo.type, .artist)
@@ -133,7 +133,7 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(chuck.instruments, "Guitars, Vocals, Songwriting, Lyrics")
 
         let shannon = try XCTUnwrap(bandMember.members[1])
-        XCTAssertEqual(shannon.thumbnailInfo.id, 3_079)
+        XCTAssertEqual(shannon.thumbnailInfo.id, 3079)
         XCTAssertEqual(shannon.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Shannon_Hamm/3079")
         XCTAssertEqual(shannon.thumbnailInfo.type, .artist)
@@ -143,7 +143,7 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(shannon.instruments, "Guitars")
 
         let scott = try XCTUnwrap(bandMember.members[2])
-        XCTAssertEqual(scott.thumbnailInfo.id, 3_088)
+        XCTAssertEqual(scott.thumbnailInfo.id, 3088)
         XCTAssertEqual(scott.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Scott_Clendenin/3088")
         XCTAssertEqual(scott.thumbnailInfo.type, .artist)
@@ -153,7 +153,7 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(scott.instruments, "Bass")
 
         let richard = try XCTUnwrap(bandMember.members[3])
-        XCTAssertEqual(richard.thumbnailInfo.id, 3_055)
+        XCTAssertEqual(richard.thumbnailInfo.id, 3055)
         XCTAssertEqual(richard.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Richard_Christy/3055")
         XCTAssertEqual(richard.thumbnailInfo.type, .artist)
@@ -168,7 +168,7 @@ class ReleaseTests: XCTestCase {
         // Other staff
         XCTAssertEqual(sut.otherStaff.count, 1)
         let jim = try XCTUnwrap(sut.otherStaff[0].members[0])
-        XCTAssertEqual(jim.thumbnailInfo.id, 15_326)
+        XCTAssertEqual(jim.thumbnailInfo.id, 15326)
         XCTAssertEqual(jim.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Jim_Morris/15326")
         XCTAssertEqual(jim.thumbnailInfo.type, .artist)
@@ -178,7 +178,7 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(jim.instruments, "Producer, Engineering, Mixing, Mastering")
 
         let alex = try XCTUnwrap(sut.otherStaff[0].members[1])
-        XCTAssertEqual(alex.thumbnailInfo.id, 45_198)
+        XCTAssertEqual(alex.thumbnailInfo.id, 45198)
         XCTAssertEqual(alex.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Alex_McKnight/45198")
         XCTAssertEqual(alex.thumbnailInfo.type, .artist)
@@ -188,7 +188,7 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(alex.instruments, "Photography (band)")
 
         let chuck2 = try XCTUnwrap(sut.otherStaff[0].members[2])
-        XCTAssertEqual(chuck2.thumbnailInfo.id, 3_012)
+        XCTAssertEqual(chuck2.thumbnailInfo.id, 3012)
         XCTAssertEqual(chuck2.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Chuck_Schuldiner/3012")
         XCTAssertEqual(chuck2.thumbnailInfo.type, .artist)
@@ -208,7 +208,7 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(maria.instruments, "Art direction, Design")
 
         let gabe = try XCTUnwrap(sut.otherStaff[0].members[4])
-        XCTAssertEqual(gabe.thumbnailInfo.id, 78_987)
+        XCTAssertEqual(gabe.thumbnailInfo.id, 78987)
         XCTAssertEqual(gabe.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Gabe_Mera/78987")
         XCTAssertEqual(gabe.thumbnailInfo.type, .artist)
@@ -218,7 +218,7 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(gabe.instruments, "Art direction, Design")
 
         let travis = try XCTUnwrap(sut.otherStaff[0].members[5])
-        XCTAssertEqual(travis.thumbnailInfo.id, 21_259)
+        XCTAssertEqual(travis.thumbnailInfo.id, 21259)
         XCTAssertEqual(travis.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/artists/Travis_Smith/21259")
         XCTAssertEqual(travis.thumbnailInfo.type, .artist)
@@ -281,7 +281,7 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(sut.catalogId, "ER005")
         XCTAssertEqual(sut.label.name, "Entropy Records")
         let labelThumbnailInfo = try XCTUnwrap(sut.label.thumbnailInfo)
-        XCTAssertEqual(labelThumbnailInfo.id, 53_786)
+        XCTAssertEqual(labelThumbnailInfo.id, 53786)
         XCTAssertEqual(labelThumbnailInfo.urlString,
                        "https://www.metal-archives.com/labels/Entropy_Records/53786")
         XCTAssertEqual(labelThumbnailInfo.type, .label)
@@ -406,3 +406,5 @@ class ReleaseTests: XCTestCase {
         XCTAssertEqual(sut.reviews.count, 28)
     }
 }
+
+// swiftlint:enable type_body_length function_body_length

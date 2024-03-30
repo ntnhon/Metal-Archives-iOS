@@ -68,18 +68,17 @@ struct RootView: View {
 
 private extension View {
     func tab(_ tab: HomeTab, selectedTab: HomeTab) -> some View {
-        self
-            .tabItem { Label(tab.title, systemImage: tab == selectedTab ? tab.selectedImageName : tab.imageName) }
+        tabItem { Label(tab.title, systemImage: tab == selectedTab ? tab.selectedImageName : tab.imageName) }
             .tag(tab)
     }
 }
 
 /*
-struct RootView_Previews: PreviewProvider {
-    static var previews: some View {
-        RootView(apiService: APIService())
-            .environment(\.colorScheme, .dark)
-            .environmentObject(Preferences())
-    }
-}
-*/
+ struct RootView_Previews: PreviewProvider {
+     static var previews: some View {
+         RootView(apiService: APIService())
+             .environment(\.colorScheme, .dark)
+             .environmentObject(Preferences())
+     }
+ }
+ */

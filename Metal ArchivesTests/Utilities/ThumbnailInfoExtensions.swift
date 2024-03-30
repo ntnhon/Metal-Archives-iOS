@@ -12,5 +12,6 @@ extension ThumbnailInfo {
         // swiftlint:disable force_unwrapping
         ThumbnailInfo(urlString: "https://example.com/\(Int.randomId())",
                       type: type ?? ThumbnailType.allCases.randomElement()!)!
+        // swiftlint:enable force_unwrapping
     }
 }

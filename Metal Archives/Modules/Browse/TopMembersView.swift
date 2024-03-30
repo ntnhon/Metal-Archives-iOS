@@ -22,7 +22,7 @@ struct TopMembersView: View {
                 HornCircularLoader()
             case .fetched:
                 List {
-                    ForEach(0..<viewModel.topUsers.count, id: \.self) { index in
+                    ForEach(0 ..< viewModel.topUsers.count, id: \.self) { index in
                         let user = viewModel.topUsers[index]
                         NavigationLink(destination: {
                             UserView(apiService: viewModel.apiService, urlString: user.user.urlString)
@@ -38,7 +38,7 @@ struct TopMembersView: View {
                     }
                 }
                 .listStyle(.plain)
-            case .error(let error):
+            case let .error(error):
                 HStack {
                     Text(error.userFacingMessage)
                     RetryButton {

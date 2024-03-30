@@ -5,15 +5,21 @@
 //  Created by Thanh-Nhon Nguyen on 21/05/2021.
 //
 
+// swiftlint:disable implicitly_unwrapped_optional
 @testable import Metal_Archives
 import XCTest
 
-class CountryManagerTests: XCTestCase {
+final class CountryManagerTests: XCTestCase {
     var sut: CountryManager!
 
     override func setUp() {
         super.setUp()
         sut = CountryManager.shared
+    }
+
+    override func tearDown() {
+        sut = nil
+        super.tearDown()
     }
 
     func testInitSuccess() {
@@ -48,3 +54,5 @@ class CountryManagerTests: XCTestCase {
         XCTAssertEqual(uk.flag, "🇬🇧")
     }
 }
+
+// swiftlint:enable implicitly_unwrapped_optional

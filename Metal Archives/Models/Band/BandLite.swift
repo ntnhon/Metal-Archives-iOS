@@ -59,6 +59,7 @@ extension BandLite {
               name: "Voodoocult")!
     }
 }
+
 // swiftlint:enable force_unwrapping
 
 struct BandExtraLite: OptionalThumbnailable {
@@ -67,9 +68,9 @@ struct BandExtraLite: OptionalThumbnailable {
 
     init(urlString: String?, name: String) {
         if let urlString {
-            self.thumbnailInfo = ThumbnailInfo(urlString: urlString, type: .bandLogo)
+            thumbnailInfo = ThumbnailInfo(urlString: urlString, type: .bandLogo)
         } else {
-            self.thumbnailInfo = nil
+            thumbnailInfo = nil
         }
         self.name = name
     }
@@ -89,7 +90,8 @@ extension BandExtraLite: Hashable {
 
 extension Array where Element == BandLite {
     func generateTexts(fontWeight: Font.Weight,
-                       foregroundColor: Color) -> [Text] {
+                       foregroundColor: Color) -> [Text]
+    {
         var texts = [Text]()
         for (index, band) in enumerated() {
             texts.append(Text(band.name).fontWeight(fontWeight).foregroundColor(foregroundColor))

@@ -34,11 +34,11 @@ enum LocalDatasourceError: Error, CustomDebugStringConvertible {
     case batchDeleteError(NSBatchDeleteRequest)
     case databaseOperationsOnMainThread
 
-    public var debugDescription: String {
+    var debugDescription: String {
         switch self {
-        case .batchInsertError(let request):
+        case let .batchInsertError(request):
             return "Failed to batch insert entity \(request.entityName)"
-        case .batchDeleteError(let request):
+        case let .batchDeleteError(request):
             let entityName = request.fetchRequest.entityName ?? ""
             return "Failed to batch delete entity \(entityName)"
         case .databaseOperationsOnMainThread:
@@ -66,7 +66,8 @@ class LocalDatasource {
 extension LocalDatasourceProtocol {
     /// Creates and configures a private queue context.
     func newTaskContext(type: TaskContextType,
-                        transactionAuthor: String = #function) -> NSManagedObjectContext {
+                        transactionAuthor: String = #function) -> NSManagedObjectContext
+    {
         let taskContext = container.newBackgroundContext()
         taskContext.name = type.rawValue
         taskContext.transactionAuthor = transactionAuthor
@@ -80,78 +81,83 @@ extension LocalDatasourceProtocol {
     func newBatchInsertRequest<T>(entity: NSEntityDescription,
                                   sourceItems: [T],
                                   hydrateBlock: @escaping (NSManagedObject, T) -> Void)
-    -> NSBatchInsertRequest {
+        -> NSBatchInsertRequest
+    {
         var index = 0
-        let request = NSBatchInsertRequest(entity: entity) { object in
+        return NSBatchInsertRequest(entity: entity) { object in
             guard index < sourceItems.count else { return true }
             let item = sourceItems[index]
             hydrateBlock(object, item)
             index += 1
             return false
         }
-        return request
     }
 }
 
 // MARK: - Covenience core data methods
+
 extension LocalDatasourceProtocol {
     func execute(batchInsertRequest request: NSBatchInsertRequest,
-                 context: NSManagedObjectContext) async throws {
+                 context: NSManagedObjectContext) async throws
+    {
         try await context.perform {
-#if DEBUG
-            if Thread.isMainThread {
-                throw LocalDatasourceError.databaseOperationsOnMainThread
-            }
-#endif
+            #if DEBUG
+                if Thread.isMainThread {
+                    throw LocalDatasourceError.databaseOperationsOnMainThread
+                }
+            #endif
             let fetchResult = try context.execute(request)
             if let result = fetchResult as? NSBatchInsertResult,
-               let success = result.result as? Bool, success {
+               let success = result.result as? Bool, success
+            {
                 return
-            } else {
-                throw LocalDatasourceError.batchInsertError(request)
             }
+            throw LocalDatasourceError.batchInsertError(request)
         }
     }
 
     func execute(batchDeleteRequest request: NSBatchDeleteRequest,
-                 context: NSManagedObjectContext) async throws {
+                 context: NSManagedObjectContext) async throws
+    {
         try await context.perform {
-#if DEBUG
-            if Thread.isMainThread {
-                throw LocalDatasourceError.databaseOperationsOnMainThread
-            }
-#endif
+            #if DEBUG
+                if Thread.isMainThread {
+                    throw LocalDatasourceError.databaseOperationsOnMainThread
+                }
+            #endif
             request.resultType = .resultTypeStatusOnly
             let deleteResult = try context.execute(request)
             if let result = deleteResult as? NSBatchDeleteResult,
-               let success = result.result as? Bool, success {
+               let success = result.result as? Bool, success
+            {
                 return
-            } else {
-                throw LocalDatasourceError.batchDeleteError(request)
             }
+            throw LocalDatasourceError.batchDeleteError(request)
         }
     }
 
     func execute<T>(fetchRequest request: NSFetchRequest<T>,
-                    context: NSManagedObjectContext) async throws -> [T] {
+                    context: NSManagedObjectContext) async throws -> [T]
+    {
         try await context.perform {
-#if DEBUG
-            if Thread.isMainThread {
-                throw LocalDatasourceError.databaseOperationsOnMainThread
-            }
-#endif
+            #if DEBUG
+                if Thread.isMainThread {
+                    throw LocalDatasourceError.databaseOperationsOnMainThread
+                }
+            #endif
             return try context.fetch(request)
         }
     }
 
     func count<T>(fetchRequest request: NSFetchRequest<T>,
-                  context: NSManagedObjectContext) async throws -> Int {
+                  context: NSManagedObjectContext) async throws -> Int
+    {
         try await context.perform {
-#if DEBUG
-            if Thread.isMainThread {
-                throw LocalDatasourceError.databaseOperationsOnMainThread
-            }
-#endif
+            #if DEBUG
+                if Thread.isMainThread {
+                    throw LocalDatasourceError.databaseOperationsOnMainThread
+                }
+            #endif
             return try context.count(for: request)
         }
     }

@@ -12,7 +12,7 @@ struct HomeSectionSkeletonView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 16) {
-                ForEach(0..<2) { _ in
+                ForEach(0 ..< 2) { _ in
                     VStack(alignment: .leading, spacing: 0) {
                         HomeEntryView()
                             .frame(maxWidth: .infinity)
@@ -67,8 +67,8 @@ private struct AnimatingGrayGradient: View {
             LinearGradient(colors: [.clear, Color(.systemGray5), .clear],
                            startPoint: .leading,
                            endPoint: .trailing)
-            .offset(x: animateGradient ? 300 : -200)
-            .frame(width: 200)
+                .offset(x: animateGradient ? 300 : -200)
+                .frame(width: 200)
         }
         .onAppear {
             withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: false)) {

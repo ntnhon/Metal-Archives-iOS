@@ -55,13 +55,13 @@ struct UserModificationsView: View {
                 UserModificationView(modification: modification)
                     .onTapGesture {
                         switch modification.item {
-                        case .band(let band):
+                        case let .band(band):
                             onSelectBand(band.thumbnailInfo.urlString)
-                        case .artist(let artist):
+                        case let .artist(artist):
                             onSelectArtist(artist.thumbnailInfo.urlString)
-                        case .release(let release):
+                        case let .release(release):
                             onSelectRelease(release.thumbnailInfo.urlString)
-                        case .label(let label):
+                        case let .label(label):
                             if let urlString = label.thumbnailInfo?.urlString {
                                 onSelectLabel(urlString)
                             }

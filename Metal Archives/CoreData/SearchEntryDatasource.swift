@@ -101,7 +101,7 @@ final class SearchEntryDatasource: LocalDatasource, LocalDatasourceProtocol {
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
             .init(format: "type == %d", entry.type.rawValue),
             .init(format: "primaryDetail == %@", entry.primaryDetail),
-            secondaryDetailPredicate
+            secondaryDetailPredicate,
         ])
         return fetchRequest
     }
@@ -110,14 +110,22 @@ final class SearchEntryDatasource: LocalDatasource, LocalDatasourceProtocol {
 extension SimpleSearchType {
     func toEntryType() -> SearchEntryType {
         switch self {
-        case .bandName: return .bandNameQuery
-        case .musicGenre: return .musicGenreQuery
-        case .lyricalThemes: return .lyricalThemesQuery
-        case .albumTitle: return .albumTitleQuery
-        case .songTitle: return .songTitleQuery
-        case .label: return .labelQuery
-        case .artist: return .artistQuery
-        case .user: return .userQuery
+        case .bandName:
+            .bandNameQuery
+        case .musicGenre:
+            .musicGenreQuery
+        case .lyricalThemes:
+            .lyricalThemesQuery
+        case .albumTitle:
+            .albumTitleQuery
+        case .songTitle:
+            .songTitleQuery
+        case .label:
+            .labelQuery
+        case .artist:
+            .artistQuery
+        case .user:
+            .userQuery
         }
     }
 }

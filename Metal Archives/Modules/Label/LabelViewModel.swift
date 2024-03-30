@@ -20,7 +20,7 @@ final class LabelViewModel: ObservableObject {
 
     var label: LabelDetail? {
         switch labelFetchable {
-        case .fetched(let label):
+        case let .fetched(label):
             return label
         default:
             return nil
@@ -29,7 +29,7 @@ final class LabelViewModel: ObservableObject {
 
     var logo: UIImage? {
         switch logoFetchable {
-        case .fetched(let logo):
+        case let .fetched(logo):
             return logo
         default:
             return nil
@@ -54,7 +54,8 @@ final class LabelViewModel: ObservableObject {
 
     func fetchLogo() async {
         guard let urlString = label?.logoUrlString,
-              let url = URL(string: urlString) else {
+              let url = URL(string: urlString)
+        else {
             return
         }
         do {

@@ -11,7 +11,7 @@ struct ReleaseNoteView: View {
     let note: String?
 
     init(release: Release) {
-        self.note = release.additionalHtmlNote?.strippedHtmlString()
+        note = release.additionalHtmlNote?.strippedHtmlString()
     }
 
     var body: some View {

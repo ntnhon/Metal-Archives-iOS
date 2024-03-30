@@ -1,5 +1,5 @@
 //
-//  BandTabsManager.swift
+//  BandTabsDatasource.swift
 //  Metal Archives
 //
 //  Created by Nhon Nguyen on 10/10/2022.
@@ -16,31 +16,46 @@ enum BandTab: CaseIterable {
 
     var title: String {
         switch self {
-        case .discography: return "Discography"
-        case .members: return "Members"
-        case .reviews: return "Reviews"
-        case .similarArtists: return "Similar Artists"
-        case .relatedLinks: return "Related Links"
+        case .discography:
+            "Discography"
+        case .members:
+            "Members"
+        case .reviews:
+            "Reviews"
+        case .similarArtists:
+            "Similar Artists"
+        case .relatedLinks:
+            "Related Links"
         }
     }
 
     var iconName: String {
         switch self {
-        case .discography: return "circle.grid.3x3"
-        case .members: return "person.3"
-        case .reviews: return "star.bubble"
-        case .similarArtists: return "dot.radiowaves.up.forward"
-        case .relatedLinks: return "link"
+        case .discography:
+            "circle.grid.3x3"
+        case .members:
+            "person.3"
+        case .reviews:
+            "star.bubble"
+        case .similarArtists:
+            "dot.radiowaves.up.forward"
+        case .relatedLinks:
+            "link"
         }
     }
 
     var selectedIconName: String {
         switch self {
-        case .discography: return "circle.grid.3x3.fill"
-        case .members: return "person.3.fill"
-        case .reviews: return "star.bubble.fill"
-        case .similarArtists: return "dot.radiowaves.up.forward"
-        case .relatedLinks: return "link"
+        case .discography:
+            "circle.grid.3x3.fill"
+        case .members:
+            "person.3.fill"
+        case .reviews:
+            "star.bubble.fill"
+        case .similarArtists:
+            "dot.radiowaves.up.forward"
+        case .relatedLinks:
+            "link"
         }
     }
 }

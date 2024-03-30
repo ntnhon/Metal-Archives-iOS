@@ -16,10 +16,11 @@ struct Discography: HTMLParsable {
     init(data: Data) {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
               let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8),
-              let tbody = html.at_css("tbody") else {
+              let tbody = html.at_css("tbody")
+        else {
             Logger.log("Error parsing html for discography")
             self.releases = []
-            self.reviewCount = 0
+            reviewCount = 0
             return
         }
 
@@ -37,7 +38,7 @@ struct Discography: HTMLParsable {
             // This band has no release yet
             if tr.css("td").count == 1 {
                 self.releases = []
-                self.reviewCount = 0
+                reviewCount = 0
                 return
             }
 
@@ -61,7 +62,8 @@ struct Discography: HTMLParsable {
                     builder.reviewCount = reviewString?.components(separatedBy: " ").first?.toInt()
                     builder.rating = reviewString?.subString(after: "(", before: "%)")?.toInt()
                     builder.reviewsUrlString = td.css("a").first?["href"]
-                default: break
+                default:
+                    break
                 }
             }
 
@@ -70,7 +72,7 @@ struct Discography: HTMLParsable {
             }
         }
         self.releases = releases
-        self.reviewCount = releases.compactMap { $0.reviewCount }.reduce(0, +)
+        reviewCount = releases.compactMap { $0.reviewCount }.reduce(0, +)
     }
 }
 
@@ -78,4 +80,6 @@ extension Discography {
     // swiftlint:disable force_try
     // swiftlint:disable force_unwrapping
     static let death = Discography(data: try! Data.fromHtml(fileName: "DiscographyPublic")!)
+    // swiftlint:enable force_try
+    // swiftlint:enable force_unwrapping
 }

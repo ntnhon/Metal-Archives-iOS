@@ -1,5 +1,5 @@
 //
-//  PageManager.swift
+//  PageManagerProtocol.swift
 //  Metal Archives
 //
 //  Created by Nhon Nguyen on 03/10/2022.
@@ -54,12 +54,13 @@ struct PageConfigs {
         urlString = urlString.replacingOccurrences(of: kDisplayStartPlaceholder, with: "\(displayStart)")
         urlString = urlString.replacingOccurrences(of: kDisplayLengthPlaceholder, with: "\(kDefaultPageSize)")
 
-        options.forEach { key, value in
+        for (key, value) in options {
             urlString = urlString.replacingOccurrences(of: key, with: value)
         }
 
         guard let formattedUrlString =
-                urlString.addingPercentEncoding(withAllowedCharacters: kMaUrlQueryAllowedCharacterSet) else {
+            urlString.addingPercentEncoding(withAllowedCharacters: kMaUrlQueryAllowedCharacterSet)
+        else {
             throw PageConfigsError.failedToAddPercentEncoding(urlString)
         }
 
@@ -78,9 +79,9 @@ struct PageResult<Element: PageElement>: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.total = try container.decode(Int.self, forKey: .total)
+        total = try container.decode(Int.self, forKey: .total)
         let data = try container.decode([[String]].self, forKey: .data)
-        self.elements = try data.map { try Element(from: $0) }
+        elements = try data.map { try Element(from: $0) }
     }
 }
 
@@ -113,7 +114,8 @@ class PageManager<Element: PageElement>: PageManagerProtocol {
 
     init(configs: PageConfigs,
          apiService: APIServiceProtocol,
-         options: [String: String] = [:]) {
+         options: [String: String] = [:])
+    {
         self.configs = configs
         self.apiService = apiService
         self.options = options

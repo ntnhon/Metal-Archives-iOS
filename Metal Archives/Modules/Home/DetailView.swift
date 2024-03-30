@@ -33,17 +33,17 @@ struct DetailView: View {
             destination: {
                 if let detail {
                     switch detail {
-                    case .band(let urlString):
+                    case let .band(urlString):
                         BandView(apiService: apiService, bandUrlString: urlString)
-                    case .artist(let urlString):
+                    case let .artist(urlString):
                         ArtistView(apiService: apiService, urlString: urlString)
-                    case .release(let urlString):
+                    case let .release(urlString):
                         ReleaseView(apiService: apiService, urlString: urlString, parentRelease: nil)
-                    case .label(let urlString):
+                    case let .label(urlString):
                         LabelView(apiService: apiService, urlString: urlString)
-                    case .review(let urlString):
+                    case let .review(urlString):
                         ReviewView(apiService: apiService, urlString: urlString)
-                    case .user(let urlString):
+                    case let .user(urlString):
                         UserView(apiService: apiService, urlString: urlString)
                     }
                 } else {
@@ -52,6 +52,7 @@ struct DetailView: View {
             },
             label: {
                 EmptyView()
-            })
+            }
+        )
     }
 }

@@ -35,7 +35,6 @@ extension UserSubmittedBand: PageElement {
      "Ecuador",
      "March 15, 2022"
      */
-    // swiftlint:enable line_length
     init(from strings: [String]) throws {
         guard strings.count == 4 else {
             throw PageElementError.badCount(count: strings.count, expectedCount: 4)
@@ -44,14 +43,15 @@ extension UserSubmittedBand: PageElement {
         guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
               let bandName = aTag.text,
               let urlString = aTag["href"],
-              let band = BandLite(urlString: urlString, name: bandName) else {
+              let band = BandLite(urlString: urlString, name: bandName)
+        else {
             throw PageElementError.failedToParse("URL: \(strings[0])")
         }
 
         self.band = band
-        self.genre = strings[1]
-        self.country = CountryManager.shared.country(by: \.name, value: strings[2])
-        self.date = strings[3]
+        genre = strings[1]
+        country = CountryManager.shared.country(by: \.name, value: strings[2])
+        date = strings[3]
     }
 }
 
@@ -73,35 +73,47 @@ extension UserSubmittedBandPageManager {
 
         var title: String {
             switch self {
-            case .band(.ascending): return "Band ↑"
-            case .band(.descending): return "Band ↓"
-            case .genre(.ascending): return "Genre ↑"
-            case .genre(.descending): return "Genre ↓"
-            case .country(.ascending): return "Country ↑"
-            case .country(.descending): return "Country ↓"
-            case .date(.ascending): return "Date ↑"
-            case .date(.descending): return "Date ↓"
+            case .band(.ascending):
+                "Band ↑"
+            case .band(.descending):
+                "Band ↓"
+            case .genre(.ascending):
+                "Genre ↑"
+            case .genre(.descending):
+                "Genre ↓"
+            case .country(.ascending):
+                "Country ↑"
+            case .country(.descending):
+                "Country ↓"
+            case .date(.ascending):
+                "Date ↑"
+            case .date(.descending):
+                "Date ↓"
             }
         }
 
         var column: Int {
             switch self {
-            case .band: return 0
-            case .genre: return 1
-            case .country: return 2
-            case .date: return 3
+            case .band:
+                0
+            case .genre:
+                1
+            case .country:
+                2
+            case .date:
+                3
             }
         }
 
         var order: Order {
             switch self {
             case .band(.ascending),
-                    .genre(.ascending),
-                    .country(.ascending),
-                    .date(.ascending):
-                return .ascending
+                 .genre(.ascending),
+                 .country(.ascending),
+                 .date(.ascending):
+                .ascending
             default:
-                return .descending
+                .descending
             }
         }
 
@@ -112,16 +124,16 @@ extension UserSubmittedBandPageManager {
         static func == (lhs: Self, rhs: Self) -> Bool {
             switch (lhs, rhs) {
             case (.band(.ascending), .band(.ascending)),
-                (.band(.descending), .band(.descending)),
-                (.genre(.ascending), .genre(.ascending)),
-                (.genre(.descending), .genre(.descending)),
-                (.country(.ascending), .country(.ascending)),
-                (.country(.descending), .country(.descending)),
-                (.date(.ascending), .date(.ascending)),
-                (.date(.descending), .date(.descending)):
-                return true
+                 (.band(.descending), .band(.descending)),
+                 (.genre(.ascending), .genre(.ascending)),
+                 (.genre(.descending), .genre(.descending)),
+                 (.country(.ascending), .country(.ascending)),
+                 (.country(.descending), .country(.descending)),
+                 (.date(.ascending), .date(.ascending)),
+                 (.date(.descending), .date(.descending)):
+                true
             default:
-                return false
+                false
             }
         }
     }

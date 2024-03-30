@@ -14,7 +14,8 @@ struct BandView: View {
     let apiService: APIServiceProtocol
 
     init(apiService: APIServiceProtocol,
-         bandUrlString: String) {
+         bandUrlString: String)
+    {
         self.apiService = apiService
         let vm = BandViewModel(apiService: apiService,
                                bandUrlString: bandUrlString)
@@ -24,7 +25,7 @@ struct BandView: View {
     var body: some View {
         ZStack {
             switch viewModel.bandMetadataFetchable {
-            case .error(let error):
+            case let .error(error):
                 VStack(alignment: .center, spacing: 20) {
                     Text(error.userFacingMessage)
                         .frame(maxWidth: .infinity)
@@ -38,7 +39,7 @@ struct BandView: View {
             case .fetching:
                 HornCircularLoader()
 
-            case .fetched(let metadata):
+            case let .fetched(metadata):
                 BandContentView(metadata: metadata,
                                 apiService: apiService,
                                 preferences: preferences,
@@ -69,18 +70,19 @@ private struct BandContentView: View {
     init(metadata: BandMetadata,
          apiService: APIServiceProtocol,
          preferences: Preferences,
-         viewModel: BandViewModel) {
+         viewModel: BandViewModel)
+    {
         self.metadata = metadata
         self.apiService = apiService
-        self._discographyViewModel = .init(wrappedValue: .init(discography: metadata.discography,
-                                                               discographyMode: preferences.discographyMode,
-                                                               order: preferences.dateOrder))
-        self._similarArtistsViewModel = .init(wrappedValue: .init(apiService: apiService,
-                                                                  band: metadata.band))
-        self._reviewsViewModel = .init(wrappedValue: .init(band: metadata.band,
-                                                           apiService: apiService,
-                                                           discography: metadata.discography))
-        self._viewModel = .init(wrappedValue: viewModel)
+        _discographyViewModel = .init(wrappedValue: .init(discography: metadata.discography,
+                                                          discographyMode: preferences.discographyMode,
+                                                          order: preferences.dateOrder))
+        _similarArtistsViewModel = .init(wrappedValue: .init(apiService: apiService,
+                                                             band: metadata.band))
+        _reviewsViewModel = .init(wrappedValue: .init(band: metadata.band,
+                                                      apiService: apiService,
+                                                      discography: metadata.discography))
+        _viewModel = .init(wrappedValue: viewModel)
     }
 
     var body: some View {
@@ -91,8 +93,9 @@ private struct BandContentView: View {
             showsIndicator: true,
             onOffsetChanged: { point in
                 let screenBounds = UIScreen.main.bounds
-                if point.y < 0,
-                   abs(point.y) > (min(screenBounds.width, screenBounds.height) * 2 / 3) {
+                if point.y<0,
+                    abs(point.y)>(min(screenBounds.width, screenBounds.height) * 2 / 3)
+                {
                     titleViewAlpha = abs(point.y) / min(screenBounds.width, screenBounds.height)
                 } else {
                     titleViewAlpha = 0.0
@@ -112,7 +115,7 @@ private struct BandContentView: View {
                         BandInfoView(viewModel: .init(band: band, discography: metadata.discography),
                                      onSelectLabel: { url in detail = .label(url) },
                                      onSelectBand: { url in detail = .band(url) })
-                        .padding(.horizontal)
+                            .padding(.horizontal)
 
                         if let readMore = metadata.readMore {
                             BandReadMoreView(band: band, readMore: readMore)
@@ -137,7 +140,7 @@ private struct BandContentView: View {
                         case .discography:
                             DiscographyView(apiService: apiService,
                                             viewModel: discographyViewModel)
-                            .padding(.horizontal)
+                                .padding(.horizontal)
 
                         case .members:
                             BandLineUpView(apiService: apiService,
@@ -162,7 +165,8 @@ private struct BandContentView: View {
                     .frame(minHeight: bottomSectionMinHeight,
                            alignment: .top)
                 }
-            })
+            }
+        )
         .toolbar { toolbarContent }
         .sheet(isPresented: $showingShareSheet) {
             if let url = URL(string: band.urlString) {
@@ -219,14 +223,14 @@ private struct BandContentView: View {
 }
 
 /*
-struct BandView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            BandView(apiService: APIService(),
-                     bandUrlString: "https://www.metal-archives.com/bands/Death/141")
-        }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
-    }
-}
-*/
+ struct BandView_Previews: PreviewProvider {
+     static var previews: some View {
+         NavigationView {
+             BandView(apiService: APIService(),
+                      bandUrlString: "https://www.metal-archives.com/bands/Death/141")
+         }
+         .environment(\.colorScheme, .dark)
+         .environmentObject(Preferences())
+     }
+ }
+ */

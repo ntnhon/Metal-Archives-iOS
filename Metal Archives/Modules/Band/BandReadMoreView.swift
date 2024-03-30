@@ -24,28 +24,28 @@ struct BandReadMoreView: View {
             .onTapGesture {
                 showingSheet.toggle()
             }
-        .sheet(isPresented: $showingSheet) {
-            NavigationView {
-                ScrollView {
-                    Text(readMore)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .textSelection(.enabled)
-                }
-                .navigationTitle(band.name)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
-                            showingSheet.toggle()
-                        }, label: {
-                            Image(systemName: "xmark")
-                        })
+            .sheet(isPresented: $showingSheet) {
+                NavigationView {
+                    ScrollView {
+                        Text(readMore)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .textSelection(.enabled)
+                    }
+                    .navigationTitle(band.name)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button(action: {
+                                showingSheet.toggle()
+                            }, label: {
+                                Image(systemName: "xmark")
+                            })
+                        }
                     }
                 }
+                .tint(preferences.theme.primaryColor)
+                .preferredColorScheme(.dark)
             }
-            .tint(preferences.theme.primaryColor)
-            .preferredColorScheme(.dark)
-        }
     }
 }

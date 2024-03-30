@@ -31,9 +31,9 @@ extension SearchEntryEntity {
     }
 
     func hydrate(from entry: SearchEntry) {
-        self.type = entry.type.rawValue
-        self.primaryDetail = entry.primaryDetail
-        self.secondaryDetail = entry.secondaryDetail
-        self.timestamp = Date().timeIntervalSince1970
+        type = entry.type.rawValue
+        primaryDetail = entry.primaryDetail
+        secondaryDetail = entry.secondaryDetail
+        timestamp = Date().timeIntervalSince1970
     }
 }

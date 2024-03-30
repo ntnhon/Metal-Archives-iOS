@@ -37,11 +37,12 @@ extension LabelByCountry: PageElement {
 
         guard let aTag = try Kanna.HTML(html: strings[1], encoding: .utf8).at_css("a"),
               let labelName = aTag.text,
-              let labelUrlString = aTag["href"] else {
+              let labelUrlString = aTag["href"]
+        else {
             throw PageElementError.failedToParse("\(LabelLite.self): \(strings[0])")
         }
-        self.label = .init(thumbnailInfo: .init(urlString: labelUrlString, type: .label),
-                           name: labelName)
+        label = .init(thumbnailInfo: .init(urlString: labelUrlString, type: .label),
+                      name: labelName)
 
         let specialisation = strings[2].replacingOccurrences(of: "&nbsp;", with: "")
             .trimmingCharacters(in: .whitespacesAndNewlines)
@@ -52,21 +53,24 @@ extension LabelByCountry: PageElement {
         }
 
         guard let spanTag = try Kanna.HTML(html: strings[3], encoding: .utf8).at_css("span"),
-              let statusText = spanTag.text else {
+              let statusText = spanTag.text
+        else {
             throw PageElementError.failedToParse("\(LabelStatus.self): \(strings[3])")
         }
 
-        self.status = LabelStatus(rawValue: statusText)
+        status = LabelStatus(rawValue: statusText)
 
         if let aTag = try Kanna.HTML(html: strings[4], encoding: .utf8).at_css("a"),
-           let urlString = aTag["href"] {
-            self.website = urlString
+           let urlString = aTag["href"]
+        {
+            website = urlString
         } else {
-            self.website = nil
+            website = nil
         }
-        self.onlineShopping = strings[5] != "&nbsp;"
+        onlineShopping = strings[5] != "&nbsp;"
     }
 }
+
 final class LabelByCountryPageManager: PageManager<LabelByCountry> {
     init(apiService: APIServiceProtocol, country: Country, sortOptions: SortOption) {
         // swiftlint:disable:next line_length
@@ -84,35 +88,47 @@ extension LabelByCountryPageManager {
 
         var title: String {
             switch self {
-            case .name(.ascending): return "Name ↑"
-            case .name(.descending): return "Name ↓"
-            case .specialisation(.ascending): return "Specialisation ↑"
-            case .specialisation(.descending): return "Specialisation ↓"
-            case .status(.ascending): return "Status ↑"
-            case .status(.descending): return "Status ↓"
-            case .onlineShopping(.ascending): return "Online shopping ↑"
-            case .onlineShopping(.descending): return "Online shopping ↓"
+            case .name(.ascending):
+                "Name ↑"
+            case .name(.descending):
+                "Name ↓"
+            case .specialisation(.ascending):
+                "Specialisation ↑"
+            case .specialisation(.descending):
+                "Specialisation ↓"
+            case .status(.ascending):
+                "Status ↑"
+            case .status(.descending):
+                "Status ↓"
+            case .onlineShopping(.ascending):
+                "Online shopping ↑"
+            case .onlineShopping(.descending):
+                "Online shopping ↓"
             }
         }
 
         var column: Int {
             switch self {
-            case .name: return 1
-            case .specialisation: return 2
-            case .status: return 3
-            case .onlineShopping: return 5
+            case .name:
+                1
+            case .specialisation:
+                2
+            case .status:
+                3
+            case .onlineShopping:
+                5
             }
         }
 
         var order: Order {
             switch self {
             case .name(.ascending),
-                    .specialisation(.ascending),
-                    .status(.ascending),
-                    .onlineShopping(.ascending):
-                return .ascending
+                 .specialisation(.ascending),
+                 .status(.ascending),
+                 .onlineShopping(.ascending):
+                .ascending
             default:
-                return .descending
+                .descending
             }
         }
 
@@ -123,16 +139,16 @@ extension LabelByCountryPageManager {
         static func == (lhs: Self, rhs: Self) -> Bool {
             switch (lhs, rhs) {
             case (.name(.ascending), .name(.ascending)),
-                (.name(.descending), .name(.descending)),
-                (.specialisation(.ascending), .specialisation(.ascending)),
-                (.specialisation(.descending), .specialisation(.descending)),
-                (.status(.ascending), .status(.ascending)),
-                (.status(.descending), .status(.descending)),
-                (.onlineShopping(.ascending), .onlineShopping(.ascending)),
-                (.onlineShopping(.descending), .onlineShopping(.descending)):
-                return true
+                 (.name(.descending), .name(.descending)),
+                 (.specialisation(.ascending), .specialisation(.ascending)),
+                 (.specialisation(.descending), .specialisation(.descending)),
+                 (.status(.ascending), .status(.ascending)),
+                 (.status(.descending), .status(.descending)),
+                 (.onlineShopping(.ascending), .onlineShopping(.ascending)),
+                 (.onlineShopping(.descending), .onlineShopping(.descending)):
+                true
             default:
-                return false
+                false
             }
         }
     }

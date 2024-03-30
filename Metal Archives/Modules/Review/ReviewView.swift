@@ -20,10 +20,10 @@ struct ReviewView: View {
             switch viewModel.reviewFetchable {
             case .fetching:
                 HornCircularLoader()
-            case .fetched(let review):
+            case let .fetched(review):
                 ReviewContentView(apiService: viewModel.apiService, review: review)
                     .environmentObject(viewModel)
-            case .error(let error):
+            case let .error(error):
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
@@ -55,7 +55,7 @@ private struct ReviewContentView: View {
     init(apiService: APIServiceProtocol, review: Review) {
         self.apiService = apiService
         self.review = review
-        self.coverViewHeight = review.coverPhotoUrlString != nil ? 300 : 0
+        coverViewHeight = review.coverPhotoUrlString != nil ? 300 : 0
     }
 
     var body: some View {
@@ -73,8 +73,9 @@ private struct ReviewContentView: View {
                 onOffsetChanged: { point in
                     /// Calculate `titleViewAlpha`
                     let screenBounds = UIScreen.main.bounds
-                    if point.y < 0,
-                       abs(point.y) > (min(screenBounds.width, screenBounds.height) / 4) {
+                    if point.y<0,
+                        abs(point.y)>(min(screenBounds.width, screenBounds.height) / 4)
+                    {
                         titleViewAlpha = (abs(point.y) + 300) / min(screenBounds.width, screenBounds.height)
                     } else {
                         titleViewAlpha = 0.0
@@ -108,7 +109,8 @@ private struct ReviewContentView: View {
                                        onSelectBand: { url in detail = .band(url) },
                                        onSelectRelease: { url in detail = .release(url) })
                     }
-                })
+                }
+            )
         }
         .toolbar { toolbarContent }
     }
@@ -118,8 +120,8 @@ private struct ReviewContentView: View {
         ToolbarItem(placement: .navigationBarLeading) {
             Group {
                 switch viewModel.coverFetchable {
-                case .fetched(let image):
-                    if let image = image {
+                case let .fetched(image):
+                    if let image {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()

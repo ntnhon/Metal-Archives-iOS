@@ -15,7 +15,7 @@ struct LabelLite: OptionalThumbnailable {
 extension LabelLite {
     init?(aTag: XMLElement) {
         guard let urlString = aTag["href"], let name = aTag.text else { return nil }
-        self.thumbnailInfo = .init(urlString: urlString, type: .label)
+        thumbnailInfo = .init(urlString: urlString, type: .label)
         self.name = name
     }
 }
@@ -23,7 +23,8 @@ extension LabelLite {
 extension LabelLite: Equatable {
     static func == (lhs: Self, rhs: Self) -> Bool {
         if let lhsThumbnailInfo = lhs.thumbnailInfo,
-           let rhsThumbnailInfo = rhs.thumbnailInfo {
+           let rhsThumbnailInfo = rhs.thumbnailInfo
+        {
             return lhsThumbnailInfo.urlString == rhsThumbnailInfo.urlString
         }
         return lhs.name == rhs.name

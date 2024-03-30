@@ -16,22 +16,33 @@ enum LabelStatus: String {
 
     init(rawValue: String) {
         switch rawValue.lowercased() {
-        case "active": self = .active
-        case "closed": self = .closed
-        case "unknown": self = .unknown
-        case "changed name": self = .changedName
-        case "on hold": self = .onHold
-        default: self = .unknown
+        case "active":
+            self = .active
+        case "closed":
+            self = .closed
+        case "unknown":
+            self = .unknown
+        case "changed name":
+            self = .changedName
+        case "on hold":
+            self = .onHold
+        default:
+            self = .unknown
         }
     }
 
     var color: Color {
         switch self {
-        case .active: return .green
-        case .closed: return .red
-        case .unknown: return .orange
-        case .changedName: return .blue
-        case .onHold: return .yellow
+        case .active:
+            .green
+        case .closed:
+            .red
+        case .unknown:
+            .orange
+        case .changedName:
+            .blue
+        case .onHold:
+            .yellow
         }
     }
 }

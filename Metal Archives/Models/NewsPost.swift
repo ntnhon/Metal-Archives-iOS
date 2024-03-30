@@ -1,5 +1,5 @@
 //
-//  News.swift
+//  NewsPost.swift
 //  Metal Archives
 //
 //  Created by Nhon Nguyen on 23/10/2022.
@@ -110,7 +110,8 @@ extension NewsPost {
             case "signature":
                 if let aTag = p.at_css("a"),
                    let username = aTag.text,
-                   let urlString = aTag["href"] {
+                   let urlString = aTag["href"]
+                {
                     builder.author = .init(name: username, urlString: urlString)
                 }
             default:
@@ -120,7 +121,8 @@ extension NewsPost {
 
         for a in element.css("a") {
             if a["class"] == "iconContainer ui-state-default ui-corner-all",
-               let urlString = a["href"] {
+               let urlString = a["href"]
+            {
                 builder.urlString = urlString
             }
         }
@@ -147,3 +149,5 @@ struct NewsPage: HTMLParsable {
         self.newsPosts = newsPosts
     }
 }
+
+// swiftlint:enable identifier_name

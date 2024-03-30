@@ -54,7 +54,8 @@ extension LabelRelease: PageElement {
         guard let bandATag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
               let bandName = bandATag.text,
               let bandUrlString = bandATag["href"],
-              let band = BandLite(urlString: bandUrlString, name: bandName) else {
+              let band = BandLite(urlString: bandUrlString, name: bandName)
+        else {
             throw PageElementError.failedToParse("\(BandLite.self): \(strings[0])")
         }
         self.band = band
@@ -62,15 +63,16 @@ extension LabelRelease: PageElement {
         guard let releaseATag = try Kanna.HTML(html: strings[1], encoding: .utf8).at_css("a"),
               let releaseTitle = releaseATag.text,
               let releaseUrlString = releaseATag["href"],
-              let release = ReleaseLite(urlString: releaseUrlString, title: releaseTitle) else {
+              let release = ReleaseLite(urlString: releaseUrlString, title: releaseTitle)
+        else {
             throw PageElementError.failedToParse("\(BandLite.self): \(strings[1])")
         }
         self.release = release
 
-        self.type = ReleaseType(typeString: strings[2]) ?? .fullLength
-        self.year = strings[3]
-        self.catalog = strings[4]
-        self.format = strings[5]
+        type = ReleaseType(typeString: strings[2]) ?? .fullLength
+        year = strings[3]
+        catalog = strings[4]
+        format = strings[5]
         let description = strings[6]
         self.description = description.isEmpty ? nil : description
     }
@@ -95,39 +97,54 @@ extension LabelReleasePageManager {
 
         var title: String {
             switch self {
-            case .band(.ascending): return "Band ↑"
-            case .band(.descending): return "Band ↓"
-            case .type(.ascending): return "Type ↑"
-            case .type(.descending): return "Type ↓"
-            case .year(.ascending): return "Year ↑"
-            case .year(.descending): return "Year ↓"
-            case .catalog(.ascending): return "Catalog ↑"
-            case .catalog(.descending): return "Catalog ↓"
-            case .format(.ascending): return "Format ↑"
-            case .format(.descending): return "Format ↓"
+            case .band(.ascending):
+                "Band ↑"
+            case .band(.descending):
+                "Band ↓"
+            case .type(.ascending):
+                "Type ↑"
+            case .type(.descending):
+                "Type ↓"
+            case .year(.ascending):
+                "Year ↑"
+            case .year(.descending):
+                "Year ↓"
+            case .catalog(.ascending):
+                "Catalog ↑"
+            case .catalog(.descending):
+                "Catalog ↓"
+            case .format(.ascending):
+                "Format ↑"
+            case .format(.descending):
+                "Format ↓"
             }
         }
 
         var column: Int {
             switch self {
-            case .band: return 0
-            case .type: return 2
-            case .year: return 3
-            case .catalog: return 4
-            case .format: return 5
+            case .band:
+                0
+            case .type:
+                2
+            case .year:
+                3
+            case .catalog:
+                4
+            case .format:
+                5
             }
         }
 
         var order: Order {
             switch self {
             case .band(.ascending),
-                    .type(.ascending),
-                    .year(.ascending),
-                    .catalog(.ascending),
-                    .format(.ascending):
-                return .ascending
+                 .type(.ascending),
+                 .year(.ascending),
+                 .catalog(.ascending),
+                 .format(.ascending):
+                .ascending
             default:
-                return .descending
+                .descending
             }
         }
 
@@ -138,18 +155,18 @@ extension LabelReleasePageManager {
         static func == (lhs: Self, rhs: Self) -> Bool {
             switch (lhs, rhs) {
             case (.band(.ascending), .band(.ascending)),
-                (.band(.descending), .band(.descending)),
-                (.type(.ascending), .type(.ascending)),
-                (.type(.descending), .type(.descending)),
-                (.year(.ascending), .year(.ascending)),
-                (.year(.descending), .year(.descending)),
-                (.catalog(.ascending), .catalog(.ascending)),
-                (.catalog(.descending), .catalog(.descending)),
-                (.format(.ascending), .format(.ascending)),
-                (.format(.descending), .format(.descending)):
-                return true
+                 (.band(.descending), .band(.descending)),
+                 (.type(.ascending), .type(.ascending)),
+                 (.type(.descending), .type(.descending)),
+                 (.year(.ascending), .year(.ascending)),
+                 (.year(.descending), .year(.descending)),
+                 (.catalog(.ascending), .catalog(.ascending)),
+                 (.catalog(.descending), .catalog(.descending)),
+                 (.format(.ascending), .format(.ascending)),
+                 (.format(.descending), .format(.descending)):
+                true
             default:
-                return false
+                false
             }
         }
     }

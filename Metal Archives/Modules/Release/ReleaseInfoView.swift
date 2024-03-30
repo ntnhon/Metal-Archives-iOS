@@ -72,7 +72,7 @@ struct ReleaseInfoView: View {
             }, label: {
                 Text(band.name)
                     .fontWeight(.bold)
-                    .foregroundColor( preferences.theme.primaryColor)
+                    .foregroundColor(preferences.theme.primaryColor)
             })
             Spacer()
         }

@@ -39,7 +39,8 @@ extension TopReleases: HTMLParsable {
                 for td in tr.css("td") {
                     if let aTag = td.at_css("a"),
                        let text = aTag.text,
-                       let urlString = aTag["href"] {
+                       let urlString = aTag["href"]
+                    {
                         if urlString.contains("bands/") {
                             band = .init(urlString: urlString, name: text)
                         } else {

@@ -9,9 +9,9 @@ import StoreKit
 import SwiftUI
 
 private let kVersionName =
-(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?"
+    (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "?"
 private let kBuildNumber =
-(Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?"
+    (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?"
 
 struct SettingsView: View {
     @EnvironmentObject private var preferences: Preferences
@@ -35,8 +35,8 @@ struct SettingsView: View {
         }
         .navigationTitle("Settings")
         .onAppear {
-            self.showThumbnails = preferences.showThumbnails
-            self.useHaptic = preferences.useHaptic
+            showThumbnails = preferences.showThumbnails
+            useHaptic = preferences.useHaptic
         }
     }
 
@@ -134,7 +134,8 @@ struct SettingsView: View {
             Button(action: {
                 let urlString = "itms-apps://itunes.apple.com/gb/app/id1074038930?action=write-review&mt=8"
                 if let url = URL(string: urlString),
-                   UIApplication.shared.canOpenURL(url) {
+                   UIApplication.shared.canOpenURL(url)
+                {
                     UIApplication.shared.open(url)
                 }
             }, label: {
@@ -186,7 +187,8 @@ struct SettingsView: View {
 
     private var mobileAppLinksSection: some View {
         Section(header: Text("Mobile Application Links"),
-                footer: Text("For crashes, bug reports & feature requests related to this iOS app")) {
+                footer: Text("For crashes, bug reports & feature requests related to this iOS app"))
+        {
             // Twitter
             Button(action: {
                 selectedUrl.wrappedValue = "https://twitter.com/ma_mobile_app"
@@ -234,7 +236,8 @@ struct SettingsView: View {
             // Email
             Button(action: {
                 if let url = URL(string: "mailto:hi@nguyenthanhnhon.info"),
-                   UIApplication.shared.canOpenURL(url) {
+                   UIApplication.shared.canOpenURL(url)
+                {
                     UIApplication.shared.open(url)
                 }
             }, label: {

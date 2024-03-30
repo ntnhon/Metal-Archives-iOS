@@ -11,6 +11,7 @@ import Foundation
 enum Letter: CustomStringConvertible, CaseIterable {
     case a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, hash, tilde
 
+    // swiftlint:disable switch_case_on_newline
     var description: String {
         switch self {
         case .a: return "A"
@@ -44,10 +45,16 @@ enum Letter: CustomStringConvertible, CaseIterable {
         }
     }
 
+    // swiftlint:enable switch_case_on_newline
+
     var parameterString: String {
         switch self {
-        case .hash: return "NBR"
-        default: return self.description
+        case .hash:
+            "NBR"
+        default:
+            description
         }
     }
 }
+
+// swiftlint:enable identifier_name

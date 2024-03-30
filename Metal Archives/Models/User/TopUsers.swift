@@ -40,10 +40,12 @@ extension TopUsers: HTMLParsable {
                 for td in tr.css("td") {
                     if let aTag = td.at_css("a"),
                        let username = aTag.text,
-                       let urlString = aTag["href"] {
+                       let urlString = aTag["href"]
+                    {
                         user = .init(name: username, urlString: urlString)
                     } else if let text = td.text,
-                              !text.contains(".") {
+                              !text.contains(".")
+                    {
                         count = Int(text)
                     }
                 }

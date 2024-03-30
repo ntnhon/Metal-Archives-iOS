@@ -15,7 +15,7 @@ struct ThumbnailView: View {
     private let photoDescription: String
 
     init(thumbnailInfo: ThumbnailInfo, photoDescription: String) {
-        self.viewModel = .init(thumbnailInfo: thumbnailInfo)
+        viewModel = .init(thumbnailInfo: thumbnailInfo)
         self.photoDescription = photoDescription
     }
 
@@ -31,8 +31,8 @@ struct ThumbnailView: View {
                 .scaledToFit()
                 .onTapGesture {
                     selectedPhoto.wrappedValue =
-                    Photo(image: uiImage,
-                          description: photoDescription)
+                        Photo(image: uiImage,
+                              description: photoDescription)
                 }
         } else {
             Image(systemName: viewModel.thumbnailInfo.type.placeholderSystemImageName)
@@ -57,7 +57,7 @@ enum ImageExtension: String {
     case jpg, jpeg, png, gif
 }
 
-fileprivate let kImagesBaseUrlString = "https://www.metal-archives.com/images/"
+private let kImagesBaseUrlString = "https://www.metal-archives.com/images/"
 
 final class ThumbnailViewModel: ObservableObject {
     let thumbnailInfo: ThumbnailInfo
@@ -79,8 +79,9 @@ final class ThumbnailViewModel: ObservableObject {
         let matcher = ThumbnailInfoMatcher.shared
         guard uiImage == nil,
               let imageUrlString =
-                matcher.getMatchedUrlString(for: thumbnailInfo) ?? newImageUrlString(id: thumbnailInfo.id),
-              let imageUrl = URL(string: imageUrlString) else {
+              matcher.getMatchedUrlString(for: thumbnailInfo) ?? newImageUrlString(id: thumbnailInfo.id),
+              let imageUrl = URL(string: imageUrlString)
+        else {
             return
         }
         isLoading = true
@@ -89,8 +90,9 @@ final class ThumbnailViewModel: ObservableObject {
             ThumbnailInfoMatcher.shared.setMatched(thumbnailInfo: thumbnailInfo, urlString: imageUrlString)
         } catch {
             if let kingfisherError = error as? KingfisherError,
-               case .responseError(let reason) = kingfisherError,
-               case .invalidHTTPStatusCode(let httpResponse) = reason {
+               case let .responseError(reason) = kingfisherError,
+               case let .invalidHTTPStatusCode(httpResponse) = reason
+            {
                 switch httpResponse.statusCode {
                 case 404:
                     await tryLoadingNewImage()
@@ -140,11 +142,11 @@ private extension Int {
 
         var imagePath = ""
         switch self {
-        case 1_000...Int.max:
+        case 1000 ... Int.max:
             imagePath = "\(idString[0])/\(idString[1])/\(idString[2])/\(idString[3])/"
-        case 100...999:
+        case 100 ... 999:
             imagePath = "\(idString[0])/\(idString[1])/\(idString[2])/"
-        case 10...99:
+        case 10 ... 99:
             imagePath = "\(idString[0])/\(idString[1])/"
         default:
             imagePath = idString

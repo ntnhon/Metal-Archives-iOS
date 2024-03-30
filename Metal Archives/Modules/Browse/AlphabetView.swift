@@ -12,17 +12,19 @@ enum AlphabetMode {
 
     var navigationTitle: String {
         switch self {
-        case .bands: return "Bands by alphabet"
-        case .labels: return "Labels by alphabet"
+        case .bands:
+            "Bands by alphabet"
+        case .labels:
+            "Labels by alphabet"
         }
     }
 }
 
 private let kFooterNote = """
-    For numbers, select #.
-    For non-Latin alphabets or for symbols, select ~.
-    Note: leading "The __" are ignored (e.g. "The Chasm" appears under C, not T)
-    """
+For numbers, select #.
+For non-Latin alphabets or for symbols, select ~.
+Note: leading "The __" are ignored (e.g. "The Chasm" appears under C, not T)
+"""
 
 struct AlphabetView: View {
     let apiService: APIServiceProtocol

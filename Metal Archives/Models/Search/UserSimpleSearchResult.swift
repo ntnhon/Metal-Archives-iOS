@@ -37,12 +37,13 @@ extension UserSimpleSearchResult: PageElement {
 
         guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
               let name = aTag.text,
-              let urlString = aTag["href"] else {
+              let urlString = aTag["href"]
+        else {
             throw PageElementError.failedToParse("\(UserLite.self): \(strings[0])")
         }
-        self.user = .init(name: name, urlString: urlString)
-        self.rank = .init(title: strings[1])
-        self.point = strings[2]
+        user = .init(name: name, urlString: urlString)
+        rank = .init(title: strings[1])
+        point = strings[2]
     }
 }
 

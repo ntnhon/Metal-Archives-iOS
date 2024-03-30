@@ -24,8 +24,8 @@ final class UserModificationsViewModel: ObservableObject {
     init(apiService: APIServiceProtocol, userId: String) {
         self.apiService = apiService
         let defaultSortOption: UserModificationPageManager.SortOption = .date(.descending)
-        self.sortOption = defaultSortOption
-        self.manager = .init(apiService: apiService, sortOptions: defaultSortOption, userId: userId)
+        sortOption = defaultSortOption
+        manager = .init(apiService: apiService, sortOptions: defaultSortOption, userId: userId)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

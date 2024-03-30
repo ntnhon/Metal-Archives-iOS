@@ -8,54 +8,54 @@
 import SwiftUI
 
 /*
-struct OffsetAwareVerticalScrollView<V: View>: UIViewRepresentable {
-    let onScroll: (CGPoint) -> Void
-    let content: V
+ struct OffsetAwareVerticalScrollView<V: View>: UIViewRepresentable {
+     let onScroll: (CGPoint) -> Void
+     let content: V
 
-    init(onScroll: @escaping (CGPoint) -> Void,
-         @ViewBuilder content: () -> V) {
-        self.onScroll = onScroll
-        self.content = content()
-    }
+     init(onScroll: @escaping (CGPoint) -> Void,
+          @ViewBuilder content: () -> V) {
+         self.onScroll = onScroll
+         self.content = content()
+     }
 
-    func makeUIView(context: Context) -> UIScrollView {
-        let scrollView = UIScrollView()
-//        scrollView.contentInsetAdjustmentBehavior = .automatic
-//        scrollView.backgroundColor = .clear
-//        scrollView.automaticallyAdjustsScrollIndicatorInsets = false
-        let subview = UIHostingController(rootView: content).view!
-        subview.backgroundColor = .clear
-        subview.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(subview)
-        scrollView.delegate = context.coordinator
-        let layoutGuide = scrollView.contentLayoutGuide
-        NSLayoutConstraint.activate([
-            subview.topAnchor.constraint(equalTo: layoutGuide.topAnchor),
-            subview.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
-            subview.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor),
-            subview.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),
-            subview.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-        ])
-        return scrollView
-    }
+     func makeUIView(context: Context) -> UIScrollView {
+         let scrollView = UIScrollView()
+ //        scrollView.contentInsetAdjustmentBehavior = .automatic
+ //        scrollView.backgroundColor = .clear
+ //        scrollView.automaticallyAdjustsScrollIndicatorInsets = false
+         let subview = UIHostingController(rootView: content).view!
+         subview.backgroundColor = .clear
+         subview.translatesAutoresizingMaskIntoConstraints = false
+         scrollView.addSubview(subview)
+         scrollView.delegate = context.coordinator
+         let layoutGuide = scrollView.contentLayoutGuide
+         NSLayoutConstraint.activate([
+             subview.topAnchor.constraint(equalTo: layoutGuide.topAnchor),
+             subview.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
+             subview.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor),
+             subview.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),
+             subview.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+         ])
+         return scrollView
+     }
 
-    func updateUIView(_ scrollView: UIScrollView, context: Context) {}
+     func updateUIView(_ scrollView: UIScrollView, context: Context) {}
 
-    func makeCoordinator() -> Coordinator { .init(self) }
+     func makeCoordinator() -> Coordinator { .init(self) }
 
-    class Coordinator: NSObject, UIScrollViewDelegate {
-        let parent: OffsetAwareVerticalScrollView
+     class Coordinator: NSObject, UIScrollViewDelegate {
+         let parent: OffsetAwareVerticalScrollView
 
-        init(_ parent: OffsetAwareVerticalScrollView) {
-            self.parent = parent
-        }
+         init(_ parent: OffsetAwareVerticalScrollView) {
+             self.parent = parent
+         }
 
-        func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            parent.onScroll(scrollView.contentOffset)
-        }
-    }
-}
-*/
+         func scrollViewDidScroll(_ scrollView: UIScrollView) {
+             parent.onScroll(scrollView.contentOffset)
+         }
+     }
+ }
+ */
 
 // https://betterprogramming.pub/swiftui-calculate-scroll-offset-in-scrollviews-c3b121f0b0dc
 struct OffsetAwareScrollView<T: View>: View {
@@ -67,8 +67,8 @@ struct OffsetAwareScrollView<T: View>: View {
     init(axes: Axis.Set = .vertical,
          showsIndicator: Bool = true,
          onOffsetChanged: @escaping (CGPoint) -> Void = { _ in },
-         @ViewBuilder content: () -> T
-    ) {
+         @ViewBuilder content: () -> T)
+    {
         self.axes = axes
         self.showsIndicator = showsIndicator
         self.onOffsetChanged = onOffsetChanged
@@ -97,5 +97,5 @@ struct OffsetAwareScrollView<T: View>: View {
 private struct OffsetPreferenceKey: PreferenceKey {
     static var defaultValue: CGPoint = .zero
 
-    static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) {}
+    static func reduce(value _: inout CGPoint, nextValue _: () -> CGPoint) {}
 }

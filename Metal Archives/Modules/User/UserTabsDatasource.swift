@@ -18,37 +18,58 @@ enum UserTab: CaseIterable {
 
     var title: String {
         switch self {
-        case .comments: return "Comments"
-        case .reviews: return "Reviews"
-        case .albumCollection: return "Album Collection"
-        case .wantedList: return "Wanted List"
-        case .tradeList: return "Trade List"
-        case .submittedBands: return "Submitted Bands"
-        case .modificationHistory: return "Modification History"
+        case .comments:
+            "Comments"
+        case .reviews:
+            "Reviews"
+        case .albumCollection:
+            "Album Collection"
+        case .wantedList:
+            "Wanted List"
+        case .tradeList:
+            "Trade List"
+        case .submittedBands:
+            "Submitted Bands"
+        case .modificationHistory:
+            "Modification History"
         }
     }
 
     var iconName: String {
         switch self {
-        case .comments: return "text.bubble"
-        case .reviews: return "star.bubble"
-        case .albumCollection: return "circle.grid.3x3"
-        case .wantedList: return "circle.hexagongrid"
-        case .tradeList: return "circlebadge.2"
-        case .submittedBands: return "person.3"
-        case .modificationHistory: return "pencil.circle"
+        case .comments:
+            "text.bubble"
+        case .reviews:
+            "star.bubble"
+        case .albumCollection:
+            "circle.grid.3x3"
+        case .wantedList:
+            "circle.hexagongrid"
+        case .tradeList:
+            "circlebadge.2"
+        case .submittedBands:
+            "person.3"
+        case .modificationHistory:
+            "pencil.circle"
         }
     }
 
     var selectedIconName: String {
         switch self {
-        case .comments: return "text.bubble.fill"
-        case .reviews: return "star.bubble.fill"
-        case .albumCollection: return "circle.grid.3x3.fill"
-        case .wantedList: return "circle.hexagongrid.fill"
-        case .tradeList: return "circlebadge.2.fill"
-        case .submittedBands: return "person.3.fill"
-        case .modificationHistory: return "pencil.circle.fill"
+        case .comments:
+            "text.bubble.fill"
+        case .reviews:
+            "star.bubble.fill"
+        case .albumCollection:
+            "circle.grid.3x3.fill"
+        case .wantedList:
+            "circle.hexagongrid.fill"
+        case .tradeList:
+            "circlebadge.2.fill"
+        case .submittedBands:
+            "person.3.fill"
+        case .modificationHistory:
+            "pencil.circle.fill"
         }
     }
 }
@@ -65,7 +86,7 @@ final class UserTabsDatasource: HorizontalTabsDatasource {
         var allTabs = UserTab.allCases
         if user.comments == nil { allTabs.removeAll { $0 == .comments } }
         self.allTabs = allTabs
-        self.selectedTab = allTabs.first ?? .reviews
+        selectedTab = allTabs.first ?? .reviews
     }
 
     override func numberOfTabs() -> Int {

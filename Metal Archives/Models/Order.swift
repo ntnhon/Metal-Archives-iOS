@@ -11,17 +11,21 @@ enum Order: Int {
     case ascending
     case descending
 
-    var oppositeOrder: Order {
+    var oppositeOrder: Self {
         switch self {
-        case .ascending: return .descending
-        case .descending: return .ascending
+        case .ascending:
+            .descending
+        case .descending:
+            .ascending
         }
     }
 
     var queryValue: String {
         switch self {
-        case .ascending: return "asc"
-        case .descending: return "desc"
+        case .ascending:
+            "asc"
+        case .descending:
+            "desc"
         }
     }
 }

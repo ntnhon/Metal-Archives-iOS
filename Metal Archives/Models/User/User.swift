@@ -9,7 +9,6 @@ import Foundation
 import Kanna
 import SwiftUI
 
-// swiftlint:disable inclusive_language
 struct User {
     let id: String
     let username: String
@@ -71,29 +70,47 @@ enum UserRank {
 
     var title: String {
         switch self {
-        case .webmaster: return "Webmaster"
-        case .metalGod: return "Metal God"
-        case .metalLord: return "Metal lord"
-        case .metalDemon: return "Metal demon"
-        case .metalKnight: return "Metal knight"
-        case .dishonourablyDischarged: return "Dishonourably Discharged"
-        case .metalFreak: return "Metal freak"
-        case .veteran: return "Veteran"
-        case .metalhead: return "Metalhead"
-        case .other(let title): return title
+        case .webmaster:
+            "Webmaster"
+        case .metalGod:
+            "Metal God"
+        case .metalLord:
+            "Metal lord"
+        case .metalDemon:
+            "Metal demon"
+        case .metalKnight:
+            "Metal knight"
+        case .dishonourablyDischarged:
+            "Dishonourably Discharged"
+        case .metalFreak:
+            "Metal freak"
+        case .veteran:
+            "Veteran"
+        case .metalhead:
+            "Metalhead"
+        case let .other(title):
+            title
         }
     }
 
     var color: Color {
         switch self {
-        case .webmaster, .metalGod, .metalLord: return .red
-        case .metalDemon: return .yellow
-        case .metalKnight: return .green
-        case .dishonourablyDischarged: return .blue
-        case .metalFreak: return .cyan
-        case .veteran: return .purple
-        case .metalhead: return Color(.magenta)
-        case .other: return .primary
+        case .webmaster, .metalGod, .metalLord:
+            .red
+        case .metalDemon:
+            .yellow
+        case .metalKnight:
+            .green
+        case .dishonourablyDischarged:
+            .blue
+        case .metalFreak:
+            .cyan
+        case .veteran:
+            .purple
+        case .metalhead:
+            Color(.magenta)
+        case .other:
+            .primary
         }
     }
 
@@ -220,7 +237,8 @@ extension User: HTMLParsable {
 
         for dt in div.css("dt") {
             if let dtText = dt.text,
-                let type = User.InfoType(string: dtText) {
+               let type = User.InfoType(string: dtText)
+            {
                 infoTypes.append(type)
             }
         }
@@ -245,7 +263,8 @@ extension User: HTMLParsable {
             case .homepage:
                 if let aTag = dd.at_css("a"),
                    let title = aTag.text,
-                   let urlString = aTag["href"] {
+                   let urlString = aTag["href"]
+                {
                     builder.homepage = .init(urlString: urlString, title: title)
                 }
             case .genre:

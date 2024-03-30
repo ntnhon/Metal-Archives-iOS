@@ -107,18 +107,18 @@ struct BandInfoView: View {
 }
 
 /*
-struct BandInfoView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            BandInfoView(viewModel: .init(band: .death, discography: .death),
-                         onSelectLabel: { _ in },
-                         onSelectBand: { _ in })
-        }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
-    }
-}
- */
+ struct BandInfoView_Previews: PreviewProvider {
+     static var previews: some View {
+         NavigationView {
+             BandInfoView(viewModel: .init(band: .death, discography: .death),
+                          onSelectLabel: { _ in },
+                          onSelectBand: { _ in })
+         }
+         .environment(\.colorScheme, .dark)
+         .environmentObject(Preferences())
+     }
+ }
+  */
 
 final class BandInfoViewModel {
     let band: Band
@@ -134,20 +134,23 @@ final class BandInfoViewModel {
         if let year = Int(band.yearOfCreation) {
             let yearGap = Calendar.current.component(.year, from: .init()) - year
             switch yearGap {
-            case 0: yearOfCreationString = "\(year)"
-            case 1: yearOfCreationString = "\(year) (a year a go)"
-            default: yearOfCreationString = "\(year) (\(yearGap) years ago)"
+            case 0:
+                yearOfCreationString = "\(year)"
+            case 1:
+                yearOfCreationString = "\(year) (a year a go)"
+            default:
+                yearOfCreationString = "\(year) (\(yearGap) years ago)"
             }
         }
         self.yearOfCreationString = yearOfCreationString
 
-        self.reviewCount = discography.reviewCount
+        reviewCount = discography.reviewCount
         let ratings = discography.releases.compactMap { $0.rating }
         if ratings.isEmpty {
-            self.averageRating = 0
+            averageRating = 0
         } else {
-            self.averageRating = ratings.reduce(0, +) / ratings.count
+            averageRating = ratings.reduce(0, +) / ratings.count
         }
-        self.platiniumCount = discography.releases.filter { $0.isPlatinium }.count
+        platiniumCount = discography.releases.filter { $0.isPlatinium }.count
     }
 }

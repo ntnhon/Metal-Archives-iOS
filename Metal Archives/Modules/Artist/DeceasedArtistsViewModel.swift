@@ -25,7 +25,7 @@ final class DeceasedArtistsViewModel: ObservableObject {
     init(apiService: APIServiceProtocol) {
         self.apiService = apiService
         let defaultSortOption: DeceasedArtistPageManager.SortOption = .date(.descending)
-        self.manager = .init(apiService: apiService, sortOptions: defaultSortOption)
+        manager = .init(apiService: apiService, sortOptions: defaultSortOption)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

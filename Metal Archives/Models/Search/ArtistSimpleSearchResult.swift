@@ -47,7 +47,8 @@ extension ArtistSimpleSearchResult: PageElement {
         guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
               let name = aTag.text,
               let urlString = aTag["href"],
-              let artist = ArtistLite(urlString: urlString, name: name) else {
+              let artist = ArtistLite(urlString: urlString, name: name)
+        else {
             throw PageElementError.failedToParse("\(ArtistLite.self): \(strings[0])")
         }
         self.artist = artist
@@ -64,23 +65,24 @@ extension ArtistSimpleSearchResult: PageElement {
                 self.note = note
             }
         } else {
-            self.note = strings[0].subString(after: "(", before: ")")
+            note = strings[0].subString(after: "(", before: ")")
         }
 
-        self.realName = strings[1]
-        self.country = CountryManager.shared.country(by: \.name, value: strings[2])
+        realName = strings[1]
+        country = CountryManager.shared.country(by: \.name, value: strings[2])
 
         var bands = [BandLite]()
         let html = try Kanna.HTML(html: strings[3], encoding: .utf8)
         for aTag in html.css("a") {
             if let name = aTag.text,
                let urlString = aTag["href"],
-               let band = BandLite(urlString: urlString, name: name) {
+               let band = BandLite(urlString: urlString, name: name)
+            {
                 bands.append(band)
             }
         }
         self.bands = bands
-        self.bandsString = html.text ?? ""
+        bandsString = html.text ?? ""
     }
 }
 

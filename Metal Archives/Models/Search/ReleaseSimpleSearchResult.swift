@@ -44,7 +44,8 @@ extension ReleaseSimpleSearchResult: PageElement {
         guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
               let bandName = aTag.text,
               let bandUrlString = aTag["href"],
-              let band = BandLite(urlString: bandUrlString, name: bandName) else {
+              let band = BandLite(urlString: bandUrlString, name: bandName)
+        else {
             throw PageElementError.failedToParse("\(BandLite.self): \(strings[0])")
         }
         self.band = band
@@ -52,16 +53,17 @@ extension ReleaseSimpleSearchResult: PageElement {
         guard let aTag = try Kanna.HTML(html: strings[1], encoding: .utf8).at_css("a"),
               let releaseTitle = aTag.text,
               let releaseUrlString = aTag["href"],
-              let release = ReleaseLite(urlString: releaseUrlString, title: releaseTitle) else {
+              let release = ReleaseLite(urlString: releaseUrlString, title: releaseTitle)
+        else {
             throw PageElementError.failedToParse("\(ReleaseLite.self): \(strings[1])")
         }
         self.release = release
-        self.releaseType = .init(typeString: strings[2]) ?? .demo
+        releaseType = .init(typeString: strings[2]) ?? .demo
         let dateRawString = strings[3]
         if let index = dateRawString.firstIndex(of: "<") {
-            self.date = String(dateRawString[..<index]).trimmingCharacters(in: .whitespacesAndNewlines)
+            date = String(dateRawString[..<index]).trimmingCharacters(in: .whitespacesAndNewlines)
         } else {
-            self.date = dateRawString
+            date = dateRawString
         }
     }
 }

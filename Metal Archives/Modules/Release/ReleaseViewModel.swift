@@ -21,7 +21,7 @@ final class ReleaseViewModel: ObservableObject {
 
     var release: Release? {
         switch releaseFetchable {
-        case .fetched(let release):
+        case let .fetched(release):
             return release
         default:
             return nil
@@ -39,7 +39,7 @@ final class ReleaseViewModel: ObservableObject {
 
     var cover: UIImage? {
         switch coverFetchable {
-        case .fetched(let cover):
+        case let .fetched(cover):
             return cover
         default:
             return nil
@@ -68,7 +68,8 @@ final class ReleaseViewModel: ObservableObject {
 
     func fetchCoverImage() async {
         guard let urlString = release?.coverUrlString,
-              let url = URL(string: urlString) else {
+              let url = URL(string: urlString)
+        else {
             noCover = true
             return
         }

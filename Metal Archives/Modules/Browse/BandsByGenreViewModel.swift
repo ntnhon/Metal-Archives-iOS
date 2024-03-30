@@ -27,7 +27,7 @@ final class BandsByGenreViewModel: ObservableObject {
         self.apiService = apiService
         self.genre = genre
         let defaultSortOption: BandsByGenrePageManager.SortOption = .band(.ascending)
-        self.manager = .init(apiService: apiService, genre: genre, sortOptions: defaultSortOption)
+        manager = .init(apiService: apiService, genre: genre, sortOptions: defaultSortOption)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

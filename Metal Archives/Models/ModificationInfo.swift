@@ -70,6 +70,7 @@ extension ModificationInfo {
                   modifiedByUser: modifiedByUser)
         }
     }
+
     // swiftlint:disable line_length
     /*
      Sample data:
@@ -97,7 +98,8 @@ extension ModificationInfo {
         let extractTextAndUrlString: (XMLElement) -> (String, String)? = { element in
             if let aTag = element.at_css("a"),
                let text = aTag.text,
-               let urlString = aTag["href"] {
+               let urlString = aTag["href"]
+            {
                 return (text, urlString)
             }
             return nil
@@ -105,16 +107,20 @@ extension ModificationInfo {
         for td in element.css("td") {
             guard let htmlText = td.innerHTML else { continue }
             if htmlText.contains("Added by"),
-               let (username, urlString) = extractTextAndUrlString(td) {
+               let (username, urlString) = extractTextAndUrlString(td)
+            {
                 builder.addedByUser = .init(name: username, urlString: urlString)
             } else if htmlText.contains("Modified by"),
-                      let (username, urlString) = extractTextAndUrlString(td) {
+                      let (username, urlString) = extractTextAndUrlString(td)
+            {
                 builder.modifiedByUser = .init(name: username, urlString: urlString)
             } else if htmlText.contains("Added on"),
-                      let addedOnString = htmlText.subString(after: "Added on: ", before: "</td>") {
+                      let addedOnString = htmlText.subString(after: "Added on: ", before: "</td>")
+            {
                 builder.addedOnDate = DateFormatter.default.date(from: addedOnString)
             } else if htmlText.contains("Last modified on"),
-                      let modifiedOnString = htmlText.subString(after: "Last modified on: ", before: "</td>") {
+                      let modifiedOnString = htmlText.subString(after: "Last modified on: ", before: "</td>")
+            {
                 builder.modifiedOnDate = DateFormatter.default.date(from: modifiedOnString)
             }
         }

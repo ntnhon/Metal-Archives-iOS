@@ -42,14 +42,15 @@ extension LabelSimpleSearchResult: PageElement {
 
         guard let aTag = try Kanna.HTML(html: strings[0], encoding: .utf8).at_css("a"),
               let labelName = aTag.text,
-              let labelUrlString = aTag["href"] else {
+              let labelUrlString = aTag["href"]
+        else {
             throw PageElementError.failedToParse("\(LabelLite.self): \(strings[0])")
         }
         let thumbnailInfo = ThumbnailInfo(urlString: labelUrlString, type: .label)
-        self.label = .init(thumbnailInfo: thumbnailInfo, name: labelName)
-        self.note = strings[0].subString(after: "(", before: ")")
-        self.country = CountryManager.shared.country(by: \.name, value: strings[1])
-        self.specialisation = strings[2]
+        label = .init(thumbnailInfo: thumbnailInfo, name: labelName)
+        note = strings[0].subString(after: "(", before: ")")
+        country = CountryManager.shared.country(by: \.name, value: strings[1])
+        specialisation = strings[2]
     }
 }
 

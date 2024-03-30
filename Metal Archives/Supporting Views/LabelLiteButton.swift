@@ -14,15 +14,15 @@ struct LabelLiteButton: View {
 
     var body: some View {
         Button(action: {
-            if let urlString = label.thumbnailInfo?.urlString {
-                onSelect(urlString)
-            }
-        },
-        label: {
-            Text(label.name)
-                .fontWeight(label.thumbnailInfo == nil ? .regular : .bold)
-                .foregroundColor(
-                    label.thumbnailInfo == nil ? .primary : preferences.theme.primaryColor)
-        })
+                   if let urlString = label.thumbnailInfo?.urlString {
+                       onSelect(urlString)
+                   }
+               },
+               label: {
+                   Text(label.name)
+                       .fontWeight(label.thumbnailInfo == nil ? .regular : .bold)
+                       .foregroundColor(
+                           label.thumbnailInfo == nil ? .primary : preferences.theme.primaryColor)
+               })
     }
 }

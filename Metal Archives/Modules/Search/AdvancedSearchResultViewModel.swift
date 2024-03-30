@@ -21,7 +21,8 @@ class AdvancedSearchResultViewModel<T: HashableEquatablePageElement>: Observable
     private var cancellables = Set<AnyCancellable>()
 
     init(apiService: APIServiceProtocol,
-         manager: PageManager<T>) {
+         manager: PageManager<T>)
+    {
         self.apiService = apiService
         self.manager = manager
 

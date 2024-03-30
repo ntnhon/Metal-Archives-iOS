@@ -12,11 +12,16 @@ enum DiscographyMode: Int, CustomStringConvertible, CaseIterable {
 
     var description: String {
         switch self {
-        case .complete: return "Complete"
-        case .main: return "Main"
-        case .lives: return "Lives"
-        case .demos: return "Demos"
-        case .misc: return "Misc."
+        case .complete:
+            "Complete"
+        case .main:
+            "Main"
+        case .lives:
+            "Lives"
+        case .demos:
+            "Demos"
+        case .misc:
+            "Misc."
         }
     }
 }

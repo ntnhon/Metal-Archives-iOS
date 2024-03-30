@@ -45,26 +45,28 @@ extension SongSimpleSearchResult: PageElement {
         if strings[0].contains("<a") {
             guard let aTag = html.at_css("a"),
                   let bandName = aTag.text,
-                  let bandUrlString = aTag["href"] else {
+                  let bandUrlString = aTag["href"]
+            else {
                 throw PageElementError.failedToParse("\(BandExtraLite.self): \(strings[0])")
             }
-            self.band = .init(urlString: bandUrlString, name: bandName)
+            band = .init(urlString: bandUrlString, name: bandName)
         } else {
             guard let bandName = html.at_css("span")?.text else {
                 throw PageElementError.failedToParse("\(BandExtraLite.self): \(strings[0])")
             }
-            self.band = .init(urlString: nil, name: bandName)
+            band = .init(urlString: nil, name: bandName)
         }
 
         guard let aTag = try Kanna.HTML(html: strings[1], encoding: .utf8).at_css("a"),
               let releaseTitle = aTag.text,
               let releaseUrlString = aTag["href"],
-              let release = ReleaseLite(urlString: releaseUrlString, title: releaseTitle) else {
+              let release = ReleaseLite(urlString: releaseUrlString, title: releaseTitle)
+        else {
             throw PageElementError.failedToParse("\(ReleaseLite.self): \(strings[1])")
         }
         self.release = release
-        self.releaseType = .init(typeString: strings[2]) ?? .demo
-        self.title = strings[3]
+        releaseType = .init(typeString: strings[2]) ?? .demo
+        title = strings[3]
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  HighlightTextView.swift
+//  HighlightableText.swift
 //  Metal Archives
 //
 //  Created by Thanh-Nhon Nguyen on 06/09/2021.
@@ -22,11 +22,12 @@ struct HighlightableText: View {
     init(text: String,
          highlights: [String],
          highlightFontWeight: Font.Weight,
-         highlightColor: Color) {
+         highlightColor: Color)
+    {
         let separator = UUID().uuidString
         var text = text
-        highlights.forEach {
-            text = text.replacingOccurrences(of: $0, with: "\(separator)\($0)\(separator)" )
+        for highlight in highlights {
+            text = text.replacingOccurrences(of: highlight, with: "\(separator)\(highlight)\(separator)")
         }
         let rawContents = text.components(separatedBy: separator)
         contents = rawContents.map {
@@ -42,14 +43,15 @@ struct HighlightableText: View {
     var body: some View {
         contents.map { textContent in
             switch textContent {
-            case .normal(let content):
+            case let .normal(content):
                 return Text(content)
-            case .highlight(let content):
+            case let .highlight(content):
                 return Text(content)
                     .fontWeight(highlightFontWeight)
                     .foregroundColor(highlightColor)
             }
-        }.reduce(Text(""), +)
+        }
+        .reduce(Text(""), +)
     }
 }
 

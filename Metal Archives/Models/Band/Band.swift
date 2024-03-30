@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 22/05/2021.
 //
 
+// swiftlint:disable all
 import Foundation
 import Kanna
 
@@ -150,16 +151,16 @@ extension Band {
     }
 }
 
-fileprivate enum BandMemberType {
+private enum BandMemberType {
     case current, past, live
 }
 
 extension Band: HTMLParsable {
-    // swiftlint:disable identifier_name
     // Declare extra init in an extension in order to preserve the default initializer
     init(data: Data) throws {
         guard let htmlString = String(data: data, encoding: String.Encoding.utf8),
-              let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) else {
+              let html = try? Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8)
+        else {
             throw MAError.parseFailure(String(describing: Self.self))
         }
 
@@ -177,7 +178,8 @@ extension Band: HTMLParsable {
         }
 
         if let tr = html.css("tr").first(where: { $0["class"] == "lineupHeaders" }),
-           let trText = tr.text {
+           let trText = tr.text
+        {
             builder.isLastKnownLineUp = trText.contains("Last known")
         }
 
@@ -247,7 +249,8 @@ extension Band: HTMLParsable {
                     case 2:
                         // Last label
                         if let a = dd.at_css("a"), let labelName = a.text, let labelUrlString = a["href"],
-                           let thumbnailInfo = ThumbnailInfo(urlString: labelUrlString, type: .label) {
+                           let thumbnailInfo = ThumbnailInfo(urlString: labelUrlString, type: .label)
+                        {
                             builder.lastLabel = .init(thumbnailInfo: thumbnailInfo, name: labelName)
                         } else if let labelName = dd.text {
                             builder.lastLabel = .init(thumbnailInfo: nil, name: labelName)
@@ -266,7 +269,8 @@ extension Band: HTMLParsable {
                     var oldBands = [BandLite]()
                     for a in dd.css("a") {
                         if let bandName = a.text, let bandUrlString = a["href"],
-                           let band = BandLite(urlString: bandUrlString, name: bandName) {
+                           let band = BandLite(urlString: bandUrlString, name: bandName)
+                        {
                             oldBands.append(band)
                         }
                     }
@@ -279,7 +283,8 @@ extension Band: HTMLParsable {
 
     private static func parseMembersDiv(_ div: XMLElement,
                                         to builder: Builder,
-                                        ofType memberType: BandMemberType) {
+                                        ofType memberType: BandMemberType)
+    {
         var lineUp = [ArtistInBand]()
         var lastArtistBuilder: ArtistInBand.Builder?
 
@@ -319,7 +324,8 @@ extension Band: HTMLParsable {
                     lastArtistBuilder?.seeAlso = td.text?.strippedHtmlString()
                     for a in td.css("a") {
                         if let bandName = a.text, let bandUrlString = a["href"],
-                           let band = BandLite(urlString: bandUrlString, name: bandName) {
+                           let band = BandLite(urlString: bandUrlString, name: bandName)
+                        {
                             exBands.append(band)
                         }
                     }
@@ -349,7 +355,7 @@ extension Band: HTMLParsable {
 }
 
 extension Band {
-    // swiftlint:disable force_try
-    // swiftlint:disable force_unwrapping
     static let death = try! Band(data: try! Data.fromHtml(fileName: "Death")!)
 }
+
+// swiftlint:enable all

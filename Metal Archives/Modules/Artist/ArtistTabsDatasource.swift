@@ -18,37 +18,58 @@ enum ArtistTab: CaseIterable {
 
     var title: String {
         switch self {
-        case .activeBands: return "Active Bands"
-        case .pastBands: return "Past Bands"
-        case .live: return "Live"
-        case .guestSession: return "Guest/Session"
-        case .miscStaff: return "Misc. Staff"
-        case .biography: return "Biography"
-        case .links: return "Links"
+        case .activeBands:
+            "Active Bands"
+        case .pastBands:
+            "Past Bands"
+        case .live:
+            "Live"
+        case .guestSession:
+            "Guest/Session"
+        case .miscStaff:
+            "Misc. Staff"
+        case .biography:
+            "Biography"
+        case .links:
+            "Links"
         }
     }
 
     var iconName: String {
         switch self {
-        case .activeBands: return "circle"
-        case .pastBands: return "circle.dashed"
-        case .live: return "circle.lefthalf.filled"
-        case .guestSession: return "circle.righthalf.filled"
-        case .miscStaff: return "smallcircle.filled.circle"
-        case .biography: return "doc.plaintext"
-        case .links: return "link"
+        case .activeBands:
+            "circle"
+        case .pastBands:
+            "circle.dashed"
+        case .live:
+            "circle.lefthalf.filled"
+        case .guestSession:
+            "circle.righthalf.filled"
+        case .miscStaff:
+            "smallcircle.filled.circle"
+        case .biography:
+            "doc.plaintext"
+        case .links:
+            "link"
         }
     }
 
     var selectedIconName: String {
         switch self {
-        case .activeBands: return "circle.fill"
-        case .pastBands: return "circle.dashed.inset.filled"
-        case .live: return "circle.lefthalf.filled"
-        case .guestSession: return "circle.righthalf.filled"
-        case .miscStaff: return "smallcircle.filled.circle.fill"
-        case .biography: return "doc.plaintext.fill"
-        case .links: return "link"
+        case .activeBands:
+            "circle.fill"
+        case .pastBands:
+            "circle.dashed.inset.filled"
+        case .live:
+            "circle.lefthalf.filled"
+        case .guestSession:
+            "circle.righthalf.filled"
+        case .miscStaff:
+            "smallcircle.filled.circle.fill"
+        case .biography:
+            "doc.plaintext.fill"
+        case .links:
+            "link"
         }
     }
 }
@@ -71,7 +92,7 @@ final class ArtistTabsDatasource: HorizontalTabsDatasource {
         if artist.hasMoreBiography || artist.biography != nil { allTabs.append(.biography) }
         allTabs.append(.links)
         self.allTabs = allTabs
-        self.selectedTab = allTabs.first ?? .links
+        selectedTab = allTabs.first ?? .links
     }
 
     override func numberOfTabs() -> Int {

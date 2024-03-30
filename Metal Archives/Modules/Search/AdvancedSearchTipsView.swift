@@ -34,12 +34,14 @@ struct AdvancedSearchTipsView: View {
         var attributedString = AttributedString(markdownFileName: "SearchTips")
         let primaryColor = preferences.theme.primaryColor
 
-        let headlines = ["Keyword matching",
-                         "Multiple keywords",
-                         "Searching phrases",
-                         "Wildcards",
-                         "Excluding keywords",
-                         "Boolean operators"]
+        let headlines = [
+            "Keyword matching",
+            "Multiple keywords",
+            "Searching phrases",
+            "Wildcards",
+            "Excluding keywords",
+            "Boolean operators",
+        ]
         for headline in headlines {
             if let range = attributedString.range(of: headline) {
                 attributedString[range].font = .headline.weight(.bold)

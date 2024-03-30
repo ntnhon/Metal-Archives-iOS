@@ -48,8 +48,8 @@ struct NewsArchivesView: View {
                         Text(news.dateString)
                             .font(.callout.italic())
                             .fontWeight(.medium) +
-                        Text(" • ") +
-                        Text(news.author.name)
+                            Text(" • ") +
+                            Text(news.author.name)
                             .fontWeight(.medium)
                             .foregroundColor(preferences.theme.secondaryColor)
                         Text(news.content)

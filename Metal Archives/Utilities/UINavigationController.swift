@@ -14,7 +14,9 @@ extension UINavigationController: UIGestureRecognizerDelegate {
         interactivePopGestureRecognizer?.delegate = self
     }
 
-    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool {
         viewControllers.count > 1
     }
 }
+
+// swiftlint:enable override_in_extension

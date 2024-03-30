@@ -12,10 +12,14 @@ enum ReleaseLineUpMode: CaseIterable, CustomStringConvertible {
 
     var description: String {
         switch self {
-        case .complete: return "Complete lineup"
-        case .bandMembers: return "Band members"
-        case .guestMembers: return "Guest/session musicians"
-        case .otherStaff: return "Other staff"
+        case .complete:
+            "Complete lineup"
+        case .bandMembers:
+            "Band members"
+        case .guestMembers:
+            "Guest/session musicians"
+        case .otherStaff:
+            "Other staff"
         }
     }
 }
@@ -47,13 +51,13 @@ final class ReleaseLineUpViewModel: ObservableObject {
         let guestMembersCount = release.guestMembers.map { $0.members.count }.reduce(0, +)
         let otherStaffCount = release.otherStaff.map { $0.members.count }.reduce(0, +)
 
-        self.completeCount = bandMembersCount + guestMembersCount + otherStaffCount
+        completeCount = bandMembersCount + guestMembersCount + otherStaffCount
         self.bandMembersCount = bandMembersCount
-        self.bandMembers = release.bandMembers
+        bandMembers = release.bandMembers
         self.guestMembersCount = guestMembersCount
-        self.guestMembers = release.guestMembers
+        guestMembers = release.guestMembers
         self.otherStaffCount = otherStaffCount
-        self.otherStaff = release.otherStaff
+        otherStaff = release.otherStaff
 
         var applicableModes = [ReleaseLineUpMode]()
         if completeCount > 0 { applicableModes.append(.complete) }
@@ -70,10 +74,14 @@ final class ReleaseLineUpViewModel: ObservableObject {
 
     private func count(for mode: ReleaseLineUpMode) -> Int {
         switch mode {
-        case .complete: return completeCount
-        case .bandMembers: return bandMembersCount
-        case .guestMembers: return guestMembersCount
-        case .otherStaff: return otherStaffCount
+        case .complete:
+            completeCount
+        case .bandMembers:
+            bandMembersCount
+        case .guestMembers:
+            guestMembersCount
+        case .otherStaff:
+            otherStaffCount
         }
     }
 

@@ -8,7 +8,7 @@
 import Combine
 import SwiftUI
 
-typealias HashableEquatablePageElement = Hashable & Equatable & PageElement
+typealias HashableEquatablePageElement = Equatable & Hashable & PageElement
 
 @MainActor
 final class SearchResultsViewModel<T: HashableEquatablePageElement>: ObservableObject {
@@ -27,7 +27,8 @@ final class SearchResultsViewModel<T: HashableEquatablePageElement>: ObservableO
     init(apiService: APIServiceProtocol,
          manager: PageManager<T>,
          query: String?,
-         datasource: SearchEntryDatasource) {
+         datasource: SearchEntryDatasource)
+    {
         self.apiService = apiService
         self.manager = manager
         self.query = query
@@ -49,7 +50,9 @@ final class SearchResultsViewModel<T: HashableEquatablePageElement>: ObservableO
     }
 
     func getMoreResults(force: Bool) async {
-        if !force, !results.isEmpty { return }
+        if !force, !results.isEmpty {
+            return
+        }
         do {
             error = nil
             try await manager.getMoreElements()

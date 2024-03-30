@@ -133,9 +133,9 @@ struct BandByAlphabetView: View {
         HStack {
             ThumbnailView(thumbnailInfo: band.band.thumbnailInfo,
                           photoDescription: band.band.name)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 Text(band.band.name)
@@ -144,8 +144,8 @@ struct BandByAlphabetView: View {
 
                 Text(band.country.nameAndFlag)
                     .foregroundColor(preferences.theme.secondaryColor) +
-                Text(" • ") +
-                Text(band.status.rawValue)
+                    Text(" • ") +
+                    Text(band.status.rawValue)
                     .foregroundColor(band.status.color)
 
                 Text(band.genre)

@@ -15,7 +15,7 @@ final class BandHeaderViewModel: ObservableObject {
 
     var logo: UIImage? {
         switch logoFetchable {
-        case .fetched(let logo):
+        case let .fetched(logo):
             return logo
         default:
             return nil
@@ -24,7 +24,7 @@ final class BandHeaderViewModel: ObservableObject {
 
     var photo: UIImage? {
         switch photoFetchable {
-        case .fetched(let photo):
+        case let .fetched(photo):
             return photo
         default:
             return nil
@@ -39,7 +39,8 @@ final class BandHeaderViewModel: ObservableObject {
 
     private func fetchLogo() async {
         guard let logoUrlString = band.logoUrlString,
-              let logoUrl = URL(string: logoUrlString) else {
+              let logoUrl = URL(string: logoUrlString)
+        else {
             logoFetchable = .fetched(nil)
             return
         }
@@ -55,7 +56,8 @@ final class BandHeaderViewModel: ObservableObject {
 
     private func fetchPhoto() async {
         guard let photoUrlString = band.photoUrlString,
-              let photoUrl = URL(string: photoUrlString) else {
+              let photoUrl = URL(string: photoUrlString)
+        else {
             photoFetchable = .fetched(nil)
             return
         }

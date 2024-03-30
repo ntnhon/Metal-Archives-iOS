@@ -62,16 +62,16 @@ private struct LatestArtistView: View {
         HStack {
             ThumbnailView(thumbnailInfo: latestArtist.artist.thumbnailInfo,
                           photoDescription: latestArtist.artist.name)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 if let realName = latestArtist.realName {
                     Text(latestArtist.artist.name)
                         .fontWeight(.bold)
                         .foregroundColor(preferences.theme.primaryColor) +
-                    Text("(\(realName))")
+                        Text("(\(realName))")
                 } else {
                     Text(latestArtist.artist.name)
                         .fontWeight(.bold)

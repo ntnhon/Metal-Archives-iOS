@@ -5,10 +5,10 @@
 //  Created by Thanh-Nhon Nguyen on 29/05/2021.
 //
 
+// swiftlint:disable identifier_name
 import Foundation
 import Kanna
 
-// swiftlint:disable identifier_name
 struct Artist {
     let artistName: String
     let realFullName: String
@@ -145,20 +145,31 @@ extension Artist: HTMLParsable {
         for div in html.css("div") {
             if let divId = div["id"] {
                 switch divId {
-                case "member_info": Self.parseMemberInfo(from: div, builder: builder)
-                case "auditTrail": builder.modificationInfo = ModificationInfo(element: div)
-                case "artist_tab_active": Self.parseRoles(from: div, builder: builder, type: .active)
-                case "artist_tab_past": Self.parseRoles(from: div, builder: builder, type: .past)
-                case "artist_tab_live": Self.parseRoles(from: div, builder: builder, type: .live)
-                case "artist_tab_guest": Self.parseRoles(from: div, builder: builder, type: .guestSession)
-                case "artist_tab_misc": Self.parseRoles(from: div, builder: builder, type: .misc)
-                default: break
+                case "member_info":
+                    Self.parseMemberInfo(from: div, builder: builder)
+                case "auditTrail":
+                    builder.modificationInfo = ModificationInfo(element: div)
+                case "artist_tab_active":
+                    Self.parseRoles(from: div, builder: builder, type: .active)
+                case "artist_tab_past":
+                    Self.parseRoles(from: div, builder: builder, type: .past)
+                case "artist_tab_live":
+                    Self.parseRoles(from: div, builder: builder, type: .live)
+                case "artist_tab_guest":
+                    Self.parseRoles(from: div, builder: builder, type: .guestSession)
+                case "artist_tab_misc":
+                    Self.parseRoles(from: div, builder: builder, type: .misc)
+                default:
+                    break
                 }
             } else if let divClass = div["class"] {
                 switch divClass {
-                case "member_img": builder.photoUrlString = div.at_css("a")?["href"]
-                case "clear band_comment": Self.parseBioAndTrivia(from: div, builder: builder)
-                default: break
+                case "member_img":
+                    builder.photoUrlString = div.at_css("a")?["href"]
+                case "clear band_comment":
+                    Self.parseBioAndTrivia(from: div, builder: builder)
+                default:
+                    break
                 }
             }
         }
@@ -184,12 +195,18 @@ extension Artist: HTMLParsable {
             }
 
             switch infoTypes[index] {
-            case .realFullName: builder.realFullName = ddText
-            case .age: builder.age = ddText
-            case .rip: builder.rip = ddText
-            case .causeOfDeath: builder.causeOfDeath = ddText
-            case .placeOfOrigin: builder.origin = ddText
-            case .gender: builder.gender = ddText
+            case .realFullName:
+                builder.realFullName = ddText
+            case .age:
+                builder.age = ddText
+            case .rip:
+                builder.rip = ddText
+            case .causeOfDeath:
+                builder.causeOfDeath = ddText
+            case .placeOfOrigin:
+                builder.origin = ddText
+            case .gender:
+                builder.gender = ddText
             }
         }
     }
@@ -215,7 +232,8 @@ extension Artist: HTMLParsable {
 
             if let h3 = memberInBandDiv.at_css("h3") {
                 if let a = h3.at_css("a"), let bandName = a.text,
-                   let bandUrlString = a["href"]?.components(separatedBy: "#").first {
+                   let bandUrlString = a["href"]?.components(separatedBy: "#").first
+                {
                     roleInBandBuilder.band = .init(urlString: bandUrlString, name: bandName)
                 } else if let bandName = h3.text {
                     // In case the band is not listed on Metal Archives
@@ -232,17 +250,21 @@ extension Artist: HTMLParsable {
                         continue
                     }
                     switch index {
-                    case 0: roleInReleaseBuilder.year = tdText
+                    case 0:
+                        roleInReleaseBuilder.year = tdText
                     case 1:
                         if let a = td.at_css("a"), let releaseTitle = a.text,
-                           let releaseUrlString = a["href"] {
+                           let releaseUrlString = a["href"]
+                        {
                             roleInReleaseBuilder.release = .init(urlString: releaseUrlString,
                                                                  title: releaseTitle)
                             roleInReleaseBuilder.releaseAdditionalInfo =
                                 tdText.subString(after: "(", before: ")")
                         }
-                    case 2: roleInReleaseBuilder.description = tdText
-                    default: break
+                    case 2:
+                        roleInReleaseBuilder.description = tdText
+                    default:
+                        break
                     }
                 }
 
@@ -261,11 +283,18 @@ extension Artist: HTMLParsable {
         }
 
         switch type {
-        case .active: builder.activeRoles = roles
-        case .past: builder.pastRoles = roles
-        case .live: builder.liveRoles = roles
-        case .guestSession: builder.guestSessionRoles = roles
-        case .misc: builder.miscStaffRoles = roles
+        case .active:
+            builder.activeRoles = roles
+        case .past:
+            builder.pastRoles = roles
+        case .live:
+            builder.liveRoles = roles
+        case .guestSession:
+            builder.guestSessionRoles = roles
+        case .misc:
+            builder.miscStaffRoles = roles
         }
     }
 }
+
+// swiftlint:enable identifier_name

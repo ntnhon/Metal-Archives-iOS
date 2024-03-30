@@ -41,7 +41,7 @@ class ArtistTests: XCTestCase {
 
         let controlDeniedFirstRole = try XCTUnwrap(pastControlDenied.roleInReleases.first)
         XCTAssertEqual(controlDeniedFirstRole.year, "1996")
-        XCTAssertEqual(controlDeniedFirstRole.release.thumbnailInfo.id, 4_274)
+        XCTAssertEqual(controlDeniedFirstRole.release.thumbnailInfo.id, 4274)
         XCTAssertEqual(controlDeniedFirstRole.release.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/albums/Control_Denied/Demo/4274")
         XCTAssertEqual(controlDeniedFirstRole.release.thumbnailInfo.type, .release)
@@ -51,7 +51,7 @@ class ArtistTests: XCTestCase {
 
         let controlDeniedLastRole = try XCTUnwrap(pastControlDenied.roleInReleases.last)
         XCTAssertEqual(controlDeniedLastRole.year, "1999")
-        XCTAssertEqual(controlDeniedLastRole.release.thumbnailInfo.id, 2_013)
+        XCTAssertEqual(controlDeniedLastRole.release.thumbnailInfo.id, 2013)
         XCTAssertEqual(controlDeniedLastRole.release.thumbnailInfo.urlString,
                        "https://www.metal-archives.com/albums/Control_Denied/The_Fragile_Art_of_Existence/2013")
         XCTAssertEqual(controlDeniedLastRole.release.thumbnailInfo.type, .release)
@@ -68,7 +68,7 @@ class ArtistTests: XCTestCase {
         XCTAssertEqual(pastDeath.roleInReleases.count, 54)
 
         let pastMantas = try XCTUnwrap(sut.pastRoles[2])
-        XCTAssertEqual(pastMantas.band.thumbnailInfo?.id, 35_328)
+        XCTAssertEqual(pastMantas.band.thumbnailInfo?.id, 35328)
         XCTAssertEqual(pastMantas.band.thumbnailInfo?.urlString,
                        "https://www.metal-archives.com/bands/Mantas/35328")
         XCTAssertEqual(pastMantas.band.name, "Mantas")
@@ -85,7 +85,7 @@ class ArtistTests: XCTestCase {
         XCTAssertEqual(pastSlaughter.roleInReleases.count, 1)
 
         let pastVoodoocult = try XCTUnwrap(sut.pastRoles[4])
-        XCTAssertEqual(pastVoodoocult.band.thumbnailInfo?.id, 1_599)
+        XCTAssertEqual(pastVoodoocult.band.thumbnailInfo?.id, 1599)
         XCTAssertEqual(pastVoodoocult.band.thumbnailInfo?.urlString,
                        "https://www.metal-archives.com/bands/Voodoocult/1599")
         XCTAssertEqual(pastVoodoocult.band.name, "Voodoocult")

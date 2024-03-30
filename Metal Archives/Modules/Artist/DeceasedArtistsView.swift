@@ -95,7 +95,8 @@ struct DeceasedArtistsView: View {
                 if let selectedArtist {
                     Text(selectedArtist.artist.name)
                 }
-            })
+            }
+        )
     }
 
     @ToolbarContentBuilder
@@ -154,9 +155,9 @@ private struct DeceasedArtistView: View {
         HStack {
             ThumbnailView(thumbnailInfo: artist.artist.thumbnailInfo,
                           photoDescription: artist.artist.name)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 Text(artist.artist.name)
@@ -169,7 +170,7 @@ private struct DeceasedArtistView: View {
                                   highlights: artist.bands.map { $0.name },
                                   highlightFontWeight: .regular,
                                   highlightColor: preferences.theme.secondaryColor)
-                .font(.callout)
+                    .font(.callout)
 
                 Text(artist.dateOfDeath)
                     .font(.callout)

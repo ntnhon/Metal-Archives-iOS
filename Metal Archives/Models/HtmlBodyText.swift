@@ -14,7 +14,8 @@ struct HtmlBodyText: HTMLParsable {
     init(data: Data) {
         if let htmlString = String(data: data, encoding: .utf8),
            let doc = try? Kanna.HTML(html: htmlString, encoding: .utf8),
-           let bodyText = doc.css("html").first?.at_css("body")?.text {
+           let bodyText = doc.css("html").first?.at_css("body")?.text
+        {
             content = bodyText
         } else {
             content = nil

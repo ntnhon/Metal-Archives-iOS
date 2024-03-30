@@ -24,7 +24,7 @@ struct TopAlbumsView: View {
                 HornCircularLoader()
             case .fetched:
                 List {
-                    ForEach(0..<viewModel.releases.count, id: \.self) { index in
+                    ForEach(0 ..< viewModel.releases.count, id: \.self) { index in
                         let topRelease = viewModel.releases[index]
                         TopAlbumView(
                             topRelease: topRelease,
@@ -34,11 +34,12 @@ struct TopAlbumsView: View {
                             },
                             onSelectBand: {
                                 detail = .band(topRelease.band.thumbnailInfo.urlString)
-                            })
+                            }
+                        )
                     }
                 }
                 .listStyle(.plain)
-            case .error(let error):
+            case let .error(error):
                 HStack {
                     Text(error.userFacingMessage)
                     RetryButton {
@@ -93,7 +94,8 @@ private struct TopAlbumView: View {
     init(topRelease: TopRelease,
          index: Int,
          onSelectRelease: @escaping () -> Void,
-         onSelectBand: @escaping () -> Void) {
+         onSelectBand: @escaping () -> Void)
+    {
         self.topRelease = topRelease
         self.index = index
         self.onSelectRelease = onSelectRelease
@@ -108,9 +110,9 @@ private struct TopAlbumView: View {
 
             ThumbnailView(thumbnailInfo: release.thumbnailInfo,
                           photoDescription: release.title)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64, height: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
                 Text(release.title)
@@ -142,6 +144,7 @@ private struct TopAlbumView: View {
             },
             message: {
                 Text("Top #\(index + 1)\n\"\(release.title)\" by \(band.name)")
-            })
+            }
+        )
     }
 }

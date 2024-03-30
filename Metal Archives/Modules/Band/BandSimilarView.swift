@@ -25,9 +25,9 @@ struct BandSimilarView: View {
                 HStack {
                     ThumbnailView(thumbnailInfo: bandSimilar.thumbnailInfo,
                                   photoDescription: bandSimilar.name)
-                    .font(.largeTitle)
-                    .foregroundColor(preferences.theme.secondaryColor)
-                    .frame(width: 64, height: 64)
+                        .font(.largeTitle)
+                        .foregroundColor(preferences.theme.secondaryColor)
+                        .frame(width: 64, height: 64)
 
                     VStack(alignment: .leading) {
                         Text(bandSimilar.name)
@@ -81,17 +81,17 @@ struct BandSimilarView: View {
 }
 
 /*
-struct BandSimilarView_Previews: PreviewProvider {
-    static var previews: some View {
-        let urlString = "https://www.metal-archives.com/bands/Possessed/914"
-        let thumbnailInfo = ThumbnailInfo(urlString: urlString, type: .bandLogo)!
-        let possessed = BandSimilar(thumbnailInfo: thumbnailInfo,
-                                    name: "Possessed",
-                                    country: .usa,
-                                    genre: "Death/Thrash Metal",
-                                    score: 291)
-        BandSimilarView(apiService: APIService(), bandSimilar: possessed)
-            .environmentObject(Preferences())
-    }
-}
-*/
+ struct BandSimilarView_Previews: PreviewProvider {
+     static var previews: some View {
+         let urlString = "https://www.metal-archives.com/bands/Possessed/914"
+         let thumbnailInfo = ThumbnailInfo(urlString: urlString, type: .bandLogo)!
+         let possessed = BandSimilar(thumbnailInfo: thumbnailInfo,
+                                     name: "Possessed",
+                                     country: .usa,
+                                     genre: "Death/Thrash Metal",
+                                     score: 291)
+         BandSimilarView(apiService: APIService(), bandSimilar: possessed)
+             .environmentObject(Preferences())
+     }
+ }
+ */

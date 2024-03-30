@@ -17,28 +17,28 @@ enum UserModificationItem: Hashable {
 
     func hash(into hasher: inout Hasher) {
         switch self {
-        case .band(let band):
+        case let .band(band):
             hasher.combine(band)
-        case .artist(let artist):
+        case let .artist(artist):
             hasher.combine(artist)
-        case .release(let release):
+        case let .release(release):
             hasher.combine(release)
-        case .label(let label):
+        case let .label(label):
             hasher.combine(label)
-        case .unknown(let text):
+        case let .unknown(text):
             hasher.combine(text)
         }
     }
 
     var thumbnailInfo: ThumbnailInfo? {
         switch self {
-        case .band(let band):
+        case let .band(band):
             return band.thumbnailInfo
-        case .artist(let artist):
+        case let .artist(artist):
             return artist.thumbnailInfo
-        case .release(let release):
+        case let .release(release):
             return release.thumbnailInfo
-        case .label(let label):
+        case let .label(label):
             return label.thumbnailInfo
         case .unknown:
             return nil
@@ -47,15 +47,15 @@ enum UserModificationItem: Hashable {
 
     var title: String {
         switch self {
-        case .band(let band):
+        case let .band(band):
             return band.name
-        case .artist(let artist):
+        case let .artist(artist):
             return artist.name
-        case .release(let release):
+        case let .release(release):
             return release.title
-        case .label(let label):
+        case let .label(label):
             return label.name
-        case .unknown(let text):
+        case let .unknown(text):
             return text
         }
     }
@@ -110,31 +110,35 @@ extension UserModification: PageElement {
             throw PageElementError.badCount(count: strings.count, expectedCount: 5)
         }
 
-        self.date = strings[0]
+        date = strings[0]
 
         if let aTag = try Kanna.HTML(html: strings[1], encoding: .utf8).at_css("a"),
-              let text = aTag.text,
-              let urlString = aTag["href"] {
+           let text = aTag.text,
+           let urlString = aTag["href"]
+        {
             if urlString.contains("/bands/"),
-                let band = BandLite(urlString: urlString, name: text) {
-                self.item = .band(band)
+               let band = BandLite(urlString: urlString, name: text)
+            {
+                item = .band(band)
             } else if urlString.contains("/artists/"),
-                      let artist = ArtistLite(urlString: urlString, name: text) {
-                self.item = .artist(artist)
+                      let artist = ArtistLite(urlString: urlString, name: text)
+            {
+                item = .artist(artist)
             } else if urlString.contains("/albums/"),
-                      let release = ReleaseLite(urlString: urlString, title: text) {
-                self.item = .release(release)
+                      let release = ReleaseLite(urlString: urlString, title: text)
+            {
+                item = .release(release)
             } else if urlString.contains("/labels/") {
                 let label = LabelLite(thumbnailInfo: .init(urlString: urlString, type: .label), name: text)
-                self.item = .label(label)
+                item = .label(label)
             } else {
                 throw PageConfigsError.impossibleCase
             }
         } else {
-            self.item = .unknown(strings[1])
+            item = .unknown(strings[1])
         }
 
-        self.note = (try? Kanna.HTML(html: strings[2], encoding: .utf8).text) ?? strings[2]
+        note = (try? Kanna.HTML(html: strings[2], encoding: .utf8).text) ?? strings[2]
     }
 }
 
@@ -154,26 +158,32 @@ extension UserModificationPageManager {
 
         var title: String {
             switch self {
-            case .date(.ascending): return "Date ↑"
-            case .date(.descending): return "Date ↓"
-            case .item(.ascending): return "Item ↑"
-            case .item(.descending): return "Item ↓"
+            case .date(.ascending):
+                "Date ↑"
+            case .date(.descending):
+                "Date ↓"
+            case .item(.ascending):
+                "Item ↑"
+            case .item(.descending):
+                "Item ↓"
             }
         }
 
         var column: Int {
             switch self {
-            case .date: return 0
-            case .item: return 1
+            case .date:
+                0
+            case .item:
+                1
             }
         }
 
         var order: Order {
             switch self {
             case .date(.ascending), .item(.ascending):
-                return .ascending
+                .ascending
             default:
-                return .descending
+                .descending
             }
         }
 
@@ -184,12 +194,12 @@ extension UserModificationPageManager {
         static func == (lhs: Self, rhs: Self) -> Bool {
             switch (lhs, rhs) {
             case (.date(.ascending), .date(.ascending)),
-                (.date(.descending), .date(.descending)),
-                (.item(.ascending), .item(.ascending)),
-                (.item(.descending), .item(.descending)):
-                return true
+                 (.date(.descending), .date(.descending)),
+                 (.item(.ascending), .item(.ascending)),
+                 (.item(.descending), .item(.descending)):
+                true
             default:
-                return false
+                false
             }
         }
     }

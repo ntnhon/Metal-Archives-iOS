@@ -60,7 +60,7 @@ extension LatestReview: PageElement {
             throw PageElementError.badCount(count: strings.count, expectedCount: 7)
         }
 
-        self.date = strings[0]
+        date = strings[0]
 
         let reviewHtml = try Kanna.HTML(html: strings[1], encoding: .utf8)
         guard let urlString = reviewHtml.at_css("a")?["href"] else {
@@ -73,7 +73,8 @@ extension LatestReview: PageElement {
         for aTag in bandsHtml.css("a") {
             if let name = aTag.text,
                let urlString = aTag["href"],
-               let band = BandLite(urlString: urlString, name: name) {
+               let band = BandLite(urlString: urlString, name: name)
+            {
                 bands.append(band)
             }
         }
@@ -83,22 +84,24 @@ extension LatestReview: PageElement {
         guard let aTag = releaseHtml.at_css("a"),
               let title = aTag.text,
               let urlString = aTag["href"],
-              let release = ReleaseLite(urlString: urlString, title: title) else {
+              let release = ReleaseLite(urlString: urlString, title: title)
+        else {
             throw PageElementError.failedToParse("\(ReleaseLite.self)")
         }
         self.release = release
 
-        self.rating = Int(strings[4].replacingOccurrences(of: "%", with: "")) ?? 0
+        rating = Int(strings[4].replacingOccurrences(of: "%", with: "")) ?? 0
 
         let authorHtml = try Kanna.HTML(html: strings[5], encoding: .utf8)
         guard let aTag = authorHtml.at_css("a"),
               let username = aTag.text,
-              let urlString = aTag["href"] else {
+              let urlString = aTag["href"]
+        else {
             throw PageElementError.failedToParse("\(UserLite.self)")
         }
-        self.author = .init(name: username, urlString: urlString)
+        author = .init(name: username, urlString: urlString)
 
-        self.time = strings[6]
+        time = strings[6]
     }
 }
 
@@ -106,7 +109,7 @@ final class LatestReviewPageManager: PageManager<LatestReview> {
     init(apiService: APIServiceProtocol) {
         let components = Calendar.current.dateComponents([.month, .year], from: Date())
         let month = String(format: "%02d", components.month ?? 1)
-        let year = components.year ?? 2_023
+        let year = components.year ?? 2024
         // swiftlint:disable:next line_length
         let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/review/ajax-list-browse/by/date/selection/\(year)-\(month)/json/1?sEcho=1&iColumns=7&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&mDataProp_6=6&iSortCol_0=6&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=false&bSortable_2=true&bSortable_3=false&bSortable_4=true&bSortable_5=true&bSortable_6=true",
                                   pageSize: 200)

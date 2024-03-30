@@ -171,9 +171,9 @@ private struct LabelByAlphabetView: View {
             if let thumbnailInfo = label.label.thumbnailInfo {
                 ThumbnailView(thumbnailInfo: thumbnailInfo,
                               photoDescription: label.label.name)
-                .font(.largeTitle)
-                .foregroundColor(preferences.theme.secondaryColor)
-                .frame(width: 64, height: 64)
+                    .font(.largeTitle)
+                    .foregroundColor(preferences.theme.secondaryColor)
+                    .frame(width: 64, height: 64)
             }
 
             VStack(alignment: .leading) {
@@ -184,8 +184,8 @@ private struct LabelByAlphabetView: View {
                 if let country = label.country {
                     Text(country.nameAndFlag)
                         .foregroundColor(preferences.theme.secondaryColor) +
-                    Text(" • ") +
-                    Text(label.status.rawValue)
+                        Text(" • ") +
+                        Text(label.status.rawValue)
                         .foregroundColor(label.status.color)
                 } else {
                     Text(label.status.rawValue)

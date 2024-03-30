@@ -12,11 +12,16 @@ private enum MemberLineUpType: CustomStringConvertible {
 
     var description: String {
         switch self {
-        case .complete: return "Complete lineup"
-        case .current: return "Current lineup"
-        case .lastKnown: return "Last known lineup"
-        case .past: return "Past members"
-        case .live: return "Live musicians"
+        case .complete:
+            "Complete lineup"
+        case .current:
+            "Current lineup"
+        case .lastKnown:
+            "Last known lineup"
+        case .past:
+            "Past members"
+        case .live:
+            "Live musicians"
         }
     }
 }
@@ -36,7 +41,8 @@ struct BandLineUpView: View {
     init(apiService: APIServiceProtocol,
          band: Band,
          onSelectBand: @escaping (String) -> Void,
-         onSelectArtist: @escaping (String) -> Void) {
+         onSelectArtist: @escaping (String) -> Void)
+    {
         self.apiService = apiService
         viewModel = .init(band: band)
         _lineUpType = State(initialValue: viewModel.defaultLineUpType)
@@ -53,8 +59,7 @@ struct BandLineUpView: View {
         }
     }
 
-    @ViewBuilder
-    private var memberList: some View {
+    @ViewBuilder private var memberList: some View {
         LazyVStack {
             HStack {
                 MemberLineUpTypePicker(viewModel: viewModel,
@@ -66,7 +71,7 @@ struct BandLineUpView: View {
                 ArtistInBandView(artist: artist,
                                  onSelectBand: onSelectBand,
                                  onSelectArtist: onSelectArtist)
-                .padding(.vertical)
+                    .padding(.vertical)
             }
         }
     }
@@ -141,22 +146,24 @@ private final class BandLineUpViewModel {
             lineUpDetails.insert(.init(type: .complete, memberCount: completeMemberCount), at: 0)
         }
 
-        self.defaultLineUpType = band.isLastKnownLineUp ? .lastKnown : .current
+        defaultLineUpType = band.isLastKnownLineUp ? .lastKnown : .current
         self.lineUpDetails = lineUpDetails
 
         if artists(for: defaultLineUpType).isEmpty {
-            self.defaultLineUpType = .past
-        } else if self.artists(for: defaultLineUpType).isEmpty {
-            self.defaultLineUpType = .live
+            defaultLineUpType = .past
         }
     }
 
     func artists(for type: MemberLineUpType) -> [ArtistInBand] {
         switch type {
-        case .complete: return band.currentLineUp + band.pastMembers + band.liveMusicians
-        case .current, .lastKnown: return band.currentLineUp
-        case .past: return band.pastMembers
-        case .live: return band.liveMusicians
+        case .complete:
+            band.currentLineUp + band.pastMembers + band.liveMusicians
+        case .current, .lastKnown:
+            band.currentLineUp
+        case .past:
+            band.pastMembers
+        case .live:
+            band.liveMusicians
         }
     }
 

@@ -18,9 +18,9 @@ struct ArtistInBandView: View {
         HStack(alignment: .top) {
             ThumbnailView(thumbnailInfo: artist.thumbnailInfo,
                           photoDescription: artist.name)
-            .font(.largeTitle)
-            .foregroundColor(preferences.theme.secondaryColor)
-            .frame(width: 64)
+                .font(.largeTitle)
+                .foregroundColor(preferences.theme.secondaryColor)
+                .frame(width: 64)
 
             VStack(alignment: .leading, spacing: 8) {
                 Text(artist.name)
@@ -37,20 +37,20 @@ struct ArtistInBandView: View {
                                       highlights: artist.bands.map { $0.name },
                                       highlightFontWeight: .regular,
                                       highlightColor: preferences.theme.primaryColor)
-                    .frame(alignment: .leading)
-                    .overlay {
-                        Menu(content: {
-                            ForEach(artist.bands, id: \.thumbnailInfo.id) { band in
-                                Button(action: {
-                                    onSelectBand(band.thumbnailInfo.urlString)
-                                }, label: {
-                                    Text(band.name)
-                                })
-                            }
-                        }, label: {
-                            Color.clear
-                        })
-                    }
+                        .frame(alignment: .leading)
+                        .overlay {
+                            Menu(content: {
+                                ForEach(artist.bands, id: \.thumbnailInfo.id) { band in
+                                    Button(action: {
+                                        onSelectBand(band.thumbnailInfo.urlString)
+                                    }, label: {
+                                        Text(band.name)
+                                    })
+                                }
+                            }, label: {
+                                Color.clear
+                            })
+                        }
                 }
             }
             Spacer()
