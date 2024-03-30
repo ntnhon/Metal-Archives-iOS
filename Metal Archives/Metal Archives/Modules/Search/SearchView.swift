@@ -33,6 +33,8 @@ struct SearchView: View {
         }
         .navigationTitle(type.navigationTitle)
         .navigationBarTitleDisplayMode(.large)
+        .searchable(text: $term, prompt: type.placeholder)
+        .onSubmit(of: .search, search)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(destination: AdvancedSearchView(apiService: apiService)) {
@@ -46,10 +48,6 @@ struct SearchView: View {
 
     private var searchBar: some View {
         VStack {
-            SwiftUISearchBar(term: $term,
-                             placeholder: type.placeholder,
-                             onSubmit: search)
-
             HStack {
                 Menu(content: {
                     ForEach(SimpleSearchType.allCases, id: \.self) { type in

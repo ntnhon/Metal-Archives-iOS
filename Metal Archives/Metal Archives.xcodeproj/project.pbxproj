@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -301,7 +301,6 @@
 		EFC0C6BD28F49D0A0092497A /* HorizontalTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0C6BC28F49D0A0092497A /* HorizontalTabs.swift */; };
 		EFC0C6BF28F49F8C0092497A /* BandTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0C6BE28F49F8C0092497A /* BandTabsDatasource.swift */; };
 		EFC98B3C28EE0BD000154C30 /* RetryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC98B3B28EE0BD000154C30 /* RetryButton.swift */; };
-		EFD5B0D4291EF676001859B5 /* SwiftUISearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD5B0D3291EF676001859B5 /* SwiftUISearchBar.swift */; };
 		EFD82836293CB92D00F70DA9 /* AdvancedSearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD82835293CB92D00F70DA9 /* AdvancedSearchResultView.swift */; };
 		EFD82838293CB93600F70DA9 /* AdvancedSearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD82837293CB93600F70DA9 /* AdvancedSearchResultViewModel.swift */; };
 		EFD8283A293CBC7600F70DA9 /* NoResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD82839293CBC7600F70DA9 /* NoResultsView.swift */; };
@@ -629,7 +628,6 @@
 		EFC0C6BC28F49D0A0092497A /* HorizontalTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTabs.swift; sourceTree = "<group>"; };
 		EFC0C6BE28F49F8C0092497A /* BandTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandTabsDatasource.swift; sourceTree = "<group>"; };
 		EFC98B3B28EE0BD000154C30 /* RetryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryButton.swift; sourceTree = "<group>"; };
-		EFD5B0D3291EF676001859B5 /* SwiftUISearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUISearchBar.swift; sourceTree = "<group>"; };
 		EFD82835293CB92D00F70DA9 /* AdvancedSearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchResultView.swift; sourceTree = "<group>"; };
 		EFD82837293CB93600F70DA9 /* AdvancedSearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchResultViewModel.swift; sourceTree = "<group>"; };
 		EFD82839293CBC7600F70DA9 /* NoResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoResultsView.swift; sourceTree = "<group>"; };
@@ -980,7 +978,6 @@
 				EFC98B3B28EE0BD000154C30 /* RetryButton.swift */,
 				C0A9934C2712411700121BA3 /* PhotoSelectableViewModifier.swift */,
 				EF3C27402912EC5B00D6C9B2 /* ColorCustomizableLabel.swift */,
-				EFD5B0D3291EF676001859B5 /* SwiftUISearchBar.swift */,
 				EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */,
 				C0DF7D1826A44C850049C98D /* ThumbnailView.swift */,
 				EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */,
@@ -1696,7 +1693,6 @@
 				C0DD1379267F5E6C009F0B81 /* SupportView.swift in Sources */,
 				C0A993462712396800121BA3 /* ArtistView.swift in Sources */,
 				EF5234D6291455EE0089B5E4 /* LabelDetail.swift in Sources */,
-				EFD5B0D4291EF676001859B5 /* SwiftUISearchBar.swift in Sources */,
 				EF5F053E2926BE5900CECF67 /* SearchEntry.swift in Sources */,
 				C0056C56265C201700400A03 /* ReleaseElement.swift in Sources */,
 				C07A254F26852001008478D7 /* SimpleSearchType.swift in Sources */,
