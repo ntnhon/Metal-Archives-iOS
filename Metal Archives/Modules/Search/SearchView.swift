@@ -159,7 +159,12 @@ struct SearchView: View {
 
     private func search() {
         Task {
-            try await viewModel.datasource.upsertQueryEntry(term, type: type)
+            do {
+                try await viewModel.datasource.upsertQueryEntry(term, type: type)
+            } catch {
+                // TODO: Handle this
+                print(error)
+            }
         }
         isShowingResults.toggle()
     }
@@ -209,7 +214,12 @@ struct SearchView: View {
                                 return
                             }
                             Task {
-                                try await viewModel.datasource.upsert(entry)
+                                do {
+                                    try await viewModel.datasource.upsert(entry)
+                                } catch {
+                                    // TODO: Handle this
+                                    print(error)
+                                }
                             }
                         }
                     }

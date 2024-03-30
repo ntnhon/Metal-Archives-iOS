@@ -18,6 +18,9 @@ final class SearchResultsViewModel<T: HashableEquatablePageElement>: ObservableO
     @Published private(set) var error: Error?
     @Published private(set) var results: [T] = []
 
+    // TODO: Handle this
+    private var databaseError: Error?
+
     let apiService: APIServiceProtocol
     let manager: PageManager<T>
     let query: String?
@@ -62,7 +65,8 @@ final class SearchResultsViewModel<T: HashableEquatablePageElement>: ObservableO
     }
 
     func refresh() {
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
+            guard let self else { return }
             do {
                 error = nil
                 try await manager.updateOptionsAndRefresh([:])
@@ -73,32 +77,57 @@ final class SearchResultsViewModel<T: HashableEquatablePageElement>: ObservableO
     }
 
     func upsertBandEntry(_ band: BandLite) {
-        Task {
-            try await datasource.upsertBandEntry(band)
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await datasource.upsertBandEntry(band)
+            } catch {
+                databaseError = error
+            }
         }
     }
 
     func upsertReleaseEntry(_ release: ReleaseLite) {
-        Task {
-            try await datasource.upsertReleaseEntry(release)
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await datasource.upsertReleaseEntry(release)
+            } catch {
+                databaseError = error
+            }
         }
     }
 
     func upsertArtistEntry(_ artist: ArtistLite) {
-        Task {
-            try await datasource.upsertArtistEntry(artist)
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await datasource.upsertArtistEntry(artist)
+            } catch {
+                databaseError = error
+            }
         }
     }
 
     func upsertLabelEntry(_ label: LabelLite) {
-        Task {
-            try await datasource.upsertLabelEntry(label)
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await datasource.upsertLabelEntry(label)
+            } catch {
+                databaseError = error
+            }
         }
     }
 
     func upsertUserEntry(_ user: UserLite) {
-        Task {
-            try await datasource.upsertUserEntry(user)
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await datasource.upsertUserEntry(user)
+            } catch {
+                databaseError = error
+            }
         }
     }
 }
