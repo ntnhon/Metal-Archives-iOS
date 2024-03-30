@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 final class UserViewModel: ObservableObject {
     @Published private(set) var userFetchable: FetchableObject<User> = .fetching
 
@@ -18,7 +19,6 @@ final class UserViewModel: ObservableObject {
         self.urlString = urlString
     }
 
-    @MainActor
     func fetchUser() async {
         if case .fetched = userFetchable { return }
         do {

@@ -8,6 +8,7 @@
 import Combine
 import SwiftUI
 
+@MainActor
 final class LabelsByAlphabetViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error?
@@ -43,7 +44,6 @@ final class LabelsByAlphabetViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    @MainActor
     func getMoreLabels(force: Bool) async {
         if !force, !labels.isEmpty { return }
         do {
@@ -55,7 +55,8 @@ final class LabelsByAlphabetViewModel: ObservableObject {
     }
 
     private func refresh() {
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
+            guard let self else { return }
             do {
                 error = nil
                 try await manager.updateOptionsAndRefresh(sortOption.options)

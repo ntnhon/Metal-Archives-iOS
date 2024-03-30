@@ -20,9 +20,7 @@ struct BandReviewsView: View {
             if let error = viewModel.error {
                 Text(error.userFacingMessage)
                 RetryButton {
-                    Task {
-                        await viewModel.getMoreReviews()
-                    }
+                    await viewModel.getMoreReviews()
                 }
             } else if viewModel.isLoading {
                 ProgressView()

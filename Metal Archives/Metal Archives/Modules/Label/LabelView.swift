@@ -29,9 +29,7 @@ struct LabelView: View {
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
-                        Task {
-                            await viewModel.fetchLabel()
-                        }
+                        await viewModel.fetchLabel()
                     }
                 }
             }

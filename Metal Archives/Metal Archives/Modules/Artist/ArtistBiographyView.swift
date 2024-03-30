@@ -27,9 +27,7 @@ struct ArtistBiographyView: View {
                     VStack {
                         Text(error.userFacingMessage)
                         RetryButton {
-                            Task {
-                                await viewModel.fetchBiography(forceRefresh: true)
-                            }
+                            await viewModel.fetchBiography(forceRefresh: true)
                         }
                     }
                 }
@@ -37,10 +35,8 @@ struct ArtistBiographyView: View {
                 Text(biography)
             }
         }
-        .onAppear {
-            Task {
-                await viewModel.fetchBiography(forceRefresh: false)
-            }
+        .task {
+            await viewModel.fetchBiography(forceRefresh: false)
         }
     }
 }

@@ -27,9 +27,7 @@ struct ArtistView: View {
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
-                        Task {
-                            await viewModel.fetchArtist()
-                        }
+                        await viewModel.fetchArtist()
                     }
                 }
             }

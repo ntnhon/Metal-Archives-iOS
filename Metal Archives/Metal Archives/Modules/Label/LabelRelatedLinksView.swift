@@ -20,7 +20,7 @@ struct LabelRelatedLinksView: View {
                         .font(.caption)
 
                     RetryButton {
-                        Task { await viewModel.fetchRelatedLinks(forceRefresh: true) }
+                        await viewModel.fetchRelatedLinks(forceRefresh: true)
                     }
                 }
 
@@ -41,10 +41,8 @@ struct LabelRelatedLinksView: View {
                 }
             }
         }
-        .onAppear {
-            Task {
-                await viewModel.fetchRelatedLinks(forceRefresh: false)
-            }
+        .task {
+            await viewModel.fetchRelatedLinks(forceRefresh: false)
         }
     }
 }

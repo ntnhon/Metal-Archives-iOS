@@ -31,18 +31,14 @@ struct OtherVersionsView: View {
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
-                        Task {
-                            await viewModel.fetchOtherVersions()
-                        }
+                        await viewModel.fetchOtherVersions()
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
             }
         }
-        .onAppear {
-            Task {
-                await viewModel.fetchOtherVersions()
-            }
+        .task {
+            await viewModel.fetchOtherVersions()
         }
     }
 

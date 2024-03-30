@@ -23,9 +23,7 @@ struct NewsArchivesView: View {
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
-                        Task {
-                            await viewModel.refresh()
-                        }
+                        await viewModel.refresh()
                     }
                 }
             } else {

@@ -40,9 +40,7 @@ struct LabelLogoView: View {
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
-                        Task {
-                            await viewModel.fetchLogo()
-                        }
+                        await viewModel.fetchLogo()
                     }
                 }
             }

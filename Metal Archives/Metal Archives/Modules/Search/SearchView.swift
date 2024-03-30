@@ -91,7 +91,9 @@ struct SearchView: View {
                 "Clear search history?",
                 isPresented: $isShowingClearHistoryConfirmation,
                 actions: {
-                    Button("Yes, clear search history", action: viewModel.removeAllEntries)
+                    Button("Yes, clear search history") {
+                        viewModel.removeAllEntries()
+                    }
                     Button("Cancel", role: .cancel) {}
                 },
                 message: {

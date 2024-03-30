@@ -8,6 +8,7 @@
 import Combine
 import SwiftUI
 
+@MainActor
 class AdvancedSearchResultViewModel<T: HashableEquatablePageElement>: ObservableObject {
     deinit { print("\(Self.self) is deallocated") }
 
@@ -39,7 +40,6 @@ class AdvancedSearchResultViewModel<T: HashableEquatablePageElement>: Observable
             .store(in: &cancellables)
     }
 
-    @MainActor
     func getMoreResults(force: Bool) async {
         if !force, !results.isEmpty { return }
         do {
@@ -51,7 +51,8 @@ class AdvancedSearchResultViewModel<T: HashableEquatablePageElement>: Observable
     }
 
     func refresh() {
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
+            guard let self else { return }
             do {
                 error = nil
                 try await manager.updateOptionsAndRefresh([:])

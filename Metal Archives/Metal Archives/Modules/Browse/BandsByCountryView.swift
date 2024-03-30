@@ -20,9 +20,7 @@ struct BandsByCountryView: View {
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
-                        Task {
-                            await viewModel.getMoreBands(force: true)
-                        }
+                        await viewModel.getMoreBands(force: true)
                     }
                 }
             } else if viewModel.isLoading && viewModel.bands.isEmpty {

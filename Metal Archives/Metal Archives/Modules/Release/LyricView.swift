@@ -35,9 +35,7 @@ struct LyricView: View {
                     VStack {
                         Text(error.userFacingMessage)
                         RetryButton {
-                            Task {
-                                await viewModel.fetchLyric()
-                            }
+                            await viewModel.fetchLyric()
                         }
                     }
                 }

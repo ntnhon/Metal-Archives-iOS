@@ -9,12 +9,16 @@ import SwiftUI
 
 struct RetryButton: View {
     @EnvironmentObject private var preferences: Preferences
-    let onRetry: () -> Void
+    let onRetry: () async throws -> Void
 
     var body: some View {
-        Button(action: onRetry) {
+        Button(action: {
+            Task { @MainActor in
+                try await onRetry()
+            }
+        }, label: {
             Label("Retry", systemImage: "arrow.clockwise")
-        }
+        })
         .foregroundColor(preferences.theme.primaryColor)
     }
 }

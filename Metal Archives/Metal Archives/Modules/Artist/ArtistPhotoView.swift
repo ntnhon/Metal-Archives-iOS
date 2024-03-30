@@ -40,9 +40,7 @@ struct ArtistPhotoView: View {
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
-                        Task {
-                            await viewModel.fetchPhoto()
-                        }
+                        await viewModel.fetchPhoto()
                     }
                 }
             }

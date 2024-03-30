@@ -9,6 +9,7 @@ import Combine
 import Kingfisher
 import UIKit
 
+@MainActor
 final class ReleaseViewModel: ObservableObject {
     @Published private(set) var releaseFetchable: FetchableObject<Release> = .fetching
     @Published private(set) var coverFetchable: FetchableObject<UIImage?> = .fetching
@@ -51,7 +52,6 @@ final class ReleaseViewModel: ObservableObject {
         self.parentRelease = parentRelease
     }
 
-    @MainActor
     func fetchRelease() async {
         if case .fetched = releaseFetchable { return }
         do {
@@ -66,7 +66,6 @@ final class ReleaseViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     func fetchCoverImage() async {
         guard let urlString = release?.coverUrlString,
               let url = URL(string: urlString) else {
@@ -82,7 +81,6 @@ final class ReleaseViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     func fetchOtherVersions() async {
         guard let release else { return }
         if case .fetched = otherVersionsFetchable { return }

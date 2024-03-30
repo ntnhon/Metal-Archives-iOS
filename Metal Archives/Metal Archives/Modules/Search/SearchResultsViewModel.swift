@@ -10,6 +10,7 @@ import SwiftUI
 
 typealias HashableEquatablePageElement = Hashable & Equatable & PageElement
 
+@MainActor
 final class SearchResultsViewModel<T: HashableEquatablePageElement>: ObservableObject {
     deinit { print("\(Self.self) is deallocated") }
 
@@ -47,7 +48,6 @@ final class SearchResultsViewModel<T: HashableEquatablePageElement>: ObservableO
             .store(in: &cancellables)
     }
 
-    @MainActor
     func getMoreResults(force: Bool) async {
         if !force, !results.isEmpty { return }
         do {

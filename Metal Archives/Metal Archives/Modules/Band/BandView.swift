@@ -31,9 +31,7 @@ struct BandView: View {
                         .font(.caption)
 
                     RetryButton {
-                        Task {
-                            await viewModel.refresh(force: true)
-                        }
+                        await viewModel.refresh(force: true)
                     }
                 }
 

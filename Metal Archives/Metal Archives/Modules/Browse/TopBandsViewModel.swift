@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class TopBandsViewModel: ObservableObject {
     @Published private(set) var topBandsFetchable = FetchableObject<TopBands>.fetching
     @Published private(set) var topBands = [TopBand]()
@@ -28,13 +29,6 @@ final class TopBandsViewModel: ObservableObject {
         self.apiService = apiService
     }
 
-    func retry() {
-        Task { @MainActor in
-            await fetchTopBands()
-        }
-    }
-
-    @MainActor
     func fetchTopBands() async {
         if case .fetched = topBandsFetchable { return }
         do {

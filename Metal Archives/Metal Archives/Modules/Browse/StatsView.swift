@@ -30,9 +30,7 @@ struct StatsView: View {
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
-                        Task {
-                            await viewModel.refreshStats(force: true)
-                        }
+                        await viewModel.refreshStats(force: true)
                     }
                 }
             }

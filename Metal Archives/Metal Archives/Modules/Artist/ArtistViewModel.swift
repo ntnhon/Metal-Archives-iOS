@@ -9,6 +9,7 @@ import Combine
 import Kingfisher
 import UIKit
 
+@MainActor
 final class ArtistViewModel: ObservableObject {
 //    deinit { print("\(Self.self) of \(urlString) is deallocated") }
     @Published private(set) var artistFetchable: FetchableObject<Artist> = .fetching
@@ -51,7 +52,6 @@ final class ArtistViewModel: ObservableObject {
         self.urlString = urlString
     }
 
-    @MainActor
     func fetchArtist() async {
         if case .fetched = artistFetchable { return }
         do {
@@ -64,7 +64,6 @@ final class ArtistViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     func fetchBiography(forceRefresh: Bool) async {
         if !forceRefresh, case .fetched = biographyFetchable { return }
         guard let id = urlString.components(separatedBy: "/").last else { return }
@@ -78,7 +77,6 @@ final class ArtistViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     func fetchPhoto() async {
         guard let urlString = artist?.photoUrlString,
               let url = URL(string: urlString) else {
@@ -93,7 +91,6 @@ final class ArtistViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     func fetchRelatedLinks(forceRefresh: Bool) async {
         guard let artistId = urlString.components(separatedBy: "/").last else { return }
         if !forceRefresh, case .fetched = relatedLinksFetchable { return }

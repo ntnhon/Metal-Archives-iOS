@@ -8,6 +8,7 @@
 import Kingfisher
 import SwiftUI
 
+@MainActor
 final class ReviewViewModel: ObservableObject {
     @Published private(set) var reviewFetchable: FetchableObject<Review> = .fetching
     @Published private(set) var coverFetchable: FetchableObject<UIImage?> = .fetching
@@ -47,7 +48,6 @@ final class ReviewViewModel: ObservableObject {
         self.urlString = urlString
     }
 
-    @MainActor
     func fetchRelease() async {
         if case .fetched = reviewFetchable { return }
         do {
@@ -59,7 +59,6 @@ final class ReviewViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     func fetchCoverImage() async {
         guard let urlString = review?.coverPhotoUrlString,
               let url = URL(string: urlString) else { return }

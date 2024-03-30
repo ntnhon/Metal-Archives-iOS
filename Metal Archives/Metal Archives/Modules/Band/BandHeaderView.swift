@@ -29,7 +29,9 @@ struct BandHeaderView: View {
                 .padding(.vertical)
                 .textSelection(.enabled)
         }
-        .onAppear(perform: viewModel.fetchImages)
+        .task {
+            await viewModel.fetchImages()
+        }
     }
 
     @ViewBuilder

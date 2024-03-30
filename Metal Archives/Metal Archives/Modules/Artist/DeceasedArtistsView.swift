@@ -24,9 +24,7 @@ struct DeceasedArtistsView: View {
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
-                        Task {
-                            await viewModel.getMoreArtists(force: true)
-                        }
+                        await viewModel.getMoreArtists(force: true)
                     }
                 }
             } else if viewModel.isLoading && viewModel.artists.isEmpty {

@@ -8,6 +8,7 @@
 import Kingfisher
 import SwiftUI
 
+@MainActor
 final class LabelViewModel: ObservableObject {
 //    deinit { print("\(Self.self) of \(urlString) is deallocated") }
     @Published private(set) var labelFetchable: FetchableObject<LabelDetail> = .fetching
@@ -40,7 +41,6 @@ final class LabelViewModel: ObservableObject {
         self.urlString = urlString
     }
 
-    @MainActor
     func fetchLabel() async {
         if case .fetched = labelFetchable { return }
         do {
@@ -52,7 +52,6 @@ final class LabelViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     func fetchLogo() async {
         guard let urlString = label?.logoUrlString,
               let url = URL(string: urlString) else {
@@ -67,7 +66,6 @@ final class LabelViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     func fetchRelatedLinks(forceRefresh: Bool) async {
         guard let labelId = urlString.components(separatedBy: "/").last else { return }
         if !forceRefresh, case .fetched = relatedLinksFetchable { return }

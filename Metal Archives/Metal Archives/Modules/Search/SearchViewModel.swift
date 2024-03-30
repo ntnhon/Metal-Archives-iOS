@@ -7,6 +7,7 @@
 
 import CoreData
 
+@MainActor
 final class SearchViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error?
@@ -18,7 +19,6 @@ final class SearchViewModel: ObservableObject {
         self.datasource = .init(container: .Builder.build(name: kContainerName))
     }
 
-    @MainActor
     func fetchEntries() async {
         defer { isLoading = false }
         do {
@@ -31,16 +31,26 @@ final class SearchViewModel: ObservableObject {
     }
 
     func removeAllEntries() {
-        Task {
-            try await datasource.removeAllEntries()
-            await fetchEntries()
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await datasource.removeAllEntries()
+                await fetchEntries()
+            } catch {
+                self.error = error
+            }
         }
     }
 
     func remove(entry: SearchEntry) {
-        Task {
-            try await datasource.removeEntry(entry)
-            await fetchEntries()
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await datasource.removeEntry(entry)
+                await fetchEntries()
+            } catch {
+                self.error = error
+            }
         }
     }
 }

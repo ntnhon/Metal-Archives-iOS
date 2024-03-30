@@ -8,6 +8,7 @@
 import Kingfisher
 import SwiftUI
 
+@MainActor
 final class BandHeaderViewModel: ObservableObject {
     @Published private(set) var logoFetchable = FetchableObject<UIImage?>.fetching
     @Published private(set) var photoFetchable = FetchableObject<UIImage?>.fetching
@@ -36,7 +37,6 @@ final class BandHeaderViewModel: ObservableObject {
         self.band = band
     }
 
-    @MainActor
     private func fetchLogo() async {
         guard let logoUrlString = band.logoUrlString,
               let logoUrl = URL(string: logoUrlString) else {
@@ -53,7 +53,6 @@ final class BandHeaderViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     private func fetchPhoto() async {
         guard let photoUrlString = band.photoUrlString,
               let photoUrl = URL(string: photoUrlString) else {
@@ -70,8 +69,8 @@ final class BandHeaderViewModel: ObservableObject {
         }
     }
 
-    func fetchImages() {
-        Task { await fetchLogo() }
-        Task { await fetchPhoto() }
+    func fetchImages() async {
+        await fetchLogo()
+        await fetchPhoto()
     }
 }

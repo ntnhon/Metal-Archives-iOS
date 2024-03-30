@@ -34,9 +34,7 @@ struct ReleaseView: View {
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
-                        Task {
-                            await viewModel.fetchRelease()
-                        }
+                        await viewModel.fetchRelease()
                     }
                 }
             }

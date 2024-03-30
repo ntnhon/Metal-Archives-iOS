@@ -7,6 +7,7 @@
 
 import Combine
 
+@MainActor
 final class LyricViewModel: ObservableObject {
     @Published private(set) var lyricFetchable = FetchableObject<String>.fetching
     private let apiService: APIServiceProtocol
@@ -24,7 +25,6 @@ final class LyricViewModel: ObservableObject {
         self.song = song
     }
 
-    @MainActor
     func fetchLyric() async {
         do {
             guard let lyricId = song.lyricId else {

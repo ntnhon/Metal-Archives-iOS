@@ -13,6 +13,7 @@ struct BandMetadata {
     let readMore: String?
 }
 
+@MainActor
 final class BandViewModel: ObservableObject {
 //    deinit { print("\(Self.self) of \(bandUrlString) is deallocated") }
 
@@ -27,7 +28,6 @@ final class BandViewModel: ObservableObject {
         self.bandUrlString = bandUrlString
     }
 
-    @MainActor
     func refresh(force: Bool) async {
         if !force, case .fetched = bandMetadataFetchable { return }
         do {
@@ -76,7 +76,6 @@ final class BandViewModel: ObservableObject {
 
 // MARK: - Related links
 extension BandViewModel {
-    @MainActor
     func refreshRelatedLinks(force: Bool) async {
         guard case let .fetched(metadata) = bandMetadataFetchable else {
             relatedLinksFetchable = .error(MAError.missingBand)

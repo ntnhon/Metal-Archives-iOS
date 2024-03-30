@@ -21,9 +21,7 @@ struct LabelsByAlphabetView: View {
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
-                        Task {
-                            await viewModel.getMoreLabels(force: true)
-                        }
+                        await viewModel.getMoreLabels(force: true)
                     }
                 }
             } else if viewModel.isLoading && viewModel.labels.isEmpty {

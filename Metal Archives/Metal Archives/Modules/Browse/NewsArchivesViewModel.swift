@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 final class NewsArchivesViewModel: ObservableObject {
     @Published private(set) var news = [NewsPost]()
     @Published private(set) var isLoading = false
@@ -19,7 +20,6 @@ final class NewsArchivesViewModel: ObservableObject {
         self.apiService = apiService
     }
 
-    @MainActor
     func fetchMoreIfNeeded(currentPost: NewsPost?) async {
         guard let currentPost else {
             await fetchMore()
@@ -32,7 +32,6 @@ final class NewsArchivesViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     private func fetchMore() async {
         guard canLoadMore else { return }
         defer { isLoading = false }
@@ -47,7 +46,6 @@ final class NewsArchivesViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     func refresh() async {
         defer { isLoading = false }
         do {

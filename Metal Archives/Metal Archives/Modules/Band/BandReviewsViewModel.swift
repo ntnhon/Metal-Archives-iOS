@@ -10,6 +10,7 @@ import SwiftUI
 
 private typealias ReleaseTitle = String
 
+@MainActor
 final class BandReviewsViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error?
@@ -52,7 +53,6 @@ final class BandReviewsViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    @MainActor
     func getMoreReviews() async {
         do {
             error = nil
@@ -63,7 +63,8 @@ final class BandReviewsViewModel: ObservableObject {
     }
 
     private func refreshReviews() {
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
+            guard let self else { return }
             do {
                 error = nil
                 try await manager.updateOptionsAndRefresh(sortOption.options)

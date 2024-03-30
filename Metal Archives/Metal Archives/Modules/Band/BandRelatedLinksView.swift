@@ -20,7 +20,7 @@ struct BandRelatedLinksView: View {
                         .font(.caption)
 
                     RetryButton {
-                        Task { await viewModel.refreshRelatedLinks(force: true) }
+                        await viewModel.refreshRelatedLinks(force: true)
                     }
                 }
 
@@ -41,10 +41,8 @@ struct BandRelatedLinksView: View {
                 }
             }
         }
-        .onAppear {
-            Task {
-                await viewModel.refreshRelatedLinks(force: false)
-            }
+        .task {
+            await viewModel.refreshRelatedLinks(force: false)
         }
     }
 }

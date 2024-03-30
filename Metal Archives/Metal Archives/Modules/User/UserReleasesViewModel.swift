@@ -48,7 +48,8 @@ final class UserReleasesViewModel: ObservableObject {
     }
 
     func refresh() {
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
+            guard let self else { return }
             do {
                 error = nil
                 try await manager.updateOptionsAndRefresh([:])

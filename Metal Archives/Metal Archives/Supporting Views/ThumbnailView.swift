@@ -38,11 +38,9 @@ struct ThumbnailView: View {
             Image(systemName: viewModel.thumbnailInfo.type.placeholderSystemImageName)
                 .resizable()
                 .scaledToFit()
-                .onAppear {
-                    Task {
-                        if preferences.showThumbnails {
-                            await viewModel.tryLoadingNewImage()
-                        }
+                .task {
+                    if preferences.showThumbnails {
+                        await viewModel.tryLoadingNewImage()
                     }
                 }
         }

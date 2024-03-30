@@ -27,9 +27,7 @@ struct UserView: View {
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton {
-                        Task {
-                            await viewModel.fetchUser()
-                        }
+                        await viewModel.fetchUser()
                     }
                 }
             }

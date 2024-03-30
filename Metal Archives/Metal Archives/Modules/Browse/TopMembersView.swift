@@ -41,7 +41,9 @@ struct TopMembersView: View {
             case .error(let error):
                 HStack {
                     Text(error.userFacingMessage)
-                    RetryButton(onRetry: viewModel.retry)
+                    RetryButton {
+                        await viewModel.fetchTopUsers()
+                    }
                 }
             }
         }

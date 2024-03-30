@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class SimilarArtistsViewModel: ObservableObject {
     @Published private(set) var similarArtistsFetchable: FetchableObject<[BandSimilar]> = .fetching
 
@@ -18,7 +19,6 @@ final class SimilarArtistsViewModel: ObservableObject {
         self.band = band
     }
 
-    @MainActor
     func refresh(force: Bool) async {
         if !force, case .fetched = similarArtistsFetchable { return }
         do {
