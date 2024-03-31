@@ -10,7 +10,6 @@ import SwiftUI
 struct NewsPostView: View {
     @EnvironmentObject private var preferences: Preferences
     @Environment(\.selectedUrl) private var selectedUrl
-    let apiService: APIServiceProtocol
     let newsPost: NewsPost
 
     var body: some View {
@@ -21,7 +20,7 @@ struct NewsPostView: View {
                     .fontWeight(.bold)
 
                 NavigationLink(destination: {
-                    UserView(apiService: apiService, urlString: newsPost.author.urlString)
+                    UserView(urlString: newsPost.author.urlString)
                 }, label: {
                     Text(newsPost.dateString)
                         .font(.callout.italic())

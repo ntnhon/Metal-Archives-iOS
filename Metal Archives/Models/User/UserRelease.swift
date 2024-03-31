@@ -82,10 +82,10 @@ extension UserRelease: PageElement {
 }
 
 final class UserReleasePageManager: PageManager<UserRelease> {
-    init(apiService: APIServiceProtocol, userId: String, type: UserReleaseType) {
+    init(userId: String, type: UserReleaseType) {
         // swiftlint:disable:next line_length
         let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/collection/ajax-view/id/\(userId)/type/\(type.rawValue)/json/1?sEcho=1&iColumns=5&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4",
                                   pageSize: 200)
-        super.init(configs: configs, apiService: apiService)
+        super.init(configs: configs)
     }
 }

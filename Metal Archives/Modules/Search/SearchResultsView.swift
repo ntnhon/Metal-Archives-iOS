@@ -14,7 +14,7 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
 
     var body: some View {
         ZStack {
-            DetailView(detail: $detail, apiService: viewModel.apiService)
+            DetailView(detail: $detail)
 
             if let error = viewModel.error {
                 VStack {

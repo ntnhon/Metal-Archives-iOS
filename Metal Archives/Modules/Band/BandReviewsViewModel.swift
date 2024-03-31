@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Factory
 import SwiftUI
 
 private typealias ReleaseTitle = String
@@ -20,6 +21,8 @@ final class BandReviewsViewModel: ObservableObject {
         didSet { refreshReviews() }
     }
 
+    private let apiService = resolve(\DependenciesContainer.apiService)
+
     private let discography: Discography
     private let manager: ReviewLitePageManager
     private var cancellables = Set<AnyCancellable>()
@@ -27,14 +30,9 @@ final class BandReviewsViewModel: ObservableObject {
 
     var reviewCount: Int { discography.reviewCount }
 
-    init(band: Band,
-         apiService: APIServiceProtocol,
-         discography: Discography)
-    {
+    init(band: Band, discography: Discography) {
         let defaultSortOption = ReviewLitePageManager.SortOption.date(.descending)
-        let manager = ReviewLitePageManager(bandId: band.id,
-                                            apiService: apiService,
-                                            sortOptions: defaultSortOption)
+        let manager = ReviewLitePageManager(bandId: band.id, sortOptions: defaultSortOption)
         self.manager = manager
         self.discography = discography
         sortOption = defaultSortOption

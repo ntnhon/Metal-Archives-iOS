@@ -13,9 +13,8 @@ struct LyricView: View {
     @StateObject private var viewModel: LyricViewModel
     @State private var copiedMessage: String?
 
-    init(apiService: APIServiceProtocol, song: Song) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService,
-                                               song: song))
+    init(song: Song) {
+        _viewModel = .init(wrappedValue: .init(song: song))
     }
 
     var body: some View {

@@ -9,11 +9,7 @@ import SwiftUI
 
 struct NewsArchivesView: View {
     @EnvironmentObject private var preferences: Preferences
-    @StateObject private var viewModel: NewsArchivesViewModel
-
-    init(apiService: APIServiceProtocol) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService))
-    }
+    @StateObject private var viewModel = NewsArchivesViewModel()
 
     var body: some View {
         ZStack {
@@ -39,7 +35,7 @@ struct NewsArchivesView: View {
         List {
             ForEach(viewModel.news, id: \.self) { news in
                 NavigationLink(destination: {
-                    NewsPostView(apiService: viewModel.apiService, newsPost: news)
+                    NewsPostView(newsPost: news)
                 }, label: {
                     VStack(alignment: .leading) {
                         Text(news.title)

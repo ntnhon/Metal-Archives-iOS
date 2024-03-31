@@ -11,8 +11,8 @@ struct LabelsByCountryView: View {
     @StateObject private var viewModel: LabelsByCountryViewModel
     @Environment(\.selectedUrl) private var selectedUrl
 
-    init(apiService: APIServiceProtocol, country: Country) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService, country: country))
+    init(country: Country) {
+        _viewModel = .init(wrappedValue: .init(country: country))
     }
 
     var body: some View {
@@ -44,7 +44,7 @@ struct LabelsByCountryView: View {
             ForEach(viewModel.labels, id: \.label) { label in
                 NavigationLink(destination: {
                     if let urlString = label.label.thumbnailInfo?.urlString {
-                        LabelView(apiService: viewModel.apiService, urlString: urlString)
+                        LabelView(urlString: urlString)
                     } else {
                         EmptyView()
                     }

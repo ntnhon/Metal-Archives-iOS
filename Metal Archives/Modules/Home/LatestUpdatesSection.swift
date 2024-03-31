@@ -14,22 +14,17 @@ struct LatestUpdatesSection: View {
     @StateObject private var updateArtistsViewModel: LatestArtistsViewModel
     @Binding var detail: Detail?
 
-    init(apiService: APIServiceProtocol,
-         detail: Binding<Detail?>)
-    {
-        let latestBandPageManager = LatestBandPageManager(apiService: apiService, type: .updated)
-        let addedBandsViewModel = LatestBandsViewModel(apiService: apiService,
-                                                       manager: latestBandPageManager)
+    init(detail: Binding<Detail?>) {
+        let latestBandPageManager = LatestBandPageManager(type: .updated)
+        let addedBandsViewModel = LatestBandsViewModel(manager: latestBandPageManager)
         _updatedBandsViewModel = .init(wrappedValue: addedBandsViewModel)
 
-        let latestLabelPageManager = LatestLabelPageManager(apiService: apiService, type: .updated)
-        let addedLabelsViewModel = LatestLabelsViewModel(apiService: apiService,
-                                                         manager: latestLabelPageManager)
+        let latestLabelPageManager = LatestLabelPageManager(type: .updated)
+        let addedLabelsViewModel = LatestLabelsViewModel(manager: latestLabelPageManager)
         _updatedLabelsViewModel = .init(wrappedValue: addedLabelsViewModel)
 
-        let latestArtistPageManager = LatestArtistPageManager(apiService: apiService, type: .updated)
-        let addedArtistsViewModel = LatestArtistsViewModel(apiService: apiService,
-                                                           manager: latestArtistPageManager)
+        let latestArtistPageManager = LatestArtistPageManager(type: .updated)
+        let addedArtistsViewModel = LatestArtistsViewModel(manager: latestArtistPageManager)
         _updateArtistsViewModel = .init(wrappedValue: addedArtistsViewModel)
 
         _detail = detail

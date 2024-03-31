@@ -13,13 +13,11 @@ final class UserReleasesViewModel: ObservableObject {
     @Published private(set) var error: Error?
     @Published private(set) var releases: [UserRelease] = []
 
-    let apiService: APIServiceProtocol
     let manager: UserReleasePageManager
     private var cancellables = Set<AnyCancellable>()
 
-    init(apiService: APIServiceProtocol, userId: String, type: UserReleaseType) {
-        self.apiService = apiService
-        manager = .init(apiService: apiService, userId: userId, type: type)
+    init(userId: String, type: UserReleaseType) {
+        manager = .init(userId: userId, type: type)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

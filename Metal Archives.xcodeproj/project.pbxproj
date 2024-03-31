@@ -258,6 +258,8 @@
 		EF62240E28F1C94300845430 /* ReleaseCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240D28F1C94300845430 /* ReleaseCoverView.swift */; };
 		EF62620F293E6E5D006C3FDC /* SnapToScroll in Frameworks */ = {isa = PBXBuildFile; productRef = EF62620E293E6E5D006C3FDC /* SnapToScroll */; };
 		EF626215293E7EEB006C3FDC /* HomeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF626214293E7EEB006C3FDC /* HomeSettings.swift */; };
+		EF66D50A2BB9911400507FAA /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = EF66D5092BB9911400507FAA /* Factory */; };
+		EF66D50C2BB9915200507FAA /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D50B2BB9915200507FAA /* DependenciesContainer.swift */; };
 		EF67B679293D4A4E00BAC4D2 /* UpcomingAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */; };
 		EF69DD7F291660AF00C3D4E3 /* LabelTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */; };
 		EF69DD81291664E500C3D4E3 /* LabelLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */; };
@@ -585,6 +587,7 @@
 		EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+retrieveImageAsync.swift"; sourceTree = "<group>"; };
 		EF62240D28F1C94300845430 /* ReleaseCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseCoverView.swift; sourceTree = "<group>"; };
 		EF626214293E7EEB006C3FDC /* HomeSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSettings.swift; sourceTree = "<group>"; };
+		EF66D50B2BB9915200507FAA /* DependenciesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesContainer.swift; sourceTree = "<group>"; };
 		EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbum.swift; sourceTree = "<group>"; };
 		EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabsDatasource.swift; sourceTree = "<group>"; };
 		EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLogoView.swift; sourceTree = "<group>"; };
@@ -651,6 +654,7 @@
 				EF48E6C72895BBA900B52EF2 /* AlertToast in Frameworks */,
 				EF62620F293E6E5D006C3FDC /* SnapToScroll in Frameworks */,
 				C0CC030526963B420043A728 /* Kingfisher in Frameworks */,
+				EF66D50A2BB9911400507FAA /* Factory in Frameworks */,
 				C03873A92659AD6100D2FD5E /* Kanna in Frameworks */,
 				EF31834A2898627C00B6C8DD /* BetterSafariView in Frameworks */,
 			);
@@ -806,6 +810,7 @@
 			children = (
 				C0A37B6426584A690017A02F /* Metal Archives.entitlements */,
 				C00A79D126570245004FA9D7 /* Metal_ArchivesApp.swift */,
+				EF66D50B2BB9915200507FAA /* DependenciesContainer.swift */,
 				EF5F053C2926BDBE00CECF67 /* CoreData */,
 				C0A37B6E26584F920017A02F /* Managers */,
 				C0A37B6626584C1B0017A02F /* Models */,
@@ -1393,6 +1398,7 @@
 				EF48E6C62895BBA900B52EF2 /* AlertToast */,
 				EF3183492898627C00B6C8DD /* BetterSafariView */,
 				EF62620E293E6E5D006C3FDC /* SnapToScroll */,
+				EF66D5092BB9911400507FAA /* Factory */,
 			);
 			productName = "Metal Archives";
 			productReference = C00A79CE26570245004FA9D7 /* Metal Archives.app */;
@@ -1472,6 +1478,7 @@
 				EF48E6C52895BBA900B52EF2 /* XCRemoteSwiftPackageReference "AlertToast" */,
 				EF3183482898627C00B6C8DD /* XCRemoteSwiftPackageReference "BetterSafariView" */,
 				EF62620D293E6E5D006C3FDC /* XCRemoteSwiftPackageReference "hstack-snap-to-scroll" */,
+				EF66D5082BB9911400507FAA /* XCRemoteSwiftPackageReference "Factory" */,
 			);
 			productRefGroup = C00A79CF26570245004FA9D7 /* Products */;
 			projectDirPath = "";
@@ -1789,6 +1796,7 @@
 				EF5F05432926C21D00CECF67 /* MetalArchives.xcdatamodeld in Sources */,
 				C00A79D226570245004FA9D7 /* Metal_ArchivesApp.swift in Sources */,
 				C05FDD3726996E1000EE2AB3 /* UIColorExtensions.swift in Sources */,
+				EF66D50C2BB9915200507FAA /* DependenciesContainer.swift in Sources */,
 				EF6A89F92903D01C00DA2D67 /* BandsByCountryView.swift in Sources */,
 				EF3F5FDB290569B000FD1A31 /* LabelsByCountryView.swift in Sources */,
 				EF4F13FB2919A89A0069C1EB /* UserReviewsViewModel.swift in Sources */,
@@ -2205,6 +2213,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		EF66D5082BB9911400507FAA /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2232,6 +2248,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EF62620D293E6E5D006C3FDC /* XCRemoteSwiftPackageReference "hstack-snap-to-scroll" */;
 			productName = SnapToScroll;
+		};
+		EF66D5092BB9911400507FAA /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF66D5082BB9911400507FAA /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
 		};
 /* End XCSwiftPackageProductDependency section */
 

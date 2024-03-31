@@ -85,11 +85,11 @@ extension UserReview: PageElement {
 }
 
 final class UserReviewPageManager: PageManager<UserReview> {
-    init(apiService: APIServiceProtocol, sortOptions: SortOption, userId: String) {
+    init(sortOptions: SortOption, userId: String) {
         // swiftlint:disable:next line_length
         let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/review/ajax-list-user/userId/\(userId)?sEcho=1&iColumns=6&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&iSortCol_0=\(kSortColumnPlaceholder)&sSortDir_0=\(kSortDirectionPlaceholder)&iSortingCols=1&bSortable_0=false&bSortable_1=true&bSortable_2=true&bSortable_3=true&bSortable_4=true&bSortable_5=true",
                                   pageSize: 200)
-        super.init(configs: configs, apiService: apiService, options: sortOptions.options)
+        super.init(configs: configs, options: sortOptions.options)
     }
 }
 

@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 27/06/2021.
 //
 
+import Factory
 import SwiftUI
 
 struct BandMetadata {
@@ -21,10 +22,9 @@ final class BandViewModel: ObservableObject {
     @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .fetching
     private(set) var band: Band?
     private let bandUrlString: String
-    private let apiService: APIServiceProtocol
+    private let apiService = resolve(\DependenciesContainer.apiService)
 
-    init(apiService: APIServiceProtocol, bandUrlString: String) {
-        self.apiService = apiService
+    init(bandUrlString: String) {
         self.bandUrlString = bandUrlString
     }
 

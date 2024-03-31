@@ -6,11 +6,12 @@
 //
 
 import Combine
+import Factory
 
 @MainActor
 final class LyricViewModel: ObservableObject {
     @Published private(set) var lyricFetchable = FetchableObject<String>.fetching
-    private let apiService: APIServiceProtocol
+    private let apiService = resolve(\DependenciesContainer.apiService)
     let song: Song
 
     var fetchedLyric: String? {
@@ -20,8 +21,7 @@ final class LyricViewModel: ObservableObject {
         return nil
     }
 
-    init(apiService: APIServiceProtocol, song: Song) {
-        self.apiService = apiService
+    init(song: Song) {
         self.song = song
     }
 

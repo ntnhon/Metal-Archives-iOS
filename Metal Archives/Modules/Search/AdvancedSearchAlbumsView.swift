@@ -29,7 +29,6 @@ struct AdvancedSearchAlbumsView: View {
     @StateObject private var countrySet = CountrySet()
     @StateObject private var releaseTypeSet = ReleaseTypeSet()
     @StateObject private var releaseFormatSet = ReleaseFormatSet()
-    let apiService: APIServiceProtocol
 
     // TODO: Decouple this
     var body: some View {
@@ -172,8 +171,7 @@ struct AdvancedSearchAlbumsView: View {
             Section {
                 NavigationLink(
                     destination: {
-                        AdvancedSearchResultView(viewModel: .init(apiService: apiService,
-                                                                  manager: makePageManager()))
+                        AdvancedSearchResultView(viewModel: .init(manager: makePageManager()))
                     },
                     label: {
                         Text("SEARCH")
@@ -209,14 +207,14 @@ struct AdvancedSearchAlbumsView: View {
         params.genre = genre
         params.releaseTypes = releaseTypeSet.choices
         params.releaseFormats = releaseFormatSet.choices
-        return .init(apiService: apiService, params: params)
+        return .init(params: params)
     }
 }
 
 struct AdvancedSearchAlbumsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AdvancedSearchAlbumsView(apiService: APIService())
+            AdvancedSearchAlbumsView()
         }
         .environment(\.colorScheme, .dark)
         .environmentObject(Preferences())

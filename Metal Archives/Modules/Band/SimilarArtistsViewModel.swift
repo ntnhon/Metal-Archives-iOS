@@ -5,17 +5,17 @@
 //  Created by Nhon Nguyen on 15/10/2022.
 //
 
+import Factory
 import Foundation
 
 @MainActor
 final class SimilarArtistsViewModel: ObservableObject {
     @Published private(set) var similarArtistsFetchable: FetchableObject<[BandSimilar]> = .fetching
 
-    let apiService: APIServiceProtocol
+    private let apiService = resolve(\DependenciesContainer.apiService)
     let band: Band
 
-    init(apiService: APIServiceProtocol, band: Band) {
-        self.apiService = apiService
+    init(band: Band) {
         self.band = band
     }
 

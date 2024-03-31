@@ -5,6 +5,7 @@
 //  Created by Nhon Nguyen on 17/10/2022.
 //
 
+import Factory
 import Foundation
 
 @MainActor
@@ -17,7 +18,7 @@ final class TopMembersViewModel: ObservableObject {
         }
     }
 
-    let apiService: APIServiceProtocol
+    private let apiService = resolve(\DependenciesContainer.apiService)
 
     var isFetched: Bool {
         if case .fetched = topUsersFetchable {
@@ -26,9 +27,7 @@ final class TopMembersViewModel: ObservableObject {
         return false
     }
 
-    init(apiService: APIServiceProtocol) {
-        self.apiService = apiService
-    }
+    init() {}
 
     func fetchTopUsers() async {
         if case .fetched = topUsersFetchable { return }

@@ -18,16 +18,14 @@ final class LabelPastRosterViewModel: ObservableObject {
         didSet { refresh() }
     }
 
-    let apiService: APIServiceProtocol
     let manager: LabelPastBandPageManager
     private var cancellables = Set<AnyCancellable>()
 
-    init(apiService: APIServiceProtocol, urlString: String) {
-        self.apiService = apiService
+    init(urlString: String) {
         let labelId = urlString.components(separatedBy: "/").last ?? ""
         let defaultSortOption: LabelPastBandPageManager.SortOption = .band(.ascending)
         sortOption = defaultSortOption
-        manager = .init(apiService: apiService, sortOptions: defaultSortOption, labelId: labelId)
+        manager = .init(sortOptions: defaultSortOption, labelId: labelId)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

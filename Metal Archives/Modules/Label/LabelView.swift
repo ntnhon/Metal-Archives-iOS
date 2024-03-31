@@ -10,9 +10,8 @@ import SwiftUI
 struct LabelView: View {
     @StateObject private var viewModel: LabelViewModel
 
-    init(apiService: APIServiceProtocol, urlString: String) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService,
-                                               urlString: urlString))
+    init(urlString: String) {
+        _viewModel = .init(wrappedValue: .init(urlString: urlString))
     }
 
     var body: some View {
@@ -21,9 +20,7 @@ struct LabelView: View {
             case .fetching:
                 HornCircularLoader()
             case let .fetched(label):
-                LabelContentView(apiService: viewModel.apiService,
-                                 urlString: viewModel.urlString,
-                                 label: label)
+                LabelContentView(urlString: viewModel.urlString, label: label)
                     .environmentObject(viewModel)
             case let .error(error):
                 VStack {
@@ -57,21 +54,18 @@ private struct LabelContentView: View {
     private let maxLogoScaleFactor: CGFloat = 1.2
     let label: LabelDetail
 
-    init(apiService: APIServiceProtocol, urlString: String, label: LabelDetail) {
+    init(urlString: String, label: LabelDetail) {
         self.label = label
         _tabsDatasource = .init(wrappedValue: .init(label: label))
-        _currentRosterViewModel = .init(wrappedValue: .init(apiService: apiService,
-                                                            urlString: urlString))
-        _pastRosterViewModel = .init(wrappedValue: .init(apiService: apiService,
-                                                         urlString: urlString))
-        _releasesViewModel = .init(wrappedValue: .init(apiService: apiService,
-                                                       urlString: urlString))
+        _currentRosterViewModel = .init(wrappedValue: .init(urlString: urlString))
+        _pastRosterViewModel = .init(wrappedValue: .init(urlString: urlString))
+        _releasesViewModel = .init(wrappedValue: .init(urlString: urlString))
         logoViewHeight = label.logoUrlString != nil ? 300 : 0
     }
 
     var body: some View {
         ZStack(alignment: .top) {
-            DetailView(detail: $detail, apiService: viewModel.apiService)
+            DetailView(detail: $detail)
 
             LabelLogoView(scaleFactor: $logoScaleFactor, opacity: $logoOpacity)
                 .environmentObject(viewModel)

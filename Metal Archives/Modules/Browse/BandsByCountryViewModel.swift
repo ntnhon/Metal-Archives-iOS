@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Factory
 import SwiftUI
 
 @MainActor
@@ -18,16 +19,15 @@ final class BandsByCountryViewModel: ObservableObject {
         didSet { refresh() }
     }
 
-    let apiService: APIServiceProtocol
+    private let apiService = resolve(\DependenciesContainer.apiService)
     let country: Country
     let manager: BandByCountryPageManager
     private var cancellables = Set<AnyCancellable>()
 
-    init(apiService: APIServiceProtocol, country: Country) {
-        self.apiService = apiService
+    init(country: Country) {
         self.country = country
         let defaultSortOption: BandByCountryPageManager.SortOption = .band(.ascending)
-        manager = .init(apiService: apiService, country: country, sortOptions: defaultSortOption)
+        manager = .init(country: country, sortOptions: defaultSortOption)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

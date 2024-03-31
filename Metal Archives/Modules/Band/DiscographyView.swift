@@ -12,12 +12,8 @@ struct DiscographyView: View {
     @ObservedObject private var viewModel: DiscographyViewModel
     @State private var showingRelease = false
     @State private var selectedRelease: ReleaseInBand?
-    private let apiService: APIServiceProtocol
 
-    init(apiService: APIServiceProtocol,
-         viewModel: DiscographyViewModel)
-    {
-        self.apiService = apiService
+    init(viewModel: DiscographyViewModel) {
         _viewModel = .init(wrappedValue: viewModel)
     }
 
@@ -37,8 +33,7 @@ struct DiscographyView: View {
                 ForEach(viewModel.releases, id: \.thumbnailInfo.id) { release in
                     NavigationLink(
                         destination: {
-                            ReleaseView(apiService: apiService,
-                                        urlString: release.thumbnailInfo.urlString,
+                            ReleaseView(urlString: release.thumbnailInfo.urlString,
                                         parentRelease: nil)
                         },
                         label: {
@@ -91,8 +86,7 @@ struct DiscographyView_Previews: PreviewProvider {
             Color(.systemBackground).ignoresSafeArea()
             ScrollView {
                 VStack {
-                    DiscographyView(apiService: APIService(),
-                                    viewModel: .init(discography: .death,
+                    DiscographyView(viewModel: .init(discography: .death,
                                                      discographyMode: .complete,
                                                      order: .ascending))
                 }

@@ -27,7 +27,6 @@ Note: leading "The __" are ignored (e.g. "The Chasm" appears under C, not T)
 """
 
 struct AlphabetView: View {
-    let apiService: APIServiceProtocol
     let mode: AlphabetMode
 
     var body: some View {
@@ -37,9 +36,9 @@ struct AlphabetView: View {
                     NavigationLink(destination: {
                         switch mode {
                         case .bands:
-                            BandsByAlphabetView(apiService: apiService, letter: letter)
+                            BandsByAlphabetView(letter: letter)
                         case .labels:
-                            LabelsByAlphabetView(apiService: apiService, letter: letter)
+                            LabelsByAlphabetView(letter: letter)
                         }
                     }, label: {
                         if case .labels = mode, letter == .tilde {
@@ -72,7 +71,7 @@ struct AlphabetView: View {
 struct AlphabetView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AlphabetView(apiService: APIService(session: .shared), mode: .bands)
+            AlphabetView(mode: .bands)
         }
         .environment(\.colorScheme, .dark)
         .environmentObject(Preferences())

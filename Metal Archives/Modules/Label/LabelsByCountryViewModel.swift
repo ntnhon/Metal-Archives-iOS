@@ -18,16 +18,14 @@ final class LabelsByCountryViewModel: ObservableObject {
         didSet { refresh() }
     }
 
-    let apiService: APIServiceProtocol
     let country: Country
     let manager: LabelByCountryPageManager
     private var cancellables = Set<AnyCancellable>()
 
-    init(apiService: APIServiceProtocol, country: Country) {
-        self.apiService = apiService
+    init(country: Country) {
         self.country = country
         let defaultSortOption: LabelByCountryPageManager.SortOption = .name(.ascending)
-        manager = .init(apiService: apiService, country: country, sortOptions: defaultSortOption)
+        manager = .init(country: country, sortOptions: defaultSortOption)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

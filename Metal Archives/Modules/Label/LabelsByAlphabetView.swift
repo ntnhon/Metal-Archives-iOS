@@ -11,8 +11,8 @@ struct LabelsByAlphabetView: View {
     @StateObject private var viewModel: LabelsByAlphabetViewModel
     @Environment(\.selectedUrl) private var selectedUrl
 
-    init(apiService: APIServiceProtocol, letter: Letter) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService, letter: letter))
+    init(letter: Letter) {
+        _viewModel = .init(wrappedValue: .init(letter: letter))
     }
 
     var body: some View {
@@ -44,7 +44,7 @@ struct LabelsByAlphabetView: View {
             ForEach(viewModel.labels, id: \.label) { label in
                 NavigationLink(destination: {
                     if let urlString = label.label.thumbnailInfo?.urlString {
-                        LabelView(apiService: viewModel.apiService, urlString: urlString)
+                        LabelView(urlString: urlString)
                     } else {
                         EmptyView()
                     }

@@ -34,16 +34,13 @@ private struct MemberLineUpDetail {
 struct BandLineUpView: View {
     @State private var lineUpType: MemberLineUpType
     private let viewModel: BandLineUpViewModel
-    private let apiService: APIServiceProtocol
     private let onSelectBand: (String) -> Void
     private let onSelectArtist: (String) -> Void
 
-    init(apiService: APIServiceProtocol,
-         band: Band,
+    init(band: Band,
          onSelectBand: @escaping (String) -> Void,
          onSelectArtist: @escaping (String) -> Void)
     {
-        self.apiService = apiService
         viewModel = .init(band: band)
         _lineUpType = State(initialValue: viewModel.defaultLineUpType)
         self.onSelectBand = onSelectBand

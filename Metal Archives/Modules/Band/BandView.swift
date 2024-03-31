@@ -11,15 +11,9 @@ import SwiftUI
 struct BandView: View {
     @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: BandViewModel
-    let apiService: APIServiceProtocol
 
-    init(apiService: APIServiceProtocol,
-         bandUrlString: String)
-    {
-        self.apiService = apiService
-        let vm = BandViewModel(apiService: apiService,
-                               bandUrlString: bandUrlString)
-        _viewModel = .init(wrappedValue: vm)
+    init(bandUrlString: String) {
+        _viewModel = .init(wrappedValue: .init(bandUrlString: bandUrlString))
     }
 
     var body: some View {
@@ -41,7 +35,6 @@ struct BandView: View {
 
             case let .fetched(metadata):
                 BandContentView(metadata: metadata,
-                                apiService: apiService,
                                 preferences: preferences,
                                 viewModel: viewModel)
             }
@@ -64,23 +57,18 @@ private struct BandContentView: View {
     @State private var showingShareSheet = false
     @State private var topSectionSize: CGSize = .zero
     @State private var detail: Detail?
-    let apiService: APIServiceProtocol
     let metadata: BandMetadata
 
     init(metadata: BandMetadata,
-         apiService: APIServiceProtocol,
          preferences: Preferences,
          viewModel: BandViewModel)
     {
         self.metadata = metadata
-        self.apiService = apiService
         _discographyViewModel = .init(wrappedValue: .init(discography: metadata.discography,
                                                           discographyMode: preferences.discographyMode,
                                                           order: preferences.dateOrder))
-        _similarArtistsViewModel = .init(wrappedValue: .init(apiService: apiService,
-                                                             band: metadata.band))
+        _similarArtistsViewModel = .init(wrappedValue: .init(band: metadata.band))
         _reviewsViewModel = .init(wrappedValue: .init(band: metadata.band,
-                                                      apiService: apiService,
                                                       discography: metadata.discography))
         _viewModel = .init(wrappedValue: viewModel)
     }
@@ -103,7 +91,7 @@ private struct BandContentView: View {
             },
             content: {
                 VStack {
-                    DetailView(detail: $detail, apiService: apiService)
+                    DetailView(detail: $detail)
 
                     VStack {
                         BandHeaderView(band: band) { selectedImage in
@@ -138,13 +126,11 @@ private struct BandContentView: View {
                     Group {
                         switch tabsDatasource.selectedTab {
                         case .discography:
-                            DiscographyView(apiService: apiService,
-                                            viewModel: discographyViewModel)
+                            DiscographyView(viewModel: discographyViewModel)
                                 .padding(.horizontal)
 
                         case .members:
-                            BandLineUpView(apiService: apiService,
-                                           band: band,
+                            BandLineUpView(band: band,
                                            onSelectBand: { url in detail = .band(url) },
                                            onSelectArtist: { url in detail = .artist(url) })
                                 .padding(.horizontal)

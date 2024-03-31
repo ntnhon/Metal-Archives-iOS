@@ -15,7 +15,6 @@ struct SearchView: View {
     @State private var isShowingResults = false
     @State private var isShowingClearHistoryConfirmation = false
     @State private var detail: Detail?
-    let apiService: APIServiceProtocol
 
     var body: some View {
         ScrollView {
@@ -24,7 +23,7 @@ struct SearchView: View {
                                destination: searchResultView,
                                label: EmptyView.init)
 
-                DetailView(detail: $detail, apiService: apiService)
+                DetailView(detail: $detail)
 
                 searchBar
                 history
@@ -37,7 +36,7 @@ struct SearchView: View {
         .onSubmit(of: .search, search)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: AdvancedSearchView(apiService: apiService)) {
+                NavigationLink(destination: AdvancedSearchView()) {
                     Text("Advanced search")
                         .fontWeight(.bold)
                 }
@@ -107,51 +106,43 @@ struct SearchView: View {
     private func searchResultView() -> some View {
         switch type {
         case .bandName:
-            let manager = BandSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService,
-                                               manager: manager,
+            let manager = BandSimpleSearchResultPageManager(query: term)
+            SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
                                                datasource: viewModel.datasource))
         case .musicGenre:
-            let manager = MusicGenreSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService,
-                                               manager: manager,
+            let manager = MusicGenreSimpleSearchResultPageManager(query: term)
+            SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
                                                datasource: viewModel.datasource))
         case .lyricalThemes:
-            let manager = LyricalSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService,
-                                               manager: manager,
+            let manager = LyricalSimpleSearchResultPageManager(query: term)
+            SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
                                                datasource: viewModel.datasource))
         case .albumTitle:
-            let manager = ReleaseSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService,
-                                               manager: manager,
+            let manager = ReleaseSimpleSearchResultPageManager(query: term)
+            SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
                                                datasource: viewModel.datasource))
         case .songTitle:
-            let manager = SongSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService,
-                                               manager: manager,
+            let manager = SongSimpleSearchResultPageManager(query: term)
+            SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
                                                datasource: viewModel.datasource))
         case .label:
-            let manager = LabelSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService,
-                                               manager: manager,
+            let manager = LabelSimpleSearchResultPageManager(query: term)
+            SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
                                                datasource: viewModel.datasource))
         case .artist:
-            let manager = ArtistSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService,
-                                               manager: manager,
+            let manager = ArtistSimpleSearchResultPageManager(query: term)
+            SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
                                                datasource: viewModel.datasource))
         case .user:
-            let manager = UserSimpleSearchResultPageManager(apiService: apiService, query: term)
-            SearchResultsView(viewModel: .init(apiService: apiService,
-                                               manager: manager,
+            let manager = UserSimpleSearchResultPageManager(query: term)
+            SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
                                                datasource: viewModel.datasource))
         }

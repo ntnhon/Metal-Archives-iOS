@@ -10,7 +10,6 @@ import SwiftUI
 struct TracklistView: View {
     @Environment(\.toastMessage) private var toastMessage
     @State private var selectedSongWithLyric: Song?
-    let apiService: APIServiceProtocol
     let elements: [ReleaseElement]
 
     var body: some View {
@@ -62,7 +61,7 @@ struct TracklistView: View {
         .padding(.vertical)
         .sheet(isPresented: showingLyric) {
             if let selectedSongWithLyric {
-                LyricView(apiService: apiService, song: selectedSongWithLyric)
+                LyricView(song: selectedSongWithLyric)
             }
         }
     }

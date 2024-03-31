@@ -83,7 +83,7 @@ final class ReleaseAdvancedSearchParams {
 }
 
 final class ReleaseAdvancedSearchResultPageManager: PageManager<ReleaseAdvancedSearchResult> {
-    init(apiService: APIServiceProtocol, params: ReleaseAdvancedSearchParams) {
+    init(params: ReleaseAdvancedSearchParams) {
         var urlString = "https://www.metal-archives.com/search/ajax-advanced/searching/albums/?"
 
         urlString += "bandName=\(params.bandName)"
@@ -151,6 +151,6 @@ final class ReleaseAdvancedSearchResultPageManager: PageManager<ReleaseAdvancedS
         urlString += "&sEcho=1&iColumns=8&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&mDataProp_6=6&mDataProp_7=7"
 
         let configs = PageConfigs(baseUrlString: urlString, pageSize: 200)
-        super.init(configs: configs, apiService: apiService)
+        super.init(configs: configs)
     }
 }

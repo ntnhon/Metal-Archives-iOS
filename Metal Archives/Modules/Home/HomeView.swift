@@ -10,23 +10,22 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var detail: Detail?
-    let apiService: APIServiceProtocol
 
     var body: some View {
         ScrollView {
             VStack {
-                DetailView(detail: $detail, apiService: apiService)
+                DetailView(detail: $detail)
 
                 ForEach(preferences.homeSectionOrder) { section in
                     switch section {
                     case .latestAdditions:
-                        LatestAdditionsSection(apiService: apiService, detail: $detail)
+                        LatestAdditionsSection(detail: $detail)
                     case .latestUpdates:
-                        LatestUpdatesSection(apiService: apiService, detail: $detail)
+                        LatestUpdatesSection(detail: $detail)
                     case .latestReviews:
-                        LatestReviewsSection(apiService: apiService, detail: $detail)
+                        LatestReviewsSection(detail: $detail)
                     case .upcomingAlbums:
-                        UpcomingAlbumsSection(apiService: apiService, detail: $detail)
+                        UpcomingAlbumsSection(detail: $detail)
                     }
                 }
             }
@@ -44,7 +43,7 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(apiService: APIService())
+        HomeView()
             .environment(\.colorScheme, .dark)
             .environmentObject(Preferences())
     }

@@ -18,14 +18,12 @@ final class DeceasedArtistsViewModel: ObservableObject {
         didSet { refresh() }
     }
 
-    let apiService: APIServiceProtocol
     let manager: DeceasedArtistPageManager
     private var cancellables = Set<AnyCancellable>()
 
-    init(apiService: APIServiceProtocol) {
-        self.apiService = apiService
+    init() {
         let defaultSortOption: DeceasedArtistPageManager.SortOption = .date(.descending)
-        manager = .init(apiService: apiService, sortOptions: defaultSortOption)
+        manager = .init(sortOptions: defaultSortOption)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

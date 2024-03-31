@@ -18,7 +18,6 @@ struct AdvancedSearchSongsView: View {
     @State private var lyrics = ""
     @State private var genre = ""
     @StateObject private var releaseTypeSet = ReleaseTypeSet()
-    let apiService: APIServiceProtocol
 
     var body: some View {
         Form {
@@ -83,8 +82,7 @@ struct AdvancedSearchSongsView: View {
             Section {
                 NavigationLink(
                     destination: {
-                        AdvancedSearchResultView(viewModel: .init(apiService: apiService,
-                                                                  manager: makePageManager()))
+                        AdvancedSearchResultView(viewModel: .init(manager: makePageManager()))
                     },
                     label: {
                         Text("SEARCH")
@@ -111,14 +109,14 @@ struct AdvancedSearchSongsView: View {
         params.lyrics = lyrics
         params.genre = genre
         params.releaseTypes = releaseTypeSet.choices
-        return .init(apiService: apiService, params: params)
+        return .init(params: params)
     }
 }
 
 struct AdvancedSearchSongsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AdvancedSearchSongsView(apiService: APIService())
+            AdvancedSearchSongsView()
         }
         .environment(\.colorScheme, .dark)
         .environmentObject(Preferences())

@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Factory
 import Kingfisher
 import UIKit
 
@@ -15,7 +16,7 @@ final class ReleaseViewModel: ObservableObject {
     @Published private(set) var coverFetchable: FetchableObject<UIImage?> = .fetching
     @Published private(set) var otherVersionsFetchable: FetchableObject<[ReleaseOtherVersion]> = .fetching
     @Published private(set) var noCover = false
-    private let apiService: APIServiceProtocol
+    private let apiService = resolve(\DependenciesContainer.apiService)
     private let urlString: String
     let parentRelease: Release?
 
@@ -46,8 +47,7 @@ final class ReleaseViewModel: ObservableObject {
         }
     }
 
-    init(apiService: APIServiceProtocol, urlString: String, parentRelease: Release?) {
-        self.apiService = apiService
+    init(urlString: String, parentRelease: Release?) {
         self.urlString = urlString
         self.parentRelease = parentRelease
     }

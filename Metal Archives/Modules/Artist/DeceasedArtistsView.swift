@@ -8,17 +8,13 @@
 import SwiftUI
 
 struct DeceasedArtistsView: View {
-    @StateObject private var viewModel: DeceasedArtistsViewModel
+    @StateObject private var viewModel = DeceasedArtistsViewModel()
     @State private var selectedArtist: DeceasedArtist?
     @State private var detail: Detail?
 
-    init(apiService: APIServiceProtocol) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService))
-    }
-
     var body: some View {
         ZStack {
-            DetailView(detail: $detail, apiService: viewModel.apiService)
+            DetailView(detail: $detail)
 
             if let error = viewModel.error {
                 VStack {

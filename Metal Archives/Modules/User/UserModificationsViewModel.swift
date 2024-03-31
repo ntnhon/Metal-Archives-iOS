@@ -17,15 +17,13 @@ final class UserModificationsViewModel: ObservableObject {
         didSet { refresh() }
     }
 
-    let apiService: APIServiceProtocol
     let manager: UserModificationPageManager
     private var cancellables = Set<AnyCancellable>()
 
-    init(apiService: APIServiceProtocol, userId: String) {
-        self.apiService = apiService
+    init(userId: String) {
         let defaultSortOption: UserModificationPageManager.SortOption = .date(.descending)
         sortOption = defaultSortOption
-        manager = .init(apiService: apiService, sortOptions: defaultSortOption, userId: userId)
+        manager = .init(sortOptions: defaultSortOption, userId: userId)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

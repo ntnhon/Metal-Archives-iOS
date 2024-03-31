@@ -79,11 +79,11 @@ extension LabelRelease: PageElement {
 }
 
 final class LabelReleasePageManager: PageManager<LabelRelease> {
-    init(apiService: APIServiceProtocol, sortOptions: SortOption, labelId: String) {
+    init(sortOptions: SortOption, labelId: String) {
         // swiftlint:disable:next line_length
         let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/label/ajax-albums/nbrPerPage/200/id/\(labelId)?sEcho=1&iColumns=7&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&mDataProp_6=6&iSortCol_0=\(kSortColumnPlaceholder)&sSortDir_0=\(kSortDirectionPlaceholder)&iSortingCols=1&bSortable_0=true&bSortable_1=false&bSortable_2=true&bSortable_3=true&bSortable_4=true&bSortable_5=true&bSortable_6=false",
                                   pageSize: 200)
-        super.init(configs: configs, apiService: apiService, options: sortOptions.options)
+        super.init(configs: configs, options: sortOptions.options)
     }
 }
 

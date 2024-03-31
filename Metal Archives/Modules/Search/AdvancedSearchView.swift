@@ -17,20 +17,19 @@ Tip #2: to exclude terms, use the - symbol (e.g. searching "death -melodic" will
 
 struct AdvancedSearchView: View {
     @State private var showTips = false
-    let apiService: APIServiceProtocol
 
     var body: some View {
         Form {
             Section(footer: Text(kQuickTips)) {
-                NavigationLink(destination: AdvancedSearchBandsView(apiService: apiService)) {
+                NavigationLink(destination: AdvancedSearchBandsView()) {
                     Text("Advanced search bands")
                 }
 
-                NavigationLink(destination: AdvancedSearchAlbumsView(apiService: apiService)) {
+                NavigationLink(destination: AdvancedSearchAlbumsView()) {
                     Text("Advanced search albums")
                 }
 
-                NavigationLink(destination: AdvancedSearchSongsView(apiService: apiService)) {
+                NavigationLink(destination: AdvancedSearchSongsView()) {
                     Text("Advanced search songs")
                 }
             }
@@ -54,7 +53,7 @@ struct AdvancedSearchView: View {
 struct AdvancedSearchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AdvancedSearchView(apiService: APIService())
+            AdvancedSearchView()
         }
         .environment(\.colorScheme, .dark)
         .environmentObject(Preferences())

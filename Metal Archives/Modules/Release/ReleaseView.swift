@@ -9,16 +9,9 @@ import SwiftUI
 
 struct ReleaseView: View {
     @StateObject private var viewModel: ReleaseViewModel
-    private let apiService: APIServiceProtocol
 
-    init(apiService: APIServiceProtocol,
-         urlString: String,
-         parentRelease: Release?)
-    {
-        self.apiService = apiService
-        let vm = ReleaseViewModel(apiService: apiService,
-                                  urlString: urlString,
-                                  parentRelease: parentRelease)
+    init(urlString: String, parentRelease: Release?) {
+        let vm = ReleaseViewModel(urlString: urlString, parentRelease: parentRelease)
         _viewModel = .init(wrappedValue: vm)
     }
 
@@ -28,8 +21,7 @@ struct ReleaseView: View {
             case .fetching:
                 HornCircularLoader()
             case let .fetched(release):
-                ReleaseContentView(apiService: apiService,
-                                   release: release)
+                ReleaseContentView(release: release)
                     .environmentObject(viewModel)
             case let .error(error):
                 VStack {
@@ -59,12 +51,11 @@ private struct ReleaseContentView: View {
     @State private var selectedLineUpMode: ReleaseLineUpMode = .bandMembers
     private let minCoverScaleFactor: CGFloat = 0.5
     private let maxCoverScaleFactor: CGFloat = 1.2
-    let apiService: APIServiceProtocol
     let release: Release
 
     var body: some View {
         ZStack(alignment: .top) {
-            DetailView(detail: $detail, apiService: apiService)
+            DetailView(detail: $detail)
 
             ReleaseCoverView(scaleFactor: $coverScaleFactor,
                              opacity: $coverOpacity)
@@ -124,8 +115,7 @@ private struct ReleaseContentView: View {
                         ZStack {
                             switch tabsDatasource.selectedTab {
                             case .songs:
-                                TracklistView(apiService: apiService,
-                                              elements: release.elements)
+                                TracklistView(elements: release.elements)
                                     .padding(.horizontal)
                                     .frame(maxWidth: .infinity, alignment: .leading)
 

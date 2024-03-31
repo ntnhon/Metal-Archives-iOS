@@ -5,6 +5,7 @@
 //  Created by Nhon Nguyen on 16/10/2022.
 //
 
+import Factory
 import Kingfisher
 import SwiftUI
 
@@ -13,7 +14,7 @@ final class ReviewViewModel: ObservableObject {
     @Published private(set) var reviewFetchable: FetchableObject<Review> = .fetching
     @Published private(set) var coverFetchable: FetchableObject<UIImage?> = .fetching
 
-    let apiService: APIServiceProtocol
+    private let apiService = resolve(\DependenciesContainer.apiService)
     let urlString: String
 
     var review: Review? {
@@ -43,8 +44,7 @@ final class ReviewViewModel: ObservableObject {
         }
     }
 
-    init(apiService: APIServiceProtocol, urlString: String) {
-        self.apiService = apiService
+    init(urlString: String) {
         self.urlString = urlString
     }
 

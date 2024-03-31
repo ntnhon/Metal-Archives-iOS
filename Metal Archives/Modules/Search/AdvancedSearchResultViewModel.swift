@@ -16,14 +16,10 @@ class AdvancedSearchResultViewModel<T: HashableEquatablePageElement>: Observable
     @Published private(set) var error: Error?
     @Published private(set) var results: [T] = []
 
-    let apiService: APIServiceProtocol
     let manager: PageManager<T>
     private var cancellables = Set<AnyCancellable>()
 
-    init(apiService: APIServiceProtocol,
-         manager: PageManager<T>)
-    {
-        self.apiService = apiService
+    init(manager: PageManager<T>) {
         self.manager = manager
 
         manager.$isLoading

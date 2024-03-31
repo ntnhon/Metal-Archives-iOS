@@ -5,17 +5,17 @@
 //  Created by Nhon Nguyen on 16/10/2022.
 //
 
+import Factory
 import SwiftUI
 
 @MainActor
 final class UserViewModel: ObservableObject {
     @Published private(set) var userFetchable: FetchableObject<User> = .fetching
 
-    let apiService: APIServiceProtocol
+    private let apiService = resolve(\DependenciesContainer.apiService)
     let urlString: String
 
-    init(apiService: APIServiceProtocol, urlString: String) {
-        self.apiService = apiService
+    init(urlString: String) {
         self.urlString = urlString
     }
 

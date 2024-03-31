@@ -59,10 +59,10 @@ extension BandSimpleSearchResult: PageElement {
 }
 
 final class BandSimpleSearchResultPageManager: PageManager<BandSimpleSearchResult> {
-    init(apiService: APIServiceProtocol, query: String) {
+    init(query: String) {
         // swiftlint:disable:next line_length
         let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/search/ajax-band-search/?field=name&query=\(query)&sEcho=1&iColumns=3&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2",
                                   pageSize: 200)
-        super.init(configs: configs, apiService: apiService)
+        super.init(configs: configs)
     }
 }

@@ -10,9 +10,8 @@ import SwiftUI
 struct ArtistView: View {
     @StateObject private var viewModel: ArtistViewModel
 
-    init(apiService: APIServiceProtocol, urlString: String) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService,
-                                               urlString: urlString))
+    init(urlString: String) {
+        _viewModel = .init(wrappedValue: .init(urlString: urlString))
     }
 
     var body: some View {
@@ -59,7 +58,7 @@ private struct ArtistContentView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            DetailView(detail: $detail, apiService: viewModel.apiService)
+            DetailView(detail: $detail)
 
             ArtistPhotoView(scaleFactor: $photoScaleFactor, opacity: $photoOpacity)
                 .environmentObject(viewModel)

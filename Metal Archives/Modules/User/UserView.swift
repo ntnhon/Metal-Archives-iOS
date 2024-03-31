@@ -10,9 +10,8 @@ import SwiftUI
 struct UserView: View {
     @StateObject private var viewModel: UserViewModel
 
-    init(apiService: APIServiceProtocol, urlString: String) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService,
-                                               urlString: urlString))
+    init(urlString: String) {
+        _viewModel = .init(wrappedValue: .init(urlString: urlString))
     }
 
     var body: some View {
@@ -21,7 +20,7 @@ struct UserView: View {
             case .fetching:
                 HornCircularLoader()
             case let .fetched(user):
-                UserContentView(apiService: viewModel.apiService, user: user)
+                UserContentView(user: user)
                     .environmentObject(viewModel)
             case let .error(error):
                 VStack {
@@ -50,27 +49,24 @@ private struct UserContentView: View {
     @State private var detail: Detail?
     let user: User
 
-    init(apiService: APIServiceProtocol, user: User) {
+    init(user: User) {
         let userId = user.id
         self.user = user
         _tabsDatasource = .init(wrappedValue: .init(user: user))
-        _reviewsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: userId))
-        _submittedBandsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: userId))
-        _modificationsViewModel = .init(wrappedValue: .init(apiService: apiService, userId: userId))
-        _albumCollectionViewModel = .init(wrappedValue: .init(apiService: apiService,
-                                                              userId: userId,
+        _reviewsViewModel = .init(wrappedValue: .init(userId: userId))
+        _submittedBandsViewModel = .init(wrappedValue: .init(userId: userId))
+        _modificationsViewModel = .init(wrappedValue: .init(userId: userId))
+        _albumCollectionViewModel = .init(wrappedValue: .init(userId: userId,
                                                               type: .collection))
-        _forTradeListViewModel = .init(wrappedValue: .init(apiService: apiService,
-                                                           userId: userId,
+        _forTradeListViewModel = .init(wrappedValue: .init(userId: userId,
                                                            type: .forTrade))
-        _wantedListViewModel = .init(wrappedValue: .init(apiService: apiService,
-                                                         userId: userId,
+        _wantedListViewModel = .init(wrappedValue: .init(userId: userId,
                                                          type: .wanted))
     }
 
     var body: some View {
         ZStack {
-            DetailView(detail: $detail, apiService: viewModel.apiService)
+            DetailView(detail: $detail)
 
             ScrollView {
                 VStack {

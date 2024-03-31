@@ -64,10 +64,10 @@ extension DeceasedArtist: PageElement {
 }
 
 final class DeceasedArtistPageManager: PageManager<DeceasedArtist> {
-    init(apiService: APIServiceProtocol, sortOptions: SortOption) {
+    init(sortOptions: SortOption) {
         // swiftlint:disable:next line_length
         let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/artist/ajax-rip?sEcho=2&iColumns=5&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&sSearch=&bRegex=false&sSearch_0=&bRegex_0=false&bSearchable_0=true&sSearch_1=&bRegex_1=false&bSearchable_1=true&sSearch_2=&bRegex_2=false&bSearchable_2=true&sSearch_3=&bRegex_3=false&bSearchable_3=true&sSearch_4=&bRegex_4=false&bSearchable_4=true&iSortCol_0=\(kSortColumnPlaceholder)&sSortDir_0=\(kSortDirectionPlaceholder)&iSortingCols=\(kSortColumnPlaceholder)&bSortable_0=true&bSortable_1=true&bSortable_2=false&bSortable_3=true&bSortable_4=false")
-        super.init(configs: configs, apiService: apiService, options: sortOptions.options)
+        super.init(configs: configs, options: sortOptions.options)
     }
 }
 

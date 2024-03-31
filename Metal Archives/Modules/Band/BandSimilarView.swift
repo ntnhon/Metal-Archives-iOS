@@ -11,7 +11,6 @@ struct BandSimilarView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var showingDetail = false
     @State private var showingShareSheet = false
-    let apiService: APIServiceProtocol
     let bandSimilar: BandSimilar
 
     var body: some View {
@@ -19,7 +18,7 @@ struct BandSimilarView: View {
         NavigationLink(
             isActive: $showingDetail,
             destination: {
-                BandView(apiService: apiService, bandUrlString: urlString)
+                BandView(bandUrlString: urlString)
             },
             label: {
                 HStack {

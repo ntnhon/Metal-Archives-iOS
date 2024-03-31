@@ -46,17 +46,16 @@ private enum HomeTab: Int, CaseIterable {
 struct RootView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var selectedTab = HomeTab.home
-    let apiService: APIServiceProtocol
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            NavigationView { HomeView(apiService: apiService) }
+            NavigationView { HomeView() }
                 .tab(.home, selectedTab: selectedTab)
 
-            NavigationView { SearchView(apiService: apiService) }
+            NavigationView { SearchView() }
                 .tab(.search, selectedTab: selectedTab)
 
-            NavigationView { BrowseView(apiService: apiService) }
+            NavigationView { BrowseView() }
                 .tab(.browse, selectedTab: selectedTab)
 
             NavigationView { SettingsView() }

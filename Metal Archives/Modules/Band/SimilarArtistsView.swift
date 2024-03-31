@@ -29,7 +29,7 @@ struct SimilarArtistsView: View {
 
             case let .fetched(similarArtists):
                 ForEach(Array(similarArtists.prefix(20)), id: \.name) {
-                    BandSimilarView(apiService: viewModel.apiService, bandSimilar: $0)
+                    BandSimilarView(bandSimilar: $0)
                         .padding(.horizontal)
                         .padding(.vertical, 8)
 
@@ -38,8 +38,7 @@ struct SimilarArtistsView: View {
 
                 if similarArtists.count > 20 {
                     NavigationLink(destination: {
-                        AllSimilarArtistsView(apiService: viewModel.apiService,
-                                              band: viewModel.band,
+                        AllSimilarArtistsView(band: viewModel.band,
                                               similarArtists: similarArtists)
                     }, label: {
                         HStack {
@@ -70,7 +69,6 @@ struct SimilarArtistsView: View {
 }
 
 struct AllSimilarArtistsView: View {
-    let apiService: APIServiceProtocol
     let band: Band?
     let similarArtists: [BandSimilar]
 
@@ -78,7 +76,7 @@ struct AllSimilarArtistsView: View {
         ScrollView {
             LazyVStack {
                 ForEach(similarArtists, id: \.name) {
-                    BandSimilarView(apiService: apiService, bandSimilar: $0)
+                    BandSimilarView(bandSimilar: $0)
                         .padding(.horizontal)
                         .padding(.vertical, 8)
                 }

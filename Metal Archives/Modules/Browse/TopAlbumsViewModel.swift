@@ -5,6 +5,7 @@
 //  Created by Nhon Nguyen on 17/10/2022.
 //
 
+import Factory
 import Foundation
 
 @MainActor
@@ -17,7 +18,7 @@ final class TopAlbumsViewModel: ObservableObject {
         }
     }
 
-    let apiService: APIServiceProtocol
+    private let apiService = resolve(\DependenciesContainer.apiService)
 
     var isFetched: Bool {
         if case .fetched = topReleasesFetchable {
@@ -26,9 +27,7 @@ final class TopAlbumsViewModel: ObservableObject {
         return false
     }
 
-    init(apiService: APIServiceProtocol) {
-        self.apiService = apiService
-    }
+    init() {}
 
     func fetchTopReleases() async {
         if case .fetched = topReleasesFetchable { return }

@@ -18,7 +18,6 @@ enum Detail {
 
 struct DetailView: View {
     @Binding var detail: Detail?
-    let apiService: APIServiceProtocol
 
     var body: some View {
         let detailBinding = Binding<Bool>(get: {
@@ -34,17 +33,17 @@ struct DetailView: View {
                 if let detail {
                     switch detail {
                     case let .band(urlString):
-                        BandView(apiService: apiService, bandUrlString: urlString)
+                        BandView(bandUrlString: urlString)
                     case let .artist(urlString):
-                        ArtistView(apiService: apiService, urlString: urlString)
+                        ArtistView(urlString: urlString)
                     case let .release(urlString):
-                        ReleaseView(apiService: apiService, urlString: urlString, parentRelease: nil)
+                        ReleaseView(urlString: urlString, parentRelease: nil)
                     case let .label(urlString):
-                        LabelView(apiService: apiService, urlString: urlString)
+                        LabelView(urlString: urlString)
                     case let .review(urlString):
-                        ReviewView(apiService: apiService, urlString: urlString)
+                        ReviewView(urlString: urlString)
                     case let .user(urlString):
-                        UserView(apiService: apiService, urlString: urlString)
+                        UserView(urlString: urlString)
                     }
                 } else {
                     EmptyView()

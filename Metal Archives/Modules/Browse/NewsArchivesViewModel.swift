@@ -5,6 +5,7 @@
 //  Created by Nhon Nguyen on 23/10/2022.
 //
 
+import Factory
 import SwiftUI
 
 @MainActor
@@ -12,13 +13,11 @@ final class NewsArchivesViewModel: ObservableObject {
     @Published private(set) var news = [NewsPost]()
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error?
-    let apiService: APIServiceProtocol
+    private let apiService = resolve(\DependenciesContainer.apiService)
     private var currentPage = 0
     private var canLoadMore = true
 
-    init(apiService: APIServiceProtocol) {
-        self.apiService = apiService
-    }
+    init() {}
 
     func fetchMoreIfNeeded(currentPost: NewsPost?) async {
         guard let currentPost else {

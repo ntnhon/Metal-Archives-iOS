@@ -5,6 +5,7 @@
 //  Created by Nhon Nguyen on 03/10/2022.
 //
 
+import Factory
 import Foundation
 
 let kDefaultPageSize = 200
@@ -110,14 +111,10 @@ class PageManager<Element: PageElement>: PageManagerProtocol {
     private var options: [String: String]
     private(set) var total = 0
     let configs: PageConfigs
-    let apiService: APIServiceProtocol
+    let apiService = resolve(\DependenciesContainer.apiService)
 
-    init(configs: PageConfigs,
-         apiService: APIServiceProtocol,
-         options: [String: String] = [:])
-    {
+    init(configs: PageConfigs, options: [String: String] = [:]) {
         self.configs = configs
-        self.apiService = apiService
         self.options = options
     }
 

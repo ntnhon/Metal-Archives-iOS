@@ -8,16 +8,12 @@
 import SwiftUI
 
 struct TopAlbumsView: View {
-    @StateObject private var viewModel: TopAlbumsViewModel
+    @StateObject private var viewModel = TopAlbumsViewModel()
     @State private var detail: Detail?
-
-    init(apiService: APIServiceProtocol) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService))
-    }
 
     var body: some View {
         ZStack {
-            DetailView(detail: $detail, apiService: viewModel.apiService)
+            DetailView(detail: $detail)
 
             switch viewModel.topReleasesFetchable {
             case .fetching:

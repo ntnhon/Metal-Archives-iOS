@@ -5,16 +5,15 @@
 //  Created by Nhon Nguyen on 23/10/2022.
 //
 
+import Factory
 import SwiftUI
 
 @available(iOS 16, *)
 final class StatsViewModel: ObservableObject {
     @Published private(set) var statsFetchable = FetchableObject<Stats>.fetching
-    private let apiService: APIServiceProtocol
+    private let apiService = resolve(\DependenciesContainer.apiService)
 
-    init(apiService: APIServiceProtocol) {
-        self.apiService = apiService
-    }
+    init() {}
 
     @MainActor
     func refreshStats(force: Bool) async {

@@ -86,13 +86,13 @@ extension LatestBand: PageElement {
 }
 
 final class LatestBandPageManager: PageManager<LatestBand> {
-    init(apiService: APIServiceProtocol, type: LatestType) {
+    init(type: LatestType) {
         let components = Calendar.current.dateComponents([.month, .year], from: Date())
         let month = String(format: "%02d", components.month ?? 1)
         let year = components.year ?? 2024
         // swiftlint:disable:next line_length
         let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/archives/ajax-band-list/selection/\(year)-\(month)/by/\(type.path)/json/1?sEcho=1&iColumns=6&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&iSortCol_0=4&sSortDir_0=desc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true&bSortable_4=true&bSortable_5=true",
                                   pageSize: 200)
-        super.init(configs: configs, apiService: apiService)
+        super.init(configs: configs)
     }
 }

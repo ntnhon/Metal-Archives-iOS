@@ -9,11 +9,7 @@ import SwiftUI
 
 struct TopMembersView: View {
     @EnvironmentObject private var preferences: Preferences
-    @StateObject private var viewModel: TopMembersViewModel
-
-    init(apiService: APIServiceProtocol) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService))
-    }
+    @StateObject private var viewModel = TopMembersViewModel()
 
     var body: some View {
         ZStack {
@@ -25,7 +21,7 @@ struct TopMembersView: View {
                     ForEach(0 ..< viewModel.topUsers.count, id: \.self) { index in
                         let user = viewModel.topUsers[index]
                         NavigationLink(destination: {
-                            UserView(apiService: viewModel.apiService, urlString: user.user.urlString)
+                            UserView(urlString: user.user.urlString)
                         }, label: {
                             HStack {
                                 Text("\(index + 1). ")

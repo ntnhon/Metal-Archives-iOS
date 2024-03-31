@@ -5,6 +5,7 @@
 //  Created by Nhon Nguyen on 15/10/2022.
 //
 
+import Factory
 import Kingfisher
 import SwiftUI
 
@@ -15,7 +16,7 @@ final class LabelViewModel: ObservableObject {
     @Published private(set) var logoFetchable: FetchableObject<UIImage?> = .fetching
     @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .fetching
 
-    let apiService: APIServiceProtocol
+    private let apiService = resolve(\DependenciesContainer.apiService)
     let urlString: String
 
     var label: LabelDetail? {
@@ -36,8 +37,7 @@ final class LabelViewModel: ObservableObject {
         }
     }
 
-    init(apiService: APIServiceProtocol, urlString: String) {
-        self.apiService = apiService
+    init(urlString: String) {
         self.urlString = urlString
     }
 

@@ -24,7 +24,6 @@ struct AdvancedSearchBandsView: View {
     @State private var location = ""
     @State private var label = ""
     @State private var indieLabel = false
-    let apiService: APIServiceProtocol
 
     var body: some View {
         Form {
@@ -111,8 +110,7 @@ struct AdvancedSearchBandsView: View {
             Section {
                 NavigationLink(
                     destination: {
-                        AdvancedSearchResultView(viewModel: .init(apiService: apiService,
-                                                                  manager: makePageManager()))
+                        AdvancedSearchResultView(viewModel: .init(manager: makePageManager()))
                     },
                     label: {
                         Text("SEARCH")
@@ -142,7 +140,7 @@ struct AdvancedSearchBandsView: View {
         params.location = location
         params.labelName = label
         params.indieLabel = indieLabel
-        return .init(apiService: apiService, params: params)
+        return .init(params: params)
     }
 }
 

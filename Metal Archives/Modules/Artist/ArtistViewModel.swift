@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Factory
 import Kingfisher
 import UIKit
 
@@ -18,7 +19,7 @@ final class ArtistViewModel: ObservableObject {
     @Published private(set) var relatedLinksFetchable: FetchableObject<[RelatedLink]> = .fetching
 
     private let urlString: String
-    let apiService: APIServiceProtocol
+    private let apiService = resolve(\DependenciesContainer.apiService)
 
     var artist: Artist? {
         switch artistFetchable {
@@ -47,8 +48,7 @@ final class ArtistViewModel: ObservableObject {
         }
     }
 
-    init(apiService: APIServiceProtocol, urlString: String) {
-        self.apiService = apiService
+    init(urlString: String) {
         self.urlString = urlString
     }
 

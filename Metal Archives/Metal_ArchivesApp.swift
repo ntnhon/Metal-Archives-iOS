@@ -9,10 +9,9 @@ import SwiftUI
 
 @main
 struct Metal_ArchivesApp: App {
-    let apiService = APIService()
     var body: some Scene {
         WindowGroup {
-            RootView(apiService: apiService)
+            RootView()
                 .modifier(PhotoSelectableViewModifier())
                 .modifier(UrlSelectableViewModifier())
                 .modifier(ToastViewModifier())

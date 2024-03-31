@@ -14,11 +14,8 @@ struct UpcomingAlbumsSection: View {
     @StateObject private var viewModel: UpcomingAlbumsSectionViewModel
     @Binding var detail: Detail?
 
-    init(apiService: APIServiceProtocol,
-         detail: Binding<Detail?>)
-    {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService,
-                                               manager: UpcomingAlbumPageManager(apiService: apiService)))
+    init(detail: Binding<Detail?>) {
+        _viewModel = .init(wrappedValue: .init(manager: UpcomingAlbumPageManager()))
         _detail = detail
     }
 

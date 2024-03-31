@@ -14,11 +14,8 @@ struct LatestReviewsSection: View {
     @StateObject private var viewModel: LatestReviewsSectionViewModel
     @Binding var detail: Detail?
 
-    init(apiService: APIServiceProtocol,
-         detail: Binding<Detail?>)
-    {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService,
-                                               manager: LatestReviewPageManager(apiService: apiService)))
+    init(detail: Binding<Detail?>) {
+        _viewModel = .init(wrappedValue: .init(manager: LatestReviewPageManager()))
         _detail = detail
     }
 

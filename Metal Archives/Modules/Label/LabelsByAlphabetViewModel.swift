@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Factory
 import SwiftUI
 
 @MainActor
@@ -18,16 +19,15 @@ final class LabelsByAlphabetViewModel: ObservableObject {
         didSet { refresh() }
     }
 
-    let apiService: APIServiceProtocol
+    private let apiService = resolve(\DependenciesContainer.apiService)
     let letter: Letter
     let manager: LabelByAlphabetPageManager
     private var cancellables = Set<AnyCancellable>()
 
-    init(apiService: APIServiceProtocol, letter: Letter) {
-        self.apiService = apiService
+    init(letter: Letter) {
         self.letter = letter
         let defaultSortOption: LabelByAlphabetPageManager.SortOption = .name(.ascending)
-        manager = .init(apiService: apiService, letter: letter, sortOptions: defaultSortOption)
+        manager = .init(letter: letter, sortOptions: defaultSortOption)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

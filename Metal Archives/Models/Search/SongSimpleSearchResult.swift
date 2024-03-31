@@ -71,10 +71,10 @@ extension SongSimpleSearchResult: PageElement {
 }
 
 final class SongSimpleSearchResultPageManager: PageManager<SongSimpleSearchResult> {
-    init(apiService: APIServiceProtocol, query: String) {
+    init(query: String) {
         // swiftlint:disable:next line_length
         let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/search/ajax-song-search/?field=title&query=\(query)&sEcho=1&iColumns=4&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=kDisplayLengthPlaceholder\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3",
                                   pageSize: 200)
-        super.init(configs: configs, apiService: apiService)
+        super.init(configs: configs)
     }
 }

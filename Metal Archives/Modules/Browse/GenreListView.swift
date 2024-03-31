@@ -8,14 +8,12 @@
 import SwiftUI
 
 struct GenreListView: View {
-    let apiService: APIServiceProtocol
-
     var body: some View {
         Form {
             Section(content: {
                 ForEach(Genre.allCases, id: \.self) { genre in
                     NavigationLink(destination: {
-                        BandsByGenreView(apiService: apiService, genre: genre)
+                        BandsByGenreView(genre: genre)
                     }, label: {
                         Text(genre.rawValue)
                     })
@@ -31,7 +29,7 @@ struct GenreListView: View {
 struct GenreListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            GenreListView(apiService: APIService())
+            GenreListView()
         }
         .environment(\.colorScheme, .dark)
         .environmentObject(Preferences())

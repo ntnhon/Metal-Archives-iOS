@@ -21,18 +21,15 @@ final class SearchResultsViewModel<T: HashableEquatablePageElement>: ObservableO
     // TODO: Handle this
     private var databaseError: Error?
 
-    let apiService: APIServiceProtocol
     let manager: PageManager<T>
     let query: String?
     let datasource: SearchEntryDatasource
     private var cancellables = Set<AnyCancellable>()
 
-    init(apiService: APIServiceProtocol,
-         manager: PageManager<T>,
+    init(manager: PageManager<T>,
          query: String?,
          datasource: SearchEntryDatasource)
     {
-        self.apiService = apiService
         self.manager = manager
         self.query = query
         self.datasource = datasource

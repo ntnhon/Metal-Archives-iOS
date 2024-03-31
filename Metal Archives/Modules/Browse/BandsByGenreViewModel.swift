@@ -18,16 +18,14 @@ final class BandsByGenreViewModel: ObservableObject {
         didSet { refresh() }
     }
 
-    let apiService: APIServiceProtocol
     let genre: Genre
     let manager: BandsByGenrePageManager
     private var cancellables = Set<AnyCancellable>()
 
-    init(apiService: APIServiceProtocol, genre: Genre) {
-        self.apiService = apiService
+    init(genre: Genre) {
         self.genre = genre
         let defaultSortOption: BandsByGenrePageManager.SortOption = .band(.ascending)
-        manager = .init(apiService: apiService, genre: genre, sortOptions: defaultSortOption)
+        manager = .init(genre: genre, sortOptions: defaultSortOption)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

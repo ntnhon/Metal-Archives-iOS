@@ -10,9 +10,8 @@ import SwiftUI
 struct ReviewView: View {
     @StateObject private var viewModel: ReviewViewModel
 
-    init(apiService: APIServiceProtocol, urlString: String) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService,
-                                               urlString: urlString))
+    init(urlString: String) {
+        _viewModel = .init(wrappedValue: .init(urlString: urlString))
     }
 
     var body: some View {
@@ -21,7 +20,7 @@ struct ReviewView: View {
             case .fetching:
                 HornCircularLoader()
             case let .fetched(review):
-                ReviewContentView(apiService: viewModel.apiService, review: review)
+                ReviewContentView(review: review)
                     .environmentObject(viewModel)
             case let .error(error):
                 VStack {
@@ -49,18 +48,16 @@ private struct ReviewContentView: View {
     private let coverViewHeight: CGFloat
     private let minCoverScaleFactor: CGFloat = 0.5
     private let maxCoverScaleFactor: CGFloat = 1.2
-    let apiService: APIServiceProtocol
     let review: Review
 
-    init(apiService: APIServiceProtocol, review: Review) {
-        self.apiService = apiService
+    init(review: Review) {
         self.review = review
         coverViewHeight = review.coverPhotoUrlString != nil ? 300 : 0
     }
 
     var body: some View {
         ZStack(alignment: .top) {
-            DetailView(detail: $detail, apiService: apiService)
+            DetailView(detail: $detail)
 
             ReviewCoverView(scaleFactor: $coverScaleFactor, opacity: $coverOpacity)
                 .environmentObject(viewModel)

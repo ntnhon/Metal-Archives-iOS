@@ -10,8 +10,8 @@ import SwiftUI
 struct BandsByCountryView: View {
     @StateObject private var viewModel: BandsByCountryViewModel
 
-    init(apiService: APIServiceProtocol, country: Country) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService, country: country))
+    init(country: Country) {
+        _viewModel = .init(wrappedValue: .init(country: country))
     }
 
     var body: some View {
@@ -42,8 +42,7 @@ struct BandsByCountryView: View {
         List {
             ForEach(viewModel.bands, id: \.band.thumbnailInfo.urlString) { band in
                 NavigationLink(destination: {
-                    BandView(apiService: viewModel.apiService,
-                             bandUrlString: band.band.thumbnailInfo.urlString)
+                    BandView(bandUrlString: band.band.thumbnailInfo.urlString)
                 }, label: {
                     BandByCountryView(band: band)
                 })

@@ -58,11 +58,11 @@ extension LabelPastBand: PageElement {
 }
 
 final class LabelPastBandPageManager: PageManager<LabelPastBand> {
-    init(apiService: APIServiceProtocol, sortOptions: SortOption, labelId: String) {
+    init(sortOptions: SortOption, labelId: String) {
         // swiftlint:disable:next line_length
         let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/label/ajax-bands-past/nbrPerPage/100/id/\(labelId)?sEcho=1&iColumns=3&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&iSortCol_0=\(kSortColumnPlaceholder)&sSortDir_0=\(kSortDirectionPlaceholder)&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true",
                                   pageSize: 100)
-        super.init(configs: configs, apiService: apiService, options: sortOptions.options)
+        super.init(configs: configs, options: sortOptions.options)
     }
 }
 

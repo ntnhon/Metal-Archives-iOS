@@ -17,15 +17,13 @@ final class UserReviewsViewModel: ObservableObject {
         didSet { refresh() }
     }
 
-    let apiService: APIServiceProtocol
     let manager: UserReviewPageManager
     private var cancellables = Set<AnyCancellable>()
 
-    init(apiService: APIServiceProtocol, userId: String) {
-        self.apiService = apiService
+    init(userId: String) {
         let defaultSortOption: UserReviewPageManager.SortOption = .date(.descending)
         sortOption = defaultSortOption
-        manager = .init(apiService: apiService, sortOptions: defaultSortOption, userId: userId)
+        manager = .init(sortOptions: defaultSortOption, userId: userId)
 
         manager.$isLoading
             .receive(on: DispatchQueue.main)

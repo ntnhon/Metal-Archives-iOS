@@ -10,11 +10,7 @@ import SwiftUI
 
 @available(iOS 16, *)
 struct StatsView: View {
-    @StateObject private var viewModel: StatsViewModel
-
-    init(apiService: APIServiceProtocol) {
-        _viewModel = .init(wrappedValue: .init(apiService: apiService))
-    }
+    @StateObject private var viewModel = StatsViewModel()
 
     var body: some View {
         ZStack {

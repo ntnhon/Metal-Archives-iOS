@@ -21,7 +21,6 @@ enum CountryListMode {
 }
 
 struct CountryListView: View {
-    let apiService: APIServiceProtocol
     let mode: CountryListMode
 
     var body: some View {
@@ -30,9 +29,9 @@ struct CountryListView: View {
                 NavigationLink(destination: {
                     switch mode {
                     case .bands:
-                        BandsByCountryView(apiService: apiService, country: country)
+                        BandsByCountryView(country: country)
                     case .labels:
-                        LabelsByCountryView(apiService: apiService, country: country)
+                        LabelsByCountryView(country: country)
                     }
                 }, label: {
                     Text(country.nameAndFlag)
@@ -46,7 +45,7 @@ struct CountryListView: View {
 struct CountryListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CountryListView(apiService: APIService(), mode: .bands)
+            CountryListView(mode: .bands)
         }
         .environment(\.colorScheme, .dark)
         .environmentObject(Preferences())

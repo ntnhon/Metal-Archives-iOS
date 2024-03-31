@@ -83,12 +83,12 @@ extension UpcomingAlbum: PageElement {
 }
 
 final class UpcomingAlbumPageManager: PageManager<UpcomingAlbum> {
-    init(apiService: APIServiceProtocol) {
+    init() {
         let formatter = DateFormatter(dateFormat: "yyyy-MM-dd")
         let today = formatter.string(from: Date())
         // swiftlint:disable:next line_length
         let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/release/ajax-upcoming/json/1?sEcho=28&iColumns=6&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5&iSortCol_0=4&sSortDir_0=asc&iSortingCols=1&bSortable_0=true&bSortable_1=true&bSortable_2=true&bSortable_3=true&bSortable_4=true&bSortable_5=true&includeVersions=0&fromDate=\(today)&toDate=0000-00-00",
                                   pageSize: 100)
-        super.init(configs: configs, apiService: apiService)
+        super.init(configs: configs)
     }
 }

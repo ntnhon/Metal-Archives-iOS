@@ -22,7 +22,7 @@ final class SongAdvancedSearchResultParams {
 }
 
 final class SongAdvancedSearchResultPageManager: PageManager<SongAdvancedSearchResult> {
-    init(apiService: APIServiceProtocol, params: SongAdvancedSearchResultParams) {
+    init(params: SongAdvancedSearchResultParams) {
         var urlString = "https://www.metal-archives.com/search/ajax-advanced/searching/songs/?"
 
         urlString += "songTitle=\(params.songTitle)"
@@ -54,6 +54,6 @@ final class SongAdvancedSearchResultPageManager: PageManager<SongAdvancedSearchR
         urlString += "&sEcho=1&iColumns=6&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4&mDataProp_5=5"
 
         let configs = PageConfigs(baseUrlString: urlString, pageSize: 200)
-        super.init(configs: configs, apiService: apiService)
+        super.init(configs: configs)
     }
 }

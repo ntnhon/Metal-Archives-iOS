@@ -65,10 +65,10 @@ extension LyricalSimpleSearchResult: PageElement {
 }
 
 final class LyricalSimpleSearchResultPageManager: PageManager<LyricalSimpleSearchResult> {
-    init(apiService: APIServiceProtocol, query: String) {
+    init(query: String) {
         // swiftlint:disable:next line_length
         let configs = PageConfigs(baseUrlString: "https://www.metal-archives.com/search/ajax-band-search/?field=themes&query=\(query)&sEcho=1&iColumns=4&sColumns=&iDisplayStart=\(kDisplayStartPlaceholder)&iDisplayLength=\(kDisplayLengthPlaceholder)&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3",
                                   pageSize: 200)
-        super.init(configs: configs, apiService: apiService)
+        super.init(configs: configs)
     }
 }
