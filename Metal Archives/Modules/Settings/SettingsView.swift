@@ -19,9 +19,6 @@ struct SettingsView: View {
 
     @State private var showAboutSheet = false
     @State private var showSupportSheet = false
-
-    @State private var showThumbnails = false
-    @State private var useHaptic = false
     @State private var showThemePreview = false
 
     var body: some View {
@@ -34,10 +31,6 @@ struct SettingsView: View {
             bottomSection
         }
         .navigationTitle("Settings")
-        .onAppear {
-            showThumbnails = preferences.showThumbnails
-            useHaptic = preferences.useHaptic
-        }
     }
 
     private var generalSection: some View {
@@ -46,40 +39,21 @@ struct SettingsView: View {
                 Text("Home section order")
             }
 
-            Toggle("Show thumbnails", isOn: $showThumbnails)
-                .onChange(of: showThumbnails) { isOn in
-                    preferences.showThumbnails = isOn
-                    preferences.objectWillChange.send()
-                }
+            Toggle("Show thumbnails", isOn: $preferences.showThumbnails)
 
-            NavigationLink(destination: DiscographyModeView()) {
-                HStack {
-                    Text("Default discography mode")
-                    Spacer()
-                    Text(preferences.discographyMode.description)
-                        .font(.body)
-                        .foregroundColor(.gray)
+            Picker("Default discography mode", selection: $preferences.discographyMode) {
+                ForEach(DiscographyMode.allCases, id: \.self) { mode in
+                    Text(mode.description)
                 }
             }
 
-            HStack {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Default order by date")
-                    Picker("", selection: preferences.$dateOrder) {
-                        Text("Ascending ↑")
-                            .tag(Order.ascending)
-                        Text("Descending ↓")
-                            .tag(Order.descending)
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
+            Picker("Default order by date", selection: $preferences.dateOrder) {
+                ForEach(Order.allCases, id: \.self) { order in
+                    Text(order.title)
                 }
             }
 
-            Toggle("Haptic effect", isOn: $useHaptic)
-                .onChange(of: useHaptic) { isOn in
-                    preferences.useHaptic = isOn
-                    preferences.objectWillChange.send()
-                }
+            Toggle("Haptic effect", isOn: $preferences.useHaptic)
         }
     }
 
@@ -98,7 +72,6 @@ struct SettingsView: View {
                     .onTapGesture {
                         withAnimation {
                             preferences.theme = theme
-                            preferences.objectWillChange.send()
                             showThemePreview = true
                         }
                     }
@@ -195,13 +168,13 @@ struct SettingsView: View {
             }, label: {
                 Label(title: {
                     Text("Twitter")
-                        .foregroundColor(.primary)
                 }, icon: {
                     Image("Twitter")
                         .resizable()
                         .frame(width: 18, height: 18, alignment: .leading)
                 })
             })
+            .buttonStyle(.plain)
 
             // Facebook
             Button(action: {
@@ -209,13 +182,13 @@ struct SettingsView: View {
             }, label: {
                 Label(title: {
                     Text("Facebook")
-                        .foregroundColor(.primary)
                 }, icon: {
                     Image("Facebook")
                         .resizable()
                         .frame(width: 18, height: 18, alignment: .leading)
                 })
             })
+            .buttonStyle(.plain)
 
             // Github
             Button(action: {
@@ -223,7 +196,6 @@ struct SettingsView: View {
             }, label: {
                 Label(title: {
                     Text("Github")
-                        .foregroundColor(.primary)
                 }, icon: {
                     Image("Github")
                         .resizable()
@@ -232,6 +204,7 @@ struct SettingsView: View {
                         .frame(width: 18, height: 18, alignment: .leading)
                 })
             })
+            .buttonStyle(.plain)
 
             // Email
             Button(action: {
@@ -241,9 +214,9 @@ struct SettingsView: View {
                     UIApplication.shared.open(url)
                 }
             }, label: {
-                Label("Author's email", systemImage: "envelope.fill")
-                    .foregroundColor(.primary)
+                Label("Email", systemImage: "envelope.fill")
             })
+            .buttonStyle(.plain)
         }
     }
 

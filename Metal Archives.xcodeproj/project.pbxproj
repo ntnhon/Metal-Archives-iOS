@@ -137,7 +137,6 @@
 		C0DD1381267F6BC2009F0B81 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1380267F6BC2009F0B81 /* Preferences.swift */; };
 		C0DD1383267F6C40009F0B81 /* DiscographyMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1382267F6C40009F0B81 /* DiscographyMode.swift */; };
 		C0DD1385267F6E1D009F0B81 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1384267F6E1D009F0B81 /* ArrayExtensions.swift */; };
-		C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD1386267F798B009F0B81 /* DiscographyModeView.swift */; };
 		C0DF7D1926A44C850049C98D /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF7D1826A44C850049C98D /* ThumbnailView.swift */; };
 		C0E006A12698EDC100B5D503 /* ReleaseInBandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E006A02698EDC100B5D503 /* ReleaseInBandView.swift */; };
 		C0F01434265D8F420032DAEE /* ReviewLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F01433265D8F420032DAEE /* ReviewLite.swift */; };
@@ -469,7 +468,6 @@
 		C0DD1380267F6BC2009F0B81 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		C0DD1382267F6C40009F0B81 /* DiscographyMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyMode.swift; sourceTree = "<group>"; };
 		C0DD1384267F6E1D009F0B81 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
-		C0DD1386267F798B009F0B81 /* DiscographyModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscographyModeView.swift; sourceTree = "<group>"; };
 		C0DF7D1826A44C850049C98D /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
 		C0E006A02698EDC100B5D503 /* ReleaseInBandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseInBandView.swift; sourceTree = "<group>"; };
 		C0F01433265D8F420032DAEE /* ReviewLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLite.swift; sourceTree = "<group>"; };
@@ -949,7 +947,6 @@
 			isa = PBXGroup;
 			children = (
 				C017D42C267E9B51008B6EE5 /* AboutView.swift */,
-				C0DD1386267F798B009F0B81 /* DiscographyModeView.swift */,
 				C0DD137E267F6B41009F0B81 /* HomeSectionOrderView.swift */,
 				C017D420267E30D9008B6EE5 /* SettingsView.swift */,
 				C0DD1378267F5E6C009F0B81 /* SupportView.swift */,
@@ -1790,7 +1787,6 @@
 				EF3F5FF1290593CA00FD1A31 /* StatsViewModel.swift in Sources */,
 				C060E6CE268271330006433A /* AdvancedSearchAlbumsView.swift in Sources */,
 				EF6A89FB2903D03600DA2D67 /* BandsByCountryViewModel.swift in Sources */,
-				C0DD1387267F798B009F0B81 /* DiscographyModeView.swift in Sources */,
 				EFEB4334290C60210021F4DA /* ArtistPhotoView.swift in Sources */,
 				EF6C010E2957258100D08154 /* LatestBandsView.swift in Sources */,
 				EF5F05432926C21D00CECF67 /* MetalArchives.xcdatamodeld in Sources */,
