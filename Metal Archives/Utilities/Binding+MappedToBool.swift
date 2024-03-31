@@ -10,13 +10,12 @@ import SwiftUI
 extension Binding where Value == Bool {
     init(binding: Binding<(some Any)?>) {
         self.init(get: {
-                binding.wrappedValue != nil
-            }, set: { newValue in
-                if !newValue {
-                    binding.wrappedValue = nil
-                }
+            binding.wrappedValue != nil
+        }, set: { newValue in
+            if !newValue {
+                binding.wrappedValue = nil
             }
-        )
+        })
     }
 }
 

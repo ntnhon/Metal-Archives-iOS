@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LabelInfoView: View {
     @EnvironmentObject private var preferences: Preferences
-    @Environment(\.selectedUrl) private var selectedUrl
+    @Environment(\.openURL) private var openURL
     let label: LabelDetail
     let onSelectLabel: (String) -> Void
 
@@ -59,7 +59,7 @@ struct LabelInfoView: View {
                                            systemImage: "link.circle.fill",
                                            titleColor: preferences.theme.primaryColor)
                         .onTapGesture {
-                            selectedUrl.wrappedValue = website.urlString
+                            openURL(urlString: website.urlString)
                         }
                 }
 

@@ -16,7 +16,7 @@ struct SFSafariView: UIViewControllerRepresentable {
     var preferredControlTintColor: UIColor?
     var dismissButtonStyle: SFSafariViewController.DismissButtonStyle = .done
 
-    func makeUIViewController(context: Context) -> SFSafariViewController {
+    func makeUIViewController(context _: Context) -> SFSafariViewController {
         let vc = SFSafariViewController(url: url)
         vc.preferredBarTintColor = preferredBarTintColor
         vc.preferredControlTintColor = preferredControlTintColor
@@ -24,8 +24,9 @@ struct SFSafariView: UIViewControllerRepresentable {
         return vc
     }
 
-    func updateUIViewController(_ uiViewController: SFSafariViewController,
-                                context: Context) {
+    func updateUIViewController(_: SFSafariViewController,
+                                context _: Context)
+    {
         // No need to do anything
     }
 }

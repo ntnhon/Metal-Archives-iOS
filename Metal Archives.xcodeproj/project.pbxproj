@@ -183,7 +183,6 @@
 		EF3F5FED29058AB500FD1A31 /* NewsPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FEC29058AB500FD1A31 /* NewsPostView.swift */; };
 		EF3F5FEF2905922100FD1A31 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FEE2905922100FD1A31 /* StatsView.swift */; };
 		EF3F5FF1290593CA00FD1A31 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F5FF0290593CA00FD1A31 /* StatsViewModel.swift */; };
-		EF3FCC1E28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */; };
 		EF3FCC2028FC2E1C004CBB97 /* ToastViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */; };
 		EF42EE7C2900807B00362E39 /* ThumbnailInfoMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF42EE7B2900807B00362E39 /* ThumbnailInfoMatcher.swift */; };
 		EF4664AE2909B05800207E14 /* ReleaseLineUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4664AD2909B05800207E14 /* ReleaseLineUpViewModel.swift */; };
@@ -261,6 +260,7 @@
 		EF66D50C2BB9915200507FAA /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D50B2BB9915200507FAA /* DependenciesContainer.swift */; };
 		EF66D50E2BB9CEE400507FAA /* SFSafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D50D2BB9CEE400507FAA /* SFSafariView.swift */; };
 		EF66D5102BB9D00200507FAA /* Binding+MappedToBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D50F2BB9D00200507FAA /* Binding+MappedToBool.swift */; };
+		EF66D5122BB9EC3800507FAA /* OpenURLAction+OpenUrlString.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D5112BB9EC3800507FAA /* OpenURLAction+OpenUrlString.swift */; };
 		EF67B679293D4A4E00BAC4D2 /* UpcomingAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */; };
 		EF69DD7F291660AF00C3D4E3 /* LabelTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */; };
 		EF69DD81291664E500C3D4E3 /* LabelLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */; };
@@ -515,7 +515,6 @@
 		EF3F5FEC29058AB500FD1A31 /* NewsPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPostView.swift; sourceTree = "<group>"; };
 		EF3F5FEE2905922100FD1A31 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		EF3F5FF0290593CA00FD1A31 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
-		EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSelectableViewModifier.swift; sourceTree = "<group>"; };
 		EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastViewModifier.swift; sourceTree = "<group>"; };
 		EF42EE7B2900807B00362E39 /* ThumbnailInfoMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailInfoMatcher.swift; sourceTree = "<group>"; };
 		EF4664AD2909B05800207E14 /* ReleaseLineUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseLineUpViewModel.swift; sourceTree = "<group>"; };
@@ -590,6 +589,7 @@
 		EF66D50B2BB9915200507FAA /* DependenciesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesContainer.swift; sourceTree = "<group>"; };
 		EF66D50D2BB9CEE400507FAA /* SFSafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSafariView.swift; sourceTree = "<group>"; };
 		EF66D50F2BB9D00200507FAA /* Binding+MappedToBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+MappedToBool.swift"; sourceTree = "<group>"; };
+		EF66D5112BB9EC3800507FAA /* OpenURLAction+OpenUrlString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenURLAction+OpenUrlString.swift"; sourceTree = "<group>"; };
 		EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbum.swift; sourceTree = "<group>"; };
 		EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabsDatasource.swift; sourceTree = "<group>"; };
 		EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLogoView.swift; sourceTree = "<group>"; };
@@ -707,6 +707,7 @@
 				C0F240FC26891D9D00ED546D /* HTMLParsable.swift */,
 				EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */,
 				C0063EBD265C4630005AB1E2 /* Logger.swift */,
+				EF66D5112BB9EC3800507FAA /* OpenURLAction+OpenUrlString.swift */,
 				EF2862D228EB5EB700E2C131 /* PageManagerProtocol.swift */,
 				C08DF5CE26A62108002E73EB /* SizePreferenceKey.swift */,
 				C0DD1376267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift */,
@@ -987,7 +988,6 @@
 				EFC98B3B28EE0BD000154C30 /* RetryButton.swift */,
 				C0DF7D1826A44C850049C98D /* ThumbnailView.swift */,
 				EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */,
-				EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */,
 				EF66D50D2BB9CEE400507FAA /* SFSafariView.swift */,
 			);
 			path = "Supporting Views";
@@ -1652,6 +1652,7 @@
 				C0A9934B271240A100121BA3 /* Photo.swift in Sources */,
 				C03873A42659AB3600D2FD5E /* RelatedLink.swift in Sources */,
 				EF7A99F2291C5AB0008770E7 /* UserReleasesViewModel.swift in Sources */,
+				EF66D5122BB9EC3800507FAA /* OpenURLAction+OpenUrlString.swift in Sources */,
 				EF4F13F72919A2C40069C1EB /* UserReview.swift in Sources */,
 				C0F240FD26891D9D00ED546D /* HTMLParsable.swift in Sources */,
 				C05186322697A0BF006BB7D5 /* DiscographyViewModel.swift in Sources */,
@@ -1690,7 +1691,6 @@
 				EF7A99F0291C5A9B008770E7 /* UserReleasesView.swift in Sources */,
 				EF67B679293D4A4E00BAC4D2 /* UpcomingAlbum.swift in Sources */,
 				EF5A058128FDDC72001BF230 /* TopBandsView.swift in Sources */,
-				EF3FCC1E28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift in Sources */,
 				EF3F5FE129056CB500FD1A31 /* ArtistLite.swift in Sources */,
 				C01ECED92662341A009A3A32 /* ReleaseLite.swift in Sources */,
 				EF5EAB4D29181004009BCDFF /* Review.swift in Sources */,

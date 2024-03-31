@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LabelsByCountryView: View {
     @StateObject private var viewModel: LabelsByCountryViewModel
-    @Environment(\.selectedUrl) private var selectedUrl
+    @Environment(\.openURL) private var openURL
 
     init(country: Country) {
         _viewModel = .init(wrappedValue: .init(country: country))
@@ -54,7 +54,7 @@ struct LabelsByCountryView: View {
                 .contextMenu {
                     if let website = label.website {
                         Button(action: {
-                            selectedUrl.wrappedValue = website
+                            openURL(urlString: website)
                         }, label: {
                             Label("Visit website", systemImage: "link.circle")
                         })

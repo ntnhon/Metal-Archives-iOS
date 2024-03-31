@@ -9,7 +9,7 @@ import Kingfisher
 import SwiftUI
 
 struct RelatedLinkView: View {
-    @Environment(\.selectedUrl) private var selectedUrl
+    @Environment(\.openURL) private var openURL
     let relatedLink: RelatedLink
 
     var body: some View {
@@ -30,7 +30,7 @@ struct RelatedLinkView: View {
         .contentShape(Rectangle())
         .frame(maxWidth: .infinity)
         .onTapGesture {
-            selectedUrl.wrappedValue = relatedLink.urlString
+            openURL(urlString: relatedLink.urlString)
         }
     }
 }

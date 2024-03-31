@@ -15,7 +15,7 @@ private let kBuildNumber =
 
 struct SettingsView: View {
     @EnvironmentObject private var preferences: Preferences
-    @Environment(\.selectedUrl) private var selectedUrl
+    @Environment(\.openURL) private var openURL
 
     @State private var showAboutSheet = false
     @State private var showSupportSheet = false
@@ -143,14 +143,14 @@ struct SettingsView: View {
     private var officiaLinksSection: some View {
         Section(header: Text("Official Links")) {
             Button(action: {
-                selectedUrl.wrappedValue = "https://www.metal-archives.com/"
+                openURL(urlString: "https://www.metal-archives.com/")
             }, label: {
                 Label("Website", systemImage: "link")
                     .foregroundColor(.primary)
             })
 
             Button(action: {
-                selectedUrl.wrappedValue = "https://www.metal-archives.com/board/"
+                openURL(urlString: "https://www.metal-archives.com/board/")
             }, label: {
                 Label("Forum", systemImage: "globe")
                     .foregroundColor(.primary)
@@ -164,7 +164,7 @@ struct SettingsView: View {
         {
             // Twitter
             Button(action: {
-                selectedUrl.wrappedValue = "https://twitter.com/ma_mobile_app"
+                openURL(urlString: "https://twitter.com/ma_mobile_app")
             }, label: {
                 Label(title: {
                     Text("Twitter")
@@ -178,7 +178,7 @@ struct SettingsView: View {
 
             // Facebook
             Button(action: {
-                selectedUrl.wrappedValue = "https://www.facebook.com/MetalArchivesMobileApp"
+                openURL(urlString: "https://www.facebook.com/MetalArchivesMobileApp")
             }, label: {
                 Label(title: {
                     Text("Facebook")
@@ -192,7 +192,7 @@ struct SettingsView: View {
 
             // Github
             Button(action: {
-                selectedUrl.wrappedValue = "https://github.com/ntnhon/Metal-Archives-iOS"
+                openURL(urlString: "https://github.com/ntnhon/Metal-Archives-iOS")
             }, label: {
                 Label(title: {
                     Text("Github")

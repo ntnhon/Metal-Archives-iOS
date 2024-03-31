@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NewsPostView: View {
     @EnvironmentObject private var preferences: Preferences
-    @Environment(\.selectedUrl) private var selectedUrl
+    @Environment(\.openURL) private var openURL
     let newsPost: NewsPost
 
     var body: some View {
@@ -50,7 +50,7 @@ struct NewsPostView: View {
 
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: {
-                selectedUrl.wrappedValue = newsPost.urlString
+                openURL(urlString: newsPost.urlString)
             }, label: {
                 Image(systemName: "safari")
             })

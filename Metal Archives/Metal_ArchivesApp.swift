@@ -15,7 +15,6 @@ struct Metal_ArchivesApp: App {
         WindowGroup {
             RootView()
                 .modifier(PhotoSelectableViewModifier())
-                .modifier(UrlSelectableViewModifier())
                 .openUrlsWithInAppSafari(controlTintColor: preferences.theme.primaryColor)
                 .modifier(ToastViewModifier())
                 .environmentObject(preferences)

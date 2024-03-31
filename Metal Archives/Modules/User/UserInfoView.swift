@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UserInfoView: View {
     @EnvironmentObject private var preferences: Preferences
-    @Environment(\.selectedUrl) private var selectedUrl
+    @Environment(\.openURL) private var openURL
     let user: User
 
     var body: some View {
@@ -40,7 +40,7 @@ struct UserInfoView: View {
                                            systemImage: "link.circle.fill",
                                            titleColor: preferences.theme.primaryColor)
                         .onTapGesture {
-                            selectedUrl.wrappedValue = website.urlString
+                            openURL(urlString: website.urlString)
                         }
                 }
 
