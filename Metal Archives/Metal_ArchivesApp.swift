@@ -9,13 +9,16 @@ import SwiftUI
 
 @main
 struct Metal_ArchivesApp: App {
+    @StateObject private var preferences = Preferences()
+
     var body: some Scene {
         WindowGroup {
             RootView()
                 .modifier(PhotoSelectableViewModifier())
                 .modifier(UrlSelectableViewModifier())
+                .openUrlsWithInAppSafari(controlTintColor: preferences.theme.primaryColor)
                 .modifier(ToastViewModifier())
-                .environmentObject(Preferences())
+                .environmentObject(preferences)
                 .preferredColorScheme(.dark)
         }
     }

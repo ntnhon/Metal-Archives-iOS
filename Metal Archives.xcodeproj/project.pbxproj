@@ -259,6 +259,8 @@
 		EF626215293E7EEB006C3FDC /* HomeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF626214293E7EEB006C3FDC /* HomeSettings.swift */; };
 		EF66D50A2BB9911400507FAA /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = EF66D5092BB9911400507FAA /* Factory */; };
 		EF66D50C2BB9915200507FAA /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D50B2BB9915200507FAA /* DependenciesContainer.swift */; };
+		EF66D50E2BB9CEE400507FAA /* SFSafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D50D2BB9CEE400507FAA /* SFSafariView.swift */; };
+		EF66D5102BB9D00200507FAA /* Binding+MappedToBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D50F2BB9D00200507FAA /* Binding+MappedToBool.swift */; };
 		EF67B679293D4A4E00BAC4D2 /* UpcomingAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */; };
 		EF69DD7F291660AF00C3D4E3 /* LabelTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */; };
 		EF69DD81291664E500C3D4E3 /* LabelLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */; };
@@ -586,6 +588,8 @@
 		EF62240D28F1C94300845430 /* ReleaseCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseCoverView.swift; sourceTree = "<group>"; };
 		EF626214293E7EEB006C3FDC /* HomeSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSettings.swift; sourceTree = "<group>"; };
 		EF66D50B2BB9915200507FAA /* DependenciesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesContainer.swift; sourceTree = "<group>"; };
+		EF66D50D2BB9CEE400507FAA /* SFSafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSafariView.swift; sourceTree = "<group>"; };
+		EF66D50F2BB9D00200507FAA /* Binding+MappedToBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+MappedToBool.swift"; sourceTree = "<group>"; };
 		EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbum.swift; sourceTree = "<group>"; };
 		EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabsDatasource.swift; sourceTree = "<group>"; };
 		EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLogoView.swift; sourceTree = "<group>"; };
@@ -694,6 +698,7 @@
 			children = (
 				C0DD1384267F6E1D009F0B81 /* ArrayExtensions.swift */,
 				EF4B6BA72899015F008DBCF6 /* AttributedStringExtensions.swift */,
+				EF66D50F2BB9D00200507FAA /* Binding+MappedToBool.swift */,
 				C0F240F82689052000ED546D /* ColorExtensions.swift */,
 				C0D632BC2687CC9900348E29 /* DataExtensions.swift */,
 				C004A2BF2658F4F40071E12A /* DateFormatterExtensions.swift */,
@@ -969,6 +974,7 @@
 				EF48E6C82895BBFB00B52EF2 /* AlertToastModifiers.swift */,
 				EF31834B289862D000B6C8DD /* BetterSafariViewModifier.swift */,
 				C021535326A6155F006F6A33 /* Blur.swift */,
+				EF3C27402912EC5B00D6C9B2 /* ColorCustomizableLabel.swift */,
 				EF3C273E2912E90600D6C9B2 /* GradientBackgroundView.swift */,
 				C071578226E6AA280075C012 /* HighlightableText.swift */,
 				EFC0C6BC28F49D0A0092497A /* HorizontalTabs.swift */,
@@ -976,13 +982,13 @@
 				EF3CAEEC28FAA3710092D80E /* LabelLiteButton.swift */,
 				EF48E6C328954C9E00B52EF2 /* OffsetAwareScrollView.swift */,
 				C0C65A1526982E250062FF9C /* OrderView.swift */,
+				C0A9934C2712411700121BA3 /* PhotoSelectableViewModifier.swift */,
 				C0FA708426B0789500B618E6 /* RelatedLinkView.swift */,
 				EFC98B3B28EE0BD000154C30 /* RetryButton.swift */,
-				C0A9934C2712411700121BA3 /* PhotoSelectableViewModifier.swift */,
-				EF3C27402912EC5B00D6C9B2 /* ColorCustomizableLabel.swift */,
-				EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */,
 				C0DF7D1826A44C850049C98D /* ThumbnailView.swift */,
+				EF3FCC1F28FC2E1C004CBB97 /* ToastViewModifier.swift */,
 				EF3FCC1D28FC2A7F004CBB97 /* UrlSelectableViewModifier.swift */,
+				EF66D50D2BB9CEE400507FAA /* SFSafariView.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -1565,6 +1571,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF5EAB51291821A4009BCDFF /* ReviewInfoView.swift in Sources */,
+				EF66D5102BB9D00200507FAA /* Binding+MappedToBool.swift in Sources */,
 				EF5A058928FDDDE5001BF230 /* TopBandsViewModel.swift in Sources */,
 				EFF4B87A292427D60007B563 /* SearchResultsView.swift in Sources */,
 				EF5EAB412917FC0C009BCDFF /* LabelPastBand.swift in Sources */,
@@ -1771,6 +1778,7 @@
 				EF5D011C28FF19BE008833C5 /* TopUsers.swift in Sources */,
 				EF5A058328FDDC8F001BF230 /* TopAlbumsView.swift in Sources */,
 				EF5EAB49291804C9009BCDFF /* LabelReleasesView.swift in Sources */,
+				EF66D50E2BB9CEE400507FAA /* SFSafariView.swift in Sources */,
 				C02A8CAE2681258B001430D6 /* Letter.swift in Sources */,
 				C02A8CB22681261E001430D6 /* AlphabetView.swift in Sources */,
 				C0FA708726B081D000B618E6 /* HtmlBodyText.swift in Sources */,
