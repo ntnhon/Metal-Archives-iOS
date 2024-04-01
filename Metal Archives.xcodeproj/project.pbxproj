@@ -2019,7 +2019,7 @@
 		C00A79F42657024B004FA9D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Guitar1 AppIcon-Guitar2 AppIcon-Guitar3 AppIcon-Guitar4 AppIcon-Guitar5 AppIcon-Guitar6";
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Custom1 AppIcon-Custom2 AppIcon-Custom3 AppIcon-Custom4 AppIcon-Custom5 AppIcon-Custom6";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Metal Archives/Metal Archives.entitlements";
@@ -2045,7 +2045,7 @@
 		C00A79F52657024B004FA9D7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Guitar1 AppIcon-Guitar2 AppIcon-Guitar3 AppIcon-Guitar4 AppIcon-Guitar5 AppIcon-Guitar6";
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Custom1 AppIcon-Custom2 AppIcon-Custom3 AppIcon-Custom4 AppIcon-Custom5 AppIcon-Custom6";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Metal Archives/Metal Archives.entitlements";

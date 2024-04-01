@@ -43,4 +43,27 @@ enum AlternateAppIcon {
             iconName
         }
     }
+
+    static var customIcons: [Self] {
+        [.custom1, .custom2, .custom3, .custom4, .custom5, .custom6]
+    }
+
+    init(iconName: String?) {
+        switch iconName {
+        case "AppIcon-Custom1":
+            self = .custom1
+        case "AppIcon-Custom2":
+            self = .custom2
+        case "AppIcon-Custom3":
+            self = .custom3
+        case "AppIcon-Custom4":
+            self = .custom4
+        case "AppIcon-Custom5":
+            self = .custom5
+        case "AppIcon-Custom6":
+            self = .custom6
+        default:
+            self = .primary
+        }
+    }
 }

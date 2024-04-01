@@ -9,13 +9,18 @@ import SwiftUI
 
 struct AppIconsView: View {
     @EnvironmentObject private var preferences: Preferences
+    @State private var selectedIcon: AlternateAppIcon?
     var body: some View {
         Form {
             mainIconSection
+            customIconsSection
         }
         .navigationTitle("App icon")
         .animation(.default, value: UIApplication.shared.alternateIconName)
         .tint(preferences.theme.primaryColor)
+        .task {
+            selectedIcon = .init(iconName: UIApplication.shared.alternateIconName)
+        }
     }
 }
 
@@ -38,6 +43,7 @@ private extension AppIconsView {
 
     func select(_ icon: AlternateAppIcon) {
         UIApplication.shared.setAlternateIconName(icon.value)
+        selectedIcon = icon
     }
 }
 
@@ -48,13 +54,37 @@ private extension AppIconsView {
             HStack {
                 iconThumbnail(.primary)
                 Spacer()
-                if UIApplication.shared.alternateIconName == nil {
+                if selectedIcon == .primary {
                     checkmark
                 }
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                select(.primary)
             }
         }, footer: {
             Text("Designed by **[Matt Stewart](https://twitter.com/nrthrndarkness)**")
         })
+    }
+}
+
+private extension AppIconsView {
+    var customIconsSection: some View {
+        Section {
+            ForEach(AlternateAppIcon.customIcons, id: \.self) { icon in
+                HStack {
+                    iconThumbnail(icon)
+                    Spacer()
+                    if selectedIcon == icon {
+                        checkmark
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    select(icon)
+                }
+            }
+        }
     }
 }
 
