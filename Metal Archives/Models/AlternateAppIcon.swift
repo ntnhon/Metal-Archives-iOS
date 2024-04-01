@@ -9,29 +9,29 @@ import Foundation
 
 enum AlternateAppIcon {
     case primary
-    case guitar1
-    case guitar2
-    case guitar3
-    case guitar4
-    case guitar5
-    case guitar6
+    case custom1
+    case custom2
+    case custom3
+    case custom4
+    case custom5
+    case custom6
 
     var iconName: String {
         switch self {
         case .primary:
             "AppIcon"
-        case .guitar1:
-            "AppIcon-Guitar1"
-        case .guitar2:
-            "AppIcon-Guitar2"
-        case .guitar3:
-            "AppIcon-Guitar3"
-        case .guitar4:
-            "AppIcon-Guitar4"
-        case .guitar5:
-            "AppIcon-Guitar5"
-        case .guitar6:
-            "AppIcon-Guitar6"
+        case .custom1:
+            "AppIcon-Custom1"
+        case .custom2:
+            "AppIcon-Custom2"
+        case .custom3:
+            "AppIcon-Custom3"
+        case .custom4:
+            "AppIcon-Custom4"
+        case .custom5:
+            "AppIcon-Custom5"
+        case .custom6:
+            "AppIcon-Custom6"
         }
     }
 
