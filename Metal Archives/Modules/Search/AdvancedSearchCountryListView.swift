@@ -50,12 +50,10 @@ struct AdvancedSearchCountryListView: View {
     }
 }
 
-struct AdvancedSearchCountryListView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            AdvancedSearchCountryListView(countrySet: .init())
-        }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
+#Preview {
+    NavigationView {
+        AdvancedSearchCountryListView(countrySet: .init())
     }
+    .environment(\.colorScheme, .dark)
+    .environmentObject(Preferences())
 }

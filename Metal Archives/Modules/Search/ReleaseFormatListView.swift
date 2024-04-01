@@ -50,12 +50,10 @@ struct ReleaseFormatListView: View {
     }
 }
 
-struct ReleaseFormatListView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            ReleaseFormatListView(releaseFormatSet: .init())
-        }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
+#Preview {
+    NavigationView {
+        ReleaseFormatListView(releaseFormatSet: .init())
     }
+    .environment(\.colorScheme, .dark)
+    .environmentObject(Preferences())
 }

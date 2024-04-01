@@ -60,11 +60,7 @@ struct HorizontalTabs: View {
     }
 }
 
-/*
- struct HorizontalTabs_Previews: PreviewProvider {
-     static var previews: some View {
-         HorizontalTabs(datasource: BandTabsDatasource())
-             .environmentObject(Preferences())
-     }
- }
-  */
+#Preview {
+    HorizontalTabs(datasource: BandTabsDatasource())
+        .environmentObject(Preferences())
+}

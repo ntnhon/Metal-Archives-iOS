@@ -57,10 +57,8 @@ struct AdvancedSearchTipsView: View {
     }
 }
 
-struct AdvancedSearchTipsView_Previews: PreviewProvider {
-    static var previews: some View {
-        AdvancedSearchTipsView()
-            .environment(\.colorScheme, .dark)
-            .environmentObject(Preferences())
-    }
+#Preview {
+    AdvancedSearchTipsView()
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
 }

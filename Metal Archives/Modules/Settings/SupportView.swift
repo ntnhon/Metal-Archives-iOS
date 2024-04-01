@@ -31,10 +31,8 @@ struct SupportView: View {
     }
 }
 
-struct SupportView_Previews: PreviewProvider {
-    static var previews: some View {
-        SupportView()
-            .environment(\.colorScheme, .dark)
-            .environmentObject(Preferences())
-    }
+#Preview {
+    SupportView()
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
 }

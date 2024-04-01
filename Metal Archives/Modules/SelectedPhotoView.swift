@@ -134,10 +134,8 @@ struct SelectedPhotoView: View {
     }
 }
 
-struct SelectedPhotoView_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectedPhotoView()
-    }
+#Preview {
+    SelectedPhotoView()
 }
 
 private extension CGSize {

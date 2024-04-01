@@ -208,15 +208,10 @@ private struct BandContentView: View {
     }
 }
 
-/*
- struct BandView_Previews: PreviewProvider {
-     static var previews: some View {
-         NavigationView {
-             BandView(apiService: APIService(),
-                      bandUrlString: "https://www.metal-archives.com/bands/Death/141")
-         }
-         .environment(\.colorScheme, .dark)
-         .environmentObject(Preferences())
-     }
- }
- */
+#Preview {
+    NavigationView {
+        BandView(bandUrlString: "https://www.metal-archives.com/bands/Death/141")
+    }
+    .environment(\.colorScheme, .dark)
+    .environmentObject(Preferences())
+}

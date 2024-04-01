@@ -25,9 +25,11 @@ struct BrowseView: View {
             randomBandUrlString = "https://www.metal-archives.com/band/random"
         }
     }
+}
 
-    private var newsStatisticSection: some View {
-        Section(header: Text("News & statistics")) {
+private extension BrowseView {
+    var newsStatisticSection: some View {
+        Section(content: {
             NavigationLink(destination: NewsArchivesView()) {
                 Label("News archives", systemImage: "newspaper.fill")
             }
@@ -41,10 +43,12 @@ struct BrowseView: View {
             }, label: {
                 Label("Statistics", systemImage: "chart.pie.fill")
             })
-        }
+        }, header: {
+            Text("News & statistics")
+        })
     }
 
-    private var topOfSection: some View {
+    var topOfSection: some View {
         Section(content: {
             NavigationLink(destination: TopBandsView()) {
                 Label("Top 100 bands", systemImage: "person.3.fill")
@@ -62,8 +66,8 @@ struct BrowseView: View {
         })
     }
 
-    private var bandsSection: some View {
-        Section(header: Text("Bands")) {
+    var bandsSection: some View {
+        Section(content: {
             NavigationLink(destination: AlphabetView(mode: .bands)) {
                 Label("Alphabetical", systemImage: "abc")
             }
@@ -75,11 +79,13 @@ struct BrowseView: View {
             NavigationLink(destination: GenreListView()) {
                 Label("Genre", systemImage: "guitars.fill")
             }
-        }
+        }, header: {
+            Text("Bands")
+        })
     }
 
-    private var labelsSection: some View {
-        Section(header: Text("Labels")) {
+    var labelsSection: some View {
+        Section(content: {
             NavigationLink(destination: AlphabetView(mode: .labels)) {
                 Label("Alphabetical", systemImage: "abc")
             }
@@ -87,30 +93,34 @@ struct BrowseView: View {
             NavigationLink(destination: CountryListView(mode: .labels)) {
                 Label("Country", systemImage: "globe")
             }
-        }
+        }, header: {
+            Text("Labels")
+        })
     }
 
-    private var ripSection: some View {
-        Section(header: Text("R.I.P")) {
+    var ripSection: some View {
+        Section(content: {
             NavigationLink(destination: DeceasedArtistsView()) {
                 Label("Deceased artists", systemImage: "staroflife.fill")
             }
-        }
+        }, header: {
+            Text("R.I.P")
+        })
     }
 
-    private var randomSection: some View {
-        Section(header: Text("Random")) {
+    var randomSection: some View {
+        Section(content: {
             let bandView = BandView(bandUrlString: randomBandUrlString ?? "")
             NavigationLink(destination: bandView) {
                 Label("Random band", systemImage: "questionmark")
             }
-        }
+        }, header: {
+            Text("Random")
+        })
     }
 }
 
-struct BrowseView_Previews: PreviewProvider {
-    static var previews: some View {
-        BrowseView()
-            .environment(\.colorScheme, .dark)
-    }
+#Preview {
+    BrowseView()
+        .environment(\.colorScheme, .dark)
 }

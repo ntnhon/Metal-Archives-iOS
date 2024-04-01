@@ -180,15 +180,11 @@ private struct YearPicker: View {
     }
 }
 
-/*
- struct AdvancedSearchBandsView_Previews: PreviewProvider {
-     static var previews: some View {
-         NavigationView {
-             AdvancedSearchBandsView()
-                 .environmentObject(Preferences())
-         }
-         .environment(\.colorScheme, .dark)
-         .environmentObject(Preferences())
-     }
- }
- */
+#Preview {
+    NavigationView {
+        AdvancedSearchBandsView()
+            .environmentObject(Preferences())
+    }
+    .environment(\.colorScheme, .dark)
+    .environmentObject(Preferences())
+}

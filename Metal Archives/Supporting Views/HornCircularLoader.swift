@@ -35,9 +35,7 @@ struct HornCircularLoader: View {
     }
 }
 
-struct HornCircularLoader_Previews: PreviewProvider {
-    static var previews: some View {
-        HornCircularLoader()
-            .environmentObject(Preferences())
-    }
+#Preview {
+    HornCircularLoader()
+        .environmentObject(Preferences())
 }

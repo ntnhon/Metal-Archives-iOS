@@ -80,23 +80,21 @@ struct DiscographyView: View {
     }
 }
 
-struct DiscographyView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            Color(.systemBackground).ignoresSafeArea()
-            ScrollView {
-                VStack {
-                    DiscographyView(viewModel: .init(discography: .death,
-                                                     discographyMode: .complete,
-                                                     order: .ascending))
-                }
+#Preview {
+    ZStack {
+        Color(.systemBackground).ignoresSafeArea()
+        ScrollView {
+            VStack {
+                DiscographyView(viewModel: .init(discography: .death,
+                                                 discographyMode: .complete,
+                                                 order: .ascending))
             }
-            .padding(.horizontal)
-            .background(Color(.systemBackground))
         }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
+        .padding(.horizontal)
+        .background(Color(.systemBackground))
     }
+    .environment(\.colorScheme, .dark)
+    .environmentObject(Preferences())
 }
 
 private struct DiscographyModePicker: View {

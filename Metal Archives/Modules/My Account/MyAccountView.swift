@@ -13,10 +13,8 @@ struct MyAccountView: View {
     }
 }
 
-struct MyAccountView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyAccountView()
-            .environment(\.colorScheme, .dark)
-            .environmentObject(Preferences())
-    }
+#Preview {
+    MyAccountView()
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
 }

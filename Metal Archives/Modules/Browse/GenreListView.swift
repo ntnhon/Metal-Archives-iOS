@@ -26,12 +26,10 @@ struct GenreListView: View {
     }
 }
 
-struct GenreListView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            GenreListView()
-        }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
+#Preview {
+    NavigationView {
+        GenreListView()
     }
+    .environment(\.colorScheme, .dark)
+    .environmentObject(Preferences())
 }

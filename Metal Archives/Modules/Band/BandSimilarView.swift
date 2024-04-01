@@ -79,18 +79,15 @@ struct BandSimilarView: View {
     }
 }
 
-/*
- struct BandSimilarView_Previews: PreviewProvider {
-     static var previews: some View {
-         let urlString = "https://www.metal-archives.com/bands/Possessed/914"
-         let thumbnailInfo = ThumbnailInfo(urlString: urlString, type: .bandLogo)!
-         let possessed = BandSimilar(thumbnailInfo: thumbnailInfo,
-                                     name: "Possessed",
-                                     country: .usa,
-                                     genre: "Death/Thrash Metal",
-                                     score: 291)
-         BandSimilarView(apiService: APIService(), bandSimilar: possessed)
-             .environmentObject(Preferences())
-     }
- }
- */
+#Preview {
+    let urlString = "https://www.metal-archives.com/bands/Possessed/914"
+    // swiftlint:disable:next force_unwrapping
+    let thumbnailInfo = ThumbnailInfo(urlString: urlString, type: .bandLogo)!
+    let possessed = BandSimilar(thumbnailInfo: thumbnailInfo,
+                                name: "Possessed",
+                                country: .usa,
+                                genre: "Death/Thrash Metal",
+                                score: 291)
+    return BandSimilarView(bandSimilar: possessed)
+        .environmentObject(Preferences())
+}

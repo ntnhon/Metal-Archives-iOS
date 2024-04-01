@@ -122,10 +122,8 @@ struct BandHeaderView: View {
     }
 }
 
-struct BandHeaderView_Previews: PreviewProvider {
-    static var previews: some View {
-        ScrollView {
-            BandHeaderView(band: .death) { _ in }
-        }
+#Preview {
+    ScrollView {
+        BandHeaderView(band: .death) { _ in }
     }
 }

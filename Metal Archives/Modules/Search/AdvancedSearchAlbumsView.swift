@@ -211,12 +211,10 @@ struct AdvancedSearchAlbumsView: View {
     }
 }
 
-struct AdvancedSearchAlbumsView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            AdvancedSearchAlbumsView()
-        }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
+#Preview {
+    NavigationView {
+        AdvancedSearchAlbumsView()
     }
+    .environment(\.colorScheme, .dark)
+    .environmentObject(Preferences())
 }

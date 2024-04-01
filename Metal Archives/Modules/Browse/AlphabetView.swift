@@ -68,12 +68,10 @@ struct AlphabetView: View {
     }
 }
 
-struct AlphabetView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            AlphabetView(mode: .bands)
-        }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
+#Preview {
+    NavigationView {
+        AlphabetView(mode: .bands)
     }
+    .environment(\.colorScheme, .dark)
+    .environmentObject(Preferences())
 }

@@ -55,12 +55,9 @@ struct HighlightableText: View {
     }
 }
 
-struct HighlightTextView_Previews: PreviewProvider {
-    static var previews: some View {
-        // swiftlint:disable:next line_length
-        HighlightableText(text: "(R.I.P. 2001) See also: ex-Control Denied, ex-Mantas, ex-Slaughter, ex-Voodoocult",
-                          highlights: ["Control Denied", "Mantas", "Slaughter", "Voodoocult"],
-                          highlightFontWeight: .bold,
-                          highlightColor: .accentColor)
-    }
+#Preview {
+    HighlightableText(text: "(R.I.P. 2001) See also: ex-Control Denied, ex-Mantas, ex-Slaughter, ex-Voodoocult",
+                      highlights: ["Control Denied", "Mantas", "Slaughter", "Voodoocult"],
+                      highlightFontWeight: .bold,
+                      highlightColor: .accentColor)
 }

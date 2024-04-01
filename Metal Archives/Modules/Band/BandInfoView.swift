@@ -106,19 +106,15 @@ struct BandInfoView: View {
     }
 }
 
-/*
- struct BandInfoView_Previews: PreviewProvider {
-     static var previews: some View {
-         NavigationView {
-             BandInfoView(viewModel: .init(band: .death, discography: .death),
-                          onSelectLabel: { _ in },
-                          onSelectBand: { _ in })
-         }
-         .environment(\.colorScheme, .dark)
-         .environmentObject(Preferences())
-     }
- }
-  */
+#Preview {
+    NavigationView {
+        BandInfoView(viewModel: .init(band: .death, discography: .death),
+                     onSelectLabel: { _ in },
+                     onSelectBand: { _ in })
+    }
+    .environment(\.colorScheme, .dark)
+    .environmentObject(Preferences())
+}
 
 final class BandInfoViewModel {
     let band: Band

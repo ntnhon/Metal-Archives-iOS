@@ -47,10 +47,8 @@ struct ThumbnailView: View {
     }
 }
 
-struct ThumbnailView_Previews: PreviewProvider {
-    static var previews: some View {
-        ThumbnailView(thumbnailInfo: .death, photoDescription: "")
-    }
+#Preview {
+    ThumbnailView(thumbnailInfo: .death, photoDescription: "")
 }
 
 enum ImageExtension: String {

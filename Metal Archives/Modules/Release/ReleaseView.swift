@@ -196,19 +196,6 @@ private struct ReleaseContentView: View {
 }
 
 /*
- struct ReleaseView_Previews: PreviewProvider {
-     static var previews: some View {
-         NavigationView {
-             ReleaseView(apiService: APIService(),
-                         releaseUrlString: "https://www.metal-archives.com/albums/Death/Human/606")
-         }
-         .environment(\.colorScheme, .dark)
-         .environmentObject(Preferences())
-     }
- }
- */
-
-/*
  struct IgnoreTopSafeArea: ViewModifier {
      let shouldIgnore: Bool
 

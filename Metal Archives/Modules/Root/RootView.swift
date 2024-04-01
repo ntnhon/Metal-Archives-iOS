@@ -72,12 +72,8 @@ private extension View {
     }
 }
 
-/*
- struct RootView_Previews: PreviewProvider {
-     static var previews: some View {
-         RootView(apiService: APIService())
-             .environment(\.colorScheme, .dark)
-             .environmentObject(Preferences())
-     }
- }
- */
+#Preview {
+    RootView()
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
+}

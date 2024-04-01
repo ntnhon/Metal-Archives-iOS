@@ -20,7 +20,7 @@ struct AdvancedSearchView: View {
 
     var body: some View {
         Form {
-            Section(footer: Text(kQuickTips)) {
+            Section(content: {
                 NavigationLink(destination: AdvancedSearchBandsView()) {
                     Text("Advanced search bands")
                 }
@@ -32,7 +32,9 @@ struct AdvancedSearchView: View {
                 NavigationLink(destination: AdvancedSearchSongsView()) {
                     Text("Advanced search songs")
                 }
-            }
+            }, footer: {
+                Text(kQuickTips)
+            })
         }
         .navigationTitle("Advanced search")
         .sheet(isPresented: $showTips) {
@@ -50,12 +52,10 @@ struct AdvancedSearchView: View {
     }
 }
 
-struct AdvancedSearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            AdvancedSearchView()
-        }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
+#Preview {
+    NavigationView {
+        AdvancedSearchView()
     }
+    .environment(\.colorScheme, .dark)
+    .environmentObject(Preferences())
 }

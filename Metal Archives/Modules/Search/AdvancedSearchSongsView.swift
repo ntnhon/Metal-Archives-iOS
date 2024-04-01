@@ -113,12 +113,10 @@ struct AdvancedSearchSongsView: View {
     }
 }
 
-struct AdvancedSearchSongsView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            AdvancedSearchSongsView()
-        }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
+#Preview {
+    NavigationView {
+        AdvancedSearchSongsView()
     }
+    .environment(\.colorScheme, .dark)
+    .environmentObject(Preferences())
 }

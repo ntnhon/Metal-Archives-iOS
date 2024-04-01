@@ -38,12 +38,10 @@ struct HomeSectionOrderView: View {
     }
 }
 
-struct HomeSectionOrderView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            HomeSectionOrderView()
-        }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
+#Preview {
+    NavigationView {
+        HomeSectionOrderView()
     }
+    .environment(\.colorScheme, .dark)
+    .environmentObject(Preferences())
 }

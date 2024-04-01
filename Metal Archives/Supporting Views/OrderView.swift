@@ -38,9 +38,7 @@ private struct OrderViewPreview: View {
     }
 }
 
-struct OrderView_Previews: PreviewProvider {
-    static var previews: some View {
-        OrderViewPreview()
-            .environmentObject(Preferences())
-    }
+#Preview {
+    OrderViewPreview()
+        .environmentObject(Preferences())
 }

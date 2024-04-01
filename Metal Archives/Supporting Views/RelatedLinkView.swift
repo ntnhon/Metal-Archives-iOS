@@ -35,8 +35,6 @@ struct RelatedLinkView: View {
     }
 }
 
-struct RelatedLinkView_Previews: PreviewProvider {
-    static var previews: some View {
-        RelatedLinkView(relatedLink: .init(urlString: "https://www.facebook.com/DeathOfficial", title: "Facebook"))
-    }
+#Preview {
+    RelatedLinkView(relatedLink: .init(urlString: "https://www.facebook.com/DeathOfficial", title: "Facebook"))
 }

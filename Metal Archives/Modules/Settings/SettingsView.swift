@@ -32,9 +32,11 @@ struct SettingsView: View {
         }
         .navigationTitle("Settings")
     }
+}
 
-    private var generalSection: some View {
-        Section(header: Text("General")) {
+private extension SettingsView {
+    var generalSection: some View {
+        Section(content: {
             NavigationLink(destination: HomeSectionOrderView()) {
                 Text("Home section order")
             }
@@ -54,11 +56,13 @@ struct SettingsView: View {
             }
 
             Toggle("Haptic effect", isOn: $preferences.useHaptic)
-        }
+        }, header: {
+            Text("General")
+        })
     }
 
-    private var themeSection: some View {
-        Section(header: Text("Theme")) {
+    var themeSection: some View {
+        Section(content: {
             HStack(spacing: 16) {
                 ForEach(Theme.allCases, id: \.self) { theme in
                     ZStack {
@@ -81,11 +85,13 @@ struct SettingsView: View {
             if showThemePreview {
                 themePreview
             }
-        }
+        }, header: {
+            Text("Display")
+        })
     }
 
-    private var informationSection: some View {
-        Section(header: Text("Information")) {
+    var informationSection: some View {
+        Section(content: {
             // About
             Button(action: {
                 showAboutSheet = true
@@ -137,11 +143,13 @@ struct SettingsView: View {
                 SupportView()
                     .accentColor(preferences.theme.primaryColor)
             }
-        }
+        }, header: {
+            Text("Information")
+        })
     }
 
-    private var officiaLinksSection: some View {
-        Section(header: Text("Official Links")) {
+    var officiaLinksSection: some View {
+        Section(content: {
             Button(action: {
                 openURL(urlString: "https://www.metal-archives.com/")
             }, label: {
@@ -155,13 +163,13 @@ struct SettingsView: View {
                 Label("Forum", systemImage: "globe")
                     .foregroundColor(.primary)
             })
-        }
+        }, header: {
+            Text("Official Links")
+        })
     }
 
-    private var mobileAppLinksSection: some View {
-        Section(header: Text("Mobile Application Links"),
-                footer: Text("For crashes, bug reports & feature requests related to this iOS app"))
-        {
+    var mobileAppLinksSection: some View {
+        Section(content: {
             // Twitter
             Button(action: {
                 openURL(urlString: "https://twitter.com/ma_mobile_app")
@@ -217,10 +225,14 @@ struct SettingsView: View {
                 Label("Email", systemImage: "envelope.fill")
             })
             .buttonStyle(.plain)
-        }
+        }, header: {
+            Text("Mobile Application Links")
+        }, footer: {
+            Text("For crashes, bug reports & feature requests related to this iOS app")
+        })
     }
 
-    private var bottomSection: some View {
+    var bottomSection: some View {
         Section(content: { EmptyView() }, footer: {
             VStack {
                 Text("Made with 🤘 by **[Nhon Nguyen](https://twitter.com/_ntnhon)**")
@@ -237,7 +249,7 @@ struct SettingsView: View {
         })
     }
 
-    private var themePreview: some View {
+    var themePreview: some View {
         VStack(alignment: .leading) {
             Text("How it looks 👇")
 
@@ -265,10 +277,8 @@ struct SettingsView: View {
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
-            .environment(\.colorScheme, .dark)
-            .environmentObject(Preferences())
-    }
+#Preview {
+    SettingsView()
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Preferences())
 }

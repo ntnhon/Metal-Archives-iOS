@@ -51,12 +51,10 @@ struct BandStatusListView: View {
     }
 }
 
-struct BandStatusListView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            BandStatusListView(bandStatusSet: .init())
-        }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
+#Preview {
+    NavigationView {
+        BandStatusListView(bandStatusSet: .init())
     }
+    .environment(\.colorScheme, .dark)
+    .environmentObject(Preferences())
 }

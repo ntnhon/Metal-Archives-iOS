@@ -42,12 +42,10 @@ struct CountryListView: View {
     }
 }
 
-struct CountryListView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            CountryListView(mode: .bands)
-        }
-        .environment(\.colorScheme, .dark)
-        .environmentObject(Preferences())
+#Preview {
+    NavigationView {
+        CountryListView(mode: .bands)
     }
+    .environment(\.colorScheme, .dark)
+    .environmentObject(Preferences())
 }

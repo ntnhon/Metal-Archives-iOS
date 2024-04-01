@@ -261,6 +261,7 @@
 		EF66D50E2BB9CEE400507FAA /* SFSafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D50D2BB9CEE400507FAA /* SFSafariView.swift */; };
 		EF66D5102BB9D00200507FAA /* Binding+MappedToBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D50F2BB9D00200507FAA /* Binding+MappedToBool.swift */; };
 		EF66D5122BB9EC3800507FAA /* OpenURLAction+OpenUrlString.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D5112BB9EC3800507FAA /* OpenURLAction+OpenUrlString.swift */; };
+		EF66D5152BBAABE200507FAA /* SwiftfulLoadingIndicators in Frameworks */ = {isa = PBXBuildFile; productRef = EF66D5142BBAABE200507FAA /* SwiftfulLoadingIndicators */; };
 		EF67B679293D4A4E00BAC4D2 /* UpcomingAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */; };
 		EF69DD7F291660AF00C3D4E3 /* LabelTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */; };
 		EF69DD81291664E500C3D4E3 /* LabelLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */; };
@@ -653,6 +654,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF66D5152BBAABE200507FAA /* SwiftfulLoadingIndicators in Frameworks */,
 				EF48E6C72895BBA900B52EF2 /* AlertToast in Frameworks */,
 				EF62620F293E6E5D006C3FDC /* SnapToScroll in Frameworks */,
 				C0CC030526963B420043A728 /* Kingfisher in Frameworks */,
@@ -1402,6 +1404,7 @@
 				EF3183492898627C00B6C8DD /* BetterSafariView */,
 				EF62620E293E6E5D006C3FDC /* SnapToScroll */,
 				EF66D5092BB9911400507FAA /* Factory */,
+				EF66D5142BBAABE200507FAA /* SwiftfulLoadingIndicators */,
 			);
 			productName = "Metal Archives";
 			productReference = C00A79CE26570245004FA9D7 /* Metal Archives.app */;
@@ -1482,6 +1485,7 @@
 				EF3183482898627C00B6C8DD /* XCRemoteSwiftPackageReference "BetterSafariView" */,
 				EF62620D293E6E5D006C3FDC /* XCRemoteSwiftPackageReference "hstack-snap-to-scroll" */,
 				EF66D5082BB9911400507FAA /* XCRemoteSwiftPackageReference "Factory" */,
+				EF66D5132BBAABE200507FAA /* XCRemoteSwiftPackageReference "SwiftfulLoadingIndicators" */,
 			);
 			productRefGroup = C00A79CF26570245004FA9D7 /* Products */;
 			projectDirPath = "";
@@ -2225,6 +2229,14 @@
 				minimumVersion = 2.3.2;
 			};
 		};
+		EF66D5132BBAABE200507FAA /* XCRemoteSwiftPackageReference "SwiftfulLoadingIndicators" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftfulThinking/SwiftfulLoadingIndicators";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2257,6 +2269,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EF66D5082BB9911400507FAA /* XCRemoteSwiftPackageReference "Factory" */;
 			productName = Factory;
+		};
+		EF66D5142BBAABE200507FAA /* SwiftfulLoadingIndicators */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF66D5132BBAABE200507FAA /* XCRemoteSwiftPackageReference "SwiftfulLoadingIndicators" */;
+			productName = SwiftfulLoadingIndicators;
 		};
 /* End XCSwiftPackageProductDependency section */
 
