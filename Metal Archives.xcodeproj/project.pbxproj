@@ -265,6 +265,7 @@
 		EF66D5192BBACB2F00507FAA /* LoadingIndicatorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D5182BBACB2F00507FAA /* LoadingIndicatorExtensions.swift */; };
 		EF66D51B2BBAD26B00507FAA /* MALoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D51A2BBAD26B00507FAA /* MALoadingIndicator.swift */; };
 		EF66D51F2BBAF89000507FAA /* AlternateAppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D51E2BBAF89000507FAA /* AlternateAppIcon.swift */; };
+		EF66D5212BBAF96300507FAA /* AppIconsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D5202BBAF96300507FAA /* AppIconsView.swift */; };
 		EF67B679293D4A4E00BAC4D2 /* UpcomingAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */; };
 		EF69DD7F291660AF00C3D4E3 /* LabelTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */; };
 		EF69DD81291664E500C3D4E3 /* LabelLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */; };
@@ -597,6 +598,7 @@
 		EF66D5182BBACB2F00507FAA /* LoadingIndicatorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorExtensions.swift; sourceTree = "<group>"; };
 		EF66D51A2BBAD26B00507FAA /* MALoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MALoadingIndicator.swift; sourceTree = "<group>"; };
 		EF66D51E2BBAF89000507FAA /* AlternateAppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternateAppIcon.swift; sourceTree = "<group>"; };
+		EF66D5202BBAF96300507FAA /* AppIconsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconsView.swift; sourceTree = "<group>"; };
 		EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbum.swift; sourceTree = "<group>"; };
 		EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabsDatasource.swift; sourceTree = "<group>"; };
 		EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLogoView.swift; sourceTree = "<group>"; };
@@ -962,6 +964,7 @@
 			isa = PBXGroup;
 			children = (
 				C017D42C267E9B51008B6EE5 /* AboutView.swift */,
+				EF66D5202BBAF96300507FAA /* AppIconsView.swift */,
 				C0DD137E267F6B41009F0B81 /* HomeSectionOrderView.swift */,
 				EF66D5162BBAC93800507FAA /* LoadingIndicatorsView.swift */,
 				C017D420267E30D9008B6EE5 /* SettingsView.swift */,
@@ -1824,6 +1827,7 @@
 				EF59D622291B00A800B68F4F /* UserModificationsView.swift in Sources */,
 				EF6A8A052903DF7A00DA2D67 /* LabelStatus.swift in Sources */,
 				C017D424267E3115008B6EE5 /* RootView.swift in Sources */,
+				EF66D5212BBAF96300507FAA /* AppIconsView.swift in Sources */,
 				C0FA708526B0789500B618E6 /* RelatedLinkView.swift in Sources */,
 				C004A2B62658F17B0071E12A /* LabelLite.swift in Sources */,
 				C0C65A1626982E250062FF9C /* OrderView.swift in Sources */,

@@ -85,6 +85,10 @@ private extension SettingsView {
                         .foregroundStyle(.secondary)
                 }
             }
+
+            NavigationLink(destination: AppIconsView()) {
+                Text("App icon")
+            }
         }, header: {
             Text("Display")
         })

@@ -16,10 +16,10 @@ enum AlternateAppIcon {
     case guitar5
     case guitar6
 
-    var iconName: String? {
+    var iconName: String {
         switch self {
         case .primary:
-            nil
+            "AppIcon"
         case .guitar1:
             "AppIcon-Guitar1"
         case .guitar2:
@@ -32,6 +32,15 @@ enum AlternateAppIcon {
             "AppIcon-Guitar5"
         case .guitar6:
             "AppIcon-Guitar6"
+        }
+    }
+
+    var value: String? {
+        switch self {
+        case .primary:
+            nil
+        default:
+            iconName
         }
     }
 }
