@@ -31,7 +31,7 @@ struct BandView: View {
                 }
 
             case .fetching:
-                HornCircularLoader()
+                MALoadingIndicator()
 
             case let .fetched(metadata):
                 BandContentView(metadata: metadata,

@@ -24,7 +24,7 @@ struct BandsByGenreView: View {
                     }
                 }
             } else if viewModel.isLoading && viewModel.bands.isEmpty {
-                ProgressView()
+                MALoadingIndicator()
             } else if viewModel.bands.isEmpty {
                 Text("No bands found")
                     .font(.callout.italic())

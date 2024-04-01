@@ -19,7 +19,7 @@ struct ReleaseView: View {
         ZStack {
             switch viewModel.releaseFetchable {
             case .fetching:
-                HornCircularLoader()
+                MALoadingIndicator()
             case let .fetched(release):
                 ReleaseContentView(release: release)
                     .environmentObject(viewModel)

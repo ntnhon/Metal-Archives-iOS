@@ -14,7 +14,7 @@ struct NewsArchivesView: View {
     var body: some View {
         ZStack {
             if viewModel.isLoading, viewModel.news.isEmpty {
-                HornCircularLoader()
+                MALoadingIndicator()
             } else if let error = viewModel.error {
                 VStack {
                     Text(error.userFacingMessage)

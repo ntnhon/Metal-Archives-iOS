@@ -14,7 +14,7 @@ struct TopBandsView: View {
         ZStack {
             switch viewModel.topBandsFetchable {
             case .fetching:
-                HornCircularLoader()
+                MALoadingIndicator()
             case .fetched:
                 List {
                     ForEach(0 ..< viewModel.topBands.count, id: \.self) { index in

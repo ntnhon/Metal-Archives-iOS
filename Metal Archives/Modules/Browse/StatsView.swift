@@ -16,7 +16,7 @@ struct StatsView: View {
         ZStack {
             switch viewModel.statsFetchable {
             case .fetching:
-                HornCircularLoader()
+                MALoadingIndicator()
                     .navigationBarTitleDisplayMode(.inline)
 
             case let .fetched(stats):

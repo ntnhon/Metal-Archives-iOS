@@ -163,7 +163,7 @@ struct SearchView: View {
     @ViewBuilder
     private var history: some View {
         if viewModel.isLoading, viewModel.entries.isEmpty {
-            ProgressView()
+            MALoadingIndicator()
         } else {
             if viewModel.entries.isEmpty {
                 Text("Empty search history")

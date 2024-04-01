@@ -18,7 +18,7 @@ struct ArtistView: View {
         ZStack {
             switch viewModel.artistFetchable {
             case .fetching:
-                HornCircularLoader()
+                MALoadingIndicator()
             case let .fetched(artist):
                 ArtistContentView(artist: artist)
                     .environmentObject(viewModel)

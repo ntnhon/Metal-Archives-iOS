@@ -18,7 +18,7 @@ struct UserView: View {
         ZStack {
             switch viewModel.userFetchable {
             case .fetching:
-                HornCircularLoader()
+                MALoadingIndicator()
             case let .fetched(user):
                 UserContentView(user: user)
                     .environmentObject(viewModel)

@@ -15,7 +15,7 @@ struct TopMembersView: View {
         ZStack {
             switch viewModel.topUsersFetchable {
             case .fetching:
-                HornCircularLoader()
+                MALoadingIndicator()
             case .fetched:
                 List {
                     ForEach(0 ..< viewModel.topUsers.count, id: \.self) { index in

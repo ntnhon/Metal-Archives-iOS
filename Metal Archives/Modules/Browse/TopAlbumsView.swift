@@ -17,7 +17,7 @@ struct TopAlbumsView: View {
 
             switch viewModel.topReleasesFetchable {
             case .fetching:
-                HornCircularLoader()
+                MALoadingIndicator()
             case .fetched:
                 List {
                     ForEach(0 ..< viewModel.releases.count, id: \.self) { index in

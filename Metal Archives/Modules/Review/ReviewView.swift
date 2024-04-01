@@ -18,7 +18,7 @@ struct ReviewView: View {
         ZStack {
             switch viewModel.reviewFetchable {
             case .fetching:
-                HornCircularLoader()
+                MALoadingIndicator()
             case let .fetched(review):
                 ReviewContentView(review: review)
                     .environmentObject(viewModel)

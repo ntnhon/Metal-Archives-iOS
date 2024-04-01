@@ -22,7 +22,7 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
                     RetryButton(onRetry: viewModel.refresh)
                 }
             } else if viewModel.isLoading && viewModel.results.isEmpty {
-                HornCircularLoader()
+                MALoadingIndicator()
             } else if viewModel.results.isEmpty {
                 NoResultsView(query: viewModel.query)
             } else {

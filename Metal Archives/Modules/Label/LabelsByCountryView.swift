@@ -25,7 +25,7 @@ struct LabelsByCountryView: View {
                     }
                 }
             } else if viewModel.isLoading && viewModel.labels.isEmpty {
-                ProgressView()
+                MALoadingIndicator()
             } else if viewModel.labels.isEmpty {
                 Text("No labels found")
                     .font(.callout.italic())

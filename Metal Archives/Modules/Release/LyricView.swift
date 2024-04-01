@@ -22,7 +22,7 @@ struct LyricView: View {
             Group {
                 switch viewModel.lyricFetchable {
                 case .fetching:
-                    HornCircularLoader()
+                    MALoadingIndicator()
                 case let .fetched(lyric):
                     ScrollView {
                         Text(lyric)

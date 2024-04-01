@@ -18,7 +18,7 @@ struct LabelView: View {
         ZStack {
             switch viewModel.labelFetchable {
             case .fetching:
-                HornCircularLoader()
+                MALoadingIndicator()
             case let .fetched(label):
                 LabelContentView(urlString: viewModel.urlString, label: label)
                     .environmentObject(viewModel)
