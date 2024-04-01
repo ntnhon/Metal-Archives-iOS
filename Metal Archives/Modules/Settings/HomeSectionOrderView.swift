@@ -27,11 +27,14 @@ struct HomeSectionOrderView: View {
         }
         .navigationBarTitle("Home section order", displayMode: .inline)
         .toolbar { EditButton() }
+        .onAppear {
+            editMode?.wrappedValue = .active
+        }
     }
 
     private func handleMove(from source: IndexSet, to destination: Int) {
-        preferences.$homeSectionOrder.wrappedValue.move(fromOffsets: source, toOffset: destination)
-        preferences.objectWillChange.send()
+        preferences.$homeSectionOrder.wrappedValue.move(fromOffsets: source,
+                                                        toOffset: destination)
     }
 }
 

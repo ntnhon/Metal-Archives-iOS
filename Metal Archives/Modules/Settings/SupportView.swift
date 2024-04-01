@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SupportView: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var preferences: Preferences
 
     var body: some View {
         NavigationView {
@@ -26,6 +27,7 @@ struct SupportView: View {
             }
         }
         .preferredColorScheme(.dark)
+        .openUrlsWithInAppSafari(controlTintColor: preferences.theme.primaryColor)
     }
 }
 
