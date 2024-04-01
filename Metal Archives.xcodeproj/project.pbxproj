@@ -264,6 +264,7 @@
 		EF66D5172BBAC93800507FAA /* LoadingIndicatorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D5162BBAC93800507FAA /* LoadingIndicatorsView.swift */; };
 		EF66D5192BBACB2F00507FAA /* LoadingIndicatorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D5182BBACB2F00507FAA /* LoadingIndicatorExtensions.swift */; };
 		EF66D51B2BBAD26B00507FAA /* MALoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D51A2BBAD26B00507FAA /* MALoadingIndicator.swift */; };
+		EF66D51F2BBAF89000507FAA /* AlternateAppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D51E2BBAF89000507FAA /* AlternateAppIcon.swift */; };
 		EF67B679293D4A4E00BAC4D2 /* UpcomingAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */; };
 		EF69DD7F291660AF00C3D4E3 /* LabelTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */; };
 		EF69DD81291664E500C3D4E3 /* LabelLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */; };
@@ -595,6 +596,7 @@
 		EF66D5162BBAC93800507FAA /* LoadingIndicatorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorsView.swift; sourceTree = "<group>"; };
 		EF66D5182BBACB2F00507FAA /* LoadingIndicatorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorExtensions.swift; sourceTree = "<group>"; };
 		EF66D51A2BBAD26B00507FAA /* MALoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MALoadingIndicator.swift; sourceTree = "<group>"; };
+		EF66D51E2BBAF89000507FAA /* AlternateAppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternateAppIcon.swift; sourceTree = "<group>"; };
 		EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbum.swift; sourceTree = "<group>"; };
 		EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabsDatasource.swift; sourceTree = "<group>"; };
 		EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLogoView.swift; sourceTree = "<group>"; };
@@ -1139,6 +1141,7 @@
 				C0A68A15265D738D00E9A658 /* Review */,
 				EFF4B878292426910007B563 /* Search */,
 				C004A2B92658F31C0071E12A /* User */,
+				EF66D51E2BBAF89000507FAA /* AlternateAppIcon.swift */,
 				C0A37B6C26584E980017A02F /* Country.swift */,
 				C0DD1382267F6C40009F0B81 /* DiscographyMode.swift */,
 				C02A8CB326812E78001430D6 /* Genre.swift */,
@@ -1768,6 +1771,7 @@
 				C02A4CDE268678C6001CF9D2 /* Vibration.swift in Sources */,
 				EF4DDC1629394BA800CA8B19 /* MultipleChoiceSet.swift in Sources */,
 				EF3C27472913022F00D6C9B2 /* ArtistBiographyView.swift in Sources */,
+				EF66D51F2BBAF89000507FAA /* AlternateAppIcon.swift in Sources */,
 				EF48E6C428954C9E00B52EF2 /* OffsetAwareScrollView.swift in Sources */,
 				EF5E6CE2292581EB00AE7CAA /* UserSimpleSearchResult.swift in Sources */,
 				EF59D624291B00B500B68F4F /* UserModificationsViewModel.swift in Sources */,
@@ -2011,6 +2015,7 @@
 		C00A79F42657024B004FA9D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Guitar1 AppIcon-Guitar2 AppIcon-Guitar3 AppIcon-Guitar4 AppIcon-Guitar5 AppIcon-Guitar6";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Metal Archives/Metal Archives.entitlements";
@@ -2036,6 +2041,7 @@
 		C00A79F52657024B004FA9D7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Guitar1 AppIcon-Guitar2 AppIcon-Guitar3 AppIcon-Guitar4 AppIcon-Guitar5 AppIcon-Guitar6";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Metal Archives/Metal Archives.entitlements";
