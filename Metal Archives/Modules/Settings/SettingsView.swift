@@ -24,13 +24,15 @@ struct SettingsView: View {
     var body: some View {
         Form {
             generalSection
-            themeSection
+            displaySection
             informationSection
             officiaLinksSection
             mobileAppLinksSection
             bottomSection
         }
         .navigationTitle("Settings")
+        .animation(.default, value: showThemePreview)
+        .animation(.default, value: preferences.theme)
     }
 }
 
@@ -60,36 +62,74 @@ private extension SettingsView {
             Text("General")
         })
     }
+}
 
-    var themeSection: some View {
+private extension SettingsView {
+    var displaySection: some View {
         Section(content: {
-            HStack(spacing: 16) {
-                ForEach(Theme.allCases, id: \.self) { theme in
-                    ZStack {
-                        Circle()
-                            .frame(width: 28, height: 28)
-                            .foregroundColor(theme == preferences.theme ? .primary : .clear)
-                        theme.primaryColor
-                            .frame(width: 24, height: 24)
-                            .clipShape(Circle())
-                    }
-                    .onTapGesture {
-                        withAnimation {
-                            preferences.theme = theme
-                            showThemePreview = true
-                        }
-                    }
+            VStack(alignment: .leading) {
+                Text("Theme")
+                themePicker
+                if showThemePreview {
+                    themePreview
                 }
             }
-
-            if showThemePreview {
-                themePreview
-            }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }, header: {
             Text("Display")
         })
     }
 
+    var themePicker: some View {
+        HStack(spacing: 16) {
+            ForEach(Theme.allCases, id: \.self) { theme in
+                ZStack {
+                    Circle()
+                        .frame(width: 28, height: 28)
+                        .foregroundColor(theme == preferences.theme ? .primary : .clear)
+                    theme.primaryColor
+                        .frame(width: 24, height: 24)
+                        .clipShape(Circle())
+                }
+                .onTapGesture {
+                    preferences.theme = theme
+                    showThemePreview = true
+                }
+            }
+        }
+    }
+
+    var themePreview: some View {
+        VStack(alignment: .leading) {
+            Text("How it looks 👇")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+
+            HStack(spacing: 8) {
+                Image("TSOP")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 64)
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("The Sound of Perserverance")
+                        .font(.body)
+                        .fontWeight(.bold)
+                        .foregroundColor(preferences.theme.primaryColor)
+                    Text("Death")
+                        .font(.callout)
+                        .fontWeight(.bold)
+                        .foregroundColor(preferences.theme.secondaryColor)
+                    Text("1998 • Full-length")
+                        .font(.footnote)
+                        .fontWeight(.medium)
+                }
+            }
+        }
+    }
+}
+
+private extension SettingsView {
     var informationSection: some View {
         Section(content: {
             // About
@@ -147,7 +187,9 @@ private extension SettingsView {
             Text("Information")
         })
     }
+}
 
+private extension SettingsView {
     var officiaLinksSection: some View {
         Section(content: {
             Button(action: {
@@ -167,7 +209,9 @@ private extension SettingsView {
             Text("Official Links")
         })
     }
+}
 
+private extension SettingsView {
     var mobileAppLinksSection: some View {
         Section(content: {
             // Twitter
@@ -231,7 +275,9 @@ private extension SettingsView {
             Text("For crashes, bug reports & feature requests related to this iOS app")
         })
     }
+}
 
+private extension SettingsView {
     var bottomSection: some View {
         Section(content: { EmptyView() }, footer: {
             VStack {
@@ -247,33 +293,6 @@ private extension SettingsView {
             }
             .frame(maxWidth: .infinity, alignment: .center)
         })
-    }
-
-    var themePreview: some View {
-        VStack(alignment: .leading) {
-            Text("How it looks 👇")
-
-            HStack(spacing: 8) {
-                Image("TSOP")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 64)
-
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("The Sound of Perserverance")
-                        .font(.body)
-                        .fontWeight(.bold)
-                        .foregroundColor(preferences.theme.primaryColor)
-                    Text("Death")
-                        .font(.callout)
-                        .fontWeight(.bold)
-                        .foregroundColor(preferences.theme.secondaryColor)
-                    Text("1998 • Full-length")
-                        .font(.footnote)
-                        .fontWeight(.medium)
-                }
-            }
-        }
     }
 }
 
