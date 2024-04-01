@@ -262,6 +262,8 @@
 		EF66D5102BB9D00200507FAA /* Binding+MappedToBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D50F2BB9D00200507FAA /* Binding+MappedToBool.swift */; };
 		EF66D5122BB9EC3800507FAA /* OpenURLAction+OpenUrlString.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D5112BB9EC3800507FAA /* OpenURLAction+OpenUrlString.swift */; };
 		EF66D5152BBAABE200507FAA /* SwiftfulLoadingIndicators in Frameworks */ = {isa = PBXBuildFile; productRef = EF66D5142BBAABE200507FAA /* SwiftfulLoadingIndicators */; };
+		EF66D5172BBAC93800507FAA /* LoadingIndicatorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D5162BBAC93800507FAA /* LoadingIndicatorsView.swift */; };
+		EF66D5192BBACB2F00507FAA /* LoadingIndicatorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D5182BBACB2F00507FAA /* LoadingIndicatorExtensions.swift */; };
 		EF67B679293D4A4E00BAC4D2 /* UpcomingAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */; };
 		EF69DD7F291660AF00C3D4E3 /* LabelTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */; };
 		EF69DD81291664E500C3D4E3 /* LabelLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */; };
@@ -591,6 +593,8 @@
 		EF66D50D2BB9CEE400507FAA /* SFSafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSafariView.swift; sourceTree = "<group>"; };
 		EF66D50F2BB9D00200507FAA /* Binding+MappedToBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+MappedToBool.swift"; sourceTree = "<group>"; };
 		EF66D5112BB9EC3800507FAA /* OpenURLAction+OpenUrlString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenURLAction+OpenUrlString.swift"; sourceTree = "<group>"; };
+		EF66D5162BBAC93800507FAA /* LoadingIndicatorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorsView.swift; sourceTree = "<group>"; };
+		EF66D5182BBACB2F00507FAA /* LoadingIndicatorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorExtensions.swift; sourceTree = "<group>"; };
 		EF67B678293D4A4E00BAC4D2 /* UpcomingAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAlbum.swift; sourceTree = "<group>"; };
 		EF69DD7E291660AF00C3D4E3 /* LabelTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabsDatasource.swift; sourceTree = "<group>"; };
 		EF69DD80291664E500C3D4E3 /* LabelLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLogoView.swift; sourceTree = "<group>"; };
@@ -708,6 +712,7 @@
 				C0378CE3268BAC7700E24B28 /* FetchableObject.swift */,
 				C0F240FC26891D9D00ED546D /* HTMLParsable.swift */,
 				EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */,
+				EF66D5182BBACB2F00507FAA /* LoadingIndicatorExtensions.swift */,
 				C0063EBD265C4630005AB1E2 /* Logger.swift */,
 				EF66D5112BB9EC3800507FAA /* OpenURLAction+OpenUrlString.swift */,
 				EF2862D228EB5EB700E2C131 /* PageManagerProtocol.swift */,
@@ -956,6 +961,7 @@
 			children = (
 				C017D42C267E9B51008B6EE5 /* AboutView.swift */,
 				C0DD137E267F6B41009F0B81 /* HomeSectionOrderView.swift */,
+				EF66D5162BBAC93800507FAA /* LoadingIndicatorsView.swift */,
 				C017D420267E30D9008B6EE5 /* SettingsView.swift */,
 				C0DD1378267F5E6C009F0B81 /* SupportView.swift */,
 			);
@@ -1693,6 +1699,7 @@
 				EF5EAB532918274B009BCDFF /* User.swift in Sources */,
 				C017D42D267E9B51008B6EE5 /* AboutView.swift in Sources */,
 				EF7A99F0291C5A9B008770E7 /* UserReleasesView.swift in Sources */,
+				EF66D5172BBAC93800507FAA /* LoadingIndicatorsView.swift in Sources */,
 				EF67B679293D4A4E00BAC4D2 /* UpcomingAlbum.swift in Sources */,
 				EF5A058128FDDC72001BF230 /* TopBandsView.swift in Sources */,
 				EF3F5FE129056CB500FD1A31 /* ArtistLite.swift in Sources */,
@@ -1713,6 +1720,7 @@
 				C07A254F26852001008478D7 /* SimpleSearchType.swift in Sources */,
 				EF7A2C9928FC18860046B136 /* ReviewView.swift in Sources */,
 				EF3C273F2912E90600D6C9B2 /* GradientBackgroundView.swift in Sources */,
+				EF66D5192BBACB2F00507FAA /* LoadingIndicatorExtensions.swift in Sources */,
 				C017D411267E2FF1008B6EE5 /* HomeView.swift in Sources */,
 				EF3C56AC2901CD000010D568 /* BandsByAlphabetViewModel.swift in Sources */,
 				EFA48C4428F5EA010012B349 /* OtherVersionsView.swift in Sources */,

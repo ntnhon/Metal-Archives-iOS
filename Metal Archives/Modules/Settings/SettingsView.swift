@@ -75,6 +75,16 @@ private extension SettingsView {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+
+            NavigationLink(destination: LoadingIndicatorsView()) {
+                HStack {
+                    Text("Loading animation")
+                    Spacer()
+                    Text(preferences.loadingAnimation.title)
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                }
+            }
         }, header: {
             Text("Display")
         })

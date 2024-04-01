@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 20/06/2021.
 //
 
+import SwiftfulLoadingIndicators
 import SwiftUI
 
 final class Preferences: ObservableObject {
@@ -29,6 +30,9 @@ final class Preferences: ObservableObject {
             updateUIAlertControllerAppearance()
         }
     }
+
+    @AppStorage("loadingAnimation")
+    var loadingAnimation: LoadingIndicator.LoadingAnimation = .threeBalls
 
     init() {
         updateUIAlertControllerAppearance()
