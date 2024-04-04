@@ -296,9 +296,6 @@ private extension SettingsView {
         Section(content: { EmptyView() }, footer: {
             VStack {
                 Text("Made with 🤘 by **[Nhon Nguyen](https://twitter.com/_ntnhon)**")
-                Spacer()
-
-                Text("App icon designed by **[Matt Stewart](https://twitter.com/nrthrndarkness)**")
 
                 Spacer()
 
