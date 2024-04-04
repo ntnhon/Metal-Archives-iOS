@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ArtistInfoView: View {
+    @State private var showingFullTrivia = false
     let artist: Artist
+    let urlString: String
 
     var body: some View {
         VStack(spacing: 0) {
@@ -52,12 +54,20 @@ struct ArtistInfoView: View {
                 if let trivia = artist.trivia {
                     Text(trivia)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .onTapGesture {
+                            if trivia.contains("Read more") {
+                                showingFullTrivia.toggle()
+                            }
+                        }
                 }
             }
             .padding([.horizontal, .bottom])
             .background(Color(.systemBackground))
             .frame(maxWidth: .infinity, alignment: .leading)
             .fixedSize(horizontal: false, vertical: true)
+        }
+        .sheet(isPresented: $showingFullTrivia) {
+            ArtistTriviaView(artist: artist, urlString: urlString)
         }
 
         Color(.systemGray6)

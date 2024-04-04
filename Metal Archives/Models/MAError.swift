@@ -18,6 +18,8 @@ enum MAError: Error, CustomStringConvertible {
     case other(Error)
     case songHasNoLyric(title: String)
     case deallocatedSelf
+    case failedToExtractArtistId(String)
+    case failedToDecodeArtistTrivia
 
     var description: String {
         switch self {
@@ -41,6 +43,10 @@ enum MAError: Error, CustomStringConvertible {
             "\"\(title)\" has no lyric"
         case .deallocatedSelf:
             "Deallocated self"
+        case let .failedToExtractArtistId(urlString):
+            "Failed to extract artist's id from \(urlString)"
+        case .failedToDecodeArtistTrivia:
+            "Failed to decode artist's trivia"
         }
     }
 }

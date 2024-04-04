@@ -103,7 +103,7 @@ private struct ArtistContentView: View {
                                 }
                             }
 
-                        ArtistInfoView(artist: artist)
+                        ArtistInfoView(artist: artist, urlString: viewModel.urlString)
 
                         HorizontalTabs(datasource: tabsDatasource)
                             .padding(.vertical)
