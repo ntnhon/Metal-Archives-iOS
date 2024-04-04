@@ -129,11 +129,11 @@ private extension SettingsView {
                     Text("The Sound of Perserverance")
                         .font(.body)
                         .fontWeight(.bold)
-                        .foregroundColor(preferences.theme.primaryColor)
+                        .foregroundStyle(preferences.theme.primaryColor)
                     Text("Death")
                         .font(.callout)
                         .fontWeight(.bold)
-                        .foregroundColor(preferences.theme.secondaryColor)
+                        .foregroundStyle(preferences.theme.secondaryColor)
                     Text("1998 • Full-length")
                         .font(.footnote)
                         .fontWeight(.medium)
@@ -155,7 +155,7 @@ private extension SettingsView {
                         .foregroundColor(.primary)
                 }, icon: {
                     Image(systemName: "info.circle.fill")
-                        .foregroundColor(.blue)
+                        .foregroundStyle(.blue)
                 })
             })
             .sheet(isPresented: $showAboutSheet) {
@@ -177,7 +177,7 @@ private extension SettingsView {
                         .foregroundColor(.primary)
                 }, icon: {
                     Image(systemName: "heart.circle.fill")
-                        .foregroundColor(.red)
+                        .foregroundStyle(.red)
                 })
             })
 
@@ -190,12 +190,22 @@ private extension SettingsView {
                         .foregroundColor(.primary)
                 }, icon: {
                     Image(systemName: "hands.clap.fill")
-                        .foregroundColor(.purple)
+                        .foregroundStyle(.purple)
                 })
             })
             .sheet(isPresented: $showSupportSheet) {
                 SupportView()
                     .accentColor(preferences.theme.primaryColor)
+            }
+
+            // FAQ
+            NavigationLink(destination: FAQView()) {
+                Label(title: {
+                    Text("FAQ")
+                }, icon: {
+                    Image(systemName: "questionmark.circle.fill")
+                        .foregroundStyle(.yellow)
+                })
             }
         }, header: {
             Text("Information")
@@ -266,7 +276,7 @@ private extension SettingsView {
                     Image("Github")
                         .resizable()
                         .renderingMode(.template)
-                        .foregroundColor(.primary)
+                        .foregroundStyle(.primary)
                         .frame(width: 18, height: 18, alignment: .leading)
                 })
             })

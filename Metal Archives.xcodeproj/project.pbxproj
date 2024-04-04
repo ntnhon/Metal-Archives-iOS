@@ -310,6 +310,8 @@
 		EFBFA7002BBF312F00CD05FF /* ArtistTriviaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBFA6FF2BBF312F00CD05FF /* ArtistTriviaViewModel.swift */; };
 		EFBFA7052BBF3BDB00CD05FF /* WhatsNewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBFA7042BBF3BDB00CD05FF /* WhatsNewView.swift */; };
 		EFBFA7072BBF3C4100CD05FF /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBFA7062BBF3C4100CD05FF /* AppVersion.swift */; };
+		EFBFA7092BBF461A00CD05FF /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBFA7082BBF461A00CD05FF /* FAQView.swift */; };
+		EFBFA70B2BBF474800CD05FF /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBFA70A2BBF474800CD05FF /* Question.swift */; };
 		EFC0C6BD28F49D0A0092497A /* HorizontalTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0C6BC28F49D0A0092497A /* HorizontalTabs.swift */; };
 		EFC0C6BF28F49F8C0092497A /* BandTabsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0C6BE28F49F8C0092497A /* BandTabsDatasource.swift */; };
 		EFC98B3C28EE0BD000154C30 /* RetryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC98B3B28EE0BD000154C30 /* RetryButton.swift */; };
@@ -647,6 +649,8 @@
 		EFBFA6FF2BBF312F00CD05FF /* ArtistTriviaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTriviaViewModel.swift; sourceTree = "<group>"; };
 		EFBFA7042BBF3BDB00CD05FF /* WhatsNewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewView.swift; sourceTree = "<group>"; };
 		EFBFA7062BBF3C4100CD05FF /* AppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
+		EFBFA7082BBF461A00CD05FF /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
+		EFBFA70A2BBF474800CD05FF /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		EFC0C6BC28F49D0A0092497A /* HorizontalTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTabs.swift; sourceTree = "<group>"; };
 		EFC0C6BE28F49F8C0092497A /* BandTabsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandTabsDatasource.swift; sourceTree = "<group>"; };
 		EFC98B3B28EE0BD000154C30 /* RetryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryButton.swift; sourceTree = "<group>"; };
@@ -973,6 +977,7 @@
 			children = (
 				C017D42C267E9B51008B6EE5 /* AboutView.swift */,
 				EF66D5202BBAF96300507FAA /* AppIconsView.swift */,
+				EFBFA7082BBF461A00CD05FF /* FAQView.swift */,
 				C0DD137E267F6B41009F0B81 /* HomeSectionOrderView.swift */,
 				EF66D5162BBAC93800507FAA /* LoadingIndicatorsView.swift */,
 				C017D420267E30D9008B6EE5 /* SettingsView.swift */,
@@ -1154,6 +1159,7 @@
 				EFF4B878292426910007B563 /* Search */,
 				C004A2B92658F31C0071E12A /* User */,
 				EF66D51E2BBAF89000507FAA /* AlternateAppIcon.swift */,
+				EFBFA7062BBF3C4100CD05FF /* AppVersion.swift */,
 				C0A37B6C26584E980017A02F /* Country.swift */,
 				C0DD1382267F6C40009F0B81 /* DiscographyMode.swift */,
 				C02A8CB326812E78001430D6 /* Genre.swift */,
@@ -1165,11 +1171,11 @@
 				EF3F5FE62905833500FD1A31 /* NewsPost.swift */,
 				C0C65A1326982A0B0062FF9C /* Order.swift */,
 				C0A9934A271240A100121BA3 /* Photo.swift */,
+				EFBFA70A2BBF474800CD05FF /* Question.swift */,
 				C03873A32659AB3600D2FD5E /* RelatedLink.swift */,
 				C07A254E26852001008478D7 /* SimpleSearchType.swift */,
 				EF3ED7482905C26000D0A6F7 /* Stats.swift */,
 				C0063EB8265C3A6E005AB1E2 /* ThumbnailInfo.swift */,
-				EFBFA7062BBF3C4100CD05FF /* AppVersion.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1687,6 +1693,7 @@
 				C0F240FD26891D9D00ED546D /* HTMLParsable.swift in Sources */,
 				C05186322697A0BF006BB7D5 /* DiscographyViewModel.swift in Sources */,
 				C0DD1385267F6E1D009F0B81 /* ArrayExtensions.swift in Sources */,
+				EFBFA70B2BBF474800CD05FF /* Question.swift in Sources */,
 				EF5A058B28FDDE02001BF230 /* TopMembersViewModel.swift in Sources */,
 				EF62240E28F1C94300845430 /* ReleaseCoverView.swift in Sources */,
 				EFF4B875292419F20007B563 /* BandSimpleSearchResult.swift in Sources */,
@@ -1776,6 +1783,7 @@
 				EFD82838293CB93600F70DA9 /* AdvancedSearchResultViewModel.swift in Sources */,
 				EF5EAB432917FD38009BCDFF /* LabelPastRosterView.swift in Sources */,
 				EF59D61C291AF5CF00B68F4F /* UserSubmittedBandsView.swift in Sources */,
+				EFBFA7092BBF461A00CD05FF /* FAQView.swift in Sources */,
 				C0A37B6D26584E980017A02F /* Country.swift in Sources */,
 				EF57E81D291709F400408461 /* LabelCurrentBand.swift in Sources */,
 				EF3F5FDF29056C5600FD1A31 /* DeceasedArtist.swift in Sources */,
