@@ -17,27 +17,30 @@ enum MAError: Error, CustomStringConvertible {
     case requestFailure(Int)
     case other(Error)
     case songHasNoLyric(title: String)
+    case deallocatedSelf
 
     var description: String {
         switch self {
         case let .badUrlString(urlString):
-            return "Bad url (\(urlString))"
+            "Bad url (\(urlString))"
         case .failedToUtf8DecodeString:
-            return "Failed to UTF8 decode"
+            "Failed to UTF8 decode"
         case let .failedToFetchLyric(lyricId):
-            return "Failed to fetch lyric \(lyricId)"
+            "Failed to fetch lyric \(lyricId)"
         case .invalidServerResponse:
-            return "Invalid server response"
+            "Invalid server response"
         case .missingBand:
-            return "Band is null"
+            "Band is null"
         case let .parseFailure(description):
-            return "Failed to parse \(description)"
+            "Failed to parse \(description)"
         case let .requestFailure(statusCode):
-            return "Request failed with status code \(statusCode)"
+            "Request failed with status code \(statusCode)"
         case let .other(error):
-            return error.localizedDescription
+            error.localizedDescription
         case let .songHasNoLyric(title):
-            return "\"\(title)\" has no lyric"
+            "\"\(title)\" has no lyric"
+        case .deallocatedSelf:
+            "Deallocated self"
         }
     }
 }
