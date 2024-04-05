@@ -1,0 +1,82 @@
+opt_in_rules:
+  - all
+disabled_rules:
+  - inert_defer
+  - unused_capture_list
+  - explicit_acl
+  - explicit_type_interface
+  - explicit_top_level_acl
+  - type_contents_order
+  - multiline_parameters_brackets
+  - multiline_arguments_brackets
+  - indentation_width
+  - no_grouping_extension
+  - no_extension_access_modifier
+  - conditional_returns_on_newline
+  - required_deinit
+  - opening_brace
+  - sorted_enum_cases
+  - file_types_order
+  - vertical_whitespace_between_cases
+  - no_magic_numbers
+  - accessibility_label_for_image
+  - prefer_nimble
+  - attributes
+  - accessibility_trait_for_button
+  - test_case_accessibility
+  - explicit_enum_raw_value
+  - anonymous_argument_in_multiline_closure
+  - discouraged_optional_collection
+  - file_name
+  - trailing_comma
+  - number_separator
+  - operator_usage_whitespace
+  - cyclomatic_complexity
+  - inclusive_language
+  - todo
+included: # paths to include during linting. `--path` is ignored if present.
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Pods
+analyzer_rules: # Rules run by `swiftlint analyze` (experimental)
+  # - explicit_self
+
+# configurable rules can be customized from this configuration file
+# binary rules can set their severity level
+force_cast: warning # implicitly
+force_try:
+  severity: warning # explicitly
+# rules that have both warning and error levels, can set just the warning level
+# implicitly
+line_length: 115
+# they can set both implicitly with an array
+type_body_length:
+  - 300 # warning
+  - 400 # error
+# or they can set both explicitly
+file_length:
+  warning: 700
+  error: 1200
+function_body_length:
+  warning: 100
+  error: 120
+closure_body_length:
+  warning: 100
+  error: 120
+# naming rules can set warnings/errors for min_length and max_length
+# additionally they can set excluded names
+type_name:
+  min_length: 4 # only warning
+  max_length: # warning and error
+    warning: 50
+    error: 60
+  excluded: iPhone # excluded via string
+  allowed_symbols: ["_"] # these are allowed in type names
+identifier_name:
+  min_length: # only min_length
+    warning: 2
+  max_length: # warning and error
+    warning: 50
+    error: 60
+  excluded: # excluded via string array
+    - API_KEY
+reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, junit, html, emoji, sonarqube, markdown)
