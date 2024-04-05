@@ -149,6 +149,7 @@
 		C0FA708726B081D000B618E6 /* HtmlBodyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708626B081D000B618E6 /* HtmlBodyText.swift */; };
 		C0FA708926B084BA00B618E6 /* BandReadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */; };
 		C0FA708D26B0AAC700B618E6 /* BandSimilarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */; };
+		EF1279A42BC0951100222373 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = EF1279A32BC0951100222373 /* Core */; };
 		EF2862D328EB5EB700E2C131 /* PageManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2862D228EB5EB700E2C131 /* PageManagerProtocol.swift */; };
 		EF2862D628EB70CB00E2C131 /* BandReviewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2862D528EB70CB00E2C131 /* BandReviewsViewModel.swift */; };
 		EF2E53D5290703EE00AAB382 /* Stats.html in Resources */ = {isa = PBXBuildFile; fileRef = EF2E53D4290703EE00AAB382 /* Stats.html */; };
@@ -494,6 +495,7 @@
 		C0FA708626B081D000B618E6 /* HtmlBodyText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlBodyText.swift; sourceTree = "<group>"; };
 		C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReadMoreView.swift; sourceTree = "<group>"; };
 		C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilarView.swift; sourceTree = "<group>"; };
+		EF1279A22BC093B700222373 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Core; path = Packages/Core; sourceTree = "<group>"; };
 		EF2862D228EB5EB700E2C131 /* PageManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageManagerProtocol.swift; sourceTree = "<group>"; };
 		EF2862D528EB70CB00E2C131 /* BandReviewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReviewsViewModel.swift; sourceTree = "<group>"; };
 		EF2E53D4290703EE00AAB382 /* Stats.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Stats.html; sourceTree = "<group>"; };
@@ -681,6 +683,7 @@
 				EF7838502BC08FD50093A809 /* Models in Frameworks */,
 				EF62620F293E6E5D006C3FDC /* SnapToScroll in Frameworks */,
 				C0CC030526963B420043A728 /* Kingfisher in Frameworks */,
+				EF1279A42BC0951100222373 /* Core in Frameworks */,
 				EF66D50A2BB9911400507FAA /* Factory in Frameworks */,
 				C03873A92659AD6100D2FD5E /* Kanna in Frameworks */,
 				EF31834A2898627C00B6C8DD /* BetterSafariView in Frameworks */,
@@ -821,6 +824,7 @@
 				C00A79D026570245004FA9D7 /* Metal Archives */,
 				C00A79E22657024B004FA9D7 /* Metal ArchivesTests */,
 				C00A79ED2657024B004FA9D7 /* Metal ArchivesUITests */,
+				EF1279A22BC093B700222373 /* Core */,
 				EF78384D2BC07C190093A809 /* Models */,
 				C00A79CF26570245004FA9D7 /* Products */,
 				EF78384E2BC08FD50093A809 /* Frameworks */,
@@ -1448,6 +1452,7 @@
 				EF66D5092BB9911400507FAA /* Factory */,
 				EF66D5142BBAABE200507FAA /* SwiftfulLoadingIndicators */,
 				EF78384F2BC08FD50093A809 /* Models */,
+				EF1279A32BC0951100222373 /* Core */,
 			);
 			productName = "Metal Archives";
 			productReference = C00A79CE26570245004FA9D7 /* Metal Archives.app */;
@@ -2306,6 +2311,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C0CC030326963B420043A728 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		EF1279A32BC0951100222373 /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Core;
 		};
 		EF3183492898627C00B6C8DD /* BetterSafariView */ = {
 			isa = XCSwiftPackageProductDependency;
