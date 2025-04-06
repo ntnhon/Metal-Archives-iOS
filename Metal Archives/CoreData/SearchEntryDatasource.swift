@@ -18,7 +18,7 @@ actor SearchEntryDatasource: LocalDatasourceProtocol {
         }
         self.container = container
     }
-    
+
     /// Only fetch latest 50 entries
     func getAllEntries() async throws -> [SearchEntry] {
         let taskContext = newTaskContext(type: .fetch)
