@@ -149,6 +149,7 @@
 		C0FA708726B081D000B618E6 /* HtmlBodyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708626B081D000B618E6 /* HtmlBodyText.swift */; };
 		C0FA708926B084BA00B618E6 /* BandReadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */; };
 		C0FA708D26B0AAC700B618E6 /* BandSimilarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */; };
+		EF1279A42BC0951100222373 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = EF1279A32BC0951100222373 /* Core */; };
 		EF2862D328EB5EB700E2C131 /* PageManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2862D228EB5EB700E2C131 /* PageManagerProtocol.swift */; };
 		EF2862D628EB70CB00E2C131 /* BandReviewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2862D528EB70CB00E2C131 /* BandReviewsViewModel.swift */; };
 		EF2E53D5290703EE00AAB382 /* Stats.html in Resources */ = {isa = PBXBuildFile; fileRef = EF2E53D4290703EE00AAB382 /* Stats.html */; };
@@ -287,6 +288,7 @@
 		EF6C01142957280500D08154 /* LatestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6C01132957280500D08154 /* LatestObject.swift */; };
 		EF73568A29564A96002187FD /* LatestLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73568929564A96002187FD /* LatestLabel.swift */; };
 		EF73568C29564EAF002187FD /* LatestArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73568B29564EAF002187FD /* LatestArtist.swift */; };
+		EF7838502BC08FD50093A809 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = EF78384F2BC08FD50093A809 /* Models */; };
 		EF7A2C9928FC18860046B136 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9828FC18860046B136 /* ReviewView.swift */; };
 		EF7A2C9B28FC18A60046B136 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9A28FC18A60046B136 /* ReviewViewModel.swift */; };
 		EF7A2C9E28FC19210046B136 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A2C9D28FC19210046B136 /* UserView.swift */; };
@@ -493,6 +495,7 @@
 		C0FA708626B081D000B618E6 /* HtmlBodyText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlBodyText.swift; sourceTree = "<group>"; };
 		C0FA708826B084BA00B618E6 /* BandReadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReadMoreView.swift; sourceTree = "<group>"; };
 		C0FA708C26B0AAC700B618E6 /* BandSimilarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSimilarView.swift; sourceTree = "<group>"; };
+		EF1279A22BC093B700222373 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Core; path = Packages/Core; sourceTree = "<group>"; };
 		EF2862D228EB5EB700E2C131 /* PageManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageManagerProtocol.swift; sourceTree = "<group>"; };
 		EF2862D528EB70CB00E2C131 /* BandReviewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandReviewsViewModel.swift; sourceTree = "<group>"; };
 		EF2E53D4290703EE00AAB382 /* Stats.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Stats.html; sourceTree = "<group>"; };
@@ -626,6 +629,7 @@
 		EF6C01132957280500D08154 /* LatestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestObject.swift; sourceTree = "<group>"; };
 		EF73568929564A96002187FD /* LatestLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestLabel.swift; sourceTree = "<group>"; };
 		EF73568B29564EAF002187FD /* LatestArtist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestArtist.swift; sourceTree = "<group>"; };
+		EF78384D2BC07C190093A809 /* Models */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Models; path = Packages/Models; sourceTree = "<group>"; };
 		EF7A2C9828FC18860046B136 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		EF7A2C9A28FC18A60046B136 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 		EF7A2C9D28FC19210046B136 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
@@ -676,8 +680,10 @@
 			files = (
 				EF66D5152BBAABE200507FAA /* SwiftfulLoadingIndicators in Frameworks */,
 				EF48E6C72895BBA900B52EF2 /* AlertToast in Frameworks */,
+				EF7838502BC08FD50093A809 /* Models in Frameworks */,
 				EF62620F293E6E5D006C3FDC /* SnapToScroll in Frameworks */,
 				C0CC030526963B420043A728 /* Kingfisher in Frameworks */,
+				EF1279A42BC0951100222373 /* Core in Frameworks */,
 				EF66D50A2BB9911400507FAA /* Factory in Frameworks */,
 				C03873A92659AD6100D2FD5E /* Kanna in Frameworks */,
 				EF31834A2898627C00B6C8DD /* BetterSafariView in Frameworks */,
@@ -818,7 +824,10 @@
 				C00A79D026570245004FA9D7 /* Metal Archives */,
 				C00A79E22657024B004FA9D7 /* Metal ArchivesTests */,
 				C00A79ED2657024B004FA9D7 /* Metal ArchivesUITests */,
+				EF1279A22BC093B700222373 /* Core */,
+				EF78384D2BC07C190093A809 /* Models */,
 				C00A79CF26570245004FA9D7 /* Products */,
+				EF78384E2BC08FD50093A809 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1362,6 +1371,13 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		EF78384E2BC08FD50093A809 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EF7A2C9728FC18740046B136 /* Review */ = {
 			isa = PBXGroup;
 			children = (
@@ -1435,6 +1451,8 @@
 				EF62620E293E6E5D006C3FDC /* SnapToScroll */,
 				EF66D5092BB9911400507FAA /* Factory */,
 				EF66D5142BBAABE200507FAA /* SwiftfulLoadingIndicators */,
+				EF78384F2BC08FD50093A809 /* Models */,
+				EF1279A32BC0951100222373 /* Core */,
 			);
 			productName = "Metal Archives";
 			productReference = C00A79CE26570245004FA9D7 /* Metal Archives.app */;
@@ -2053,7 +2071,7 @@
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Metal Archives/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2062,7 +2080,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "info.nguyenthanhnhon.Metal-Archives";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2080,7 +2098,7 @@
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Metal Archives/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2089,7 +2107,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "info.nguyenthanhnhon.Metal-Archives";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2102,7 +2120,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Metal ArchivesTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2124,7 +2142,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Metal ArchivesTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2146,7 +2164,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Metal ArchivesUITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2169,7 +2187,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Metal ArchivesUITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2294,6 +2312,10 @@
 			package = C0CC030326963B420043A728 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
+		EF1279A32BC0951100222373 /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Core;
+		};
 		EF3183492898627C00B6C8DD /* BetterSafariView */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EF3183482898627C00B6C8DD /* XCRemoteSwiftPackageReference "BetterSafariView" */;
@@ -2318,6 +2340,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EF66D5132BBAABE200507FAA /* XCRemoteSwiftPackageReference "SwiftfulLoadingIndicators" */;
 			productName = SwiftfulLoadingIndicators;
+		};
+		EF78384F2BC08FD50093A809 /* Models */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Models;
 		};
 /* End XCSwiftPackageProductDependency section */
 

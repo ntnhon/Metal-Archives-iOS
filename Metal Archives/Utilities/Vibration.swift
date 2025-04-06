@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 enum Vibration {
     case error
     case success

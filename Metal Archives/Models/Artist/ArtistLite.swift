@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ArtistLite {
+struct ArtistLite: Sendable {
     let thumbnailInfo: ThumbnailInfo
     let name: String
 

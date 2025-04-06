@@ -5,11 +5,20 @@
 //  Created by Nhon Nguyen on 17/11/2022.
 //
 
-import CoreData
+@preconcurrency import CoreData
 
 private let kPageSize = 50
 
-final class SearchEntryDatasource: LocalDatasource, LocalDatasourceProtocol {
+actor SearchEntryDatasource: LocalDatasourceProtocol {
+    let container: NSPersistentContainer
+
+    init(container: NSPersistentContainer) {
+        guard container.name == kContainerName else {
+            fatalError("Unsupported container name \"\(container.name)\"")
+        }
+        self.container = container
+    }
+    
     /// Only fetch latest 50 entries
     func getAllEntries() async throws -> [SearchEntry] {
         let taskContext = newTaskContext(type: .fetch)

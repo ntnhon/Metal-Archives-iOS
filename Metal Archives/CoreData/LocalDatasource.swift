@@ -5,7 +5,7 @@
 //  Created by Nhon Nguyen on 17/11/2022.
 //
 
-import CoreData
+@preconcurrency import CoreData
 
 let kContainerName = "MetalArchives"
 
@@ -48,19 +48,8 @@ enum LocalDatasourceError: Error, CustomDebugStringConvertible {
 }
 
 /// A base local datasource protocol that has CoreData common operations
-protocol LocalDatasourceProtocol {
+protocol LocalDatasourceProtocol: Sendable {
     var container: NSPersistentContainer { get }
-}
-
-class LocalDatasource {
-    let container: NSPersistentContainer
-
-    init(container: NSPersistentContainer) {
-        guard container.name == kContainerName else {
-            fatalError("Unsupported container name \"\(container.name)\"")
-        }
-        self.container = container
-    }
 }
 
 extension LocalDatasourceProtocol {

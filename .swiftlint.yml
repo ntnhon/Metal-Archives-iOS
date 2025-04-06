@@ -34,6 +34,8 @@ disabled_rules:
   - cyclomatic_complexity
   - inclusive_language
   - todo
+  - missing_docs
+  - function_default_parameter_at_end
 included: # paths to include during linting. `--path` is ignored if present.
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Pods

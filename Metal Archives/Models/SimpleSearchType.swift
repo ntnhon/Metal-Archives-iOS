@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SimpleSearchType: CaseIterable {
+enum SimpleSearchType: CaseIterable, Sendable {
     case bandName
     case musicGenre
     case lyricalThemes

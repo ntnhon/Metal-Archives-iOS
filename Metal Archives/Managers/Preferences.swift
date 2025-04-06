@@ -8,6 +8,7 @@
 import SwiftfulLoadingIndicators
 import SwiftUI
 
+@MainActor
 final class Preferences: ObservableObject {
     @AppStorage("discographyMode")
     var discographyMode: DiscographyMode = .complete

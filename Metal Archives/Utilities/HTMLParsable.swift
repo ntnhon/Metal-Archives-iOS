@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol HTMLParsable {
+protocol HTMLParsable: Sendable {
     init(data: Data) throws
 }

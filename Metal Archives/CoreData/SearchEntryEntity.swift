@@ -8,7 +8,7 @@
 import CoreData
 
 @objc(SearchEntryEntity)
-public class SearchEntryEntity: NSManagedObject {}
+public class SearchEntryEntity: NSManagedObject, @unchecked Sendable {}
 
 extension SearchEntryEntity: Identifiable {}
 

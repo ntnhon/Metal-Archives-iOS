@@ -8,13 +8,13 @@
 import Foundation
 import Kanna
 
-protocol APIServiceProtocol {
+protocol APIServiceProtocol: Sendable {
     func getData(for urlString: String) async throws -> Data
     func getString(for urlString: String, inHtmlFormat: Bool) async throws -> String?
     func request<T: HTMLParsable>(forType type: T.Type, urlString: String) async throws -> T
 }
 
-final class APIService: APIServiceProtocol {
+actor APIService: APIServiceProtocol {
     let session: URLSession
 
     init(session: URLSession = .shared) {

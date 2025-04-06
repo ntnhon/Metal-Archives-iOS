@@ -95,7 +95,7 @@ struct OffsetAwareScrollView<T: View>: View {
 }
 
 private struct OffsetPreferenceKey: PreferenceKey {
-    static var defaultValue: CGPoint = .zero
+    static nonisolated(unsafe) var defaultValue: CGPoint = .zero
 
     static func reduce(value _: inout CGPoint, nextValue _: () -> CGPoint) {}
 }

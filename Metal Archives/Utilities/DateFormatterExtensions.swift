@@ -17,7 +17,7 @@ extension DateFormatter {
     }
 }
 
-extension RelativeDateTimeFormatter {
+extension RelativeDateTimeFormatter: @unchecked @retroactive Sendable {
     static let `default`: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .full

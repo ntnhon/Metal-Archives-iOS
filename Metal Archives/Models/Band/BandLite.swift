@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BandLite: Thumbnailable {
+struct BandLite: Thumbnailable, Sendable {
     let thumbnailInfo: ThumbnailInfo
     let name: String
 

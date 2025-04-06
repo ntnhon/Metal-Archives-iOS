@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ThumbnailInfo {
+struct ThumbnailInfo: Sendable {
     let id: Int
     let urlString: String
     let type: ThumbnailType
@@ -42,11 +42,11 @@ protocol Thumbnailable {
     var thumbnailInfo: ThumbnailInfo { get }
 }
 
-protocol OptionalThumbnailable {
+protocol OptionalThumbnailable: Sendable {
     var thumbnailInfo: ThumbnailInfo? { get }
 }
 
-enum ThumbnailType: CaseIterable {
+enum ThumbnailType: CaseIterable, Sendable {
     case bandLogo, bandPhoto, artist, release, label
 
     var suffix: String {
