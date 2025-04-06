@@ -8,6 +8,7 @@
 import Combine
 import SwiftUI
 
+@MainActor
 final class UserReviewsViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error?

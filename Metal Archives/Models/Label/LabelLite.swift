@@ -7,7 +7,7 @@
 
 import Kanna
 
-struct LabelLite: OptionalThumbnailable {
+struct LabelLite: OptionalThumbnailable, Sendable {
     let thumbnailInfo: ThumbnailInfo?
     let name: String
 }

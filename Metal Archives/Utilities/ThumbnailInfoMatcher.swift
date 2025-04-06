@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class ThumbnailInfoMatcher {
     private var matchMap = [ThumbnailInfo: String]()
 

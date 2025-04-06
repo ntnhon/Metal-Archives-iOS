@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 enum HomeSettings {
     static let entryHeight: CGFloat = 100
     static let entrySpacing: CGFloat = 8.0

@@ -7,6 +7,7 @@
 
 import StoreKit
 
+@MainActor
 extension SKStoreReviewController {
     static func askForReview() {
         let scenes = UIApplication.shared.connectedScenes

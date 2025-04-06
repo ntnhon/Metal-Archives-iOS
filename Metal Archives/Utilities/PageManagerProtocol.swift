@@ -25,7 +25,7 @@ enum PageElementError: Error {
     case failedToParse(String)
 }
 
-protocol PageElement {
+protocol PageElement: Sendable {
     init(from strings: [String]) throws
 }
 
@@ -36,7 +36,7 @@ enum PageConfigsError: Error {
     case impossibleCase
 }
 
-struct PageConfigs {
+struct PageConfigs: Sendable {
     let baseUrlString: String
     var pageSize = kDefaultPageSize
 
@@ -69,7 +69,7 @@ struct PageConfigs {
     }
 }
 
-struct PageResult<Element: PageElement>: Decodable {
+struct PageResult<Element: PageElement>: Decodable, Sendable {
     let total: Int
     let elements: [Element]
 
@@ -86,7 +86,7 @@ struct PageResult<Element: PageElement>: Decodable {
     }
 }
 
-protocol PageManagerProtocol {
+protocol PageManagerProtocol: Sendable {
     associatedtype Element: PageElement
 
     var configs: PageConfigs { get }
@@ -103,6 +103,7 @@ extension PageManagerProtocol {
     }
 }
 
+@MainActor
 class PageManager<Element: PageElement>: PageManagerProtocol {
     @Published private(set) var elements = [Element]()
     @Published private(set) var isLoading = false

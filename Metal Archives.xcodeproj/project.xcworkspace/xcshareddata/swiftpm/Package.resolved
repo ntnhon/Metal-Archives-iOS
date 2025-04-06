@@ -1,4 +1,5 @@
 {
+  "originHash" : "c88b44d666792e3bcc53f0906270a5523eb8c4132f7e7c45f132971347240160",
   "pins" : [
     {
       "identity" : "alerttoast",
@@ -23,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hmlongco/Factory",
       "state" : {
-        "revision" : "587995f7d5cc667951d635fbf6b4252324ba0439",
-        "version" : "2.3.2"
+        "revision" : "fb04a8918848e413d3921d346a23bae7f81088d9",
+        "version" : "2.4.3"
       }
     },
     {
@@ -64,5 +65,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

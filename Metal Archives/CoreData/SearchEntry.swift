@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SearchEntryType: Int16 {
+enum SearchEntryType: Int16, Sendable {
     case bandNameQuery = 0
     case musicGenreQuery = 1
     case lyricalThemesQuery = 2
@@ -85,7 +85,7 @@ enum SearchEntryType: Int16 {
     }
 }
 
-struct SearchEntry: Hashable {
+struct SearchEntry: Hashable, Sendable {
     let type: SearchEntryType
     /// When type is query, this will be the search term. Otherwise it'll be band name, label name, album title...
     let primaryDetail: String
