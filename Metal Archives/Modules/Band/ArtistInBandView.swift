@@ -34,7 +34,7 @@ struct ArtistInBandView: View {
 
                 if let seeAlso = artist.seeAlso {
                     HighlightableText(text: seeAlso,
-                                      highlights: artist.bands.map { $0.name },
+                                      highlights: artist.bands.map(\.name),
                                       highlightFontWeight: .regular,
                                       highlightColor: preferences.theme.primaryColor)
                         .frame(alignment: .leading)

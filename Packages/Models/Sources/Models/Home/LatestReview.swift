@@ -17,7 +17,7 @@ public struct LatestReview: Sendable, Hashable {
     public let time: String
 
     public var bandsName: String {
-        bands.map { $0.name }.joined(separator: " & ")
+        bands.map(\.name).joined(separator: " & ")
     }
 
     public init(urlString: String,

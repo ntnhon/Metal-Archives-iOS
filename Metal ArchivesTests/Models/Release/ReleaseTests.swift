@@ -9,7 +9,7 @@
 import XCTest
 
 // swiftlint:disable type_body_length function_body_length
-class ReleaseTests: XCTestCase {
+final class ReleaseTests: XCTestCase {
     func testReleaseWithLyricsAndInstrumentalTracks() throws {
         // The Sound of Perseverance
         // https://www.metal-archives.com/albums/Death/The_Sound_of_Perseverance/618

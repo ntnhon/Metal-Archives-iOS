@@ -35,7 +35,7 @@ class MultipleChoiceSet<T: MultipleChoiceProtocol & Equatable> {
         } else if choices.count == 1 {
             choices.first?.choiceDescription ?? ""
         } else {
-            choices.map { $0.choiceDescription }.joined(separator: ", ")
+            choices.map(\.choiceDescription).joined(separator: ", ")
         }
     }
 

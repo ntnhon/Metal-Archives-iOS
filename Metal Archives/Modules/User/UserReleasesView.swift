@@ -115,8 +115,8 @@ private struct UserReleaseView: View {
                     .fontWeight(.bold)
                     .foregroundColor(preferences.theme.primaryColor)
 
-                HighlightableText(text: release.bands.map { $0.name }.joined(separator: " / "),
-                                  highlights: release.bands.map { $0.name },
+                HighlightableText(text: release.bands.map(\.name).joined(separator: " / "),
+                                  highlights: release.bands.map(\.name),
                                   highlightFontWeight: .bold,
                                   highlightColor: preferences.theme.secondaryColor)
 

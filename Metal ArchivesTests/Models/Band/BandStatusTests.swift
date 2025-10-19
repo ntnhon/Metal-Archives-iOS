@@ -8,7 +8,7 @@
 @testable import Metal_Archives
 import XCTest
 
-class BandStatusTests: XCTestCase {
+final class BandStatusTests: XCTestCase {
     func testStatusActive() {
         for item in ["Active", "active", "aCtive", "actiVE"] {
             let sut = BandStatus(rawValue: item)

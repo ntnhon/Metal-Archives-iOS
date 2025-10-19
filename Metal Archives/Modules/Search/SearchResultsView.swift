@@ -408,7 +408,7 @@ private struct ArtistSimpleSearchResultView: View {
                     .foregroundColor(preferences.theme.secondaryColor)
 
                 HighlightableText(text: result.bandsString,
-                                  highlights: result.bands.map { $0.name },
+                                  highlights: result.bands.map(\.name),
                                   highlightFontWeight: .bold,
                                   highlightColor: preferences.theme.secondaryColor)
             }

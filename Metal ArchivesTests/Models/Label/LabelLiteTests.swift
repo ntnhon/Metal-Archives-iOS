@@ -8,7 +8,7 @@
 @testable import Metal_Archives
 import XCTest
 
-class LabelLiteTests: XCTestCase {
+final class LabelLiteTests: XCTestCase {
     func testOptional() {
         // given
         let name = String.random(length: 20)

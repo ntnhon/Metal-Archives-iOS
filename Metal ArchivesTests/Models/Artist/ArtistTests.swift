@@ -8,7 +8,7 @@
 @testable import Metal_Archives
 import XCTest
 
-class ArtistTests: XCTestCase {
+final class ArtistTests: XCTestCase {
     func testChuck() throws {
         // Chuck Schuldiner
         // Full information (bio, trivia, rip,...)

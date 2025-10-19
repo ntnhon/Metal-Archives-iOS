@@ -163,7 +163,7 @@ private struct DeceasedArtistView: View {
                 Text(artist.country.nameAndFlag)
 
                 HighlightableText(text: artist.bandsString,
-                                  highlights: artist.bands.map { $0.name },
+                                  highlights: artist.bands.map(\.name),
                                   highlightFontWeight: .regular,
                                   highlightColor: preferences.theme.secondaryColor)
                     .font(.callout)
