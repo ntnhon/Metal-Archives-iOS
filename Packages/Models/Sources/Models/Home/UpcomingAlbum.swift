@@ -15,7 +15,7 @@ public struct UpcomingAlbum: Sendable, Hashable {
     public let date: String
 
     public var bandsName: String {
-        bands.map { $0.name }.joined(separator: " & ")
+        bands.map(\.name).joined(separator: " & ")
     }
 
     public init(bands: [BandLite],

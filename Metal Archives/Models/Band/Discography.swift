@@ -72,7 +72,7 @@ struct Discography: HTMLParsable {
             }
         }
         self.releases = releases
-        reviewCount = releases.compactMap { $0.reviewCount }.reduce(0, +)
+        reviewCount = releases.compactMap(\.reviewCount).reduce(0, +)
     }
 }
 

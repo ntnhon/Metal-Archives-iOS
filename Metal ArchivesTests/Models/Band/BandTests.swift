@@ -8,7 +8,7 @@
 @testable import Metal_Archives
 import XCTest
 
-class BandTests: XCTestCase {
+final class BandTests: XCTestCase {
     func testDeath() throws {
         let sut = try XCTUnwrap(Band(data: Data.fromHtml(fileName: "Death")))
 

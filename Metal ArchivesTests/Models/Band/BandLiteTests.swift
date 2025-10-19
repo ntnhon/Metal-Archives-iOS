@@ -8,7 +8,7 @@
 @testable import Metal_Archives
 import XCTest
 
-class BandLiteTests: XCTestCase {
+final class BandLiteTests: XCTestCase {
     func testInitSuccess() throws {
         // given
         let urlString = "https://www.metal-archives.com/bands/Raw_Dog/3540488927"

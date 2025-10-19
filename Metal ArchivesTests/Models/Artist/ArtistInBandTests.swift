@@ -8,7 +8,7 @@
 @testable import Metal_Archives
 import XCTest
 
-class ArtistInBandTests: XCTestCase {
+final class ArtistInBandTests: XCTestCase {
     func testEmptyThumbnailInfo() {
         // given
         let builder = ArtistInBand.Builder()

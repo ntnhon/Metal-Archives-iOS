@@ -47,9 +47,9 @@ final class ReleaseLineUpViewModel: ObservableObject {
     let applicableModes: [ReleaseLineUpMode]
 
     init(release: Release) {
-        let bandMembersCount = release.bandMembers.map { $0.members.count }.reduce(0, +)
-        let guestMembersCount = release.guestMembers.map { $0.members.count }.reduce(0, +)
-        let otherStaffCount = release.otherStaff.map { $0.members.count }.reduce(0, +)
+        let bandMembersCount = release.bandMembers.map(\.members.count).reduce(0, +)
+        let guestMembersCount = release.guestMembers.map(\.members.count).reduce(0, +)
+        let otherStaffCount = release.otherStaff.map(\.members.count).reduce(0, +)
 
         completeCount = bandMembersCount + guestMembersCount + otherStaffCount
         self.bandMembersCount = bandMembersCount

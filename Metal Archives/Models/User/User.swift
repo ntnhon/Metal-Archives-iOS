@@ -217,7 +217,7 @@ extension User: HTMLParsable {
         for div in html.css("div") {
             switch div["id"] {
             case "userInfo":
-                let aTag = div.css("a").first(where: { $0["href"]?.contains("https://") == true })
+                let aTag = div.css("a").first { $0["href"]?.contains("https://") == true }
                 builder.id = aTag?["href"]?.components(separatedBy: "/").last
             case "user_tab_profile":
                 Self.parseInfo(from: div, builder: builder)

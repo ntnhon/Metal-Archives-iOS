@@ -16,7 +16,7 @@ struct UpcomingAlbum {
     let date: String
 
     var bandsName: String {
-        bands.map { $0.name }.joined(separator: " & ")
+        bands.map(\.name).joined(separator: " & ")
     }
 }
 

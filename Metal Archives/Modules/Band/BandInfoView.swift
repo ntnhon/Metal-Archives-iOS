@@ -77,7 +77,7 @@ struct BandInfoView: View {
                 .foregroundColor(.secondary)
 
             HighlightableText(text: viewModel.band.yearsActive,
-                              highlights: viewModel.band.oldBands.map { $0.name },
+                              highlights: viewModel.band.oldBands.map(\.name),
                               highlightFontWeight: .bold,
                               highlightColor: preferences.theme.primaryColor)
         }
@@ -141,12 +141,12 @@ final class BandInfoViewModel {
         self.yearOfCreationString = yearOfCreationString
 
         reviewCount = discography.reviewCount
-        let ratings = discography.releases.compactMap { $0.rating }
+        let ratings = discography.releases.compactMap(\.rating)
         if ratings.isEmpty {
             averageRating = 0
         } else {
             averageRating = ratings.reduce(0, +) / ratings.count
         }
-        platiniumCount = discography.releases.filter { $0.isPlatinium }.count
+        platiniumCount = discography.releases.count(where: \.isPlatinium)
     }
 }

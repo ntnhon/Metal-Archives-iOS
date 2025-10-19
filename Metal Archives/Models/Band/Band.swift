@@ -200,6 +200,7 @@ extension Band: HTMLParsable {
 
                 case "band_img":
                     builder.photoUrlString = div.at_css("a")?["href"]
+
                 default: break
                 }
             }
@@ -276,6 +277,7 @@ extension Band: HTMLParsable {
                     }
                     builder.oldBands = oldBands
                 }
+
             default: break
             }
         }
