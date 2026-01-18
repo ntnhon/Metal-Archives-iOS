@@ -5,7 +5,6 @@
 //  Created by Nhon Nguyen on 07/12/2022.
 //
 
-import SnapToScroll
 import SwiftUI
 
 struct HomeSectionSkeletonView: View {

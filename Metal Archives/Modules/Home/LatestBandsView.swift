@@ -5,7 +5,6 @@
 //  Created by Nhon Nguyen on 24/12/2022.
 //
 
-import SnapToScroll
 import SwiftUI
 
 struct LatestBandsView: View {
@@ -39,18 +38,14 @@ struct LatestBandsView: View {
     }
 
     private var resultList: some View {
-        HStackSnap(alignment: .leading(24)) {
-            ForEach(viewModel.chunkedResults, id: \.hashValue) { latestBands in
-                VStack(spacing: HomeSettings.entrySpacing) {
-                    ForEach(latestBands) { band in
-                        LatestBandView(latestBand: band)
-                            .onTapGesture { detail = .band(band.band.thumbnailInfo.urlString) }
-                    }
+        SnappingScrollView(items: viewModel.chunkedResults, id: \.hashValue) { bands in
+            VStack(spacing: HomeSettings.entrySpacing) {
+                ForEach(bands) { band in
+                    LatestBandView(latestBand: band)
+                        .onTapGesture { detail = .band(band.band.thumbnailInfo.urlString) }
                 }
-                .snapAlignmentHelper(id: latestBands.hashValue)
             }
         }
-        .frame(height: HomeSettings.pageHeight)
     }
 }
 

@@ -255,7 +255,6 @@
 		EF60FFFF28FB122F00F96735 /* SimilarArtistsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF60FFFE28FB122F00F96735 /* SimilarArtistsViewModel.swift */; };
 		EF62240C28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240B28F1B3DB00845430 /* Kingfisher+retrieveImageAsync.swift */; };
 		EF62240E28F1C94300845430 /* ReleaseCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF62240D28F1C94300845430 /* ReleaseCoverView.swift */; };
-		EF62620F293E6E5D006C3FDC /* SnapToScroll in Frameworks */ = {isa = PBXBuildFile; productRef = EF62620E293E6E5D006C3FDC /* SnapToScroll */; };
 		EF626215293E7EEB006C3FDC /* HomeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF626214293E7EEB006C3FDC /* HomeSettings.swift */; };
 		EF66D50A2BB9911400507FAA /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = EF66D5092BB9911400507FAA /* Factory */; };
 		EF66D50C2BB9915200507FAA /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF66D50B2BB9915200507FAA /* DependenciesContainer.swift */; };
@@ -683,7 +682,6 @@
 				EF66D5152BBAABE200507FAA /* SwiftfulLoadingIndicators in Frameworks */,
 				EF48E6C72895BBA900B52EF2 /* AlertToast in Frameworks */,
 				EF7838502BC08FD50093A809 /* Models in Frameworks */,
-				EF62620F293E6E5D006C3FDC /* SnapToScroll in Frameworks */,
 				C0CC030526963B420043A728 /* Kingfisher in Frameworks */,
 				EF1279A42BC0951100222373 /* Core in Frameworks */,
 				EF66D50A2BB9911400507FAA /* Factory in Frameworks */,
@@ -726,7 +724,6 @@
 		C004A2BC2658F3630071E12A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				533497382F1D11DC00E0A8C5 /* SnappingScrollView.swift */,
 				C0DD1384267F6E1D009F0B81 /* ArrayExtensions.swift */,
 				EF4B6BA72899015F008DBCF6 /* AttributedStringExtensions.swift */,
 				EF66D50F2BB9D00200507FAA /* Binding+MappedToBool.swift */,
@@ -742,6 +739,7 @@
 				EF66D5112BB9EC3800507FAA /* OpenURLAction+OpenUrlString.swift */,
 				EF2862D228EB5EB700E2C131 /* PageManagerProtocol.swift */,
 				C08DF5CE26A62108002E73EB /* SizePreferenceKey.swift */,
+				533497382F1D11DC00E0A8C5 /* SnappingScrollView.swift */,
 				C0DD1376267F5A59009F0B81 /* SKStoreReviewControllerExtensions.swift */,
 				C004A2BD2658F3760071E12A /* StringExtensions.swift */,
 				EF42EE7B2900807B00362E39 /* ThumbnailInfoMatcher.swift */,
@@ -1451,7 +1449,6 @@
 				C0CC030426963B420043A728 /* Kingfisher */,
 				EF48E6C62895BBA900B52EF2 /* AlertToast */,
 				EF3183492898627C00B6C8DD /* BetterSafariView */,
-				EF62620E293E6E5D006C3FDC /* SnapToScroll */,
 				EF66D5092BB9911400507FAA /* Factory */,
 				EF66D5142BBAABE200507FAA /* SwiftfulLoadingIndicators */,
 				EF78384F2BC08FD50093A809 /* Models */,
@@ -1534,7 +1531,6 @@
 				C0CC030326963B420043A728 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				EF48E6C52895BBA900B52EF2 /* XCRemoteSwiftPackageReference "AlertToast" */,
 				EF3183482898627C00B6C8DD /* XCRemoteSwiftPackageReference "BetterSafariView" */,
-				EF62620D293E6E5D006C3FDC /* XCRemoteSwiftPackageReference "hstack-snap-to-scroll" */,
 				EF66D5082BB9911400507FAA /* XCRemoteSwiftPackageReference "Factory" */,
 				EF66D5132BBAABE200507FAA /* XCRemoteSwiftPackageReference "SwiftfulLoadingIndicators" */,
 			);
@@ -2279,14 +2275,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		EF62620D293E6E5D006C3FDC /* XCRemoteSwiftPackageReference "hstack-snap-to-scroll" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/swiftui-library/hstack-snap-to-scroll";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		EF66D5082BB9911400507FAA /* XCRemoteSwiftPackageReference "Factory" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hmlongco/Factory";
@@ -2329,11 +2317,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EF48E6C52895BBA900B52EF2 /* XCRemoteSwiftPackageReference "AlertToast" */;
 			productName = AlertToast;
-		};
-		EF62620E293E6E5D006C3FDC /* SnapToScroll */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EF62620D293E6E5D006C3FDC /* XCRemoteSwiftPackageReference "hstack-snap-to-scroll" */;
-			productName = SnapToScroll;
 		};
 		EF66D5092BB9911400507FAA /* Factory */ = {
 			isa = XCSwiftPackageProductDependency;

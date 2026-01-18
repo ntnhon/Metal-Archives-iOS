@@ -13,7 +13,7 @@ struct SnappingScrollView<Content: View, Item: Any, ID: Hashable>: View {
     let content: (Item) -> Content
 
     var body: some View {
-        ScrollView(.horizontal) {
+        ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack {
                 ForEach(items, id: id) { item in
                     content(item)

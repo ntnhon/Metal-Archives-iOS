@@ -5,7 +5,6 @@
 //  Created by Nhon Nguyen on 24/12/2022.
 //
 
-import SnapToScroll
 import SwiftUI
 
 struct LatestArtistsView: View {
@@ -39,18 +38,14 @@ struct LatestArtistsView: View {
     }
 
     private var resultList: some View {
-        HStackSnap(alignment: .leading(24)) {
-            ForEach(viewModel.chunkedResults, id: \.hashValue) { latestArtists in
-                VStack(spacing: HomeSettings.entrySpacing) {
-                    ForEach(latestArtists) { artist in
-                        LatestArtistView(latestArtist: artist)
-                            .onTapGesture { detail = .artist(artist.artist.thumbnailInfo.urlString) }
-                    }
+        SnappingScrollView(items: viewModel.chunkedResults, id: \.hashValue) { artists in
+            VStack(spacing: HomeSettings.entrySpacing) {
+                ForEach(artists) { artist in
+                    LatestArtistView(latestArtist: artist)
+                        .onTapGesture { detail = .artist(artist.artist.thumbnailInfo.urlString) }
                 }
-                .snapAlignmentHelper(id: latestArtists.hashValue)
             }
         }
-        .frame(height: HomeSettings.pageHeight)
     }
 }
 

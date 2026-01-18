@@ -5,7 +5,6 @@
 //  Created by Nhon Nguyen on 04/12/2022.
 //
 
-import SnapToScroll
 import SwiftUI
 
 typealias LatestReviewsSectionViewModel = HomeSectionViewModel<LatestReview>
@@ -63,17 +62,13 @@ struct LatestReviewsSection: View {
     }
 
     private var resultList: some View {
-        HStackSnap(alignment: .leading(24)) {
-            ForEach(viewModel.chunkedResults, id: \.hashValue) { latestReviews in
-                VStack(spacing: HomeSettings.entrySpacing) {
-                    ForEach(latestReviews) { review in
-                        LatestReviewView(detail: $detail, review: review)
-                    }
+        SnappingScrollView(items: viewModel.chunkedResults, id: \.hashValue) { reviews in
+            VStack(spacing: HomeSettings.entrySpacing) {
+                ForEach(reviews) { review in
+                    LatestReviewView(detail: $detail, review: review)
                 }
-                .snapAlignmentHelper(id: latestReviews.hashValue)
             }
         }
-        .frame(height: HomeSettings.pageHeight)
     }
 }
 
