@@ -16,13 +16,16 @@ struct NewFeature: Identifiable {
 
 enum AppVersion {
     case fiveDotOneDotZero
+    case sixDotZeroDotZero
 
-    static var current: Self { .fiveDotOneDotZero }
+    static var current: Self { .sixDotZeroDotZero }
 
     var name: String {
         switch self {
         case .fiveDotOneDotZero:
             "5.1.0"
+        case .sixDotZeroDotZero:
+            "6.0.0"
         }
     }
 
@@ -40,6 +43,13 @@ enum AppVersion {
                 .init(title: "Tap to see full artist's trivia",
                       description: "When viewing an artist's information, simply tap on their trivia to see it in full.",
                       systemImageName: "person.crop.circle"),
+            ]
+
+        case .sixDotZeroDotZero:
+            [
+                .init(title: "Liquid Glass design",
+                      description: "Experience the biggest visual overhaul in years. Interface elements now feature a glass-like translucency that reflects and refracts your wallpaper in real-time.",
+                      systemImageName: "square.grid.2x2.fill")
             ]
         }
     }

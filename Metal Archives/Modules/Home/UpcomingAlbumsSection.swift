@@ -5,7 +5,6 @@
 //  Created by Nhon Nguyen on 04/12/2022.
 //
 
-import SnapToScroll
 import SwiftUI
 
 typealias UpcomingAlbumsSectionViewModel = HomeSectionViewModel<UpcomingAlbum>
@@ -63,17 +62,13 @@ struct UpcomingAlbumsSection: View {
     }
 
     private var resultList: some View {
-        HStackSnap(alignment: .leading(24)) {
-            ForEach(viewModel.chunkedResults, id: \.hashValue) { upcomingAlbums in
-                VStack(spacing: HomeSettings.entrySpacing) {
-                    ForEach(upcomingAlbums) { album in
-                        UpcomingAlbumView(detail: $detail, upcomingAlbum: album)
-                    }
+        SnappingScrollView(items: viewModel.chunkedResults, id: \.hashValue) { upcomingAlbums in
+            VStack(spacing: HomeSettings.entrySpacing) {
+                ForEach(upcomingAlbums) { album in
+                    UpcomingAlbumView(detail: $detail, upcomingAlbum: album)
                 }
-                .snapAlignmentHelper(id: upcomingAlbums.hashValue)
             }
         }
-        .frame(height: HomeSettings.pageHeight)
     }
 }
 
@@ -99,16 +94,10 @@ private struct UpcomingAlbumView: View {
                     // swiftlint:disable:next shorthand_operator
                     partialResult = partialResult + text
                 }
-                .fixedSize(horizontal: false, vertical: true)
-                .lineLimit(2)
-                .minimumScaleFactor(0.5)
 
                 Text(upcomingAlbum.release.title)
                     .fontWeight(.semibold)
                     .foregroundColor(preferences.theme.secondaryColor)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .lineLimit(2)
-                    .minimumScaleFactor(0.5)
 
                 Text(upcomingAlbum.releaseType.description)
                     .fontWeight(upcomingAlbum.releaseType == .fullLength ? .heavy : .regular) +
@@ -117,16 +106,15 @@ private struct UpcomingAlbumView: View {
 
                 Text(upcomingAlbum.genre)
                     .font(.callout.italic())
-                    .fixedSize(horizontal: false, vertical: true)
-                    .lineLimit(2)
-                    .minimumScaleFactor(0.5)
 
                 Divider()
             }
+            .lineLimit(2)
+            .minimumScaleFactor(0.8)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(width: HomeSettings.entryWidth)
-        .contentShape(Rectangle())
+        .contentShape(.rect)
         .onTapGesture { isShowingConfirmationDialog.toggle() }
         .confirmationDialog(
             "Upcoming album",
