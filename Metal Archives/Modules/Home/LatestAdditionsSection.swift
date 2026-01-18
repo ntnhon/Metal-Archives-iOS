@@ -31,18 +31,7 @@ struct LatestAdditionsSection: View {
     }
 
     var body: some View {
-        VStack {
-            HStack {
-                Text("Latest additions")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
-                Spacer()
-//                NavigationLink(destination: { Text("All") },
-//                               label: { Text("See All") })
-            }
-            .padding(.horizontal)
-
+        Section(content: {
             Picker("", selection: $selectedObject) {
                 ForEach(LatestObject.allCases, id: \.rawValue) { type in
                     Text(type.rawValue)
@@ -63,6 +52,17 @@ struct LatestAdditionsSection: View {
                 LatestArtistsView(viewModel: addedArtistsViewModel, path: $path)
                     .frame(minHeight: HomeSettings.pageHeight)
             }
-        }
+        }, header: {
+            HStack {
+                Text("Latest additions")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(.primary)
+                Spacer()
+//                NavigationLink(destination: { Text("All") },
+//                               label: { Text("See All") })
+            }
+            .padding(.horizontal)
+        })
     }
 }

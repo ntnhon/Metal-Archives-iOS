@@ -14,7 +14,7 @@ struct HomeView: View {
     var body: some View {
         NavigationStack(path: $path) {
             ScrollView {
-                LazyVStack {
+                LazyVStack(pinnedViews: [.sectionHeaders]) {
                     ForEach(preferences.homeSectionOrder) { section in
                         switch section {
                         case .latestAdditions:
@@ -27,6 +27,8 @@ struct HomeView: View {
                             UpcomingAlbumsSection(path: $path)
                         }
                     }
+                    Spacer()
+                        .frame(minHeight: 44)
                 }
             }
             .navigationTitle(Text(navigationTitle))

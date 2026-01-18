@@ -19,20 +19,29 @@ struct LatestReviewsSection: View {
     }
 
     var body: some View {
-        ZStack {
+        Section(content: {
             if let error = viewModel.error {
                 VStack {
                     Text(error.userFacingMessage)
                     RetryButton(onRetry: viewModel.refresh)
                 }
             } else {
-                VStack(spacing: 0) {
-                    HStack {
-                        Text("Latest reviews")
-                            .font(.title2)
-                            .fontWeight(.bold)
+                if viewModel.isLoading, viewModel.results.isEmpty {
+                    HomeSectionSkeletonView()
+                } else if viewModel.results.isEmpty {
+                    Text("No latest reviews")
+                        .font(.callout.italic())
+                } else {
+                    resultList
+                }
+            }
+        }, header: {
+            HStack {
+                Text("Latest reviews")
+                    .font(.title2)
+                    .fontWeight(.bold)
 
-                        Spacer()
+                Spacer()
 
 //                        if !viewModel.isLoading && !viewModel.results.isEmpty {
 //                            Button(action: {
@@ -41,21 +50,9 @@ struct LatestReviewsSection: View {
 //                                Text("See all")
 //                            })
 //                        }
-                    }
-                    .padding(.horizontal)
-
-                    if viewModel.isLoading && viewModel.results.isEmpty {
-                        HomeSectionSkeletonView()
-                    } else if viewModel.results.isEmpty {
-                        Text("No latest reviews")
-                            .font(.callout.italic())
-                    } else {
-                        resultList
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
             }
-        }
+            .padding(.horizontal)
+        })
         .task {
             await viewModel.getMoreResults(force: false)
         }
