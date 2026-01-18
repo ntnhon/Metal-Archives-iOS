@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GenreListView: View {
     @Binding var path: NavigationPath
-    
+
     var body: some View {
         Form {
             Section(content: {

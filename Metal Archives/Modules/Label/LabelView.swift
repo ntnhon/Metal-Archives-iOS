@@ -60,7 +60,8 @@ private struct LabelContentView: View {
 
     init(urlString: String,
          label: LabelDetail,
-         path: Binding<NavigationPath>) {
+         path: Binding<NavigationPath>)
+    {
         self.label = label
         _tabsDatasource = .init(wrappedValue: .init(label: label))
         _currentRosterViewModel = .init(wrappedValue: .init(urlString: urlString))

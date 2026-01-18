@@ -74,7 +74,7 @@ struct LatestReviewsSection: View {
 
 private struct LatestReviewView: View {
     @EnvironmentObject private var preferences: Preferences
-    @State private var isShowingConfirmationDialog = false
+    @State private var showAlert = false
     @Binding var path: NavigationPath
     let review: LatestReview
 
@@ -120,44 +120,44 @@ private struct LatestReviewView: View {
         }
         .frame(width: HomeSettings.entryWidth)
         .contentShape(Rectangle())
-        .onTapGesture { isShowingConfirmationDialog.toggle() }
-        .confirmationDialog(
-            "Review",
-            isPresented: $isShowingConfirmationDialog,
-            actions: {
-                Button(action: {
-                    path.append(Detail.review(review.urlString))
-                }, label: {
-                    Text("Read review by \(review.author.name) - \(review.rating)%")
-                })
+        .onTapGesture { showAlert.toggle() }
+        .alert("Review",
+               isPresented: $showAlert,
+               actions: {
+                   Button(action: {
+                       path.append(Detail.review(review.urlString))
+                   }, label: {
+                       Text("Read review by \(review.author.name) - \(review.rating)%")
+                   })
 
-                Button(action: {
-                    path.append(Detail.release(review.release.thumbnailInfo.urlString))
-                }, label: {
-                    Text("View release's detail")
-                })
+                   Button(action: {
+                       path.append(Detail.release(review.release.thumbnailInfo.urlString))
+                   }, label: {
+                       Text("View release's detail")
+                   })
 
-                ForEach(review.bands) { band in
-                    Button(action: {
-                        path.append(Detail.band(band.thumbnailInfo.urlString))
-                    }, label: {
-                        if review.bands.count == 1 {
-                            Text("View band's detail")
-                        } else {
-                            Text(band.name)
-                        }
-                    })
-                }
+                   ForEach(review.bands) { band in
+                       Button(action: {
+                           path.append(Detail.band(band.thumbnailInfo.urlString))
+                       }, label: {
+                           if review.bands.count == 1 {
+                               Text("View band's detail")
+                           } else {
+                               Text(band.name)
+                           }
+                       })
+                   }
 
-                Button(action: {
-                    path.append(Detail.user(review.author.urlString))
-                }, label: {
-                    Text("View \(review.author.name)'s detail")
-                })
-            },
-            message: {
-                Text("\"\(review.release.title)\" by \(review.bandsName)")
-            }
-        )
+                   Button(action: {
+                       path.append(Detail.user(review.author.urlString))
+                   }, label: {
+                       Text("View \(review.author.name)'s detail")
+                   })
+
+                   CancelButton()
+               },
+               message: {
+                   Text("\"\(review.release.title)\" by \(review.bandsName)")
+               })
     }
 }

@@ -13,7 +13,8 @@ struct ReleaseView: View {
 
     init(urlString: String,
          parentRelease: Release?,
-         path: Binding<NavigationPath>) {
+         path: Binding<NavigationPath>)
+    {
         let vm = ReleaseViewModel(urlString: urlString, parentRelease: parentRelease)
         _viewModel = .init(wrappedValue: vm)
         _path = path

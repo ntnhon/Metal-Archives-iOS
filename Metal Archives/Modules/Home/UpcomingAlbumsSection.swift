@@ -74,7 +74,7 @@ struct UpcomingAlbumsSection: View {
 
 private struct UpcomingAlbumView: View {
     @EnvironmentObject private var preferences: Preferences
-    @State private var isShowingConfirmationDialog = false
+    @State private var showAlert = false
     @Binding var path: NavigationPath
     let upcomingAlbum: UpcomingAlbum
 
@@ -115,32 +115,32 @@ private struct UpcomingAlbumView: View {
         }
         .frame(width: HomeSettings.entryWidth)
         .contentShape(.rect)
-        .onTapGesture { isShowingConfirmationDialog.toggle() }
-        .confirmationDialog(
-            "Upcoming album",
-            isPresented: $isShowingConfirmationDialog,
-            actions: {
-                Button(action: {
-                    path.append(Detail.release(upcomingAlbum.release.thumbnailInfo.urlString))
-                }, label: {
-                    Text("View release's detail")
-                })
+        .onTapGesture { showAlert.toggle() }
+        .alert("Upcoming album",
+               isPresented: $showAlert,
+               actions: {
+                   Button(action: {
+                       path.append(Detail.release(upcomingAlbum.release.thumbnailInfo.urlString))
+                   }, label: {
+                       Text("View release's detail")
+                   })
 
-                ForEach(upcomingAlbum.bands) { band in
-                    Button(action: {
-                        path.append(Detail.band(band.thumbnailInfo.urlString))
-                    }, label: {
-                        if upcomingAlbum.bands.count == 1 {
-                            Text("View band's detail")
-                        } else {
-                            Text(band.name)
-                        }
-                    })
-                }
-            },
-            message: {
-                Text("\"\(upcomingAlbum.release.title)\" by \(upcomingAlbum.bandsName)")
-            }
-        )
+                   ForEach(upcomingAlbum.bands) { band in
+                       Button(action: {
+                           path.append(Detail.band(band.thumbnailInfo.urlString))
+                       }, label: {
+                           if upcomingAlbum.bands.count == 1 {
+                               Text("View band's detail")
+                           } else {
+                               Text(band.name)
+                           }
+                       })
+                   }
+
+                   CancelButton()
+               },
+               message: {
+                   Text("\"\(upcomingAlbum.release.title)\" by \(upcomingAlbum.bandsName)")
+               })
     }
 }

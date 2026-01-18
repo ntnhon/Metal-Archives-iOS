@@ -49,7 +49,7 @@ enum AppVersion {
             [
                 .init(title: "Liquid Glass design",
                       description: "Experience the biggest visual overhaul in years. Interface elements now feature a glass-like translucency that reflects and refracts your wallpaper in real-time.",
-                      systemImageName: "square.grid.2x2.fill")
+                      systemImageName: "square.grid.2x2.fill"),
             ]
         }
     }
