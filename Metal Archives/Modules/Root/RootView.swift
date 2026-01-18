@@ -49,13 +49,13 @@ struct RootView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            NavigationView { HomeView() }
+            HomeView()
                 .tab(.home, selectedTab: selectedTab)
 
             NavigationView { SearchView() }
                 .tab(.search, selectedTab: selectedTab)
 
-            NavigationView { BrowseView() }
+            BrowseView()
                 .tab(.browse, selectedTab: selectedTab)
 
             NavigationView { SettingsView() }

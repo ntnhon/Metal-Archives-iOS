@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LatestLabelsView: View {
     @ObservedObject var viewModel: LatestLabelsViewModel
-    @Binding var detail: Detail?
+    @Binding var path: NavigationPath
 
     var body: some View {
         ZStack {
@@ -44,7 +44,7 @@ struct LatestLabelsView: View {
                     LatestLabelView(latestLabel: label)
                         .onTapGesture {
                             if let urlString = label.label.thumbnailInfo?.urlString {
-                                detail = .label(urlString)
+                                path.append(Detail.label(urlString))
                             }
                         }
                 }

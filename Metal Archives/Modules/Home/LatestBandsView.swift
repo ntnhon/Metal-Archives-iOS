@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LatestBandsView: View {
     @ObservedObject var viewModel: LatestBandsViewModel
-    @Binding var detail: Detail?
+    @Binding var path: NavigationPath
 
     var body: some View {
         ZStack {
@@ -42,7 +42,7 @@ struct LatestBandsView: View {
             VStack(spacing: HomeSettings.entrySpacing) {
                 ForEach(bands) { band in
                     LatestBandView(latestBand: band)
-                        .onTapGesture { detail = .band(band.band.thumbnailInfo.urlString) }
+                        .onTapGesture { path.append(Detail.band(band.band.thumbnailInfo.urlString)) }
                 }
             }
         }

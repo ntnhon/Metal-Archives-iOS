@@ -9,9 +9,11 @@ import SwiftUI
 
 struct ArtistView: View {
     @StateObject private var viewModel: ArtistViewModel
+    @Binding var path: NavigationPath
 
-    init(urlString: String) {
+    init(urlString: String, path: Binding<NavigationPath>) {
         _viewModel = .init(wrappedValue: .init(urlString: urlString))
+        _path = path
     }
 
     var body: some View {
@@ -20,7 +22,7 @@ struct ArtistView: View {
             case .fetching:
                 MALoadingIndicator()
             case let .fetched(artist):
-                ArtistContentView(artist: artist)
+                ArtistContentView(artist: artist, path: $path)
                     .environmentObject(viewModel)
             case let .error(error):
                 VStack {
@@ -44,22 +46,21 @@ private struct ArtistContentView: View {
     @State private var titleViewAlpha = 0.0
     @State private var photoScaleFactor: CGFloat = 1.0
     @State private var photoOpacity: Double = 1.0
-    @State private var detail: Detail?
     private let photoViewHeight: CGFloat
     private let minPhotoScaleFactor: CGFloat = 0.5
     private let maxPhotoScaleFactor: CGFloat = 1.2
     let artist: Artist
+    @Binding var path: NavigationPath
 
-    init(artist: Artist) {
+    init(artist: Artist, path: Binding<NavigationPath>) {
         self.artist = artist
         _tabsDatasource = .init(wrappedValue: .init(artist: artist))
         photoViewHeight = artist.hasPhoto ? 300 : 0
+        _path = path
     }
 
     var body: some View {
         ZStack(alignment: .top) {
-            DetailView(detail: $detail)
-
             ArtistPhotoView(scaleFactor: $photoScaleFactor, opacity: $photoOpacity)
                 .environmentObject(viewModel)
                 .frame(height: photoViewHeight)
@@ -151,8 +152,8 @@ private struct ArtistContentView: View {
 
     private func artistRolesView(_ roles: [RoleInBand]) -> some View {
         ArtistRolesView(roles: roles,
-                        onSelectBand: { url in detail = .band(url) },
-                        onSelectRelease: { url in detail = .release(url) })
+                        onSelectBand: { url in path.append(Detail.band(url)) },
+                        onSelectRelease: { url in path.append(Detail.release(url)) })
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
     }

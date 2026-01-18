@@ -10,12 +10,10 @@ import SwiftUI
 struct SearchResultsView<T: HashableEquatablePageElement>: View {
     // swiftlint:disable:next private_swiftui_state
     @StateObject var viewModel: SearchResultsViewModel<T>
-    @State private var detail: Detail?
+    @Binding var path: NavigationPath
 
     var body: some View {
         ZStack {
-            DetailView(detail: $detail)
-
             if let error = viewModel.error {
                 VStack {
                     Text(error.userFacingMessage)
@@ -62,30 +60,30 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
             BandSimpleSearchResultView(result: result)
                 .onTapGesture {
                     viewModel.upsertBandEntry(result.band)
-                    detail = .band(result.band.thumbnailInfo.urlString)
+                    path.append(Detail.band(result.band.thumbnailInfo.urlString))
                 }
         } else if let result = result as? MusicGenreSimpleSearchResult {
             BandSimpleSearchResultView(result: result)
                 .onTapGesture {
                     viewModel.upsertBandEntry(result.band)
-                    detail = .band(result.band.thumbnailInfo.urlString)
+                    path.append(Detail.band(result.band.thumbnailInfo.urlString))
                 }
         } else if let result = result as? LyricalSimpleSearchResult {
             LyricalSimpleSearchResultView(result: result)
                 .onTapGesture {
                     viewModel.upsertBandEntry(result.band)
-                    detail = .band(result.band.thumbnailInfo.urlString)
+                    path.append(Detail.band(result.band.thumbnailInfo.urlString))
                 }
         } else if let result = result as? ReleaseSimpleSearchResult {
             ReleaseSimpleSearchResultView(
                 result: result,
                 onSelectRelease: { url in
                     viewModel.upsertReleaseEntry(result.release)
-                    detail = .release(url)
+                    path.append(Detail.release(url))
                 },
                 onSelectBand: { url in
                     viewModel.upsertBandEntry(result.band)
-                    detail = .band(url)
+                    path.append(Detail.band(url))
                 }
             )
         } else if let result = result as? SongSimpleSearchResult {
@@ -93,13 +91,13 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
                 result: result,
                 onSelectRelease: { url in
                     viewModel.upsertReleaseEntry(result.release)
-                    detail = .release(url)
+                    path.append(Detail.release(url))
                 },
                 onSelectBand: { url in
                     if let band = result.band.toBandLite() {
                         viewModel.upsertBandEntry(band)
                     }
-                    detail = .band(url)
+                    path.append(Detail.band(url))
                 }
             )
         } else if let result = result as? LabelSimpleSearchResult {
@@ -107,7 +105,7 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
                 .onTapGesture {
                     viewModel.upsertLabelEntry(result.label)
                     if let urlString = result.label.thumbnailInfo?.urlString {
-                        detail = .label(urlString)
+                        path.append(Detail.label(urlString))
                     }
                 }
         } else if let result = result as? ArtistSimpleSearchResult {
@@ -115,20 +113,20 @@ struct SearchResultsView<T: HashableEquatablePageElement>: View {
                 result: result,
                 onSelectArtist: { url in
                     viewModel.upsertArtistEntry(result.artist)
-                    detail = .artist(url)
+                    path.append(Detail.artist(url))
                 },
                 onSelectBand: { url in
                     if let band = result.bands.first(where: { $0.thumbnailInfo.urlString == url }) {
                         viewModel.upsertBandEntry(band)
                     }
-                    detail = .band(url)
+                    path.append(Detail.band(url))
                 }
             )
         } else if let result = result as? UserSimpleSearchResult {
             UserSimpleSearchResultView(result: result)
                 .onTapGesture {
                     viewModel.upsertUserEntry(result.user)
-                    detail = .user(result.user.urlString)
+                    path.append(Detail.user(result.user.urlString))
                 }
         } else {
             EmptyView()

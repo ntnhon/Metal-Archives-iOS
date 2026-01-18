@@ -18,6 +18,7 @@ struct AdvancedSearchSongsView: View {
     @State private var lyrics = ""
     @State private var genre = ""
     @StateObject private var releaseTypeSet = ReleaseTypeSet()
+    @Binding var path: NavigationPath
 
     var body: some View {
         Form {
@@ -82,7 +83,8 @@ struct AdvancedSearchSongsView: View {
             Section {
                 NavigationLink(
                     destination: {
-                        AdvancedSearchResultView(viewModel: .init(manager: makePageManager()))
+                        AdvancedSearchResultView(viewModel: .init(manager: makePageManager()),
+                                                 path: $path)
                     },
                     label: {
                         Text("SEARCH")
@@ -115,7 +117,7 @@ struct AdvancedSearchSongsView: View {
 
 #Preview {
     NavigationView {
-        AdvancedSearchSongsView()
+        AdvancedSearchSongsView(path: .constant(.init()))
     }
     .environment(\.colorScheme, .dark)
     .environmentObject(Preferences())

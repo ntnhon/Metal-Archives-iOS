@@ -22,6 +22,7 @@ enum CountryListMode {
 
 struct CountryListView: View {
     let mode: CountryListMode
+    @Binding var path: NavigationPath
 
     var body: some View {
         Form {
@@ -29,9 +30,9 @@ struct CountryListView: View {
                 NavigationLink(destination: {
                     switch mode {
                     case .bands:
-                        BandsByCountryView(country: country)
+                        BandsByCountryView(country: country, path: $path)
                     case .labels:
-                        LabelsByCountryView(country: country)
+                        LabelsByCountryView(country: country, path: $path)
                     }
                 }, label: {
                     Text(country.nameAndFlag)
@@ -44,7 +45,7 @@ struct CountryListView: View {
 
 #Preview {
     NavigationView {
-        CountryListView(mode: .bands)
+        CountryListView(mode: .bands, path: .constant(.init()))
     }
     .environment(\.colorScheme, .dark)
     .environmentObject(Preferences())

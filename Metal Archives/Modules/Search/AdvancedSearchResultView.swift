@@ -12,12 +12,10 @@ private typealias SongAdvancedSearchResultView = SongSimpleSearchResultView
 struct AdvancedSearchResultView<T: HashableEquatablePageElement>: View {
     // swiftlint:disable:next private_swiftui_state
     @StateObject var viewModel: AdvancedSearchResultViewModel<T>
-    @State private var detail: Detail?
+    @Binding var path: NavigationPath
 
     var body: some View {
         ZStack {
-            DetailView(detail: $detail)
-
             if let error = viewModel.error {
                 VStack {
                     Text(error.userFacingMessage)
@@ -63,19 +61,19 @@ struct AdvancedSearchResultView<T: HashableEquatablePageElement>: View {
         if let result = result as? BandAdvancedSearchResult {
             BandAdvancedSearchResultView(result: result)
                 .onTapGesture {
-                    detail = .band(result.band.thumbnailInfo.urlString)
+                    path.append(Detail.band(result.band.thumbnailInfo.urlString))
                 }
         } else if let result = result as? ReleaseAdvancedSearchResult {
             ReleaseAdvancedSearchResultView(
                 result: result,
-                onSelectBand: { url in detail = .band(url) },
-                onSelectRelease: { url in detail = .release(url) }
+                onSelectBand: { url in path.append(Detail.band(url)) },
+                onSelectRelease: { url in path.append(Detail.release(url)) }
             )
         } else if let result = result as? SongAdvancedSearchResult {
             SongAdvancedSearchResultView(
                 result: result,
-                onSelectRelease: { url in detail = .release(url) },
-                onSelectBand: { url in detail = .band(url) }
+                onSelectRelease: { url in path.append(Detail.release(url)) },
+                onSelectBand: { url in path.append(Detail.band(url)) }
             )
         } else {
             EmptyView()

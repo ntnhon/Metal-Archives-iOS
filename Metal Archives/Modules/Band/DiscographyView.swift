@@ -12,9 +12,11 @@ struct DiscographyView: View {
     @ObservedObject private var viewModel: DiscographyViewModel
     @State private var showingRelease = false
     @State private var selectedRelease: ReleaseInBand?
+    @Binding private var path: NavigationPath
 
-    init(viewModel: DiscographyViewModel) {
+    init(viewModel: DiscographyViewModel, path: Binding<NavigationPath>) {
         _viewModel = .init(wrappedValue: viewModel)
+        _path = path
     }
 
     var body: some View {
@@ -34,7 +36,8 @@ struct DiscographyView: View {
                     NavigationLink(
                         destination: {
                             ReleaseView(urlString: release.thumbnailInfo.urlString,
-                                        parentRelease: nil)
+                                        parentRelease: nil,
+                                        path: $path)
                         },
                         label: {
                             let text = "\(release.title) (\(release.year)) (\(release.type.description))"
@@ -87,7 +90,8 @@ struct DiscographyView: View {
             VStack {
                 DiscographyView(viewModel: .init(discography: .death,
                                                  discographyMode: .complete,
-                                                 order: .ascending))
+                                                 order: .ascending),
+                                path: .constant(.init()))
             }
         }
         .padding(.horizontal)

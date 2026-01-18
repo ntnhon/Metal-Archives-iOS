@@ -11,6 +11,7 @@ struct BandSimilarView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var showingDetail = false
     @State private var showingShareSheet = false
+    @Binding var path: NavigationPath
     let bandSimilar: BandSimilar
 
     var body: some View {
@@ -18,7 +19,7 @@ struct BandSimilarView: View {
         NavigationLink(
             isActive: $showingDetail,
             destination: {
-                BandView(bandUrlString: urlString)
+                BandView(bandUrlString: urlString, path: $path)
             },
             label: {
                 HStack {
@@ -88,6 +89,6 @@ struct BandSimilarView: View {
                                 country: .usa,
                                 genre: "Death/Thrash Metal",
                                 score: 291)
-    return BandSimilarView(bandSimilar: possessed)
+    return BandSimilarView(path: .constant(.init()), bandSimilar: possessed)
         .environmentObject(Preferences())
 }

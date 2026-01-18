@@ -11,11 +11,11 @@ typealias UpcomingAlbumsSectionViewModel = HomeSectionViewModel<UpcomingAlbum>
 
 struct UpcomingAlbumsSection: View {
     @StateObject private var viewModel: UpcomingAlbumsSectionViewModel
-    @Binding var detail: Detail?
+    @Binding private var path: NavigationPath
 
-    init(detail: Binding<Detail?>) {
+    init(path: Binding<NavigationPath>) {
         _viewModel = .init(wrappedValue: .init(manager: UpcomingAlbumPageManager()))
-        _detail = detail
+        _path = path
     }
 
     var body: some View {
@@ -65,7 +65,7 @@ struct UpcomingAlbumsSection: View {
         SnappingScrollView(items: viewModel.chunkedResults, id: \.hashValue) { upcomingAlbums in
             VStack(spacing: HomeSettings.entrySpacing) {
                 ForEach(upcomingAlbums) { album in
-                    UpcomingAlbumView(detail: $detail, upcomingAlbum: album)
+                    UpcomingAlbumView(path: $path, upcomingAlbum: album)
                 }
             }
         }
@@ -75,7 +75,7 @@ struct UpcomingAlbumsSection: View {
 private struct UpcomingAlbumView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var isShowingConfirmationDialog = false
-    @Binding var detail: Detail?
+    @Binding var path: NavigationPath
     let upcomingAlbum: UpcomingAlbum
 
     var body: some View {
@@ -121,14 +121,14 @@ private struct UpcomingAlbumView: View {
             isPresented: $isShowingConfirmationDialog,
             actions: {
                 Button(action: {
-                    detail = .release(upcomingAlbum.release.thumbnailInfo.urlString)
+                    path.append(Detail.release(upcomingAlbum.release.thumbnailInfo.urlString))
                 }, label: {
                     Text("View release's detail")
                 })
 
                 ForEach(upcomingAlbum.bands) { band in
                     Button(action: {
-                        detail = .band(band.thumbnailInfo.urlString)
+                        path.append(Detail.band(band.thumbnailInfo.urlString))
                     }, label: {
                         if upcomingAlbum.bands.count == 1 {
                             Text("View band's detail")

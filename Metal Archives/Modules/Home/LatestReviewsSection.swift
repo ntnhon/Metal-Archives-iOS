@@ -11,11 +11,11 @@ typealias LatestReviewsSectionViewModel = HomeSectionViewModel<LatestReview>
 
 struct LatestReviewsSection: View {
     @StateObject private var viewModel: LatestReviewsSectionViewModel
-    @Binding var detail: Detail?
+    @Binding private var path: NavigationPath
 
-    init(detail: Binding<Detail?>) {
+    init(path: Binding<NavigationPath>) {
         _viewModel = .init(wrappedValue: .init(manager: LatestReviewPageManager()))
-        _detail = detail
+        _path = path
     }
 
     var body: some View {
@@ -65,7 +65,7 @@ struct LatestReviewsSection: View {
         SnappingScrollView(items: viewModel.chunkedResults, id: \.hashValue) { reviews in
             VStack(spacing: HomeSettings.entrySpacing) {
                 ForEach(reviews) { review in
-                    LatestReviewView(detail: $detail, review: review)
+                    LatestReviewView(path: $path, review: review)
                 }
             }
         }
@@ -75,7 +75,7 @@ struct LatestReviewsSection: View {
 private struct LatestReviewView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var isShowingConfirmationDialog = false
-    @Binding var detail: Detail?
+    @Binding var path: NavigationPath
     let review: LatestReview
 
     var body: some View {
@@ -126,20 +126,20 @@ private struct LatestReviewView: View {
             isPresented: $isShowingConfirmationDialog,
             actions: {
                 Button(action: {
-                    detail = .review(review.urlString)
+                    path.append(Detail.review(review.urlString))
                 }, label: {
                     Text("Read review by \(review.author.name) - \(review.rating)%")
                 })
 
                 Button(action: {
-                    detail = .release(review.release.thumbnailInfo.urlString)
+                    path.append(Detail.release(review.release.thumbnailInfo.urlString))
                 }, label: {
                     Text("View release's detail")
                 })
 
                 ForEach(review.bands) { band in
                     Button(action: {
-                        detail = .band(band.thumbnailInfo.urlString)
+                        path.append(Detail.band(band.thumbnailInfo.urlString))
                     }, label: {
                         if review.bands.count == 1 {
                             Text("View band's detail")
@@ -150,7 +150,7 @@ private struct LatestReviewView: View {
                 }
 
                 Button(action: {
-                    detail = .user(review.author.urlString)
+                    path.append(Detail.user(review.author.urlString))
                 }, label: {
                     Text("View \(review.author.name)'s detail")
                 })

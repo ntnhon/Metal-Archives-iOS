@@ -9,12 +9,10 @@ import SwiftUI
 
 struct TopAlbumsView: View {
     @StateObject private var viewModel = TopAlbumsViewModel()
-    @State private var detail: Detail?
+    @Binding var path: NavigationPath
 
     var body: some View {
         ZStack {
-            DetailView(detail: $detail)
-
             switch viewModel.topReleasesFetchable {
             case .fetching:
                 MALoadingIndicator()
@@ -26,10 +24,10 @@ struct TopAlbumsView: View {
                             topRelease: topRelease,
                             index: index,
                             onSelectRelease: {
-                                detail = .release(topRelease.release.thumbnailInfo.urlString)
+                                path.append(Detail.release(topRelease.release.thumbnailInfo.urlString))
                             },
                             onSelectBand: {
-                                detail = .band(topRelease.band.thumbnailInfo.urlString)
+                                path.append(Detail.band(topRelease.band.thumbnailInfo.urlString))
                             }
                         )
                     }

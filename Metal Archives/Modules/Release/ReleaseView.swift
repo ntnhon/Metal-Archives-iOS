@@ -9,10 +9,14 @@ import SwiftUI
 
 struct ReleaseView: View {
     @StateObject private var viewModel: ReleaseViewModel
+    @Binding private var path: NavigationPath
 
-    init(urlString: String, parentRelease: Release?) {
+    init(urlString: String,
+         parentRelease: Release?,
+         path: Binding<NavigationPath>) {
         let vm = ReleaseViewModel(urlString: urlString, parentRelease: parentRelease)
         _viewModel = .init(wrappedValue: vm)
+        _path = path
     }
 
     var body: some View {
@@ -21,7 +25,7 @@ struct ReleaseView: View {
             case .fetching:
                 MALoadingIndicator()
             case let .fetched(release):
-                ReleaseContentView(release: release)
+                ReleaseContentView(path: $path, release: release)
                     .environmentObject(viewModel)
             case let .error(error):
                 VStack {
@@ -47,7 +51,7 @@ private struct ReleaseContentView: View {
     @State private var coverViewHeight: CGFloat = 300
     @State private var coverScaleFactor: CGFloat = 1.0
     @State private var coverOpacity: Double = 1.0
-    @State private var detail: Detail?
+    @Binding var path: NavigationPath
     @State private var selectedLineUpMode: ReleaseLineUpMode = .bandMembers
     private let minCoverScaleFactor: CGFloat = 0.5
     private let maxCoverScaleFactor: CGFloat = 1.2
@@ -55,8 +59,6 @@ private struct ReleaseContentView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            DetailView(detail: $detail)
-
             ReleaseCoverView(scaleFactor: $coverScaleFactor,
                              opacity: $coverOpacity)
                 .environmentObject(viewModel)
@@ -102,8 +104,8 @@ private struct ReleaseContentView: View {
                             }
 
                         ReleaseInfoView(release: release,
-                                        onSelectBand: { url in detail = .band(url) },
-                                        onSelectLabel: { url in detail = .label(url) })
+                                        onSelectBand: { url in path.append(Detail.band(url)) },
+                                        onSelectLabel: { url in path.append(Detail.label(url)) })
 
                         HorizontalTabs(datasource: tabsDatasource)
                             .padding(.vertical)
@@ -122,13 +124,13 @@ private struct ReleaseContentView: View {
                             case .lineUp:
                                 ReleaseLineUpView(lineUpMode: $selectedLineUpMode,
                                                   release: release,
-                                                  onSelectArtist: { url in detail = .artist(url) })
+                                                  onSelectArtist: { url in path.append(Detail.artist(url)) })
                                     .padding(.horizontal)
                                     .frame(maxWidth: .infinity, alignment: .leading)
 
                             case .otherVersions:
                                 OtherVersionsView(viewModel: viewModel,
-                                                  onSelectRelease: { url in detail = .release(url) })
+                                                  onSelectRelease: { url in path.append(Detail.release(url)) })
                                     .frame(maxWidth: .infinity, alignment: .leading)
 
                             case .reviews:
@@ -139,8 +141,8 @@ private struct ReleaseContentView: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 } else {
                                     ReleaseReviewsView(reviews: release.reviews,
-                                                       onSelectReview: { url in detail = .review(url) },
-                                                       onSelectUser: { url in detail = .user(url) })
+                                                       onSelectReview: { url in path.append(Detail.review(url)) },
+                                                       onSelectUser: { url in path.append(Detail.user(url)) })
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 }
 

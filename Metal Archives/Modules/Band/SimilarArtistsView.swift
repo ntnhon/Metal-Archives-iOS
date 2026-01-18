@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SimilarArtistsView: View {
     @ObservedObject var viewModel: SimilarArtistsViewModel
+    @Binding var path: NavigationPath
 
     var body: some View {
         LazyVStack {
@@ -29,7 +30,7 @@ struct SimilarArtistsView: View {
 
             case let .fetched(similarArtists):
                 ForEach(Array(similarArtists.prefix(20)), id: \.name) {
-                    BandSimilarView(bandSimilar: $0)
+                    BandSimilarView(path: $path, bandSimilar: $0)
                         .padding(.horizontal)
                         .padding(.vertical, 8)
 
@@ -39,7 +40,8 @@ struct SimilarArtistsView: View {
                 if similarArtists.count > 20 {
                     NavigationLink(destination: {
                         AllSimilarArtistsView(band: viewModel.band,
-                                              similarArtists: similarArtists)
+                                              similarArtists: similarArtists,
+                                              path: $path)
                     }, label: {
                         HStack {
                             Spacer()
@@ -71,12 +73,13 @@ struct SimilarArtistsView: View {
 struct AllSimilarArtistsView: View {
     let band: Band?
     let similarArtists: [BandSimilar]
+    @Binding var path: NavigationPath
 
     var body: some View {
         ScrollView {
             LazyVStack {
                 ForEach(similarArtists, id: \.name) {
-                    BandSimilarView(bandSimilar: $0)
+                    BandSimilarView(path: $path, bandSimilar: $0)
                         .padding(.horizontal)
                         .padding(.vertical, 8)
                 }

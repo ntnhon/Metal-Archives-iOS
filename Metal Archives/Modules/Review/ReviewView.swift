@@ -9,9 +9,11 @@ import SwiftUI
 
 struct ReviewView: View {
     @StateObject private var viewModel: ReviewViewModel
+    @Binding private var path: NavigationPath
 
-    init(urlString: String) {
+    init(urlString: String, path: Binding<NavigationPath>) {
         _viewModel = .init(wrappedValue: .init(urlString: urlString))
+        _path = path
     }
 
     var body: some View {
@@ -20,7 +22,7 @@ struct ReviewView: View {
             case .fetching:
                 MALoadingIndicator()
             case let .fetched(review):
-                ReviewContentView(review: review)
+                ReviewContentView(review: review, path: $path)
                     .environmentObject(viewModel)
             case let .error(error):
                 VStack {
@@ -44,21 +46,20 @@ private struct ReviewContentView: View {
     @State private var titleViewAlpha = 0.0
     @State private var coverScaleFactor: CGFloat = 1.0
     @State private var coverOpacity: Double = 1.0
-    @State private var detail: Detail?
+    @Binding private var path: NavigationPath
     private let coverViewHeight: CGFloat
     private let minCoverScaleFactor: CGFloat = 0.5
     private let maxCoverScaleFactor: CGFloat = 1.2
     let review: Review
 
-    init(review: Review) {
+    init(review: Review, path: Binding<NavigationPath>) {
         self.review = review
         coverViewHeight = review.coverPhotoUrlString != nil ? 300 : 0
+        _path = path
     }
 
     var body: some View {
         ZStack(alignment: .top) {
-            DetailView(detail: $detail)
-
             ReviewCoverView(scaleFactor: $coverScaleFactor, opacity: $coverOpacity)
                 .environmentObject(viewModel)
                 .frame(height: coverViewHeight)
@@ -102,9 +103,9 @@ private struct ReviewContentView: View {
                             }
 
                         ReviewInfoView(review: review,
-                                       onSelectUser: { url in detail = .user(url) },
-                                       onSelectBand: { url in detail = .band(url) },
-                                       onSelectRelease: { url in detail = .release(url) })
+                                       onSelectUser: { url in path.append(Detail.user(url)) },
+                                       onSelectBand: { url in path.append(Detail.band(url)) },
+                                       onSelectRelease: { url in path.append(Detail.release(url)) })
                     }
                 }
             )
