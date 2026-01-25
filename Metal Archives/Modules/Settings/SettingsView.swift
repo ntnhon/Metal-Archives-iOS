@@ -22,17 +22,19 @@ struct SettingsView: View {
     @State private var showThemePreview = false
 
     var body: some View {
-        Form {
-            generalSection
-            displaySection
-            informationSection
-            officiaLinksSection
-            mobileAppLinksSection
-            bottomSection
+        NavigationStack {
+            Form {
+                generalSection
+                displaySection
+                informationSection
+                officiaLinksSection
+                mobileAppLinksSection
+                bottomSection
+            }
+            .navigationTitle("Settings")
+            .animation(.default, value: showThemePreview)
+            .animation(.default, value: preferences.theme)
         }
-        .navigationTitle("Settings")
-        .animation(.default, value: showThemePreview)
-        .animation(.default, value: preferences.theme)
     }
 }
 
