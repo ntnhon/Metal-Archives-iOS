@@ -47,9 +47,12 @@ enum AppVersion {
 
         case .sixDotZeroDotZero:
             [
-                .init(title: "Liquid Glass design",
-                      description: "Experience the biggest visual overhaul in years. Interface elements now feature a glass-like translucency that reflects and refracts your wallpaper in real-time.",
+                .init(title: "Liquid Glass design (iOS 26+)",
+                      description: "Experience the biggest visual overhaul in years, embracing the new Liquid Glass design.",
                       systemImageName: "square.grid.2x2.fill"),
+                .init(title: "Snapier homepage",
+                      description: "Previously jarring scroll animations have been smoothed out.",
+                      systemImageName: "bolt.fill"),
             ]
         }
     }
