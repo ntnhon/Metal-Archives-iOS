@@ -16,7 +16,7 @@ extension AttributedString {
                                              failurePolicy: .returnPartiallyParsedIfPossible,
                                              languageCode: nil)
         guard let path = Bundle.main.url(forResource: markdownFileName, withExtension: "md"),
-              let string = try? String(contentsOf: path),
+              let string = try? String(contentsOf: path, encoding: .utf8),
               let attributedString = try? AttributedString(markdown: string, options: options)
         else {
             self = .init(stringLiteral: "???")

@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Binding where Value == Bool {
-    init(binding: Binding<(some Any)?>) {
+    init(binding: Binding<(some Any & Sendable)?>) {
         self.init(get: {
             binding.wrappedValue != nil
         }, set: { newValue in
@@ -23,7 +23,7 @@ extension Binding {
     /// Maps an optional binding to a `Binding<Bool>`.
     /// This can be used to, for example, use an `Error?` object to decide whether or not to show an
     /// alert, without needing to rely on a separately handled `Binding<Bool>`.
-    func mappedToBool<Wrapped>() -> Binding<Bool> where Value == Wrapped? {
+    func mappedToBool<Wrapped: Sendable>() -> Binding<Bool> where Value == Wrapped? {
         Binding<Bool>(binding: self)
     }
 }

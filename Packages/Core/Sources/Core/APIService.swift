@@ -19,7 +19,7 @@ public final class APIService: APIServiceProtocol {
     let htmlSanitizer: any HTMLSanitizer
 
     public init(session: URLSession = .shared,
-                htmlSanitizer: any HTMLSanitizer)
+                htmlSanitizer: some HTMLSanitizer)
     {
         self.session = session
         self.htmlSanitizer = htmlSanitizer

@@ -33,31 +33,26 @@ struct DiscographyView: View {
             Divider()
             LazyVStack {
                 ForEach(viewModel.releases, id: \.thumbnailInfo.id) { release in
-                    NavigationLink(
-                        destination: {
-                            ReleaseView(urlString: release.thumbnailInfo.urlString,
-                                        parentRelease: nil,
-                                        path: $path)
-                        },
-                        label: {
-                            let text = "\(release.title) (\(release.year)) (\(release.type.description))"
-                            ReleaseInBandView(release: release)
-                                .padding(.vertical, 8)
-                                .contextMenu {
-                                    Button(action: {
-                                        UIPasteboard.general.string = text
-                                    }, label: {
-                                        Label("Copy release name", systemImage: "doc.on.doc")
-                                    })
+                    Button(action: {
+                        path.append(Detail.release(release.thumbnailInfo.urlString))
+                    }, label: {
+                        let text = "\(release.title) (\(release.year)) (\(release.type.description))"
+                        ReleaseInBandView(release: release)
+                            .padding(.vertical, 8)
+                            .contextMenu {
+                                Button(action: {
+                                    UIPasteboard.general.string = text
+                                }, label: {
+                                    Label("Copy release name", systemImage: "doc.on.doc")
+                                })
 
-                                    Button(action: {
-                                        selectedRelease = release
-                                    }, label: {
-                                        Label("Share", systemImage: "square.and.arrow.up")
-                                    })
-                                }
-                        }
-                    )
+                                Button(action: {
+                                    selectedRelease = release
+                                }, label: {
+                                    Label("Share", systemImage: "square.and.arrow.up")
+                                })
+                            }
+                    })
                     .buttonStyle(.plain)
                     Divider()
                 }
