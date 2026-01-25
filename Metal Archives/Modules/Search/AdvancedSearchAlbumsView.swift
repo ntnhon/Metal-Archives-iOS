@@ -29,6 +29,7 @@ struct AdvancedSearchAlbumsView: View {
     @StateObject private var countrySet = CountrySet()
     @StateObject private var releaseTypeSet = ReleaseTypeSet()
     @StateObject private var releaseFormatSet = ReleaseFormatSet()
+    @Binding var path: NavigationPath
 
     // TODO: Decouple this
     var body: some View {
@@ -171,7 +172,8 @@ struct AdvancedSearchAlbumsView: View {
             Section {
                 NavigationLink(
                     destination: {
-                        AdvancedSearchResultView(viewModel: .init(manager: makePageManager()))
+                        AdvancedSearchResultView(viewModel: .init(manager: makePageManager()),
+                                                 path: $path)
                     },
                     label: {
                         Text("SEARCH")
@@ -213,7 +215,7 @@ struct AdvancedSearchAlbumsView: View {
 
 #Preview {
     NavigationView {
-        AdvancedSearchAlbumsView()
+        AdvancedSearchAlbumsView(path: .constant(.init()))
     }
     .environment(\.colorScheme, .dark)
     .environmentObject(Preferences())

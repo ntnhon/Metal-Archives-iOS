@@ -9,33 +9,39 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject private var preferences: Preferences
-    @State private var detail: Detail?
+    @State private var path = NavigationPath()
 
     var body: some View {
-        ScrollView {
-            VStack {
-                DetailView(detail: $detail)
-
-                ForEach(preferences.homeSectionOrder) { section in
-                    switch section {
-                    case .latestAdditions:
-                        LatestAdditionsSection(detail: $detail)
-                    case .latestUpdates:
-                        LatestUpdatesSection(detail: $detail)
-                    case .latestReviews:
-                        LatestReviewsSection(detail: $detail)
-                    case .upcomingAlbums:
-                        UpcomingAlbumsSection(detail: $detail)
+        NavigationStack(path: $path) {
+            ScrollView {
+                LazyVStack(pinnedViews: [.sectionHeaders]) {
+                    ForEach(preferences.homeSectionOrder) { section in
+                        switch section {
+                        case .latestAdditions:
+                            LatestAdditionsSection(path: $path)
+                        case .latestUpdates:
+                            LatestUpdatesSection(path: $path)
+                        case .latestReviews:
+                            LatestReviewsSection(path: $path)
+                        case .upcomingAlbums:
+                            UpcomingAlbumsSection(path: $path)
+                        }
                     }
+                    Spacer()
+                        .frame(minHeight: 44)
                 }
             }
-            .padding(.top)
+            .navigationTitle(Text(navigationTitle))
+            .navigationBarTitleDisplayMode(.large)
+            .navigationDestination(for: Detail.self) { detail in
+                DetailView(detail: detail, path: $path)
+            }
         }
-        .navigationTitle(Text(navigationTitle))
-        .navigationBarTitleDisplayMode(.large)
     }
+}
 
-    private var navigationTitle: String {
+private extension HomeView {
+    var navigationTitle: String {
         let formatter = DateFormatter(dateFormat: "EEEE, d MMM yyyy")
         return formatter.string(for: Date()) ?? "Metal Archives"
     }

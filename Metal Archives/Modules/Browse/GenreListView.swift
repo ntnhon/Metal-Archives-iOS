@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct GenreListView: View {
+    @Binding var path: NavigationPath
+
     var body: some View {
         Form {
             Section(content: {
                 ForEach(Genre.allCases, id: \.self) { genre in
                     NavigationLink(destination: {
-                        BandsByGenreView(genre: genre)
+                        BandsByGenreView(genre: genre, path: $path)
                     }, label: {
                         Text(genre.rawValue)
                     })
@@ -28,7 +30,7 @@ struct GenreListView: View {
 
 #Preview {
     NavigationView {
-        GenreListView()
+        GenreListView(path: .constant(.init()))
     }
     .environment(\.colorScheme, .dark)
     .environmentObject(Preferences())

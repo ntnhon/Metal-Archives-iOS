@@ -17,19 +17,20 @@ Tip #2: to exclude terms, use the - symbol (e.g. searching "death -melodic" will
 
 struct AdvancedSearchView: View {
     @State private var showTips = false
+    @Binding var path: NavigationPath
 
     var body: some View {
         Form {
             Section(content: {
-                NavigationLink(destination: AdvancedSearchBandsView()) {
+                NavigationLink(destination: AdvancedSearchBandsView(path: $path)) {
                     Text("Advanced search bands")
                 }
 
-                NavigationLink(destination: AdvancedSearchAlbumsView()) {
+                NavigationLink(destination: AdvancedSearchAlbumsView(path: $path)) {
                     Text("Advanced search albums")
                 }
 
-                NavigationLink(destination: AdvancedSearchSongsView()) {
+                NavigationLink(destination: AdvancedSearchSongsView(path: $path)) {
                     Text("Advanced search songs")
                 }
             }, footer: {
@@ -54,7 +55,7 @@ struct AdvancedSearchView: View {
 
 #Preview {
     NavigationView {
-        AdvancedSearchView()
+        AdvancedSearchView(path: .constant(.init()))
     }
     .environment(\.colorScheme, .dark)
     .environmentObject(Preferences())

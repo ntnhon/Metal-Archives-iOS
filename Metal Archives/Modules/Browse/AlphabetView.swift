@@ -28,6 +28,7 @@ Note: leading "The __" are ignored (e.g. "The Chasm" appears under C, not T)
 
 struct AlphabetView: View {
     let mode: AlphabetMode
+    @Binding var path: NavigationPath
 
     var body: some View {
         ScrollView {
@@ -36,9 +37,9 @@ struct AlphabetView: View {
                     NavigationLink(destination: {
                         switch mode {
                         case .bands:
-                            BandsByAlphabetView(letter: letter)
+                            BandsByAlphabetView(letter: letter, path: $path)
                         case .labels:
-                            LabelsByAlphabetView(letter: letter)
+                            LabelsByAlphabetView(letter: letter, path: $path)
                         }
                     }, label: {
                         if case .labels = mode, letter == .tilde {
@@ -70,7 +71,7 @@ struct AlphabetView: View {
 
 #Preview {
     NavigationView {
-        AlphabetView(mode: .bands)
+        AlphabetView(mode: .bands, path: .constant(.init()))
     }
     .environment(\.colorScheme, .dark)
     .environmentObject(Preferences())

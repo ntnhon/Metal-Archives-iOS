@@ -5,12 +5,11 @@
 //  Created by Nhon Nguyen on 24/12/2022.
 //
 
-import SnapToScroll
 import SwiftUI
 
 struct LatestLabelsView: View {
     @ObservedObject var viewModel: LatestLabelsViewModel
-    @Binding var detail: Detail?
+    @Binding var path: NavigationPath
 
     var body: some View {
         ZStack {
@@ -39,22 +38,18 @@ struct LatestLabelsView: View {
     }
 
     private var resultList: some View {
-        HStackSnap(alignment: .leading(24)) {
-            ForEach(viewModel.chunkedResults, id: \.hashValue) { latestLabels in
-                VStack(spacing: HomeSettings.entrySpacing) {
-                    ForEach(latestLabels) { label in
-                        LatestLabelView(latestLabel: label)
-                            .onTapGesture {
-                                if let urlString = label.label.thumbnailInfo?.urlString {
-                                    detail = .label(urlString)
-                                }
+        SnappingScrollView(items: viewModel.chunkedResults, id: \.hashValue) { labels in
+            VStack(spacing: HomeSettings.entrySpacing) {
+                ForEach(labels) { label in
+                    LatestLabelView(latestLabel: label)
+                        .onTapGesture {
+                            if let urlString = label.label.thumbnailInfo?.urlString {
+                                path.append(Detail.label(urlString))
                             }
-                    }
+                        }
                 }
-                .snapAlignmentHelper(id: latestLabels.hashValue)
             }
         }
-        .frame(height: HomeSettings.pageHeight)
     }
 }
 

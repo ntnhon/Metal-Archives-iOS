@@ -10,6 +10,7 @@ import SwiftUI
 struct NewsPostView: View {
     @EnvironmentObject private var preferences: Preferences
     @Environment(\.openURL) private var openURL
+    @Binding var path: NavigationPath
     let newsPost: NewsPost
 
     var body: some View {
@@ -20,7 +21,7 @@ struct NewsPostView: View {
                     .fontWeight(.bold)
 
                 NavigationLink(destination: {
-                    UserView(urlString: newsPost.author.urlString)
+                    UserView(urlString: newsPost.author.urlString, path: $path)
                 }, label: {
                     Text(newsPost.dateString)
                         .font(.callout.italic())

@@ -12,9 +12,11 @@ struct DiscographyView: View {
     @ObservedObject private var viewModel: DiscographyViewModel
     @State private var showingRelease = false
     @State private var selectedRelease: ReleaseInBand?
+    @Binding private var path: NavigationPath
 
-    init(viewModel: DiscographyViewModel) {
+    init(viewModel: DiscographyViewModel, path: Binding<NavigationPath>) {
         _viewModel = .init(wrappedValue: viewModel)
+        _path = path
     }
 
     var body: some View {
@@ -31,30 +33,26 @@ struct DiscographyView: View {
             Divider()
             LazyVStack {
                 ForEach(viewModel.releases, id: \.thumbnailInfo.id) { release in
-                    NavigationLink(
-                        destination: {
-                            ReleaseView(urlString: release.thumbnailInfo.urlString,
-                                        parentRelease: nil)
-                        },
-                        label: {
-                            let text = "\(release.title) (\(release.year)) (\(release.type.description))"
-                            ReleaseInBandView(release: release)
-                                .padding(.vertical, 8)
-                                .contextMenu {
-                                    Button(action: {
-                                        UIPasteboard.general.string = text
-                                    }, label: {
-                                        Label("Copy release name", systemImage: "doc.on.doc")
-                                    })
+                    Button(action: {
+                        path.append(Detail.release(release.thumbnailInfo.urlString))
+                    }, label: {
+                        let text = "\(release.title) (\(release.year)) (\(release.type.description))"
+                        ReleaseInBandView(release: release)
+                            .padding(.vertical, 8)
+                            .contextMenu {
+                                Button(action: {
+                                    UIPasteboard.general.string = text
+                                }, label: {
+                                    Label("Copy release name", systemImage: "doc.on.doc")
+                                })
 
-                                    Button(action: {
-                                        selectedRelease = release
-                                    }, label: {
-                                        Label("Share", systemImage: "square.and.arrow.up")
-                                    })
-                                }
-                        }
-                    )
+                                Button(action: {
+                                    selectedRelease = release
+                                }, label: {
+                                    Label("Share", systemImage: "square.and.arrow.up")
+                                })
+                            }
+                    })
                     .buttonStyle(.plain)
                     Divider()
                 }
@@ -87,7 +85,8 @@ struct DiscographyView: View {
             VStack {
                 DiscographyView(viewModel: .init(discography: .death,
                                                  discographyMode: .complete,
-                                                 order: .ascending))
+                                                 order: .ascending),
+                                path: .constant(.init()))
             }
         }
         .padding(.horizontal)

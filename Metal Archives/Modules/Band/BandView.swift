@@ -11,9 +11,11 @@ import SwiftUI
 struct BandView: View {
     @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: BandViewModel
+    @Binding var path: NavigationPath
 
-    init(bandUrlString: String) {
+    init(bandUrlString: String, path: Binding<NavigationPath>) {
         _viewModel = .init(wrappedValue: .init(bandUrlString: bandUrlString))
+        _path = path
     }
 
     var body: some View {
@@ -36,7 +38,8 @@ struct BandView: View {
             case let .fetched(metadata):
                 BandContentView(metadata: metadata,
                                 preferences: preferences,
-                                viewModel: viewModel)
+                                viewModel: viewModel,
+                                path: $path)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -56,12 +59,13 @@ private struct BandContentView: View {
     @State private var titleViewAlpha = 0.0
     @State private var showingShareSheet = false
     @State private var topSectionSize: CGSize = .zero
-    @State private var detail: Detail?
+    @Binding var path: NavigationPath
     let metadata: BandMetadata
 
     init(metadata: BandMetadata,
          preferences: Preferences,
-         viewModel: BandViewModel)
+         viewModel: BandViewModel,
+         path: Binding<NavigationPath>)
     {
         self.metadata = metadata
         _discographyViewModel = .init(wrappedValue: .init(discography: metadata.discography,
@@ -71,6 +75,7 @@ private struct BandContentView: View {
         _reviewsViewModel = .init(wrappedValue: .init(band: metadata.band,
                                                       discography: metadata.discography))
         _viewModel = .init(wrappedValue: viewModel)
+        _path = path
     }
 
     var body: some View {
@@ -91,8 +96,6 @@ private struct BandContentView: View {
             },
             content: {
                 VStack {
-                    DetailView(detail: $detail)
-
                     VStack {
                         BandHeaderView(band: band) { selectedImage in
                             let photo = Photo(image: selectedImage,
@@ -101,8 +104,8 @@ private struct BandContentView: View {
                         }
 
                         BandInfoView(viewModel: .init(band: band, discography: metadata.discography),
-                                     onSelectLabel: { url in detail = .label(url) },
-                                     onSelectBand: { url in detail = .band(url) })
+                                     onSelectLabel: { url in path.append(Detail.label(url)) },
+                                     onSelectBand: { url in path.append(Detail.band(url)) })
                             .padding(.horizontal)
 
                         if let readMore = metadata.readMore {
@@ -126,23 +129,23 @@ private struct BandContentView: View {
                     Group {
                         switch tabsDatasource.selectedTab {
                         case .discography:
-                            DiscographyView(viewModel: discographyViewModel)
+                            DiscographyView(viewModel: discographyViewModel, path: $path)
                                 .padding(.horizontal)
 
                         case .members:
                             BandLineUpView(band: band,
-                                           onSelectBand: { url in detail = .band(url) },
-                                           onSelectArtist: { url in detail = .artist(url) })
+                                           onSelectBand: { url in path.append(Detail.band(url)) },
+                                           onSelectArtist: { url in path.append(Detail.artist(url)) })
                                 .padding(.horizontal)
 
                         case .reviews:
                             BandReviewsView(viewModel: reviewsViewModel,
-                                            onSelectReview: { url in detail = .review(url) },
-                                            onSelectRelease: { url in detail = .release(url) },
-                                            onSelectUser: { url in detail = .user(url) })
+                                            onSelectReview: { url in path.append(Detail.review(url)) },
+                                            onSelectRelease: { url in path.append(Detail.release(url)) },
+                                            onSelectUser: { url in path.append(Detail.user(url)) })
 
                         case .similarArtists:
-                            SimilarArtistsView(viewModel: similarArtistsViewModel)
+                            SimilarArtistsView(viewModel: similarArtistsViewModel, path: $path)
 
                         case .relatedLinks:
                             BandRelatedLinksView(viewModel: viewModel)
@@ -210,7 +213,8 @@ private struct BandContentView: View {
 
 #Preview {
     NavigationView {
-        BandView(bandUrlString: "https://www.metal-archives.com/bands/Death/141")
+        BandView(bandUrlString: "https://www.metal-archives.com/bands/Death/141",
+                 path: .constant(.init()))
     }
     .environment(\.colorScheme, .dark)
     .environmentObject(Preferences())

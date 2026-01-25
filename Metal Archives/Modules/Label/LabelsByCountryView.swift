@@ -10,9 +10,11 @@ import SwiftUI
 struct LabelsByCountryView: View {
     @StateObject private var viewModel: LabelsByCountryViewModel
     @Environment(\.openURL) private var openURL
+    @Binding private var path: NavigationPath
 
-    init(country: Country) {
+    init(country: Country, path: Binding<NavigationPath>) {
         _viewModel = .init(wrappedValue: .init(country: country))
+        _path = path
     }
 
     var body: some View {
@@ -44,7 +46,7 @@ struct LabelsByCountryView: View {
             ForEach(viewModel.labels, id: \.label) { label in
                 NavigationLink(destination: {
                     if let urlString = label.label.thumbnailInfo?.urlString {
-                        LabelView(urlString: urlString)
+                        LabelView(urlString: urlString, path: $path)
                     } else {
                         EmptyView()
                     }

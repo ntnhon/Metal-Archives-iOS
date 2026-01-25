@@ -1,5 +1,5 @@
 {
-  "originHash" : "c88b44d666792e3bcc53f0906270a5523eb8c4132f7e7c45f132971347240160",
+  "originHash" : "e124f29fec0045de5917a4a0f643564914acf2dab4577729c561e1661308f5c5",
   "pins" : [
     {
       "identity" : "alerttoast",
@@ -26,15 +26,6 @@
       "state" : {
         "revision" : "fb04a8918848e413d3921d346a23bae7f81088d9",
         "version" : "2.4.3"
-      }
-    },
-    {
-      "identity" : "hstack-snap-to-scroll",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/swiftui-library/hstack-snap-to-scroll",
-      "state" : {
-        "revision" : "d40c4cbe9f8e9bd8b424fc8b61cd3c55bd85d30a",
-        "version" : "1.0.3"
       }
     },
     {

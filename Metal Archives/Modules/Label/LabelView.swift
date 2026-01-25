@@ -9,9 +9,11 @@ import SwiftUI
 
 struct LabelView: View {
     @StateObject private var viewModel: LabelViewModel
+    @Binding private var path: NavigationPath
 
-    init(urlString: String) {
+    init(urlString: String, path: Binding<NavigationPath>) {
         _viewModel = .init(wrappedValue: .init(urlString: urlString))
+        _path = path
     }
 
     var body: some View {
@@ -20,7 +22,9 @@ struct LabelView: View {
             case .fetching:
                 MALoadingIndicator()
             case let .fetched(label):
-                LabelContentView(urlString: viewModel.urlString, label: label)
+                LabelContentView(urlString: viewModel.urlString,
+                                 label: label,
+                                 path: $path)
                     .environmentObject(viewModel)
             case let .error(error):
                 VStack {
@@ -48,25 +52,27 @@ private struct LabelContentView: View {
     @State private var titleViewAlpha = 0.0
     @State private var logoScaleFactor: CGFloat = 1.0
     @State private var logoOpacity: Double = 1.0
-    @State private var detail: Detail?
+    @Binding private var path: NavigationPath
     private let logoViewHeight: CGFloat
     private let minLogoScaleFactor: CGFloat = 0.5
     private let maxLogoScaleFactor: CGFloat = 1.2
     let label: LabelDetail
 
-    init(urlString: String, label: LabelDetail) {
+    init(urlString: String,
+         label: LabelDetail,
+         path: Binding<NavigationPath>)
+    {
         self.label = label
         _tabsDatasource = .init(wrappedValue: .init(label: label))
         _currentRosterViewModel = .init(wrappedValue: .init(urlString: urlString))
         _pastRosterViewModel = .init(wrappedValue: .init(urlString: urlString))
         _releasesViewModel = .init(wrappedValue: .init(urlString: urlString))
         logoViewHeight = label.logoUrlString != nil ? 300 : 0
+        _path = path
     }
 
     var body: some View {
         ZStack(alignment: .top) {
-            DetailView(detail: $detail)
-
             LabelLogoView(scaleFactor: $logoScaleFactor, opacity: $logoOpacity)
                 .environmentObject(viewModel)
                 .frame(height: logoViewHeight)
@@ -111,7 +117,7 @@ private struct LabelContentView: View {
                             }
 
                         LabelInfoView(label: label) { url in
-                            detail = .label(url)
+                            path.append(Detail.label(url))
                         }
 
                         HorizontalTabs(datasource: tabsDatasource)
@@ -129,20 +135,20 @@ private struct LabelContentView: View {
 
                             case .currentRoster, .lastKnownRoster:
                                 LabelCurrentRosterView(viewModel: currentRosterViewModel) { url in
-                                    detail = .band(url)
+                                    path.append(Detail.band(url))
                                 }
                                 .padding([.horizontal, .bottom])
 
                             case .pastRoster:
                                 LabelPastRosterView(viewModel: pastRosterViewModel) { url in
-                                    detail = .band(url)
+                                    path.append(Detail.band(url))
                                 }
                                 .padding([.horizontal, .bottom])
 
                             case .releases:
                                 LabelReleasesView(viewModel: releasesViewModel,
-                                                  onSelectBand: { url in detail = .band(url) },
-                                                  onSelectRelease: { url in detail = .release(url) })
+                                                  onSelectBand: { url in path.append(Detail.band(url)) },
+                                                  onSelectRelease: { url in path.append(Detail.release(url)) })
                                     .padding([.horizontal, .bottom])
 
                             case .additionalNotes:
@@ -218,7 +224,7 @@ private struct LabelContentView: View {
                 .contentShape(Rectangle())
                 .onTapGesture {
                     if let urlString = subLabel.thumbnailInfo?.urlString {
-                        detail = .label(urlString)
+                        path.append(Detail.label(urlString))
                     }
                 }
 

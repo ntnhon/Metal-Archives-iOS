@@ -12,9 +12,9 @@ struct LatestUpdatesSection: View {
     @StateObject private var updatedBandsViewModel: LatestBandsViewModel
     @StateObject private var updatedLabelsViewModel: LatestLabelsViewModel
     @StateObject private var updateArtistsViewModel: LatestArtistsViewModel
-    @Binding var detail: Detail?
+    @Binding private var path: NavigationPath
 
-    init(detail: Binding<Detail?>) {
+    init(path: Binding<NavigationPath>) {
         let latestBandPageManager = LatestBandPageManager(type: .updated)
         let addedBandsViewModel = LatestBandsViewModel(manager: latestBandPageManager)
         _updatedBandsViewModel = .init(wrappedValue: addedBandsViewModel)
@@ -27,22 +27,11 @@ struct LatestUpdatesSection: View {
         let addedArtistsViewModel = LatestArtistsViewModel(manager: latestArtistPageManager)
         _updateArtistsViewModel = .init(wrappedValue: addedArtistsViewModel)
 
-        _detail = detail
+        _path = path
     }
 
     var body: some View {
-        VStack {
-            HStack {
-                Text("Latest updates")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
-                Spacer()
-//                NavigationLink(destination: { Text("All") },
-//                               label: { Text("See All") })
-            }
-            .padding(.horizontal)
-
+        Section(content: {
             Picker("", selection: $selectedObject) {
                 ForEach(LatestObject.allCases, id: \.rawValue) { type in
                     Text(type.rawValue)
@@ -54,15 +43,26 @@ struct LatestUpdatesSection: View {
 
             switch selectedObject {
             case .bands:
-                LatestBandsView(viewModel: updatedBandsViewModel, detail: $detail)
+                LatestBandsView(viewModel: updatedBandsViewModel, path: $path)
                     .frame(minHeight: HomeSettings.pageHeight)
             case .labels:
-                LatestLabelsView(viewModel: updatedLabelsViewModel, detail: $detail)
+                LatestLabelsView(viewModel: updatedLabelsViewModel, path: $path)
                     .frame(minHeight: HomeSettings.pageHeight)
             case .artists:
-                LatestArtistsView(viewModel: updateArtistsViewModel, detail: $detail)
+                LatestArtistsView(viewModel: updateArtistsViewModel, path: $path)
                     .frame(minHeight: HomeSettings.pageHeight)
             }
-        }
+        }, header: {
+            HStack {
+                Text("Latest updates")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(.primary)
+                Spacer()
+//                NavigationLink(destination: { Text("All") },
+//                               label: { Text("See All") })
+            }
+            .padding(.horizontal)
+        })
     }
 }

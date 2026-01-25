@@ -10,9 +10,11 @@ import SwiftUI
 struct LabelsByAlphabetView: View {
     @StateObject private var viewModel: LabelsByAlphabetViewModel
     @Environment(\.openURL) private var openURL
+    @Binding private var path: NavigationPath
 
-    init(letter: Letter) {
+    init(letter: Letter, path: Binding<NavigationPath>) {
         _viewModel = .init(wrappedValue: .init(letter: letter))
+        _path = path
     }
 
     var body: some View {
@@ -44,7 +46,7 @@ struct LabelsByAlphabetView: View {
             ForEach(viewModel.labels, id: \.label) { label in
                 NavigationLink(destination: {
                     if let urlString = label.label.thumbnailInfo?.urlString {
-                        LabelView(urlString: urlString)
+                        LabelView(urlString: urlString, path: $path)
                     } else {
                         EmptyView()
                     }

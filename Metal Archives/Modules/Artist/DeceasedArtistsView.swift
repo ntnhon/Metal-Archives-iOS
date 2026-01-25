@@ -10,12 +10,10 @@ import SwiftUI
 struct DeceasedArtistsView: View {
     @StateObject private var viewModel = DeceasedArtistsViewModel()
     @State private var selectedArtist: DeceasedArtist?
-    @State private var detail: Detail?
+    @Binding var path: NavigationPath
 
     var body: some View {
         ZStack {
-            DetailView(detail: $detail)
-
             if let error = viewModel.error {
                 VStack {
                     Text(error.userFacingMessage)
@@ -73,14 +71,14 @@ struct DeceasedArtistsView: View {
             actions: {
                 if let selectedArtist {
                     Button(action: {
-                        detail = .artist(selectedArtist.artist.thumbnailInfo.urlString)
+                        path.append(Detail.artist(selectedArtist.artist.thumbnailInfo.urlString))
                     }, label: {
                         Text("View artist's detail")
                     })
 
                     ForEach(selectedArtist.bands) { band in
                         Button(action: {
-                            detail = .band(band.thumbnailInfo.urlString)
+                            path.append(Detail.band(band.thumbnailInfo.urlString))
                         }, label: {
                             Text(band.name)
                         })

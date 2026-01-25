@@ -9,20 +9,26 @@ import SwiftUI
 
 struct BrowseView: View {
     @State private var randomBandUrlString: String?
+    @State private var path = NavigationPath()
 
     var body: some View {
-        Form {
-            newsStatisticSection
-            topOfSection
-            bandsSection
-            labelsSection
-            ripSection
-            randomSection
-        }
-        .navigationTitle("Browse")
-        .onAppear {
-            randomBandUrlString = nil
-            randomBandUrlString = "https://www.metal-archives.com/band/random"
+        NavigationStack(path: $path) {
+            Form {
+                newsStatisticSection
+                topOfSection
+                bandsSection
+                labelsSection
+                ripSection
+                randomSection
+            }
+            .navigationTitle("Browse")
+            .onAppear {
+                randomBandUrlString = nil
+                randomBandUrlString = "https://www.metal-archives.com/band/random"
+            }
+            .navigationDestination(for: Detail.self) { detail in
+                DetailView(detail: detail, path: $path)
+            }
         }
     }
 }
@@ -30,7 +36,7 @@ struct BrowseView: View {
 private extension BrowseView {
     var newsStatisticSection: some View {
         Section(content: {
-            NavigationLink(destination: NewsArchivesView()) {
+            NavigationLink(destination: NewsArchivesView(path: $path)) {
                 Label("News archives", systemImage: "newspaper.fill")
             }
 
@@ -50,15 +56,15 @@ private extension BrowseView {
 
     var topOfSection: some View {
         Section(content: {
-            NavigationLink(destination: TopBandsView()) {
+            NavigationLink(destination: TopBandsView(path: $path)) {
                 Label("Top 100 bands", systemImage: "person.3.fill")
             }
 
-            NavigationLink(destination: TopAlbumsView()) {
+            NavigationLink(destination: TopAlbumsView(path: $path)) {
                 Label("Top 100 albums", systemImage: "opticaldisc")
             }
 
-            NavigationLink(destination: TopMembersView()) {
+            NavigationLink(destination: TopMembersView(path: $path)) {
                 Label("Top 100 members", systemImage: "person.fill")
             }
         }, header: {
@@ -68,15 +74,15 @@ private extension BrowseView {
 
     var bandsSection: some View {
         Section(content: {
-            NavigationLink(destination: AlphabetView(mode: .bands)) {
+            NavigationLink(destination: AlphabetView(mode: .bands, path: $path)) {
                 Label("Alphabetical", systemImage: "abc")
             }
 
-            NavigationLink(destination: CountryListView(mode: .bands)) {
+            NavigationLink(destination: CountryListView(mode: .bands, path: $path)) {
                 Label("Country", systemImage: "globe")
             }
 
-            NavigationLink(destination: GenreListView()) {
+            NavigationLink(destination: GenreListView(path: $path)) {
                 Label("Genre", systemImage: "guitars.fill")
             }
         }, header: {
@@ -86,11 +92,11 @@ private extension BrowseView {
 
     var labelsSection: some View {
         Section(content: {
-            NavigationLink(destination: AlphabetView(mode: .labels)) {
+            NavigationLink(destination: AlphabetView(mode: .labels, path: $path)) {
                 Label("Alphabetical", systemImage: "abc")
             }
 
-            NavigationLink(destination: CountryListView(mode: .labels)) {
+            NavigationLink(destination: CountryListView(mode: .labels, path: $path)) {
                 Label("Country", systemImage: "globe")
             }
         }, header: {
@@ -100,7 +106,7 @@ private extension BrowseView {
 
     var ripSection: some View {
         Section(content: {
-            NavigationLink(destination: DeceasedArtistsView()) {
+            NavigationLink(destination: DeceasedArtistsView(path: $path)) {
                 Label("Deceased artists", systemImage: "staroflife.fill")
             }
         }, header: {
@@ -110,7 +116,7 @@ private extension BrowseView {
 
     var randomSection: some View {
         Section(content: {
-            let bandView = BandView(bandUrlString: randomBandUrlString ?? "")
+            let bandView = BandView(bandUrlString: randomBandUrlString ?? "", path: $path)
             NavigationLink(destination: bandView) {
                 Label("Random band", systemImage: "questionmark")
             }

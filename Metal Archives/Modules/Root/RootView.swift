@@ -39,8 +39,6 @@ private enum HomeTab: Int, CaseIterable {
             return "gearshape"
         }
     }
-
-    var selectedImageName: String { "\(imageName).fill" }
 }
 
 struct RootView: View {
@@ -49,26 +47,23 @@ struct RootView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            NavigationView { HomeView() }
-                .tab(.home, selectedTab: selectedTab)
+            Tab(HomeTab.home.title, systemImage: HomeTab.home.imageName, value: .home) {
+                HomeView()
+            }
 
-            NavigationView { SearchView() }
-                .tab(.search, selectedTab: selectedTab)
+            Tab(HomeTab.search.title, systemImage: HomeTab.search.imageName, value: .search, role: .search) {
+                SearchView()
+            }
 
-            NavigationView { BrowseView() }
-                .tab(.browse, selectedTab: selectedTab)
+            Tab(HomeTab.browse.title, systemImage: HomeTab.browse.imageName, value: .browse) {
+                BrowseView()
+            }
 
-            NavigationView { SettingsView() }
-                .tab(.settings, selectedTab: selectedTab)
+            Tab(HomeTab.settings.title, systemImage: HomeTab.settings.imageName, value: .settings) {
+                SettingsView()
+            }
         }
         .accentColor(preferences.theme.primaryColor)
-    }
-}
-
-private extension View {
-    func tab(_ tab: HomeTab, selectedTab: HomeTab) -> some View {
-        tabItem { Label(tab.title, systemImage: tab == selectedTab ? tab.selectedImageName : tab.imageName) }
-            .tag(tab)
     }
 }
 

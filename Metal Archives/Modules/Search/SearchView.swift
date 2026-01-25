@@ -14,35 +14,37 @@ struct SearchView: View {
     @State private var term = ""
     @State private var isShowingResults = false
     @State private var isShowingClearHistoryConfirmation = false
-    @State private var detail: Detail?
+    @State private var path = NavigationPath()
 
     var body: some View {
-        ScrollView {
-            VStack {
-                NavigationLink(isActive: $isShowingResults,
-                               destination: searchResultView,
-                               label: EmptyView.init)
-
-                DetailView(detail: $detail)
-
-                searchBar
-                history
-                    .padding(.horizontal)
-            }
-        }
-        .navigationTitle(type.navigationTitle)
-        .navigationBarTitleDisplayMode(.large)
-        .searchable(text: $term, prompt: type.placeholder)
-        .onSubmit(of: .search, search)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: AdvancedSearchView()) {
-                    Text("Advanced search")
-                        .fontWeight(.bold)
+        NavigationStack(path: $path) {
+            ScrollView {
+                VStack {
+                    NavigationLink(isActive: $isShowingResults,
+                                   destination: searchResultView,
+                                   label: EmptyView.init)
+                    searchBar
+                    history
+                        .padding(.horizontal)
                 }
             }
+            .navigationTitle(type.navigationTitle)
+            .navigationBarTitleDisplayMode(.large)
+            .searchable(text: $term, prompt: type.placeholder)
+            .onSubmit(of: .search, search)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: AdvancedSearchView(path: $path)) {
+                        Text("Advanced search")
+                            .fontWeight(.bold)
+                    }
+                }
+            }
+            .task { await viewModel.fetchEntries() }
+            .navigationDestination(for: Detail.self) { detail in
+                DetailView(detail: detail, path: $path)
+            }
         }
-        .task { await viewModel.fetchEntries() }
     }
 
     private var searchBar: some View {
@@ -109,42 +111,50 @@ struct SearchView: View {
             let manager = BandSimpleSearchResultPageManager(query: term)
             SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
-                                               datasource: viewModel.datasource))
+                                               datasource: viewModel.datasource),
+                              path: $path)
         case .musicGenre:
             let manager = MusicGenreSimpleSearchResultPageManager(query: term)
             SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
-                                               datasource: viewModel.datasource))
+                                               datasource: viewModel.datasource),
+                              path: $path)
         case .lyricalThemes:
             let manager = LyricalSimpleSearchResultPageManager(query: term)
             SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
-                                               datasource: viewModel.datasource))
+                                               datasource: viewModel.datasource),
+                              path: $path)
         case .albumTitle:
             let manager = ReleaseSimpleSearchResultPageManager(query: term)
             SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
-                                               datasource: viewModel.datasource))
+                                               datasource: viewModel.datasource),
+                              path: $path)
         case .songTitle:
             let manager = SongSimpleSearchResultPageManager(query: term)
             SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
-                                               datasource: viewModel.datasource))
+                                               datasource: viewModel.datasource),
+                              path: $path)
         case .label:
             let manager = LabelSimpleSearchResultPageManager(query: term)
             SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
-                                               datasource: viewModel.datasource))
+                                               datasource: viewModel.datasource),
+                              path: $path)
         case .artist:
             let manager = ArtistSimpleSearchResultPageManager(query: term)
             SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
-                                               datasource: viewModel.datasource))
+                                               datasource: viewModel.datasource),
+                              path: $path)
         case .user:
             let manager = UserSimpleSearchResultPageManager(query: term)
             SearchResultsView(viewModel: .init(manager: manager,
                                                query: term,
-                                               datasource: viewModel.datasource))
+                                               datasource: viewModel.datasource),
+                              path: $path)
         }
     }
 
@@ -192,15 +202,15 @@ struct SearchView: View {
                             guard let urlString = entry.secondaryDetail else { return }
                             switch entry.type {
                             case .band:
-                                detail = .band(urlString)
+                                path.append(Detail.band(urlString))
                             case .release:
-                                detail = .release(urlString)
+                                path.append(Detail.release(urlString))
                             case .artist:
-                                detail = .artist(urlString)
+                                path.append(Detail.artist(urlString))
                             case .label:
-                                detail = .label(urlString)
+                                path.append(Detail.label(urlString))
                             case .user:
-                                detail = .user(urlString)
+                                path.append(Detail.user(urlString))
                             default:
                                 return
                             }

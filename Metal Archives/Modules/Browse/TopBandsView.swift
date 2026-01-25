@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TopBandsView: View {
     @StateObject private var viewModel = TopBandsViewModel()
+    @Binding var path: NavigationPath
 
     var body: some View {
         ZStack {
@@ -20,7 +21,8 @@ struct TopBandsView: View {
                     ForEach(0 ..< viewModel.topBands.count, id: \.self) { index in
                         let topBand = viewModel.topBands[index]
                         NavigationLink(destination: {
-                            BandView(bandUrlString: topBand.band.thumbnailInfo.urlString)
+                            BandView(bandUrlString: topBand.band.thumbnailInfo.urlString,
+                                     path: $path)
                         }, label: {
                             TopBandView(topBand: topBand, index: index)
                         })

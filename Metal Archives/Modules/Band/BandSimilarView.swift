@@ -11,44 +11,41 @@ struct BandSimilarView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var showingDetail = false
     @State private var showingShareSheet = false
+    @Binding var path: NavigationPath
     let bandSimilar: BandSimilar
 
     var body: some View {
         let urlString = bandSimilar.thumbnailInfo.urlString
-        NavigationLink(
-            isActive: $showingDetail,
-            destination: {
-                BandView(bandUrlString: urlString)
-            },
-            label: {
-                HStack {
-                    ThumbnailView(thumbnailInfo: bandSimilar.thumbnailInfo,
-                                  photoDescription: bandSimilar.name)
-                        .font(.largeTitle)
-                        .foregroundColor(preferences.theme.secondaryColor)
-                        .frame(width: 64, height: 64)
+        Button(action: {
+            path.append(Detail.band(urlString))
+        }, label: {
+            HStack {
+                ThumbnailView(thumbnailInfo: bandSimilar.thumbnailInfo,
+                              photoDescription: bandSimilar.name)
+                    .font(.largeTitle)
+                    .foregroundColor(preferences.theme.secondaryColor)
+                    .frame(width: 64, height: 64)
 
-                    VStack(alignment: .leading) {
-                        Text(bandSimilar.name)
-                            .fontWeight(.bold)
-                            .foregroundColor(preferences.theme.primaryColor)
-                        Text(bandSimilar.country.nameAndFlag)
-                            .font(.callout)
-                            .foregroundColor(.secondary)
-                        Text(bandSimilar.genre)
-                            .font(.callout)
-                            .multilineTextAlignment(.leading)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-
-                    Spacer()
-
-                    Text("\(bandSimilar.score)")
-                        .fontWeight(.medium)
-                        .foregroundColor(Color.byRating(bandSimilar.score))
+                VStack(alignment: .leading) {
+                    Text(bandSimilar.name)
+                        .fontWeight(.bold)
+                        .foregroundColor(preferences.theme.primaryColor)
+                    Text(bandSimilar.country.nameAndFlag)
+                        .font(.callout)
+                        .foregroundColor(.secondary)
+                    Text(bandSimilar.genre)
+                        .font(.callout)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
+
+                Spacer()
+
+                Text("\(bandSimilar.score)")
+                    .fontWeight(.medium)
+                    .foregroundColor(Color.byRating(bandSimilar.score))
             }
-        )
+        })
         .buttonStyle(.plain)
         .contextMenu {
             Button(action: {
@@ -88,6 +85,6 @@ struct BandSimilarView: View {
                                 country: .usa,
                                 genre: "Death/Thrash Metal",
                                 score: 291)
-    return BandSimilarView(bandSimilar: possessed)
+    return BandSimilarView(path: .constant(.init()), bandSimilar: possessed)
         .environmentObject(Preferences())
 }

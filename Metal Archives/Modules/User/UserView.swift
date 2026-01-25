@@ -9,9 +9,11 @@ import SwiftUI
 
 struct UserView: View {
     @StateObject private var viewModel: UserViewModel
+    @Binding private var path: NavigationPath
 
-    init(urlString: String) {
+    init(urlString: String, path: Binding<NavigationPath>) {
         _viewModel = .init(wrappedValue: .init(urlString: urlString))
+        _path = path
     }
 
     var body: some View {
@@ -20,7 +22,7 @@ struct UserView: View {
             case .fetching:
                 MALoadingIndicator()
             case let .fetched(user):
-                UserContentView(user: user)
+                UserContentView(user: user, path: $path)
                     .environmentObject(viewModel)
             case let .error(error):
                 VStack {
@@ -46,10 +48,10 @@ private struct UserContentView: View {
     @StateObject private var albumCollectionViewModel: UserReleasesViewModel
     @StateObject private var forTradeListViewModel: UserReleasesViewModel
     @StateObject private var wantedListViewModel: UserReleasesViewModel
-    @State private var detail: Detail?
+    @Binding private var path: NavigationPath
     let user: User
 
-    init(user: User) {
+    init(user: User, path: Binding<NavigationPath>) {
         let userId = user.id
         self.user = user
         _tabsDatasource = .init(wrappedValue: .init(user: user))
@@ -62,12 +64,11 @@ private struct UserContentView: View {
                                                            type: .forTrade))
         _wantedListViewModel = .init(wrappedValue: .init(userId: userId,
                                                          type: .wanted))
+        _path = path
     }
 
     var body: some View {
         ZStack {
-            DetailView(detail: $detail)
-
             ScrollView {
                 VStack {
                     UserInfoView(user: user)
@@ -86,40 +87,40 @@ private struct UserContentView: View {
 
                     case .reviews:
                         UserReviewsView(viewModel: reviewsViewModel,
-                                        onSelectReview: { url in detail = .review(url) },
-                                        onSelectBand: { url in detail = .band(url) },
-                                        onSelectRelease: { url in detail = .release(url) })
+                                        onSelectReview: { url in path.append(Detail.review(url)) },
+                                        onSelectBand: { url in path.append(Detail.band(url)) },
+                                        onSelectRelease: { url in path.append(Detail.release(url)) })
                             .padding([.horizontal, .bottom])
 
                     case .albumCollection:
                         UserReleasesView(viewModel: albumCollectionViewModel,
-                                         onSelectBand: { url in detail = .band(url) },
-                                         onSelectRelease: { url in detail = .release(url) })
+                                         onSelectBand: { url in path.append(Detail.band(url)) },
+                                         onSelectRelease: { url in path.append(Detail.release(url)) })
                             .padding([.horizontal, .bottom])
 
                     case .wantedList:
                         UserReleasesView(viewModel: wantedListViewModel,
-                                         onSelectBand: { url in detail = .band(url) },
-                                         onSelectRelease: { url in detail = .release(url) })
+                                         onSelectBand: { url in path.append(Detail.band(url)) },
+                                         onSelectRelease: { url in path.append(Detail.release(url)) })
                             .padding([.horizontal, .bottom])
 
                     case .tradeList:
                         UserReleasesView(viewModel: forTradeListViewModel,
-                                         onSelectBand: { url in detail = .band(url) },
-                                         onSelectRelease: { url in detail = .release(url) })
+                                         onSelectBand: { url in path.append(Detail.band(url)) },
+                                         onSelectRelease: { url in path.append(Detail.release(url)) })
                             .padding([.horizontal, .bottom])
 
                     case .submittedBands:
                         UserSubmittedBandsView(viewModel: submittedBandsViewModel,
-                                               onSelectBand: { url in detail = .band(url) })
+                                               onSelectBand: { url in path.append(Detail.band(url)) })
                             .padding([.horizontal, .bottom])
 
                     case .modificationHistory:
                         UserModificationsView(viewModel: modificationsViewModel,
-                                              onSelectBand: { url in detail = .band(url) },
-                                              onSelectArtist: { url in detail = .artist(url) },
-                                              onSelectRelease: { url in detail = .release(url) },
-                                              onSelectLabel: { url in detail = .label(url) })
+                                              onSelectBand: { url in path.append(Detail.band(url)) },
+                                              onSelectArtist: { url in path.append(Detail.artist(url)) },
+                                              onSelectRelease: { url in path.append(Detail.release(url)) },
+                                              onSelectLabel: { url in path.append(Detail.label(url)) })
                             .padding([.horizontal, .bottom])
                     }
                 }

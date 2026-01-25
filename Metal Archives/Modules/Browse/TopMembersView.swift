@@ -10,6 +10,7 @@ import SwiftUI
 struct TopMembersView: View {
     @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel = TopMembersViewModel()
+    @Binding var path: NavigationPath
 
     var body: some View {
         ZStack {
@@ -21,7 +22,7 @@ struct TopMembersView: View {
                     ForEach(0 ..< viewModel.topUsers.count, id: \.self) { index in
                         let user = viewModel.topUsers[index]
                         NavigationLink(destination: {
-                            UserView(urlString: user.user.urlString)
+                            UserView(urlString: user.user.urlString, path: $path)
                         }, label: {
                             HStack {
                                 Text("\(index + 1). ")

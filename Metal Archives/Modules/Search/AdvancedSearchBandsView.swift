@@ -24,6 +24,7 @@ struct AdvancedSearchBandsView: View {
     @State private var location = ""
     @State private var label = ""
     @State private var indieLabel = false
+    @Binding var path: NavigationPath
 
     var body: some View {
         Form {
@@ -110,7 +111,8 @@ struct AdvancedSearchBandsView: View {
             Section {
                 NavigationLink(
                     destination: {
-                        AdvancedSearchResultView(viewModel: .init(manager: makePageManager()))
+                        AdvancedSearchResultView(viewModel: .init(manager: makePageManager()),
+                                                 path: $path)
                     },
                     label: {
                         Text("SEARCH")
@@ -182,7 +184,7 @@ private struct YearPicker: View {
 
 #Preview {
     NavigationView {
-        AdvancedSearchBandsView()
+        AdvancedSearchBandsView(path: .constant(.init()))
             .environmentObject(Preferences())
     }
     .environment(\.colorScheme, .dark)

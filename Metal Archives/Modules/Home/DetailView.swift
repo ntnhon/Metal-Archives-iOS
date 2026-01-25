@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Detail {
+enum Detail: Hashable {
     case band(String)
     case artist(String)
     case release(String)
@@ -17,41 +17,23 @@ enum Detail {
 }
 
 struct DetailView: View {
-    @Binding var detail: Detail?
+    let detail: Detail
+    @Binding var path: NavigationPath
 
     var body: some View {
-        let detailBinding = Binding<Bool>(get: {
-            detail != nil
-        }, set: { newValue in
-            if !newValue {
-                detail = nil
-            }
-        })
-        NavigationLink(
-            isActive: detailBinding,
-            destination: {
-                if let detail {
-                    switch detail {
-                    case let .band(urlString):
-                        BandView(bandUrlString: urlString)
-                    case let .artist(urlString):
-                        ArtistView(urlString: urlString)
-                    case let .release(urlString):
-                        ReleaseView(urlString: urlString, parentRelease: nil)
-                    case let .label(urlString):
-                        LabelView(urlString: urlString)
-                    case let .review(urlString):
-                        ReviewView(urlString: urlString)
-                    case let .user(urlString):
-                        UserView(urlString: urlString)
-                    }
-                } else {
-                    EmptyView()
-                }
-            },
-            label: {
-                EmptyView()
-            }
-        )
+        switch detail {
+        case let .band(urlString):
+            BandView(bandUrlString: urlString, path: $path)
+        case let .artist(urlString):
+            ArtistView(urlString: urlString, path: $path)
+        case let .release(urlString):
+            ReleaseView(urlString: urlString, parentRelease: nil, path: $path)
+        case let .label(urlString):
+            LabelView(urlString: urlString, path: $path)
+        case let .review(urlString):
+            ReviewView(urlString: urlString, path: $path)
+        case let .user(urlString):
+            UserView(urlString: urlString, path: $path)
+        }
     }
 }

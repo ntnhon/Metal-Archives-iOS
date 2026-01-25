@@ -28,14 +28,25 @@ struct WhatsNewView: View {
             }
 
             if !showVersion {
-                Button(action: dismiss.callAsFunction) {
-                    Text("Continue")
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(preferences.theme.primaryColor)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                if #available(iOS 26, macOS 26, *) {
+                    Button(action: dismiss.callAsFunction) {
+                        Text("Continue")
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .clipShape(.capsule)
+                    }
+                    .buttonStyle(.glassProminent)
+                } else {
+                    Button(action: dismiss.callAsFunction) {
+                        Text("Continue")
+                            .fontWeight(.bold)
+                            .foregroundStyle(Color.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(preferences.theme.primaryColor)
+                            .clipShape(.capsule)
+                    }
                 }
             }
         }
