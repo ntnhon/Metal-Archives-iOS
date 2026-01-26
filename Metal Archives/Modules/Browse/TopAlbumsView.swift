@@ -44,35 +44,33 @@ struct TopAlbumsView: View {
         }
         .navigationTitle("Top 100 albums")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar { toolbarContent }
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                if viewModel.isFetched {
+                    Menu(content: {
+                        ForEach(TopAlbumsCategory.allCases, id: \.self) { category in
+                            Button(action: {
+                                viewModel.category = category
+                            }, label: {
+                                if viewModel.category == category {
+                                    Label(category.description, systemImage: "checkmark")
+                                } else {
+                                    Text(category.description)
+                                }
+                            })
+                        }
+                    }, label: {
+                        Text(viewModel.category.description)
+                    })
+                    .transaction { transaction in
+                        transaction.animation = nil
+                    }
+                    .disabled(!viewModel.isFetched)
+                }
+            }
+        }
         .task {
             await viewModel.fetchTopReleases()
-        }
-    }
-
-    @ToolbarContentBuilder
-    private var toolbarContent: some ToolbarContent {
-        ToolbarItemGroup(placement: .navigationBarTrailing) {
-            Menu(content: {
-                ForEach(TopAlbumsCategory.allCases, id: \.self) { category in
-                    Button(action: {
-                        viewModel.category = category
-                    }, label: {
-                        if viewModel.category == category {
-                            Label(category.description, systemImage: "checkmark")
-                        } else {
-                            Text(category.description)
-                        }
-                    })
-                }
-            }, label: {
-                Text(viewModel.category.description)
-            })
-            .transaction { transaction in
-                transaction.animation = nil
-            }
-            .opacity(viewModel.isFetched ? 1 : 0)
-            .disabled(!viewModel.isFetched)
         }
     }
 }
@@ -128,17 +126,15 @@ private struct TopAlbumView: View {
         .onTapGesture {
             isShowingDialog.toggle()
         }
-        .confirmationDialog(
-            "",
-            isPresented: $isShowingDialog,
-            actions: {
-                Button(release.title, action: onSelectRelease)
-
-                Button(band.name, action: onSelectBand)
-            },
-            message: {
-                Text("Top #\(index + 1)\n\"\(release.title)\" by \(band.name)")
-            }
-        )
+        .alert("#\(index + 1)",
+               isPresented: $isShowingDialog,
+               actions: {
+                   Button(release.title, action: onSelectRelease)
+                   Button(band.name, action: onSelectBand)
+                   Button("Cancel", role: .cancel, action: {})
+               },
+               message: {
+                   Text("\"\(release.title)\" by \"\(band.name)\"")
+               })
     }
 }
