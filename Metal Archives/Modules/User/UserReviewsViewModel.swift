@@ -41,7 +41,6 @@ final class UserReviewsViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    @MainActor
     func getMoreReviews(force: Bool) async {
         if !force, !reviews.isEmpty { return }
         do {

@@ -87,6 +87,7 @@ private struct UserContentView: View {
 
                     case .reviews:
                         UserReviewsView(viewModel: reviewsViewModel,
+                                        user: user,
                                         onSelectReview: { url in path.append(Detail.review(url)) },
                                         onSelectBand: { url in path.append(Detail.band(url)) },
                                         onSelectRelease: { url in path.append(Detail.release(url)) })
