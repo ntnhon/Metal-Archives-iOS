@@ -77,7 +77,7 @@ private extension DeceasedArtistsView {
                        })
                    }
 
-                   Button("Cancel", role: .cancel, action: {})
+                   CancelButton()
                },
                message: { artist in
                    Text(artist.artist.name)

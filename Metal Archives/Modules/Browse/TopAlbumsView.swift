@@ -131,7 +131,7 @@ private struct TopAlbumView: View {
                actions: {
                    Button(release.title, action: onSelectRelease)
                    Button(band.name, action: onSelectBand)
-                   Button("Cancel", role: .cancel, action: {})
+                   CancelButton()
                },
                message: {
                    Text("\"\(release.title)\" by \"\(band.name)\"")

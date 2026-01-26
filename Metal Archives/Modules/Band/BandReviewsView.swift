@@ -47,7 +47,7 @@ struct BandReviewsView: View {
                        onSelectUser(review.author.urlString)
                    }
 
-                   Button("Cancel", role: .cancel, action: {})
+                   CancelButton()
                },
                message: { review in
                    Text("\"\(review.title)\" reviewed by \(review.author.name)")

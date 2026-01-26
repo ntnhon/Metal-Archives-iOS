@@ -183,7 +183,7 @@ private struct ReleaseAdvancedSearchResultView: View {
                        Text("View band's detail")
                    })
 
-                   Button("Cancel", role: .cancel, action: {})
+                   CancelButton()
                },
                message: {
                    Text("By \(result.band.name)")

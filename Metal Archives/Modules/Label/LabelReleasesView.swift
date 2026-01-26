@@ -50,7 +50,7 @@ struct LabelReleasesView: View {
                        Text("View band's detail")
                    })
 
-                   Button("Cancel", role: .cancel, action: {})
+                   CancelButton()
                })
     }
 }

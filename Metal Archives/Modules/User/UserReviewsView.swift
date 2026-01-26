@@ -59,7 +59,7 @@ struct UserReviewsView: View {
                        Text("View band's detail")
                    })
 
-                   Button("Cancel", role: .cancel, action: {})
+                   CancelButton()
                },
                message: { _ in
                    if let selectedReview {

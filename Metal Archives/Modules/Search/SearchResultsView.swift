@@ -247,26 +247,26 @@ private struct ReleaseSimpleSearchResultView: View {
         .onTapGesture {
             isShowingConfirmationDialog.toggle()
         }
-        .confirmationDialog(
-            "",
-            isPresented: $isShowingConfirmationDialog,
-            actions: {
-                Button(action: {
-                    onSelectRelease(result.release.thumbnailInfo.urlString)
-                }, label: {
-                    Text("View release's detail")
-                })
+        .alert(result.release.title,
+               isPresented: $isShowingConfirmationDialog,
+               actions: {
+                   Button(action: {
+                       onSelectRelease(result.release.thumbnailInfo.urlString)
+                   }, label: {
+                       Text("View release's detail")
+                   })
 
-                Button(action: {
-                    onSelectBand(result.band.thumbnailInfo.urlString)
-                }, label: {
-                    Text("View band's detail")
-                })
-            },
-            message: {
-                Text("\"\(result.release.title)\" by \(result.band.name)")
-            }
-        )
+                   Button(action: {
+                       onSelectBand(result.band.thumbnailInfo.urlString)
+                   }, label: {
+                       Text("View band's detail")
+                   })
+
+                   CancelButton()
+               },
+               message: {
+                   Text("By \(result.band.name)")
+               })
     }
 }
 
@@ -308,28 +308,28 @@ struct SongSimpleSearchResultView: View {
         .onTapGesture {
             isShowingConfirmationDialog.toggle()
         }
-        .confirmationDialog(
-            "",
-            isPresented: $isShowingConfirmationDialog,
-            actions: {
-                Button(action: {
-                    onSelectRelease(result.release.thumbnailInfo.urlString)
-                }, label: {
-                    Text("View release's detail")
-                })
+        .alert(result.release.title,
+               isPresented: $isShowingConfirmationDialog,
+               actions: {
+                   Button(action: {
+                       onSelectRelease(result.release.thumbnailInfo.urlString)
+                   }, label: {
+                       Text("View release's detail")
+                   })
 
-                if let urlString = result.band.thumbnailInfo?.urlString {
-                    Button(action: {
-                        onSelectBand(urlString)
-                    }, label: {
-                        Text("View band's detail")
-                    })
-                }
-            },
-            message: {
-                Text("\"\(result.release.title)\" by \(result.band.name)")
-            }
-        )
+                   if let urlString = result.band.thumbnailInfo?.urlString {
+                       Button(action: {
+                           onSelectBand(urlString)
+                       }, label: {
+                           Text("View band's detail")
+                       })
+                   }
+
+                   CancelButton()
+               },
+               message: {
+                   Text("By \(result.band.name)")
+               })
     }
 }
 
@@ -416,28 +416,25 @@ private struct ArtistSimpleSearchResultView: View {
         .onTapGesture {
             isShowingConfirmationDialog.toggle()
         }
-        .confirmationDialog(
-            "",
-            isPresented: $isShowingConfirmationDialog,
-            actions: {
-                Button(action: {
-                    onSelectArtist(result.artist.thumbnailInfo.urlString)
-                }, label: {
-                    Text("View artist's detail")
-                })
+        .alert(result.artist.name,
+               isPresented: $isShowingConfirmationDialog,
+               actions: {
+                   Button(action: {
+                       onSelectArtist(result.artist.thumbnailInfo.urlString)
+                   }, label: {
+                       Text("View artist's detail")
+                   })
 
-                ForEach(result.bands, id: \.hashValue) { band in
-                    Button(action: {
-                        onSelectBand(band.thumbnailInfo.urlString)
-                    }, label: {
-                        Text(band.name)
-                    })
-                }
-            },
-            message: {
-                Text(result.artist.name)
-            }
-        )
+                   ForEach(result.bands, id: \.hashValue) { band in
+                       Button(action: {
+                           onSelectBand(band.thumbnailInfo.urlString)
+                       }, label: {
+                           Text(band.name)
+                       })
+                   }
+
+                   CancelButton()
+               })
     }
 }
 
