@@ -15,7 +15,6 @@ struct BandReviewsView: View {
     let onSelectUser: (String) -> Void
 
     var body: some View {
-        let isShowingConfirmationDialog = makeIsShowingConfirmationDialogBinding()
         VStack {
             if let error = viewModel.error {
                 Text(error.userFacingMessage)
@@ -32,28 +31,27 @@ struct BandReviewsView: View {
             }
         }
         .padding(.horizontal)
-        .confirmationDialog(
-            "",
-            isPresented: isShowingConfirmationDialog,
-            actions: {
-                if let selectedReview {
-                    Button("💬 Read review") {
-                        onSelectReview(selectedReview.urlString)
-                    }
+        .alert("",
+               isPresented: $selectedReview.mappedToBool(),
+               presenting: selectedReview,
+               actions: { review in
+                   Button("Read review") {
+                       onSelectReview(review.urlString)
+                   }
 
-                    Button("View album") {
-                        onSelectRelease(viewModel.release(for: selectedReview).thumbnailInfo.urlString)
-                    }
+                   Button("View release") {
+                       onSelectRelease(viewModel.release(for: review).thumbnailInfo.urlString)
+                   }
 
-                    Button("View \(selectedReview.author.name)'s profile") {
-                        onSelectUser(selectedReview.author.urlString)
-                    }
-                }
-            },
-            message: {
-                Text("\"\(selectedReview?.title ?? "")\" reviewed by \(selectedReview?.author.name ?? "")")
-            }
-        )
+                   Button("View \(review.author.name)'s profile") {
+                       onSelectUser(review.author.urlString)
+                   }
+
+                   Button("Cancel", role: .cancel, action: {})
+               },
+               message: { review in
+                   Text("\"\(review.title)\" reviewed by \(review.author.name)")
+               })
         .task {
             await viewModel.getMoreReviews()
         }
@@ -82,16 +80,6 @@ struct BandReviewsView: View {
                 Divider()
             }
         }
-    }
-
-    private func makeIsShowingConfirmationDialogBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedReview != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReview = nil
-            }
-        })
     }
 }
 
