@@ -168,25 +168,25 @@ private struct ReleaseAdvancedSearchResultView: View {
         .onTapGesture {
             isShowingConfirmationDialog.toggle()
         }
-        .confirmationDialog(
-            "",
-            isPresented: $isShowingConfirmationDialog,
-            actions: {
-                Button(action: {
-                    onSelectRelease(result.release.thumbnailInfo.urlString)
-                }, label: {
-                    Text("View release's detail")
-                })
+        .alert(result.release.title,
+               isPresented: $isShowingConfirmationDialog,
+               actions: {
+                   Button(action: {
+                       onSelectRelease(result.release.thumbnailInfo.urlString)
+                   }, label: {
+                       Text("View release's detail")
+                   })
 
-                Button(action: {
-                    onSelectBand(result.band.thumbnailInfo.urlString)
-                }, label: {
-                    Text("View band's detail")
-                })
-            },
-            message: {
-                Text("\"\(result.release.title)\" by \(result.band.name)")
-            }
-        )
+                   Button(action: {
+                       onSelectBand(result.band.thumbnailInfo.urlString)
+                   }, label: {
+                       Text("View band's detail")
+                   })
+
+                   Button("Cancel", role: .cancel, action: {})
+               },
+               message: {
+                   Text("By \(result.band.name)")
+               })
     }
 }
