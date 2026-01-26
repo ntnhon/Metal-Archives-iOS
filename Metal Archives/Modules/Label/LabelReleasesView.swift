@@ -15,13 +15,6 @@ struct LabelReleasesView: View {
     let onSelectRelease: (String) -> Void
 
     var body: some View {
-        let isShowingAlert = Binding<Bool>(get: {
-            selectedRelease != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedRelease = nil
-            }
-        })
         ZStack {
             if let error = viewModel.error {
                 VStack {
@@ -41,35 +34,37 @@ struct LabelReleasesView: View {
         .task {
             await viewModel.getMoreReleases(force: false)
         }
-        .confirmationDialog(
-            "",
-            isPresented:
-            isShowingAlert,
-            actions: {
-                if let selectedRelease {
-                    Button(action: {
-                        onSelectRelease(selectedRelease.release.thumbnailInfo.urlString)
-                    }, label: {
-                        Text("View release's detail")
-                    })
+        .alert(alertTitle,
+               isPresented: $selectedRelease.mappedToBool(),
+               presenting: selectedRelease,
+               actions: { release in
+                   Button(action: {
+                       onSelectRelease(release.release.thumbnailInfo.urlString)
+                   }, label: {
+                       Text("View release's detail")
+                   })
 
-                    Button(action: {
-                        onSelectBand(selectedRelease.band.thumbnailInfo.urlString)
-                    }, label: {
-                        Text("View band's detail")
-                    })
-                }
-            },
-            message: {
-                if let selectedRelease {
-                    Text("\"\(selectedRelease.release.title)\" by \(selectedRelease.band.name)")
-                }
-            }
-        )
+                   Button(action: {
+                       onSelectBand(release.band.thumbnailInfo.urlString)
+                   }, label: {
+                       Text("View band's detail")
+                   })
+
+                   CancelButton()
+               })
+    }
+}
+
+private extension LabelReleasesView {
+    var alertTitle: String {
+        if let selectedRelease {
+            "\"\(selectedRelease.release.title)\" by \(selectedRelease.band.name)"
+        } else {
+            ""
+        }
     }
 
-    @ViewBuilder
-    private var releaseList: some View {
+    var releaseList: some View {
         LazyVStack {
             HStack {
                 let entryCount = viewModel.manager.total
@@ -103,7 +98,7 @@ struct LabelReleasesView: View {
         .listStyle(.plain)
     }
 
-    private var sortOptions: some View {
+    var sortOptions: some View {
         Menu(content: {
             Group {
                 Button(action: {
@@ -183,7 +178,7 @@ struct LabelReleasesView: View {
     }
 
     @ViewBuilder
-    private func view(for option: LabelReleasePageManager.SortOption) -> some View {
+    func view(for option: LabelReleasePageManager.SortOption) -> some View {
         if option == viewModel.sortOption {
             Label(option.title, systemImage: "checkmark")
         } else {
@@ -229,6 +224,6 @@ private struct LabelReleaseView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .contentShape(Rectangle())
+        .contentShape(.rect)
     }
 }

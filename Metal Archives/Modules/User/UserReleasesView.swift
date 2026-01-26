@@ -15,14 +15,6 @@ struct UserReleasesView: View {
     let onSelectRelease: (String) -> Void
 
     var body: some View {
-        let isShowingAlert: Binding<Bool> = .init(get: {
-            selectedRelease != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedRelease = nil
-            }
-        })
-
         ZStack {
             if let error = viewModel.error {
                 VStack {
@@ -43,29 +35,34 @@ struct UserReleasesView: View {
         .task {
             await viewModel.getMoreReleases(force: false)
         }
-        .confirmationDialog("",
-                            isPresented: isShowingAlert)
-        {
-            if let selectedRelease {
-                Button(action: {
-                    onSelectRelease(selectedRelease.release.thumbnailInfo.urlString)
-                }, label: {
-                    Text("💿 \(selectedRelease.release.title)")
-                })
+        .alert(selectedRelease?.release.title ?? "",
+               isPresented: $selectedRelease.mappedToBool(),
+               presenting: selectedRelease,
+               actions: { release in
+                   Button(action: {
+                       onSelectRelease(release.release.thumbnailInfo.urlString)
+                   }, label: {
+                       Text("💿 \(release.release.title)")
+                   })
 
-                ForEach(selectedRelease.bands, id: \.hashValue) { band in
-                    Button(action: {
-                        onSelectBand(band.thumbnailInfo.urlString)
-                    }, label: {
-                        Text(band.name)
-                    })
-                }
-            }
-        }
+                   ForEach(release.bands, id: \.hashValue) { band in
+                       Button(action: {
+                           onSelectBand(band.thumbnailInfo.urlString)
+                       }, label: {
+                           Text(band.name)
+                       })
+                   }
+
+                   CancelButton()
+               },
+               message: { release in
+                   Text("By \(release.bands.map(\.name).joined(separator: " & "))")
+               })
     }
+}
 
-    @ViewBuilder
-    private var releaseList: some View {
+private extension UserReleasesView {
+    var releaseList: some View {
         LazyVStack {
             let entryCount = viewModel.manager.total
             if entryCount == 1 {

@@ -11,18 +11,12 @@ struct UserReviewsView: View {
     @EnvironmentObject private var preferences: Preferences
     @ObservedObject var viewModel: UserReviewsViewModel
     @State private var selectedReview: UserReview?
+    let user: User
     let onSelectReview: (String) -> Void
     let onSelectBand: (String) -> Void
     let onSelectRelease: (String) -> Void
 
     var body: some View {
-        let isShowingAlert = Binding<Bool>(get: {
-            selectedReview != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReview = nil
-            }
-        })
         ZStack {
             if let error = viewModel.error {
                 VStack {
@@ -43,42 +37,48 @@ struct UserReviewsView: View {
         .task {
             await viewModel.getMoreReviews(force: false)
         }
-        .confirmationDialog(
-            "",
-            isPresented:
-            isShowingAlert,
-            actions: {
-                if let selectedReview {
-                    Button(action: {
-                        onSelectReview(selectedReview.urlString)
-                    }, label: {
-                        Text("Read review")
-                    })
+        .alert(alertTitle,
+               isPresented: $selectedReview.mappedToBool(),
+               presenting: selectedReview,
+               actions: { review in
+                   Button(action: {
+                       onSelectReview(review.urlString)
+                   }, label: {
+                       Text("Read review")
+                   })
 
-                    Button(action: {
-                        onSelectRelease(selectedReview.release.thumbnailInfo.urlString)
-                    }, label: {
-                        Text("View release's detail")
-                    })
+                   Button(action: {
+                       onSelectRelease(review.release.thumbnailInfo.urlString)
+                   }, label: {
+                       Text("View release's detail")
+                   })
 
-                    Button(action: {
-                        onSelectBand(selectedReview.band.thumbnailInfo.urlString)
-                    }, label: {
-                        Text("View band's detail")
-                    })
-                }
-            },
-            message: {
-                if let selectedReview {
-                    Text("\(selectedReview.title)\n") +
-                        Text("\"\(selectedReview.release.title)\" by \(selectedReview.band.name)")
-                }
-            }
-        )
+                   Button(action: {
+                       onSelectBand(review.band.thumbnailInfo.urlString)
+                   }, label: {
+                       Text("View band's detail")
+                   })
+
+                   CancelButton()
+               },
+               message: { _ in
+                   if let selectedReview {
+                       Text(selectedReview.title)
+                   }
+               })
+    }
+}
+
+private extension UserReviewsView {
+    var alertTitle: String {
+        if let review = selectedReview {
+            "\(user.username)'s review of \"\(review.release.title)\" by \"\(review.band.name)\""
+        } else {
+            ""
+        }
     }
 
-    @ViewBuilder
-    private var reviewList: some View {
+    var reviewList: some View {
         LazyVStack {
             HStack {
                 let entryCount = viewModel.manager.total
@@ -112,7 +112,7 @@ struct UserReviewsView: View {
         .listStyle(.plain)
     }
 
-    private var sortOptions: some View {
+    var sortOptions: some View {
         Menu(content: {
             Button(action: {
                 viewModel.sortOption = .date(.ascending)
@@ -188,7 +188,7 @@ struct UserReviewsView: View {
     }
 
     @ViewBuilder
-    private func view(for option: UserReviewPageManager.SortOption) -> some View {
+    func view(for option: UserReviewPageManager.SortOption) -> some View {
         if option == viewModel.sortOption {
             Label(option.title, systemImage: "checkmark")
         } else {

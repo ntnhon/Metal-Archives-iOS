@@ -34,16 +34,10 @@ struct DeceasedArtistsView: View {
             await viewModel.getMoreArtists(force: false)
         }
     }
+}
 
-    @ViewBuilder
-    private var artistList: some View {
-        let isShowingConfirmation = Binding<Bool>(get: {
-            selectedArtist != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedArtist = nil
-            }
-        })
+private extension DeceasedArtistsView {
+    var artistList: some View {
         List {
             ForEach(viewModel.artists, id: \.artist) { artist in
                 DeceasedArtistView(artist: artist)
@@ -65,36 +59,33 @@ struct DeceasedArtistsView: View {
         .navigationTitle("Deceased artists")
         .navigationBarTitleDisplayMode(.large)
         .toolbar { toolbarContent }
-        .confirmationDialog(
-            "",
-            isPresented: isShowingConfirmation,
-            actions: {
-                if let selectedArtist {
-                    Button(action: {
-                        path.append(Detail.artist(selectedArtist.artist.thumbnailInfo.urlString))
-                    }, label: {
-                        Text("View artist's detail")
-                    })
+        .alert("R.I.P",
+               isPresented: $selectedArtist.mappedToBool(),
+               presenting: selectedArtist,
+               actions: { artist in
+                   Button(action: {
+                       path.append(Detail.artist(artist.artist.thumbnailInfo.urlString))
+                   }, label: {
+                       Text("View artist's detail")
+                   })
 
-                    ForEach(selectedArtist.bands) { band in
-                        Button(action: {
-                            path.append(Detail.band(band.thumbnailInfo.urlString))
-                        }, label: {
-                            Text(band.name)
-                        })
-                    }
-                }
-            },
-            message: {
-                if let selectedArtist {
-                    Text(selectedArtist.artist.name)
-                }
-            }
-        )
+                   ForEach(artist.bands) { band in
+                       Button(action: {
+                           path.append(Detail.band(band.thumbnailInfo.urlString))
+                       }, label: {
+                           Text(band.name)
+                       })
+                   }
+
+                   CancelButton()
+               },
+               message: { artist in
+                   Text(artist.artist.name)
+               })
     }
 
     @ToolbarContentBuilder
-    private var toolbarContent: some ToolbarContent {
+    var toolbarContent: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
             Menu(content: {
                 Button(action: {
@@ -132,7 +123,7 @@ struct DeceasedArtistsView: View {
     }
 
     @ViewBuilder
-    private func view(for option: DeceasedArtistPageManager.SortOption) -> some View {
+    func view(for option: DeceasedArtistPageManager.SortOption) -> some View {
         if option == viewModel.sortOption {
             Label(option.title, systemImage: "checkmark")
         } else {
