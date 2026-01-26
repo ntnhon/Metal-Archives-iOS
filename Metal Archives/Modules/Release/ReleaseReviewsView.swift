@@ -15,7 +15,6 @@ struct ReleaseReviewsView: View {
     let onSelectUser: (String) -> Void
 
     var body: some View {
-        let isShowingConfirmationDialog = makeIsShowingConfirmationDialogBinding()
         VStack {
             ForEach(reviews, id: \.urlString) { review in
                 VStack(alignment: .leading) {
@@ -43,33 +42,22 @@ struct ReleaseReviewsView: View {
             }
         }
         .padding(.horizontal)
-        .confirmationDialog(
-            "",
-            isPresented: isShowingConfirmationDialog,
-            actions: {
-                if let selectedReview {
-                    Button("💬 Read review") {
-                        onSelectReview(selectedReview.urlString)
-                    }
+        .alert("Reviewed by \(selectedReview?.author.name ?? "")",
+               isPresented: $selectedReview.mappedToBool(),
+               presenting: selectedReview,
+               actions: { review in
+                   Button("Read review") {
+                       onSelectReview(review.urlString)
+                   }
 
-                    Button("View \(selectedReview.author.name)'s profile") {
-                        onSelectUser(selectedReview.author.urlString)
-                    }
-                }
-            },
-            message: {
-                Text("\"\(selectedReview?.title ?? "")\" review by \(selectedReview?.author.name ?? "")")
-            }
-        )
-    }
+                   Button("View \(review.author.name)'s profile") {
+                       onSelectUser(review.author.urlString)
+                   }
 
-    private func makeIsShowingConfirmationDialogBinding() -> Binding<Bool> {
-        .init(get: {
-            selectedReview != nil
-        }, set: { newValue in
-            if !newValue {
-                selectedReview = nil
-            }
-        })
+                   Button("Cancel", role: .cancel, action: {})
+               },
+               message: { review in
+                   Text(review.title)
+               })
     }
 }
