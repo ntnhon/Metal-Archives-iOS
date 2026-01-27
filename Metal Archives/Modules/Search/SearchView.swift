@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+private enum SimpleSearchDestination {
+    case results
+    case advancedSearch
+}
+
 struct SearchView: View {
     @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel = SearchViewModel()
@@ -20,9 +25,6 @@ struct SearchView: View {
         NavigationStack(path: $path) {
             ScrollView {
                 VStack {
-                    NavigationLink(isActive: $isShowingResults,
-                                   destination: searchResultView,
-                                   label: EmptyView.init)
                     searchBar
                     history
                         .padding(.horizontal)
@@ -34,15 +36,22 @@ struct SearchView: View {
             .onSubmit(of: .search, search)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: AdvancedSearchView(path: $path)) {
+                    NavigationLink(value: SimpleSearchDestination.advancedSearch) {
                         Text("Advanced search")
-                            .fontWeight(.bold)
                     }
                 }
             }
             .task { await viewModel.fetchEntries() }
             .navigationDestination(for: Detail.self) { detail in
                 DetailView(detail: detail, path: $path)
+            }
+            .navigationDestination(for: SimpleSearchDestination.self) { destination in
+                switch destination {
+                case .results:
+                    searchResults
+                case .advancedSearch:
+                    AdvancedSearchView(path: $path)
+                }
             }
         }
     }
@@ -105,7 +114,7 @@ struct SearchView: View {
     }
 
     @ViewBuilder
-    private func searchResultView() -> some View {
+    var searchResults: some View {
         switch type {
         case .bandName:
             let manager = BandSimpleSearchResultPageManager(query: term)
@@ -167,7 +176,7 @@ struct SearchView: View {
                 print(error)
             }
         }
-        isShowingResults.toggle()
+        path.append(SimpleSearchDestination.results)
     }
 
     @ViewBuilder
