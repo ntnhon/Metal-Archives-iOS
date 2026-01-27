@@ -13,6 +13,13 @@ private let kVersionName =
 private let kBuildNumber =
     (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?"
 
+private enum SettingDestination {
+    case homeSectionOrder
+    case loadingIndicator
+    case appIcon
+    case faq
+}
+
 struct SettingsView: View {
     @EnvironmentObject private var preferences: Preferences
     @Environment(\.openURL) private var openURL
@@ -20,9 +27,10 @@ struct SettingsView: View {
     @State private var showAboutSheet = false
     @State private var showSupportSheet = false
     @State private var showThemePreview = false
+    @State private var path = NavigationPath()
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             Form {
                 generalSection
                 displaySection
@@ -34,6 +42,18 @@ struct SettingsView: View {
             .navigationTitle("Settings")
             .animation(.default, value: showThemePreview)
             .animation(.default, value: preferences.theme)
+            .navigationDestination(for: SettingDestination.self) { destination in
+                switch destination {
+                case .homeSectionOrder:
+                    HomeSectionOrderView()
+                case .loadingIndicator:
+                    LoadingIndicatorsView()
+                case .appIcon:
+                    AppIconsView()
+                case .faq:
+                    FAQView()
+                }
+            }
         }
     }
 }
@@ -41,7 +61,7 @@ struct SettingsView: View {
 private extension SettingsView {
     var generalSection: some View {
         Section(content: {
-            NavigationLink(destination: HomeSectionOrderView()) {
+            NavigationLink(value: SettingDestination.homeSectionOrder) {
                 Text("Home section order")
             }
 
@@ -78,7 +98,7 @@ private extension SettingsView {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
-            NavigationLink(destination: LoadingIndicatorsView()) {
+            NavigationLink(value: SettingDestination.loadingIndicator) {
                 HStack {
                     Text("Loading animation")
                     Spacer()
@@ -88,7 +108,7 @@ private extension SettingsView {
                 }
             }
 
-            NavigationLink(destination: AppIconsView()) {
+            NavigationLink(value: SettingDestination.appIcon) {
                 Text("App icon")
             }
         }, header: {
@@ -201,7 +221,7 @@ private extension SettingsView {
             }
 
             // FAQ
-            NavigationLink(destination: FAQView()) {
+            NavigationLink(value: SettingDestination.faq) {
                 Label(title: {
                     Text("FAQ")
                 }, icon: {
