@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-private enum SimpleSearchDestination {
-    case results
+private enum SimpleSearchDestination: Hashable {
+    case results(SubmittedSearch)
     case advancedSearch
 }
 
@@ -17,7 +17,6 @@ struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
     @State private var type = SimpleSearchType.bandName
     @State private var term = ""
-    @State private var isShowingResults = false
     @State private var isShowingClearHistoryConfirmation = false
     @State private var path = NavigationPath()
 
@@ -47,8 +46,8 @@ struct SearchView: View {
             }
             .navigationDestination(for: SimpleSearchDestination.self) { destination in
                 switch destination {
-                case .results:
-                    searchResults
+                case let .results(search):
+                    searchResultView(for: search)
                 case .advancedSearch:
                     AdvancedSearchView(path: $path)
                 }
@@ -114,69 +113,73 @@ struct SearchView: View {
     }
 
     @ViewBuilder
-    var searchResults: some View {
-        switch type {
+    private func searchResultView(for search: SubmittedSearch) -> some View {
+        switch search.type {
         case .bandName:
-            let manager = BandSimpleSearchResultPageManager(query: term)
+            let manager = BandSimpleSearchResultPageManager(query: search.term)
             SearchResultsView(viewModel: .init(manager: manager,
-                                               query: term,
+                                               query: search.term,
                                                datasource: viewModel.datasource),
                               path: $path)
         case .musicGenre:
-            let manager = MusicGenreSimpleSearchResultPageManager(query: term)
+            let manager = MusicGenreSimpleSearchResultPageManager(query: search.term)
             SearchResultsView(viewModel: .init(manager: manager,
-                                               query: term,
+                                               query: search.term,
                                                datasource: viewModel.datasource),
                               path: $path)
         case .lyricalThemes:
-            let manager = LyricalSimpleSearchResultPageManager(query: term)
+            let manager = LyricalSimpleSearchResultPageManager(query: search.term)
             SearchResultsView(viewModel: .init(manager: manager,
-                                               query: term,
+                                               query: search.term,
                                                datasource: viewModel.datasource),
                               path: $path)
         case .albumTitle:
-            let manager = ReleaseSimpleSearchResultPageManager(query: term)
+            let manager = ReleaseSimpleSearchResultPageManager(query: search.term)
             SearchResultsView(viewModel: .init(manager: manager,
-                                               query: term,
+                                               query: search.term,
                                                datasource: viewModel.datasource),
                               path: $path)
         case .songTitle:
-            let manager = SongSimpleSearchResultPageManager(query: term)
+            let manager = SongSimpleSearchResultPageManager(query: search.term)
             SearchResultsView(viewModel: .init(manager: manager,
-                                               query: term,
+                                               query: search.term,
                                                datasource: viewModel.datasource),
                               path: $path)
         case .label:
-            let manager = LabelSimpleSearchResultPageManager(query: term)
+            let manager = LabelSimpleSearchResultPageManager(query: search.term)
             SearchResultsView(viewModel: .init(manager: manager,
-                                               query: term,
+                                               query: search.term,
                                                datasource: viewModel.datasource),
                               path: $path)
         case .artist:
-            let manager = ArtistSimpleSearchResultPageManager(query: term)
+            let manager = ArtistSimpleSearchResultPageManager(query: search.term)
             SearchResultsView(viewModel: .init(manager: manager,
-                                               query: term,
+                                               query: search.term,
                                                datasource: viewModel.datasource),
                               path: $path)
         case .user:
-            let manager = UserSimpleSearchResultPageManager(query: term)
+            let manager = UserSimpleSearchResultPageManager(query: search.term)
             SearchResultsView(viewModel: .init(manager: manager,
-                                               query: term,
+                                               query: search.term,
                                                datasource: viewModel.datasource),
                               path: $path)
         }
     }
 
     private func search() {
+        let submittedTerm = term.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !submittedTerm.isEmpty else { return }
+
         Task {
             do {
-                try await viewModel.datasource.upsertQueryEntry(term, type: type)
+                try await viewModel.datasource.upsertQueryEntry(submittedTerm, type: type)
             } catch {
                 // TODO: Handle this
                 print(error)
             }
         }
-        path.append(SimpleSearchDestination.results)
+        let search = SubmittedSearch(type: type, term: submittedTerm)
+        path.append(SimpleSearchDestination.results(search))
     }
 
     @ViewBuilder
@@ -239,6 +242,11 @@ struct SearchView: View {
             }
         }
     }
+}
+
+private struct SubmittedSearch: Hashable {
+    let type: SimpleSearchType
+    let term: String
 }
 
 private struct QuerySearchEntryView: View {
