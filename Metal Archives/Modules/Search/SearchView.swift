@@ -32,6 +32,7 @@ struct SearchView: View {
             .navigationTitle(type.navigationTitle)
             .navigationBarTitleDisplayMode(.large)
             .searchable(text: $term, prompt: type.placeholder)
+            .modifier(SearchToolbarVisibilityModifier())
             .onSubmit(of: .search, search)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -240,6 +241,17 @@ struct SearchView: View {
                 }
                 .animation(.default, value: viewModel.entries.count)
             }
+        }
+    }
+}
+
+private struct SearchToolbarVisibilityModifier: ViewModifier {
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content.searchPresentationToolbarBehavior(.avoidHidingContent)
+        } else {
+            content
         }
     }
 }

@@ -63,7 +63,19 @@ struct RootView: View {
                 SettingsView()
             }
         }
+        .modifier(SearchTabActivationModifier())
         .accentColor(preferences.theme.primaryColor)
+    }
+}
+
+private struct SearchTabActivationModifier: ViewModifier {
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content.tabViewSearchActivation(.searchTabSelection)
+        } else {
+            content
+        }
     }
 }
 
